@@ -1,0 +1,15 @@
+$default-theme-header-clr: black;
+$default-theme-body-clr: black;
+$default-theme-header-bg: #c4fad3;
+$default-theme-body-bg: rgb(222, 250, 196);
+
+.app {
+  color: $default-theme-body-clr;
+  background-color: $default-theme-body-bg;
+  // .app-main {
+  // }
+  .app-header, .app-footer {
+    background-color: $default-theme-header-bg;
+    color: $default-theme-header-clr;
+  }
+}

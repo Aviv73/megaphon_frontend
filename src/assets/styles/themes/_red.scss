@@ -1,0 +1,7 @@
+$red-theme-body-clr: rgb(252, 47, 47);
+$red-theme-header-clr: white;
+$red-theme-header-bg: rgb(252, 47, 47);
+$red-theme-body-bg: #fff;
+.red-theme {
+  @include theme($red-theme-header-clr, $red-theme-body-clr, $red-theme-header-bg, $red-theme-body-bg);
+}

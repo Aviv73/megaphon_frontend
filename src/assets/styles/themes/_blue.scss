@@ -1,0 +1,9 @@
+$main-blue-theme-color: rgb(151, 156, 255);
+
+$blue-theme-body-clr: $main-blue-theme-color;
+$blue-theme-header-clr: white;
+$blue-theme-header-bg: $main-blue-theme-color;
+$blue-theme-body-bg: #fff;
+.blue-theme {
+  @include theme($blue-theme-header-clr, $blue-theme-body-clr, $blue-theme-header-bg, $blue-theme-body-bg);
+}

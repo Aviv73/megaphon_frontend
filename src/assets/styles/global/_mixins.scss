@@ -1,0 +1,13 @@
+
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // gap: 10px;
+}
+
+
+@mixin font-size-big {
+  font-size: $font-size-big;
+}

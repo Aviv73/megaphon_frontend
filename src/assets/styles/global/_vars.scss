@@ -1,0 +1,91 @@
+
+// FONT SIZES:
+$font-size-smaller: 0.75rem;  // 12px;
+$font-size-small: 0.8125rem;  // 13px;
+$font-size-normal: 0.9375rem; // 15px;
+$font-size-medium: 1.0625rem; // 17px;
+$font-size-big: 1.125rem;     // 18px;
+
+// FONTS:
+$app-font: sans-serif;
+$app-font: 'Courier New', Courier, monospace, sans-serif;
+
+// SREEN BREAK BREAK POINTS:
+// $small-screen-breake: 800px;
+$small-screen-breake: 1000px;
+$medium-screen-breake: 1200px;
+$big-screen-breake: 1500px;
+
+// COLORS:
+
+$clr-1: black;
+$clr-2: gray;
+$clr-3: blue;
+
+$clr-safe: green;
+$clr-warn: yellow;
+$clr-danger: red;
+
+// $clr-light-green: rgb(146, 228, 145);
+$clr-light-green: #c4fad3;
+$clr-light-blue: rgb(145, 186, 228);
+$clr-light-red: rgb(228, 145, 145);
+
+// layout:
+
+$header-height: 60px;
+$footer-height: 100px;
+$app-aside-width: 50px;
+
+// THEME:
+
+// Lemon like theme
+// $layout-header-clr: black;
+// $layout-body-clr: black;
+// $layout-header-bg: #c4fad3;
+// $layout-body-bg: rgb(222, 250, 196);
+
+// $layout-header-clr: white;
+// $layout-body-clr: white;
+// $layout-header-bg: #505050;
+// $layout-body-bg: #252525;
+
+// Red theme
+// $layout-header-clr: white;
+// $layout-body-clr: rgb(252, 47, 47);
+// $layout-header-bg: rgb(252, 47, 47);
+// $layout-body-bg: #fff;
+
+// $layout-header-clr: white;
+// $layout-body-clr: white;
+// $layout-header-bg: #505050;
+// $layout-body-bg: #252525;
+
+
+// oters:
+
+$light-shadow: 0px 0px 10px 1px rgba(0,0,0,0.1);
+// $blure-clr: rgba(0, 0, 0, 0.05);
+$blure-clr: rgba(0, 0, 0, 0.1);
+
+
+:export {
+  fontSizeSmaller: $font-size-smaller;
+  fontSizeSmall: $font-size-small;
+  fontSizeNormal: $font-size-normal;
+  fontSizeMedium: $font-size-medium;
+  fontSizeBig: $font-size-big;
+  appFont: $app-font;
+  smallScreenBreak: $small-screen-breake;
+  mediumScreenBreak: $medium-screen-breake;
+  bigScreenBreak: $big-screen-breake;
+  clr1: $clr-1;
+  clr2: $clr-2;
+  clr3: $clr-3;
+  clrSafe: $clr-safe;
+  clrWarn: $clr-warn;
+  clrDanger: $clr-danger;
+  fontSizeSmall: $header-height;
+  fontSizeSmall: $footer-height;
+  lightShadow: $light-shadow;
+}

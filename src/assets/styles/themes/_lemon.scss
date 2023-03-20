@@ -1,0 +1,7 @@
+$lemon-theme-header-clr: black;
+$lemon-theme-body-clr: black;
+$lemon-theme-header-bg: #c4fad3;
+$lemon-theme-body-bg: rgb(222, 250, 196);
+.lemon-theme {
+  @include theme($lemon-theme-header-clr, $lemon-theme-body-clr, $lemon-theme-header-bg, $lemon-theme-body-bg);
+}

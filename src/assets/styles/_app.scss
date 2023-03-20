@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: $app-font;
+  font-weight: 500;
+}
+
+.app {
+  // background-color: $layout-header-bg;
+  // color: $layout-header-clr;
+  
+  // background-color: rgb(252, 47, 47);
+  // color: #fff;
+}
+
+.app-header {
+  min-height: $header-height;
+}
+
+.app-main {
+  // min-height: calc(100vh - #{$header-height} - #{$footer-height});
+  height: calc(100vh - #{$header-height} - #{$footer-height});
+  overflow-y: auto;
+  position: relative;
+  
+  // color: $layout-body-clr;
+  // background-color: $layout-body-bg;
+  // background-color: #fff;
+  // color: rgb(252, 47, 47);
+}
+
+.app-footer {
+  min-height: $footer-height;
+  padding-inline-start: $app-aside-width;
+  @media (max-width: $small-screen-breake) {
+    padding-inline-start: 0;
+  }
+}
+
+.app-content {
+  display: flex;
+  .right {
+    flex: 1;
+  }
+}
+
+.app-aside {
+  width: $app-aside-width;
+  background-color: rgba(0,0,0,0.05);
+  // background-color: rgba(255,255,255,0.3);
+  border-inline-end: 0.5px solid rgba(0,0,0,0.1);
+  @media (max-width: $small-screen-breake) {
+    display: none !important;
+  }
+}
+
+.inner-app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .inner-app-content {
+    height: 100%;
+    flex: 1;
+    overflow-y: auto;
+  }
+}
+
+// .app.dark-theme {
+//   color: $layout-dark-header-clr;
+//   background-color: $layout-dark-header-bg;
+// }
+// .app.dark-theme .app-main {
+//   color: $layout-dark-body-clr;
+//   background-color: $layout-dark-body-bg;
+// }
+// .app.dark-theme .app-aside {
+//   background-color: rgba(255,255,255,0.1);
+// }
+
+
+.rtl {
+  direction: rtl;
+}
+
+html.accessability {
+  font-size: 25px;
+}
+
+
+.container {
+  margin: 0 auto;
+  padding: 10px 20px;
+  max-width: 1500px;
+} @media (max-width: $big-screen-breake) {
+  .container {
+      max-width: 1200px;
+  }
+} @media (max-width: $medium-screen-breake) {
+  .container {
+      padding: 10px 24px;
+      max-width: unset;
+  }
+} @media (max-width: $small-screen-breake) {
+  .container {
+      padding: 10px 12px;
+  }
+}

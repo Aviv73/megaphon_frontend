@@ -1,0 +1,21 @@
+{
+  "name": "Shutaf",
+  "short_name": "Shutaf",
+  "description": "Application to help orgenize your appartment",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "35x35",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-175x175.png",
+      "sizes": "175x175",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#c4fad3",
+  "background_color": "#ffffff"
+}
