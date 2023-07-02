@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination-btns">
+  <div class="pagination-btns" v-if="totalPages > 1">
     <div class="page-buttons" :class="{ disable: page <= 1 }">
       <button @click="routeToNewPage(+page - 1)">
         <

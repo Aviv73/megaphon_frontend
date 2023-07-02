@@ -1,16 +1,10 @@
 <template>
-  <Modal class="loader" :styling="false">
-    <!-- <img class="preview" :src="require('@/assets/images/loader.gif')"> -->
-    <div v-if="msg" class="preview width-all flex column align-center">
-      <h3 class="width-all text-center">{{msg}}</h3>
-      <AnimationLoader class="inner-loader"/>
-    </div>
-    <AnimationLoader v-else class="preview" />
+  <Modal class="loader" :class="{fullScreen}" :styling="false">
+    <img class="preview" :src="require('@/assets/images/loader.gif')">
   </Modal>
 </template>
 
 <script>
-import AnimationLoader from './AnimationLoader.vue'
 import Modal from './Modal.vue'
 export default {
   name: 'Loader',
@@ -18,9 +12,13 @@ export default {
     msg: {
       type: String,
       default: ''
+    },
+    fullScreen: {
+      type: Boolean,
+      default: false
     }
   },
-  components: { AnimationLoader, Modal }
+  components: { Modal }
 }
 </script>
 
@@ -31,8 +29,8 @@ export default {
   }
   .preview {
     text-align: center;
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 50px;
     &.width-all {
       width: 100%;
       width: 100vw;

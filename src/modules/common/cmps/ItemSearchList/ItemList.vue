@@ -1,5 +1,5 @@
 <template>
-  <ul class="item-list flex align-start space-around wrap gap20">
+  <ul class="item-list flex align-start space-between wrap gap40">
     <component 
       :is="componentToRender"
       v-for="item in items"

@@ -1,13 +1,17 @@
 <template>
   <div class="home-page container flex-center height-all">
-    <CreditLogo/>
   </div>
 </template>
 
 <script>
-import CreditLogo from '../cmps/CreditLogo.vue'
 export default {
-  components: { CreditLogo },
-  name: 'Home'
+  name: 'Home',
+  created() {
+    const releaseId = this.$store.getters['release/initReleaseId'];
+    this.$router.push({
+      name: releaseId? 'ReleaseDetails' : 'AboutPage',
+      params: {id: releaseId}
+    });
+  }
 }
 </script>

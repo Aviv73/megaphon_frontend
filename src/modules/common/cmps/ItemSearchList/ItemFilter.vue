@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="emitFilter" class="item-filter">
-    <FormInput placeholder="search" v-model="filterBy.search"/>
+    <FormInput placeholder="search" v-model="filterBy.filter.search"/>
     <!-- <button @click="emitFilter">{{$t('filter')}}</button> -->
   </form>
 </template>
@@ -26,7 +26,7 @@ export default {
     }
   },
   created() {
-    this.filterBy = {...this.initFilter};
+    this.filterBy = JSON.parse(JSON.stringify(this.initFilter));
   },
   components: { FormInput }
 }

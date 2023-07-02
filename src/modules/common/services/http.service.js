@@ -1,11 +1,12 @@
 import { Utils } from './util.service';
 
 import axios from 'axios';
-axios.default.withCredentials = true;
+// axios.default.withCredentials = true;
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'api/'
-  : 'http://localhost:3000/api/';
+  // ? 'api/'
+  ? window.location.origin + '/better-api/'
+  : 'http://localhost:8080/better-api/';
 
 
 async function ajax(endpoint = '', method = 'get', data = {}, params = {}, headers = {}) {
@@ -16,7 +17,7 @@ async function ajax(endpoint = '', method = 'get', data = {}, params = {}, heade
       data,
       params,
       headers,
-      withCredentials: true
+      // withCredentials: true
     });
     return res.data;
   } catch(err) {

@@ -2,36 +2,15 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import { commonRoutes } from '@/modules/common/routes';
-import { exampleRoutes } from '@/modules/example/routes';
-import { authRoutes } from '@/modules/auth/routes';
-import { accountRoutes } from '@/modules/account/routes';
-import { settingsRoutes } from '@/modules/settings/routes';
-import { organizationRoutes } from '@/modules/organization/routes';
-import { postRoutes } from '@/modules/post/routes';
-import { dashboardRoutes } from '../modules/dashboard/routes';
-import { bugRoutes } from '../modules/bug/routes';
-
-import { shoppingListRoutes } from '../modules/shoppingList/routes';
-import { chatRoutes } from '@/modules/chat/routes';
-import { edRoutes } from '@/modules/ED/routes';
+import { releaseRoutes } from '@/modules/release/routes';
+// import { settingsRoutes } from '@/modules/settings/routes';
 
 Vue.use(VueRouter)
 
 const routes = [
   ...commonRoutes,
-  ...exampleRoutes,
-  ...authRoutes,
-  ...accountRoutes,
-  ...settingsRoutes,
-  ...organizationRoutes,
-  ...postRoutes,
-  ...dashboardRoutes,
-  ...bugRoutes,
-  
-  ...chatRoutes,
-
-  ...shoppingListRoutes,
-  ...edRoutes
+  ...releaseRoutes,
+  // ...settingsRoutes
 ]
 
 export const router = new VueRouter({

@@ -235,7 +235,7 @@ export function setDeepVal(obj, field, val, seperator = '.') {
     const firstField = splited.shift();
     if (splited.length) {
         if (!obj[firstField]) obj[firstField] = {};
-        setDeepVal(obj[firstField], splited.join(seperator), val);
+        setDeepVal(obj[firstField], splited.join(seperator), val, seperator);
     }
     else obj[firstField] = val;
 }
@@ -365,6 +365,11 @@ export function fixDeepQuery(quer) {
 
 export function noop() {}; 
   
+export function htmlStrToText(htmlStr) {
+    const el = document.createElement('div');
+    el.innerHTML = htmlStr;
+    return el.innerText;
+}
 
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////

@@ -7,8 +7,11 @@ $font-size-medium: 1.0625rem; // 17px;
 $font-size-big: 1.125rem;     // 18px;
 
 // FONTS:
-$app-font: sans-serif;
-$app-font: 'Courier New', Courier, monospace, sans-serif;
+// $app-font: sans-serif;
+$app-font: Segoe UI;
+// $app-font: 'Courier New', Courier, monospace, sans-serif;
+
+$headers-font: "noylandBold";
 
 // SREEN BREAK BREAK POINTS:
 // $small-screen-breake: 800px;
@@ -31,11 +34,22 @@ $clr-light-green: #c4fad3;
 $clr-light-blue: rgb(145, 186, 228);
 $clr-light-red: rgb(228, 145, 145);
 
+
+$layout-red: #EF4B49;
+$layout-black: #2E2926;
+$light-white: #FAFCFD;
+$light-gray: #AEAEAE;
+
 // layout:
 
-$header-height: 60px;
+$header-height: 70px;
 $footer-height: 100px;
-$app-aside-width: 50px;
+$app-aside-width: 0px;
+
+$main-font-color: #666666;
+
+// $main-pad-y: 50px;
+$main-pad-y: 40px;
 
 // THEME:
 

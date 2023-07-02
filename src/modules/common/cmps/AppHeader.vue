@@ -1,66 +1,76 @@
 <template>
   <header class="app-header flex align-center">
-    <div class="container width-all flex align-center space-between">
-      <router-link :to="{name: 'HomePage'}"><AppLogo/></router-link>
+    <div class="container header-content width-all flex align-center space-between">
+      <router-link :to="{name: 'HomePage'}">
+        <div class="logo-title">
+          <!-- <div class="actual flex column align-center gap10">
+            <h1>אגם</h1>
+            <p class="sub">הוצאה לאור</p>
+          </div> -->
+          <img class="actual" :src="require('@/assets/images/logo.svg')" alt="אגם הוצאה לאור">
+        </div>
+      </router-link>
 
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
       <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/assets/images/mine/navBurger.png')"/></button>
       <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
-      <nav class="flex align-center wrap gap15" :class="{show: mobileShow}">
-        <template v-if="loggedUser">
-          <router-link v-if="orgId" :to="{name: 'OrganizationDetails', params: {id: orgId} }">{{$t('organization.organization')}}</router-link>
-          <!-- <router-link v-if="orgId" :to="{name: 'PostPage', params: {organizationId: orgId} }">{{$t('post.posts')}}</router-link> -->
-          <router-link v-if="orgId" :to="{name: 'ShoppingListPage', params: {organizationId: orgId} }">{{$t('shoppingList.shoppingLists')}}</router-link>
-          <router-link v-if="orgId" :to="{name: 'DashboardPage', params: {organizationId: orgId} }">{{$t('dashboard.dashboard')}}</router-link>
-          <router-link :to="{name: 'OrganizationPage'}">{{$t('organization.organizations')}}</router-link>
-          <router-link v-if="isAdmin" :to="{name: 'AdminPage'}">{{$t('admin')}}</router-link>
-        </template>
-        <router-link :to="{name: 'AboutPage'}">{{$t('about')}}</router-link> 
-        <!-- <router-link :to="{name: 'SettingsPage'}">{{$t('settings')}}</router-link> -->
-        <router-link :to="{name: 'SettingsPage'}">{{$t('settings.settings')}}</router-link>
-        <router-link :to="{name: 'BugEdit'}">{{$t('bug.reportABug')}}</router-link>
-        <router-link :to="{name: 'GamePage'}">{{$t('games')}}</router-link>
-        <router-link v-if="!loggedUser" :to="{name: 'LoginPage'}">{{$t('login')}}</router-link>
-        <template v-else>
-          <router-link :to="{name: 'AccountDetails', params: {id: loggedUser._id} }"><Avatar :account="loggedUser"/></router-link>
-          <button class="btn" @click="logout">{{$t('logout')}}</button>
-        </template>
+      <nav class="flex align-center wrap gap40" :class="{show: mobileShow}">
+        <router-link :to="mainTo">{{$t('main')}}</router-link>
+        <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
+        <router-link :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
+        <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
       </nav>
-    </div>
+      <div class="flex align-center gap20">
+        <ul class="media-list flex gap10 wrap">
+          <li class="media-preview" v-for="(mediaItem, idx) in mediaItems" :key="idx">
+            <a :href="mediaItem.link" target="_blank" class="flex-center gap5 height-all width-all">
+              <img :src="mediaItem.img" :alt="mediaItem.name">
+            </a>
+          </li>
+        </ul>
+        <div class="release-title" v-if="release">
+          <div class="actual flex-center">
+            <h2>{{releaseTitle}}</h2>
+          </div>
+        </div>
+      </div>
+      </div>
   </header>
 </template>
 
 <script>
 import Avatar from './Avatar.vue';
-import AppLogo from './AppLogo.vue'
+import { contactData } from '../services/static.data.js'
 export default {
   name: 'AppHeader',
   data() {
     return {
-      mobileShow: false
+      mobileShow: false,
+      mediaItems: [contactData.mediaItems[3], contactData.mediaItems[2], contactData.mediaItems[1], contactData.mediaItems[0]],
     }
   },
   computed: {
-    loggedUser() {
-      return this.$store.getters['auth/loggedUser'];
+    // initReleaseId() {
+    //   return this.$store.getters['release/initReleaseId'];
+    // },
+
+    mainTo() {
+      return this.$store.getters.mainLinkRouteTo;
+      // return this.initReleaseId
+      //   ? {name: 'ReleaseDetails', params: {id: this.initReleaseId} }
+      //   : { name: 'ReleasePage' }
     },
-    isAdmin() {
-      return this.$store.getters['auth/isAdmin'];
+
+    release() {
+      return this.$store.getters['release/selectedItem'];
     },
-    orgId() {
-      // return localStorage.logged_organization_id || this.$store.getters['organization/selectedOrganization']?._id || 'public';
-      // return localStorage.logged_organization_id || this.$store.getters['organization/selectedOrganization']?._id;
-      return this.$store.getters['organization/selectedItem']?._id || this.$route.params.organizationId;
-    }
-  },
-  methods: {
-    async logout() {
-      this.$emit('action');
-      try {
-        await this.$store.dispatch('auth/logout');
-        this.$router.push({name: 'LoginPage'});
-      } catch(e) {}
-      this.$emit('endAction');
+    releaseTitle() {
+      if (!this.release.releaseData.publishedAt) return this.release.releaseData.title;
+      const at = new Date(this.release.releaseData.publishedAt);
+      const month = at.getMonth() + 1;
+      const year = at.getFullYear();
+      const pretyMont = this.$t('months.'+month);
+      return `${pretyMont} ${year}`;
     }
   },
   watch: {
@@ -68,65 +78,79 @@ export default {
       this.mobileShow = false;
     }
   },
-  components: { AppLogo, Avatar },
+  components: { Avatar },
 }
 </script>
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
 @import '@/assets/styles/themes/index';
-.dark-theme {
-  .app-header {
-    @media (max-width: $small-screen-breake) {
-      nav {
-        background-color: #1a1a1a;
-        border-color: white;
-        color: white;
-        >* {
-          border-color: white;
-          &:hover {
-            background-color: #505050;
-          }
-        }
-      }
-    }
-    .app-logo {
-      color: white;
-    }
-  }
-}
 
-.red-theme {
-  .app-header {
-    .app-logo { // RED_LAYOUT_FIX
-      color: white;
-      span {
-        color: black !important;
-      }
-    }
-    @media (max-width: $small-screen-breake) {
-      nav {
-        color: $red-theme-body-clr;
-      }
-    }
-  }
-}
-.purple-theme, .pink-theme, .blue-theme {
-  .app-header {
-    @media (max-width: $small-screen-breake) {
-      nav {
-        color: black;
-      }
-    }
-  }
-}
 .app-header {
+  background-color: $layout-black;
+  color: $light-white;
   position: relative;
+
+  .header-content {
+    position: relative;
+  }
+  
+
+  .media-list {
+    img {
+      width: 35px;
+      height: 35px
+    }
+  }
+
+  .logo-title, .release-title { // .logo-title, 
+    width: 120px;
+    height: $header-height;
+    text-align: center;
+    h1, h2 {
+      color: white;
+    }
+    .actual {
+      // height: 100%;
+      // width: 100%;
+      width: 120px;
+      height: 110%;
+      background-color: $layout-red;
+      position: absolute;
+      top: 0;
+    }
+    .sub {
+      width: 80px
+    }
+  }
+  .logo-title {
+    .actual {
+      width: 100px;
+      background-color: unset;
+      height: unset;
+      // position: absolute;
+      top: 10px;
+      right: 0;
+      // right: 12px;
+      // left: unset;
+      // width: 120px;
+      // padding-top: 10px;
+      // width: 120px;
+      // right: 12px;
+      // border-bottom-left-radius: 50%;
+      // border-bottom-right-radius: 50%;
+    }
+  }
+  .release-title .actual {
+    left: 12px
+  }
+
+
   nav {
     @include flex-center;
     flex-wrap: wrap;
     justify-content: flex-end;
-    >* {
+    a {
       &:hover {
         transform: scale(1.1);
         transition: 0.1s;
@@ -136,7 +160,7 @@ export default {
   .nav-burger {
     display: none;
   }
-  @media (max-width: $small-screen-breake) {
+  @media (max-width: 0px) { // $small-screen-breake
     $height: calc(100vh - #{$header-height});
     // color: ;
     .nav-burger {

@@ -1,7 +1,7 @@
 <template>
-  <div class="item-page flex align-center gap15 column flex-1">
+  <div class="item-page flex align-center gap40 column flex-1">
     <div class="width-all flex align-center space-between wrap gap10">
-      <ItemFilter :initFilter="filterBy.filter" @filtered="setFilter"/>
+      <component :is="filterByCmp || ItemFilter" :initFilter="filterBy" @filtered="setFilter"/>
       <router-link v-if="newItemPageName" :to="{name: newItemPageName}"><button class="btn secondary mid">{{$t('addNew')}}</button></router-link>
     </div>
     <template v-if="!isLoading && items?.length">
@@ -21,7 +21,7 @@
         <button v-if="isFilterEmpty || true" class="btn big primary">{{$t('createNew')}}!</button>  
       </router-link>
     </div>
-    <Loader v-if="showLoader && isLoading"/>
+    <Loader v-if="showLoader && isLoading" fullScreen/>
   </div>
 </template>
 
@@ -45,6 +45,7 @@ export default {
     itemDetailesPageName: [String],
     newItemPageName: [String],
     singlePreviewCmp: [Object],
+    filterByCmp: [Object],
     isLoading: [Boolean],
     showLoader: {
       type: Boolean,
@@ -62,16 +63,17 @@ export default {
       handler(filterVal) {
         const query = {};
         deepIterateWithObj(filterVal, (key, val) => {
-          if (this.$route.query[key] != val) query[key] = val;
+          if (this.$route.query[key] !== val) query[key] = val;
         }, '_');
         if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
+        // if (Object.keys(query).length) this.$router.push({ query: { ...query} });
         this.$emit('filter', this.filterBy);
       }
     }
   },
   methods: {
     setFilter(filter) {
-      this.filterBy.filter = JSON.parse(JSON.stringify(filter));
+      this.filterBy = JSON.parse(JSON.stringify(filter));
     },
     initFilter() {
       const filterByToSet = JSON.parse(JSON.stringify(this.initFilterBy));

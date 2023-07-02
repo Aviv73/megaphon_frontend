@@ -89,7 +89,10 @@
       </datalist>
 
       <template>
-        <div class="icon-img" @click="$refs.elInput.$el.querySelector('input').focus()" v-if="$slots.default || showError"></div>
+        <!-- <div class="icon-img" @click="$refs.elInput.$el.querySelector('input').focus()" v-if="$slots.default || showError"> -->
+        <div class="icon-img" @click="$refs.elInput.focus()" v-if="$slots.default || showError">
+          <slot/>
+        </div>
       </template>
     </div>
   </section>
@@ -244,6 +247,13 @@ export default {
     option {
       color: black;
     }
+  }
+
+  .icon-img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
   }
 }
 

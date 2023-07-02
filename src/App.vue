@@ -5,7 +5,7 @@
       <div class="right">
         <AppHeader @action="isLoading = true" @endAction="isLoading=false"/>
         <main class="app-main">
-          <router-view class="main-content" v-if="settings && config"/>
+          <router-view class="main-content"/>
         </main>
       </div>
     </div>
@@ -38,17 +38,8 @@ export default {
     }
   },
   computed: {
-    settings() {
-      return this.$store.getters['settings/settings'];
-    },
-    config() {
-      return this.$store.getters['settings/config'];
-    },
     uiConfig() {
       return this.$store.getters['settings/uiConfig'];
-    },
-    isDarkMode() {
-      return this.uiConfig.darkMode
     },
     appTheme() {
       return this.uiConfig.theme + '-theme';
@@ -59,32 +50,12 @@ export default {
     isRtl() {
       const locale = this.$i18n.locale;
       return ['he', 'heF'].includes(locale);
-    },
-    loggedUser() {
-      return this.$store.getters['auth/loggedUser'];
     }
   },
   async created() {
-    this.isLoading = true;
-    const timeoutId = setTimeout(() => {
-      if (this.isLoading) this.showSleepMsg = true;
-    }, 7000);
-    await socketService.connect();
-    try {
-      await Promise.all([
-        this.$store.dispatch('settings/loadSettings'),
-        this.$store.dispatch('settings/loadConfig'),
-        this.$store.dispatch('auth/getUserInfo')
-      ]);
-    } catch(e) {}
-    clearTimeout(timeoutId);
-    this.showSleepMsg = false;
-    this.isLoading = false;
 
     this.displayUiConfig()
-    evEmmiter.on('app_config_update', this.displayUiConfig);
 
-    if (['HomePage'].includes(this.$route.name) && this.loggedUser && localStorage.logged_organization_id) this.$router.push({ name: 'OrganizationDetails', params: {id: localStorage.logged_organization_id} })
   },
   methods: {
     setLocale() {

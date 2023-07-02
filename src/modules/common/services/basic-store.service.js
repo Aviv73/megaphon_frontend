@@ -3,16 +3,20 @@ import { delay } from '@/modules/common/services/util.service';
 
 import { $t } from '@/plugins/i18n';
 
-const initFilterBy = () => ({
+const initFilterBy = (filterParams = [], sortParams = []) => ({
   filter: {
     search: '',
-    params: {}
+    // params: {}
+    // params: filterParams.reduce((acc, c) => ({...acc, [c]: undefined}), {})
+    params: filterParams.reduce((acc, c) => ({...acc, [c]: ''}), {})
   },
   pagination: {
     page: 0,
-    limit: 10,
+    limit: 12,
   },
-  sort: {},
+  // sort: {},
+  sort: sortParams.reduce((acc, c) => ({...acc, [c]: undefined}), {}),
+  simpleSort: ''
 });
 
 const initState = () => ({

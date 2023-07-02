@@ -8,6 +8,12 @@ export const _commonStore = {
   getters: {
     isRootLoading: (state) => state.isLoading,
     rootError: (state) => state.error,
+    mainLinkRouteTo(state, getters) {
+      const initReleaseId = getters['release/initReleaseId'];
+      return initReleaseId && false
+        ? {name: 'ReleaseDetails', params: {id: initReleaseId} }
+        : { name: 'ReleasePage' }
+    },
   },
   mutations: {
     setRootLoading(state, { val }) {
@@ -24,15 +30,7 @@ export const _commonStore = {
   actions: {
     resetState({ commit }) {
       commit('account/resetState');
-      commit('auth/resetState');
-      commit('example/resetState');
-      commit('activity/resetState');
-      commit('comment/resetState');
-      commit('post/resetState');
-      commit('shoppingList/resetState');
-      commit('organization/resetState');
-      commit('dashboard/resetState');
-      // commit('settings/resetState');
+      commit('release/resetState');
     }
   }
 }

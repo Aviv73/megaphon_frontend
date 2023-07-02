@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-container" @click.stop="">
+  <div class="modal-container" :class="{fullScreen}" @click.stop="">
     <div class="blure" @click.stop="$emit('close')" @touchstart.stop="" @touchend.stop=""></div>
     <div class="modal" :class="{ 'modal-style': styling }">
       <slot/>
@@ -14,6 +14,10 @@ export default {
     styling: {
       type: Boolean,
       default: true
+    },
+    fullScreen: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -56,6 +60,12 @@ export default {
         color: black;
       }
     }
+  }
+
+  &.fullScreen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
   }
 }
 </style>

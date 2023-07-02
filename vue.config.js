@@ -1,13 +1,13 @@
 // const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-  outputDir: '../backend/public/frontend',
+  outputDir: '../../../megaphone_backend/src/public/apps/agam',
   pages: {
     index: {
       entry: "src/main.js",
       template: 'public/index.html',
       filename: 'index.html',
-      title: "Project Starter"
+      title: "אגם הוצאת ספרים"
     }
   },
   configureWebpack: {

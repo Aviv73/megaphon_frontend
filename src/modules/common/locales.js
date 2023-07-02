@@ -32,6 +32,10 @@ const en = {
   "createNew": "Create new",
   "leave": "Leave",
   "add": "Add",
+  "main": "main",
+  "archive": "Archive",
+  "updates": "Updates",
+  "theCrew": "The crew",
 
   "hebrew": "Hebrew",
   "english": "English",
@@ -39,7 +43,22 @@ const en = {
   "internalServerError": "Internal server error",
   "internalError": "Internal error",
 
-  "serverSleepsMsg": "Seems like the server fell asleep..\nHang in there,\nFew more seconds and we'r Waking it up!"
+  "serverSleepsMsg": "Seems like the server fell asleep..\nHang in there,\nFew more seconds and we'r Waking it up!",
+
+  "months": {
+    1: "ינואר",
+    2: "פברואר",
+    3: "מרץ",
+    4: "אפריל",
+    5: "מאי",
+    6: "יוני",
+    7: "יולי",
+    8: "אוגוסט",
+    9: "ספטמבר",
+    10: "אוקטובר",
+    11: "נובמבר",
+    12: "דצמבר",
+  }
 }
 const he = {
   "hello": "שלום",
@@ -48,7 +67,7 @@ const he = {
   "submit": "שלח",
   "signup": "הרשם",
   "login": "התחבר",
-  "about": "אודות",
+  "about": "אודות אגם",
   "admin": "אדמין",
   "creator": "יוצר",
   "user": "משתמש",
@@ -73,6 +92,10 @@ const he = {
   "createNew": "צור חדש",
   "leave": "עזוב",
   "add": "הוסף",
+  "main": "ראשי",
+  "archive": "ארכיון כותרים",
+  "updates": "עדכונים",
+  "theCrew": "הצוות",
 
   "hebrew": "עברית",
   "english": "אנגלית",
@@ -80,7 +103,22 @@ const he = {
   "internalServerError": "תקלת שרת",
   "internalError": "תקלה כללית",
   
-  "serverSleepsMsg": "נראה שהשרת הלך לישון..\nהחזיקו מעמד,\n כמה רגעים והוא מתעורר!"
+  "serverSleepsMsg": "נראה שהשרת הלך לישון..\nהחזיקו מעמד,\n כמה רגעים והוא מתעורר!",
+
+  "months": {
+    1: "ינואר",
+    2: "פברואר",
+    3: "מרץ",
+    4: "אפריל",
+    5: "מאי",
+    6: "יוני",
+    7: "יולי",
+    8: "אוגוסט",
+    9: "ספטמבר",
+    10: "אוקטובר",
+    11: "נובמבר",
+    12: "דצמבר",
+  }
 }
 const heF = {
   ...he,
