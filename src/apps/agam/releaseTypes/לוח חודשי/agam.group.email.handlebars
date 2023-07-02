@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אגם הוצאה לאור</title>
+
+  <style>
+    
+    .root-container {
+      box-sizing: border-box;
+      margin: 0 auto;
+      text-align: center;
+      max-width: 500px;
+      color: #666666;
+      font-size: 16px;
+      font-family: Segoe UI;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      color: #EF4B49;
+    }
+    h1, h2, h3, h4, h5, h6, p, div, main, header, footer, table, tbody, tr, td {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: #FFFFFF !important;
+      text-decoration: none;
+    }
+
+    .app-header {
+      margin-bottom: 60px;
+    }
+    .app-header img {
+      width: 100px;
+    }
+    .app-header .top {
+      background-color: #EF4B49;
+      height: 10px;
+      
+    }
+    .app-header .bottom {
+      background-color: #2E2926;
+      height: 50px;
+      text-align: center;
+    }
+
+
+
+    .app-main {
+      padding-bottom: 20px;
+    }
+    .app-main h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .app-main .releases {
+      direction: rtl;
+      width: 100%;
+    }
+    .app-main .releases .release-preview {
+      text-align: start;
+      width: 50%;
+      padding-inline-end: 20px;
+    }
+    .app-main .releases .release-preview .type {
+      background-color: #EF4B49;
+      color: #FFFFFF;
+      width: fit-content;
+      padding: 0 8px;
+    }
+    .app-main .releases .release-preview img {
+      height: 160px;
+      width: 100%;
+      object-fit: contain;
+      background-color: rgb(241, 241, 241);
+    }
+    .app-main .releases .release-preview .desc {
+      height: 120px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+
+    .app-footer {
+      direction: rtl;
+      text-align: center;
+      color: #FFFFFF;
+    }
+    .app-footer h3 {
+      color: #FFFFFF;
+      padding: 10px 0;
+    }
+    .app-footer .contact {
+      background-color: #2E2926;
+      padding-bottom: 10px;
+    }
+    .app-footer .contact p {
+      padding-bottom: 5px;
+    }
+    .app-footer .follow {
+      background-color: #EF4B49;
+    }
+    .follow .follow-content {
+      width: 100%;
+    }
+    .follow .follow-content td:first-child {
+      /*width: 95%;*/
+      width: 100%;
+    }
+    .follow .follow-content td:last-child {
+      width: 5%;
+      position: relative;
+    }
+    .app-footer .follow .media-list {
+      width: 90%;
+      margin: 0 auto;
+      border-spacing: 15px
+    }
+    .app-footer .follow h3 {
+      padding-bottom: 0;
+    }
+    .app-footer .follow td {
+      width: 50%;
+      text-align: start;
+    }
+    .app-footer .follow td:first-child {
+      text-align: end;
+    }
+    .app-footer .follow td:nth-child(2) {
+      text-align: start;
+    }
+    .app-footer .follow td:only-child {
+      text-align: center;
+      padding: 0;
+    }
+    .app-footer .follow td:only-child a table {
+      margin: 0 auto;
+    }
+    .app-footer .follow .media-list .media-preview a {
+      display: block;
+      color: #FFFFFF;
+    }
+    .app-footer .follow .media-list .media-preview a table {
+      border-spacing: 5px;
+    }
+    .app-footer .follow .media-list .media-preview a td {
+      width: unset;
+      padding: 0;
+      margin: 0;
+      vertical-align: middle;
+    }
+    .app-footer .follow .media-list .media-preview img {
+      height: 40px;
+    }
+    .app-footer .follow .media-list .media-preview p {
+      display: inline-block;
+    }
+    .design-credit-container {
+      width: 0;
+    }
+    .app-footer .follow .design-credit {
+      display: inline-block;
+      text-align: start;
+      width: 115px;
+    }
+    .app-footer .credits {
+      width: 100%;
+      background-color: #F4CF7E;
+      color: #1E1E1E;
+    }
+    .app-footer .credits p {
+      padding: 10px;
+    }
+    @media (max-width: 450px) {
+      .app-footer .follow .media-list .media-preview a {
+        height: 25px;
+        font-size: 12px;
+      }
+      .app-footer .follow .media-list {
+        border-spacing: 25px
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="root-container">
+    <div class="app-header">
+      <div class="top"></div>
+      <div class="bottom">
+        <img src="https://images.megaphon.co.il/643eac15afc5d349300c087f/04bdced0-f235-11ed-bd54-939946bca13e.png" alt="אגם הוצאה לאור">
+      </div>
+    </div>
+
+    <div class="app-main">
+      <h1>
+        {{title}}
+      </h1>
+      <table class="releases"><tbody>
+        {{#each mapedChildrenReleases}}
+          {{#if (isEven @index)}}
+            <tr>
+          {{/if}}
+
+              <td class="release-preview">
+                <p class="type">{{this.type}}</p>
+                <img src="{{this.mainImage.0.src}}" :alt="{{this.title}}"/>
+                <p class="sub-type">{{this.subType}}</p>
+                <h3 class="title">{{this.title}}</h3>
+                <div class="flex column gap10">
+                  <p>מאת: {{this.author}}</p>
+                  <div class="desc">{{{this.desc}}}</div>
+                </div>
+              </td>
+              
+          {{#if (isOdd @index)}}
+            </tr>
+          {{else if @last}}
+              <td class="release-preview"></td>
+            </tr>
+          {{/if}}
+        {{/each}}
+      </tbody></table>
+    </div>
+
+    <div class="app-footer">
+      <div class="contact">
+        <h3>יצירת קשר</h3>
+        <p>מנהלת שיווק ההוצאה נטע שרף שוכמן</p>
+        <p>052-4069-444</p>
+        <p>info.agambooks.co.il</p>
+      </div>
+      <div class="follow">
+        <h3>עוקבים ונשארים מעודכנים</h3>
+        <table class="media-list"><tbody>
+          <tr>
+            <td class="media-preview">
+              <a href="https://www.facebook.com/agambooks/" target="_blank"><table><tbody><tr>
+                <td>
+                  <img src="https://images.megaphon.co.il/643eac15afc5d349300c087f/f1571270-f234-11ed-bd54-939946bca13e.png" alt="facebook">
+                </td>
+                <td>
+                  <p>אגם הוצאה לאור</p>
+                </td>
+              </tr></tbody></table></a>
+            </td>
+            <td class="media-preview">
+              <a href="https://www.instagram.com/agambooks/" target="_blank"><table><tbody><tr>
+                <td>
+                  <img src="https://images.megaphon.co.il/643eac15afc5d349300c087f/f44531b0-f234-11ed-bd54-939946bca13e.png" alt="instegram">
+                </td>
+                <td>
+                  <p>@agambooks</p>
+                </td>
+              </tr></tbody></table></a>
+            </td>
+          </tr>
+          <tr>
+            <td class="media-preview">
+              <a href="https://www.youtube.com/channel/UCqLjZATnh7TIU4YOOZ4nU7A" target="_blank"><table><tbody><tr>
+                <td>
+                  <img src="https://images.megaphon.co.il/643eac15afc5d349300c087f/fe443ee0-f234-11ed-bd54-939946bca13e.png" alt="youtube">
+                </td>
+                <td>
+                  <p>אגם הוצאה לאור</p>
+                </td>
+              </tr></tbody></table></a>
+            </td>
+            <td class="media-preview">
+              <a href="https://www.agambooks.com" target="_blank"><table><tbody><tr>
+                <td>
+                  <img src="https://images.megaphon.co.il/643eac15afc5d349300c087f/fbd031a0-f234-11ed-bd54-939946bca13e.png" alt="web">
+                </td>
+                <td>
+                  <p>agambooks.com</p>
+                </td>
+              </tr></tbody></table></a>
+            </td>
+          </tr>
+          <tr>
+            <td class="media-preview" colspan="2">
+              <a href="https://www.tiktok.com/@agambooks_" target="_blank"><table><tbody><tr>
+                <td>
+                  <img src="https://images.megaphon.co.il/643eac15afc5d349300c087f/f6384f20-f234-11ed-bd54-939946bca13e.png" alt="tiktok">
+                </td>
+                <td>
+                  <p>_@agambooks</p>
+                </td>
+              </tr></tbody></table></a>
+            </td>
+          </tr>
+        </table>
+        {{!-- <table class="follow-content"><tbody><tr>
+          <td>
+          </td>
+          <td>
+            <div class="design-credit-container">
+              <p class="design-credit" style="
+                transform: rotate(270deg) translate(0px, 70px);
+              ">עיצוב: גרייס דיזיין</p>
+            </div>
+          </td>
+        </tr></tbody></table> --}}
+      </div>
+      <table class="credits"><tbody><tr>
+        <td><p>
+          כל הזכויות שמורות © אגם הוצאה לאור
+        </p></td>
+        <td><p>עיצוב: גרייס דיזיין</p></td>
+      </tr></tbody></table>
+    </div>
+  </div>
+
+</body>
+</html>

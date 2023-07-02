@@ -1,3 +1,4 @@
+import i18n from '@/plugins/i18n';
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
@@ -6,7 +7,6 @@ import store from './store'
 
 import './assets/styles/index.scss';
 
-import i18n from '@/plugins/i18n';
 
 Vue.config.productionTip = false
 

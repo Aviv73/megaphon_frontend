@@ -7,7 +7,7 @@ module.exports = {
       entry: "src/main.js",
       template: 'public/index.html',
       filename: 'index.html',
-      title: "אגם הוצאת ספרים"
+      title: "megaphon client"
     }
   },
   configureWebpack: {

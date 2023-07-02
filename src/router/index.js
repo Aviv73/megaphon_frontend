@@ -1,16 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import { commonRoutes } from '@/modules/common/routes';
-import { releaseRoutes } from '@/modules/release/routes';
-// import { settingsRoutes } from '@/modules/settings/routes';
+import commonRoutes from '../apps/common/routes';
+import selectedAppData from '../apps/index.js';
 
 Vue.use(VueRouter)
 
 const routes = [
   ...commonRoutes,
-  ...releaseRoutes,
-  // ...settingsRoutes
+  ...selectedAppData.routes
 ]
 
 export const router = new VueRouter({

@@ -1,6 +1,6 @@
 <template>
   <div class="app" id="app" :class="{ rtl: isRtl, [appTheme]: true, accessability: isAccessabilityMode }">
-    <div class="app-content">
+    <!-- <div class="app-content">
       <AppAside/>
       <div class="right">
         <AppHeader @action="isLoading = true" @endAction="isLoading=false"/>
@@ -9,26 +9,30 @@
         </main>
       </div>
     </div>
-    <AppFooter/>
+    <AppFooter/> -->
+    <SelectedApp/>
     <Loader v-if="isLoading" :msg="showSleepMsg? $t('serverSleepsMsg') : ''"/>
   </div>
 </template>
 
 <script>
-import AppHeader from '@/modules/common/cmps/AppHeader.vue';
-import AppFooter from '@/modules/common/cmps/AppFooter.vue';
-import AppAside from '@/modules/common/cmps/AppAside.vue';
-import { socketService } from '@/modules/common/services/socket.service';
-import evEmmiter from '@/modules/common/services/event-emmiter.service';
-import Loader from './modules/common/cmps/Loader.vue';
-import { alertService } from './modules/common/services/alert.service';
+// import AppHeader from '@/apps/common/modules/common/cmps/AppHeader.vue';
+// import AppFooter from '@/apps/common/modules/common/cmps/AppFooter.vue';
+// import AppAside from '@/apps/common/modules/common/cmps/AppAside.vue';
+import { socketService } from '@/apps/common/modules/common/services/socket.service';
+import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
+import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
+
+import selectedAppData from './apps/index.js';
 
 export default {
   name: 'App',
   components: {
-    AppHeader,
-    AppFooter,
-    AppAside,
+    SelectedApp: selectedAppData.app,
+    // AppHeader,
+    // AppFooter,
+    // AppAside,
     Loader
   },
   data() {
