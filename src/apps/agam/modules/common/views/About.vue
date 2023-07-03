@@ -62,82 +62,84 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.about-page {
-  .routes-locator {
-    // margin-inline-start: 60px;
-  }
-  h2 {
-    color: $layout-red;
-    // margin-inline-start: 60px;
-    font-weight: bold;
-  }
-  .about-msg {
-    // margin-inline-start: 60px;
-    max-width: 60%;
-  }
-  .crew-section, .features-section {
-    li {
-      text-align: center;
-      img {
-        width: 240px;
-        height: 240px;
-        border-radius: 50%;
-        // border: 8px solid $layout-red;
-        border: 0px solid $layout-red;
-      }
+.agam-app {
+  .about-page {
+    .routes-locator {
+      // margin-inline-start: 60px;
     }
-  }
-  .crew-section {
-    li {
-      .name {
-        color: $layout-red;
-      }
-      
-      .member-info {
-        width: 150px;
-        p {
-          color: $light-gray;
-        }
-      }
-    }
-  }
-  .features-section {
-    padding-top: 120px;
     h2 {
-      margin-bottom: 100px;
+      color: $layout-red;
+      // margin-inline-start: 60px;
+      font-weight: bold;
     }
-    li {
-      height: auto;
-      flex: 1;
-      position: relative;
-      border-radius: 10px;
-      color: $light-white;
-      .title {
-        color: white;
-      }
-      img {
-        border-color: white;
-        position: absolute;
-        top: 0;
-        transform: translateY(-50%);
-      }
-      .its-content {
-        margin-top: 120px;
-        padding: 20px;
-        line-height: 1.3em;
-      }
-      &:first-child {
-        background-color: $layout-red;
-      }
-      &:nth-child(2) {
-        color: black;
-        .title {
-          color: black;
+    .about-msg {
+      // margin-inline-start: 60px;
+      max-width: 60%;
+    }
+    .crew-section, .features-section {
+      li {
+        text-align: center;
+        img {
+          width: 240px;
+          height: 240px;
+          border-radius: 50%;
+          // border: 8px solid $layout-red;
+          border: 0px solid $layout-red;
         }
-        background-color: #F4CF7E;
       }
-      &:nth-child(3) {
-        background-color: #699FBA;
+    }
+    .crew-section {
+      li {
+        .name {
+          color: $layout-red;
+        }
+        
+        .member-info {
+          width: 150px;
+          p {
+            color: $light-gray;
+          }
+        }
+      }
+    }
+    .features-section {
+      padding-top: 120px;
+      h2 {
+        margin-bottom: 100px;
+      }
+      li {
+        height: auto;
+        flex: 1;
+        position: relative;
+        border-radius: 10px;
+        color: $light-white;
+        .title {
+          color: white;
+        }
+        img {
+          border-color: white;
+          position: absolute;
+          top: 0;
+          transform: translateY(-50%);
+        }
+        .its-content {
+          margin-top: 120px;
+          padding: 20px;
+          line-height: 1.3em;
+        }
+        &:first-child {
+          background-color: $layout-red;
+        }
+        &:nth-child(2) {
+          color: black;
+          .title {
+            color: black;
+          }
+          background-color: #F4CF7E;
+        }
+        &:nth-child(3) {
+          background-color: #699FBA;
+        }
       }
     }
   }

@@ -52,32 +52,34 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.release-preview {
-  position: relative;
-  width: 220px;
-  img {
-    height: 160px;
-    width: 100%;
-    object-fit: contain;
-    // object-fit: cover;
-    background-color: rgb(241, 241, 241);
-  }
-
-  h3 {
-    color: $layout-red;
-  }
+.agam-app {
+  .release-preview {
+    position: relative;
+    width: 220px;
+    img {
+      height: 160px;
+      width: 100%;
+      object-fit: contain;
+      // object-fit: cover;
+      background-color: rgb(241, 241, 241);
+    }
   
-  .type {
-    position: absolute;
-    background-color: white;
-    top: 0;
-    left: -10px;
-    transform: translateY(-50%);
-    color: $layout-red;
-    border: 1px solid $layout-red;
-    border-radius: 14px;
-    padding: 5px 12px;
-    font-weight: bold;;
+    h3 {
+      color: $layout-red;
+    }
+    
+    .type {
+      position: absolute;
+      background-color: white;
+      top: 0;
+      left: -10px;
+      transform: translateY(-50%);
+      color: $layout-red;
+      border: 1px solid $layout-red;
+      border-radius: 14px;
+      padding: 5px 12px;
+      font-weight: bold;;
+    }
   }
 }
 </style>

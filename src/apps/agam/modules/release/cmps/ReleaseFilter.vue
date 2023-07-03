@@ -90,43 +90,45 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.release-filter {
-  .filter-icon-img {
-    width: 15px;
-    height: 15px;
-  }
-
-  .type-filter {
-    box-shadow: unset;
-    button {
-      color: $light-white;
-      background-color: $layout-black;
-      border-inline-end: unset !important;
-      border-radius: 12px;
-      padding: 2px 10px;
-      height: unset;
-      &.selected {
-        background-color: $layout-red;
+.agam-app {
+  .release-filter {
+    .filter-icon-img {
+      width: 15px;
+      height: 15px;
+    }
+  
+    .type-filter {
+      box-shadow: unset;
+      button {
+        color: $light-white;
+        background-color: $layout-black;
+        border-inline-end: unset !important;
+        border-radius: 12px;
+        padding: 2px 10px;
+        height: unset;
+        &.selected {
+          background-color: $layout-red;
+        }
       }
     }
-  }
-  .sorters {
-    box-shadow: unset;
-    button {
-      background-color: unset;
-      border-inline-end: unset !important;
-      &.selected {
+    .sorters {
+      box-shadow: unset;
+      button {
         background-color: unset;
-        color: $layout-red
+        border-inline-end: unset !important;
+        &.selected {
+          background-color: unset;
+          color: $layout-red
+        }
       }
     }
-  }
-
-  .serach {
-    border-bottom: 1px solid $light-gray;
-    input {
-      border: 0;
-      // border-radius: 0;
+  
+    .serach {
+      border-bottom: 1px solid $light-gray;
+      input {
+        border: 0;
+        // border-radius: 0;
+      }
     }
   }
 }

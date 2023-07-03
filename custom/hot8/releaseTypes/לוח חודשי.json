@@ -1,0 +1,81 @@
+{
+  "@type": "release.data.fields",
+  "id": "4",
+  "releaseType": "COLLECTION",
+  "fields": [
+      {
+          "title": "כותרת",
+          "fieldName": "title",
+          "type": "TEXT",
+          "helpText": "",
+          "isSearchable": true
+      },
+      {
+          "title": "פסקה מודגשת",
+          "fieldName": "subtitle",
+          "type": "TEXT",
+          "helpText": "",
+          "isSearchable": true
+      },
+      {
+          "title": "",
+          "fieldName": "",
+          "type": "SEPARATOR",
+          "helpText": "",
+          "isSearchable": false
+      },
+      {
+          "title": "תמונה ראשית",
+          "fieldName": "mainImage",
+          "type": "CORPABLE_IMAGE",
+          "helpText": "גודל מומלץ 928*620 פיקסלים"
+      },
+      {
+          "title": "",
+          "fieldName": "",
+          "type": "SEPARATOR",
+          "helpText": "",
+          "isSearchable": false
+      },
+      {
+          "title": "תוכניות",
+          "fieldName": "shows",
+          "type": "RELEASES_SELECTOR",
+          "helpText": "",
+          "isSearchable": false,
+          "filter": [
+              "61c3631b403f3a8a0e4fac73"
+          ]
+      },
+      {
+          "title": "",
+          "fieldName": "",
+          "type": "SEPARATOR",
+          "helpText": "",
+          "isSearchable": false
+      },
+      {
+          "title": "כותרת לניוזלטר",
+          "fieldName": "newsletter_title",
+          "type": "TEXT",
+          "helpText": "",
+          "isSearchable": false
+      },
+      {
+          "title": "תמונה ראשית לניוזלטר",
+          "fieldName": "newsletterImg",
+          "type": "CORPABLE_IMAGE",
+          "helpText": "גודל מומלץ 928*620 פיקסלים"
+      },
+      {
+          "title": "תכניות לניוזלטר",
+          "fieldName": "newsletterReleases",
+          "type": "SELECT_RELEASES"
+      },
+      {
+        "title": "מידע לניוזלטר",
+        "fieldName": "newsletterDesc",
+        "type": "LONGRICHTEXT"
+    }
+  ]
+}

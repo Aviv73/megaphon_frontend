@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>
+        {{title}}
+    </title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-flipped.css" />
+    <link href="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/jquery.fancybox.min.css"
+        rel="stylesheet" />
+    <link href="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/slick.css"
+        rel="stylesheet" />
+    <link href="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/slick-theme.css"
+        rel="stylesheet" />
+    <div id="pnlHot8Css">
+
+        <link rel="stylesheet"
+            href="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/style.css?v=38" />
+
+    </div>
+    <title></title>
+
+
+
+
+
+
+
+
+    <div id="head_pnlKanCss">
+
+        <link rel="stylesheet"
+            href="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/main.css" />
+        <link rel="stylesheet"
+            href="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/kan.css?v=38" />
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
+            integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
+            crossorigin="anonymous"></script>
+
+    </div>
+
+    <style>
+        body {
+            color: {{textColor}}
+        }
+
+        .logo-block {
+            background:{{primaryColor}} 
+        }
+
+        header {
+            background:{{primaryColor}} 
+        }
+
+        .sticky-header {
+            background: {{primaryColor}}
+        }
+
+        .bold-link {
+            background: {{boldColor}}
+        }
+
+        .page.page-release-details .release-menu a {
+            color: {{textColor}}
+        }
+
+        a {
+            color: {{textColor}}
+        }
+        .pic-thumb {
+           opacity: {{contentTransparancy}};
+         }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="top-bar text-left sticky-header">
+        <span id="navbar_pressKitLink">
+            <a href="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/PressKit.zip"
+                download>הורד תיק עיתונות</a>
+        </span>
+        <a href="mailto:{{contactEmail}}">
+            <i class="far fa-envelope"></i>&nbsp;דוברות
+        </a>
+        <a href="/loginredirect.aspx" class="account-link">לחשבונך</a>
+    </div>
+
+    <div class="full-content">
+        <header>
+            <div class="logo-block">
+                <div class="logo">
+                    <img src="{{logo}}" alt="Logo" class="img-fluid" />
+                </div>
+
+                <img src="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/kan-11-logo.png"
+                    alt="Logo" class="img-fluid logo-sec" />
+
+            </div>
+        </header>
+    </div>
+
+
+
+    <div class="pages">
+        <div class="page page-release-details" id="release-details">
+
+
+            <div class="container">
+
+                <div class="row release-details" style="display: none;" data-releaseid="745">
+                    <div class="col-xs-12 col-release-menu">
+                        <div class="release-menu">
+                            <a data-subview="release_summary" class="active">תקציר</a>
+                            {{#if videos }}
+                            <a data-subview="release_trailers">פרומו/הצצה</a>
+                            {{/if}}
+                            {{#if imageGallery}}
+                            <a data-subview="release_pictures">תמונות</a>
+                            {{/if}}
+
+                            <a data-subview="release_airing">שעות שידור</a>
+
+                            {{#if comFile}}
+                                {{#if comFile.[0]}}
+                                <a
+                                    target="_blank"
+                                    href={{comFile.[0].src}}
+                                    title={{comFile.[0].title}}
+                                    rel="noreferrer"
+                                    download={{comFile.[0].title}}
+                                >
+                                    קומניקט
+                                </a>
+                                {{/if}}
+                            {{/if}}
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-release-content">
+                        <div id="release_summary" class="subview active">
+                            <div class="pic-thumb">
+                                <img src="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/clear.gif"
+                                    id="body_PRReleaseDetails_rptReleases_imgSummaryImage_0"
+                                    class="lazy-load keep-height" data-src="{{mainImage.[0].src}}" />
+                            </div>
+                            <div class="details">
+                                <h2 class="title">
+                                    <div>{{title}}
+                                    </div>
+                                    <div></div>
+                                </h2>
+                                <div class="content">
+                                    <p><strong>{{subtitle}}</strong></p>
+                                    <p></p>
+                                    <p class="content-full">
+                                        {{{content}}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <p id="body_PRReleaseDetails_rptReleases_contactDetails_0" class="more-details">
+                                לפרטים נוספים אפשר לפנות ל{{contactName}}
+                                <a href="tel:{{contactPhone}}"
+                                    id="body_PRReleaseDetails_rptReleases_contactPhone_0">{{contactPhone}}</a>
+                                &nbsp;
+                                <a href="mailto:{{contactEmail}}" id="body_PRReleaseDetails_rptReleases_contactEmail_0"
+                                    class="bold-link">{{contactEmail}}</a>
+                            </p>
+
+                        </div>
+
+                        <div id="body_PRReleaseDetails_rptReleases_pnlFullVideosSubview_0">
+
+                            <div id="release_full_videos" class="subview">
+
+                            </div>
+
+                        </div>
+
+                        <div id="body_PRReleaseDetails_rptReleases_pnlTrailersSubview_0">
+
+                            <div id="release_trailers" class="subview">
+                                {{#each videos}}
+                                <div class="video-div">
+                                    <h3 style="margin-top: 0;">{{title}}</h3>
+                                    <a data-fancybox="" href="{{link}}" class="trailer-container">
+                                        <img class="trailer lazy-load"
+                                            src="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/clear.gif"
+                                            data-src="{{previewImage}}" />
+                                        <img class="play"
+                                            src="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/play-circle.png" />
+                                    </a>                                    
+                                </div>
+                                <div class="credits">{{#if videoCredit}}{{videoCredit}}{{else}}{{../defaultGalleryCredit}}{{/if}}</div>
+                                {{/each}}
+                            </div>
+
+                        </div>
+
+                        <div id="body_PRReleaseDetails_rptReleases_pnlPicturesSubview_0">
+
+                            <div id="release_pictures" class="subview">
+                                <div class="pic-gallery row">
+                                    {{#each imageGallery}}
+                                    <div class="pic-col col-xs-6 col-sm-4">
+                                        <div class="pic-container">
+                                            <a data-fancybox="" href="{{src}}">
+                                                <img class="cover lazy-load"
+                                                    src="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/clear.gif"
+                                                    data-src="{{src}}" alt="{{title}}" title="{{title}}" />
+                                            </a>
+                                            <div class="buttons">
+                                                <a data-fancybox="" href="{{src}}" class="details-button">פתח</a>
+                                                <a href="{{src}}" class="details-button" target="_blank"
+                                                    download>הורד</a>
+                                            </div>
+                                        </div>
+                                        <div class="credits">{{#if credit}}{{credit}}{{else}}{{../defaultGalleryCredit}}{{/if}}</div>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                                <div class="credits"></div>
+                            </div>
+
+                        </div>
+
+                        <div id="release_links" class="subview">
+
+                        </div>
+
+                        <div id="release_festivals" class="subview"></div>
+
+                        <div id="release_reviews" class="subview">
+
+                        </div>
+
+                        <div id="release_airing" class="subview">
+                            <table class="airing-table">
+                                <thead>
+                                    <tr>
+                                        <th>תוכנית</th>
+                                        <th>ימים</th>
+                                        <th>תאריך</th>
+                                        <th>שעות</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each broadcastTimes}}
+                                    <tr class="airing-details">
+                                        <td>
+                                            <div class="line"><span class="release-title">{{showName}}</span></div>
+                                        </td>
+                                        <td>
+                                            <div class="line">{{dayText}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="line">{{dateText}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="line">{{hourText}}</div>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="socials">
+
+            <a href="https://www.facebook.com/kanipbc">
+                <i class="fab fa-facebook-square fa-2x"></i>
+            </a>
+            <a href="https://www.instagram.com/kan_israel/">
+                <i class="fab fa-instagram fa-2x"></i>
+            </a>
+            <a href="https://twitter.com/kann?lang=he">
+                <i class="fab fa-twitter fa-2x"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCDJ6HHS5wkNaSREumdJRYhg?sub_confirmation=1">
+                <i class="fab fa-youtube fa-2x"></i>
+            </a>
+        </div>
+        <div class="credit">
+            <a href="/">
+                <img src="https://patiphon.co.il/Templates/Kan/img/patiphon-logo.png" alt="Patiphon's Logo" />
+            </a>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/jquery.fancybox.min.js"></script>
+    <script src="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/slick.min.js"></script>
+
+
+    <script src="https://megaphonecs.s3.amazonaws.com/uploads/5df35d71c8975a58efc6a1a9/static/site.js?a=38"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            /*
+            updateReleaseStats('yfe1639YFZ', 1);
+
+            $('a[download]').on('click', function () {
+                updateReleaseStats('yfe1639YFZ', 2);
+            });*/
+        })
+    </script>
+
+</body>
+
+</html>

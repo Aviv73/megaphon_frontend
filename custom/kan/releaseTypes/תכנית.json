@@ -1,0 +1,232 @@
+{
+  "@type": "release.data.fields",
+  "id": "2",
+  "releaseType": "TVSHOW",
+  "fields": [
+    {
+      "title": "כותרת",
+      "fieldName": "title",
+      "type": "TEXT",
+      "helpText": "",
+      "isSearchable": true
+    },
+    {
+      "title": "פסקה מודגשת",
+      "fieldName": "subtitle",
+      "type": "TEXT",
+      "helpText": "",
+      "isSearchable": true
+    },
+    {
+      "title": "תוכן",
+      "fieldName": "content",
+      "type": "LONGRICHTEXT",
+      "helpText": "",
+      "isSearchable": true
+    },
+    {
+      "title": "לוגו",
+      "fieldName": "logo",
+      "type": "LOGOSELECTION",
+      "helpText": "",
+      "options": [
+        {
+          "id": 1,
+          "title": "כאן 11",
+          "value": "https://patiphon.co.il/templates/kan/img/logos/kan-11-logo.png"
+        },
+        {
+          "id": 2,
+          "title": "כאן תאגיד השידור",
+          "value": "https://patiphon.co.il/templates/kan/img/logos/kan-logo.png"
+        },
+        {
+          "id": 3,
+          "title": "כאן חדשות",
+          "value": "https://patiphon.co.il/templates/kan/img/logos/kan-news.png"
+        }
+      ]
+    },
+    {
+      "type": "ROW",
+      "fields": [
+        {
+          "title": "שם איש קשר",
+          "fieldName": "contactName",
+          "type": "TEXT",
+          "helpText": ""
+        },
+        {
+          "title": "טלפון איש קשר",
+          "fieldName": "contactPhone",
+          "type": "TEXT",
+          "helpText": ""
+        },
+        {
+          "title": "מייל איש קשר",
+          "fieldName": "contactEmail",
+          "type": "EMAIL",
+          "helpText": ""
+        }
+      ]
+    },
+    {
+      "title": "זמני שידור",
+      "fieldName": "broadcastTimes",
+      "type": "TABLE",
+      "helpText": "",
+      "fields": [
+        {
+          "title": "יום/ימים",
+          "type": "TEXT",
+          "fieldName": "dayText"
+        },
+        {
+          "title": "תאריך",
+          "type": "TEXT",
+          "fieldName": "dateText"
+        },
+        {
+          "title": "שעה",
+          "type": "TEXT",
+          "fieldName": "hourText"
+        },
+        {
+          "title": "שם תוכנית",
+          "type": "TEXT",
+          "fieldName": "showName"
+        }
+      ]
+    },
+    {
+      "title": "תאור זמני שידור",
+      "fieldName": "broadcastTimesDescription",
+      "type": "LONGRICHTEXT",
+      "helpText": "למשל: ראשון 05.12, בשעה 23:00, שידור נוסף במוצ״ש 10.12 בשעה 22:00",
+      "isSearchable": true
+    },
+    {
+      "title": "סוג רישיון",
+      "type": "SELECTION",
+      "fieldName": "licenseType",
+      "options": [
+        {
+          "id": 1,
+          "title": "מקור",
+          "value": 1
+        },
+        {
+          "id": 2,
+          "title": "רכש",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "title": "תמונה ראשית",
+      "fieldName": "mainImage",
+      "type": "CORPABLE_IMAGE",
+      "helpText": "גודל מומלץ 928*620 פיקסלים"
+    },
+    {
+      "title": "קומוניקט",
+      "fieldName": "comFile",
+      "type": "FILE",
+      "helpText": "",
+      "filter": "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    },
+    {
+      "title": "גלריית תמונות",
+      "fieldName": "imageGallery",
+      "type": "IMAGEGALLERY",
+      "helpText": ""
+    },
+    {
+      "title": "סרטונים",
+      "fieldName": "videos",
+      "type": "TABLE",
+      "helpText": "",
+      "fields": [
+        {
+          "title": "סוג",
+          "type": "SELECTION",
+          "fieldName": "videoType",
+          "options": [
+            {
+              "id": 1,
+              "title": "פרק/סרט מלא",
+              "value": 1
+            },
+            {
+              "id": 2,
+              "title": "פרומו",
+              "value": 2
+            },
+            {
+              "id": 3,
+              "title": "טיזר",
+              "value": 3
+            },
+            {
+              "id": 4,
+              "title": "טריילר",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "title": "כותרת",
+          "type": "TEXT",
+          "fieldName": "title"
+        },
+        {
+          "title": "קישור",
+          "type": "VIDEOURL",
+          "fieldName": "link"
+        },
+        {
+          "title": "תמונה לוידאו",
+          "type": "SELECTIONWITHIMAGE",
+          "fieldName": "previewImage",
+          "linkedVideoField": "link"
+        },
+        {
+          "title": "Credit",
+          "type": "TEXT",
+          "fieldName": "videoCredit"
+        }
+      ]
+    },
+    {
+      "title": "קישורים",
+      "fieldName": "links",
+      "type": "TABLE",
+      "helpText": "",
+      "fields": [
+        {
+          "title": "כותרת",
+          "type": "TEXT",
+          "fieldName": "title"
+        },
+        {
+          "title": "קישור",
+          "type": "URL",
+          "fieldName": "link"
+        }
+      ]
+    },
+    {
+      "title": "נושא מייל הפצה",
+      "fieldName": "subject",
+      "type": "TEXT",
+      "helpText": ""
+    },
+    {
+      "title": "טקסט מייל הפצה",
+      "fieldName": "emailContent",
+      "type": "LONGRICHTEXT",
+      "helpText": "",
+      "isSearchable": true
+    }
+  ]
+}

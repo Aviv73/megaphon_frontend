@@ -46,6 +46,8 @@ export default {
     
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.release-details {
+.agam-app {
+  .release-details {
+  }
 }
 </style>

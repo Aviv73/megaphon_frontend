@@ -1,7 +1,8 @@
 import { releaseService } from './services/release.service';
 import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
-import appConfig from '@/config.js';
+// import appConfig from '@/config.js';
+import selectedAppData from '@/apps/index.js';
 
 const initState = () => ({
   ...basicStoreService.initState(),
@@ -20,7 +21,7 @@ export const _releaseStore = {
   getters: {
     ...baseStore.getters,
     initReleaseId(state) { return sessionStorage.initReleaseId || state.initReleaseId },
-    organizationId(state) { return  appConfig.organizationId || appConfig.appName || sessionStorage.organizationId || state.organizationId }
+    organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName || sessionStorage.organizationId || state.organizationId }
   },
   mutations: {
     ...baseStore.mutations,

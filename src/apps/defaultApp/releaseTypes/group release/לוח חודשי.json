@@ -1,0 +1,31 @@
+{
+  "@type": "release.data.fields",
+  "id": "agam_2",
+  "releaseType": "COLLECTION",
+  "fields": [
+      {
+          "title": "כותרת",
+          "fieldName": "title",
+          "type": "TEXT",
+          "helpText": ""
+      },
+      {
+          "title": "תיאור",
+          "fieldName": "desc",
+          "type": "LONGRICHTEXT",
+          "helpText": ""
+      },
+      {
+        "title": "רליסים",
+        "fieldName": "childrenReleases",
+        "type": "RELEASES_SELECTOR",
+        "helpText": ""
+      },
+      {
+        "title": "תאריך הפצה",
+        "fieldName": "publishedAt",
+        "type": "DATE",
+        "helpText": ""
+      }
+  ]
+}

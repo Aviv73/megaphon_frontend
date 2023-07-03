@@ -85,135 +85,136 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 @import '@/assets/styles/themes/index';
-
-.app-header {
-  background-color: $layout-black;
-  color: $light-white;
-  position: relative;
-
-  .header-content {
+.agam-app {
+  .app-header {
+    background-color: $layout-black;
+    color: $light-white;
     position: relative;
-  }
   
-
-  .media-list {
-    img {
-      width: 35px;
-      height: 35px
+    .header-content {
+      position: relative;
     }
-  }
-
-  .logo-title, .release-title { // .logo-title, 
-    width: 120px;
-    height: $header-height;
-    text-align: center;
-    h1, h2 {
-      color: white;
+    
+  
+    .media-list {
+      img {
+        width: 35px;
+        height: 35px
+      }
     }
-    .actual {
-      // height: 100%;
-      // width: 100%;
+  
+    .logo-title, .release-title { // .logo-title, 
       width: 120px;
-      height: 110%;
-      background-color: $layout-red;
-      position: absolute;
-      top: 0;
-    }
-    .sub {
-      width: 80px
-    }
-  }
-  .logo-title {
-    .actual {
-      width: 100px;
-      background-color: unset;
-      height: unset;
-      // position: absolute;
-      top: 10px;
-      right: 0;
-      // right: 12px;
-      // left: unset;
-      // width: 120px;
-      // padding-top: 10px;
-      // width: 120px;
-      // right: 12px;
-      // border-bottom-left-radius: 50%;
-      // border-bottom-right-radius: 50%;
-    }
-  }
-  .release-title .actual {
-    left: 12px
-  }
-
-
-  nav {
-    @include flex-center;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    a {
-      &:hover {
-        transform: scale(1.1);
-        transition: 0.1s;
+      height: $header-height;
+      text-align: center;
+      h1, h2 {
+        color: white;
+      }
+      .actual {
+        // height: 100%;
+        // width: 100%;
+        width: 120px;
+        height: 110%;
+        background-color: $layout-red;
+        position: absolute;
+        top: 0;
+      }
+      .sub {
+        width: 80px
       }
     }
-  }
-  .nav-burger {
-    display: none;
-  }
-  @media (max-width: 0px) { // $small-screen-breake
-    $height: calc(100vh - #{$header-height});
-    // color: ;
-    .nav-burger {
-      display: block;
-      width: 25px;
-      height: 25px;
-      font-weight: bold;
-      @include font-size-big;
-      // font-size: 22px;
+    .logo-title {
+      .actual {
+        width: 100px;
+        background-color: unset;
+        height: unset;
+        // position: absolute;
+        top: 10px;
+        right: 0;
+        // right: 12px;
+        // left: unset;
+        // width: 120px;
+        // padding-top: 10px;
+        // width: 120px;
+        // right: 12px;
+        // border-bottom-left-radius: 50%;
+        // border-bottom-right-radius: 50%;
+      }
     }
-    .blure {   
-      position: fixed;
-      top: $header-height;
-      right: 0;
-      height: $height;
-      width: 100vw;
-      background-color: $blure-clr;
-      z-index: 31;
+    .release-title .actual {
+      left: 12px
     }
+  
+  
     nav {
-      font-weight: bold;
-      display: block;
-      position: fixed;
-      z-index: 32;
-      height: $height;
-      top: $header-height;
-      overflow-y: auto;
-      right: 0;
-      transform: translateX(100%);
-      transition: 0.3s;
-      &.show {
-        transform: translateX(0);
-      }
-      width: 175px;
-      border-inline-start: 1px solid black;
-
-      background-color: white;
-      >* {
-        width: 100%;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: unset;
-        border-radius: unset;
-        border-bottom: 1px solid black;
-        text-align: center;
-        &.router-link-exact-active {
-          color: rgb(157, 193, 255);
-        }
+      @include flex-center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      a {
         &:hover {
-          background-color: rgb(190, 190, 250);
-          transform: unset;
+          transform: scale(1.1);
+          transition: 0.1s;
+        }
+      }
+    }
+    .nav-burger {
+      display: none;
+    }
+    @media (max-width: 0px) { // $small-screen-breake
+      $height: calc(100vh - #{$header-height});
+      // color: ;
+      .nav-burger {
+        display: block;
+        width: 25px;
+        height: 25px;
+        font-weight: bold;
+        @include font-size-big;
+        // font-size: 22px;
+      }
+      .blure {   
+        position: fixed;
+        top: $header-height;
+        right: 0;
+        height: $height;
+        width: 100vw;
+        background-color: $blure-clr;
+        z-index: 31;
+      }
+      nav {
+        font-weight: bold;
+        display: block;
+        position: fixed;
+        z-index: 32;
+        height: $height;
+        top: $header-height;
+        overflow-y: auto;
+        right: 0;
+        transform: translateX(100%);
+        transition: 0.3s;
+        &.show {
+          transform: translateX(0);
+        }
+        width: 175px;
+        border-inline-start: 1px solid black;
+  
+        background-color: white;
+        >* {
+          width: 100%;
+          height: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: unset;
+          border-radius: unset;
+          border-bottom: 1px solid black;
+          text-align: center;
+          &.router-link-exact-active {
+            color: rgb(157, 193, 255);
+          }
+          &:hover {
+            background-color: rgb(190, 190, 250);
+            transform: unset;
+          }
         }
       }
     }

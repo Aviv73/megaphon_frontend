@@ -69,85 +69,87 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.book-release-details {
-  .main-content-section {
-    height: 100%;
-    
-    .links {
-      width: 100%;
-      border-bottom: 2px solid lighten($layout-red, 30%);
-      >* {
-        padding: 5px;
-        &:not(:first-child) {
-          h3 {
-            color: $layout-black;
+.agam-app {
+  .book-release-details {
+    .main-content-section {
+      height: 100%;
+      
+      .links {
+        width: 100%;
+        border-bottom: 2px solid lighten($layout-red, 30%);
+        >* {
+          padding: 5px;
+          &:not(:first-child) {
+            h3 {
+              color: $layout-black;
+            }
+          }
+          &:first-child {
+            // border-bottom: 4px solid $layout-red;
+          }
+          position: relative;
+          hr {
+            margin: 0;
+            position: absolute;
+            bottom: -3px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 95%;
+            height: 4px;
+            background-color: $layout-red;
+            border: 0;
+  
           }
         }
-        &:first-child {
-          // border-bottom: 4px solid $layout-red;
-        }
-        position: relative;
-        hr {
-          margin: 0;
-          position: absolute;
-          bottom: -3px;
-          right: 50%;
-          transform: translateX(50%);
-          width: 95%;
-          height: 4px;
-          background-color: $layout-red;
-          border: 0;
-
-        }
       }
-    }
-
-    .main-img {
-      height: 100%;
-      // width: auto;
-      width: 30%;
-      object-fit: contain;
-      background-color: rgb(255, 216, 216);
-      // flex: 1;
-      // flex-grow: 1;
-    }
-
-    .hero-content {
-      flex: 1;
-      // flex-grow: 3;
-    }
-
-    .description-container {
-      line-height: 1.3em;
-    }
-
-    .table-like {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 7.5px;
-      .row {
-        padding: 7.5px;
+  
+      .main-img {
+        height: 100%;
+        // width: auto;
+        width: 30%;
+        object-fit: contain;
+        background-color: rgb(255, 216, 216);
+        // flex: 1;
+        // flex-grow: 1;
+      }
+  
+      .hero-content {
+        flex: 1;
+        // flex-grow: 3;
+      }
+  
+      .description-container {
+        line-height: 1.3em;
+      }
+  
+      .table-like {
+        width: 100%;
         display: flex;
-        >:first-child {
-          flex: 1;
-        }
-        >:nth-child(2) {
-          flex: 3;
-        }
-        &:not(:last-child) {
-          border-bottom: 2px solid rgba(83, 83, 83, 0.2);
+        flex-direction: column;
+        gap: 7.5px;
+        .row {
+          padding: 7.5px;
+          display: flex;
+          >:first-child {
+            flex: 1;
+          }
+          >:nth-child(2) {
+            flex: 3;
+          }
+          &:not(:last-child) {
+            border-bottom: 2px solid rgba(83, 83, 83, 0.2);
+          }
         }
       }
+  
     }
-
-  }
-
-
-  iframe, video {
-    box-shadow: $light-shadow;
-    height: 600px;
-    width: 100%;
+  
+  
+    iframe, video {
+      box-shadow: $light-shadow;
+      height: 600px;
+      width: 100%;
+    }
   }
 }
 </style>

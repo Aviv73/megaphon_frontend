@@ -60,6 +60,10 @@ export default {
 
     this.displayUiConfig()
 
+    
+    const org = await this.$store.dispatch({type: 'organization/loadItem'});
+    document.title = org.name;
+
   },
   methods: {
     setLocale() {

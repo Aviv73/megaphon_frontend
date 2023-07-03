@@ -28,7 +28,7 @@ export default {
     // AppAside
   },
   created() {
-    document.title = 'אגם הוצאת ספרים';
+    // document.title = 'אגם הוצאת ספרים';
   }
 }
 </script>

@@ -1,7 +1,7 @@
 // const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-  outputDir: '../../../megaphone_backend/src/public/apps/agam',
+  outputDir: '../megaphone_backend/src/public/apps/client',
   pages: {
     index: {
       entry: "src/main.js",

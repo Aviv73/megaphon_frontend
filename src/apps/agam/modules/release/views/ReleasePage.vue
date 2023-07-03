@@ -47,11 +47,13 @@ export default {
 </script>
 
 <style lang="scss">
-.release-page {
-  .item-page {
-    overflow: unset;
-    .item-list {
-      overflow-y: unset;
+.agam-app {
+  .release-page {
+    .item-page {
+      overflow: unset;
+      .item-list {
+        overflow-y: unset;
+      }
     }
   }
 }

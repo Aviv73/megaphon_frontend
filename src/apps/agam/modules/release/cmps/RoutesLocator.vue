@@ -20,9 +20,11 @@ export default {
 </script>
 
 <style lang="scss">
-.routes-locator {
-  .router-link-exact-active {
-    font-weight: bold; 
+.agam-app {
+  .routes-locator {
+    .router-link-exact-active {
+      font-weight: bold; 
+    }
   }
 }
 </style>
