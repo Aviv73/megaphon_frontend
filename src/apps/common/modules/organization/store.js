@@ -15,10 +15,10 @@ const _organizationStore = {
   ...basicStore,
   actions: {
     ...basicStore.actions,
-    loadItem({ commit, dispatch, getters }) {
+    loadItem({ commit, dispatch, getters }, { organizationId }) {
       return dispatch({
         type: '_Ajax',
-        do: async () => organizationService.get(selectedAppData.params.organizationId, getters.organizationId),
+        do: async () => organizationService.get(organizationId || selectedAppData.params.organizationId),
         onSuccess: (item) => commit({ type: 'setSelectedItem', item })
       });
     }

@@ -3,11 +3,14 @@ $default-theme-body-clr: black;
 $default-theme-header-bg: #c4fad3;
 $default-theme-body-bg: white;
 
-.app {
-  color: $default-theme-body-clr;
-  background-color: $default-theme-body-bg;
-  // .app-main {
-  // }
+
+.agam-app {
+  .app-main {
+    color: $default-theme-body-clr;
+    background-color: $default-theme-body-bg;
+    // .app-main {
+    // }
+  }
   .app-header, .app-footer {
     background-color: $layout-black;
     color: white;

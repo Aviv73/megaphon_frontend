@@ -1,7 +1,11 @@
 @import "./global/reset.scss";
 @import "./global";
 
-@import "./themes";
+// @import "./themes";
 
 @import "./layout";
 // @import "./app.scss";
+
+html {
+  font-family: sans-serif;
+}

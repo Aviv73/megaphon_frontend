@@ -1,0 +1,36 @@
+
+@font-face {
+  font-family: "noylandBold";
+  src: url("~@/apps/clientApps/agam/assets/fonts/noyland/noyland-bold-aaa.ttf");
+}
+
+$agamAppFont: Segoe UI;
+
+$main-font-color: #666666;
+
+
+html {
+  font-family: $agamAppFont;
+  font-weight: 500;
+}
+
+.agam-app {
+  color: $main-font-color;
+  font-family: $agamAppFont;
+  font-weight: 500;
+  // background-color: $layout-header-bg;
+  // color: $layout-header-clr;
+  
+  // background-color: rgb(252, 47, 47);
+  // color: #fff;
+}
+
+$layout-red: #EF4B49;
+$headers-font: "noylandBold";
+
+.agam-app {
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headers-font;
+  color: $layout-red;
+}

@@ -1,11 +1,15 @@
 import appConfig from '../config.js';
-import AgamAppData from './agam';
-import DefaultAppData from './defaultApp';
+import megaphonAppData from './megaphonApp';
+import AgamAppData from './clientApps/agam';
+import DefaultClientAppData from './clientApps/defaultApp';
 
-const costumeApps = [AgamAppData];
+const costumeClentApps = [AgamAppData];
 
 export default (() => {
-  return costumeApps.find(c => c.params.appName === appConfig.appName) || { ...DefaultAppData, params: {...DefaultAppData.params, organizationId: appConfig.appName} };
+  if (appConfig.client) {
+    return costumeClentApps.find(c => c.params.appName === appConfig.appName) || { ...DefaultClientAppData, params: {...DefaultClientAppData.params, organizationId: appConfig.appName} };
+  }
+  return megaphonAppData;
   // if (appConfig.appName) {
   //   switch (appConfig.appName) {
   //     case 'agam': return AgamAppData

@@ -59,15 +59,23 @@
       <div
         v-else-if="componentType === 'multiselect'"
         ref="elInput"
-        tabindex="0"
         :id="inputId"
         :class="{ open: isOpen }"
         @click="isOpen = !isOpen"
         @blur="closeDropDown"
+        class="header"
       >
-        <div style="height:100%;display:flex;align-items:center" class="head" >
-          <span class="placeholder">{{ $t(placeholder || labelholder) }}</span>
+        <div style="height:100%;display:flex;align-items:center;gap:10px" class="head" >
           <div class="toggle-btn"></div>
+          <span class="placeholder">{{ $t(placeholder || labelholder) }}</span>
+          <ul>
+            <li v-for="curr in val" :key="curr.name">
+              <!-- <span>{{itemsToRender.find(c => c.value === curr).label}}</span>
+              <button @click="val.splice(val.findIndex(c => c === curr) ,1)">X</button> -->
+              <span>{{$t(curr.name || curr)}}</span>
+              <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">X</button>
+            </li>
+          </ul>
           <div class="inner-square"></div>
         </div>
         <div class="drop-down" @click.stop="">
@@ -75,8 +83,8 @@
             <input
               type="checkbox"
               id="formCheckbox"
-              :value="val[item.value]"
-              v-model="val[item.value]"
+              v-model="val"
+              :value="item.value"
               :disabled="disabled"
             />
             <span>{{ $t(item.label) }}</span>
@@ -160,7 +168,8 @@ export default {
     itemsToRender() {
       if (this.itemsMap) {
         const res = [];
-        for (let key in this.itemsMap) res.push({ label: this.itemsMap[key], value: key });
+        // for (let key in this.itemsMap) res.push({ label: this.itemsMap[key], value: key });
+        for (let key in this.itemsMap) res.push({ label: key, value: this.itemsMap[key] });
         return res;
       }
       return this.items.map((item) => {
@@ -222,9 +231,11 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 5px;
+  border-bottom: 1px solid gray;
   .input {
     position: relative;
     input, select, textarea {
+      border: unset;
       height: 100%;
       width: 100%;
       margin: 0;
@@ -268,6 +279,11 @@ export default {
   $borderColor: rgba(128, 128, 128, 0.5);
   box-sizing: border-box;
   .input {
+    width: 100%;
+    height: 100%;
+    .header {
+      height: 100%;
+    }
     > div {
       user-select: none;
       background-color: #fff;
@@ -276,7 +292,7 @@ export default {
       align-items: center;
       padding: 0 5px;
       width: 100%;
-      height: 100%;
+      // height: 100%;
       border: 1px solid $borderColor;
       border-radius: 3px;
       position: relative;
@@ -286,10 +302,11 @@ export default {
         border-right: 5px solid transparent;
         border-bottom: 5px solid #c5c6cd;
         color: rgb(96, 98, 102);
-        position: absolute;
-        right: 14px;
-        bottom: 50%;
-        transform: translateY(50%) rotate(180deg);
+        // position: absolute;
+        // right: 14px;
+        // bottom: 50%;
+        // transform: translateY(50%) rotate(180deg);
+        transform: rotate(180deg);
         transition: 0.2s;
         z-index: 2;
         &:hover {
@@ -301,6 +318,8 @@ export default {
         border-bottom: 5px solid white;
       }
       .drop-down {
+        overflow: auto;
+        max-height: 500px;
         background-color: #fff;
         min-width: calc(100% + 2px);
         width: fit-content;
@@ -315,12 +334,13 @@ export default {
         box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
         border-radius: 4px;
         > * {
-          height: 32px;
-          line-height: 34px;
+          // height: 32px;
+          // line-height: 34px;
+          border-bottom: 1px solid rgb(210, 210, 210);
           display: flex;
-          align-items: center;
+          // align-items: center;
           gap: 5px;
-          padding: 0 20px;
+          padding: 5px 20px;
           cursor: pointer;
           &:hover {
             background-color: #f5f7fa;

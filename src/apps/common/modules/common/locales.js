@@ -36,9 +36,13 @@ const en = {
   "archive": "Archive",
   "updates": "Updates",
   "theCrew": "The crew",
+  "welcome": "Welcome",
 
   "hebrew": "Hebrew",
   "english": "English",
+  "email": "email",
+  "firstName": "First name",
+  "lastName": "Last name",
 
   "internalServerError": "Internal server error",
   "internalError": "Internal error",
@@ -96,9 +100,13 @@ const he = {
   "archive": "ארכיון כותרים",
   "updates": "עדכונים",
   "theCrew": "הצוות",
+  "welcome": "ברוך הבא",
 
   "hebrew": "עברית",
   "english": "אנגלית",
+  "email": "אימייל",
+  "firstName": "שם פרטי",
+  "lastName": "שם משפחה",
 
   "internalServerError": "תקלת שרת",
   "internalError": "תקלה כללית",

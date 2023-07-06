@@ -1,36 +1,38 @@
 <template>
-  <div class="item-page flex align-center gap40 column flex-1">
+  <div class="item-page flex align-center space-between gap15 column flex-1">
     <div class="width-all flex align-center space-between wrap gap10">
-      <component :is="filterByCmp || ItemFilter" :initFilter="filterBy" @filtered="setFilter"/>
-      <router-link v-if="newItemPageName" :to="{name: newItemPageName}"><button class="btn secondary mid">{{$t('addNew')}}</button></router-link>
+      <component :is="filterByCmp || 'ItemFilter'" :initFilter="filterBy" @filtered="setFilter"/>
+      <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn secondary mid">{{$t('addNew')}}</button></router-link>
     </div>
-    <template v-if="!isLoading && items?.length">
+    <div v-if="!isLoading && items?.length" class="width-all flex column flex-1">
+      <slot/>
       <ItemList 
         v-if="items"
-        class="width-all height-all" :items="items"
+        class="width-all" :items="items"
         :singlePreviewCmp="singlePreviewCmp"
         :itemDetailesPageName="itemDetailesPageName"
         @edit="item => $emit('edit', item)"
         @remove="id => $emit('remove', id)"
       />
-      <PaginationBtns v-if="filterBy" :total="totalItems" :perPage="filterBy.pagination.limit" v-model="filterBy.pagination.page"/>
-    </template>
-    <div v-else-if="!isLoading" class="flex column space-between align-center no-results-preview">
+    </div>
+    <PaginationBtns v-if="filterBy" :total="totalItems" :perPage="filterBy.pagination.limit" :initFilter="filterBy" @filtered="setFilter" v-model="filterBy.pagination.page"/>
+    <!-- <div v-else-if="!isLoading" class="flex column space-between align-center no-results-preview"> -->
+    <div v-if="!isLoading && !items?.length" class="flex column space-between align-center no-results-preview">
       <h3>{{$t('noItemsFound')}}...</h3>
-      <router-link v-if="newItemPageName" :to="{name: newItemPageName}">
+      <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName}">
         <button v-if="isFilterEmpty || true" class="btn big primary">{{$t('createNew')}}!</button>  
       </router-link>
     </div>
-    <Loader v-if="showLoader && isLoading" fullScreen/>
+    <Loader v-if="showLoader && isLoading"/>
   </div>
 </template>
 
 <script>
 import ItemFilter from './ItemFilter.vue';
 import ItemList from './ItemList.vue';
-import PaginationBtns from '../PaginationBtns.vue';
-import { setDeepVal, deepIterateWithObj } from '../../services/util.service';
+import PaginationBtns from './PaginationBtns.vue';
 import Loader from '../Loader.vue';
+import { setDeepVal, deepIterateWithObj } from '../../services/util.service';
 
 import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
@@ -51,39 +53,64 @@ export default {
       type: Boolean,
       default: true
     },
+    dontRoute: {
+      type: Boolean,
+      default: false
+    },
+    showActions: {
+      type: Boolean,
+      default: true
+    },
+    dontEmitOnInit: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      filterBy: null
+      filterBy: null,
+      dontEmit: false
     }
   },
   watch: {
     filterBy: {
       deep: true,
       handler(filterVal) {
-        const query = {};
-        deepIterateWithObj(filterVal, (key, val) => {
-          if (this.$route.query[key] !== val) query[key] = val;
-        }, '_');
-        if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
-        // if (Object.keys(query).length) this.$router.push({ query: { ...query} });
+        if (this.dontEmit && this.dontEmitOnInit) return;
+        if (!this.dontRoute) {
+          const query = {};
+          deepIterateWithObj(filterVal, (key, val) => {
+            if (this.$route.query[key] != val) query[key] = val;
+          }, '_');
+          if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
+        }
         this.$emit('filter', this.filterBy);
       }
-    }
+    },
   },
   methods: {
     setFilter(filter) {
-      this.filterBy = JSON.parse(JSON.stringify(filter));
+      const newFilter = JSON.parse(JSON.stringify(filter));
+      if (![newFilter?.filter?.search, this.filterBy?.filter?.search].includes(undefined)) {
+        if (newFilter.filter.search !== this.filterBy.filter.search) newFilter.pagination.page = 0;
+      }
+      this.filterBy = newFilter;
     },
     initFilter() {
       const filterByToSet = JSON.parse(JSON.stringify(this.initFilterBy));
-      const queryParams = this.$route.query;
-      deepIterateWithObj(filterByToSet, (key, val) => {
-        let valToSet = +queryParams[key];
-        if (isNaN(valToSet)) valToSet = queryParams[key]
-        if (queryParams[key]) setDeepVal(filterByToSet, key, valToSet, '_');
-      }, '_');
+      if (!this.dontRoute) {
+        const queryParams = this.$route.query;
+        deepIterateWithObj(filterByToSet, (key) => {
+          let valToSet = +queryParams[key];
+          if (isNaN(valToSet)) valToSet = queryParams[key]
+          if (queryParams[key]) setDeepVal(filterByToSet, key, valToSet, '_');
+        }, '_');
+      }
+      this.dontEmit = true;
       this.filterBy = filterByToSet;
+      setTimeout(() => {
+        this.dontEmit = false;
+      }, 1);
     }
   },
   computed: {

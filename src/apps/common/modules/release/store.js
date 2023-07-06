@@ -13,7 +13,7 @@ const initState = () => ({
   organizationId: null,
 });
 
-const baseStore = basicStoreService.createSimpleCrudStore(initState);
+const baseStore = basicStoreService.createSimpleCrudStore(initState, releaseService);
 
 export const _releaseStore = {
   namespaced: true,
@@ -21,7 +21,8 @@ export const _releaseStore = {
   getters: {
     ...baseStore.getters,
     initReleaseId(state) { return sessionStorage.initReleaseId || state.initReleaseId },
-    organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName || sessionStorage.organizationId || state.organizationId }
+    // organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName || sessionStorage.organizationId || state.organizationId }
+    organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName }
   },
   mutations: {
     ...baseStore.mutations,
@@ -36,15 +37,17 @@ export const _releaseStore = {
   },
   actions: {
     _Ajax: basicStoreService.StoreAjax,
-    async loadItems({ commit, dispatch, getters }, { filterBy }) {
+    async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, orgFilter }) {
       return dispatch({
         type: '_Ajax',
         do: async () => {
           if (filterBy) commit({ type: 'setFilterBy', filterBy });
-          const filterToSend = JSON.parse(JSON.stringify(filterBy));
+          // const filterToSend = JSON.parse(JSON.stringify(filterBy));
+          const filterToSend = {...getters.filterBy};
           if (!filterToSend.filter.params.type) delete filterToSend.filter.params.type;
           if (!filterToSend.filter.params.subType) delete filterToSend.filter.params.subType;
-          const itemsRes = await releaseService.query(filterToSend, getters.organizationId);
+          filterToSend.orgFilter = orgFilter;
+          const itemsRes = await releaseService.query(filterToSend, organizationId || getters.organizationId);
           return itemsRes;
         },
         onSuccess: (data) => commit({ type: 'setData', data })

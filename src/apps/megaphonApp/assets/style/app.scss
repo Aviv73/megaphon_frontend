@@ -1,0 +1,47 @@
+
+
+
+html {
+}
+
+.megaphon-app {
+  .app-header {
+    background-color: #F2F2F2;
+  }
+  font-family: Rubik,sans-serif;
+}
+
+
+.megaphon-app {
+  .table-like-list {
+    .item-page {
+      overflow: unset;
+    }
+  
+    .item-list {
+      gap: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .table-item-preview {
+      width: 100%;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      >* {
+        flex: 1;
+      }
+      &:nth-child(odd) {
+        background-color: #EFEFEF;
+      }
+      &:nth-child(even) {
+        background-color: white;
+      }
+      &.table-header {
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+}

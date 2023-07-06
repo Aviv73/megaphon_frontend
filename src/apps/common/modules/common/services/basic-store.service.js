@@ -12,7 +12,7 @@ const initFilterBy = (filterParams = [], sortParams = []) => ({
   },
   pagination: {
     page: 0,
-    limit: 12,
+    limit: 50,
   },
   // sort: {},
   sort: sortParams.reduce((acc, c) => ({...acc, [c]: undefined}), {}),
@@ -43,7 +43,6 @@ async function StoreAjax({ commit, dispatch }, { do: toDo, onSuccess, onError, d
     if (typeof res === 'object') return JSON.parse(JSON.stringify(res));
     return res;
   } catch(err) {
-    // console.log(err);
     if (err.err && onError) onError(err);
     // else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${err.err || err.message || err.msg || err.error || 'internal error'}`})
     else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${$t(err.err) || err.err || err.message || err.msg || err.error || 'internal error'}`})
@@ -103,12 +102,12 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
     },
     actions: {
       _Ajax: StoreAjax,
-      async loadItems({ commit, dispatch }, { filterBy, organizationId }) {
+      async loadItems({ commit, dispatch, getters }, { filterBy, organizationId }) {
         return dispatch({
           type: '_Ajax',
           do: async () => {
             if (filterBy) commit({ type: 'setFilterBy', filterBy });
-            const shoppingListsRes = await service.query(filterBy, organizationId);
+            const shoppingListsRes = await service.query(getters.filterBy, organizationId);
             return shoppingListsRes;
           },
           onSuccess: (data) => commit({ type: 'setData', data })
@@ -140,7 +139,7 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
           loading,
           do: async () => service.save(item, organizationId),
           onSuccess: (item) => {
-            alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}! id: ${data._id}`})
+            alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}! id: ${item._id}`})
             commit({ type: 'saveItem', item });
           }
         });

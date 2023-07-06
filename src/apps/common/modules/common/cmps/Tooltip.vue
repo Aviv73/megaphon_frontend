@@ -86,7 +86,6 @@ export default {
       if ((parentHeight - elPreviewPos.y) < height) {
         // style.top -= preHeight
         style.top -= height;
-        // console.log('WOWO', style.top);
         // diffYFromBorder = elPreviewPos.y - preHeight;
       // } else diffYFromBorder = elPreviewPos.y + preHeight;
       }

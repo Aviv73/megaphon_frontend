@@ -11,6 +11,9 @@ Vue.use(VueI18n);
 
 const i18n = new VueI18n({
   locale: 'en', // being resetted in app.js
+  fallbackWarn: false,
+  missingWarn: false,
+  silentTranslationWarn: true,
   messages: JSON.parse(JSON.stringify(messages))
   // messages: {
   //   en,

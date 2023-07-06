@@ -1,5 +1,5 @@
 <template>
-  <section class="app-avatar" :style="{width: renderSize, height: renderSize}">
+  <section class="app-avatar flex align-center justify-center" :style="{width: renderSize, height: renderSize}">
     <slot v-if="$slots.default"/>
     <img class="avatar-img" v-else :src="imgSrc" alt="">
   </section>

@@ -24,6 +24,7 @@ input, select, textarea {
 a, .router-link {
   text-decoration: none !important;
   color: inherit;
+  cursor: pointer;
 }
 
 img {
@@ -57,10 +58,7 @@ h4 {
 .exact-spacing {
   white-space: pre-wrap;
 }
-h1, h2, h3, h4, h5, h6 {
-  font-family: $headers-font;
-  color: $layout-red;
-}
+
 
 
 

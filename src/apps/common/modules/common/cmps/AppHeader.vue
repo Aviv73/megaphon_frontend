@@ -7,12 +7,12 @@
             <h1>אגם</h1>
             <p class="sub">הוצאה לאור</p>
           </div> -->
-          <img class="actual" :src="require('@/apps/agam/assets/images/logo.svg')" alt="אגם הוצאה לאור">
+          <img class="actual" :src="require('@/apps/clientApps/agam/assets/images/logo.svg')" alt="אגם הוצאה לאור">
         </div>
       </router-link>
 
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
-      <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/apps/agam/assets/images/mine/navBurger.png')"/></button>
+      <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/apps/clientApps/agam/assets/images/mine/navBurger.png')"/></button>
       <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
       <nav class="flex align-center wrap gap40" :class="{show: mobileShow}">
         <router-link :to="mainTo">{{$t('main')}}</router-link>

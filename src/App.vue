@@ -24,6 +24,8 @@ import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.servi
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 
+import appConfig from './config';
+
 import selectedAppData from './apps/index.js';
 
 export default {
@@ -60,7 +62,7 @@ export default {
 
     this.displayUiConfig()
 
-    
+    if (!appConfig.client) return;
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
     document.title = org.name;
 
