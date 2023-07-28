@@ -6,12 +6,13 @@
       <button @click="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
       <router-link :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/pencil.svg')" alt=""></router-link>
       <!-- <router-link :to="{ name: 'ReleaseStats', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
-      <router-link :to="{ name: 'ReleaseDistirbution', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/distribute.svg')" alt=""></router-link>
+      <router-link :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/distribute.svg')" alt=""></router-link>
     </div>
   </li>
 </template>
 
 <script>
+import { getReleaseLandingPageUrl } from '../../common/services/template.util.service';
 export default {
   name: 'ItemPreview',
   props: {
@@ -34,9 +35,7 @@ export default {
   },
   methods: {
     goToLandingPage() {
-      const template = this.organization.templates.filter(c => c.type == '0').find(c => c.releaseTypes.includes(this.item.releaseType));
-      let pageUrl = template.url;
-      pageUrl = pageUrl.split('${releaseId}').join(this.item._id);
+      const pageUrl = getReleaseLandingPageUrl(this.item, this.organization);
       window.open(pageUrl);
     }
   }
@@ -44,24 +43,28 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .megaphon-app {
   .release-preview {
     position: relative;
-    width: 150px;
+    width: em(160px);
     .release-img {
-      height: 100px;
+      height: em(110px);
       width: 100%;
       object-fit: cover;
+    }
+    p {
+      word-wrap: break-word;
     }
 
     .actions {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: em(10px);
+      left: em(10px);
       a, button {
         background-color: #fff;
-        width: 15px;
-        height: 15px;
+        width: em(17px);
+        height: em(17px);
         img {
           width: 100%;
           height: 100%;

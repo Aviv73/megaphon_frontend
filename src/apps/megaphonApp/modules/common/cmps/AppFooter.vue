@@ -15,10 +15,10 @@ export default {
 .megaphon-app {
   .app-footer {
     .inner-area {
-      padding: 20px;
+      padding: em(20px);
     }
     .credits {
-      // height: 60px;
+      // height: em(60px);
       color: $layout-black;
       background-color: #F4CF7E;
     }
@@ -44,8 +44,8 @@ export default {
   
     .contact-list {
       hr {
-        width: 70px;
-        height: 1px;
+        width: em(70px);
+        height: em(1px);
         align-self: flex-start;
         margin: 0;
         background-color: #fff;
@@ -54,16 +54,16 @@ export default {
     }
     .media-list {
       .media-preview {
-        height: 55px;
+        height: em(55px);
         // width: 200px;
   
         img {
-          height: 55px;
-          width: 55px;
+          height: em(55px);
+          width: em(55px);
         }
         p {
           direction: ltr;
-          width: 110px;
+          width: em(110px);
         }
       }
     }

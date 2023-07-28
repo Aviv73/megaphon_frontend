@@ -7,11 +7,11 @@ export const contactData = {
       phone: '052-4069-444',
       email: 'info@agambooks.co.il'
     },
-    {
-      title: 'יועצת תקשורת ההוצאה אור קוראל',
-      phone: '054-4412-848',
-      email: 'orcoral@gmail.com'
-    }
+    // {
+    //   title: 'יועצת תקשורת ההוצאה אור קוראל',
+    //   phone: '054-4412-848',
+    //   email: 'orcoral@gmail.com'
+    // }
   ],
   mediaItems: [
     {

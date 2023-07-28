@@ -3,10 +3,13 @@ import { Utils } from './util.service';
 import axios from 'axios';
 axios.default.withCredentials = true;
 
-const BASE_URL = process.env.NODE_ENV === 'production'
-  // ? 'api/'
-  ? window.location.origin + '/better-api/'
-  : 'http://localhost:8080/better-api/';
+// const BASE_URL = process.env.NODE_ENV === 'production'
+//   // ? 'api/'
+//   ? window.location.origin + '/better-api/'
+//   : 'http://localhost:8080/better-api/';
+
+import config from '@/config';
+const BASE_URL = config.baseApiUrl
 
 
 async function ajax(endpoint = '', method = 'get', data = {}, params = {}, headers = {}) {
@@ -38,24 +41,25 @@ export const httpService = {
 
 async function download(endpoint, params) {
   const url = `${BASE_URL}${endpoint}${Utils.getQuerysStr(params)}`;
-  let fileName;
-  let blob;
+  // let fileName;
+  // let blob;
   try {
       const res = await fetch(url, { credentials: 'include' });
       if (res.status !== 200) throw { ...await res.json(), status: res.status };
 
       const nameHeader = res.headers.get('content-disposition');
-      fileName = nameHeader.slice(nameHeader.indexOf('=') + 1);
-      blob = await res.blob();
+      const fileName = nameHeader.slice(nameHeader.indexOf('=') + 1);
+      const blob = await res.blob();
+
+      const objUrl = URL.createObjectURL(blob);
+      const elLink = document.createElement('a');
+      elLink.href = objUrl;
+      elLink.download = fileName;
+      elLink.click();
   } catch (err) {
       return _handleError(err);
   }
 
-  const objUrl = URL.createObjectURL(blob);
-  const elLink = document.createElement('a');
-  elLink.href = objUrl;
-  elLink.download = fileName;
-  elLink.click();
 }
 
 function _handleError(err) {

@@ -1,17 +1,27 @@
 <template>
   <header class="app-header flex align-center">
     <div class="container header-content width-all flex align-center space-between height-all">
-      <router-link :to="{name: 'ReleasePage', params: {organizationId: organization?._id} }" class="height=all">
+      <router-link :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
         <div class="logo-title height-all flex align-center">
           <img class="actual" :src="logoImgSrc" alt="">
         </div>
       </router-link>
 
-      <div v-if="($route.name === 'ReleasePage') && organization" class="release-filter flex align-center height-all">
-        <button :class="{selected: selecterOrgFilterId === filter._id}" v-for="filter in organization.filters" :key="filter._id" @click="emitFilter(filter)">
-          {{filter.title}}
-        </button>
+      <div class="release-actions flex align-center gap50 height-all" v-if="($route.name === 'ReleasePage') && organization">
+        <div class="links flex align-center gap10 height-all">
+          <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
+            <button class="btn big primary">
+              {{$t('create')}} {{type.name}}
+            </button>
+          </router-link>
+        </div>
+        <div class="filters flex align-center height-all">
+          <button :class="{selected: selecterOrgFilterId === filter._id}" v-for="filter in organization.filters" :key="filter._id" @click="emitFilter(filter)">
+            {{filter.title}}
+          </button>
+        </div>
       </div>
+
 
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
       <!-- <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/apps/clientApps/agam/assets/images/mine/navBurger.png')"/></button> -->
@@ -19,7 +29,7 @@
       <div class="flex align-center gap20 height-all">
         <div class="release-title height-all">
           <div class="actual height-all flex-center">
-            <h2>Megaphon</h2>
+            <!-- <h2>Megaphon</h2> -->
           </div>
         </div>
       </div>
@@ -39,11 +49,15 @@ export default {
     }
   },
   computed: {
+    orgId() {
+      return this.$route.params.organizationId;
+    },
     organization() {
       return this.$store.getters['organization/selectedItem'];
     },
     logoImgSrc() {
-      return this.organization?.logoUrl || '';
+      const megaphonLogog = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
+      return this.orgId == '-1'? megaphonLogog : this.organization?.logoUrl || megaphonLogog;
     },
 
     mainTo() {
@@ -56,19 +70,22 @@ export default {
   methods: {
     emitFilter(filter = null) {
       evManager.emit('org-release-filter', filter);
-      this.selecterOrgFilterId = filter?._id || null;
+      this.selecterOrgFilterId = filter?.id || null;
     }
   },
   watch: {
     '$route.path'() {
       this.mobileShow = false;
     },
-    organization(val) {
-      if (!val) return;
-      const firstFilter = val.filters?.[0];
-      // if (!firstFilter) return;
-      // this.selecterOrgFilterId = firstFilter?._id || null;
-      this.emitFilter(firstFilter);
+    organization: {
+      deep: true,
+      handler(val) {
+        if (!val) return;
+        const firstFilter = val.filters?.[0];
+        // if (!firstFilter) return;
+        // this.selecterOrgFilterId = firstFilter?._id || null;
+        this.emitFilter(firstFilter);
+      }
     }
   },
   components: { Avatar },
@@ -81,6 +98,7 @@ export default {
 
 .megaphon-app {
   .app-header {
+    padding: 0 em(10px);
     background-color: #F2F2F2;
     color: black;
     // position: relative;
@@ -91,22 +109,24 @@ export default {
     
   
     .logo-title { // .logo-title, 
-      height: 50px;
+      height: em(50px);
       .actual {
         height: 100%;
       }
     }
     
-    .release-filter {
-      >* {
-        height: 100%;
-        padding: 10px;
-        &:hover {
-          background-color: rgba(32, 144, 212, 0.04);
-        }
-        &.selected {
-          border-top: 3px solid #2090D4;
-          font-weight: bold
+    .release-actions {
+      .filters {
+        >* {
+          height: 100%;
+          padding: em(10px);
+          &:hover {
+            background-color: rgba(32, 144, 212, 0.04);
+          }
+          &.selected {
+            border-top: em(3px) solid #2090D4;
+            font-weight: bold
+          }
         }
       }
     }
@@ -125,16 +145,16 @@ export default {
     .nav-burger {
       display: none;
     }
-    @media (max-width: 0px) { // $small-screen-breake
+    @media (max-width: 0) { // $small-screen-breake
       $height: calc(100vh - #{$header-height});
       // color: ;
       .nav-burger {
         display: block;
-        width: 25px;
-        height: 25px;
+        width: em(25px);
+        height: em(25px);
         font-weight: bold;
         @include font-size-big;
-        // font-size: 22px;
+        // font-size: em(22px);
       }
       .blure {   
         position: fixed;
@@ -159,19 +179,19 @@ export default {
         &.show {
           transform: translateX(0);
         }
-        width: 175px;
-        border-inline-start: 1px solid black;
+        width: em(175px);
+        border-inline-start: em(1px) solid black;
   
         background-color: white;
         >* {
           width: 100%;
-          height: 100px;
+          height: em(100px);
           display: flex;
           align-items: center;
           justify-content: center;
           border: unset;
           border-radius: unset;
-          border-bottom: 1px solid black;
+          border-bottom: em(1px) solid black;
           text-align: center;
           &.router-link-exact-active {
             color: rgb(157, 193, 255);

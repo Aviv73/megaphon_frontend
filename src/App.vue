@@ -24,7 +24,7 @@ import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.servi
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 
-import appConfig from './config';
+import appConfig from './appConfig';
 
 import selectedAppData from './apps/index.js';
 
@@ -77,6 +77,12 @@ export default {
       const config = this.uiConfig;
       this.setLocale();
       alertService.setConfig({ direction: this.isRtl? 'rtl' : 'ltr' });
+      alertService.instance.setBtnMsgs({
+        confirm: this.$t('confirm'),
+        cancel: this.$t('cancel'),
+        close: this.$t('close'),
+        submit: this.$t('submit'),
+      });
       if (config.accessabilityMode) document.querySelector('html').classList.add('accessability');
       else document.querySelector('html').classList.remove('accessability');
     }

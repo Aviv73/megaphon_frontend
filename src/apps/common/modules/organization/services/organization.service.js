@@ -10,10 +10,12 @@ export const organizationService = {
   save,
   remove,
   getEmptyOrganization,
-  inviteAccount,
-  updateAccountStatus,
-  updateAccountRole,
-  removeAccount
+
+  loadDataFields
+  // inviteAccount,
+  // updateAccountStatus,
+  // updateAccountRole,
+  // removeAccount
 }
 
 function query(filterBy) {
@@ -36,20 +38,24 @@ function save(item) {
   return item._id? update(item) : add(item);
 }
 
+function loadDataFields(dataFieldsLocalFilePath, organizationId) {
+  return httpService.get(`${ENDPOINT}/${organizationId}/dataFields`, { dataFieldsLocalFilePath });
+}
 
 
-function inviteAccount(organizationId, accountId) {
-  return httpService.post(`${ENDPOINT}/${organizationId}/invite`, { accountId });
-}
-function updateAccountStatus(organizationId, accountId, status) {
-  return httpService.post(`${ENDPOINT}/${organizationId}/update-status`, { accountId, status });
-}
-function updateAccountRole(organizationId, accountId, roles) {
-  return httpService.post(`${ENDPOINT}/${organizationId}/update-roles`, { accountId, roles });
-}
-function removeAccount(organizationId, accountId) {
-  return httpService.post(`${ENDPOINT}/${organizationId}/remove-user`, { accountId });
-}
+
+// function inviteAccount(organizationId, accountId) {
+//   return httpService.post(`${ENDPOINT}/${organizationId}/invite`, { accountId });
+// }
+// function updateAccountStatus(organizationId, accountId, status) {
+//   return httpService.post(`${ENDPOINT}/${organizationId}/update-status`, { accountId, status });
+// }
+// function updateAccountRole(organizationId, accountId, roles) {
+//   return httpService.post(`${ENDPOINT}/${organizationId}/update-roles`, { accountId, roles });
+// }
+// function removeAccount(organizationId, accountId) {
+//   return httpService.post(`${ENDPOINT}/${organizationId}/remove-user`, { accountId });
+// }
 
 
 

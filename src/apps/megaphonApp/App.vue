@@ -52,12 +52,12 @@ export default {
     } catch(e) {};
     this.isLoading = false;
     if (!this.loggedUser) this.$router.push('/login');
-    else {
-      if (this.$route.params.organizationId) return;
-      const firstOrg = this.loggedUser.organizations.filter(c => c.organizationId != '-1')[0];
-      if (!firstOrg) return;
-      this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
-    }
+    // else {
+    //   if (this.$route.params.organizationId) return;
+    //   const firstOrg = this.loggedUser.organizations.filter(c => c.organizationId != '-1')[0];
+    //   if (!firstOrg) return;
+    //   this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
+    // }
   }
 }
 </script>

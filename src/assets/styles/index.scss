@@ -1,3 +1,5 @@
+@import "./vendor/";
+
 @import "./global/reset.scss";
 @import "./global";
 
@@ -8,4 +10,35 @@
 
 html {
   font-family: sans-serif;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+
+
+
+.A-Alert {
+  direction: rtl;
+  .alert-modal {
+    border: unset !important;
+    border-radius: em(8px) !important;
+    box-shadow: $light-shadow;
+    padding: em(10px) !important;
+    
+    button {
+      border: 0 !important;
+      padding: em(5px);
+      border-radius: em(3px) !important;
+      color: black !important;
+      box-shadow: $light-shadow;
+    }
+
+    p {
+      font-size: 1em;
+      line-height: 1.5em;
+    }
+  }
 }

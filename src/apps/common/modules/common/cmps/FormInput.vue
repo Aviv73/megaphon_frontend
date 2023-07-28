@@ -26,6 +26,7 @@
         :type="componentType === 'autocomplete' ? 'text' : type"
         v-model="val"
         :step="step"
+        :accept="accept"
       />
       <textarea
         v-else-if="componentType === 'textarea'"
@@ -47,13 +48,16 @@
         v-model="val"
         @change="$emit('change', val)"
       >
-        <option
-          v-for="item in itemsToRender"
-          :key="item.label"
-          :value="item.value"
-          :label="$t(item.label)"
-          :selected="val.value === item.value"
-        />
+        <template v-if="itemsToRender.length">
+          <option
+            v-for="item in itemsToRender"
+            :key="item.label"
+            :value="item.value"
+            :label="$t(item.label)"
+            :selected="val === item.value"
+          />
+        </template>
+        <option v-else @click.prevent.stop="">No data</option>
       </select>
 
       <div
@@ -67,28 +71,37 @@
       >
         <div style="height:100%;display:flex;align-items:center;gap:10px" class="head" >
           <div class="toggle-btn"></div>
-          <span class="placeholder">{{ $t(placeholder || labelholder) }}</span>
-          <ul>
-            <li v-for="curr in val" :key="curr.name">
-              <!-- <span>{{itemsToRender.find(c => c.value === curr).label}}</span>
-              <button @click="val.splice(val.findIndex(c => c === curr) ,1)">X</button> -->
-              <span>{{$t(curr.name || curr)}}</span>
-              <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">X</button>
-            </li>
-          </ul>
-          <div class="inner-square"></div>
+          <div class="head-content">
+            <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @click.stop="isOpen = true"/>
+            <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
+            <ul class="multiselect-vals-list" v-if="showVals && val?.length">
+              <li v-for="curr in val" :key="curr.name">
+                <!-- <span>{{itemsToRender.find(c => c.value === curr).label}}</span>
+                <button @click="val.splice(val.findIndex(c => c === curr) ,1)">X</button> -->
+                <span :title="curr.name || curr">{{subValName(curr.name || curr)}}</span>
+                <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
+              </li>
+              <li class="clear-li">
+                <button class="clear-btn" @click.stop="val = []">x</button>
+              </li>
+            </ul>
+            <!-- <div class="inner-square"></div> -->
+          </div>
         </div>
         <div class="drop-down" @click.stop="">
-          <label v-for="item in itemsToRender" :key="item.label">
-            <input
-              type="checkbox"
-              id="formCheckbox"
-              v-model="val"
-              :value="item.value"
-              :disabled="disabled"
-            />
-            <span>{{ $t(item.label) }}</span>
-          </label>
+          <template v-if="itemsToRender?.length">
+            <label v-for="item in itemsToRender" :key="item.label">
+              <input
+                type="checkbox"
+                id="formCheckbox"
+                v-model="val"
+                :value="item.value"
+                :disabled="disabled"
+              />
+              <span>{{ $t(item.label) }}</span>
+            </label>
+          </template>
+          <p v-else class="width-all text-center justify-center">No data</p>
         </div>
       </div>
 
@@ -137,19 +150,31 @@ export default {
     min: { type: Number, required: false, default: -Infinity },
     max: { type: Number, required: false, default: Infinity },
     step: { required: false, type: Number, default: 0 },
+    accept: { required: false, type: String, default: '' },
+    
+    showVals: { required: false, type: Boolean, default: false },
   },
   data() {
     return {
       val: this.value,
       inputId: this.id || getRandomId(),
       isOpen: false,
+
+      valsFilterStr: ''
     };
   },
   created() {
+    if (this.type === 'multiselect') {
+      if (!Array.isArray(this.value)) {
+        this. val = [];
+      }
+    }
     if (this.componentType === 'select') {
-      if (!this.val) this.val = '';
+      // if (!this.val) this.val = '';
+      // else this.val = this.val?.value || this.val;
       // if (!this.val || typeof this.val === 'string') this.val = { value: this.value || '', label: this.value || '' };  
-      else this.val = this.val?.value || this.val;
+      // else 
+      this.val = this.val?.value || this.val;
     }
     if (this.type === 'date') {
       const date = new Date(this.val || undefined);
@@ -166,18 +191,19 @@ export default {
       return type;
     },
     itemsToRender() {
+      const filterItems = c => this.type === 'multiselect'? c.label?.toLowerCase?.().includes(this.valsFilterStr.toLowerCase()) : true;
       if (this.itemsMap) {
         const res = [];
         // for (let key in this.itemsMap) res.push({ label: this.itemsMap[key], value: key });
         for (let key in this.itemsMap) res.push({ label: key, value: this.itemsMap[key] });
-        return res;
+        return res.filter(filterItems);
       }
       return this.items.map((item) => {
         if (typeof item !== 'object') {
           return { value: item, label: item };
         }
         return item;
-      });
+      }).filter(filterItems);
     },
     isEmpty() {
       if (
@@ -195,12 +221,19 @@ export default {
       } else {
         e.target.focus()
       }
+    },
+
+    subValName(name = '') {
+      let sub = name.slice(0, 8);
+      if (sub.length < name.length) sub += '..';
+      return sub
     }
   },
   watch: {
     val: {
       deep: true,
-      handler(val) {
+      handler(val, prev) {
+        if (val === prev) return;
         if (this.type === 'number') {
           const { min, max } = this;
           if (typeof min === 'number' && val < min) this.val = min;
@@ -222,32 +255,35 @@ export default {
 
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 // @import '@/assets/styles/setup/variables';
 .form-input {
-  // height: 40px;
-  // min-width: 150px;
+  // height: em(40px);
+  // min-width: em(150px);
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 5px;
-  border-bottom: 1px solid gray;
+  gap: em(5px);
+  // border-bottom: em(1px) solid gray;
   .input {
     position: relative;
+    height: 100%;
+    flex: 1;
     input, select, textarea {
-      border: unset;
+      // border: unset;
       height: 100%;
       width: 100%;
       margin: 0;
       resize: none;
 
       &[type="checkbox"] {
-        width: 15px;
-        height: 15px;
+        width: em(15px);
+        height: em(15px);
       }
     }
     textarea {
-      height: 100px;
+      height: em(100px);
     }
 
     [type="checkbox"], select, option {
@@ -269,17 +305,24 @@ export default {
 }
 
 .form-input-multiselect {
-  // width: 220px;
+  // width: em(220px);
   color: #606266;
+  height: 100%;
+  display: flex;
+  align-items: center;
   .placeholder {
+    display: flex;
+    align-items: center;
     // color: $gray-700;
     font-weight: 400;
-    padding-left: 8px;
+    padding-left: em(8px);
+    height: 100%;
   }
   $borderColor: rgba(128, 128, 128, 0.5);
   box-sizing: border-box;
   .input {
-    width: 100%;
+    // width: 100%;
+    flex: 1;
     height: 100%;
     .header {
       height: 100%;
@@ -290,20 +333,20 @@ export default {
       font-weight: 400;
       display: flex;
       align-items: center;
-      padding: 0 5px;
+      padding: 0 em(5px);
       width: 100%;
       // height: 100%;
-      border: 1px solid $borderColor;
-      border-radius: 3px;
+      border: em(1px) solid $borderColor;
+      border-radius: em(3px);
       position: relative;
       .toggle-btn,
       .inner-square {
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 5px solid #c5c6cd;
+        border-left: em(5px) solid transparent;
+        border-right: em(5px) solid transparent;
+        border-bottom: em(5px) solid #c5c6cd;
         color: rgb(96, 98, 102);
         // position: absolute;
-        // right: 14px;
+        // right: em(14px);
         // bottom: 50%;
         // transform: translateY(50%) rotate(180deg);
         transform: rotate(180deg);
@@ -314,33 +357,35 @@ export default {
         }
       }
       .inner-square {
-        top: 11px;
-        border-bottom: 5px solid white;
+        top: em(11px);
+        border-bottom: em(5px) solid white;
       }
       .drop-down {
-        overflow: auto;
-        max-height: 500px;
+        height: 0;
+        overflow: hidden;
+        // overflow: auto;
+        max-height: em(500px);
         background-color: #fff;
-        min-width: calc(100% + 2px);
+        min-width: calc(100% + em(2px));
         width: fit-content;
         position: absolute;
-        padding: 6px 0;
+        padding: em(6px) 0;
         top: 100%;
-        left: -1px;
+        left: -em(1px);
         opacity: 0;
-        transform: translateY(3px);
+        transform: translateY(em(3px));
         z-index: -1;
         transition: opacity 0.3s;
-        box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
+        box-shadow: 0px 0px em(5px) em(3px) rgba(0, 0, 0, 0.2);
+        border-radius: em(4px);
         > * {
-          // height: 32px;
-          // line-height: 34px;
-          border-bottom: 1px solid rgb(210, 210, 210);
+          // height: em(32px);
+          // line-height: em(34px);
+          border-bottom: em(1px) solid rgb(210, 210, 210);
           display: flex;
           // align-items: center;
-          gap: 5px;
-          padding: 5px 20px;
+          gap: em(5px);
+          padding: em(5px) em(20px);
           cursor: pointer;
           &:hover {
             background-color: #f5f7fa;
@@ -354,10 +399,63 @@ export default {
         }
         .drop-down {
           opacity: 1;
-          z-index: 1;
-          top: calc(100% + 12px);
+          z-index: 5;
+          top: calc(100% + #{em(12px)});
+          height: unset;
+          overflow: auto;
         }
       }
+    }
+  }
+
+  .head {
+    padding: em(5px);
+    display: flex;
+    // flex-direction: column;
+    gap: em(2px);
+    width: 100%;
+    .head-content {
+      width: 100%;
+      input {
+        width: 100%;
+      }
+      display: flex;
+      flex-direction: column;
+      gap: em(5px);
+
+      .clear-li {
+        background-color: rgb(255, 109, 109);
+        border-radius: 50%;
+        width: em(20px);
+        height: em(20px);
+        padding: 0;
+        button {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      
+    }
+  }
+
+  .multiselect-vals-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: em(5px);
+
+    li {
+      // width: em(50px);
+      height: em(20px);
+      border-radius: em(5px);
+      padding: em(5px);
+      color: white;
+      background-color: #2090D4;
+      font-size: em(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: em(5px)
     }
   }
 }

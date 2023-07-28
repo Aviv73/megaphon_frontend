@@ -8,6 +8,7 @@
       :itemDetailesPageName="itemDetailesPageName"
       @remove="id => $emit('remove', id)"
       @edit="item => $emit('edit', item)"
+      v-bind="propsToPass"
     />
   </ul>
 </template>
@@ -22,7 +23,8 @@ export default {
       required: true
     },
     singlePreviewCmp: [Object],
-    itemDetailesPageName: [String]
+    itemDetailesPageName: [String],
+    propsToPass: [Object]
   },
   computed: {
     componentToRender() {

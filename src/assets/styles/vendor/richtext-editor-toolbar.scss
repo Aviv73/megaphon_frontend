@@ -1,0 +1,127 @@
+@mixin editorItemStyling() {
+  svg { display: none !important; }
+  height: 1.563rem !important; /* 25p.x */
+  width: 1.563rem !important; /* 25p.x */
+  &::after {
+    @content
+  }
+  &.ql-active {
+    font-weight: bold;
+    background-color: rgb(181, 181, 255) !important;
+  }
+}
+
+.quillWrapper {
+  // display: flex;
+  // align-items: center;
+  // flex-wrap: wrap;
+  // gap: 0.625rem; /* 10p.x */
+  display: flex;
+  flex-direction: column;
+  
+  // width: 750px;
+  flex: 1;
+  .ql-toolbar {
+    background-color: rgb(233, 233, 233) !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.625rem; /* 10p.x */
+    // justify-content: space-between;
+    .ql-formats {
+      // background-color: white !important;
+      // border-radius: 3px;
+      // padding: 2px;
+      display: flex;
+      align-items: center;
+      // gap: 0.3rem;
+      margin: 0 !important;
+      .ql-picker {
+        font-size: 0.8rem;
+        ::before {
+          margin-top: 0.188rem; /* 3p.x */
+        }
+        span {
+          // width: 2.813rem;
+          svg {
+            background-color: #fff;
+          }
+          overflow: hidden;
+        }
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        direction: ltr !important;
+        height: 1.563rem !important; /* 25p.x */
+        &:not(.ql-color-picker) {
+          width: 3.75rem; /* 60p.x */
+        }
+      }
+      button {
+        height: 1.563rem !important; /* 25p.x */
+        width: 1.563rem !important; /* 25p.x */
+      }
+      svg {
+        height: 1.25rem !important; /* 20p.x */
+        width: 1.25rem !important; /* 20p.x */
+      }
+      background-color: white;
+      border-radius: 0.188rem; /* 3p.x */
+      padding: 0 0.188rem; /* 3p.x */
+      >* {
+        height: 100% !important;
+        &:not(:last-child) {
+          border-inline-end: 0.125rem solid rgb(219, 219, 219);
+        }
+      }
+    }
+  }
+
+  .ql-editor {
+    width: 100%;
+  }
+
+  // .ql-bold {
+  //   @include editorItemStyling {
+  //     content: 'B';
+  //   }
+  // }
+  // .ql-italic {
+  //   @include editorItemStyling {
+  //     content: 'I';
+  //     font-style: italic;
+  //   }
+  // }
+  // .ql-underline {
+  //   @include editorItemStyling {
+  //     content: 'U';
+  //     text-decoration: underline;
+  //   }
+  // }
+  // .ql-undo {
+  //   @include editorItemStyling {
+  //     content: '⤺';
+  //   }
+  // }
+  // .ql-redo {
+  //   @include editorItemStyling {
+  //     content: '⤺';
+  //   }
+  //   transform: scaleX(-1);
+  // }
+  .custom-btn {
+    height: 1.563rem !important; /* 25p.x */
+    width: 1.563rem !important; /* 25p.x */
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  // .ql-color {
+  //   @include editorItemStyling {
+  //     content: 'A';
+  //     text-decoration: underline;
+  //   }
+  // }
+}

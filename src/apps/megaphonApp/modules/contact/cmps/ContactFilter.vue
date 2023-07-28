@@ -1,11 +1,11 @@
 <template>
-  <form @submit.prevent="emitFilter" class="release-filter flex-1 flex align-center space-between gap20">
-    <div class="type-filter flex align-center gap10">
-      <CompanyPicker v-model="companies"/>
-      <TagPicker v-model="tags"/>
+  <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20">
+    <div class="type-filter flex align-start gap10 flex-1">
+      <CompanyPicker class="flex-1" v-model="companies"/>
+      <TagPicker class="flex-1" v-model="tags"/>
     </div>
     <div class="flex align-center gap20">
-      <div class="sorters toggle-btns flex gap10">
+      <!-- <div class="sorters toggle-btns flex gap10">
         <button 
           :class="{selected: !filterBy.simpleSort}"
           @click.prevent.stop="setSortKey('')"
@@ -18,8 +18,8 @@
           :class="{selected: filterBy.simpleSort === 'title'}"
           @click.prevent.stop="setSortKey('title')"
         >א-ב</button>
-      </div>
-      <div class="serach flex align-center">
+      </div> -->
+      <div class="serach flex align-start">
         <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left">
           <button>
             <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
@@ -36,7 +36,7 @@ import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import CompanyPicker from '../../company/cmps/CompanyPicker.vue';
 import TagPicker from '../../tag/cmps/TagPicker.vue';
 export default {
-  name: 'ReleaseFilter',
+  name: 'ContanctFilter',
   props: {
     initFilter: {
       type: Object,
@@ -88,11 +88,16 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.agam-app {
-  .release-filter {
+.megaphon-app {
+  .contact-filter {
     .filter-icon-img {
-      width: 15px;
-      height: 15px;
+      width: em(15px);
+      height: em(15px);
+    }
+
+    $item-height: em(30px);
+    .form-input {
+      min-height: $item-height;
     }
   
     .sorters {
@@ -108,7 +113,8 @@ export default {
     }
   
     .serach {
-      border-bottom: 1px solid $light-gray;
+      border-bottom: em(1px) solid $light-gray;
+      width: em(180px);
       input {
         border: 0;
         // border-radius: 0;

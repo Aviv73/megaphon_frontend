@@ -1,8 +1,8 @@
 <template>
   <div class="folders-container">
     <div class="nav-list-item inner-list-item flex align-center gap10" @click="showFolders = !showFolders">
-      <Avatar class="folder-avatar" :size="40"><img :src="require('@/apps/megaphonApp/assets/images/image_placeholder.png')"/></Avatar>
-      <p>{{$t('folders')}}</p>
+      <Avatar class="folder-avatar" :size="40" :img="require('@/apps/megaphonApp/assets/images/folder.svg')"/>
+      <p>{{$t('sidebar.folders')}}</p>
     </div>
     <FolderList v-if="showFolders" :folders="folders" :parentItem="parentItem"/>
   </div>

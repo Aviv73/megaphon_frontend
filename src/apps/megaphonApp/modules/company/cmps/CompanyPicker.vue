@@ -1,6 +1,6 @@
 <template>
   <div class="company-picker">
-    <FormInput placeholder="company.companies" type="multiselect" :items="selectOpts" v-model="val" @change="val => $emit('input', val)"/>
+    <FormInput :label="showLabel? 'company.companies' : ''" placeholder="company.companies" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange"/>
   </div>
 </template>
 
@@ -18,10 +18,18 @@ export default {
       type: Array,
       default: () => []
     },
+    getOnlyIds: {
+      type: Boolean,
+      default: false
+    },
+    showLabel: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     selectOpts() {
-      return this.allCompanies.sort((a, b) => a.name > b.name).map(c => {
+      return this.allCompanies.sort((a, b) => a.name > b.name? 1 : -1).map(c => {
         return {
           label: c.name,
           value: c
@@ -35,21 +43,27 @@ export default {
   methods: {
     async loadAllCompanies() {
       await this.$store.dispatch({ type: 'company/loadItems' });
+    },
+    emitChange(val) {
+      const valToEmit = this.getOnlyIds? val.map(c => c._id) : val;
+      this.$emit('input', valToEmit)
     }
   },
-  created() {
-    if (!this.allCompanies.length) this.loadAllCompanies();
+  async created() {
+    if (!this.allCompanies.length) await this.loadAllCompanies();
+      if (this.getOnlyIds) this.val = this.val.map(id => this.allCompanies.find(comp => comp._id === id));
   },
   components: { FormInput }
 }
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .megaphon-app {
   .company-picker {
     .form-input {
-      width: 200px;
-      height: 30px;
+      // width: em(350px);
+      min-height: em(30px);
     }
   }
 }

@@ -1,5 +1,5 @@
-import Home from './views/Home';
-import About from './views/About';
+import Home from './views/agam_Home';
+import About from './views/agam_About';
 // import FileViewer from './views/FileViewer';
 // import FileViewer from '@/apps/common/modules/common/views/FileViewer';
 

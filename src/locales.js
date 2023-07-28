@@ -1,4 +1,4 @@
-import appConfig from './config'
+import appConfig from './appConfig'
 import commonLocals from './apps/common/locals';
 import selectedAppData from './apps/index.js';
 

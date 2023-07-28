@@ -1,16 +1,6 @@
 <template>
   <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20">
-    <div class="type-filter toggle-btns gap10">
-      <FormInput @change="emitFilter" type="select" placeholder="select" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" iconPos="left" />
-      <!-- <button
-        :class="{selected: !filterBy.filter.params.type}"
-        @click.prevent.stop="setFilterType('')"
-      >הכל</button>
-      <button v-for="filterType in filterTypes" :key="filterType"
-       :class="{selected: filterBy.filter.params.type === filterType}"
-        @click.prevent.stop="setFilterType(filterType)"
-      >{{$t(filterType)}}</button> -->
-    </div>
+    <FormInput @change="emitFilter" type="select" placeholder="type" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" iconPos="left" />
     <div class="flex align-center gap20">
       <div class="sorters toggle-btns flex gap10">
         <button 
@@ -26,13 +16,11 @@
           @click.prevent.stop="setSortKey('title')"
         >א-ב</button>
       </div>
-      <div class="serach flex align-center">
-        <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left">
-          <button>
-            <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
-          </button>
-        </FormInput>
-      </div>
+      <FormInput class="search" placeholder="search" v-model="filterBy.filter.search" iconPos="left">
+        <button>
+          <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
+        </button>
+      </FormInput>
     </div>
     <!-- <button @click="emitFilter">{{$t('filter')}}</button> -->
   </form>
@@ -57,6 +45,11 @@ export default {
         'release.original': '2',
       },
       // didInit: false
+    }
+  },
+  computed: {
+    org() {
+      return this.$store.getters['organization/selectedItem'];
     }
   },
   methods: {
@@ -95,43 +88,35 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.agam-app {
+.megaphon-app {
   .release-filter {
     .filter-icon-img {
-      width: 15px;
-      height: 15px;
+      width: em(15px);
+      height: em(15px);
     }
-  
-    .type-filter {
+
+    .toggle-btns {
+      background: unset;
       box-shadow: unset;
-      button {
-        color: $light-white;
-        background-color: $layout-black;
-        border-inline-end: unset !important;
-        border-radius: 12px;
-        padding: 2px 10px;
-        height: unset;
-        &.selected {
-          background-color: $layout-red;
-        }
+      button{
+        border-inline-end: 0 !important;
+        background-color: unset !important;
       }
     }
-    .sorters {
-      box-shadow: unset;
-      button {
-        background-color: unset;
-        border-inline-end: unset !important;
-        &.selected {
-          background-color: unset;
-          color: $layout-red
-        }
-      }
+
+    select {
+      width: em(100px);
     }
   
-    .serach {
-      border-bottom: 1px solid $light-gray;
+    .search {
+      overflow: unset;
+      border-bottom: em(1px) solid $light-gray;
       input {
         border: 0;
+        border: unset;
+        
+  // border-bottom: em(1px) solid gray;
+  
         // border-radius: 0;
       }
     }

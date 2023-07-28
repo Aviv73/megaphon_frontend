@@ -1,6 +1,6 @@
-import ReleaseApp from './ReleaseApp';
-import ReleasePage from './views/ReleasePage';
-import ReleaseDetails from './views/ReleaseDetails';
+import ReleaseApp from './default_ReleaseApp';
+import ReleasePage from './views/default_ReleasePage';
+import ReleaseDetails from './views/default_ReleaseDetails';
 
 export const releaseRoutes = [
   {

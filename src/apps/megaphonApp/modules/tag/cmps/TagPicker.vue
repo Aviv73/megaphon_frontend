@@ -1,6 +1,6 @@
 <template>
   <div class="tag-picker">
-    <FormInput placeholder="tag.tags" type="multiselect" :items="selectOpts" v-model="val" @change="val => $emit('input', val)"/>
+    <FormInput :label="showLabel? 'tag.tags': ''" placeholder="tag.tags" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange"/>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   name: 'TagPicker',
   data() {
     return {
-      val: this.value || []
+      val: this.value || [],
     }
   },
   props: {
@@ -18,10 +18,18 @@ export default {
       type: Array,
       default: () => []
     },
+    getOnlyIds: {
+      type: Boolean,
+      default: false
+    },
+    showLabel: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     selectOpts() {
-      return this.allTags.map(c => {
+      return this.allTags.sort((a, b) => a.name > b.name? 1 : -1).map(c => {
         return {
           label: c.name,
           value: c
@@ -35,21 +43,27 @@ export default {
   methods: {
     async loadAllTags() {
       await this.$store.dispatch({ type: 'tag/loadItems' });
+    },
+    emitChange(val) {
+      const valToEmit = this.getOnlyIds? val.map(c => c._id) : val;
+      this.$emit('input', valToEmit)
     }
   },
-  created() {
-    if (!this.allTags.length) this.loadAllTags();
+  async created() {
+    if (!this.allTags.length) await this.loadAllTags();
+      if (this.getOnlyIds) this.val = this.val.map(id => this.allTags.find(tag => tag._id === id));
   },
   components: { FormInput }
 }
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .megaphon-app {
   .tag-picker {
     .form-input {
-      width: 200px;
-      height: 30px;
+      // width: em(350px);
+      min-height: em(30px);
     }
   }
 }

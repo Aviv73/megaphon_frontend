@@ -43,25 +43,29 @@
       "title": "מספר עמודים",
       "fieldName": "pageCount",
       "type": "NUMBER",
-      "helpText": ""
+      "helpText": "",
+      "props": { "min": 0 }
     },
     {
       "title": "מגיל",
       "fieldName": "forAgeMin",
       "type": "NUMBER",
-      "helpText": ""
+      "helpText": "",
+      "props": { "min": 0 }
     },
     {
       "title": "עד גיל",
       "fieldName": "forAgeMax",
       "type": "NUMBER",
-      "helpText": ""
+      "helpText": "",
+      "props": { "min": 0 }
     },
     {
       "title": "מחיר לצרכן",
       "fieldName": "price",
       "type": "NUMBER",
-      "helpText": ""
+      "helpText": "",
+      "props": { "min": 0 }
     },
 
     

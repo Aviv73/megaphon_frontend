@@ -47,7 +47,7 @@ export const _authStore = {
         do: async () => authService.login(cred),
         onSuccess: (res) => {
           commit({ type: 'setLoggedUser', user: res.user });
-          alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.username}!`});
+          alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
         }
       });
     },
@@ -79,7 +79,7 @@ export const _authStore = {
         do: async () => authService.signup(cred),
         onSuccess: (res) => {
           commit({ type: 'setLoggedUser', user: res.user });
-          alertService.toast({type: 'safe', msg: `${$t(`auth.alerts.welcome`)}, ${res.user.username}!`});
+          alertService.toast({type: 'safe', msg: `${$t(`auth.alerts.welcome`)}, ${res.user.firstName} ${res.user.lastName}!`});
         }
       });
     },

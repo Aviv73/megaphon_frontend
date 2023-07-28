@@ -1,28 +1,30 @@
 <template>
   <div class="item-page flex align-center space-between gap15 column flex-1">
-    <div class="width-all flex align-center space-between wrap gap10">
+    <div class="width-all flex align-start space-between wrap gap50">
       <component :is="filterByCmp || 'ItemFilter'" :initFilter="filterBy" @filtered="setFilter"/>
-      <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn secondary mid">{{$t('addNew')}}</button></router-link>
+      <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
     </div>
-    <div v-if="!isLoading && items?.length" class="width-all flex column flex-1">
+    <div class="width-all flex column flex-1">
       <slot/>
-      <ItemList 
-        v-if="items"
+      <ItemList
+        v-if="!isLoading && items?.length"
         class="width-all" :items="items"
         :singlePreviewCmp="singlePreviewCmp"
         :itemDetailesPageName="itemDetailesPageName"
         @edit="item => $emit('edit', item)"
         @remove="id => $emit('remove', id)"
+        :propsToPass="propsToPass"
       />
+      <div v-if="!isLoading && !items?.length" class="flex column space-between align-center no-results-preview">
+        <h3>{{$t('noItemsFound')}}...</h3>
+        <router-link v-if="showActions && newItemPageName && false" :to="{name: newItemPageName}">
+          <button v-if="isFilterEmpty || true" class="btn big primary">{{$t('createNew')}}!</button>  
+        </router-link>
+      </div>
     </div>
-    <PaginationBtns v-if="filterBy" :total="totalItems" :perPage="filterBy.pagination.limit" :initFilter="filterBy" @filtered="setFilter" v-model="filterBy.pagination.page"/>
+    <PaginationBtns v-if="filterBy && (totalItems > items.length)" :total="totalItems" :perPage="filterBy.pagination.limit" :initFilter="filterBy" @filtered="setFilter" v-model="filterBy.pagination.page"/>
     <!-- <div v-else-if="!isLoading" class="flex column space-between align-center no-results-preview"> -->
-    <div v-if="!isLoading && !items?.length" class="flex column space-between align-center no-results-preview">
-      <h3>{{$t('noItemsFound')}}...</h3>
-      <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName}">
-        <button v-if="isFilterEmpty || true" class="btn big primary">{{$t('createNew')}}!</button>  
-      </router-link>
-    </div>
+    
     <Loader v-if="showLoader && isLoading"/>
   </div>
 </template>
@@ -48,6 +50,7 @@ export default {
     newItemPageName: [String],
     singlePreviewCmp: [Object],
     filterByCmp: [Object],
+    propsToPass: [Object],
     isLoading: [Boolean],
     showLoader: {
       type: Boolean,
@@ -64,7 +67,8 @@ export default {
     dontEmitOnInit: {
       type: Boolean,
       default: false
-    }
+    },
+    propsToPass: [Object]
   },
   data() {
     return {
@@ -143,28 +147,28 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  // width: 300px;
+  // width: em(300px);
   width: 100%;
   .item-list {
     // flex: 1;
     overflow-y: auto;
     width: 100%;
     .item-preview {
-      width: rem(300px);
+      width: em(300px);
       max-width: 98%;
-      height: 200px;
-      border-radius: 5px;
+      height: em(200px);
+      border-radius: em(5px);
       background-color: #fff;
       color: black;
       input {
         color: black;
       }
       box-shadow: $light-shadow;
-      padding: 20px;
+      padding: em(20px);
       overflow-y: auto;
       overflow-x: hidden;
 
-      @media (max-width: 400px) {
+      @media (max-width: em(400px)) {
         width: 98%;
         // max-width: unset;
         // border-radius: 0;
@@ -183,7 +187,7 @@ export default {
   }
 
   .pagination-btns {
-    margin-bottom: 10px;
+    margin-bottom: em(10px);
   }
 }
 </style>

@@ -114,21 +114,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/global/index';
 .tooltip {
   // position: relative;
   // z-index: 1000;
   position: relative;
   display: inline-block;
-  // widows: 15px;
-  // height: 15px;
+  // widows: em(15px);
+  // height: em(15px);
   .tooltip-preview {
     display: inline-block;
     width: fit-content;
     height: fit-content;
     .tooltip-img {
-      width: 17px;
-      height: 17px;
-      // padding: 0.5px;
+      width: em(17px);
+      height: em(17px);
+      // padding: 0.em(5px);
       border-radius: 50%;
       background-color: #fff;
       // height: 100%;
@@ -138,18 +139,18 @@ export default {
   .tooltip-msg {
     position: absolute;
     z-index: 1000;
-    width: 270px;
-    padding: 15px;
+    width: em(270px);
+    padding: em(15px);
     line-height: 1.3;
     background-color: #5a5a5a;
     color: #ffffff;
-    box-shadow: 0 5px 13px 0 #44444478;
+    box-shadow: 0 em(5px) em(13px) 0 #44444478;
     font-weight: normal;
 
     .close-btn {
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: em(5px);
+      right: em(5px);
     }
   }
 }

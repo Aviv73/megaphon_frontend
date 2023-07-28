@@ -53,6 +53,12 @@
 .stretch-self {
   align-self: stretch;
 }
+.align-self-end {
+  align-self: flex-end;
+}
+.align-self-start {
+  align-self: flex-start;
+}
 .row-reverse {
   flex-direction: row-reverse;
 }
@@ -66,18 +72,18 @@
   align-items: center;
 }
 // .column-layout >*:not(:last-child) {
-//   margin-bottom: 7.5px;
+//   margin-bottom: em(7.5px);
 // }
 
-.gap3 { gap: 3px; }
-.gap5 { gap: 5px; }
-.gap10 { gap: 10px; }
-.gap15 { gap: 15px; }
-.gap20 { gap: 20px; }
-.gap30 { gap: 30px; }
-.gap40 { gap: 40px; }
-.gap50 { gap: 50px; }
-.gap60 { gap: 60px; }
+.gap3 { gap: em(3px); }
+.gap5 { gap: em(5px); }
+.gap10 { gap: em(10px); }
+.gap15 { gap: em(15px); }
+.gap20 { gap: em(20px); }
+.gap30 { gap: em(30px); }
+.gap40 { gap: em(40px); }
+.gap50 { gap: em(50px); }
+.gap60 { gap: em(60px); }
 
 .text-center {
   text-align: center;
@@ -127,17 +133,25 @@
 .simple-form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+  width: 100%;
+  // align-items: flex-start;
+  gap: em(10px);
   .form-input {
-    align-items: flex-start;
-    width: 300px;
+    // align-items: flex-start;
+    // width: em(300px);
     &.width-content {
       width: fit-content;
     }
+    .input {
+      flex: 1;
+    }
+    .label {
+      width: em(100px);
+    }
   }
 
+
   &.gap30 {
-    gap: 30px;
+    gap: e,(30px);
   }
 }

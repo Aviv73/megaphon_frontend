@@ -70,10 +70,9 @@ export default {
 <style lang="scss">
 .megaphon-app {
   .contact-page {
-    padding: 10px;
     height: auto;
 
-    background-color: #E0E0E0;
+    // background-color: #E0E0E0;
   }
 }
 </style>

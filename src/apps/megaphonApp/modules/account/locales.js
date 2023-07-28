@@ -10,13 +10,11 @@ const en = {
     "editAccount": "Edit account",
     "newPassword": "New password",
     "confirmPassword": "Confirm password",
-    "gender": "Gender",
-    "block": "block",
-    "unBlock": "Un block",
+    "role": "Role",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this account?",
-      "removeSuccess": "Account removed successfully!",
-      "savedAccountSuccess": "Account saved successfully!"
+      "removeSuccess": "Account removed successfully",
+      "savedSuccess": "Account saved successfully"
     }
   }
 }
@@ -32,13 +30,11 @@ const he = {
     "editAccount": "ערוך פרטי משתמש",
     "newPassword": "סיסמה חדשה",
     "confirmPassword": "הזן שוב סיסמה",
-    "gender": "מגדר",
-    "block": "חסום",
-    "unBlock": "בטל חסימה",
+    "role": "תפקיד",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את המשתמש?",
-      "removeSuccess": "משתמש נמחק בהצלחה!",
-      "savedAccountSuccess": "פרטי משתמש נשמרו בהצלחה!"
+      "removeSuccess": "משתמש נמחק בהצלחה",
+      "savedSuccess": "פרטי משתמש נשמרו בהצלחה"
     }
   }
 }

@@ -67,12 +67,13 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .megaphon-app {
   .account-page {
-    padding: 10px;
+    padding: em(10px);
     height: auto;
 
-    background-color: #E0E0E0;
+    // background-color: #E0E0E0;
   }
 }
 </style>

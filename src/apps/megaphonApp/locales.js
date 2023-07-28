@@ -5,6 +5,7 @@ import { tagLocales } from './modules/tag/locales';
 import { companyLocales } from './modules/company/locales';
 import { accountLocales } from './modules/account/locales';
 import { authLocales } from './modules/auth/locales';
+import { organizationLocales } from './modules/organization/locales';
 
 export default {
   en: {
@@ -15,7 +16,7 @@ export default {
     ...companyLocales.en,
     ...accountLocales.en,
     ...authLocales.en,
-    
+    ...organizationLocales.en,
   },
   he: {
     ...commonLocales.he,
@@ -25,6 +26,7 @@ export default {
     ...companyLocales.he,
     ...accountLocales.he,
     ...authLocales.he,
+    ...organizationLocales.he,
   },
   heF: {
     ...commonLocales.heF,
@@ -34,5 +36,6 @@ export default {
     ...companyLocales.heF,
     ...accountLocales.heF,
     ...authLocales.heF,
+    ...organizationLocales.heF,
   },
 }

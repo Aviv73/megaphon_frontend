@@ -107,8 +107,8 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
           type: '_Ajax',
           do: async () => {
             if (filterBy) commit({ type: 'setFilterBy', filterBy });
-            const shoppingListsRes = await service.query(getters.filterBy, organizationId);
-            return shoppingListsRes;
+            const itemsRes = await service.query(getters.filterBy, organizationId);
+            return itemsRes;
           },
           onSuccess: (data) => commit({ type: 'setData', data })
         });
@@ -122,13 +122,14 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
         });
       },
       async removeItem({ commit, dispatch, getters }, { id, organizationId, reload = false }) {
-        if (!await alertService.Confirm($t(`${moduleName}.alerts.confirmRemove`))) return;
+        if (!await alertService.Confirm($t(`${moduleName}.alerts.confirmRemove`))) throw new Error('Dont want to remove!');
         return dispatch({
           type: '_Ajax',
           do: async () => service.remove(id, organizationId),
           onSuccess: () => {
             commit({ type: 'removeItem', id });
-            alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.removeSuccess`)}! id: ${id}`});
+            // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.removeSuccess`)}! id: ${id}`});
+            alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.removeSuccess`)}!`});
             if (reload) dispatch({ type: 'loadItems', organizationId, filterBy: getters.filterBy });
           }
         });
@@ -139,7 +140,8 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
           loading,
           do: async () => service.save(item, organizationId),
           onSuccess: (item) => {
-            alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}! id: ${item._id}`})
+            // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}! id: ${item._id}`})
+            alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}!`})
             commit({ type: 'saveItem', item });
           }
         });

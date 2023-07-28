@@ -1,6 +1,6 @@
 <template>
     <div class="pagination-btns">
-      <FormInput type="select" label="Per page:" v-model="filterBy.pagination.limit" @change="updateLimit" :items="[15,30,50,100,150,200]" class="align-center gap15"/>
+      <FormInput type="select" labell="Per page:" v-model="filterBy.pagination.limit" @change="updateLimit" :items="[15,30,50,100,150,200]" class="align-center gap15"/>
       <div class="page-buttons" :class="{ disable: (page <= 1) }">
         <button @click="routeToNewPage(+page - 1)">
           <
@@ -103,19 +103,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/global/index';
 .pagination-btns {
     select {
-      border-bottom: 1px solid black;
+      border-bottom: em(1px) solid black;
     }
     display: flex;
-    // width: 220px;
+    // width: em(220px);
     justify-content: space-between;
     align-items: center;
     margin: auto;
 
-    gap: 25px;
+    gap: em(25px);
 
-    // width: 300px;
+    // width: em(300px);
     width: fit-content;
 
     .disable {
@@ -126,15 +127,15 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1px solid black;
+        // border: em(1px) solid black;
         color: black;
-        border-radius: 5px;
-        padding: 0 5px;
+        border-radius: em(5px);
+        padding: 0 em(5px);
     }
 
     button, span {
-        min-width: 26px;
-        // min-width: 15px;
+        min-width: em(26px);
+        // min-width: em(15px);
     }
 
     .page-num-btns {
@@ -144,7 +145,7 @@ export default {
 
         display: flex;
         align-items: center;
-        gap: 25px;
+        gap: em(25px);
         justify-content: space-around;
         
         button {

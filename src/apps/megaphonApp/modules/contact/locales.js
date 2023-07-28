@@ -12,9 +12,8 @@ const  en = {
     "phone": "Phone",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this contact?",
-      "removeSuccess": "Contact removed successfully!",
-      "savedReleaseSuccess": "Contact saved successfully!",
-      "reportReleaseSuccess": "Contact reported successfully!"
+      "removeSuccess": "Contact removed successfully",
+      "savedSuccess": "Contact saved successfully",
     }
   }
 }
@@ -32,9 +31,8 @@ const he = {
     "phone": "טלפן",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את איש הקשר?",
-      "removeSuccess": "איש קשר נמחק בהצלחה!",
-      "savedReleaseSuccess": "פרטי איש קשר נשמרו בהצלחה!",
-      "reportReleaseSuccess": "איש קשר דווח בהצלחה!"
+      "removeSuccess": "איש קשר נמחק בהצלחה",
+      "savedSuccess": "פרטי איש קשר נשמרו בהצלחה",
     },
   }
 }

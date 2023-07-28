@@ -9,8 +9,12 @@
       :singlePreviewCmp="ReleasePreview"
       :filterByCmp="ReleaseFilter"
       :showActions="false"
-    />
+      :dontRoute="true"
+    >
+      <h2 v-if="selectedFolder">{{selectedFolder.name}}</h2>
+    </ItemSearchList>
     <Loader v-if="isLoading" fullScreen/>
+    <router-view/>
   </section>
 </template>
 
@@ -28,16 +32,23 @@ export default {
       ReleasePreview,
       ReleaseFilter,
       currOrgFilter: null,
+
+      selectedFolder: null
     }
   },
   methods: {
     getAllReleases(filterBy) {
-      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter, organizationId: this.$route.params.organizationId });
+      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
     handleOrgReleaseFilter(orgFilter) {
       this.currOrgFilter = orgFilter;
       this.getAllReleases();
     },
+
+    handleFolderSelection(folder) {
+      this.selectedFolder = folder;
+      this.getAllReleases();
+    }
   },
   computed: {
     organizationId() {
@@ -56,9 +67,11 @@ export default {
   created() {
     // this.getAllReleases(); // header emits filter when creates => loading releases;
     evManager.on('org-release-filter', this.handleOrgReleaseFilter);
+    evManager.on('folder-selected', this.handleFolderSelection);
   },
   destroyed() {
-    evManager.off('org-release-filter', this.handleOrgReleaseFilter);
+    evManager.off('folder-selected', this.handleOrgReleaseFilter);
+    evManager.off('folder-selected', this.handleFolderSelection);
   },
   watch: {
     organizationId() {
@@ -71,12 +84,13 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .megaphon-app {
   .release-page {
-    padding: 10px;
+    padding: em(10px);
     height: auto;
     .item-list {
-      gap: 10px;
+      gap: em(10px);
     }
     .item-page {
       overflow: unset;

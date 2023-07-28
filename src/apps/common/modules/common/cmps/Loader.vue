@@ -23,22 +23,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/global/index';
 .loader {
   &:hover {
     pointer-events: none;
   }
   .preview {
     text-align: center;
-    width: 50px;
-    height: 50px;
+    width: em(50px);
+    height: em(50px);
     &.width-all {
       width: 100%;
       width: 100vw;
       height: auto;
       line-height: 2rem;
       .inner-loader {
-        width: 100px;
-        height: 100px;
+        width: em(100px);
+        height: em(100px);
       }
     }
   }

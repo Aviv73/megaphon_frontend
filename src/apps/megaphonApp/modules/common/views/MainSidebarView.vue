@@ -23,12 +23,7 @@ export default {
     }
   },
   created() {
-    if (this.$route.name === 'MainSidebarView') {
-      const firstOrg = this.loggedUser.organizations.filter(c => c.organizationId != '-1')[0];
-      if (!firstOrg) return;
-      this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
-    }
-
+    this.initNavigation();
     this.$store.dispatch({ type: 'organization/loadItems' });
     this.loadSelectedOrg();
     
@@ -40,6 +35,13 @@ export default {
     evManager.off('remove-folder', this.removeFolder);
   },
   methods: {
+    initNavigation() {
+      if (this.$route.name === 'MainSidebarView') {
+        const firstOrg = this.loggedUser?.organizations.filter(c => c.organizationId != '-1')[0];
+        if (!firstOrg) return;
+        this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
+      }
+    },
     loadSelectedOrg() {
       const id = this.selectedOrgId;
       if (id == '-1') return;
@@ -88,6 +90,10 @@ export default {
   watch: {
     selectedOrgId(id) {
       this.loadSelectedOrg(id);
+    },
+    loggedUser(val, prev) {
+      if (val?._id === prev?._id) return;
+      this.initNavigation();
     }
   }
 }
@@ -98,7 +104,7 @@ export default {
 .megaphon-app {
   .main-sidebar-view {
     >* {
-      padding: 10px;
+      padding: em(10px);
     }
   }
 }

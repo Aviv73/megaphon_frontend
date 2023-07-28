@@ -5,9 +5,8 @@ const  en = {
     "by": "By",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this company?",
-      "removeSuccess": "company removed successfully!",
-      "savedtagSuccess": "company saved successfully!",
-      "reporttagSuccess": "company reported successfully!"
+      "removeSuccess": "company removed successfully",
+      "savedSuccess": "company saved successfully",
     }
   }
 }
@@ -17,9 +16,8 @@ const he = {
     "companies": "ארגונים",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את התגית?",
-      "removeSuccess": "ארגון נמחק בהצלחה!",
-      "savedtagSuccess": "פרטי ארגון נשמרו בהצלחה!",
-      "reporttagSuccess": "ארגון דווח בהצלחה!"
+      "removeSuccess": "ארגון נמחק בהצלחה",
+      "savedSuccess": "פרטי ארגון נשמרו בהצלחה",
     }
   },
 

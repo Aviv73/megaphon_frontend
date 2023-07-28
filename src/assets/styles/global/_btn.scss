@@ -3,60 +3,78 @@
 //   color: white;
 // }
 .btn {
-  // height: 20px;
-  background-color: #ffffff;
-  box-shadow: $light-shadow;
-  color: black;
-  border-radius: 5px;
-  padding: 0 5px;
-
-  &.icon {
-    height: 20px;
-    width: 20px;
-    padding: 0;
-    border: unset;
-    // padding: 1px;
-    // img {
-    //   height: calc(100% - 2px);
-    //   width: calc(100% - 2px);
+  &:not(.clear) {
+    // height: em(20px);
+    background-color: #ffffff;
+    box-shadow: $light-shadow;
+    color: black;
+    border-radius: em(5px);
+    padding: 0 em(5px);
+  
+    display: inline-flex;
+    align-items: center;
+    gap: em(5px);
+    
+    img {
+      height: em(20px);
+      width: unset;
+    }
+    &.icon {
+      height: em(20px);
+      width: em(20px);
+      padding: 0;
+      border: unset;
+      // padding: em(1px);
+      // img {
+      //   height: calc(100% - 2px);
+      //   width: calc(100% - 2px);
+      // }
+    }
+    &.small {
+      height: (em13px);
+      width: (em13px);
+      padding: 0;
+      border-radius: 2px;
+      font-size: 11px;
+    }
+  
+    &.big {
+      padding: em(10px) em(20px);
+    }
+    &.mid {
+      padding: em(7px) em(15px);
+    }
+  
+    &.primary {
+      // background-color: $clr-light-green;
+      background-color: black;
+      color: white;
+    }
+    &.secondary {
+      background-color: $clr-light-blue;
+    }
+    &.danger {
+      background-color: $clr-light-red;
+    }
+  
+    // &.safe {
+    //   background-color: green;
     // }
-  }
-  &.small {
-    height: 13px;
-    width: 13px;
-    padding: 0;
-    border-radius: 2px;
-    font-size: 11px;
-  }
+    // &.danger {
+    //   background-color: red;
+    // }
+    &:active {
+      color: white;
+      border-color: white;
+    }
 
-  &.big {
-    padding: 10px 20px;
   }
-  &.mid {
-    padding: 7px 15px;
-  }
-
-  &.primary {
-    background-color: $clr-light-green;
-  }
-  &.secondary {
-    background-color: $clr-light-blue;
-  }
-  &.danger {
-    background-color: $clr-light-red;
-  }
-
-  // &.safe {
-  //   background-color: green;
-  // }
-  // &.danger {
-  //   background-color: red;
-  // }
 
   &:hover {cursor: pointer;}
-  &:active {
-    color: white;
-    border-color: white;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: default !important;
   }
 }
 
@@ -64,20 +82,21 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  // border: 1px solid $clr-light-blue;
-  border-radius: 3px;
+  // border: em(1px) solid $clr-light-blue;
+  border-radius: em(3px);
   overflow: hidden;
   background-color: #fff;
   box-shadow: $light-shadow;
   button {
-    padding: 3px;
+    padding: em(3px);
     color: black;
     height: 100%;
     &:not(:last-child) {
-      border-inline-end: 1px solid $clr-light-blue;
+      border-inline-end: em(1px) solid $clr-light-blue;
     }
     &.selected {
       background-color: $clr-light-green;
+      font-weight: bold;
     }
   }
 }
@@ -86,11 +105,11 @@
 //   border: unset;
 //   background: unset;
 //   outline: none;
-//   // padding: 0 5px;
-//   // border: 1px solid black;
+//   // padding: 0 em(5px);
+//   // border: em(1px) solid black;
 //   // box-shadow: $light-shadow;
 //   // color: black;
-//   // border-radius: 5px;
+//   // border-radius: em(5px);
 // } button:hover, .button-like:hover {cursor: pointer;}
 // button:active, .button-like:active {
 //     color: white;

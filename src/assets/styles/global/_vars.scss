@@ -41,14 +41,14 @@ $light-gray: #AEAEAE;
 
 // layout:
 
-$header-height: 70px;
-$footer-height: 100px;
-$app-aside-width: 0px;
+$header-height: em(70px);
+$footer-height: em(100px);
+$app-aside-width: em(0px);
 
 // $main-font-color: #666666;
 
 // $main-pad-y: 50px;
-$main-pad-y: 40px;
+$main-pad-y: em(40px);
 
 // THEME:
 
@@ -77,7 +77,7 @@ $main-pad-y: 40px;
 
 // oters:
 
-$light-shadow: 0px 0px 10px 1px rgba(0,0,0,0.1);
+$light-shadow: 0 0 em(10px) em(1px) rgba(0,0,0,0.1);
 // $blure-clr: rgba(0, 0, 0, 0.05);
 $blure-clr: rgba(0, 0, 0, 0.1);
 

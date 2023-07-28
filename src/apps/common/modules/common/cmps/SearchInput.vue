@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss">
 .search-input {
-  border-radius: 5px;
+  border-radius: em(5px);
   overflow: hidden;
   border: 1px solid rgb(114, 114, 114);
   width: 100%;

@@ -1,4 +1,4 @@
-import appConfig from '../config.js';
+import appConfig from '../appConfig.js';
 import megaphonAppData from './megaphonApp';
 import AgamAppData from './clientApps/agam';
 import DefaultClientAppData from './clientApps/defaultApp';

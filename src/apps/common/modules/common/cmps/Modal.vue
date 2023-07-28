@@ -51,8 +51,8 @@ export default {
     transform: translate(-50%, -50%);
 
     &.modal-style {
-      padding: 10px;
-      border-radius: 5px;
+      padding: em(10px);
+      border-radius: em(5px);
       box-shadow: $light-shadow;
       background-color: #fff;
       color: black;

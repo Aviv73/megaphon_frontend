@@ -1,5 +1,7 @@
 const  en = {
   "auth": {
+    "logout": "Logout",
+    "editUserDetails": "Edit user details",
     "alerts": {
       "welcomeBack": "Welcome back",
       "goodby": "Goodby",
@@ -11,6 +13,8 @@ const  en = {
 }
 const he = {
   "auth": {
+    "logout": "התנתק",
+    "editUserDetails": "ערוך פרטי משתמש",
     "alerts": {
       "welcomeBack": "ברוך שובך",
       "goodby": "להתראות",

@@ -16,8 +16,8 @@
 <script>
 import './assets/style/index.scss';
 
-import AppHeader from './modules/common/cmps/AppHeader.vue';
-import AppFooter from './modules/common/cmps/AppFooter.vue';
+import AppHeader from './modules/common/cmps/agap_AppHeader.vue';
+import AppFooter from './modules/common/cmps/agam_AppFooter.vue';
 
 
 export default {

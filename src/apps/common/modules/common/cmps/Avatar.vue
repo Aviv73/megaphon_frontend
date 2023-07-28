@@ -10,29 +10,33 @@ export default {
   name: "Avatar",
   props: {
     account: [Object, undefined],
-    size: [Number, undefined]
+    size: [Number, undefined],
+    img: [String, undefined],
   },
   computed: {
     imgSrc() {
-      return this.account.img || `https://robohash.org/${this.account.username}`;
+      return this.accont? this.account.img || `https://robohash.org/${this.account.username}` : this.img || '';
     },
     renderSize() {
-      return (this.size || 30) + 'px';
+      const size = (this.size || 30) / 16;
+      return size + 'em';
     }
   }
 }
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .app-avatar {
-  // width: 30px;
-  // height: 30px;
+  // width: em(30px);
+  // height: em(30px);
   border-radius: 50%;
-  border: 2px solid white;
+  border: em(2px) solid white;
   background: #dbdbdb;
+  overflow: hidden;
   .avatar-img {
-    height: 100%;
-    width: 100%;
+    height: 50%;
+    width: 50%;
     border-radius: 50%;
     object-fit: cover;
   }

@@ -6,8 +6,7 @@ const  en = {
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this tag?",
       "removeSuccess": "tag removed successfully!",
-      "savedtagSuccess": "tag saved successfully!",
-      "reporttagSuccess": "tag reported successfully!"
+      "savedtagSuccess": "tag saved successfully",
     }
   }
 }
@@ -17,9 +16,8 @@ const he = {
     "tags": "תגיות",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את התגית?",
-      "removeSuccess": "תגית נמחק בהצלחה!",
-      "savedtagSuccess": "פרטי תגית נשמרו בהצלחה!",
-      "reporttagSuccess": "תגית דווח בהצלחה!"
+      "removeSuccess": "תגית נמחקה בהצלחה",
+      "savedtagSuccess": "פרטי תגית נשמרו בהצלחה",
     }
   },
 

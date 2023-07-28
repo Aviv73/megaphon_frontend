@@ -13,7 +13,7 @@ const initState = () => ({
   organizationId: null,
 });
 
-const baseStore = basicStoreService.createSimpleCrudStore(initState, releaseService);
+const baseStore = basicStoreService.createSimpleCrudStore(initState, releaseService, 'release');
 
 export const _releaseStore = {
   namespaced: true,
@@ -37,7 +37,8 @@ export const _releaseStore = {
   },
   actions: {
     _Ajax: basicStoreService.StoreAjax,
-    async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, orgFilter }) {
+    ...baseStore.actions,
+    async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, orgFilter, folder }) {
       return dispatch({
         type: '_Ajax',
         do: async () => {
@@ -47,6 +48,7 @@ export const _releaseStore = {
           if (!filterToSend.filter.params.type) delete filterToSend.filter.params.type;
           if (!filterToSend.filter.params.subType) delete filterToSend.filter.params.subType;
           filterToSend.orgFilter = orgFilter;
+          filterToSend.folder = folder;
           const itemsRes = await releaseService.query(filterToSend, organizationId || getters.organizationId);
           return itemsRes;
         },

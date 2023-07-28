@@ -33,13 +33,13 @@ function save(account) {
 
 function getEmptyAccount() {
   return {
-    username: '',
     password: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     roles: ['user'],
     organizations: [],
-    gender: ''
+    password: '',
+    gbImg: ''
   }
 }

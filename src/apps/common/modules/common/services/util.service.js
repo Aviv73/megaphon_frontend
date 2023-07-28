@@ -218,12 +218,12 @@ export function mapArrBy(arr, byField = 'id') {
 
 //input: ({adress: {city: Jerusalem}}, 'adress.city') || output: 'jerusalem';
 /**@param {Object} obj * @param {String} field */
-export function getDeepVal(obj, field) {
+export function getDeepVal(obj, field = '') {
     const splited = field.split('.');
     let val = obj;
     for (const curr of splited) {
       if (!val[curr]) {
-        val = null;
+        val = undefined;
         break;
       } else val = val[curr];
     }
@@ -370,6 +370,31 @@ export function htmlStrToText(htmlStr) {
     el.innerHTML = htmlStr;
     return el.innerText;
 }
+
+
+
+
+export async function parseImgFile(file) { // ev.target.files[0]
+    function _getFileBase64Img(file) { // ev.target.files[0]
+        return new Promise((resolve, reject) => {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+            resolve(reader.result);
+            };
+            reader.onerror = function (error) {
+            reject(error);
+            };
+        })
+    }
+    const base64 = await _getFileBase64Img(file)
+    return {
+      name: file.name,
+      src: base64
+    }
+  }
+  
+
 
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////

@@ -127,7 +127,7 @@ class A_Alert {
     parentSelector = '';
     styleTemplateStr = '';
 
-    constructor(parentSelector = 'body', isAbsolute = false, styleTemplateStr = _getDefaultAlertStyle()) {
+    constructor(parentSelector = 'body', btnMsgs = {}, isAbsolute = false, styleTemplateStr = _getDefaultAlertStyle()) {
         this.parentSelector = parentSelector;
         this.id = A_Alert.counter++;
 
@@ -135,7 +135,23 @@ class A_Alert {
 
         this.styleTemplateStr = styleTemplateStr;
 
+        this.btnMsgs = {
+          confirm: 'Confirm',
+          cancel: 'Cancel',
+          close: 'Close',
+          submit: 'Submit',
+          ...btnMsgs
+        }
+
         this.idClass = 'ALERT' + this.id;
+    }
+
+    btnMsgs = {};
+    setBtnMsgs(msgs = {}) {
+      this.btnMsgs = {
+        ...this.btnMsgs,
+        ...msgs
+      }
     }
 
     state = {
@@ -147,18 +163,21 @@ class A_Alert {
         resolve: undefined,
     }
 
-    Confirm = (msg = '') => {
+    Confirm = (msg = '', btnMsgs) => {
+        this.setBtnMsgs(btnMsgs)
         return this._seStatePromise('confirm', msg, '');
     }
-    Alert = (msg = '') => {
+    Alert = (msg = '', btnMsgs) => {
+        this.setBtnMsgs(btnMsgs)
         return this._seStatePromise('alert', msg, '');
     }
-    Prompt = (msg = '', placeHolder = '') => {
-        return this._seStatePromise('prompt', msg, placeHolder);
+    Prompt = (msg = '', placeHolder = '', initVal, btnMsgs) => {
+        this.setBtnMsgs(btnMsgs)
+        return this._seStatePromise('prompt', msg, placeHolder, initVal);
     }
 
     _render() {
-        var {msg, type, placeHolder} = this.state;
+        var {msg, type, placeHolder, initVal} = this.state;
         return `
             ${this.styleTemplateStr}
             <div class="alert-screen"></div>
@@ -166,17 +185,17 @@ class A_Alert {
                 <p class="msg">${msg}</p>
                 ${type === 'prompt' && `
                     <form class="a-alert-prompt-form">
-                        <input type="text" placeholder="${placeHolder}"/>
-                        <button>Submit</button>
+                        <input type="text" placeholder="${placeHolder}" value="${initVal}"/>
+                        <button>${this.btnMsgs.submit}</button>
                     </form>
-                    <button class="a-alert-reject-btn">Close</button>
+                    <button class="a-alert-reject-btn">${this.btnMsgs.close}</button>
                 ` || `
                     <div class="a-alert-buttons-container">
                         ${type === 'confirm' && `
-                            <button class="a-alert-confirm-btn">Confirm</button>
-                            <button class="a-alert-reject-btn">Cancel</button>
+                            <button class="a-alert-confirm-btn">${this.btnMsgs.confirm}</button>
+                            <button class="a-alert-reject-btn">${this.btnMsgs.cancel}</button>
                         ` || `
-                            <button class="a-alert-reject-btn">Close</button>
+                            <button class="a-alert-reject-btn">${this.btnMsgs.close}</button>
                         `}
                     </div>
                 `}
@@ -251,12 +270,13 @@ class A_Alert {
         return this.state.resolve(value);
     }
 
-    _seStatePromise = (type, msg = '', placeHolder = '') => {
+    _seStatePromise = (type, msg = '', placeHolder = '', initVal = '') => {
         if (this.state.isPending) return Promise.reject(`NOTE: can not set new alert becouse another alert is already in pending state.`);
         this.state.isPending = true;
         this.state.type = type;
         this.state.msg = msg;
         this.state.placeHolder = placeHolder;
+        this.state.initVal = initVal;
         this._show();
         return new Promise((resolve, reject) => {
             this.state.resolve = (val) => this._hide(val => resolve(val), val);
@@ -265,7 +285,8 @@ class A_Alert {
     }
 }
 
-const { Alert, Prompt, Confirm } = new A_Alert();
+const instance = new A_Alert();
+const { Alert, Prompt, Confirm } = instance;
 
 export const alertService = {
   toast,
@@ -273,7 +294,8 @@ export const alertService = {
   Alert,
   Prompt,
   Confirm,
-  setConfig
+  setConfig,
+  instance
 }
 
 

@@ -1,0 +1,416 @@
+<template>
+  <div class="release-distribute flex column gap20 container" v-if="release && org">
+    <div class="flex align-center space-between gap10 width-all">
+      <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.backToEditRelease')}}</button></router-link>
+      <h2>{{$t('distribute.distributeRelease')}}</h2>
+    </div>
+    <p v-if="!isLoading && !distributionTemplate">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
+    <template v-else>
+      <div class="flex gap30 width-all flex-1">
+        <div style="flex:3" class="flex column gap10">
+          <div class="tab-nav light">
+            <button @click="loadSystemContacts = true" :class="{selected: loadSystemContacts}">{{$t('distribute.contactsToDistribute')}}</button>
+            <button @click="loadSystemContacts = false" :class="{selected: !loadSystemContacts}">{{$t('distribute.selfContacts')}}</button>
+          </div>
+          <ItemSearchList
+            class="table-like-list"
+            :itemsData="allContactData"
+            :initFilterBy="filterBy"
+            @filter="getContacts"
+            itemDetailesPageName="ContactDetails"
+            newItemPageName="ContactEdit"
+            :singlePreviewCmp="DistributeContactPreview"
+            :filterByCmp="ContactFilter"
+            :showActions="false"
+            :dontRoute="true"
+            :showLoader="false"
+            :propsToPass="{contactsForDistribute}"
+          >
+            <div class="table-item-preview gap10 table-header">
+              <p>{{$t('contact.contactName')}}</p>
+              <p>{{$t('contact.role')}}</p>
+              <p>{{$t('contact.companyName')}}</p>
+              <div>
+                <button class="toggle-btn" @click="addAllSearchContacts()"><img :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>{{$t('distribute.addAll')}}</button>
+              </div>
+            </div>
+          </ItemSearchList>
+        </div>
+
+        <div style="flex:1.5" class="from-email-section flex column gap20">
+          <div>
+            <h3>{{contactsForDistribute.length}} {{$t('distribute.contactsWasSelected')}}</h3>
+          </div>
+          <div class="width-all flex column gap5">
+            <p>{{$t('distribute.fromEmail')}}</p>
+            <div class="flex align-center space-between gap10">
+              <!-- <FormInput type="select" :items="fromEmails.map(c => ({value: c.email, label: c.title}))" :value="fromEmail"/> -->
+              <FormInput class="flex-1" placeholder="email" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => fromEmail.title = fromEmails.find(c => c.email === val)?.title || ''"/>
+              <FormInput class="flex-1" placeholder="name" type="text" v-model="fromEmail.title"/>
+
+            </div>
+          </div>
+          <div class="load-distributions-section flex align-center space-between gap5">
+            <button @click="getMailingLists" class="btn">{{$t('distribute.loadDistributionList')}} <img :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
+            <button @click="showAddMailingListItemModal = true" class="btn">{{$t('distribute.saveDistributionList')}} <img :src="require('@/apps/megaphonApp/assets/images/save_black.svg')"/></button>
+          </div>
+          <div class="width-all flex column gap5">
+            <p>{{$t('distribute.addCustomContact')}}</p>
+            <form @submit.prevent="addCustomContact" class="width-all flex space-between gap10">
+              <FormInput class="flex-1" placeholder="distribute.customEmailToAdd" v-model="customEmailToAdd"/>
+              <button class="btn">{{$t('distribute.add')}}</button>
+            </form>
+          </div>
+          <div class="table-like-list flex-1 selected-table">
+            <div class="table-item-preview gap10 table-header flex space-between">
+              <p>{{$t('contact.contactName')}}</p>
+              <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.removeAll')}}</button>
+          </div>
+            <div v-for="contact in contactsForDistribute" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
+              <p>{{contact.name || (contact.firstName + ' ' + contact.lastName)}}</p>
+              <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.remove')}}</button>
+            </div>
+            <!-- <div class="item-list">
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <footer class="flex align-center justify-end gap10 width-all">
+        <button @click="sendTestEmail" class="btn big">{{$t('distribute.sendTestMail')}}</button>
+        <button @click="distribute()" class="btn big">{{$t('distribute.confirmAndDistribute')}}</button>
+      </footer>
+
+      <Modal :fullScreen="true" v-if="showEmailListsSelectionModal" @close="showEmailListsSelectionModal = false">
+        <div class="flex column gap10 mailing-lists-modal">
+          <template v-if="emailLists?.length">
+            <p>{{$t('distribute.loadDistributionList')}}</p>
+            <div class="table-like-list flex-1 selected-table">
+              <div class="table-item-preview gap10 table-header flex space-between">
+                <p>{{$t('distribute.mailingList')}}</p>
+              </div>
+              <div v-for="list in emailLists" :key="list._id" class="table-item-preview gap10 list-item flex align-center space-between" @click="selectMailingList(list)">
+                <p>{{list.title}}</p>
+              </div>
+            </div>
+          </template>
+          <p v-else>{{$t('distribute.noMailingListsFound')}}..</p>
+          <div class="width-all flex justify-end">
+            <button @click="showEmailListsSelectionModal = false" class="btn">{{$t('close')}}</button>
+          </div>
+        </div>
+      </Modal>
+      <Modal :fullScreen="true" v-else-if="showAddMailingListItemModal" @close="showAddMailingListItemModal = false">
+        <div class="flex column gap10 new--lists-modal">
+          <template v-if="contactsForDistribute?.length">
+            <p>{{$t('distribute.saveMailingList')}}</p>
+            <form @submit.prevent="createMailingList" class="flex space-between gap10">
+              <FormInput v-model="newMailingListName" placeholder="name"/>
+              <button class="btn">{{$t('create')}}</button>
+            </form>
+          </template>
+          <p v-else>{{$t('distribute.cantCreateEmptyMailingList')}}..</p>
+          <div class="width-all flex justify-end">
+            <button @click="showAddMailingListItemModal = false" class="btn">{{$t('close')}}</button>
+          </div>
+        </div>
+      </Modal>
+      <Modal :fullScreen="true" v-else-if="showDistributionReportModal && distributionReport">
+        <div class="flex column gap10 distribution-report-modal">
+          <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} {{distributionReport.sentToUsers.length}} / {{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}.</p>
+          <div class="flex column gap10 new--lists-modal" v-if="distributionReport.faildSendToUsers.length">
+            <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}:</p>
+            <div class="table-like-list flex-1 selected-table">
+              <div class="table-item-preview gap10 table-header flex space-between">
+                <p>{{$t('contact.contactName')}}</p>
+                <p>{{$t('email')}}</p>
+              </div>
+              <div v-for="contact in distributionReport.faildSendToUsers" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
+                <p>{{contact.name || (contact.firstName + ' ' + contact.lastName)}}</p>
+                <p>{{contact.email}}</p>
+              </div>
+            </div>
+            <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
+          </div>
+          <div class="width-all flex justify-end">
+            <button @click="showDistributionReportModal = false" class="btn">{{$t('close')}}</button>
+          </div>
+        </div>
+      </Modal>
+    </template>
+    <Loader :fullScreen="true" v-if="isLoading"/>
+  </div>
+</template>
+
+<script>
+import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
+import DistributeContactPreview from '../cmps/DistributeContactPreview.vue';
+import ContactFilter from '../../contact/cmps/ContactFilter.vue';
+import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue';
+import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
+import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import { contactService } from '../../contact/contact.service';
+import { distributionService } from '../services/distribution.service.js';
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
+import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
+import { getReleaseRelevantTmplate } from '../../common/services/template.util.service';
+export default {
+  name: 'ReleaseDistribute',
+  data() {
+    return {
+      release: null,
+      org: null,
+      loadSystemContacts: true,
+
+      DistributeContactPreview,
+      ContactFilter,
+
+      contactsForDistribute: [],
+
+      fromEmail: {
+        email: '',
+        title: ''
+      },
+      customEmailToAdd: '',
+
+      emailLists: [],
+      isLoadingLocal: false,
+      showEmailListsSelectionModal: false,
+
+      showAddMailingListItemModal: false,
+      newMailingListName: '',
+
+      distributionReport: null,
+      showDistributionReportModal: false
+    }
+  },
+  computed: {
+    organizationId() {
+      return this.$route.params.organizationId;
+    },
+    allContactData() {
+      return this.$store.getters['contact/data'];
+    },
+    filterBy() {
+      return this.$store.getters['contact/filterBy'];
+    },
+    isLoading() {
+      return this.$store.getters['contact/organization'] || this.$store.getters['contact/isLoading'] || this.$store.getters['release/isLoading'] || this.isLoadingLocal;
+    },
+
+    fromEmails() {
+      return this.org.fromEmails || [];
+    },
+
+    distributionTemplate() {
+      return getReleaseRelevantTmplate(this.release, this.org, true);
+    }
+  },
+
+  methods: {
+    async getItem() {
+      this.release = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });
+    },
+    async getOrg() {
+      this.org = await this.$store.dispatch({ type: 'organization/loadItem', organizationId: this.organizationId });
+      const defaultItem = this.org.fromEmails?.find(c => c.isDefault) || this.org.fromEmails?.[0];
+      if (defaultItem) this.fromEmail = {...defaultItem};
+    },
+    close() {
+      this.$router.push({ name: 'ReleasePage', params: { organizationId: this.organizationId } })
+    },
+    getContacts(filterBy) {
+      filterBy = filterBy || this.filterBy
+      this.$store.dispatch({ type: 'contact/loadItems', filterBy: {...filterBy, loadSystemContacts: this.loadSystemContacts }, organizationId: this.organizationId });
+    },
+
+    addContact(contact) {
+      if (!contact?.email) return;
+      const idx = this.contactsForDistribute.findIndex(c => c.email === contact.email);
+      if (idx === -1) this.contactsForDistribute.unshift(contact);
+    },
+    toggleContact(contact) {
+      const idx = this.contactsForDistribute.findIndex(c => c.email === contact.email);
+      if (idx === -1) this.contactsForDistribute.unshift(contact);
+      else this.contactsForDistribute.splice(idx, 1);
+    },
+
+    async addAllSearchContacts() {
+      this.isLoadingLocal = true;
+      try {
+        const contactsToAdd = await contactService.query({...this.filterBy, pagination: undefined, loadSystemContacts: this.loadSystemContacts}, this.organizationId);
+        contactsToAdd.items.forEach(this.addContact);
+      } catch (err) {
+        alertService.toast({ msg: `Somethind went wrong, cant load mailing lists` });
+      }
+      this.isLoadingLocal = false;
+    },
+    addCustomContact() {
+      if (!this.customEmailToAdd) return;
+      const newContact = { name: this.customEmailToAdd, email: this.customEmailToAdd };
+      this.addContact(newContact);
+      this.customEmailToAdd = '';
+    },
+
+
+    async distribute(contacts) {
+      const isToSend = await alertService.Confirm(this.$t('distribute.distributeReleaseConfirmMsg'));
+      if (!isToSend) return;
+      try {
+        this.isLoadingLocal = true;
+        const res = await distributionService.distribute(this.release._id, { 
+          from: this.fromEmail,
+          contacts: contacts || this.contactsForDistribute
+        });
+        // alertService.toast({ msg: `Successfully distributed release to ${res.sentToUsers.length} out of ${this.contactsForDistribute.length} contacts` });
+        alertService.toast({ msg: `Successfully distributed release`, type: 'safe' });
+        console.log(res);
+        this.distributionReport = res;
+        this.showDistributionReportModal = true;
+      } catch(err) {
+        alertService.toast({ msg: `Somethind went wrong, cant distribute release` });
+      }
+      this.isLoadingLocal = false;
+    },
+    async sendTestEmail() {
+      const testEmail = await alertService.Prompt(this.$t('distribute.testEmail'), this.$t('distribute.testEmail'), localStorage.testEmailVal);
+      if (!testEmail) return;
+      localStorage.testEmailVal = testEmail;
+      this.isLoadingLocal = true;
+      try {
+        const res = await distributionService.testDistribute(this.release._id, { 
+          from: this.fromEmail,
+          contacts: [{ email: testEmail }]
+        });
+        alertService.toast({ msg: `Successfully sent test distribution for release`, type: 'safe' });
+      } catch(err) {
+        alertService.toast({ msg: `Somethind went wrong, cant sent test distribution for release` });
+      }
+      this.isLoadingLocal = false;
+    },
+
+    async tryDistributeAgain() {
+      this.distribute(this.distributionReport.faildSendToUsers);
+    },
+
+
+    async getMailingLists() {
+      this.isLoadingLocal = true;
+      try {
+        const listsData = await distributionService.queryMailingLists(this.organizationId);
+        this.emailLists = listsData.items;
+        this.showEmailListsSelectionModal = true;
+      } catch(err) {
+        alertService.toast({ msg: `Somethind went wrong, cant load mailing lists` });
+      }
+      this.isLoadingLocal = false;
+    },
+    selectMailingList(list) {
+      this.contactsForDistribute = list.contacts.filter(c => !c.unsubscribed);
+      this.showEmailListsSelectionModal = false;
+    },
+
+    async createMailingList() {
+      this.isLoadingLocal = true;
+      try {
+        const newListItem = {
+          contacts: this.contactsForDistribute,
+          title: this.newMailingListName,
+          organizationId: this.organizationId
+        }
+        await distributionService.addMailingList(newListItem);
+        this.newMailingListName = '';
+        this.showAddMailingListItemModal = false;
+      } catch(err) {
+        alertService.toast({ msg: `Somethind went wrong, cant create new mailing list` });
+      }
+      this.isLoadingLocal = false;
+    }
+  },
+  created() {
+    this.getItem();
+    this.getOrg();
+    this.getContacts();
+
+    evManager.on('toggle-distribute-contact', this.toggleContact);
+  },
+  destroyed() {
+    evManager.off('toggle-distribute-contact', this.toggleContact);
+
+  },
+  watch: {
+    '$route.params.id'() {
+      this.getItem();
+    },
+    organizationId() {
+      this.getContacts();
+    },
+    loadSystemContacts() {
+      this.getContacts();
+    }
+
+  },
+  components: {
+    FormInput,
+    ItemSearchList, Loader, DistributeContactPreview, ContactFilter,
+    Modal,
+  },
+
+
+}
+</script>
+
+
+<style lang="scss">
+@import '@/assets/styles/global/index';
+.megaphon-app {
+  .release-distribute {
+    padding: em(10px);
+
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: em(5px);
+      img {
+        height: em(20px);
+        width: unset;
+      }
+    }
+
+    .selected-table {
+      overflow: auto;
+      // flex: 0 1 auto;
+      max-height: em(500px);
+      .table-item-preview {
+        >:nth-child(2) {
+          flex: unset;
+        }
+      }
+    }
+
+    .mailing-lists-modal {
+      min-width: em(300px);
+      .list-item {
+        cursor: pointer;
+      }
+    }
+
+    .load-distributions-section {
+      font-size: em(15px);
+      button {
+        box-shadow: none;
+        img {
+          height: em(15px);
+        }
+      }
+    }
+
+    .distribution-report-modal {
+      max-height: 70vh;
+      min-width: 50vw;
+      .selected-table {
+        max-height: 50vh;
+      }
+    }
+  }
+}
+</style>

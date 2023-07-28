@@ -1,18 +1,18 @@
 <template>
-  <div class="contact-edit flex column gap30" v-if="itemToEdit">
+  <div class="contact-edit flex column align-start gap30" v-if="itemToEdit">
     <h2 v-if="itemToEdit._id">{{$t('contact.editContact')}}</h2>
     <h2 v-else>{{$t('contact.createContact')}}</h2>
-    <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
-      <FormInput placeholder="email" :required="true" type="text" v-model="itemToEdit.email"/>
-      <FormInput placeholder="firstName" :required="true" type="text" v-model="itemToEdit.firstName"/>
-      <FormInput placeholder="lastName" :required="true" type="text" v-model="itemToEdit.lastName"/>
-      <FormInput placeholder="contact.role" type="text" v-model="itemToEdit.role"/>
+    <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20 simple-form">
+      <FormInput labelholder="email" :required="true" type="text" v-model="itemToEdit.email"/>
+      <FormInput labelholder="firstName" :required="true" type="text" v-model="itemToEdit.firstName"/>
+      <FormInput labelholder="lastName" :required="true" type="text" v-model="itemToEdit.lastName"/>
+      <FormInput labelholder="contact.role" type="text" v-model="itemToEdit.role"/>
       <!-- <FormInput type="text" v-model="itemToEdit.name"/> -->
-      <TagPicker v-model="itemToEdit.tags"/>
-      <CompanyPicker v-model="itemToEdit.company"/>
-      <FormInput placeholder="contact.phone" type="text" v-model="itemToEdit.phone"/>
-      <FormInput placeholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/>
-      <FormInput placeholder="contact.notes" type="text" v-model="itemToEdit.notes"/>
+      <TagPicker :showLabel="true" :getOnlyIds="true" v-model="itemToEdit.tags"/>
+      <CompanyPicker :showLabel="true" :getOnlyIds="true" v-model="itemToEdit.company"/>
+      <FormInput labelholder="contact.phone" type="text" v-model="itemToEdit.phone"/>
+      <FormInput labelholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/>
+      <FormInput labelholder="contact.notes" type="text" v-model="itemToEdit.notes"/>
     </form>
     <div class="flex align-center gap30">
       <button class="btn big danger" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
@@ -47,7 +47,7 @@ export default {
     async saveItem() {
       if (!this.isItemValid) return;
       await this.$store.dispatch({ type: 'contact/saveItem', item: this.itemToEdit });
-      this.$router.push('/contact');
+      this.close();
     },
 
     async deleteItem() {
@@ -73,3 +73,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '@/assets/styles/global/index';
+.megaphon-app {
+  // .contact-edit {
+  //   .input {
+  //     flex: 1;
+  //   }
+  //   .label {
+  //     width: em(100px);
+  //   }
+  // }
+}
+</style>

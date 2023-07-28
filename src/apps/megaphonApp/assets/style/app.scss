@@ -1,3 +1,6 @@
+@import '@/assets/styles/global/index';
+// @import '../../../../assets/styles/global/vars';
+// @import '../../../../assets/styles/global/index';
 
 
 
@@ -5,6 +8,7 @@ html {
 }
 
 .megaphon-app {
+  font-size: 15px;
   .app-header {
     background-color: #F2F2F2;
   }
@@ -17,18 +21,19 @@ html {
     .item-page {
       overflow: unset;
     }
-  
+    
     .item-list {
       gap: 0;
       flex-direction: column;
       justify-content: flex-start;
+      box-shadow: $light-shadow;
     }
     .table-item-preview {
       width: 100%;
-      min-height: 40px;
+      min-height: em(40px);
       display: flex;
       align-items: center;
-      padding: 0 10px;
+      padding: 0 em(10px);
       >* {
         flex: 1;
       }
@@ -41,6 +46,49 @@ html {
       &.table-header {
         background-color: black;
         color: white;
+      }
+    }
+  }
+
+  
+  .delete-mini-btn {
+    width: em(15px);
+    object-fit: unset;
+  }
+
+  
+  .tab-nav {
+    width: 100%;
+    height: em(60px);
+    background-color: #0084D4;
+    display: flex;
+    align-items: flex-end;
+    gap: em(10px);
+    .container {
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      gap: em(10px);
+    }
+    button {
+      height: 80%;
+      padding: em(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #B2DAF2;
+      color: #0084D4;
+      &.selected {
+        background-color: #fff;
+      }
+    }
+    &.light {
+      background-color: #bbbbbb;
+      // background-color: unset;
+      height: em(40px);
+      button:not(.selected) {
+        background-color: #d2d2d2;
+        color: black;
       }
     }
   }
