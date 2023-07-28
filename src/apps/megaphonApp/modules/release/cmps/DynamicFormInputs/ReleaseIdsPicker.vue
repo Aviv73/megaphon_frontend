@@ -26,13 +26,6 @@ export default {
     }
   },
   methods: {
-    spliceFromVal(val, idx) {
-      val = [...val];
-      val.splice(idx, 1);
-      return val;
-    },
-
-
     toggleRelease(releaseId, toggleVal) {
       const idx = this.val.indexOf(releaseId);
       if (idx === -1) this.val.push(releaseId);

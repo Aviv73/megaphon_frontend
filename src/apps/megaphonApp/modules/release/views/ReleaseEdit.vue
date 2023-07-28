@@ -47,7 +47,7 @@
 
 <script>
 import { getDeepVal, setDeepVal } from '../../../../common/modules/common/services/util.service';
-import DynamicInput from '../cmps/DynamicInput.vue';
+import DynamicInput from '../cmps/DynamicFormInputs/DynamicInput.vue';
 import { createItemForDynamicForm } from '../../common/services/CreateItemForDynamicForm';
 import { getReleaseLandingPageUrl, getReleaseRelevantTmplates } from '../../common/services/template.util.service';
 export default {

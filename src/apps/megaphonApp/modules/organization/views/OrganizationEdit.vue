@@ -23,7 +23,7 @@
           <li v-for="(curr, idx) in organizationToEdit.fromEmails || []" :key="idx">
             <FormInput type="text" placeholder="name" v-model="curr.email"/>
             <FormInput type="text" placeholder="name" v-model="curr.title"/>
-            <button @click="organizationToEdit.fromEmails.splice(idx, 1)"><img class="delete-mini-btn" :src="xImg"/></button>
+            <TableActionBtns v-model="organizationToEdit.fromEmails" :idx="idx"/>
           </li>
         </ul>
         <button @click="addFromEmailItem" class="btn big">{{$t('add')}}</button>
@@ -52,7 +52,7 @@
           <li v-for="(curr, idx) in organizationToEdit.logos || []" :key="idx">
             <FormInput type="text" placeholder="name" v-model="curr.title"/>
             <FileUploader :viewAsImg="true" :value="{src: curr.url}" @input="val => imgUploaded(val, `logos.${idx}.url`)"/>
-            <button @click="organizationToEdit.logos.splice(idx, 1)"><img class="delete-mini-btn" :src="xImg"/></button>
+            <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
           </li>
         </ul>
         <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
@@ -73,7 +73,7 @@
               <FormInput type="text" placeholder="title" v-model="curr.title"/>
               <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({_id, name}) => ({value: _id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
               <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.wasDistributed"/>
-              <button @click="organizationToEdit.filters.splice(idx, 1)"><img class="delete-mini-btn" :src="xImg"/></button>
+              <TableActionBtns v-model="organizationToEdit.filters" :idx="idx"/>
             </li>
           </ul>
           <button @click="addFilterItem" class="btn big">{{$t('add')}}</button>
@@ -92,7 +92,7 @@
               <FormInput type="text" placeholder="name" v-model="curr.name"/>
               <FormInput type="text" placeholder="dataFieldsFilePath" v-model="curr.dataFieldsLocalFilePath"/>
               <!-- <FormInput type="textarea" placeholder="dataFieldsStr" v-model="curr.dataFieldsStr"/> -->
-              <button @click="organizationToEdit.releaseTypes.splice(idx, 1)"><img class="delete-mini-btn" :src="xImg"/></button>
+              <TableActionBtns v-model="organizationToEdit.releaseTypes" :idx="idx"/>
             </li>
           </ul>
           <button @click="addReleaseTypeItem" class="btn big">{{$t('add')}}</button>
@@ -121,7 +121,7 @@
               <FormInput type="text" placeholder="appName" v-model="curr.appName"/>
 
               <!-- <FormInput type="textarea" placeholder="hadlebarsFileStr" v-model="curr.hadlebarsFileStr"/> -->
-              <button @click="organizationToEdit.filters.splice(idx, 1)"><img class="delete-mini-btn" :src="xImg"/></button>
+              <TableActionBtns v-model="organizationToEdit.templates" :idx="idx"/>
             </li>
           </ul>
           <button @click="addTemplateItem" class="btn big">{{$t('add')}}</button>
@@ -141,12 +141,12 @@ import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
 // import { uploadImg } from '../../common/services/util.service'
 import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service'
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
+import TableActionBtns from '../../../../common/modules/common/cmps/TableActionBtns.vue';
 export default {
   name: 'OrganizationEdit',
   data() {
     return {
       organizationToEdit: null,
-      xImg: require('@/apps/megaphonApp/assets/images/delete_red.svg'),
       showDeveloperZone: false
     }
   },
@@ -210,7 +210,8 @@ export default {
   components: {
     FormInput,
     // ImgInput,
-    FileUploader
+    FileUploader,
+    TableActionBtns
   }
 }
 </script>

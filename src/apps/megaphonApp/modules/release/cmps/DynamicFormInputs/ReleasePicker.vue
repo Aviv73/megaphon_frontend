@@ -4,9 +4,8 @@
       <li v-for="(release, idx) in value" :key="release._id" class="flex align-end gap10">
         <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || ''" :alt="release.releaseData?.title" />
         <p>{{release.releaseData?.title}}</p>
-        <button @click="$emit('input', spliceFromVal(value, idx))">
-          <img class="delete-mini-btn" :src="require('@/apps/megaphonApp/assets/images/delete_red.svg')"/>
-        </button>
+        
+        <TableActionBtns v-model="organizationToEdit.value" :idx="idx"/>
       </li>
     </ul>
     <button class="btn big" @click="showSearchModal = true">{{$t('add')}}</button>
@@ -38,8 +37,9 @@
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import { releaseService } from '@/apps/common/modules/release/services/release.service.js'
+import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
 export default {
-  components: { Modal, FormInput },
+  components: { Modal, FormInput, TableActionBtns },
   name: 'ReleasePicker',
   props: {
     value: [Array],
@@ -65,24 +65,16 @@ export default {
     }
   },
   methods: {
-    spliceFromVal(val, idx) {
-      val = [...val];
-      val.splice(idx, 1);
-      return val;
-    },
-
     async getReleases() {
       const releasesRes = await releaseService.query(this.releasesFilterBy, this.$route.params.organizationId);
       this.releases = releasesRes.items.filter(c => !this.value.find(rel => rel._id === c._id));
       this.showMsg = true;
     },
-
-
     addReleases() {
       this.$emit('input', [...this.value, ...this.releasesToAdd]);
       this.releasesToAdd = [];
       this.showSearchModal = false;
-    }
+    },
   },
 
   created() {

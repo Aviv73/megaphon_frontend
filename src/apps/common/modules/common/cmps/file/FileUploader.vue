@@ -1,8 +1,8 @@
 <template>
   <div class="file-uploader-input flex align-start gap30">
-    <img class="val-img" v-if="viewAsImg" :title="value?.title" :src="imgToShow" :alt="value?.title || $t('clickToUploadFile')" @click="clickInput"/>
-    <p @click="clickInput" v-else-if="!value?.src && !isLoading">{{$t('clickToUploadFile')}}</p>
-    <a target="_blanc" :href="value.src" v-else>{{value.title}}</a>
+    <img v-if="viewAsImg" class="val-img" :title="value?.title" :src="imgToShow" :alt="value?.title || $t('clickToUploadFile')" @click="clickInput"/>
+    <p class="p-like" v-else-if="!value?.src && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
+    <a class="p-like" v-else target="_blanc" :href="value.src" :title="value.title">{{value.title}}</a>
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :exept="exept"/>
       <button @click.prevent.stop="clickInput" class="btn big">{{$t('chooseFile')}}</button>
@@ -52,7 +52,6 @@ export default {
         formData.append('file' ,file);
         const uploadedRes  = await uploadFileToServer(formData);
         const newVal = { title: fileName, src: uploadedRes.src };
-        console.log('GOT IT', newVal);
         this.$emit('input', newVal);
       } catch (err) {
         alertService.toast({type: 'danger', msg: `cantUploadFileError'}`});
@@ -76,6 +75,9 @@ export default {
   }
   button {
     width: em(110px);
+  }
+  .p-like {
+    width: em(200px);
   }
 }
 </style>

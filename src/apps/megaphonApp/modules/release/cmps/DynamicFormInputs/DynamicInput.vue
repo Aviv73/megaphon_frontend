@@ -31,7 +31,7 @@
           <p class="flex-1" v-for="(field, idx) in dataField.fields" :key="`${basePath}.${idx}.${field.title}`">
             {{field.title}}
           </p>
-          <p></p>
+          <p class="flex-1"></p>
         </div>
         <div v-for="(currVal, idx) in value" :key="idx" class="flex align-center gap10">
           <DynamicInput
@@ -44,9 +44,9 @@
             @input="(path, val) => $emit('input', path, val)"
             :noTitle="true"
           />
-          <button :disabled="!idx && value.length <= 1" class="btn clear" @click="$emit('input', basePath, spliceFromVal(value, idx))"><img class="delete-mini-btn" :src="require('@/apps/megaphonApp/assets/images/delete_red.svg')"/></button>
+          <TableActionBtns v-model="value" :idx="idx"/>
         </div>
-        <button class="btn big width-content align-self-end" @click="$emit('input', basePath, [...(value || []), createNewItem(dataField.fields)])">{{$t('add')}}</button>
+        <button class="btn big width-content align-self-end" @click.prevent="$emit('input', basePath, [...(value || []), createNewItem(dataField.fields)])">{{$t('add')}}</button>
       </div>
     </div>
     <p v-if="dataField.helpText">{{dataField.helpText}}</p>
@@ -60,11 +60,12 @@ import { getDeepVal, setDeepVal } from '@/apps/common/modules/common/services/ut
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 // import FileInput from '@/apps/common/modules/common/cmps/FileInput.vue';
 import { VueEditor } from "vue2-editor";
-import { createItemForDynamicForm } from '../../common/services/CreateItemForDynamicForm';
+import { createItemForDynamicForm } from '../../../common/services/CreateItemForDynamicForm';
 import ReleasePicker from './ReleasePicker.vue';
 import ReleaseIdsPicker from './ReleaseIdsPicker.vue';
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
-import MultipleFilesPisker from './MultipleFilesPisker.vue';
+import MultipleFilePicker from './MultipleFilePicker.vue';
+import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
 
 
 
@@ -122,21 +123,20 @@ export default {
           this.cmpName = 'div';
           break;
         case 'RELEASES_SELECTOR': 
-        console.log(this.dataField);
           this.cmpName = 'ReleasePicker'
           this.propsToPass = { organization: this.organization };
           break;
         case 'FILE':
         case 'VIDEO':
-          this.cmpName = 'MultipleFilesPisker';
+          this.cmpName = 'MultipleFilePicker';
           this.propsToPass = { isSingleItem: true, accept: this.dataField.filter };
           break;
         case 'IMAGE':
-          this.cmpName = 'MultipleFilesPisker';
+          this.cmpName = 'MultipleFilePicker';
           this.propsToPass = { viewAsImg: true, isSingleItem: true, exept: '' };
           break;
         case 'IMAGEGALLERY':
-          this.cmpName = 'MultipleFilesPisker';
+          this.cmpName = 'MultipleFilePicker';
           this.propsToPass = { viewAsImg: true, isSingleItem: false, exept: '' };
           break;
 
@@ -168,12 +168,6 @@ export default {
     createNewItem(dataFields) {
       return createItemForDynamicForm(dataFields);
     },
-
-    spliceFromVal(val, idx) {
-      val = [...val];
-      val.splice(idx, 1);
-      return val;
-    }
   },
   mounted() {
     this.initCmpData();
@@ -184,7 +178,8 @@ export default {
     ReleasePicker,
     ReleaseIdsPicker,
     FileUploader,
-    MultipleFilesPisker
+    MultipleFilePicker,
+    TableActionBtns
     // FileInput
   },
 }
