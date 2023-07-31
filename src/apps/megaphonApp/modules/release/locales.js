@@ -14,6 +14,7 @@ const  en = {
       "confirmRemove": "Are you sure you want to remove this release?",
       "removeSuccess": "Release removed successfully",
       "savedSuccess": "Release saved successfully",
+      "leaveConfirm": "Leave without saving?"
     },
 
     bought: 'bought',
@@ -67,6 +68,7 @@ const he = {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הרליס?",
       "removeSuccess": "רליס נמחק בהצלחה",
       "savedSuccess": "פרטי רליס נשמרו בהצלחה",
+      "leaveConfirm": "האם אתה בטוח שאתה בעוניין לעזוב בלי לשמור את השינויים?"
     },
     bought: 'רכש',
     original: 'מקור'

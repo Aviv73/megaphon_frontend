@@ -45,6 +45,9 @@ const en = {
   "clickToUploadFile": "Click to upload file",
   "cantUploadFileError": "Somthing went wrong, can`t upload file",
   "file": "File",
+  "send": "Send",
+  "credit": "Credit",
+  "photo": "Photo",
 
   "hebrew": "Hebrew",
   "english": "English",
@@ -117,6 +120,9 @@ const he = {
   "clickToUploadFile": "לחץ כדי לבחור קובץ",
   "cantUploadFileError": "משהו השתבש, העלאת קובץ נכשלה",
   "file": "קובץ",
+  "send": "שלח",
+  "credit": "קרדיט",
+  "photo": "תמונה",
 
   "hebrew": "עברית",
   "english": "אנגלית",

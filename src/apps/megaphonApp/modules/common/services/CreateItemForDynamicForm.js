@@ -6,6 +6,11 @@ export function createItemForDynamicForm(dataFields = []) {
     switch (field.type) {
       case 'TEXT':
       case 'EMAIL':
+      case 'URL':
+      case 'VIDEOURL':
+      case 'IMAGE_SRC':
+      case 'LOGOSELECTION':
+      case 'SELECTIONWITHIMAGE':
         item[field.fieldName] = '';
         break;
       case 'DATE':
@@ -31,8 +36,7 @@ export function createItemForDynamicForm(dataFields = []) {
           item[c.fieldName] = createItemForDynamicForm([c])[c.fieldName]
         });
         break;
-
-      case 'LOGOSELECTION': 
+        
       case 'VIDEOURL': 
         item[field.fieldName] = '';
 
@@ -42,12 +46,14 @@ export function createItemForDynamicForm(dataFields = []) {
       case 'IMAGEGALLERY':
       case 'FILE':
         item[field.fieldName] = [];
-        
-      case 'SELECTIONWITHIMAGE':
 
       case 'SEPARATOR':
       case 'SEPARATOR_BOLD':
         break;
+
+      default:
+        item[field.fieldName] = '';
+
     }
   }
   return item;

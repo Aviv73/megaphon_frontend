@@ -21,17 +21,6 @@ const _organizationStore = {
         do: async () => organizationService.get(organizationId || selectedAppData.params.organizationId),
         onSuccess: (item) => commit({ type: 'setSelectedItem', item })
       });
-    },
-    getAllItems() {
-      return organizationService.query(basicStoreService.initFilterBy());
-    },
-    async loadDataFields({ commit, dispatch, getters }, { organizationId, dataFieldsLocalFilePath }) {
-      return dispatch({
-        type: '_Ajax',
-        do: async () => {
-          return await organizationService.loadDataFields(dataFieldsLocalFilePath, organizationId);
-        },
-      });
     }
   }
 }

@@ -4,9 +4,10 @@
       <FileUploader
         :value="currVal"
         :viewAsImg="viewAsImg"
-        :exept="exept"
+        :accept="accept"
         @input="val => updateValue(val, idx)"
       />
+      <!-- <FormInput v-model="currVal.title"/> -->
       <TableActionBtns v-if="!isSingleItem" :value="value" @input="updateFromActions" :idx="idx"/>
     </div>
     <button v-if="!isSingleItem" class="btn big width-content" @click="$emit('input', [...(value || []), createNewItem(value)])">{{$t('add')}}</button>
@@ -15,6 +16,7 @@
 
 <script>
 import FileUploader from '../../../../../common/modules/common/cmps/file/FileUploader.vue';
+import FormInput from '../../../../../common/modules/common/cmps/FormInput.vue';
 import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
 export default {
   name: 'MultipleFilePicker',
@@ -24,7 +26,7 @@ export default {
       type: Boolean,
       default: false
     },
-    exept: [String],
+    accept: [String],
     viewAsImg: [Boolean],
     dataField: [Object]
   },
@@ -46,7 +48,8 @@ export default {
   },
   components: {
     FileUploader,
-    TableActionBtns
+    TableActionBtns,
+    FormInput
   },
 }
 </script>

@@ -19,13 +19,15 @@
         </div>
         <div class="flex column" v-if="selectedOrgId === org._id">
           <router-link class="nav-list-item inner-list-item" :to="{ name: 'ReleasePage', params: { organizationId: org._id } }">
-            <div class="height-all width-all flex align-center" @click="clearFolderSelecion">
-              {{$t('release.releases')}}
-            </div>
+            <DropDiv :onDrop="() => addReleasesToFolder(null, null)">
+              <div class="height-all width-all flex align-center" @click="clearFolderSelecion">
+                {{$t('release.releases')}}
+              </div>
+            </DropDiv>
           </router-link>
           <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }">{{$t('contact.contacts')}}</router-link>
           <router-link class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }">{{$t('account.accounts')}}</router-link>
-          <FoldersNav :folders="org.folders || []" :parentItem="org"/>
+          <FoldersNav :currentDropableFolderPath="currentDropableFolderPath" :folders="org.folders || []" :parentItem="org"/>
         </div>
       </li>
       <li class="organization-preview" v-if="isAdmin">
@@ -53,8 +55,9 @@
 import Avatar from '../../../../../common/modules/common/cmps/Avatar.vue';
 import FoldersNav from './FoldersNav.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import DropDiv from '../dnd/DropDiv.vue';
 export default {
-  components: { Avatar, FoldersNav },
+  components: { Avatar, FoldersNav, DropDiv },
   name: 'SideBar',
   data() {
     return {
@@ -65,12 +68,16 @@ export default {
   },
   props: {
     organizations: [Array],
-    loggedUser: [Object]
+    loggedUser: [Object],
+    currentDropableFolderPath: {
+      type: String,
+    }
     // selectedOrgId: {
     //   type: String,
     //   required: false,
     //   default: ''
     // }
+    
   },
   computed: {
     selectedOrgId() {
@@ -88,12 +95,21 @@ export default {
     },
 
     clearFolderSelecion() {
-      evManager.emit('folder-selected', null);
+      evManager.emit('folder-selected', null, null);
     },
 
     async logout() {
       await this.$store.dispatch('auth/logout');
       this.$router.push({ name: 'LoginPage' });
+    },
+
+    addReleasesToFolder(folder, foldPath) {
+      evManager.emit('folder-updated', this.selectedOrgId, foldPath, folder);
+    }
+  },
+  watch: {
+    selectedOrgId() {
+      this.clearFolderSelecion();
     }
   }
 }
@@ -197,6 +213,10 @@ export default {
       align-items: center;
       cursor: pointer;
       padding-inline-start: em(2px);
+
+      &.dropable {
+        background-color: red;
+      }
 
     }
     .inner-list-item {

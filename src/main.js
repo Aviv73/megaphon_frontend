@@ -1,4 +1,5 @@
 import i18n from '@/plugins/i18n';
+import '@/plugins/dnd';
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'

@@ -10,7 +10,7 @@
       <template v-if="!showDesign">
         <h2>{{$t(itemToEdit._id? 'release.editRelease' : 'release.createRelease')}} > {{selectedReleaseTemplate?.name || ''}}</h2>
         <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
-          <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(setPath, val) => setVal(setPath, val)" :parentItem="itemToEdit.releaseData" :organization="org"/>
+          <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :parentItem="itemToEdit.releaseData" :organization="org"/>
         </form>
       </template>
       <template v-else>
@@ -50,6 +50,7 @@ import { getDeepVal, setDeepVal } from '../../../../common/modules/common/servic
 import DynamicInput from '../cmps/DynamicFormInputs/DynamicInput.vue';
 import { createItemForDynamicForm } from '../../common/services/CreateItemForDynamicForm';
 import { getReleaseLandingPageUrl, getReleaseRelevantTmplates } from '../../common/services/template.util.service';
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
 export default {
   name: 'ReleaseEdit',
   data() {
@@ -109,7 +110,7 @@ export default {
       this.dataFields = await this.$store.dispatch({ type: 'organization/loadDataFields', dataFieldsLocalFilePath: this.selectedReleaseTemplate?.dataFieldsLocalFilePath, organizationId: this.orgId });
     },
     async getOrg() {
-      this.org = await this.$store.dispatch({ type: 'organization/loadItem', organizationId: this.orgId });
+      this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId });
     },
     async getItem() {
       this.itemToEdit = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });
@@ -141,7 +142,8 @@ export default {
       await this.$store.dispatch({ type: 'release/removeItem', id: this.$route.params.id, organizationId: this.orgId });
       this.close();
     },
-    close() {
+    async close() {
+      if (!await alertService.Confirm(this.$t('release.alerts.leaveConfirm'))) return;
       this.$router.push({ name: 'ReleasePage', params: { organizationId: this.orgId } })
     },
 
@@ -149,7 +151,7 @@ export default {
       if (!fieldPath) return undefined;
       return getDeepVal(this.itemToEdit.releaseData, fieldPath);
     },
-    setVal(fieldPath, val) {
+    setVal(val, fieldPath) {
       setDeepVal(this.itemToEdit.releaseData, fieldPath, val);
       this.$forceUpdate();
     }

@@ -10,6 +10,7 @@
       :filterByCmp="ReleaseFilter"
       :showActions="false"
       :dontRoute="true"
+      :propsToPass="{ selectedReleaseIds }"
     >
       <h2 v-if="selectedFolder">{{selectedFolder.name}}</h2>
     </ItemSearchList>
@@ -27,13 +28,17 @@ import evManager from '@/apps/common/modules/common/services/event-emmiter.servi
 
 export default {
   name: 'ReleasePage',
+  props: {
+    selectedReleaseIds: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       ReleasePreview,
       ReleaseFilter,
       currOrgFilter: null,
-
-      selectedFolder: null
     }
   },
   methods: {
@@ -45,8 +50,7 @@ export default {
       this.getAllReleases();
     },
 
-    handleFolderSelection(folder) {
-      this.selectedFolder = folder;
+    async handleFolderSelection(foldPath, folder) {
       this.getAllReleases();
     }
   },
@@ -62,7 +66,10 @@ export default {
     },
     isLoading() {
       return this.$store.getters['release/isLoading'];
-    }
+    },
+    selectedFolder() {
+      return this.$store.getters['organization/selectedFolder']
+    },
   },
   created() {
     // this.getAllReleases(); // header emits filter when creates => loading releases;
@@ -70,7 +77,7 @@ export default {
     evManager.on('folder-selected', this.handleFolderSelection);
   },
   destroyed() {
-    evManager.off('folder-selected', this.handleOrgReleaseFilter);
+    evManager.off('org-release-filter', this.handleOrgReleaseFilter);
     evManager.off('folder-selected', this.handleFolderSelection);
   },
   watch: {

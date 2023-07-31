@@ -1,10 +1,10 @@
 <template>
   <div class="file-uploader-input flex align-start gap30">
-    <img v-if="viewAsImg" class="val-img" :title="value?.title" :src="imgToShow" :alt="value?.title || $t('clickToUploadFile')" @click="clickInput"/>
-    <p class="p-like" v-else-if="!value?.src && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
-    <a class="p-like" v-else target="_blanc" :href="value.src" :title="value.title">{{value.title}}</a>
+    <img v-if="viewAsImg" class="val-img" :title="valToShow?.title" :src="imgToShow" :alt="valToShow?.title || $t('clickToUploadFile')" @click="clickInput"/>
+    <p class="p-like" v-else-if="!valToShow?.src && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
+    <a class="p-like" v-else target="_blanc" :href="valToShow.src" :title="valToShow.title">{{valToShow.title}}</a>
     <template v-if="!isLoading">
-      <input type="file" ref="inputEl" hidden @change="uploadFile" :exept="exept"/>
+      <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big">{{$t('chooseFile')}}</button>
     </template>
     <MiniLoader v-else/>
@@ -19,18 +19,22 @@ export default {
   components: { MiniLoader },
   name: 'FileUploader',
   props: {
-    value: [Object, undefined], // { src, title },
-    exept: [String, undefined],
-    viewAsImg: [Boolean, undefined],
-  },
-  computed: {
-    imgToShow() {
-      return this.value?.src || ''; // defaultImg
-    }
+    value: [Object, String], // { src, title },
+    accept: [String],
+    viewAsImg: [Boolean],
+    onlySrc: [Boolean],
   },
   data() {
     return {
       isLoading: false
+    }
+  },
+  computed: {
+    imgToShow() {
+      return this.valToShow?.src || ''; // defaultImg
+    },
+    valToShow() {
+      return this.onlySrc ? { src: this.value } : this.value;
     }
   },
   methods: {
@@ -38,10 +42,11 @@ export default {
       const { inputEl } = this.$refs;
       inputEl.click();
     },
-    async uploadFile() {
-      const { inputEl } = this.$refs;
+    getFileFromInput(inputEl) {
       const file = inputEl.files[0];
-      if (!file) return;
+      return file;
+    },
+    async doUploadFile(file) {
       this.isLoading = true;
       try {
         const formData = new FormData();
@@ -52,11 +57,19 @@ export default {
         formData.append('file' ,file);
         const uploadedRes  = await uploadFileToServer(formData);
         const newVal = { title: fileName, src: uploadedRes.src };
-        this.$emit('input', newVal);
-      } catch (err) {
-        alertService.toast({type: 'danger', msg: `cantUploadFileError'}`});
+        return newVal;
+      } catch(err) {
+        alertService.toast({type: 'danger', msg: `cantUploadFileError`});
+        throw err;
+      } finally {
+        this.isLoading = false;
       }
-      this.isLoading = false;
+    },
+    async uploadFile() {
+      const file = this.getFileFromInput(this.$refs.inputEl);
+      if (!file) return;
+      const newVal = await this.doUploadFile(file);
+      this.$emit('input', this.onlySrc? newVal.src : newVal);
     }
   }
 }
@@ -77,7 +90,8 @@ export default {
     width: em(110px);
   }
   .p-like {
-    width: em(200px);
+    // width: em(200px);
+    width: em(160px);
   }
 }
 </style>

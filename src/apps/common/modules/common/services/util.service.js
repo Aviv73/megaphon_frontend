@@ -219,10 +219,11 @@ export function mapArrBy(arr, byField = 'id') {
 //input: ({adress: {city: Jerusalem}}, 'adress.city') || output: 'jerusalem';
 /**@param {Object} obj * @param {String} field */
 export function getDeepVal(obj, field = '') {
-    const splited = field.split('.');
+    const splited = field.split('.').filter(_ => _.length);
     let val = obj;
     for (const curr of splited) {
-      if (!val[curr]) {
+    //   if (!val[curr]) {
+      if (!(curr in val)) {
         val = undefined;
         break;
       } else val = val[curr];

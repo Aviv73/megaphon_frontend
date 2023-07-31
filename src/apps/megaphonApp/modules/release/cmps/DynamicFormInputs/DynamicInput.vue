@@ -1,8 +1,8 @@
 <template>
-  <div class="dynamic-input flex gap30" v-if="dataField" :class="`input-field-${dataField.type}`">
-    <h3 v-if="!noTitle && ((dataField.title && (dataField.type === 'SEPARATOR') || (dataField.type !== 'SEPARATOR')))">{{dataField.title}}</h3>
+  <div class="dynamic-input flex gap30" v-if="dataFieldToRender" :class="`input-field-${dataFieldToRender.type}`">
+    <h3 v-if="!noTitle && ((dataFieldToRender.title && (dataFieldToRender.type === 'SEPARATOR') || (dataFieldToRender.type !== 'SEPARATOR')))">{{dataFieldToRender.title}}</h3>
     <div class="flex-1">
-      <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{dataField.type}}"</p>
+      <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{dataFieldToRender.type}}"</p>
       <component
         v-else
         class="flex-1"
@@ -10,46 +10,59 @@
         ref="input"
         v-bind="propsToPass" 
         :value="value"
-        :dataField="dataField"
-        @change="val => $emit('input', basePath, val)"
-        @input="val => $emit('input', basePath, val)"
+        :dataField="dataFieldToRender"
+        @change="val => $emit('input', val, basePath)"
+        @input="val => $emit('input', val, basePath)"
       />
-      <div v-if="dataField.type === 'ROW'" class="flex gap10 row-container">
+      <div v-if="dataFieldToRender.type === 'ROW'" class="flex gap10 row-container">
         <DynamicInput
-          v-for="field in dataField.fields"
+          v-for="field in dataFieldToRender.fields"
           :key="field.fieldName"
           :dataField="field"
           :basePath="field.fieldName"
           :organization="organization"
           :parentItem="parentItem"
           :value="getVal(parentItem, field.fieldName)"
-          @input="(path, val) => $emit('input', path, val)"
+          @input="(val, path) => $emit('input', val, path)"
         />
       </div>
-      <div v-if="dataField.type === 'TABLE'" class="flex column gap10 width-content">
-        <div class="flex align-center gap10">
-          <p class="flex-1" v-for="(field, idx) in dataField.fields" :key="`${basePath}.${idx}.${field.title}`">
-            {{field.title}}
-          </p>
-          <p class="flex-1"></p>
-        </div>
-        <div v-for="(currVal, idx) in value" :key="idx" class="flex align-center gap10">
-          <DynamicInput
-            class="flex-1"
-            v-for="field in dataField.fields"
+      <table v-if="dataFieldToRender.type === 'TABLE'" colspacing="5px" class="flexx column gap10 width-content">
+        <tr class="flexx align-center gap10">
+          <td v-for="(field, idx) in dataFieldToRender.fields" :key="`${basePath}.${idx}.${field.title}`">
+            <p class="flex-1">
+              {{field.title}}
+            </p>
+          </td>
+          <td class="flex-1"></td>
+        </tr>
+        <tr v-for="(currVal, idx) in value" :key="idx" class="flexx align-center gap10">
+          <td
+            v-for="field in dataFieldToRender.fields.filter(c => !c.hidden)"
             :key="`${basePath}.${idx}.${field.fieldName}`"
-            :dataField="field"
-            :basePath="`${basePath}.${idx}.${field.fieldName}`"
-            :value="getVal(currVal, field.fieldName) || []"
-            @input="(path, val) => $emit('input', path, val)"
-            :noTitle="true"
-          />
-          <TableActionBtns v-model="value" :idx="idx"/>
-        </div>
-        <button class="btn big width-content align-self-end" @click.prevent="$emit('input', basePath, [...(value || []), createNewItem(dataField.fields)])">{{$t('add')}}</button>
-      </div>
+          >
+            <DynamicInput
+              class="flex-1"
+              :dataField="field"
+              :basePath="`${basePath}.${idx}.${field.fieldName}`"
+              :value="getVal(currVal, field.fieldName) || ''"
+              :organization="organization"
+              :parentItem="parentItem"
+              @input="(val, path) => $emit('input', val, path || `${basePath}.${idx}.${field.fieldName}`)"
+              :noTitle="true"
+            />
+          </td>
+          <td>
+            <TableActionBtns class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="btn big width-content align-self-end" @click.prevent="$emit('input', [...(value || []), createNewItem(dataFieldToRender.fields)], basePath)">{{$t('add')}}</button>
+          </td>
+        </tr>
+      </table>
     </div>
-    <p v-if="dataField.helpText">{{dataField.helpText}}</p>
+    <p v-if="dataFieldToRender.helpText">{{dataFieldToRender.helpText}}</p>
     <!-- <div v-if="dataField.fields">
     </div> -->
   </div>
@@ -65,8 +78,9 @@ import ReleasePicker from './ReleasePicker.vue';
 import ReleaseIdsPicker from './ReleaseIdsPicker.vue';
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import MultipleFilePicker from './MultipleFilePicker.vue';
+import ImageCrop from './ImageCrop.vue';
 import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
-
+import { range } from '../../../../../common/modules/common/services/util.service';
 
 
 export default {
@@ -82,7 +96,8 @@ export default {
   data() {
     return {
       propsToPass: {},
-      cmpName: ''
+      cmpName: '',
+      dataFieldToRender: this.dataField
     }
   },
   methods: {
@@ -90,6 +105,35 @@ export default {
       let type = this.dataField.type || '';
       type = type.toUpperCase();
       if (['EMAIL', 'URL', 'VIDEOURL'].includes(type)) type = 'TEXT';
+      if (type === 'IMAGEGALLERY') {
+        type = 'TABLE';
+        this.dataFieldToRender = {
+          ...this.dataField,
+          type: 'TABLE',
+          fields: [
+            // {
+            //   type: 'TEXT',
+            //   fieldName: 'src',
+            //   hidden: true
+            // },
+            {
+              title: this.$t('photo'),
+              type: 'IMAGE_SRC',
+              fieldName: 'src',
+            },
+            {
+              title: this.$t('title'),
+              type: 'TEXT',
+              fieldName: 'title',
+            },
+            {
+              title: this.$t('credit'),
+              type: 'TEXT',
+              fieldName: 'credit',
+            },
+          ]
+        }
+      }
       switch (type) {
         case 'TEXT':
         case 'DATE':
@@ -107,7 +151,7 @@ export default {
           if (type === 'SEPARATOR_BOLD') this.propsToPass = { style: 'border-width:3px' };
           break;
         case 'LONGRICHTEXT':
-        // case 'RICHTEXT':
+        case 'RICHTEXT':
           // this.propsToPass = { width: 400 };
           // this.propsToPass = { style: 'direction: ltr' };
           setTimeout(() => {
@@ -131,27 +175,46 @@ export default {
           this.cmpName = 'MultipleFilePicker';
           this.propsToPass = { isSingleItem: true, accept: this.dataField.filter };
           break;
+        case 'IMAGE_SRC':
+          this.cmpName = 'FileUploader';
+          this.propsToPass = { viewAsImg: true, accept: this.dataField.filter, onlySrc: true };
+          break;
         case 'IMAGE':
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { viewAsImg: true, isSingleItem: true, exept: '' };
+          this.propsToPass = { viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
           break;
         case 'IMAGEGALLERY':
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { viewAsImg: true, isSingleItem: false, exept: '' };
+          this.propsToPass = { viewAsImg: true, isSingleItem: false, accept: this.dataField.filter };
           break;
-
-        case 'SELECT_RELEASES':
+        case 'SELECT_RELEASES': // change to something like: SELECT_RELEASES_FROM_INNER_PARAM
           this.cmpName = 'ReleaseIdsPicker';
           this.propsToPass = { releases: this.parentItem[this.dataField.fromField] };
           break;
-        //   break;
-        // case 'CORPABLE_IMAGE':
-        //   break;
-        // case 'SELECTIONWITHIMAGE':
-        //   break;
-        // case 'LOGOSELECTION':
-        //   break;
-
+        case 'CORPABLE_IMAGE':
+          this.cmpName = 'ImageCrop';
+          break;
+        case 'LOGOSELECTION':
+          this.cmpName = 'FormInput';
+          this.propsToPass = { type: 'select', items: this.organization?.logos?.map(c => ({value: c.url, img: c.url, label: c.title})) || [] };
+          break;
+        case 'SELECTIONWITHIMAGE': // change to somethong like: IMG_SELECTION_FOR_VIDEO_LINK
+          this.cmpName = 'FormInput';
+          const getYoutubeVideoThumb = (url, index = 0) => { // from old developer's code:
+            if (!url) return '';
+            const results = url.match('[\\?&]v=([^&#]*)');
+            const video = results === null ? url : results[1];
+            return `http://img.youtube.com/vi/${video}/maxres${index}.jpg`;
+          };
+          const videoUrl = getDeepVal(this.parentItem, this.basePath.replace(this.dataField.fieldName, this.dataField.linkedVideoField));
+          this.propsToPass = { 
+            type: 'select', 
+            items: range(4).map((_, idx) => {
+              const currUrl = getYoutubeVideoThumb(videoUrl, idx)
+              return {value: currUrl, img: currUrl, label: `${this.$t('photo')} ${idx+1}`};
+            })
+          };
+          break;
 
         default: 
           this.cmpName = 'UNKNOWN';
@@ -179,7 +242,8 @@ export default {
     ReleaseIdsPicker,
     FileUploader,
     MultipleFilePicker,
-    TableActionBtns
+    TableActionBtns,
+    ImageCrop
     // FileInput
   },
 }
@@ -192,6 +256,13 @@ export default {
     .dynamic-input {
       flex-direction: column !important;
       gap: rem(5px);
+    }
+  }
+  table {
+    // border-spacing: em(10px);
+    td {
+      padding: em(5px);
+      vertical-align: top;
     }
   }
 }

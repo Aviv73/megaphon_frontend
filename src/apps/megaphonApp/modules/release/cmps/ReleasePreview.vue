@@ -1,33 +1,42 @@
 <template>
-  <li class="release-preview">
-    <img class="release-img" :src="imgSrc" alt="">
-    <p>{{release.title}}</p>
-    <div class="actions flex column gap5">
-      <button @click="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
-      <router-link :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/pencil.svg')" alt=""></router-link>
-      <!-- <router-link :to="{ name: 'ReleaseStats', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
-      <router-link :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/distribute.svg')" alt=""></router-link>
-    </div>
-  </li>
+  <DragDiv :onDrag="() => toggleToSelectedReleases(true)">
+    <li class="release-preview" :class="{ selected: selectedReleaseIds.includes(item._id) }" @click="toggleToSelectedReleases(false)">
+      <img class="release-img" :src="imgSrc" alt="">
+      <p>{{release.title}}</p>
+      <div class="actions flex column gap5">
+        <button @click="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
+        <router-link :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/pencil.svg')" alt=""></router-link>
+        <!-- <router-link :to="{ name: 'ReleaseStats', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
+        <router-link :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/distribute.svg')" alt=""></router-link>
+      </div>
+    </li>
+  </DragDiv>
 </template>
 
 <script>
+import DragDiv from '../../common/cmps/dnd/DragDiv.vue';
 import { getReleaseLandingPageUrl } from '../../common/services/template.util.service';
+import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 export default {
-  name: 'ItemPreview',
+  components: { DragDiv },
+  name: 'ReleasePreview',
   props: {
     item: {
       type: Object,
       required: true
     },
-    itemDetailesPageName: [String]
+    itemDetailesPageName: [String],
+    selectedReleaseIds: {
+      type: Array,
+      default: () => []
+    }
   },
   computed: {
-    organization() {
-      return this.$store.getters['organization/selectedItem'];
-    },
     release() {
       return this.item.releaseData
+    },
+    organization() {
+      return this.$store.getters['organization/selectedItem'];
     },
     imgSrc() {
       return this.release.mainImage?.[0]?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png');
@@ -37,6 +46,9 @@ export default {
     goToLandingPage() {
       const pageUrl = getReleaseLandingPageUrl(this.item, this.organization);
       window.open(pageUrl);
+    },
+    toggleToSelectedReleases(isDraging) {
+      evManager.emit('toggleRelease-from-selected', this.item._id, isDraging);
     }
   }
 }
@@ -70,6 +82,10 @@ export default {
           height: 100%;
         }
       }
+    }
+
+    &.selected {
+      outline: em(3px) solid #2771A4;
     }
   }
 }

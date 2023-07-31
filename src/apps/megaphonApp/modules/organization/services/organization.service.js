@@ -8,6 +8,7 @@ export const organizationService = {
   add,
   update,
   save,
+  remove,
   getEmptyOrganization,
 
   loadDataFields
@@ -17,22 +18,26 @@ function query(filterBy) {
   return httpService.get(ENDPOINT, filterBy);
 }
 function get(id) {
-  // if (!id) return getEmptyOrganization();
+  if (!id) return getEmptyOrganization();
   return httpService.get(`${ENDPOINT}/${id}`);
 }
-function add(organization) {
-  return httpService.post(ENDPOINT, organization);
+function add(item) {
+  return httpService.post(ENDPOINT, item);
 }
-function update(organization) {
-  return httpService.put(ENDPOINT, organization);
+function update(item) {
+  return httpService.put(ENDPOINT, item);
 }
-function save(organization) {
-  return organization._id? update(organization) : add(organization);
+function remove(id) {
+  return httpService.delete(`${ENDPOINT}/${id}`);
+}
+function save(item) {
+  return item._id? update(item) : add(item);
 }
 
 function loadDataFields(dataFieldsLocalFilePath, organizationId) {
   return httpService.get(`${ENDPOINT}/${organizationId}/dataFields`, { dataFieldsLocalFilePath });
 }
+
 
 
 function getEmptyOrganization() { // todo

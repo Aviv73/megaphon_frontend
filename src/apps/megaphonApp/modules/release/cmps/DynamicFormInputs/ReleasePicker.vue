@@ -53,11 +53,11 @@ export default {
         filter: {
           search: '',
         },
-        // orgFilter: {
-        //   releaseTypes: this.dataField.filter?.length? this.dataField.filter : undefined,
-        //   wasDistributed : false
-        // }
-        orgFilter: this.organization.filters?.find(c => c._id === this.dataField.filter)
+        orgFilter: {
+          releaseTypes: this.dataField.filter?.length? this.dataField.filter : undefined,
+          wasDistributed : false
+        }
+        // orgFilter: this.organization.filters?.find(c => c._id === this.dataField.filter)
       },
       releases: [],
       showMsg: false,

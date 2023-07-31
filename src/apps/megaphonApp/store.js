@@ -3,7 +3,7 @@ import { tagStore } from './modules/tag/store'
 import { contactStore } from './modules/contact/store'
 import { accountStore } from './modules/account/store'
 import { authStore } from './modules/auth/store'
-// import { organizationStore } from './modules/organization/store'
+import { organizationStore } from './modules/organization/store'
 
 export default {
   ...companyStore,
@@ -11,5 +11,5 @@ export default {
   ...contactStore,
   ...accountStore,
   ...authStore,
-  // ...organizationStore
+  ...organizationStore
 }

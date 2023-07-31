@@ -39,7 +39,7 @@
       />
 
       <select
-        v-else-if="componentType === 'select'"
+        v-else-if="componentType === '_select'"
         ref="elInput"
         :disabled="disabled"
         :id="inputId"
@@ -53,15 +53,18 @@
             v-for="item in itemsToRender"
             :key="item.label"
             :value="item.value"
-            :label="$t(item.label)"
+            :labellll="$t(item.label)"
             :selected="val === item.value"
-          />
+          >
+            <span>{{$t(item.label)}}</span>
+            <span v-if="item.img" :style="{backgroundImage: item.img}" :src="item.img"></span>
+          </option>
         </template>
         <option v-else @click.prevent.stop="">No data</option>
       </select>
 
       <div
-        v-else-if="componentType === 'multiselect'"
+        v-else-if="['select', 'multiselect'].includes(componentType)"
         ref="elInput"
         :id="inputId"
         :class="{ open: isOpen }"
@@ -72,34 +75,53 @@
         <div style="height:100%;display:flex;align-items:center;gap:10px" class="head" >
           <div class="toggle-btn"></div>
           <div class="head-content">
-            <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @click.stop="isOpen = true"/>
-            <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
-            <ul class="multiselect-vals-list" v-if="showVals && val?.length">
-              <li v-for="curr in val" :key="curr.name">
-                <!-- <span>{{itemsToRender.find(c => c.value === curr).label}}</span>
-                <button @click="val.splice(val.findIndex(c => c === curr) ,1)">X</button> -->
-                <span :title="curr.name || curr">{{subValName(curr.name || curr)}}</span>
-                <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
-              </li>
-              <li class="clear-li">
-                <button class="clear-btn" @click.stop="val = []">x</button>
-              </li>
-            </ul>
-            <!-- <div class="inner-square"></div> -->
+            <template v-if="componentType === 'multiselect'">
+              <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @click.stop="isOpen = true"/>
+              <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
+              <ul class="multiselect-vals-list" v-if="showVals && val?.length">
+                <li v-for="curr in val" :key="curr.name">
+                  <!-- <span>{{itemsToRender.find(c => c.value === curr).label}}</span>
+                  <button @click="val.splice(val.findIndex(c => c === curr) ,1)">X</button> -->
+                  <span :title="curr.name || curr">{{subValName(curr.name || curr)}}</span>
+                  <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
+                </li>
+                <li class="clear-li">
+                  <button class="clear-btn" @click.stop="val = []">x</button>
+                </li>
+              </ul>
+              <!-- <div class="inner-square"></div> -->
+              <!-- {{ $t(val) }} -->
+            </template>
+            <template v-else>
+              <div class="placeholder" v-if="!val"><span>{{ $t(placeholder || labelholder) }}</span></div>
+              <div class="placeholder flex align-center gap20" v-else>
+                <span>{{itemsToRender.find(c => c.value === val)?.label || val}}</span>
+                <img v-if="itemsToRender.find(c => c.value === val)?.img" :src="itemsToRender.find(c => c.value === val)?.img"/>
+              </div>
+            </template>
           </div>
         </div>
         <div class="drop-down" @click.stop="">
           <template v-if="itemsToRender?.length">
-            <label v-for="item in itemsToRender" :key="item.label">
-              <input
-                type="checkbox"
-                id="formCheckbox"
-                v-model="val"
-                :value="item.value"
-                :disabled="disabled"
-              />
-              <span>{{ $t(item.label) }}</span>
-            </label>
+            <template v-if="componentType === 'multiselect'">
+              <label v-for="item in itemsToRender" :key="item.label">
+                <input
+                  v-if="componentType === 'multiselect'"
+                  type="checkbox"
+                  id="formCheckbox"
+                  v-model="val"
+                  :value="item.value"
+                  :disabled="disabled"
+                />
+                <span>{{ $t(item.label) }}</span>
+              </label>
+            </template>
+            <template v-else>
+              <div class="flex align-center space-between" v-for="item in itemsToRender" :key="item.label" @click="val = item.value">
+                <span>{{ $t(item.label) }}</span>
+                <img v-if="item.img" :src="item.img"/>
+              </div>
+            </template>
           </template>
           <p v-else class="width-all text-center justify-center">No data</p>
         </div>
@@ -269,6 +291,7 @@ export default {
   .input {
     position: relative;
     height: 100%;
+
     flex: 1;
     input, select, textarea {
       // border: unset;
@@ -304,7 +327,7 @@ export default {
   }
 }
 
-.form-input-multiselect {
+.form-input-multiselect, .form-input-select {
   // width: em(220px);
   color: #606266;
   height: 100%;
@@ -321,11 +344,21 @@ export default {
   $borderColor: rgba(128, 128, 128, 0.5);
   box-sizing: border-box;
   .input {
+    
+    min-width: em(180px);
+    min-height: em(25px);
     // width: 100%;
     flex: 1;
-    height: 100%;
+    // height: 100%;
     .header {
+      cursor: pointer;
       height: 100%;
+      .head {
+        height: 100%;
+        .head-content {
+          height: 100%;
+        }
+      }
     }
     > div {
       user-select: none;
@@ -381,7 +414,9 @@ export default {
         > * {
           // height: em(32px);
           // line-height: em(34px);
-          border-bottom: em(1px) solid rgb(210, 210, 210);
+          &:not(:last-child) {
+            border-bottom: em(1px) solid rgb(210, 210, 210);
+          }
           display: flex;
           // align-items: center;
           gap: em(5px);
@@ -391,6 +426,7 @@ export default {
             background-color: #f5f7fa;
           }
         }
+
       }
       &.open {
         .toggle-btn,
@@ -405,6 +441,13 @@ export default {
           overflow: auto;
         }
       }
+    }
+    
+    img {
+      width: em(50px);
+      height: em(50px);
+      object-fit: contain;
+      background-color: rgb(206, 206, 206);
     }
   }
 

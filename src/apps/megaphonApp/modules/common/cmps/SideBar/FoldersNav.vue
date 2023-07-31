@@ -4,7 +4,7 @@
       <Avatar class="folder-avatar" :size="40" :img="require('@/apps/megaphonApp/assets/images/folder.svg')"/>
       <p>{{$t('sidebar.folders')}}</p>
     </div>
-    <FolderList v-if="showFolders" :folders="folders" :parentItem="parentItem"/>
+    <FolderList :currentDropableFolderPath="currentDropableFolderPath" v-if="showFolders" :folders="folders" :parentItem="parentItem"/>
   </div>
 </template>
 
@@ -21,6 +21,9 @@ export default {
     parentItem: {
       type: Object,
       default: () => {}
+    },
+    currentDropableFolderPath: {
+      type: String,
     }
   },
   data() {

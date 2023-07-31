@@ -161,7 +161,7 @@ export default {
   },
   methods: {
     async getOrganization() {
-      this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', organizationId: this.$route.params.id });
+      this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id });
     },
     async saveOrganization() {
       if (!this.isOrganizationValid) return;

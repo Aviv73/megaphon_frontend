@@ -2,7 +2,7 @@
   <div class="release-distribute flex column gap20 container" v-if="release && org">
     <div class="flex align-center space-between gap10 width-all">
       <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.backToEditRelease')}}</button></router-link>
-      <h2>{{$t('distribute.distributeRelease')}}</h2>
+      <h2>{{$t('distribute.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
     </div>
     <p v-if="!isLoading && !distributionTemplate">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
     <template v-else>
@@ -211,7 +211,7 @@ export default {
       this.release = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });
     },
     async getOrg() {
-      this.org = await this.$store.dispatch({ type: 'organization/loadItem', organizationId: this.organizationId });
+      this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.organizationId });
       const defaultItem = this.org.fromEmails?.find(c => c.isDefault) || this.org.fromEmails?.[0];
       if (defaultItem) this.fromEmail = {...defaultItem};
     },
