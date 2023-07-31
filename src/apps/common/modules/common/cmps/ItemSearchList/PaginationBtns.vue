@@ -102,12 +102,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/styles/global/index';
 .pagination-btns {
-    select {
-      border-bottom: em(1px) solid black;
+    .form-input.form-input-select {
+      // border-bottom: em(1px) solid black;
+      .input {
+        width: em(80px);
+        min-width: em(80px);
+      }
     }
+
     display: flex;
     // width: em(220px);
     justify-content: space-between;

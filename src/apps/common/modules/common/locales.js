@@ -48,6 +48,7 @@ const en = {
   "send": "Send",
   "credit": "Credit",
   "photo": "Photo",
+  "type": "Type",
 
   "hebrew": "Hebrew",
   "english": "English",
@@ -123,6 +124,7 @@ const he = {
   "send": "שלח",
   "credit": "קרדיט",
   "photo": "תמונה",
+  "type": "סוג",
 
   "hebrew": "עברית",
   "english": "אנגלית",

@@ -153,6 +153,7 @@ export default {
     },
     setVal(val, fieldPath) {
       setDeepVal(this.itemToEdit.releaseData, fieldPath, val);
+      this.itemToEdit.releaseData = {...this.itemToEdit.releaseData};
       this.$forceUpdate();
     }
   },

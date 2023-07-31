@@ -93,9 +93,9 @@
               <!-- {{ $t(val) }} -->
             </template>
             <template v-else>
-              <div class="placeholder" v-if="!val"><span>{{ $t(placeholder || labelholder) }}</span></div>
+              <div class="placeholder" v-if="!itemsToRender.find(c => c.value === val)"><span>{{ $t(placeholder || labelholder) }}</span></div>
               <div class="placeholder flex align-center gap20" v-else>
-                <span>{{itemsToRender.find(c => c.value === val)?.label || val}}</span>
+                <span>{{$t(itemsToRender.find(c => c.value === val)?.label || val)}}</span>
                 <img v-if="itemsToRender.find(c => c.value === val)?.img" :src="itemsToRender.find(c => c.value === val)?.img"/>
               </div>
             </template>
@@ -104,7 +104,7 @@
         <div class="drop-down" @click.stop="">
           <template v-if="itemsToRender?.length">
             <template v-if="componentType === 'multiselect'">
-              <label v-for="item in itemsToRender" :key="item.label">
+              <label class="gap5" v-for="item in itemsToRender" :key="item.label">
                 <input
                   v-if="componentType === 'multiselect'"
                   type="checkbox"
@@ -117,7 +117,7 @@
               </label>
             </template>
             <template v-else>
-              <div class="flex align-center space-between" v-for="item in itemsToRender" :key="item.label" @click="val = item.value">
+              <div class="flex align-center space-between gap30" v-for="item in itemsToRender" :key="item.label" @click="val = item.value">
                 <span>{{ $t(item.label) }}</span>
                 <img v-if="item.img" :src="item.img"/>
               </div>
@@ -419,7 +419,7 @@ export default {
           }
           display: flex;
           // align-items: center;
-          gap: em(5px);
+          // gap: em(5px);
           padding: em(5px) em(20px);
           cursor: pointer;
           &:hover {

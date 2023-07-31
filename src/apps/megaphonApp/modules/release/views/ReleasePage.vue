@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     getAllReleases(filterBy) {
-      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
+      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.filters?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
     handleOrgReleaseFilter(orgFilter) {
       this.currOrgFilter = orgFilter;
@@ -57,6 +57,9 @@ export default {
   computed: {
     organizationId() {
       return this.$route.params.organizationId;
+    },
+    organization() {
+      return this.$store.getters['organization/selectedItem'];
     },
     allReleasesData() {
       return this.$store.getters['release/data'];
@@ -83,7 +86,7 @@ export default {
   watch: {
     organizationId() {
       this.getAllReleases();
-      this.currOrgFilter = null
+      // this.currOrgFilter = null
     }
   },
   components: { ItemSearchList, Loader, ReleasePreview, ReleaseFilter }

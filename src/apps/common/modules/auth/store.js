@@ -15,7 +15,7 @@ export const _authStore = {
   getters: {
     isLoading: (state) => state.isLoading,
     loggedUser: (state) => state.loggedUser,
-    isAdmin: (state) => state.loggedUser?.role === 'admin' || state.loggedUser?.roles.includes('admin')
+    isAdmin: (state) => state.loggedUser?.role === 'admin' || state.loggedUser?.roles?.includes?.('admin')
   },
   mutations: {
     setLoading(state, { val }) {
