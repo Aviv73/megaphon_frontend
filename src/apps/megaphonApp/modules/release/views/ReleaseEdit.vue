@@ -140,11 +140,14 @@ export default {
 
     async deleteItem() {
       await this.$store.dispatch({ type: 'release/removeItem', id: this.$route.params.id, organizationId: this.orgId });
-      this.close();
+      this.navigateOut();
     },
     async close() {
       if (!await alertService.Confirm(this.$t('release.alerts.leaveConfirm'))) return;
-      this.$router.push({ name: 'ReleasePage', params: { organizationId: this.orgId } })
+      this.navigateOut();
+    },
+    navigateOut() {
+      this.$router.push({ name: 'ReleasePage', params: { organizationId: this.orgId } });
     },
 
     getVal(fieldPath) {
