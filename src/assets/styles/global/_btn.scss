@@ -98,6 +98,10 @@
       background-color: $clr-light-green;
       font-weight: bold;
     }
+    img {
+      width: em(30px);
+      height: em(30px);
+    }
   }
 }
 

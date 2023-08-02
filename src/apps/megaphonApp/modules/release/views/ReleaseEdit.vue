@@ -20,9 +20,9 @@
         </div>
         <div class="width-all flex column align-center gap10">
           <div class="toggle-btns">
-            <button :class="{selected: previewPlatform === 'desktop'}" @click="previewPlatform = 'desktop'"><img :src="require('@/apps/megaphonApp/assets/images/devices/desktop.svg')"/></button>
-            <button :class="{selected: previewPlatform === 'tablet'}" @click="previewPlatform = 'tablet'">TAB</button>
-            <button :class="{selected: previewPlatform === 'mobile'}" @click="previewPlatform = 'mobile'">MOB</button>
+            <button :class="{selected: previewPlatform === 'desktop'}" @click="previewPlatform = 'desktop'"><img :src="require('@/apps/megaphonApp/assets/images/devices/desktop.jpg')"/></button>
+            <button :class="{selected: previewPlatform === 'tablet'}" @click="previewPlatform = 'tablet'"><img :src="require('@/apps/megaphonApp/assets/images/devices/tablet.jpg')"/></button>
+            <button :class="{selected: previewPlatform === 'mobile'}" @click="previewPlatform = 'mobile'"><img :src="require('@/apps/megaphonApp/assets/images/devices/mobile.png')"/></button>
           </div>
           <iframe v-if="landingPageUrl" :style="iframeStyle" :src="landingPageUrl" frameborder="0"></iframe>
           <p v-else>{{$t('noMatchingDesign')}}</p>
