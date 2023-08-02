@@ -83,7 +83,7 @@ export default {
       }
       this.updateOrg(orgToEdit);
     },
-    async removeOrUpdateFolder(orgId, foldPath, newItem = undefined) {
+    async removeOrUpdateFolder(orgId, foldPath = '', newItem = undefined) {
       const orgToEdit = JSON.parse(JSON.stringify(this.organizations.find(c => c._id === orgId)));
       if (!orgToEdit.folders) orgToEdit.folders = [];
       const splitedFolderPath = foldPath.split('/').filter(Boolean);

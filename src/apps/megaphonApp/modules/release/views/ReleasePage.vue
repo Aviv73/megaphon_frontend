@@ -72,7 +72,7 @@ export default {
     },
     selectedFolder() {
       return this.$store.getters['organization/selectedFolder']
-    },
+    }
   },
   created() {
     // this.getAllReleases(); // header emits filter when creates => loading releases;

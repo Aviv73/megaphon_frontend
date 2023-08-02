@@ -215,7 +215,7 @@ export default {
       padding-inline-start: em(2px);
 
       &.dropable {
-        background-color: red;
+        // background-color: red;
       }
 
     }

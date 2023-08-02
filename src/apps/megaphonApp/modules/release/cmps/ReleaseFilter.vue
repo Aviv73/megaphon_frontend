@@ -1,6 +1,8 @@
 <template>
   <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20">
-    <FormInput @change="emitFilter" type="select" placeholder="type" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" iconPos="left" />
+    <FormInput @change="emitFilter" type="select" placeholder="type" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" />
+    <FormInput @change="setDateRange" type="select" placeholder="release.filterByYear" :items="yearsOpts" v-model="dateSelectVal" />
+    <FormInput v-if="selectedReleaseIds.length" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
     <div class="flex align-center gap20">
       <div class="sorters toggle-btns flex gap10">
         <button 
@@ -28,12 +30,17 @@
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
+import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 export default {
   name: 'ReleaseFilter',
   props: {
     initFilter: {
       type: Object,
       required: true
+    },
+    selectedReleaseIds: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -45,11 +52,34 @@ export default {
         'release.original': '2',
       },
       // didInit: false
+      folderVal: '',
+      dateSelectVal: '',
     }
   },
   computed: {
     org() {
       return this.$store.getters['organization/selectedItem'];
+    },
+
+    yearsOpts() {
+      return [2017, 2018, 2019, 2020, 2021, 2022, 2023, {value: undefined, label: 'clear'}].reverse();
+    },
+
+    foldersOpts() {
+      function parseFolders(folderItem = {name: '', children: []}, parsedFolders = [/* {label: 'release.outOfFolders', value: {folderPath: null, folder: null}} */], parentPath = '') {
+        if (Array.isArray(folderItem)) {
+          folderItem.forEach(c => parseFolders(c, parsedFolders, parentPath));
+        } else {
+          if (!folderItem?.name) return parsedFolders;
+          const relPath = [parentPath, folderItem.name].filter(Boolean).join('/');
+          parsedFolders.push({label: relPath, value: {folderPath: relPath, folder: folderItem}});
+          folderItem.children.forEach(c => {
+            parseFolders(c, parsedFolders, relPath);
+          });
+        }
+        return parsedFolders;
+      }
+      return parseFolders(this.org?.folders) || []
     }
   },
   methods: {
@@ -68,6 +98,28 @@ export default {
       // for (let otherKey in this.filterBy.sort) this.filterBy.sort[otherKey] = 0;
       // if (key) this.filterBy.sort[key] = 1;
       this.emitFilter();
+    },
+
+    setDateRange(val) {
+      if (!val) {
+        this.filterBy.dateRange = undefined;
+        this.dateSelectVal = '';
+      }
+      else {
+        const yearTime = new Date(val, 0, 1, 0, 0, 0, 0);
+        const dateRange = {
+          from: yearTime.getTime(),
+          to: yearTime.setFullYear(val+1)
+        }
+        this.filterBy.dateRange = dateRange;
+      }
+      this.emitFilter();
+    },
+
+    addToFolder(val) {
+      console.log('AddingToFolder', val);
+      evManager.emit('folder-updated', this.org._id, val.folderPath, val.folder);
+      this.folderVal = '';
     }
   },
   created() {

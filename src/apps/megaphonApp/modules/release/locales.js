@@ -10,6 +10,8 @@ const  en = {
     "landingPageDesign": "Landing page design",
     "newsletterDesign": "Newsletter design",
     "searchReleases": "Search releases",
+    "filterByYear": "Filter by year",
+    "addToFolder": "Add to folder",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this release?",
       "removeSuccess": "Release removed successfully",
@@ -64,6 +66,8 @@ const he = {
     "landingPageDesign": "עיצוב דף נחיתה",
     "newsletterDesign": "עיצוב מייל הפצה",
     "searchReleases": "חפש רליסים",
+    "filterByYear": "פלטר לפי שנה",
+    "addToFolder": "הוסף לתיקייה",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הרליס?",
       "removeSuccess": "רליס נמחק בהצלחה",

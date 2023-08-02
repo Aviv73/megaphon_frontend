@@ -49,6 +49,7 @@ const en = {
   "credit": "Credit",
   "photo": "Photo",
   "type": "Type",
+  "clear": "Clear",
 
   "hebrew": "Hebrew",
   "english": "English",
@@ -125,6 +126,7 @@ const he = {
   "credit": "קרדיט",
   "photo": "תמונה",
   "type": "סוג",
+  "clear": "נקה",
 
   "hebrew": "עברית",
   "english": "אנגלית",
