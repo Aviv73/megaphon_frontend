@@ -7,7 +7,7 @@
       {label: release.title, to: {name: 'ReleaseDetails', params: { id: release._id} }, disabled: true },
     ]"/>
     <h1>{{release.title}}</h1>
-    <div class="main-content-section flex-1 flex space-between gap60">
+    <div class="main-content-section flex-1 flex space-between gap60 wrap">
       <img class="main-img" :src="release.mainImage[0].src" :alt="release.title"/>
       <div class="hero-content flex column align-start gap15">
         <div class="description-container" v-if="release.desc" v-html="release.desc"></div>
@@ -111,6 +111,7 @@ export default {
         background-color: rgb(255, 216, 216);
         // flex: 1;
         // flex-grow: 1;
+        margin: 0 auto;
       }
   
       .hero-content {
@@ -141,7 +142,16 @@ export default {
           }
         }
       }
+
+
   
+      // {
+      //   .hero-content, .main-img {
+      //     flex: unset;
+      //     width: 100%;
+      //   }
+      // }
+
     }
   
   

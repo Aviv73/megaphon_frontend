@@ -227,6 +227,16 @@ export default {
             transform: unset !important;
           }
         }
+        // .media-list {
+        //   width: 100%;
+        //   *> {
+        //     width: 100%;
+        //   }
+
+        // }
+      }
+      .release-title {
+        display: none;
       }
     }
   }

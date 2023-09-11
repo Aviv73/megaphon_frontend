@@ -5,20 +5,6 @@
       <TagPicker class="flex-1" v-model="tags"/>
     </div>
     <div class="flex align-center gap20">
-      <!-- <div class="sorters toggle-btns flex gap10">
-        <button 
-          :class="{selected: !filterBy.simpleSort}"
-          @click.prevent.stop="setSortKey('')"
-        ><img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/filter.svg')"/></button>
-        <button 
-          :class="{selected: filterBy.simpleSort === 'publishedAt'}"
-          @click.prevent.stop="setSortKey('publishedAt')"
-        >תאריך</button>
-        <button
-          :class="{selected: filterBy.simpleSort === 'title'}"
-          @click.prevent.stop="setSortKey('title')"
-        >א-ב</button>
-      </div> -->
       <div class="serach flex align-start">
         <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left">
           <button>

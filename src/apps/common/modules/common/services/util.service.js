@@ -484,3 +484,30 @@ function require(path, isAsync = false) {
     if (checkSuccess()) return JSON.parse(XmlReq.responseText);
     else if (checkFailior()) throw new Error(ErrorMsg);
 }
+
+export const random = {
+    randInt: (min = -infinity, max = infinity) => Math.floor(Math.random() * (max - min) + min),
+    randItem: arr => arr[this.randInt(0, arr.length)],
+    
+    range: (len = 0) => '0'.repeat(len).split(''),
+    // randWord: (len = 4) => range(len).reduce((acc) => acc + randLetter(), ''),
+    // randTxt: (len = 7) => range(len).reduce((acc, c, i) => acc + `${randWord(this.randInt(2, 6))}${i < len-1 ? ' ' : ''}`, ''),
+    randLetter: () => String.fromCharCode(this.randInt(97,123)),
+    randWord: (len = 4) => this.range(len).map(c => this.randLetter()).join(''),
+    randTxt: (len = 7) => this.range(len).map(c => this.randWord(this.randInt(2, 6))).join(' '),
+    randParagraph: (len = 10) => this.range(len).reduce(
+        (acc, c, i) => acc + `${
+            this.randTxt(this.randInt(4, 10)) 
+            + (i < len-1)
+                ? this.randItem(['.',',','!','?',':','-',' ','\n'])
+                : '.'
+            }`, ''),
+    shuffle: (arr) => {
+        var copy = [...arr];
+        var shuffled = [];
+        for (let i = 0; i < this.length; i++) {
+            shuffled.push(copy.splice(this.randInt(0, copy.length-1), 1)[0]);
+        }
+        return shuffled;
+    }
+}

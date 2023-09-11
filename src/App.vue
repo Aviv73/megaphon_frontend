@@ -27,6 +27,7 @@ import { alertService } from '@/apps/common/modules/common/services/alert.servic
 import appConfig from './appConfig';
 
 import selectedAppData from './apps/index.js';
+import { distributionService } from './apps/megaphonApp/modules/release/services/distribution.service';
 
 export default {
   name: 'App',
@@ -65,6 +66,13 @@ export default {
     if (!appConfig.client) return;
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
     document.title = org.name;
+
+    if (this.$route.meta.reportReleaseOpen) {
+      const releaseId = this.$route.params[this.$route.meta.releaseIdParamName];
+      // const token = this.$route.query.token;
+      // const origin = this.$route.query.token;
+      distributionService.reportReleaseOpened(releaseId, this.$route.query);
+    }
 
   },
   methods: {

@@ -19,11 +19,11 @@
           <button @click="selectedDesignTypeToShow = '1'" :class="{selected: selectedDesignTypeToShow === '1'}">{{$t('release.newsletterDesign')}}</button>
         </div>
         <div class="width-all flex column align-center gap10">
-          <div class="toggle-btns">
-            <button :class="{selected: previewPlatform === 'desktop'}" @click="previewPlatform = 'desktop'"><img :src="require('@/apps/megaphonApp/assets/images/devices/desktop.jpg')"/></button>
-            <button :class="{selected: previewPlatform === 'tablet'}" @click="previewPlatform = 'tablet'"><img :src="require('@/apps/megaphonApp/assets/images/devices/tablet.jpg')"/></button>
-            <button :class="{selected: previewPlatform === 'mobile'}" @click="previewPlatform = 'mobile'"><img :src="require('@/apps/megaphonApp/assets/images/devices/mobile.png')"/></button>
-          </div>
+          <ToggleBtns v-model="previewPlatform" :options="[
+            {value: 'desktop', img: require('@/apps/megaphonApp/assets/images/devices/desktop.jpg')},
+            {value: 'tablet', img: require('@/apps/megaphonApp/assets/images/devices/tablet.jpg')},
+            {value: 'mobile', img: require('@/apps/megaphonApp/assets/images/devices/mobile.png')},
+          ]"/>
           <iframe v-if="landingPageUrl" :style="iframeStyle" :src="landingPageUrl" frameborder="0"></iframe>
           <p v-else>{{$t('noMatchingDesign')}}</p>
         </div>
@@ -51,6 +51,7 @@ import DynamicInput from '../cmps/DynamicFormInputs/DynamicInput.vue';
 import { createItemForDynamicForm } from '../../common/services/CreateItemForDynamicForm';
 import { getReleaseLandingPageUrl, getReleaseRelevantTmplates } from '../../common/services/template.util.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
+import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 export default {
   name: 'ReleaseEdit',
   data() {
@@ -172,6 +173,7 @@ export default {
   },
   components: {
     DynamicInput,
+    ToggleBtns,
   }
 }
 </script>

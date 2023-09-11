@@ -52,6 +52,8 @@ const  en = {
 
     "loadDistributionList": "Load distribution list",
     "saveDistributionList": "Save distribution list",
+
+    "report": "Report"
   }
 }
 const he = {
@@ -107,6 +109,8 @@ const he = {
 
     "loadDistributionList": "טען רשימת תפוצה",
     "saveDistributionList": "שמור רשימת תפוצה",
+
+    "report": "דוח רליס"
   }
 }
 const heF = {

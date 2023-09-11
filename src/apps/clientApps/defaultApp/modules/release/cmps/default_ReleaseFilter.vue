@@ -1,15 +1,5 @@
 <template>
   <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20">
-    <!-- <div class="type-filter toggle-btns gap10">
-      <button
-        :class="{selected: !filterBy.filter.params.type}"
-        @click.prevent.stop="setFilterType('')"
-      >הכל</button>
-      <button v-for="filterType in filterTypes" :key="filterType"
-       :class="{selected: filterBy.filter.params.type === filterType}"
-        @click.prevent.stop="setFilterType(filterType)"
-      >{{filterType}}</button>
-    </div> -->
     <div class="serach flex align-center">
       <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left"/>
       <button>

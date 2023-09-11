@@ -16,7 +16,11 @@ export const releaseRoutes = [
       {
         name: 'ReleaseDetails',
         path: ':id',
-        component: ReleaseDetails
+        component: ReleaseDetails,
+        meta: {
+          reportReleaseOpen: true,
+          releaseIdParamName: 'id'
+        }
       }
     ]
   }

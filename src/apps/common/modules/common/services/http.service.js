@@ -4,8 +4,8 @@ import axios from 'axios';
 axios.default.withCredentials = true;
 
 // const BASE_URL = process.env.NODE_ENV === 'production'
-//   // ? 'api/'
-//   ? window.location.origin + '/better-api/'
+//   ? 'api/'
+//   // ? window.location.origin + '/better-api/'
 //   : 'http://localhost:8080/better-api/';
 
 import config from '@/config';

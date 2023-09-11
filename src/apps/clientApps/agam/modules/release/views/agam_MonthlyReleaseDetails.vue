@@ -1,28 +1,30 @@
 <template>
   <section class="monthly-release-details flex column gap30 height-all">
     <section class="release-hero-view flex align-center justify-center gap10">
-      <div class="hero flex column inner-container">
+      <div class="hero flex align-center justify-center gap30">
         <button class="arrow-btn" @click="shiftChild(1)" :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)">
         </button>
-        <div v-if="viewdChild" class="hero-main flex-1 flex gap30">
-          <img class="main-img" :src="viewdChild.mainImage[0].src" :alt="viewdChild.title"/>
-          <div class="hero-content flex column align-start gap20">
-            <h2>{{viewdChild.title}}</h2>
-            <p>{{$t('release.by')}}: {{viewdChild.author}}</p>
-            <div v-html="viewdChild.desc"></div>
-            <hr/>
-            <router-link :to="{ params: {id: viewdChild._id} }">
-              <button class="flex align-center gap5">
-                <span>
-                  לפרטים 
-                </span>
-                <img :src="require('@/apps/clientApps/agam/assets/images/small-arrow-white.png')" alt="➜"/>
-              </button>
-            </router-link>
+        <div v-if="viewdChild" class="">
+          <div class="hero-main inner-container flex gap30 width-all">
+            <img class="main-img" :src="viewdChild.mainImage[0].src" :alt="viewdChild.title"/>
+            <div class="hero-content flex column align-start gap20">
+              <h2>{{viewdChild.title}}</h2>
+              <p>{{$t('release.by')}}: {{viewdChild.author}}</p>
+              <div v-html="viewdChild.desc"></div>
+              <hr/>
+              <router-link :to="{ params: {id: viewdChild._id} }">
+                <button class="flex align-center gap5">
+                  <span>
+                    לפרטים 
+                  </span>
+                  <img :src="require('@/apps/clientApps/agam/assets/images/small-arrow-white.png')" alt="➜"/>
+                </button>
+              </router-link>
+            </div>
           </div>
+          <div class="hero-footer"></div>
         </div>
-        <div class="hero-footer"></div>
         <button class="arrow-btn" @click="shiftChild(-1)" :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'">
         </button>
@@ -128,18 +130,18 @@ export default {
     .release-hero-view {
       background-color: rgb(255, 216, 216);
       background: url('~@/apps/clientApps/agam/assets/images/bookshelf_background.jpg') fixed;
-      padding: 30px;
+      padding: em(30px);
       .hero {
         position: relative;
-        .arrow-btn {
-          position: absolute;
-          top: 50%;;
-          right: -60px;
-          &:last-child {
-            right: unset;
-            left: -60px;
-          }
-        }
+        // .arrow-btn {
+        //   position: absolute;
+        //   top: 50%;;
+        //   right: em(-60px);
+        //   &:last-child {
+        //     right: unset;
+        //     left: em(-60px);
+        //   }
+        // }
         width: 60%;
         @media (max-width: 1700px) {
           width: 90%;
@@ -149,11 +151,12 @@ export default {
         // overflow-x: hidden;
         min-height: 400px;
         // height: 400px;
-        background: white;
         .hero-main {
+          background: white;
           flex: 1;
-          padding: 40px;
+          padding: em(40px);
           height: 100%;
+          margin: unset;
           
           .main-img {
             height: 100%;
@@ -187,7 +190,7 @@ export default {
               width: 12px;
             }
           }
-  
+
         }
         .hero-footer {
           height: 15px;
@@ -202,6 +205,34 @@ export default {
         overflow-y: unset;
       }
     }
+
+    
+    @media (max-width: $small-screen-breake) {
+      .hero {
+        // gap: em(10px);
+        gap: em(10px);
+        width: 100% !important;
+      }
+      .hero-main {
+        flex: 1;
+        flex-wrap: wrap;
+        padding: em(15px) !important;
+      }
+      .arrow-btn {
+        width: 20px;
+        height: 20px;
+        // right: unset;
+        // left: unset;
+        // position: unset !important;
+      }
+
+      .release-hero-view {
+        // padding: em(10px);
+        padding: em(0px);
+        width: 100%;
+      }
+    }
+
   }
 }
 </style>

@@ -51,7 +51,7 @@
           </li>
           <li v-for="(curr, idx) in organizationToEdit.logos || []" :key="idx">
             <FormInput type="text" placeholder="name" v-model="curr.title"/>
-            <FileUploader :viewAsImg="true" :value="{src: curr.url}" @input="val => imgUploaded(val, `logos.${idx}.url`)"/>
+            <FileUploader :onlySrc="true" :viewAsImg="true" :value="curr.url" @input="val => imgUploaded(val, `logos.${idx}.url`)"/>
             <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
           </li>
         </ul>

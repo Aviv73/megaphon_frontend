@@ -4,20 +4,12 @@
     <FormInput @change="setDateRange" type="select" placeholder="release.filterByYear" :items="yearsOpts" v-model="dateSelectVal" />
     <FormInput v-if="selectedReleaseIds.length" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
     <div class="flex align-center gap20">
-      <div class="sorters toggle-btns flex gap10">
-        <button 
-          :class="{selected: !filterBy.simpleSort}"
-          @click.prevent.stop="setSortKey('')"
-        ><img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/filter.svg')"/></button>
-        <button 
-          :class="{selected: filterBy.simpleSort === 'publishedAt'}"
-          @click.prevent.stop="setSortKey('publishedAt')"
-        >תאריך</button>
-        <button
-          :class="{selected: filterBy.simpleSort === 'title'}"
-          @click.prevent.stop="setSortKey('title')"
-        >א-ב</button>
-      </div>
+      <ToggleBtns class="sorters flex gap10" :options="[
+        {img: require('@/apps/clientApps/agam/assets/images/filter.svg'), value: ''},
+        {label: 'תאריך', value: 'publishedAt'},
+        {label: 'א-ב', value: 'title'},
+      ]" v-model="filterBy.simpleSort" @input="setSortKey" />
+          
       <FormInput class="search" placeholder="search" v-model="filterBy.filter.search" iconPos="left">
         <button>
           <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
@@ -31,6 +23,7 @@
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 export default {
   name: 'ReleaseFilter',
   props: {
@@ -134,7 +127,7 @@ export default {
   //     } 
   //   }
   // },
-  components: { FormInput }
+  components: { FormInput, ToggleBtns }
 }
 </script>
 
