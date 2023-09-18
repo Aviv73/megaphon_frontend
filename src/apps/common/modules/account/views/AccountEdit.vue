@@ -1,5 +1,5 @@
 <template>
-  <div class="account-edit simple-form flex column gap20">
+  <div class="account-edit simple-form app-form-styling flex column gap20">
     <h2>{{$t('account.editAccount')}}</h2>
     <form v-if="accountToEdit" @submit.prevent="saveAccount" class="flex column align-start gap10">
       <FormInput type="text" labelholder="account.firstname" v-model="accountToEdit.firstname"/>

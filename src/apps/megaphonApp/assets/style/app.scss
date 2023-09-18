@@ -49,7 +49,22 @@ html {
       }
     }
   }
-
+  
+  &.dark-theme {
+    .table-item-preview {
+      color: white;
+      &:nth-child(odd) {
+        background-color: #6c6c6c;
+      }
+      &:nth-child(even) {
+        background-color: rgb(37, 37, 37);
+      }
+      &.table-header {
+        background-color: white;
+        color: black;
+      }
+    }
+  }
 
   
   .tab-nav {

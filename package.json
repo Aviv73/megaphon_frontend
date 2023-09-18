@@ -3,6 +3,10 @@
   "author": "Aviv Issachar",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.15.1",
+    "npm": "6.14.8"
+  },
   "scripts": {
     "start": "vue-cli-service serve --open",
     "serve": "vue-cli-service serve",

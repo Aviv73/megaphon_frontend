@@ -104,6 +104,13 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
+.dark-theme {
+  .pagination-btns {
+    button, .dots {
+      color: white;
+    }
+  }
+}
 .pagination-btns {
     .form-input.form-input-select {
       // border-bottom: em(1px) solid black;

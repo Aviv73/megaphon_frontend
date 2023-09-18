@@ -45,6 +45,7 @@ export function createItemForDynamicForm(dataFields = []) {
       case 'IMAGEGALLERY':
       case 'IMAGEGALLERY':
       case 'FILE':
+      case 'RELEASES_SELECTOR':
         item[field.fieldName] = [];
 
       case 'SEPARATOR':

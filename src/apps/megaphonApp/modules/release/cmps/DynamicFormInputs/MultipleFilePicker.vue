@@ -10,7 +10,7 @@
       <!-- <FormInput v-model="currVal.title"/> -->
       <TableActionBtns v-if="!isSingleItem" :value="value" @input="updateFromActions" :idx="idx"/>
     </div>
-    <button v-if="!isSingleItem" class="btn big width-content" @click="$emit('input', [...(value || []), createNewItem(value)])">{{$t('add')}}</button>
+    <button v-if="!isSingleItem" class="btn big primary width-content" @click="$emit('input', [...(value || []), createNewItem(value)])">{{$t('add')}}</button>
   </div>
 </template>
 

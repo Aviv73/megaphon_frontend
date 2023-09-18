@@ -1,5 +1,5 @@
 <template>
-  <div v-if="organizationToEdit" class="organization-edit simple-form flex column gap40 width-all">
+  <div v-if="organizationToEdit" class="organization-edit app-form-styling simple-form flex column gap40 width-all">
     <h2 v-if="organizationToEdit._id">{{$t('organization.editOrganization')}}</h2>
     <h2 v-else>{{$t('organization.createOrganization')}}</h2>
     <form v-if="organizationToEdit" @submit.prevent="" class="flex column width-all gap50">

@@ -2,11 +2,11 @@
   <DragDiv :onDrag="() => toggleToSelectedReleases(true)">
     <li class="release-preview" :class="{ selected: selectedReleaseIds.includes(item._id) }" @click="toggleToSelectedReleases(false)">
       <img class="release-img" :src="imgSrc" alt="">
-      <p>{{release.title}}</p>
+      <p class="release-title">{{release.title}}</p>
       <div class="actions flex column gap5">
         <button @click="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
         <router-link :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/pencil.svg')" alt=""></router-link>
-        <router-link :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link>
+        <!-- <router-link :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
         <router-link :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/distribute.svg')" alt=""></router-link>
       </div>
     </li>
@@ -59,14 +59,15 @@ export default {
 .megaphon-app {
   .release-preview {
     position: relative;
-    width: em(160px);
+    width: em(180px);
     .release-img {
-      height: em(110px);
+      height: em(130px);
       width: 100%;
       object-fit: cover;
     }
-    p {
+    p.release-title {
       word-wrap: break-word;
+      font-size: em(12px);
     }
 
     .actions {

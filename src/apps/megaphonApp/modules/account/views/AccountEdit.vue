@@ -1,5 +1,5 @@
 <template>
-  <div v-if="accountToEdit" class="account-edit simple-form flex column gap40">
+  <div v-if="accountToEdit" class="account-edit app-form-styling simple-form flex column gap40">
     <h2 v-if="accountToEdit._id">{{$t('account.editAccount')}}</h2>
     <h2 v-else>{{$t('account.createAccount')}}</h2>
     <form v-if="accountToEdit" @submit.prevent="saveAccount" class="flex column gap20">

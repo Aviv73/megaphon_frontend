@@ -2,6 +2,31 @@
 // .dark-theme .btn {
 //   color: white;
 // }
+
+.dark-theme {
+  .btn {
+    &:not(.clear) {
+      // background-color: black;
+      // color: white;
+      &.primary {
+        // background-color: $clr-light-green;
+        background-color: #0184d4;
+        color: white;
+      }
+      &:active {
+        color: black;
+        border-color: black;
+      }
+    }
+  }
+  
+  .toggle-btns {
+    background-color: black;
+    button {
+      color: white;
+    }
+  }
+}
 .btn {
   &:not(.clear) {
     // height: em(20px);

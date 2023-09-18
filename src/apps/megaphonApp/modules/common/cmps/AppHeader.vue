@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header flex align-center">
+  <header class="app-header flex align-center ignore-theme-style">
     <div class="container header-content width-all flex align-center space-between height-all">
       <router-link :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
         <div class="logo-title height-all flex align-center">

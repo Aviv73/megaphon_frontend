@@ -1,5 +1,5 @@
 <template>
-  <div class="app megaphon-app height-all">
+  <div class="app megaphon-app dark-theme height-all">
     <div class="app-content">
       <!-- <AppAside/> -->
       <div class="right height-all flex column">

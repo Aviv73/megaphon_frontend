@@ -14,7 +14,7 @@
     <ul class="organization-list flex-1">
       <li :class="{selected: selectedOrgId === org._id}" class="organization-preview" v-for="org in organizations" :key="org._id">
         <div class="nav-list-item org-header flex align-center gap10" @click="selectOrg(org._id)">
-          <Avatar :size="40">{{org.name.slice(0,2)}}</Avatar>
+          <Avatar :size="25">{{org.name.slice(0,2)}}</Avatar>
           <p>{{org.name}}</p>
         </div>
         <div class="flex column" v-if="selectedOrgId === org._id">
@@ -32,7 +32,7 @@
       </li>
       <li class="organization-preview" v-if="isAdmin">
         <div class="nav-list-item org-header flex align-center gap10" @click="showAdminNav = !showAdminNav">
-          <Avatar :size="40">{{'מגפון'.slice(0,2)}}</Avatar>
+          <Avatar :size="25">{{'מגפון'.slice(0,2)}}</Avatar>
           <p>{{$t('sidebar.megaphonGeneral')}}</p>
         </div>
         <div class="flex column" v-if="showAdminNav">
@@ -117,6 +117,38 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
+.megaphon-app.dark-theme {
+  .main-sidebar {
+    color: #cecece;
+    .sidebar-header {
+      .avatar {
+        background-color: #2090D4;
+      }
+    }
+    .organization-preview {
+      .nav-list-item {
+        &:hover {
+          background-color: lighten($color: #2090D4, $amount: 20%) !important;
+        }
+      }
+
+      &.selected {
+        .org-header {
+          background-color: #2090D4;
+          // color: #2090D4
+          color: white
+        }
+        .router-link-active {
+          background-color: rgba(147, 214, 254, 0.3);
+          color: #2090D4;
+        }
+      }
+    }
+    .nav-list-item {
+      border-bottom: em(0.5px) solid #003d5e;
+    }
+  }
+}
 .megaphon-app {
   .main-sidebar {
 
@@ -131,6 +163,8 @@ export default {
       .avatar {
         width: em(30px);
         height: em(30px);
+        background-color: black;
+        border-radius: 50%;
       }
       .actions-section {
         position: relative;
@@ -207,7 +241,7 @@ export default {
     }
 
     .nav-list-item {
-      height: em(50px);
+      height: em(40px);
       border-bottom: em(1px) solid lighten(#2090D4, 40);
       display: flex;
       align-items: center;

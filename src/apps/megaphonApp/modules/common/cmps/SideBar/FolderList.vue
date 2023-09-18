@@ -17,7 +17,7 @@
         {{depth}}
       </form> -->
     </div>
-    <form v-if="depth < 2" @submit.prevent="addFolder($event, parentPath)" class="add-folder-input-container nav-list-item inner-list-item">
+    <form v-if="depth < 2" @submit.prevent="addFolder($event, parentPath)" class="add-folder-input-container nav-list-item inner-list-item flex align-center gap5">
       <FormInput placeholder="sidebar.addFolder" value=""/>
       <button type="submit">+</button>
     </form>

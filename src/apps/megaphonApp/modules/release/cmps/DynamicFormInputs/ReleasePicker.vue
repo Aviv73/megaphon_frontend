@@ -1,14 +1,14 @@
 <template>
   <div class="release-peacker flex column align-start gap10">
     <ul class="release-list flex column gap10">
-      <li v-for="(release, idx) in value" :key="release._id" class="flex align-end gap10">
+      <li v-for="(release, idx) in (value || [])" :key="release._id" class="flex align-end gap10">
         <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || ''" :alt="release.releaseData?.title" />
         <p>{{release.releaseData?.title}}</p>
         
-        <TableActionBtns v-model="organizationToEdit.value" :idx="idx"/>
+        <TableActionBtns v-model="value" :idx="idx"/>
       </li>
     </ul>
-    <button class="btn big" @click="showSearchModal = true">{{$t('add')}}</button>
+    <button class="btn big primary" @click="showSearchModal = true">{{$t('add')}}</button>
     <Modal class="search-modal" v-if="showSearchModal" @close="showSearchModal = false" :fullScreen="true">
       <div class="search-modal-content flex column gap10">
         <p>{{$t('release.searchReleases')}}</p>
@@ -42,7 +42,8 @@ export default {
   components: { Modal, FormInput, TableActionBtns },
   name: 'ReleasePicker',
   props: {
-    value: [Array],
+    // value: [Array],
+    value: null,
     dataField: [Object],
     organization: [Object],
   },
@@ -55,7 +56,7 @@ export default {
         },
         orgFilter: {
           releaseTypes: this.dataField.filter?.length? this.dataField.filter : undefined,
-          wasDistributed : false
+          // wasDistributed : false
         }
         // orgFilter: this.organization.filters?.find(c => c._id === this.dataField.filter)
       },
@@ -67,11 +68,11 @@ export default {
   methods: {
     async getReleases() {
       const releasesRes = await releaseService.query(this.releasesFilterBy, this.$route.params.organizationId);
-      this.releases = releasesRes.items.filter(c => !this.value.find(rel => rel._id === c._id));
+      this.releases = releasesRes.items.filter(c => !this.value?.find?.(rel => rel._id === c._id));
       this.showMsg = true;
     },
     addReleases() {
-      this.$emit('input', [...this.value, ...this.releasesToAdd]);
+      this.$emit('input', [...(this.value || []), ...this.releasesToAdd]);
       this.releasesToAdd = [];
       this.showSearchModal = false;
     },
@@ -92,6 +93,7 @@ export default {
       height: em(100px);
       object-fit: contain;
       border: em(1px) solid black;
+      background: #ffffff29;
     }
 
     .search-modal {

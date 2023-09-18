@@ -1,5 +1,5 @@
 <template>
-  <div class="contact-edit flex column align-start gap30" v-if="itemToEdit">
+  <div class="contact-edit app-form-styling flex column align-start gap30" v-if="itemToEdit">
     <h2 v-if="itemToEdit._id">{{$t('contact.editContact')}}</h2>
     <h2 v-else>{{$t('contact.createContact')}}</h2>
     <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20 simple-form">

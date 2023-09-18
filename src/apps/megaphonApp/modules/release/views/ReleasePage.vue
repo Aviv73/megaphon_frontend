@@ -100,6 +100,7 @@ export default {
     padding: em(10px);
     height: auto;
     .item-list {
+      justify-content: space-between !important;
       gap: em(10px);
     }
     .item-page {

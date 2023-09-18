@@ -1,7 +1,7 @@
 $dark-theme-header-clr: white;
-$dark-theme-body-clr: white;
+$dark-theme-body-clr: #cbcbcb;
 $dark-theme-header-bg: #505050;
-$dark-theme-body-bg: #252525;
+$dark-theme-body-bg: #000000;
 .dark-theme {
   @include theme($dark-theme-header-clr, $dark-theme-body-clr, $dark-theme-header-bg, $dark-theme-body-bg);
 }

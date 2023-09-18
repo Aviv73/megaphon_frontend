@@ -1,6 +1,8 @@
 <template>
   <section class="app-avatar flex align-center justify-center" :style="{width: renderSize, height: renderSize}">
-    <slot v-if="$slots.default"/>
+    <div v-if="$slots.default" :style="{fontSize: renderFontSize}">
+      <slot/>
+    </div>
     <img class="avatar-img" v-else :src="imgSrc" alt="">
   </section>
 </template>
@@ -17,9 +19,15 @@ export default {
     imgSrc() {
       return this.accont? this.account.img || `https://robohash.org/${this.account.username}` : this.img || '';
     },
-    renderSize() {
+    renderSizeEm() {
       const size = (this.size || 30) / 16;
-      return size + 'em';
+      return size;
+    },
+    renderSize() {
+      return this.renderSizeEm + 'em';
+    },
+    renderFontSize() {
+      return (this.renderSizeEm*0.5) + 'em';
     }
   }
 }
@@ -39,6 +47,12 @@ export default {
     width: 50%;
     border-radius: 50%;
     object-fit: cover;
+  }
+}
+.dark-theme {
+  .app-avatar {
+    background: white;
+    color: #676767 !important;
   }
 }
 </style>

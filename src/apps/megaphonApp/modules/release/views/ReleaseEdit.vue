@@ -1,9 +1,9 @@
 <template>
-  <div class="release-edit flex column gap20" v-if="itemToEdit && org">
+  <div class="release-edit app-form-styling flex column gap20" v-if="itemToEdit && org">
     <header class="header tab-nav">
       <div class="container width-all">
-        <button :disabled="!itemToEdit._id" @click="showDesign = false" :class="{selected: !showDesign}">{{$t('release.editRelease')}}</button>
-        <button @click="showDesign = true" :class="{selected: showDesign}">{{$t('release.designAndPreview')}}</button>
+        <button @click="showDesign = false" :class="{selected: !showDesign}">{{$t('release.editRelease')}}</button>
+        <button :disabled="!itemToEdit._id" @click="showDesign = true" :class="{selected: showDesign}">{{$t('release.designAndPreview')}}</button>
       </div>
     </header>
     <main class="form-content container flex column gap30 width-all">
@@ -182,7 +182,9 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .release-edit {
-    padding: em(10px);
+    .form-content {
+      padding: em(10px);
+    }
     .dynamic-input:not(.input-field-SEPARATOR) h3 {
       width: em(150px);
     }
@@ -193,6 +195,7 @@ export default {
       width: 100%;
       height: em(60px);
       background-color: #0084D4;
+      padding: 0 em(10px);
       .container {
         height: 100%;
         display: flex;
@@ -220,11 +223,16 @@ export default {
       left: 0;
       height: em(50px);
       background-color: #E0E0E0;
+      padding: em(10px);
     }
     main {
       margin-bottom: em(50px);
       padding: em(10px) 0;
     }
   }
+  .toggle-btns {
+    background-color: #fff;
+  }
 }
+
 </style>

@@ -5,7 +5,7 @@
     <FormInput v-if="selectedReleaseIds.length" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
     <div class="flex align-center gap20">
       <ToggleBtns class="sorters flex gap10" :options="[
-        {img: require('@/apps/clientApps/agam/assets/images/filter.svg'), value: ''},
+        {img: require('@/apps/megaphonApp/assets/images/sort.svg'), value: ''},
         {label: 'תאריך', value: 'publishedAt'},
         {label: 'א-ב', value: 'title'},
       ]" v-model="filterBy.simpleSort" @input="setSortKey" />
@@ -133,6 +133,12 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
+.megaphon-app.dark-theme {
+  .release-filter, .toggle-btns button {
+    color: #cdcdcd;
+  }
+
+}
 .megaphon-app {
   .release-filter {
     .filter-icon-img {

@@ -70,7 +70,7 @@
         :class="{ open: isOpen }"
         @click="isOpen = !isOpen"
         @blur="closeDropDown"
-        class="header"
+        class="select"
       >
         <div style="height:100%;display:flex;align-items:center;gap:10px" class="head" >
           <div class="toggle-btn"></div>
@@ -350,7 +350,7 @@ export default {
     // width: 100%;
     flex: 1;
     // height: 100%;
-    .header {
+    .select {
       cursor: pointer;
       height: 100%;
       .head {

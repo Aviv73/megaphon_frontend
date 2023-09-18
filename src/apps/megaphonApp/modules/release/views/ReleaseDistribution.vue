@@ -31,7 +31,11 @@
               <p>{{$t('contact.role')}}</p>
               <p>{{$t('contact.companyName')}}</p>
               <div>
-                <button class="toggle-btn" @click="addAllSearchContacts()"><img :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>{{$t('distribute.addAll')}}</button>
+                <button class="toggle-btn" @click="addAllSearchContacts()">
+                  <img class="add-all-btn-img reg" :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>
+                  <img class="add-all-btn-img dark" :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>
+                  {{$t('distribute.addAll')}}
+                </button>
               </div>
             </div>
           </ItemSearchList>
@@ -362,9 +366,21 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
+.dark-theme.megaphon-app {
+  .release-distribute {
+    .add-all-btn-img {
+      &.reg { display: none; }
+      &.dark { display: unset; }
+    }
+  }
+}
 .megaphon-app {
   .release-distribute {
     padding: em(10px);
+
+    .add-all-btn-img.dark {
+      display: none;
+    }
 
     .toggle-btn {
       display: flex;
