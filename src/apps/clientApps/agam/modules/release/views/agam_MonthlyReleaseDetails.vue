@@ -32,6 +32,7 @@
     </section>
     <div class="inner-container flex column gap30">
       <h1>{{release.title}}</h1>
+      <div v-html="release.desc"></div>
       <ItemList
         class="flex-1"
         :items="release.childrenReleases"
@@ -39,7 +40,7 @@
         :singlePreviewCmp="ReleasePreview"
       />
     </div>
-    <ItemSearchList
+    <!-- <ItemSearchList
       class="inner-container"
       :itemsData="allReleasesData"
       :initFilterBy="allReleasesFilterBy"
@@ -47,7 +48,8 @@
       itemDetailesPageName="ReleaseDetails"
       :singlePreviewCmp="ReleasePreview"
       :filterByCmp="ReleaseFilter"
-    />
+      :dontRoute="true"
+    /> -->
     <!-- <ul>
       <li v-for="child in release.childrenReleases" :key="child.id">
         <router-link :to="{ params: {id: child._id} }">
@@ -96,7 +98,10 @@ export default {
     },
     orgId() {
       return this.$store.getters['release/organizationId'];
-    }
+    },
+    showOnlyreleases() {
+      return this.$route.query?.releasesView === 'true';
+    },
   },
   methods: {
     shiftChild(diff) {

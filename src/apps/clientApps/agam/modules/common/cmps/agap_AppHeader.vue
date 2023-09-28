@@ -1,7 +1,7 @@
 <template>
   <header class="app-header flex align-center">
     <div class="container header-content width-all flex align-center space-between">
-      <router-link :to="{name: 'HomePage'}">
+      <router-link :to="{name: 'ReleasePage'}">
         <div class="logo-title">
           <!-- <div class="actual flex column align-center gap10">
             <h1>אגם</h1>
@@ -18,6 +18,7 @@
         <div class="space-div"></div>
         <div class="flex align-center wrap gap30">
           <router-link class="nav-link" :to="mainTo">{{$t('main')}}</router-link>
+          <!-- <button @click="toggleMainView" class="nav-link" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
           <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
           <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
           <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'book' } }">{{$t('allBooks')}}</router-link>
@@ -57,6 +58,9 @@ export default {
     // initReleaseId() {
     //   return this.$store.getters['release/initReleaseId'];
     // },
+    showOnlyreleases() {
+      return this.$route.query?.releasesView === 'true';
+    },
 
     mainTo() {
       return this.$store.getters.mainLinkRouteTo;
@@ -69,13 +73,20 @@ export default {
       return this.$store.getters['release/selectedItem'];
     },
     releaseTitle() {
-      if (!this.release.releaseData.publishedAt) return this.release.releaseData.title;
+      if (!this.release?.releaseData?.publishedAt) return this.release?.releaseData?.title || '';
       const at = new Date(this.release.releaseData.publishedAt);
       const month = at.getMonth() + 1;
       const year = at.getFullYear();
       if (isNaN(month) || isNaN(year)) return this.release.releaseData.title;
       const pretyMont = this.$t('months.'+month);
       return `${pretyMont} ${year}`;
+    }
+  },
+  methods: {
+    toggleMainView() {
+      console.log(this.$route.query.releasesView, typeof this.$route.query.releasesView)
+      const newVal = this.$route.query.releasesView ? !(this.$route.query.releasesView === 'true') + '' : 'false';
+      this.$router.push({ ...this.mainTo, query: { ...this.$route.query, releasesView: newVal } });
     }
   },
   watch: {

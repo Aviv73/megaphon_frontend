@@ -59,13 +59,6 @@ export default {
       const megaphonLogog = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
       return this.orgId == '-1'? megaphonLogog : this.organization?.logoUrl || megaphonLogog;
     },
-
-    mainTo() {
-      return this.$store.getters.mainLinkRouteTo;
-      // return this.initReleaseId
-      //   ? {name: 'ReleaseDetails', params: {id: this.initReleaseId} }
-      //   : { name: 'ReleasePage' }
-    },
   },
   methods: {
     emitFilter(filter = null) {

@@ -14,7 +14,7 @@
         אגם היא הוצאת ספרים קטנה ושובבה אשר בשנים האחרונות עושה את צעדיה למרכז הבמה הספרותית בישראל 
       </p>
       <p>
-        ההקפדה על המסרים והערכים, הבררנות הבלתי מתפשרת בבחירת היוצרים, הטיפול המקצועי בחומרים - וכמובן האומץ והחדשנות שאנחנו מביאים לתוך הספרים – כל אלו הם שמציבים אותנו כיום במקום כל כך מיוחד בנוף הישראלי – וכמונו גם את הקוראים שלנו!
+        ההקפדה על המסרים והערכים, הבררנות הבלתי מתפשרת בבחירת היוצרים, הטיפול המקצועי בחומרים - וכמובן האומץ והחדשנות שאנחנו מביאים לתוך הספרים, כל אלו הם שמציבים אותנו כיום במקום כל כך מיוחד בנוף הישראלי – וכמונו גם את הקוראים שלנו!
       </p>
     </div>
 
@@ -36,12 +36,16 @@
       <ul class="flex align-center space-around wrap gap30">
         <li class="flex column align-center gap20" v-for="(member, idx) in crewMembers" :key="idx">
           <img :src="member.img" :alt="member.name">
-          <div class="member-info flex column gap15">
-            <div class="flex column gap10">
+          <div class="member-info flex column gap15 width-all">
+            <div class="flex column gap10 width-all">
+              <h3 class="name width-all">{{member.name}} - <span>{{member.role}}</span></h3>
+              
+            </div>
+            <!-- <div class="flex column gap10">
               <h3 class="name">{{member.name}}</h3>
               <p>{{member.role}}</p>
-            </div>
-            <p>{{member.contactFor}}</p>
+            </div> -->
+            <!-- <p>{{member.contactFor}}</p> -->
           </div>
         </li>
       </ul>
@@ -74,12 +78,13 @@ export default {
     }
     .about-msg {
       // margin-inline-start: 60px;
-      max-width: 60%;
+      // max-width: 60%;
     }
     .crew-section, .features-section {
       li {
         text-align: center;
         min-width: 300px;
+        width: 300px;
         img {
           width: 240px;
           height: 240px;
@@ -93,11 +98,14 @@ export default {
       li {
         .name {
           color: $layout-red;
+          p {
+            color: $light-gray;
+          }
         }
         
         .member-info {
-          width: 150px;
-          p {
+          // width: 150px;
+          span {
             color: $light-gray;
           }
         }

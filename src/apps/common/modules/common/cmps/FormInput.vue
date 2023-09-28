@@ -68,11 +68,11 @@
         ref="elInput"
         :id="inputId"
         :class="{ open: isOpen }"
-        @click="isOpen = !isOpen"
         @blur="closeDropDown"
         class="select"
       >
-        <div style="height:100%;display:flex;align-items:center;gap:10px" class="head" >
+        <div v-if="isOpen" @click="autoCloseSelect" class="blur"></div>
+        <div @click="isOpen = !isOpen" style="height:100%;display:flex;align-items:center;gap:10px" class="head" >
           <div class="toggle-btn"></div>
           <div class="head-content">
             <template v-if="componentType === 'multiselect'">
@@ -117,7 +117,7 @@
               </label>
             </template>
             <template v-else>
-              <div class="flex align-center space-between gap30" v-for="item in itemsToRender" :key="item.label" @click="val = item.value">
+              <div class="flex align-center space-between gap30" v-for="item in itemsToRender" :key="item.label" @click="val = item.value, autoCloseSelect()">
                 <span>{{ $t(item.label) }}</span>
                 <img v-if="item.img" :src="item.img"/>
               </div>
@@ -237,6 +237,10 @@ export default {
     },
   },
   methods: {
+    autoCloseSelect() {
+      this.isOpen = false;
+    },
+
     closeDropDown(e) {
       if(!e.relatedTarget || e.relatedTarget.id !== 'formCheckbox') {
         this.isOpen = false
@@ -358,6 +362,16 @@ export default {
         .head-content {
           height: 100%;
         }
+      }
+
+      .blur {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 4;
+        cursor: pointer !important;
       }
     }
     > div {

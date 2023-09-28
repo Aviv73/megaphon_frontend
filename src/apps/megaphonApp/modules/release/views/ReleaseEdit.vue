@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       itemToEdit: null,
+      initialItem: null,
       org: null,
       showDesign: false,
       selectedDesignTypeToShow: '0',
@@ -104,6 +105,10 @@ export default {
         case 'mobile': 
           return { width: '400px', height: '700px' }
       }
+    },
+
+    didChange() {
+      return JSON.stringify(this.itemToEdit) !== JSON.stringify(this.initialItem);
     }
   },
   methods: {
@@ -122,12 +127,14 @@ export default {
       for (let key in emptyDataItem) {
         if (this.itemToEdit.releaseData[key] === undefined) this.itemToEdit.releaseData[key] = emptyDataItem[key];
       }
+      this.initialItem = JSON.parse(JSON.stringify(this.itemToEdit));
     },
     async saveItem() {
       if (!this.isItemValid) return;
       const isNew = !this.itemToEdit._id;
-      const savedItem = await this.$store.dispatch({ type: 'release/saveItem', item: this.itemToEdit, organizationId: this.orgId });
-      if (isNew) this.$router.push({params: {id: savedItem._id}});
+      this.itemToEdit = await this.$store.dispatch({ type: 'release/saveItem', item: this.itemToEdit, organizationId: this.orgId });
+      this.initialItem = JSON.parse(JSON.stringify(this.itemToEdit));
+      if (isNew) this.$router.push({params: {id: this.itemToEdit._id}});
     },
     async saveItemAndClose() {
       await this.saveItem();
@@ -144,7 +151,10 @@ export default {
       this.navigateOut();
     },
     async close() {
-      if (!await alertService.Confirm(this.$t('release.alerts.leaveConfirm'))) return;
+      if (
+        this.didChange && 
+        !await alertService.Confirm(this.$t('release.alerts.leaveConfirm'))
+      ) return;
       this.navigateOut();
     },
     navigateOut() {

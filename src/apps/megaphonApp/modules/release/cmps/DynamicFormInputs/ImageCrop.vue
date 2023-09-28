@@ -43,8 +43,9 @@ export default {
   extends: FileUploader,
   name: 'ImageCrop',
   props: {
-    value: [Array, undefined], // [{ src, title }],
-    accept: [String, undefined],
+    value: null, // [{ src, title }],
+    onlySrc: null, // [{ src, title }],
+    accept: String,
   },
   data() {
     return {
@@ -53,7 +54,7 @@ export default {
   },
   computed: {
     imgToShow() {
-      return this.value?.[0]?.src || ''; // defaultImg
+      return this.onlySrc? this.value : this.value?.[0]?.src || ''; // defaultImg
     }
   },
   methods: {
@@ -62,7 +63,8 @@ export default {
       if (!file) return;
       this.imgBase64ToCrop = '';
       const newVal = await this.doUploadFile(file);
-      this.$emit('input', [newVal]);
+      if (this.onlySrc) this.$emit('input', newVal.src);
+      else this.$emit('input', [newVal]);
       this.imgBase64ToCrop = '';
     },
     async chooseFile() {

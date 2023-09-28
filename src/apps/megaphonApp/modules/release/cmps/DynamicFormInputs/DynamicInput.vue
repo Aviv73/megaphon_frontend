@@ -176,7 +176,8 @@ export default {
           this.propsToPass = { isSingleItem: true, accept: this.dataField.filter };
           break;
         case 'IMAGE_SRC':
-          this.cmpName = 'FileUploader';
+          // this.cmpName = 'FileUploader';
+          this.cmpName = 'ImageCrop';
           this.propsToPass = { viewAsImg: true, accept: this.dataField.filter, onlySrc: true };
           break;
         case 'IMAGE':

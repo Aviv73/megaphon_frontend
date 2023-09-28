@@ -2,9 +2,15 @@
   <div class="multiple-file-picker flex column flex-start gap10">
     <div v-for="(currVal, idx) in value" :key="idx" class="flex align-start gap20">
       <FileUploader
+        v-if="!viewAsImg"
         :value="currVal"
         :viewAsImg="viewAsImg"
         :accept="accept"
+        @input="val => updateValue(val, idx)"
+      />
+      <ImageCrop
+        v-if="viewAsImg"
+        :value="currVal"
         @input="val => updateValue(val, idx)"
       />
       <!-- <FormInput v-model="currVal.title"/> -->
@@ -16,6 +22,7 @@
 
 <script>
 import FileUploader from '../../../../../common/modules/common/cmps/file/FileUploader.vue';
+import ImageCrop from './ImageCrop.vue';
 import FormInput from '../../../../../common/modules/common/cmps/FormInput.vue';
 import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
 export default {
@@ -49,7 +56,8 @@ export default {
   components: {
     FileUploader,
     TableActionBtns,
-    FormInput
+    FormInput,
+    ImageCrop
   },
 }
 </script>

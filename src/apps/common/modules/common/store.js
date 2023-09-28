@@ -9,8 +9,9 @@ export const _commonStore = {
     isRootLoading: (state) => state.isLoading,
     rootError: (state) => state.error,
     mainLinkRouteTo(state, getters) {
+      // return { name: 'ReleasePage' };
       const initReleaseId = getters['release/initReleaseId'];
-      return initReleaseId && false
+      return initReleaseId
         ? {name: 'ReleaseDetails', params: {id: initReleaseId} }
         : { name: 'ReleasePage' }
     },
