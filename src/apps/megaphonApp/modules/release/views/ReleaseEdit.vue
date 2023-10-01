@@ -32,7 +32,7 @@
     <footer class="footer width-all">
       <div class="flex align-center space-between container height-all">
         <div>
-          <button class="" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
+          <button class="btn big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
         </div>
         <div class="flex align-center gap30 height-all">
           <button class="btn big" @click="close">{{$t('close')}}</button>
