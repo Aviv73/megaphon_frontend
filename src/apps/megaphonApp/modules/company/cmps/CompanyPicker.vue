@@ -25,6 +25,14 @@ export default {
     showLabel: {
       type: Boolean,
       default: false
+    },
+    onlyRelevants: {
+      type: Boolean,
+      default: false
+    },
+    organizationId: {
+      type: String,
+      required: false
     }
   },
   computed: {
@@ -42,7 +50,7 @@ export default {
   },
   methods: {
     async loadAllCompanies() {
-      await this.$store.dispatch({ type: 'company/loadItems' });
+      await this.$store.dispatch({ type: 'company/loadItems', filterBy: { onlyRelevants: this.onlyRelevants }, organizationId: this.organizationId });
     },
     emitChange(val) {
       const valToEmit = this.getOnlyIds? val.map(c => c._id) : val;
@@ -59,6 +67,15 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
+.dark-theme.megaphon-app {
+  .company-picker {
+    .form-input {
+      input {
+        color: black;
+      }
+    }
+  }
+}
 .megaphon-app {
   .company-picker {
     .form-input {

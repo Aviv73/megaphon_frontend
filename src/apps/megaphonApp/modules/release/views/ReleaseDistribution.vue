@@ -66,11 +66,12 @@
             </form>
           </div>
           <div class="table-like-list flex-1 selected-table">
-            <div class="table-item-preview gap10 table-header flex space-between">
-              <p>{{$t('contact.contactName')}}</p>
+            <div class="table-item-preview selected-input gap10 table-header flex space-between">
+              <!-- <p>{{$t('contact.contactName')}}</p> -->
+              <FormInput :placeholder="$t('contact.contactName')" v-model="searchSelectedTerm"/>
               <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.removeAll')}}</button>
           </div>
-            <div v-for="contact in contactsForDistribute" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
+            <div v-for="contact in contactsForDistributeToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
               <p>{{contact.name || (contact.firstName + ' ' + contact.lastName)}}</p>
               <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.remove')}}</button>
             </div>
@@ -184,7 +185,9 @@ export default {
       newMailingListName: '',
 
       distributionReport: null,
-      showDistributionReportModal: false
+      showDistributionReportModal: false,
+
+      searchSelectedTerm: ''
     }
   },
   computed: {
@@ -207,6 +210,13 @@ export default {
 
     distributionTemplate() {
       return getReleaseRelevantTmplate(this.release, this.org, true);
+    },
+
+    contactsForDistributeToShow() {
+      if (!this.searchSelectedTerm) return this.contactsForDistribute;
+      return this.contactsForDistribute.filter(c => {
+        return c.name?.toLowerCase?.().includes(this.searchSelectedTerm.toLowerCase()) || c.email?.toLowerCase?.().includes(this.searchSelectedTerm.toLowerCase());
+      })
     }
   },
 
@@ -371,6 +381,11 @@ export default {
     .add-all-btn-img {
       &.reg { display: none; }
       &.dark { display: unset; }
+    }
+  }
+  .selected-input {
+    input {
+      color: black;
     }
   }
 }

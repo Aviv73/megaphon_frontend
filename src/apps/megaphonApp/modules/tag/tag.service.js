@@ -7,8 +7,8 @@ export const tagService = {
   get
 }
 
-function query(filterBy) {
-  return httpService.get(`${ENDPOINT}`, filterBy);
+function query(filterBy, organizationId = '') {
+  return httpService.get(`${ENDPOINT}`, {...filterBy, organizationId});
 }
 function get(id) {
   return httpService.get(`${ENDPOINT}/${id}`);

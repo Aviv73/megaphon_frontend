@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20">
     <div class="type-filter flex align-start gap10 flex-1">
-      <CompanyPicker class="flex-1" v-model="companies"/>
-      <TagPicker class="flex-1" v-model="tags"/>
+      <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="true" :organizationId="organizationId"/>
+      <TagPicker class="flex-1" v-model="tags" :onlyRelevants="true" :organizationId="organizationId"/>
     </div>
     <div class="flex align-center gap20">
       <div class="serach flex align-start">
@@ -27,7 +27,11 @@ export default {
     initFilter: {
       type: Object,
       required: true
-    }
+    },
+    // organizationId: {
+    //   type: String,
+    //   required: false
+    // }
   },
   data() {
     return {
@@ -35,6 +39,11 @@ export default {
       companies: [],
       tags: [],
       // didInit: false
+    }
+  },
+  computed: {
+    organizationId() {
+      return this.$route.params.organizationId;
     }
   },
   methods: {

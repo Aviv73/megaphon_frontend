@@ -8,6 +8,7 @@
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 export default {
   name: 'TagPicker',
+  
   data() {
     return {
       val: this.value || [],
@@ -25,6 +26,14 @@ export default {
     showLabel: {
       type: Boolean,
       default: false
+    },
+    onlyRelevants: {
+      type: Boolean,
+      default: false
+    },
+    organizationId: {
+      type: String,
+      required: false
     }
   },
   computed: {
@@ -42,7 +51,7 @@ export default {
   },
   methods: {
     async loadAllTags() {
-      await this.$store.dispatch({ type: 'tag/loadItems' });
+      await this.$store.dispatch({ type: 'tag/loadItems', filterBy: { onlyRelevants: this.onlyRelevants }, organizationId: this.organizationId });
     },
     emitChange(val) {
       const valToEmit = this.getOnlyIds? val.map(c => c._id) : val;
@@ -59,6 +68,15 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
+.dark-theme.megaphon-app {
+  .tag-picker {
+    .form-input {
+      input {
+        color: black;
+      }
+    }
+  }
+}
 .megaphon-app {
   .tag-picker {
     .form-input {
