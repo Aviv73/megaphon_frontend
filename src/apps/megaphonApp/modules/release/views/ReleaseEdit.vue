@@ -176,6 +176,9 @@ export default {
     // await this.loadDataFields();
     await this.getItem();
   },
+  mounted() {
+    window.scroll(0);
+  },
   watch: {
     '$route.params.id'() {
       this.getItem();
