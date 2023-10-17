@@ -7,7 +7,7 @@
   }
   &.ql-active {
     font-weight: bold;
-    background-color: rgb(181, 181, 255) !important;
+    // background-color: rgb(181, 181, 255) !important;
   }
 }
 
@@ -16,8 +16,20 @@
   // align-items: center;
   // flex-wrap: wrap;
   // gap: 0.625rem; /* 10p.x */
+
+  em {
+    font-style: italic
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  // all: unset;
+
   display: flex;
   flex-direction: column;
+
   
   // width: 750px;
   flex: 1;
@@ -124,4 +136,15 @@
   //     text-decoration: underline;
   //   }
   // }
+}
+
+
+
+.dark-theme.megaphon-app {
+  .quillWrapper {
+    // background-color: #4d4d4d;
+    background-color: #fff;
+    // color: unset !important;
+    color: black;
+  }
 }
