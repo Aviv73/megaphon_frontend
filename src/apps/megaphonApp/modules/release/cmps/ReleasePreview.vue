@@ -1,7 +1,7 @@
 <template>
   <DragDiv :onDrag="() => toggleToSelectedReleases(true)">
     <li class="release-preview" :class="{ selected: selectedReleaseIds.includes(item._id) }" @click="toggleToSelectedReleases(false)">
-      <img class="release-img" :src="imgSrc" alt="">
+      <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="release-title">{{release.title}}</p>
       <div class="actions flex column gap5">
         <button @click="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
