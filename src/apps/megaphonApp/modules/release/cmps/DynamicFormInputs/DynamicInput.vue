@@ -157,6 +157,7 @@ export default {
           setTimeout(() => {
             try {
               this.$refs.input.quill.format('align', 'right');
+              window.scroll(0, 0);
             } catch(e) {}
           }, 10);
           this.cmpName = 'VueEditor';
