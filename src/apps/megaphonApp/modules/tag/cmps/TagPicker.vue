@@ -51,9 +51,10 @@ export default {
   },
   methods: {
     async loadAllTags() {
-      await this.$store.dispatch({ type: 'tag/loadItems', filterBy: { onlyRelevants: this.onlyRelevants }, organizationId: this.organizationId });
+      await this.$store.dispatch({ type: 'tag/loadItems', filterBy: { onlyRelevants: this.onlyRelevants || undefined }, organizationId: this.organizationId });
     },
     emitChange(val) {
+      val = val.filter(Boolean);
       const valToEmit = this.getOnlyIds? val.map(c => c._id) : val;
       this.$emit('input', valToEmit)
     }

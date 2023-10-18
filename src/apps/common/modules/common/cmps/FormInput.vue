@@ -79,7 +79,7 @@
               <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @click.stop="isOpen = true"/>
               <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
               <ul class="multiselect-vals-list" v-if="showVals && val?.length">
-                <li v-for="curr in val" :key="curr.name">
+                <li v-for="curr in val.filter(Boolean)" :key="curr.name">
                   <!-- <span>{{itemsToRender.find(c => c.value === curr).label}}</span>
                   <button @click="val.splice(val.findIndex(c => c === curr) ,1)">X</button> -->
                   <span :title="curr.name || curr">{{subValName(curr.name || curr)}}</span>
