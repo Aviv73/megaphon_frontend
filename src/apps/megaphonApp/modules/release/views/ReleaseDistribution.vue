@@ -385,13 +385,19 @@ export default {
   }
   .selected-input {
     input {
-      color: black;
+      color: black !important;
     }
   }
 }
 .megaphon-app {
   .release-distribute {
     padding: em(10px);
+
+    .selected-input {
+      input {
+        color: white;
+      }
+    }
 
     .add-all-btn-img.dark {
       display: none;
