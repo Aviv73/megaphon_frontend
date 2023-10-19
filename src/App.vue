@@ -62,8 +62,12 @@ export default {
   async created() {
 
     this.displayUiConfig()
+    
+    evEmmiter.on('app_config_update', this.displayUiConfig);
 
-    if (!appConfig.client) return;
+    if (!appConfig.client) {
+      return;
+    }
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
     document.title = org.name;
 

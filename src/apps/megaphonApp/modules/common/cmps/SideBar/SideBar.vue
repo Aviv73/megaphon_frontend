@@ -41,6 +41,11 @@
           <router-link class="nav-list-item inner-list-item" :to="{ name: 'OrganizationPage' }">{{$t('organization.organizations')}}</router-link>
         </div>
       </li>
+      <li class="nav-list-item">
+        <router-link :to="{name: 'SettingsPage'}">
+          {{$t('settings.settings')}}
+        </router-link>
+      </li>
     </ul>
     <div class="powered-by flex align-end space-between gap10">
       <!-- Powered by Megaphon -->

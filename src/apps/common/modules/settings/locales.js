@@ -6,12 +6,8 @@ const  en = {
     "accessability": "Accessability",
     "theme": "Theme",
     "themes": {
-      "lemon": "Lemon",
+      "default": "Light",
       "dark": "Dark",
-      "red": "Simply Red",
-      "purple": "Deep Purple",
-      "pink": "la Vie en Rose",
-      "blue": "Baby Blue",
     },
     "alerts": {}
   }
@@ -24,12 +20,8 @@ const he = {
     "accessability": "נגישות",
     "theme": "נושא",
     "themes": {
-      "lemon": "לימון",
-      "dark": "חשוך",
-      "red": "פשוט אדום",
-      "purple": "סגול עמוק",
-      "pink": "החיים בורוד",
-      "blue": "ערב כחול עמוק",
+      "default": "בהיר",
+      "dark": "חשוך"
     },
     "alerts": {}
   }

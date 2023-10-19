@@ -101,7 +101,7 @@
             </template>
           </div>
         </div>
-        <div class="drop-down" @click.stop="">
+        <div class="drop-down" @click.stop="" :class="{'direction-up': listUp}">
           <template v-if="itemsToRender?.length">
             <template v-if="componentType === 'multiselect'">
               <label class="gap5" v-for="item in itemsToRender" :key="item.label">
@@ -175,6 +175,7 @@ export default {
     accept: { required: false, type: String, default: '' },
     
     showVals: { required: false, type: Boolean, default: false },
+    listUp: { required: false, type: Boolean, default: false },
   },
   data() {
     return {
@@ -418,6 +419,10 @@ export default {
         position: absolute;
         padding: em(6px) 0;
         top: 100%;
+        &.direction-up {
+          top: unset !important;
+          bottom: 100%;
+        }
         left: -em(1px);
         opacity: 0;
         transform: translateY(em(3px));

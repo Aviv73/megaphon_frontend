@@ -7,10 +7,10 @@
       <button>{{$t('save')}}</button>
     </form> -->
     <div class="simple-form">
-      <FormInput type="select" class="gap10" labelholder="settings.locale" v-model="uiConfig.locale" :items="langs"/>
+      <!-- <FormInput type="select" class="gap10" labelholder="settings.locale" v-model="uiConfig.locale" :items="langs"/> -->
       <FormInput type="select" class="gap10" labelholder="settings.theme" v-model="uiConfig.theme" :items="themes"/>
       <!-- <FormInput class="gap10 row-reverse" label="settings.darkMode" :value="uiConfig.darkMode" type="checkbox" @input="setDarkMode"/> -->
-      <FormInput type="checkbox" class="gap10" label="settings.accessability" v-model="uiConfig.accessabilityMode"/>
+      <!-- <FormInput type="checkbox" class="gap10" label="settings.accessability" v-model="uiConfig.accessabilityMode"/> -->
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       langs: [{value: 'en', label: 'english'}, {value: 'he', label: 'hebrew'}],
-      themes: ['lemon', 'red', 'purple', 'pink', 'blue', 'dark'].map(c => ({value: c, label: `settings.themes.${c}`})),
+      themes: ['default', 'dark'].map(c => ({value: c, label: `settings.themes.${c}`})),
       settings: null,
       uiConfig: {...this.$store.getters['settings/uiConfig']},
     }
@@ -64,7 +64,7 @@ export default {
 .settings-page {
   .simple-form {
     .form-input {
-      width: em(180px);
+      // width: em(180px);
     }
   }
 }
