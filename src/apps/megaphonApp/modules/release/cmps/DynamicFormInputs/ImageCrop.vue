@@ -54,17 +54,17 @@ export default {
   },
   computed: {
     imgToShow() {
-      return this.onlySrc? this.value : this.value?.[0]?.src || ''; // defaultImg
+      return this.onlySrc? this.value : this.value?.src || ''; // defaultImg
     }
   },
-  methods: {
+  methods: { 
     async uploadFile() {
       const file = this.base64ToFile(this.getCroppedImg());
       if (!file) return;
       this.imgBase64ToCrop = '';
       const newVal = await this.doUploadFile(file);
       if (this.onlySrc) this.$emit('input', newVal.src);
-      else this.$emit('input', [newVal]);
+      else this.$emit('input', newVal);
       this.imgBase64ToCrop = '';
     },
     async chooseFile() {

@@ -39,6 +39,7 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     imgSrc() {
+      console.log(this.release);
       return this.release.mainImage?.[0]?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png');
     }
   },
