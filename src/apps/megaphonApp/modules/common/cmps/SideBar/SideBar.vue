@@ -122,7 +122,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.megaphon-app.dark-theme {
+.dark-theme .megaphon-app {
   .main-sidebar {
     color: #cecece;
     .sidebar-header {
