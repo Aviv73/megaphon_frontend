@@ -43,7 +43,7 @@
       
       <div class="logos-section flex column gap20 align-start">
         <p>{{$t('organization.logos')}}</p>
-        <ul class="emails flex column gap10 table-like">
+        <ul class="flex column gap10 table-like">
           <li>
             <p>{{$t('name')}}</p>
             <p>{{$t('file')}}</p>
@@ -58,11 +58,25 @@
         <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
       </div>
 
+      
+      <div class="logos-section flex column gap20 align-start">
+        <p>{{$t('organization.designPreferences')}}</p>
+        <div class="input-container">
+          <p>{{$t('organization.color')}}</p>
+          <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.color"/>
+        </div>
+        <div class="input-container">
+          <p>{{$t('organization.bgColor')}}</p>
+          <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.bgColor"/>
+        </div>
+      </div>
+
+
       <h2 @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</h2>
       <div class="developer-zone" v-if="showDeveloperZone">
         <div class="filters-section flex column gap20 align-start">
           <p>{{$t('organization.filters')}}</p>
-          <ul class="emails flex column gap10 table-like">
+          <ul class="flex column gap10 table-like">
             <li>
               <p>{{$t('title')}}</p>
               <p>{{$t('releaseTypes')}}</p>
@@ -71,7 +85,7 @@
             </li>
             <li v-for="(curr, idx) in organizationToEdit.filters || []" :key="idx">
               <FormInput type="text" placeholder="title" v-model="curr.title"/>
-              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({_id, name}) => ({value: _id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
+              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
               <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.wasDistributed"/>
               <TableActionBtns v-model="organizationToEdit.filters" :idx="idx"/>
             </li>
@@ -81,16 +95,18 @@
 
         <div class="release-types-section flex column gap20 align-start">
           <p>{{$t('organization.releaseTypes')}}</p>
-          <ul class="emails flex column gap10 table-like">
+          <ul class="flex column gap10 table-like">
             <li>
               <p>{{$t('name')}}</p>
               <p>{{$t('dataFieldsLocalFilePath')}}</p>
+              <p>{{$t('isGroup')}}</p>
               <!-- <p>{{$t('dataFieldsStr')}}</p> -->
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.releaseTypes || []" :key="idx">
               <FormInput type="text" placeholder="name" v-model="curr.name"/>
               <FormInput type="text" placeholder="dataFieldsFilePath" v-model="curr.dataFieldsLocalFilePath"/>
+              <FormInput type="checkbox" v-model="curr.isGroup"/>
               <!-- <FormInput type="textarea" placeholder="dataFieldsStr" v-model="curr.dataFieldsStr"/> -->
               <TableActionBtns v-model="organizationToEdit.releaseTypes" :idx="idx"/>
             </li>
@@ -100,7 +116,7 @@
         
         <div class="templates-section flex column gap20 align-start">
           <p>{{$t('organization.templates')}}</p>
-          <ul class="emails flex column gap10 table-like">
+          <ul class="flex column gap10 table-like">
             <li>
               <p>{{$t('name')}}</p>
               <p>{{$t('url')}}</p>
@@ -116,7 +132,7 @@
               <FormInput type="text" placeholder="url" v-model="curr.url"/>
               <!-- <FormInput type="text" placeholder="previewUrl" v-model="curr.previewUrl"/> -->
               <FormInput type="select" :itemsMap="{landingPage: '0', newsLetter: '1'}" placeholder="templateType" v-model="curr.type"/>
-              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({_id, name}) => ({value: _id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
+              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
               <FormInput type="text" placeholder="hadlebarsFilePath" v-model="curr.handlebarsLocalFilePath"/>
               <FormInput type="text" placeholder="appName" v-model="curr.appName"/>
 
@@ -184,11 +200,11 @@ export default {
     },
     addFilterItem() {
       if (!this.organizationToEdit.filters) this.organizationToEdit.filters = [];
-      this.organizationToEdit.filters.push({ title: '', releaseTypes: [], wasDistributed: undefined })
+      this.organizationToEdit.filters.push({ title: '', releaseTypes: [], wasDistributed: undefined, id: getRandomId() })
     },
     addReleaseTypeItem() {
       if (!this.organizationToEdit.releaseTypes) this.organizationToEdit.releaseTypes = [];
-      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), /* fileUrl: '', */ dataFieldsStr: '' })
+      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), /* fileUrl: '', */ dataFieldsStr: '', isGroup: false })
     },
     addTemplateItem() {
       if (!this.organizationToEdit.templates) this.organizationToEdit.templates = [];
@@ -228,15 +244,23 @@ export default {
       }
     }
     .table-like {
+      // width: 100%;
       li {
+        width: 100%;
+        // display: grid;
+        // grid-template-columns: auto;
+        // gap: em(10px);
         display: flex;
         align-items: flex-start;
         gap: em(10px);
+
         width: 100%;
         >* {
           flex: 1;
+          width: 200px;
           &:last-child {
             flex: unset;
+            width: 100px;
           }
         }
       }

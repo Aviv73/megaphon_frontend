@@ -45,6 +45,7 @@ export default {
     evManager.on('folder-selected', this.handleFolderSelection);
     evManager.on('toggleRelease-from-selected', this.handleReleaseToggleSelection);
     evManager.on('current-dropable-folder', this.handleCurrentDropableFolderPathSelected);
+    evManager.on('org-release-filter', this.handleReleaseFilterChanged);
   },
   destroyed() {
     evManager.off('create-new-folder', this.createNewFolder);
@@ -53,6 +54,7 @@ export default {
     evManager.off('folder-selected', this.handleFolderSelection);
     evManager.off('toggleRelease-from-selected', this.handleReleaseToggleSelection);
     evManager.off('current-dropable-folder', this.handleCurrentDropableFolderPathSelected);
+    evManager.off('org-release-filter', this.handleReleaseFilterChanged);
   },
   methods: {
     initNavigation() {
@@ -146,6 +148,9 @@ export default {
 
     handleCurrentDropableFolderPathSelected(currentDropableFolderPath) {
       this.currentDropableFolderPath = currentDropableFolderPath;
+    },
+    handleReleaseFilterChanged() {
+      this.selectedReleaseIds = [];
     }
   },
   watch: {
@@ -156,6 +161,10 @@ export default {
     loggedUser(val, prev) {
       if (val?._id === prev?._id) return;
       this.initNavigation();
+    },
+
+    '$router.path'() {
+      this.selectedReleaseIds = [];
     }
   }
 }

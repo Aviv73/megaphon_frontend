@@ -4,10 +4,10 @@
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="release-title">{{release.title}}</p>
       <div class="actions flex column gap5">
-        <button @click="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
-        <router-link :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/pencil.svg')" alt=""></router-link>
+        <button @click.stop="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
+        <router-link @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/pencil.svg')" alt=""></router-link>
         <!-- <router-link :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
-        <router-link :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/distribute.svg')" alt=""></router-link>
+        <router-link @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/distribute.svg')" alt=""></router-link>
       </div>
     </li>
   </DragDiv>
@@ -39,7 +39,6 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     imgSrc() {
-      console.log(this.release);
       return this.release.mainImage?.[0]?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png');
     }
   },

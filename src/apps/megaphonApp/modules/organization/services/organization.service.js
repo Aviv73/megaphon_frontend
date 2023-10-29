@@ -34,8 +34,8 @@ function save(item) {
   return item._id? update(item) : add(item);
 }
 
-function loadDataFields(dataFieldsLocalFilePath, organizationId) {
-  return httpService.get(`${ENDPOINT}/${organizationId}/dataFields`, { dataFieldsLocalFilePath });
+function loadDataFields(dataFieldsLocalFilePath, organizationId, releaseType) {
+  return httpService.get(`${ENDPOINT}/${organizationId}/dataFields`, { dataFieldsLocalFilePath, releaseType });
 }
 
 
@@ -48,12 +48,16 @@ function getEmptyOrganization() { // todo
     distributionBcc: '',
     fromEmails: [/* { email: '', title: '' } */],
     filters: [/* { title: '', releaseTypes: [releaseTypesIds], wasDisterbuted: false } */],
-    releaseTypes: [/* { name: '', id: '', dataFieldsLocalFilePath: '', fileUrl: '', dataFieldsStr: 'JSON STRING FON NOW' } */],
+    releaseTypes: [/* { name: '', id: '', dataFieldsLocalFilePath: '', fileUrl: '', dataFieldsStr: 'NOT IN USE ___ JSON STRING FON NOW' } */],
 
-    templates: [/* { name: '', type: enum('0' => page, '1' => email), releaseTypes: [releaseTypesIds], handlebarsLocalFilePath: '', url: '', id: '', hadlebarsFileStr: ', appName: '' , previewUrl: 'NOT_IN_USE' } */],
+    templates: [/* { name: '', type: enum('0' => page, '1' => email), releaseTypes: [releaseTypesIds], handlebarsLocalFilePath: '', url: '', id: '', hadlebarsFileStr: 'NOT IN USE', appName: '' , previewUrl: 'NOT_IN_USE' } */],
 
     // subfilters: [/* { name: '', optionns: [{title:'', value: ''}], hideOnFilters: [releaseTyIds] } */],
     folders: [/* { name: '', children: [folders], content: [] } */],
-    logos: [/* {url: '', id: '', title: ''} */]
+    logos: [/* {url: '', id: '', title: ''} */],
+    designPreferences: {
+      color: 'black',
+      bgColor: 'white'
+    },
   }
 }

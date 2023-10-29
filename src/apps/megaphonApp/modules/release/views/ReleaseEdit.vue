@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     async loadDataFields() {
-      this.dataFields = await this.$store.dispatch({ type: 'organization/loadDataFields', dataFieldsLocalFilePath: this.selectedReleaseTemplate?.dataFieldsLocalFilePath, organizationId: this.orgId });
+      this.dataFields = await this.$store.dispatch({ type: 'organization/loadDataFields', dataFieldsLocalFilePath: this.selectedReleaseTemplate?.dataFieldsLocalFilePath, organizationId: this.orgId, releaseType: this.releaseType });
     },
     async getOrg() {
       this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId });

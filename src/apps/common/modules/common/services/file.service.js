@@ -7,7 +7,7 @@ export const fileService = {
 }
 
 
-export function  uploadFileToServer(formData) {
+export function uploadFileToServer(formData) {
   return httpService.post(`${ENDPOINT}/upload`, formData);
 
 }

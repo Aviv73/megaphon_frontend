@@ -16,7 +16,7 @@
           </router-link>
         </div>
         <div class="filters flex align-center height-all">
-          <button :class="{selected: selecterOrgFilterId === filter._id}" v-for="filter in organization.filters" :key="filter._id" @click="emitFilter(filter)">
+          <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.filters" :key="filter._id" @click="emitFilter(filter)">
             {{filter.title}}
           </button>
         </div>

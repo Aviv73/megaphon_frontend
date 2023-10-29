@@ -194,7 +194,9 @@ export default {
           this.propsToPass = { releases: this.parentItem[this.dataField.fromField] };
           break;
         case 'CORPABLE_IMAGE':
-          this.cmpName = 'ImageCrop';
+          // this.cmpName = 'ImageCrop';
+          this.cmpName = 'MultipleFilePicker';
+          this.propsToPass = { viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
           break;
         case 'LOGOSELECTION':
           this.cmpName = 'FormInput';

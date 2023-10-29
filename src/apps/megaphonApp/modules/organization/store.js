@@ -28,11 +28,11 @@ const _organizationStore = {
     getAllItems() {
       return organizationService.query(basicStoreService.initFilterBy());
     },
-    async loadDataFields({ commit, dispatch, getters }, { organizationId, dataFieldsLocalFilePath }) {
+    async loadDataFields({ commit, dispatch, getters }, { organizationId, dataFieldsLocalFilePath, releaseType }) {
       return dispatch({
         type: '_Ajax',
         do: async () => {
-          return await organizationService.loadDataFields(dataFieldsLocalFilePath, organizationId);
+          return await organizationService.loadDataFields(dataFieldsLocalFilePath, organizationId, releaseType);
         },
       });
     }

@@ -7,7 +7,7 @@ const origin = location.origin;
 
 export function getReleaseLandingPageUrl(release, organization, isNews) {
   const template = getReleaseRelevantTmplate(release, organization, isNews);
-  if (!template) return '';
+  // if (!template) return '';
   if (template?.url) { // if outer site url
     let pageUrl = template?.url || '';
     pageUrl = pageUrl.split('${releaseId}').join(release._id);
@@ -23,6 +23,7 @@ export function getReleaseLandingPageUrl(release, organization, isNews) {
   if (template?.appName) { // nested domain;
     url = url.split(organization._id).join(template.appName);
   }
+  console.log(url);
   return url;
 }
 

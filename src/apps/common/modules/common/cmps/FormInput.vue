@@ -309,6 +309,11 @@ export default {
         width: em(15px);
         height: em(15px);
       }
+
+      &[type="color"] {
+        width: em(70px);
+        height: em(40px);
+      }
     }
     textarea {
       height: em(100px);
