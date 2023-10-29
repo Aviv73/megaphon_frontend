@@ -188,7 +188,7 @@ export default {
     },
     addReleaseTypeItem() {
       if (!this.organizationToEdit.releaseTypes) this.organizationToEdit.releaseTypes = [];
-      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), fileUrl: '', dataFieldsStr: '' })
+      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), /* fileUrl: '', */ dataFieldsStr: '' })
     },
     addTemplateItem() {
       if (!this.organizationToEdit.templates) this.organizationToEdit.templates = [];

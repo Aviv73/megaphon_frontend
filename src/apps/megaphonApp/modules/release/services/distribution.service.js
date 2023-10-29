@@ -15,7 +15,7 @@ export const distributionService = {
 }
 
 function distribute(releaseId, distributionData) {
-  return httpService.post(`${ENDPOINT}/distribution/${releaseId}`, distributionData);
+  return httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, distributionData);
 }
 function testDistribute(releaseId, distributionData) {
   return httpService.post(`${ENDPOINT}/test/${releaseId}`, distributionData);
