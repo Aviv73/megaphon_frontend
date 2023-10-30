@@ -17,7 +17,7 @@ function query(filterBy, organizationId) {
   return httpService.get(ENDPOINT, filterBy);
 }
 function get(id) {
-  // if (!id) return getEmptyAccount();
+  if (!id) return getEmptyAccount();
   return httpService.get(`${ENDPOINT}/${id}`);
 }
 function add(account) {

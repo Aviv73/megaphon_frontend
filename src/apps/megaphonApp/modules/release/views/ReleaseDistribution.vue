@@ -4,7 +4,7 @@
       <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.backToEditRelease')}}</button></router-link>
       <h2>{{$t('distribute.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
     </div>
-    <p v-if="!isLoading && !distributionTemplate && false">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
+    <p v-if="!isLoading && !distributionTemplate">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
     <template v-else>
       <div class="flex gap30 width-all flex-1">
         <div style="flex:3" class="flex column gap10">
