@@ -142,7 +142,7 @@
         </div>
       </Modal>
     </template>
-    <Loader :fullScreen="true" v-if="isLoading"/>
+    <Loader :fullScreen="true" v-if="isLoading" :msg="isLoadingForDist? $t('distribute.loadingMsg') : ''"/>
   </div>
 </template>
 
@@ -187,7 +187,8 @@ export default {
       distributionReport: null,
       showDistributionReportModal: false,
 
-      searchSelectedTerm: ''
+      searchSelectedTerm: '',
+      isLoadingForDist: false
     }
   },
   computed: {
@@ -271,9 +272,10 @@ export default {
       if (!isToSend) return;
       try {
         this.isLoadingLocal = true;
+        this.isLoadingForDist = true;
         const res = await distributionService.distribute(this.release._id, { 
           from: this.fromEmail,
-          contacts: contacts || this.contactsForDistribute
+          contacts: (contacts || this.contactsForDistribute).map(({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name}))
         });
         // alertService.toast({ msg: `Successfully distributed release to ${res.sentToUsers.length} out of ${this.contactsForDistribute.length} contacts` });
         alertService.toast({ msg: `Successfully distributed release`, type: 'safe' });
@@ -284,6 +286,7 @@ export default {
         alertService.toast({ msg: `Somethind went wrong, cant distribute release` });
       }
       this.isLoadingLocal = false;
+      this.isLoadingForDist = false;
     },
     async sendTestEmail() {
       const testEmail = await alertService.Prompt(this.$t('distribute.testEmail'), this.$t('distribute.testEmail'), localStorage.testEmailVal);

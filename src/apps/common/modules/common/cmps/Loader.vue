@@ -1,6 +1,9 @@
 <template>
-  <Modal class="loader" :class="{fullScreen}" :styling="false">
-    <img class="preview" :src="require('@/assets/images/loader.gif')">
+  <Modal :styling="!!msg" :class="{fullScreen}">
+    <div class="loader flex column gap10 align-center">
+      <img class="preview" :src="require('@/assets/images/loader.gif')">
+      <p v-if="msg">{{msg}}</p>
+    </div>
   </Modal>
 </template>
 

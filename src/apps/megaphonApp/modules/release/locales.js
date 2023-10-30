@@ -53,7 +53,9 @@ const  en = {
     "loadDistributionList": "Load distribution list",
     "saveDistributionList": "Save distribution list",
 
-    "report": "Report"
+    "report": "Report",
+
+    "loadingMsg": "Distributing release, it might take a while"
   }
 }
 const he = {
@@ -110,7 +112,9 @@ const he = {
     "loadDistributionList": "טען רשימת תפוצה",
     "saveDistributionList": "שמור רשימת תפוצה",
 
-    "report": "דוח רליס"
+    "report": "דוח רליס",
+
+    "loadingMsg": "מפיץ את הרליס, זה עשוי לקחת רגע.."
   }
 }
 const heF = {
