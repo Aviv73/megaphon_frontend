@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     async loadAllCompanies() {
-      console.log('!', this.organizationId);
       await this.$store.dispatch({ type: 'company/loadItems', filterBy: { onlyRelevants: this.onlyRelevants || undefined, organizationId: this.organizationId } });
     },
     emitChange(val) {
