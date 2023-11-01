@@ -14,9 +14,9 @@ import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 export default {
   components: { Modal, FormInput },
-  name: 'ReleasePicker',
+  name: 'ReleaseIdPicker',
   props: {
-    value: [Array],
+    value: null,
     dataField: [Object],
     releases: [Array]
   },

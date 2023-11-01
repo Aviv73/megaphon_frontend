@@ -5,7 +5,7 @@
         <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || ''" :alt="release.releaseData?.title" />
         <p>{{release.releaseData?.title}}</p>
         
-        <TableActionBtns v-model="value" :idx="idx"/>
+        <TableActionBtns :value="value" @input="val => $emit('input', val)" :idx="idx"/>
       </li>
     </ul>
     <button class="btn big primary" @click="showSearchModal = true">{{$t('add')}}</button>
