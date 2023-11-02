@@ -11,7 +11,6 @@
       <div class="crop-modal flex column gap15">
         <!-- <img :src="imgBase64ToCrop" alt=""> -->
 
-        {{imgBase64ToCrop.slice(0, 100)}}
         <div class="cropper-container">
           <!-- <img :src="imgBase64ToCrop" ref="imageRef" alt="Image to crop" /> -->
           <VueCropper

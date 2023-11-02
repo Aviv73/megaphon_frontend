@@ -52,9 +52,10 @@ export default {
         const formData = new FormData();
         const lastDotIdx = file.name.lastIndexOf('.');
         const type = file.name.substring(lastDotIdx+1);
+        // const type = file.type.split('/').pop();
         const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
         const fileName = `${name}.${type}`;
-        formData.append('file' ,file);
+        formData.append('file', file);
         const uploadedRes  = await uploadFileToServer(formData);
         const newVal = { title: fileName, src: uploadedRes.src };
         return newVal;
