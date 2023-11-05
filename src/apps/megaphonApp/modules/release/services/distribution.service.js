@@ -17,7 +17,7 @@ export const distributionService = {
 
 async function distribute(releaseId, distributionData) {
   const contacts = distributionData.contacts;
-  const pages = splitDataToPages(contacts, 1000);
+  const pages = splitDataToPages(contacts, 500);
   const results = [];
   console.log('DISTRIBUTING! tatal of', pages.length, 'pages');
   for (let i = 0; i < pages.length; i++) {
