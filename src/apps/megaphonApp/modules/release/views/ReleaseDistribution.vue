@@ -130,7 +130,7 @@
                 <p>{{$t('email')}}</p>
               </div>
               <div v-for="contact in distributionReport.faildSendToUsers" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
-                <p>{{contact.name || (contact.firstName + ' ' + contact.lastName)}}</p>
+                <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || ''}}</p>
                 <p>{{contact.email}}</p>
               </div>
             </div>
