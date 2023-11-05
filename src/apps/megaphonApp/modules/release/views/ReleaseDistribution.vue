@@ -72,7 +72,7 @@
               <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.removeAll')}}</button>
           </div>
             <div v-for="contact in contactsForDistributeToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
-              <p>{{contact.name || (contact.firstName + ' ' + contact.lastName)}}</p>
+              <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || ''}}</p>
               <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.remove')}}</button>
             </div>
             <!-- <div class="item-list">
