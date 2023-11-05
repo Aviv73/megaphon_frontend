@@ -14,15 +14,22 @@ import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 export default {
   components: { Modal, FormInput },
-  name: 'ReleaseIdPicker',
+  name: 'ReleaseIdsPicker',
   props: {
     value: null,
     dataField: [Object],
-    releases: [Array]
+    // releases: [Array],
+    parentItem: [Object],
+    fromField: null
   },
   data() {
     return {
       val: [...(this.value || [])]
+    }
+  },
+  computed: {
+    releases() {
+      return this.parentItem?.[this.fromField] || [];
     }
   },
   methods: {
@@ -30,7 +37,6 @@ export default {
       const idx = this.val.indexOf(releaseId);
       if (idx === -1) this.val.push(releaseId);
       else this.val.splice(idx, 1);
-      console.log(releaseId, this.val);
       this.$emit('input', [...this.val]);
     }
   },

@@ -11,6 +11,8 @@
         v-bind="propsToPass" 
         :value="value"
         :dataField="dataFieldToRender"
+        :organization="organization"
+        :parentItem="parentItem"
         @change="val => $emit('input', val, basePath)"
         @input="val => $emit('input', val, basePath)"
       />
@@ -191,7 +193,7 @@ export default {
           break;
         case 'SELECT_RELEASES': // change to something like: SELECT_RELEASES_FROM_INNER_PARAM
           this.cmpName = 'ReleaseIdsPicker';
-          this.propsToPass = { releases: this.parentItem[this.dataField.fromField] };
+          this.propsToPass = { releases: this.parentItem[this.dataField.fromField], fromField: this.dataField.fromField };
           break;
         case 'CORPABLE_IMAGE':
           // this.cmpName = 'ImageCrop';
