@@ -1,4 +1,5 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
+import { splitDataToPages } from '../../../../common/modules/common/services/util.service';
 
 const ENDPOINT = 'distribution';
 
@@ -14,8 +15,24 @@ export const distributionService = {
   reportReleaseOpened
 }
 
-function distribute(releaseId, distributionData) {
-  return httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, distributionData);
+async function distribute(releaseId, distributionData) {
+  const contacts = distributionData.contacts;
+  const pages = splitDataToPages(contacts, 1000);
+  const results = [];
+  console.log('DISTRIBUTING! tatal of', pages.length, 'pages');
+  for (let i = 0; i < pages.length; i++) {
+    console.log('WORKING ON PAG', i+1);
+    const currContacts = pages[i];
+    const currRes = await httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, {...distributionData, contacts: currContacts});
+    results.push(currRes);
+    console.log('DONE WORKING ON PAG', i+1);
+  }
+  console.log('DONE DISTRIBUTING!');
+  return {
+    sentToUsers: results.reduce((acc, c) => [...acc, ...c.sentToUsers], []),
+    faildSendToUsers: results.reduce((acc, c) => [...acc, ...c.faildSendToUsers], [])
+  }
+  // return httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, distributionData);
 }
 function testDistribute(releaseId, distributionData) {
   return httpService.post(`${ENDPOINT}/test/${releaseId}`, distributionData);

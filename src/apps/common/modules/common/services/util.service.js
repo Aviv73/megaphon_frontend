@@ -394,7 +394,22 @@ export async function parseImgFile(file) { // ev.target.files[0]
       src: base64
     }
   }
+
+
   
+export function splitDataToPages(data = [], perPage = 100) {
+    const pagesCount = data.length / perPage;
+    const pages = [];
+    for (let i = 0; i <= pagesCount; i++) {
+      pages[i] = data.slice(perPage*i, perPage*(i+1));
+      if (!pages[i].length) {
+        delete pages[i];
+        break;
+      }
+    }
+    if (pages.reduce((acc, c) => [...acc, ...c], []).length !== data.length) console.log('MISSING ITEMS!!!!');
+    return pages.filter(Boolean);
+}
 
 
 //////////////////STORAGE_SERVICE////////////////////
