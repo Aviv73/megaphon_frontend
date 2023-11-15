@@ -50,7 +50,8 @@ export default {
       this.isLoading = true;
       try {
         const formData = new FormData();
-        const lastDotIdx = file.name.lastIndexOf('.');
+        let lastDotIdx = file.name.lastIndexOf('.');
+        if (lastDotIdx === -1) lastDotIdx = file.name.length;
         const type = file.name.substring(lastDotIdx+1);
         // const type = file.type.split('/').pop();
         const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
