@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       imgBase64ToCrop: '',
+      fileName: ''
     }
   },
   computed: {
@@ -72,6 +73,7 @@ export default {
       this.isLoading = true;
       try {
         this.imgBase64ToCrop = await this.fileToBase64(file);
+        this.fileName = file.name;
       } catch (err) {
         alertService.toast({type: 'danger', msg: `cantUploadFileError`});
       }
@@ -98,7 +100,7 @@ export default {
           }
           return new File([u8arr], filename, {type:mime});
       }
-      return dataURLtoFile(base64)
+      return dataURLtoFile(base64, this.fileName);
     },
 
     clear() {
