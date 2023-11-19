@@ -12,5 +12,5 @@ export function uploadFileToServer(formData) {
 }
 
 export function fixImgSrcToThumbnail(url = '') {
-  return url.replace('megaphonecs.s3.amazonaws.com/uploads', 'images.megaphon.co.il/');
+  return url.replace('megaphonecs.s3.amazonaws.com/uploads', 'images.megaphon.co.il');
 }
