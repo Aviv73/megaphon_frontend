@@ -9,6 +9,10 @@ const  en = {
       "default": "Light",
       "dark": "Dark",
     },
+    "textSize": "Text size",
+    "textSizeSmall": "Small",
+    "textSizeMedium": "Medium",
+    "textSizeBig": "Big",
     "alerts": {}
   }
 }
@@ -23,6 +27,10 @@ const he = {
       "default": "בהיר",
       "dark": "חשוך"
     },
+    "textSize": "גודל טקסט",
+    "textSizeSmall": "קטן",
+    "textSizeMedium": "בינוני",
+    "textSizeBig": "גדול",
     "alerts": {}
   }
 }

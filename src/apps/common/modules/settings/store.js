@@ -2,16 +2,19 @@ import { settingsService } from './services/settings.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service'
 import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
+const defaultUiConfig = {
+  locale: 'he',
+  theme: 'default',
+  accessabilityMode: false,
+  remSize: 15
+}
+
 const initState = () => ({
   settings: null,
   isLoading: false,
   config: null,
 
-  uiConfig: localStorage.uiConfig ? JSON.parse(localStorage.uiConfig) : {
-    locale: 'he',
-    theme: 'default',
-    accessabilityMode: false
-  }
+  uiConfig: localStorage.uiConfig ? {...defaultUiConfig, ...JSON.parse(localStorage.uiConfig)} : {...defaultUiConfig}
 });
 
 export const _settingsStore = {

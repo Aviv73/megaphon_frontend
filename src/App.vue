@@ -1,5 +1,5 @@
 <template>
-  <div class="app" id="app" :class="{ rtl: isRtl, [appTheme]: true, accessability: isAccessabilityMode }">
+  <div class="app" id="app" :class="{ rtl: isRtl, [appThemeClassName]: true, accessability: isAccessabilityMode }" :style="{'font-size': remSize}">
     <!-- <div class="app-content">
       <AppAside/>
       <div class="right">
@@ -48,8 +48,11 @@ export default {
     uiConfig() {
       return this.$store.getters['settings/uiConfig'];
     },
-    appTheme() {
-      return this.uiConfig.theme + '-theme';
+    appThemeClassName() {
+      return ((!appConfig.client && this.uiConfig.theme) || 'none') + '-theme';
+    },
+    remSize() {
+      return ((!appConfig.client && this.uiConfig.remSize) || 16) + 'px';
     },
     isAccessabilityMode() {
       return this.uiConfig.accessabilityMode
@@ -86,6 +89,7 @@ export default {
       this.$i18n.locale = locale;
     },
     displayUiConfig() {
+      if (appConfig.client) return;
       const config = this.uiConfig;
       this.setLocale();
       alertService.setConfig({ direction: this.isRtl? 'rtl' : 'ltr' });
