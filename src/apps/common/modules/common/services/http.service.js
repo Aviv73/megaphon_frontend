@@ -35,7 +35,8 @@ export const httpService = {
   post: (endpoint, data, headers) => ajax(endpoint, 'POST', data, {}, headers),
   put: (endpoint, data) => ajax(endpoint, 'PUT', data),
   delete: (endpoint, data) => ajax(endpoint, 'DELETE', data),
-  download
+  download,
+  logToServer
 }
 
 
@@ -60,6 +61,10 @@ async function download(endpoint, params) {
       return _handleError(err);
   }
 
+}
+
+function logToServer(level, title, msg, data) {
+  return ajax('log', 'POST', {level, title, msg, data});
 }
 
 function _handleError(err) {

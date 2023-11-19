@@ -9,5 +9,8 @@ export const fileService = {
 
 export function uploadFileToServer(formData) {
   return httpService.post(`${ENDPOINT}/upload`, formData);
+}
 
+export function fixImgSrcToThumbnail(url = '') {
+  return url.replace('megaphonecs.s3.amazonaws.com/uploads', 'images.megaphon.co.il/');
 }

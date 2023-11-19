@@ -2,7 +2,7 @@
   <router-link :to="{ name: 'ReleaseDetails', params: {id: release._id} }">
     <li class="release-preview flex column gap10">
         <p v-if="releaseData.type" class="type">{{releaseData.type}}</p>
-        <img v-if="releaseData.mainImage?.[0]" :src="releaseData.mainImage[0].src" :alt="releaseData.title">
+        <img v-if="releaseData.mainImage?.[0]" :src="imgToShow" :alt="releaseData.title">
         <p class="sub-type" v-if="releaseData.subType">{{releaseData.subType}}</p>
         <h3 class="title" :title="releaseData.title" v-if="releaseData.title">{{shrtenTitle}}</h3>
         <div class="flex column gap10">
@@ -15,6 +15,7 @@
 
 <script>
 import { htmlStrToText } from '@/apps/common/modules/common/services/util.service';
+import { fixImgSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
 export default {
   name: 'agam_ReleasePreview',
   props: {
@@ -44,6 +45,10 @@ export default {
       const title = this.releaseData.title;
       if (title.length <= 22) return title;
       return title.substring(0, 22) + '...';
+    },
+
+    imgToShow() {
+      return fixImgSrcToThumbnail(this.releaseData.mainImage[0].src);
     }
   }
 }

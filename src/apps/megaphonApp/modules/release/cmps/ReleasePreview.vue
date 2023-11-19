@@ -17,6 +17,7 @@
 import DragDiv from '../../common/cmps/dnd/DragDiv.vue';
 import { getReleaseLandingPageUrl } from '../../common/services/template.util.service';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import { fixImgSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 export default {
   components: { DragDiv },
   name: 'ReleasePreview',
@@ -39,7 +40,7 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     imgSrc() {
-      return this.release.mainImage?.[0]?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png');
+      return fixImgSrcToThumbnail(this.release.mainImage?.[0]?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png'));
     }
   },
   methods: {
