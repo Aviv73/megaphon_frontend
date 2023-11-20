@@ -1,6 +1,6 @@
 <template>
   <div class="table-action-btns flex gap10 align-center">
-    <button class="btn clear" :disabled="value.length <= 1" @click.stop.prevent="spliceFromVal"><img class="delete-mini-btn" :src="require('@/apps/megaphonApp/assets/images/delete_red.svg')"/></button>
+    <button class="btn clear" :disabled="!allowEmptyArray && (value.length <= 1)" @click.stop.prevent="spliceFromVal"><img class="delete-mini-btn" :src="require('@/apps/megaphonApp/assets/images/delete_red.svg')"/></button>
     <button class="btn clear" :disabled="!idx" @click.stop.prevent="updateIdx(-1)"><img class="delete-mini-btn" :src="require('@/assets/images/arrow-up.png')"/></button>
     <button class="btn clear" :disabled="idx >= value.length-1" @click.stop.prevent="updateIdx(1)"><img class="delete-mini-btn" :src="require('@/assets/images/arrow-down.png')"/></button>
   </div>
@@ -12,6 +12,10 @@ export default {
   props: {
     value: [Array],
     idx: [Number],
+    allowEmptyArray: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     spliceFromVal() {

@@ -29,7 +29,7 @@
         />
       </div>
       <table v-if="dataFieldToRender.type === 'TABLE'" colspacing="5px" class="flexx column gap10 width-content">
-        <tr class="flexx align-center gap10">
+        <tr class="flexx align-center gap10" v-if="value && value.length">
           <td v-for="(field, idx) in dataFieldToRender.fields" :key="`${basePath}.${idx}.${field.title}`">
             <p class="flex-1">
               {{field.title}}
@@ -54,7 +54,7 @@
             />
           </td>
           <td>
-            <TableActionBtns class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
+            <TableActionBtns :allowEmptyArray="true" class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
           </td>
         </tr>
         <tr>
