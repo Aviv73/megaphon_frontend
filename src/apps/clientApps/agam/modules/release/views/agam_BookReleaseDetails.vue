@@ -132,10 +132,10 @@ export default {
           padding: 7.5px;
           display: flex;
           >:first-child {
-            flex: 1;
+            flex: 2;
           }
           >:nth-child(2) {
-            flex: 3;
+            flex: 5;
           }
           &:not(:last-child) {
             border-bottom: 2px solid rgba(83, 83, 83, 0.2);
