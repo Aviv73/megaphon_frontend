@@ -1,23 +1,22 @@
 // import { commonLocales } from './modules/common/locales';
 import { releaseLocales } from './modules/release/locales';
 
+const he = {
+  // ...commonLocales.he,
+  ...releaseLocales.he,
+  "about": "אודות אגם",
+  "allBooks": "לכל ספרי אגם",
+  "archive": "ארכיון"
+}
+
 export default {
   en: {
     // ...commonLocales.en,
     ...releaseLocales.en,
     "about": "About Agam",
-    "allBooks": "All books"
+    "allBooks": "All books",
+    "archive": "Archive"
   },
-  he: {
-    // ...commonLocales.he,
-    ...releaseLocales.he,
-    "about": "אודות אגם",
-    "allBooks": "לכל ספרי אגם"
-  },
-  heF: {
-    // ...commonLocales.heF,
-    ...releaseLocales.heF,
-    "about": "אודות אגם",
-    "allBooks": "לכל ספרי אגם"
-  },
+  he,
+  heF: { ...he }
 }

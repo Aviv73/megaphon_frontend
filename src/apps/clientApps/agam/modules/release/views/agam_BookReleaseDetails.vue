@@ -143,6 +143,14 @@ export default {
         }
       }
 
+      
+      @media (max-width: $small-screen-breake) {
+        flex-direction: column;
+        .main-img {
+          width: 80%;
+        }
+      }
+
 
   
       // {

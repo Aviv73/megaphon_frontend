@@ -38,7 +38,7 @@ export const _releaseStore = {
   actions: {
     _Ajax: basicStoreService.StoreAjax,
     ...baseStore.actions,
-    async loadItems({ commit, dispatch, getters }, { filterBy, organizationId }) {
+    async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, orgFilter }) {
       return dispatch({
         type: '_Ajax',
         do: async () => {
@@ -47,7 +47,7 @@ export const _releaseStore = {
           const filterToSend = {...getters.filterBy};
           if (!filterToSend.filter.params.type) delete filterToSend.filter.params.type;
           if (!filterToSend.filter.params.subType) delete filterToSend.filter.params.subType;
-          // filterToSend.orgFilter = orgFilter;
+          filterToSend.orgFilter = orgFilter;
           // filterToSend.folder = folder;
           const itemsRes = await releaseService.query(filterToSend, organizationId || getters.organizationId);
           return itemsRes;

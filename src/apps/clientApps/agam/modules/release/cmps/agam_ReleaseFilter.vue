@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20">
-    <ToggleBtns class="wide-screen-item type-filter gap10" :options="filterTypes" v-model="filterBy.filter.params.type" @input="setFilterType" />
+    <ToggleBtns v-if="showBookTypes" class="wide-screen-item type-filter gap10" :options="filterTypes" v-model="filterBy.filter.params.type" @input="setFilterType" />
     <ToggleModal class="small-screen-item" :fullScreen="true">
       <template #toggler>
         <button @click.prevent.stop="" class="btn">
@@ -44,7 +44,7 @@ export default {
         'ספרי ילדים',
         'ספרי נוער',
         'ספרי עיון ופנאי',
-        'ספרות'
+        'סיפרות'
       ],
       sortOpts: [
         {img: require('@/apps/clientApps/agam/assets/images/filter.svg'), value: ''},
@@ -52,6 +52,11 @@ export default {
         {label: 'א-ב', value: 'title'},
       ]
     }
+  },
+  computed: {
+    showBookTypes() {
+      return this.$route.query.releaseType === 'book';
+    },
   },
   methods: {
     emitFilter() {

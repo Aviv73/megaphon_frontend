@@ -44,9 +44,11 @@ export default {
     isLoading() {
       return this.$store.getters['release/isLoading'];
     },
+    releaseTypeInQuery() {
+      return this.$route.query.releaseType;
+    },
     orgFilter() {
-      const releaseTypeInQuery = this.$route.query.releaseType;
-      switch (releaseTypeInQuery) {
+      switch (this.releaseTypeInQuery) {
         case 'monthly':
           return {releaseTypes: ['643eb005afc5d349300c0881']}
         case 'book':

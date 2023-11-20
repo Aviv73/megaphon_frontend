@@ -11,9 +11,8 @@
         אודות אגם
       </h1>
       <p>
-        אגם היא הוצאת ספרים קטנה ושובבה אשר בשנים האחרונות עושה את צעדיה למרכז הבמה הספרותית בישראל 
-      </p>
-      <p>
+        אגם היא הוצאת ספרים קטנה ושובבה אשר בשנים האחרונות עושה את צעדיה למרכז הבמה הספרותית בישראל. 
+        <br/>
         ההקפדה על המסרים והערכים, הבררנות הבלתי מתפשרת בבחירת היוצרים, הטיפול המקצועי בחומרים - וכמובן האומץ והחדשנות שאנחנו מביאים לתוך הספרים, כל אלו הם שמציבים אותנו כיום במקום כל כך מיוחד בנוף הישראלי – וכמונו גם את הקוראים שלנו!
       </p>
     </div>
@@ -33,7 +32,7 @@
     </div>
     <div class="crew-section flex column gap30">
       <h2>{{$t('theCrew')}}</h2>
-      <ul class="flex align-center space-around wrap gap30">
+      <ul class="flex align-center space-around wrap gap20">
         <li class="flex column align-center gap20" v-for="(member, idx) in crewMembers" :key="idx">
           <img :src="member.img" :alt="member.name">
           <div class="member-info flex column gap15 width-all">
@@ -79,12 +78,15 @@ export default {
     .about-msg {
       // margin-inline-start: 60px;
       // max-width: 60%;
+      p {
+        line-height: 2em;
+      }
     }
     .crew-section, .features-section {
       li {
         text-align: center;
-        min-width: 300px;
-        width: 300px;
+        min-width: 240px;
+        width: 240px;
         img {
           width: 240px;
           height: 240px;

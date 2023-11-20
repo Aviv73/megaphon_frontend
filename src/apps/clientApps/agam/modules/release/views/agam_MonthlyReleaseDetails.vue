@@ -2,7 +2,7 @@
   <section class="monthly-release-details flex column gap30 height-all">
     <section class="release-hero-view flex align-center justify-center gap10">
       <div class="hero flex align-center justify-center gap30">
-        <button class="arrow-btn" @click="shiftChild(1)" :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')">
+        <button class="arrow-btn" @click="shiftChild(1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)">
         </button>
         <div v-if="viewdChild" class="">
@@ -25,7 +25,7 @@
           </div>
           <div class="hero-footer"></div>
         </div>
-        <button class="arrow-btn" @click="shiftChild(-1)" :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')">
+        <button class="arrow-btn" @click="shiftChild(-1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'">
         </button>
       </div>
@@ -215,8 +215,9 @@ export default {
     @media (max-width: $small-screen-breake) {
       .hero {
         // gap: em(10px);
-        gap: em(10px);
-        width: 100% !important;
+        gap: em(5px);
+        width: 98% !important;
+        
       }
       .hero-main {
         flex: 1;
@@ -224,8 +225,19 @@ export default {
         padding: em(15px) !important;
       }
       .arrow-btn {
-        width: 20px;
-        height: 20px;
+        width: 100px;
+        height: 100px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+        // z-index: 10;
+        // position: relative;
+        // position: absolute;
+        // top: 50%;
+        // right: 0;
+        // transform: translateY(-50%);
         // right: unset;
         // left: unset;
         // position: unset !important;

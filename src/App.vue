@@ -83,16 +83,18 @@ export default {
 
   },
   methods: {
-    setLocale() {
-      let locale = this.uiConfig.locale;
+    setLocale(lang = this.uiConfig.locale) {
+      // let locale = this.uiConfig.locale;
+      let locale = lang;
       if ((locale === 'he') && (this.loggedUser?.gender === 'female')) locale = 'heF';
       this.$i18n.locale = locale;
     },
     displayUiConfig() {
+      if (appConfig.client) this.setLocale('he');
+      else this.setLocale('he');
+      alertService.setConfig({ direction: this.isRtl? 'rtl' : 'ltr' });
       if (appConfig.client) return;
       const config = this.uiConfig;
-      this.setLocale();
-      alertService.setConfig({ direction: this.isRtl? 'rtl' : 'ltr' });
       alertService.instance.setBtnMsgs({
         confirm: this.$t('confirm'),
         cancel: this.$t('cancel'),

@@ -22,6 +22,7 @@
           <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
           <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
           <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'book' } }">{{$t('allBooks')}}</router-link>
+          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'monthly' } }">{{$t('archive')}}</router-link>
           <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
         </div>
         <div class="flex align-center gap20">
