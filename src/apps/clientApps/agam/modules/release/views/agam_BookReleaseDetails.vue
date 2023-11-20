@@ -131,6 +131,7 @@ export default {
         .row {
           padding: 7.5px;
           display: flex;
+          gap: em(5px);
           >:first-child {
             flex: 2;
           }
