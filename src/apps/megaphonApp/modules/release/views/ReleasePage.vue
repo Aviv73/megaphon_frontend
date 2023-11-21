@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     getAllReleases(filterBy) {
+      if (!this.currOrgFilter) return;
       this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.filters?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
     handleOrgReleaseFilter(orgFilter) {
