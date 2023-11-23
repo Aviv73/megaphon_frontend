@@ -21,8 +21,8 @@
           <!-- <button @click="toggleMainView" class="nav-link" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
           <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
           <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
-          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'book' } }">{{$t('allBooks')}}</router-link>
-          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'monthly' } }">{{$t('archive')}}</router-link>
+          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'book', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('allBooks')}}</router-link>
+          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'monthly', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('archive')}}</router-link>
           <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
         </div>
         <div class="flex align-center gap20">
@@ -85,7 +85,6 @@ export default {
   },
   methods: {
     toggleMainView() {
-      console.log(this.$route.query.releasesView, typeof this.$route.query.releasesView)
       const newVal = this.$route.query.releasesView ? !(this.$route.query.releasesView === 'true') + '' : 'false';
       this.$router.push({ ...this.mainTo, query: { ...this.$route.query, releasesView: newVal } });
     }

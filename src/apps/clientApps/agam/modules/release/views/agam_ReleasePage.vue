@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getAllReleases(filterBy) {
-      const filterToSend = {...(filterBy || this.filterBy || {}) };
+      const filterToSend = JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) }));
       // filterToSend.params.releaseType = this.releaseType;
       this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.orgFilter });
     }
@@ -59,11 +59,28 @@ export default {
     }
   },
   created() {
-    this.getAllReleases()
+    // this.getAllReleases()
+    // this.$store.commit({ type: 'release/resetFilter' });
   },
   watch: {
-    '$route.query.releaseType'() {
-      this.getAllReleases()
+    releaseTypeInQuery(val, prev) {
+      if (!val || !prev) return;
+      const newFilter = JSON.parse(JSON.stringify(this.filterBy));
+      newFilter.filter.params.type = newFilter.filter.params.subType = '';
+      this.$store.commit({ type: 'release/resetFilter' });
+      this.getAllReleases(newFilter);
+    },
+    'filterBy': {
+      deep: true,
+      handler(val, prev) {
+        if (!prev) return;
+        if ((val?.filter.params.type != prev?.filter.params.type)) {
+          const newFilter = JSON.parse(JSON.stringify(this.filterBy));
+          newFilter.filter.params.subType = '';
+          this.getAllReleases(newFilter);
+        }
+        // this.$store.commit({ type: 'release/resetFilter' });
+      }
     }
   },
   components: { ReleasePreview, ReleaseFilter, ItemSearchList, Loader }

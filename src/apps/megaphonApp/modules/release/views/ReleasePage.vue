@@ -47,11 +47,13 @@ export default {
       this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.filters?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
     handleOrgReleaseFilter(orgFilter) {
+      this.$store.commit({ type: 'release/resetFilter' });
       this.currOrgFilter = orgFilter;
       this.getAllReleases();
     },
 
     async handleFolderSelection(foldPath, folder) {
+      this.$store.commit({ type: 'release/resetFilter' });
       this.getAllReleases();
     }
   },

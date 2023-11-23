@@ -84,7 +84,7 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
         if (state.selectedItem?._id === id) this.selectedItem = null;
       },
       setFilterBy(state, { filterBy }) {
-        state.filterBy = filterBy;
+        state.filterBy = JSON.parse(JSON.stringify(filterBy));
       },
       setLoading(state, { val }) {
         state.isLoading = val;
@@ -98,6 +98,11 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
         if (idx === -1) state.data.items.unshift(item);
         else state.data.items.splice(idx, 1, item);
         if (state.selectedItem?._id === item._id) this.selectedItem = item;
+      },
+
+      resetFilter(state) {
+        const newFilter = _initState().filterBy;
+        state.filterBy = newFilter;
       }
     },
     actions: {

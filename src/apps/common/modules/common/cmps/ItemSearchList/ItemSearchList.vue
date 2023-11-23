@@ -73,26 +73,50 @@ export default {
   data() {
     return {
       filterBy: null,
-      dontEmit: false
+      dontEmit: false,
+      _initFilterItem: {}
     }
   },
   watch: {
+    // initFilterBy: {
+    //   deep: true,
+    //   handler() {
+    //     // this.dontEmit = true;
+    //     // this.initFilter();
+    //     // setTimeout(() => {
+    //     //   this.dontEmit = false;
+    //     // }, 1);
+    //     // this.filterBy = JSON.parse(JSON.stringify(this.initFilterBy));
+    //   }
+    // },
     filterBy: {
       deep: true,
       handler(filterVal) {
         if (this.dontEmit && this.dontEmitOnInit) return;
         if (!this.dontRoute) {
-          const query = {};
-          deepIterateWithObj(filterVal, (key, val) => {
-            if (this.$route.query[key] != val) query[key] = val;
-          }, '_');
-          if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
+          // const query = {};
+          // deepIterateWithObj(filterVal, (key, val) => {
+          //   if (this.$route.query[key] != val) query[key] = val;
+          // }, '_');
+          // if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
+          this.setFilterOnQuery(filterVal);
         }
         this.$emit('filter', this.filterBy);
       }
     },
+    '$route.query'() {
+      // this._initFilterItem = basicStoreService.initFilterBy();
+      this.initFilter()
+    }
   },
   methods: {
+    setFilterOnQuery(filterBy) {
+      const query = {};
+      deepIterateWithObj(filterBy, (key, val) => {
+        if (this.$route.query[key] != val) query[key] = val;
+      }, '_');
+      if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
+    },
     setFilter(filter) {
       const newFilter = JSON.parse(JSON.stringify(filter));
       if (![newFilter?.filter?.search, this.filterBy?.filter?.search].includes(undefined)) {
@@ -105,22 +129,23 @@ export default {
       if (!this.dontRoute) {
         const queryParams = this.$route.query;
         for (let key in queryParams) {
-          if (!queryParams[key]) continue;
-          let valToSet = +queryParams[key];
+          // if (!queryParams[key]) continue;
+          let valToSet = queryParams[key]? +queryParams[key] : queryParams[key];
           if (isNaN(valToSet)) valToSet = queryParams[key]
           setDeepVal(filterByToSet, key, valToSet, '_');
         }
-        // deepIterateWithObj(filterByToSet, (key) => {
-        //   let valToSet = +queryParams[key];
-        //   if (isNaN(valToSet)) valToSet = queryParams[key]
-        //   if (queryParams[key]) setDeepVal(filterByToSet, key, valToSet, '_');
-        // }, '_');
+        deepIterateWithObj(filterByToSet, (key) => {
+          let valToSet = +queryParams[key];
+          if (isNaN(valToSet)) valToSet = queryParams[key]
+          if (queryParams[key]) setDeepVal(filterByToSet, key, valToSet, '_');
+        }, '_');
+        this.setFilterOnQuery(filterByToSet);
       }
-      this.dontEmit = true;
+      // this.dontEmit = true;
       this.filterBy = filterByToSet;
-      setTimeout(() => {
-        this.dontEmit = false;
-      }, 1);
+      // setTimeout(() => {
+      //   this.dontEmit = false;
+      // }, 1);
     }
   },
   computed: {
@@ -135,6 +160,7 @@ export default {
     }
   },
   created() {
+    // this._initFilterItem = JSON.parse(JSON.stringify(this.initFilterBy));
     this.initFilter();
   },
   components: { ItemFilter, ItemList, PaginationBtns, Loader }
