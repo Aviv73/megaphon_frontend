@@ -104,11 +104,17 @@ export default {
       const filterByToSet = JSON.parse(JSON.stringify(this.initFilterBy));
       if (!this.dontRoute) {
         const queryParams = this.$route.query;
-        deepIterateWithObj(filterByToSet, (key) => {
+        for (let key in queryParams) {
+          if (!queryParams[key]) continue;
           let valToSet = +queryParams[key];
           if (isNaN(valToSet)) valToSet = queryParams[key]
-          if (queryParams[key]) setDeepVal(filterByToSet, key, valToSet, '_');
-        }, '_');
+          setDeepVal(filterByToSet, key, valToSet, '_');
+        }
+        // deepIterateWithObj(filterByToSet, (key) => {
+        //   let valToSet = +queryParams[key];
+        //   if (isNaN(valToSet)) valToSet = queryParams[key]
+        //   if (queryParams[key]) setDeepVal(filterByToSet, key, valToSet, '_');
+        // }, '_');
       }
       this.dontEmit = true;
       this.filterBy = filterByToSet;

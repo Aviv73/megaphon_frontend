@@ -14,7 +14,7 @@
 export default {
   name: 'ToggleBtns',
   props: {
-    value: [String],
+    value: [String, Number],
     options: [Array],
   },
   data() {

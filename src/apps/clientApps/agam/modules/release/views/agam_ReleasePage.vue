@@ -8,7 +8,7 @@
       itemDetailesPageName="ReleaseDetails"
       :singlePreviewCmp="ReleasePreview"
       :filterByCmp="ReleaseFilter"
-      :dontRoute="true"
+      :dontRoute="false"
     />
     <Loader v-if="isLoading" fullScreen/>
   </section>

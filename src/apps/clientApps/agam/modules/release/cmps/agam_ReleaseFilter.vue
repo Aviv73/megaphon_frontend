@@ -3,9 +3,9 @@
     <ToggleBtns v-if="showBookTypes" class="wide-screen-item type-filter gap10" :options="filterTypes" v-model="filterBy.filter.params.type" @input="setFilterType" />
     <ToggleModal class="small-screen-item" :fullScreen="true">
       <template #toggler>
-        <button @click.prevent.stop="" class="btn">
+        <div class="btn">
           {{$t('filter')}}
-        </button>
+        </div>
       </template>
       <template #content>
         <div class="flex column gap30">
@@ -43,6 +43,8 @@ export default {
         {label: 'הכל', value: ''},
         'ספרי ילדים',
         'ספרי נוער',
+        // 'סיפרי עיון, פנאי וסיפרות'
+        // {label: 'סיפרי עיון, פנאי וסיפרות', value: ['ספרי עיון ופנאי', 'סיפרות', 'ספרי עיון, פנאי וסיפרות']}
         'ספרי עיון ופנאי',
         'סיפרות'
       ],

@@ -412,6 +412,17 @@ export function splitDataToPages(data = [], perPage = 100) {
 }
 
 
+
+export const doItOnce = ((cb)=> {
+    let didIt = false;
+    return (...params) => {
+        if (didIt) return;
+        didIt = true;
+        cb(...params);
+    }
+});
+
+
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////

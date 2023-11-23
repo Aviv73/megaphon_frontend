@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div v-if="release.video" class="video-section flex column gap30">
+    <div v-if="release.video?.[0]?.src" class="video-section flex column gap30">
       <h2>{{release.video.title}}</h2>
       <!-- <iframe :src="release.video.src"></iframe> -->
       <video controls :src="release.video[0].src"></video>
