@@ -54,11 +54,12 @@ export default {
         if (lastDotIdx === -1) lastDotIdx = file.name.length;
         const type = file.name.substring(lastDotIdx+1);
         // const type = file.type.split('/').pop();
+        const originalName = file.name;
         const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
         const fileName = `${name}.${type}`;
         formData.append('file', file);
         const uploadedRes  = await uploadFileToServer(formData);
-        const newVal = { title: fileName, src: uploadedRes.src };
+        const newVal = { title: originalName, type, src: uploadedRes.src };
         return newVal;
       } catch(err) {
         alertService.toast({type: 'danger', msg: `cantUploadFileError`});
