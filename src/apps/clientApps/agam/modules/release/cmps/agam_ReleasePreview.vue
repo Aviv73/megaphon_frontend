@@ -15,7 +15,7 @@
 
 <script>
 import { htmlStrToText } from '@/apps/common/modules/common/services/util.service';
-import { fixImgSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
 export default {
   name: 'agam_ReleasePreview',
   props: {
@@ -48,7 +48,7 @@ export default {
     },
 
     imgToShow() {
-      return fixImgSrcToThumbnail(this.releaseData.mainImage[0].src);
+      return fixFileSrcToThumbnail(this.releaseData.mainImage[0].src);
     }
   }
 }

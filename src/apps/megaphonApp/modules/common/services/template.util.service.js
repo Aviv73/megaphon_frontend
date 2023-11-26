@@ -23,7 +23,6 @@ export function getReleaseLandingPageUrl(release, organization, isNews) {
   if (template?.appName) { // nested domain;
     url = url.split(organization._id).join(template.appName);
   }
-  console.log(url);
   return url;
 }
 

@@ -16,8 +16,8 @@
           <!-- <a target="_blank" v-if="release.firstChapterLink?.[0]?.src" :href="release.firstChapterLink[0].src"><h3>{{$t('release.firstChapter')}}</h3></a>
           <a target="_blank" v-if="release.comunicatLink?.[0]?.src" :href="release.comunicatLink[0].src"><h3>{{$t('release.comunicat')}}</h3></a> -->
           
-          <router-link target="_blank" v-if="release.firstChapterLink?.[0]?.src" :to="{name: 'FileViewer', query: {file: release.firstChapterLink[0].src } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
-          <router-link target="_blank" v-if="release.comunicatLink?.[0]?.src" :to="{name: 'FileViewer', query: {file: release.comunicatLink[0].src } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
+          <router-link target="_blank" v-if="release.firstChapterLink?.[0]?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.firstChapterLink[0].src) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
+          <router-link target="_blank" v-if="release.comunicatLink?.[0]?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.comunicatLink[0].src) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
 
         </div>
         <div class="table-like">
@@ -40,7 +40,9 @@
 </template>
 
 <script>
+import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
 import RoutesLocator from '../cmps/agam_RoutesLocator.vue';
+
 export default {
   components: { RoutesLocator },
   name: 'agam_BookReleaseDetails',
@@ -49,6 +51,9 @@ export default {
       type: Object,
       required: true
     }
+  },
+  methods: {
+    fixFileSrcToThumbnail
   },
   computed: {
     monthPublish() {

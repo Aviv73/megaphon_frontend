@@ -1,7 +1,9 @@
 <template>
   <section class="container file-viewer">
     <!-- <iframe :src="fileSrc"></iframe> -->
-    <embed :src="fileSrc" type="application/pdf" />
+    <object :data="fileSrc" type="application/pdf" frameborder="0">
+      <embed :src="fileSrc" type="application/pdf" />
+    </object>
   </section>
 </template>
 
@@ -29,7 +31,7 @@ export default {
   height: calc(100vh - #{$header-height});
   width: 100vw;
   background-color: #fff;
-  iframe, embed {
+  iframe, object, embed {
     height: 100%;
     width: 100%;
   }

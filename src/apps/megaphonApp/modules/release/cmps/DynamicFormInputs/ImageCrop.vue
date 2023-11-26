@@ -37,7 +37,7 @@ import { alertService } from '@/apps/common/modules/common/services/alert.servic
 import Modal from '../../../../../common/modules/common/cmps/Modal.vue';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-import { fixImgSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
 export default {
   components: { Modal, VueCropper },
   extends: FileUploader,
@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     imgToShow() {
-      return fixImgSrcToThumbnail(this.onlySrc? this.value : this.value?.src || ''); // defaultImg
+      return fixFileSrcToThumbnail(this.onlySrc? this.value : this.value?.src || ''); // defaultImg
     }
   },
   methods: { 
