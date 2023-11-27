@@ -1,7 +1,7 @@
 <template>
   <header class="app-header flex align-center">
     <div class="container header-content width-all flex align-center space-between">
-      <router-link :to="{name: 'ReleasePage'}">
+      <router-link :to="bookReleasePageRouteTo">
         <div class="logo-title">
           <!-- <div class="actual flex column align-center gap10">
             <h1>אגם</h1>
@@ -17,12 +17,12 @@
       <nav class="flex align-center flex-1 space-between wrap gap30" :class="{show: mobileShow}">
         <div class="space-div"></div>
         <div class="flex align-center wrap gap30">
-          <router-link class="nav-link" :to="mainTo">{{$t('main')}}</router-link>
-          <!-- <router-link class="nav-link" :to="{name: 'ReleasePage'}">{{$t('main')}}</router-link> -->
+          <!-- <router-link class="nav-link" :to="mainTo">{{$t('main')}}</router-link> -->
+          <router-link class="nav-link" :to="bookReleasePageRouteTo">{{$t('main')}}</router-link>
           <!-- <button @click="toggleMainView" class="nav-link" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
           <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
           <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
-          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'book', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('allBooks')}}</router-link>
+          <router-link class="nav-link" :to="bookReleasePageRouteTo">{{$t('allBooks')}}</router-link>
           <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'monthly', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('archive')}}</router-link>
           <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
         </div>
@@ -60,6 +60,9 @@ export default {
     // initReleaseId() {
     //   return this.$store.getters['release/initReleaseId'];
     // },
+    bookReleasePageRouteTo() {
+      return { name: 'ReleasePage', query: { releaseType: 'book', 'filter_params_subType': '', 'filter_params_type': ''  } };
+    },
     showOnlyreleases() {
       return this.$route.query?.releasesView === 'true';
     },
