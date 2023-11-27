@@ -6,9 +6,12 @@
       <embed :src="fileSrc + '?embedded=true'" type="application/pdf" />
     </object> -->
     <object :data="fileSrc" type="application/pdf">
-      <p>Your web browser doesn't have a PDF plugin.
-      Instead you can <a :href="fileSrc">click here to
-      download the PDF file.</a></p>
+      <div class="width-all height-all flex align-center justify-center">
+        <a :href="fileSrc" class="width-all text-center">
+          Your web browser doesn't have a PDF plugin.
+          Instead you can click here to download the PDF file.
+        </a>
+      </div>
     </object>
   </section>
 </template>
