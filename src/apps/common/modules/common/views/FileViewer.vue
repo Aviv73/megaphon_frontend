@@ -1,10 +1,15 @@
 <template>
   <section class="container file-viewer">
     <!-- <iframe :src="fileSrc"></iframe> -->
-    <embed :src="fileSrc" type="application/pdf" />
+    <!-- <embed :src="fileSrc" type="application/pdf" /> -->
     <!-- <object :data="fileSrc" type="application/pdf" frameborder="0">
       <embed :src="fileSrc + '?embedded=true'" type="application/pdf" />
     </object> -->
+    <object :data="fileSrc" type="application/pdf">
+      <p>Your web browser doesn't have a PDF plugin.
+      Instead you can <a :href="fileSrc">click here to
+      download the PDF file.</a></p>
+    </object>
   </section>
 </template>
 
