@@ -1,7 +1,7 @@
 <template>
   <section class="container file-viewer">
-    <iframe :src="fileSrc"></iframe>
-    <!-- <embed :src="fileSrc" type="application/pdf" /> -->
+    <!-- <iframe :src="fileSrc"></iframe> -->
+    <embed :src="fileSrc" type="application/pdf" />
     <!-- <object :data="fileSrc" type="application/pdf" frameborder="0">
       <embed :src="fileSrc + '?embedded=true'" type="application/pdf" />
     </object> -->
