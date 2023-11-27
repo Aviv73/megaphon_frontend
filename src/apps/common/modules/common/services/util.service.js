@@ -425,11 +425,9 @@ export const doItOnce = ((cb)=> {
 
 
 export async function downloadImg(url, fileName) {
-    url = url.replace('megaphonecs.s3.amazonaws.com/uploads', 'images.megaphon.co.il');
     const elLink = document.createElement('a');
     const dataUrl = await imgSrcToDataUrl(url);
     elLink.href = dataUrl;
-    console.log('GOT DATA URL!', fileName, dataUrl)
     elLink.download = fileName + '.jpg';
     elLink.target = "_blank";
     document.body.appendChild(elLink);

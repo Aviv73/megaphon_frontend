@@ -13,8 +13,8 @@ export default {
   name: 'FileViewer',
   computed: {
     fileSrc() {
-      return (this.$route.query?.file || '') + '?embedded=true';
-      // return this.$route.query?.file || '';
+      // return (this.$route.query?.file || '') + '?embedded=true';
+      return this.$route.query?.file || '';
     }
   },
 }
