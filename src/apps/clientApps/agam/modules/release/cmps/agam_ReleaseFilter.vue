@@ -10,7 +10,7 @@
       <template #content>
         <div class="flex column gap30">
           <ToggleBtns class="sorters flex gap10" :options="sortOpts" v-model="filterBy.simpleSort" @input="setSortKey" />
-          <ToggleBtns class="type-filter gap10" :options="filterTypes" v-model="filterBy.filter.params.type" @input="setFilterType" />
+          <ToggleBtns v-if="showBookTypes" class="type-filter gap10" :options="filterTypes" v-model="filterBy.filter.params.type" @input="setFilterType" />
         </div>
       </template>
     </ToggleModal>
@@ -43,8 +43,8 @@ export default {
         {label: 'הכל', value: ''},
         'ספרי ילדים',
         'ספרי נוער',
-        // 'ספרי עיון, פנאי וסיפרות',
-        {label: 'סיפרי עיון, פנאי וסיפרות', value: 'ספרי עיון ופנאי'}
+        'ספרי עיון, פנאי וסיפרות',
+        // {label: 'ספרי עיון, פנאי וסיפרות', value: 'ספרי עיון ופנאי'}
         // {label: 'סיפרי עיון, פנאי וסיפרות', value: ['ספרי עיון ופנאי', 'סיפרות', 'ספרי עיון, פנאי וסיפרות']}
         // 'ספרי עיון ופנאי',
         // 'סיפרות'

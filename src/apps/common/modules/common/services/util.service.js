@@ -423,6 +423,44 @@ export const doItOnce = ((cb)=> {
 });
 
 
+
+export async function downloadImg(url, fileName) {
+    url = url.replace('megaphonecs.s3.amazonaws.com/uploads', 'images.megaphon.co.il');
+    const elLink = document.createElement('a');
+    const dataUrl = await imgSrcToDataUrl(url);
+    elLink.href = dataUrl;
+    console.log('GOT DATA URL!', fileName, dataUrl)
+    elLink.download = fileName + '.jpg';
+    elLink.target = "_blank";
+    document.body.appendChild(elLink);
+    elLink.click();
+    document.body.removeChild(elLink);
+}
+export function imgSrcToDataUrl(url) {
+    return new Promise((resolve, reject) => {
+        const imgEl = new Image();
+        imgEl.crossOrigin = 'anonymous';
+        imgEl.src = url;
+        imgEl.onload = function() {
+        try {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.height = imgEl.naturalHeight;
+            canvas.width = imgEl.naturalWidth;
+            ctx.drawImage(imgEl, 0, 0);
+            const dataUrl = canvas.toDataURL();
+            resolve(dataUrl);
+        } catch(e) {
+            reject(e);
+        }
+        }
+        imgEl.onerror = function(e) {
+            reject(e);
+        }
+    });
+}
+
+
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////

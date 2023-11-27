@@ -2,7 +2,7 @@
   <div class="about-page main-pad-y inner-container flex column gap30 height-all">
 
     <RoutesLocator :links="[
-      {label: $t('main'), to: $store.getters.mainLinkRouteTo },
+      {label: $t('main'), to: {name: 'ReleasePage'}/*$store.getters.mainLinkRouteTo*/ },
       {label: $t('about'), to: {name: 'AboutPage' } },
     ]"/>
 

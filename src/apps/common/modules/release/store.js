@@ -20,15 +20,16 @@ export const _releaseStore = {
   state: baseStore.state,
   getters: {
     ...baseStore.getters,
-    initReleaseId(state) { return sessionStorage.initReleaseId || state.initReleaseId },
+    initReleaseId(state) { return state.initReleaseId },
     // organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName || sessionStorage.organizationId || state.organizationId }
     organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName }
   },
   mutations: {
     ...baseStore.mutations,
     setInitReleaseId(state, { id, orgId }) {
+      console.log('WOWO', id, orgId);
       if (state.initReleaseId) return;
-      if (sessionStorage.initReleaseId) state.initReleaseId = sessionStorage.initReleaseId;
+      // if (sessionStorage.initReleaseId) state.initReleaseId = sessionStorage.initReleaseId;
       else {
         state.initReleaseId = sessionStorage.initReleaseId = id;
         state.organizationId = sessionStorage.organizationId = orgId;

@@ -1,9 +1,9 @@
 <template>
   <section v-if="release" class="book-release-details inner-container main-pad-y flex column gap50">
     <RoutesLocator :links="[
-      {label: $t('main'), to: $store.getters.mainLinkRouteTo },
-      {label: release.type, to: {name: 'ReleasePage', query: {'filter_params_type': release.type} } },
-      {label: release.subType, to: {name: 'ReleasePage', query: {'filter_params_subType': release.subType} } },
+      {label: $t('main'), to: {name: 'ReleasePage'}/*$store.getters.mainLinkRouteTo*/ },
+      {label: release.type, to: {name: 'ReleasePage', query: {'filter_params_type': release.type, releaseType: 'book'} } },
+      {label: release.subType, to: {name: 'ReleasePage', query: {'filter_params_subType': release.subType, releaseType: 'book'} } },
       {label: release.title, to: {name: 'ReleaseDetails', params: { id: release._id} }, disabled: true },
     ]"/>
     <h1>{{release.title}}</h1>
@@ -154,6 +154,17 @@ export default {
         flex-direction: column;
         .main-img {
           width: 80%;
+        }
+
+        .table-like {
+          .row {
+            >:first-child {
+              flex: 1;
+            }
+            >:nth-child(2) {
+              flex: 1;
+            }
+          }
         }
       }
 

@@ -74,7 +74,7 @@ export default {
     return {
       filterBy: null,
       dontEmit: false,
-      _initFilterItem: {}
+      _initFilterItem: {},
     }
   },
   watch: {
@@ -99,14 +99,14 @@ export default {
           //   if (this.$route.query[key] != val) query[key] = val;
           // }, '_');
           // if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
-          this.setFilterOnQuery(filterVal);
+          // this.setFilterOnQuery(filterVal);
         }
         this.$emit('filter', this.filterBy);
       }
     },
     '$route.query'() {
       // this._initFilterItem = basicStoreService.initFilterBy();
-      this.initFilter()
+      this.initFilter(false);
     }
   },
   methods: {
@@ -124,7 +124,7 @@ export default {
       }
       this.filterBy = newFilter;
     },
-    initFilter() {
+    initFilter(forceQuery = true) {
       const filterByToSet = JSON.parse(JSON.stringify(this.initFilterBy));
       if (!this.dontRoute) {
         const queryParams = this.$route.query;
@@ -139,7 +139,7 @@ export default {
           if (isNaN(valToSet)) valToSet = queryParams[key]
           if (queryParams[key]) setDeepVal(filterByToSet, key, valToSet, '_');
         }, '_');
-        this.setFilterOnQuery(filterByToSet);
+        if (forceQuery) this.setFilterOnQuery(filterByToSet);
       }
       // this.dontEmit = true;
       this.filterBy = filterByToSet;

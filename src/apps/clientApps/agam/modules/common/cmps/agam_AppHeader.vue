@@ -18,6 +18,7 @@
         <div class="space-div"></div>
         <div class="flex align-center wrap gap30">
           <router-link class="nav-link" :to="mainTo">{{$t('main')}}</router-link>
+          <!-- <router-link class="nav-link" :to="{name: 'ReleasePage'}">{{$t('main')}}</router-link> -->
           <!-- <button @click="toggleMainView" class="nav-link" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
           <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
           <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
@@ -48,7 +49,7 @@
 import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
 import { contactData } from '../../../static.data.js'
 export default {
-  name: 'agap_AppHeader',
+  name: 'agam_AppHeader',
   data() {
     return {
       mobileShow: false,
