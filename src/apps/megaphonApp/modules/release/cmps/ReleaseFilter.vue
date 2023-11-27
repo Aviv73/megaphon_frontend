@@ -110,7 +110,6 @@ export default {
     },
 
     addToFolder(val) {
-      console.log('AddingToFolder', val);
       evManager.emit('folder-updated', this.org._id, val.folderPath, val.folder);
       this.folderVal = '';
     }

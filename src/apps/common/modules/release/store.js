@@ -27,7 +27,6 @@ export const _releaseStore = {
   mutations: {
     ...baseStore.mutations,
     setInitReleaseId(state, { id, orgId }) {
-      console.log('WOWO', id, orgId);
       if (state.initReleaseId) return;
       // if (sessionStorage.initReleaseId) state.initReleaseId = sessionStorage.initReleaseId;
       else {

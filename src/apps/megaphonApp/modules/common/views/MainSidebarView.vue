@@ -115,7 +115,6 @@ export default {
       return folderToUpdate;
     },
     async handlewFolderUpdated(orgId, foldPath, folder) {
-      console.log(this.selectedReleaseIds);
       if (folder) {
         await this.removeOrUpdateFolder(orgId, foldPath, this.toggleFolderContent(folder, this.selectedReleaseIds));
       }

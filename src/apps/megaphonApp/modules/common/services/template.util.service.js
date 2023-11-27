@@ -3,7 +3,6 @@ import config from '@/config';
 // const serverBaseUrl = location.origin || config.baseApiUrl;
 const serverBaseUrl = config.baseApiUrl;
 const origin = location.origin;
-// console.log(location.origin)
 
 export function getReleaseLandingPageUrl(release, organization, isNews) {
   const template = getReleaseRelevantTmplate(release, organization, isNews);

@@ -20,7 +20,6 @@ export const _releaseStore = {
     ...baseStore.mutations,
     setSelectedReleaseReport(state, { report }) {
       state.selectedReleaseReport = report;
-      console.log(state.selectedReleaseReport)
     }
   },
   actions: {

@@ -12,7 +12,6 @@ export const accountService = {
 }
 
 function query(filterBy, organizationId) {
-  console.log(filterBy)
   filterBy.organizationId = organizationId
   return httpService.get(ENDPOINT, filterBy);
 }

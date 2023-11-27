@@ -31,7 +31,6 @@ export function createItemForDynamicForm(dataFields = []) {
         break;
       case 'ROW': 
         // item[field.fields].forEach(c => {
-          // console.log(field);
         field.fields.forEach(c => {
           item[c.fieldName] = createItemForDynamicForm([c])[c.fieldName]
         });
