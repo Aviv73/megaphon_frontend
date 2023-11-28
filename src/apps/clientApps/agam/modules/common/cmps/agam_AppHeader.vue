@@ -18,7 +18,7 @@
         <div class="space-div"></div>
         <div class="flex align-center wrap gap30">
           <!-- <router-link class="nav-link" :to="mainTo">{{$t('main')}}</router-link> -->
-          <router-link class="nav-link" :to="bookReleasePageRouteTo">{{$t('main')}}</router-link>
+          <!-- <router-link class="nav-link" :to="bookReleasePageRouteTo">{{$t('main')}}</router-link> -->
           <!-- <button @click="toggleMainView" class="nav-link" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
           <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
           <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
