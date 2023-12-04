@@ -55,7 +55,7 @@
             </div>
           </div>
           <div class="load-distributions-section flex align-center space-between gap5">
-            <button @click="getMailingLists" class="btn">{{$t('distribute.loadDistributionList')}} <img :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
+            <button @click="showEmailListsSelectionModal = true" class="btn">{{$t('distribute.loadDistributionList')}} <img :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
             <button @click="showAddMailingListItemModal = true" class="btn">{{$t('distribute.saveDistributionList')}} <img :src="require('@/apps/megaphonApp/assets/images/save_black.svg')"/></button>
           </div>
           <div class="width-all flex column gap5">
@@ -86,14 +86,14 @@
       </footer>
 
       <Modal :fullScreen="true" v-if="showEmailListsSelectionModal" @close="showEmailListsSelectionModal = false">
-        <div class="flex column gap10 mailing-lists-modal">
+        <div class="flex column gap10 mailing-lists-modal mailing-list-list">
           <template v-if="emailLists?.length">
             <p>{{$t('distribute.loadDistributionList')}}</p>
             <div class="table-like-list flex-1 selected-table">
               <div class="table-item-preview gap10 table-header flex space-between">
                 <p>{{$t('distribute.mailingList')}}</p>
               </div>
-              <div v-for="list in emailLists" :key="list._id" class="table-item-preview gap10 list-item flex align-center space-between" @click="selectMailingList(list)">
+              <div v-for="list in emailLists" :key="list._id" class="table-item-preview gap10 list-item flex align-center space-between " @click="selectMailingList(list)">
                 <p>{{list.title}}</p>
               </div>
             </div>
@@ -107,11 +107,16 @@
       <Modal :fullScreen="true" v-else-if="showAddMailingListItemModal" @close="showAddMailingListItemModal = false">
         <div class="flex column gap10 new--lists-modal">
           <template v-if="contactsForDistribute?.length">
-            <p>{{$t('distribute.saveMailingList')}}</p>
+            <p>{{$t('distribute.saveDistributionList')}}</p>
             <form @submit.prevent="createMailingList" class="flex space-between gap10">
               <FormInput v-model="newMailingListName" placeholder="name"/>
               <button class="btn">{{$t('create')}}</button>
             </form>
+            <div class="table-like-list flex-1 selected-table mailing-list-list">
+              <div v-for="list in emailLists" :key="list._id" class="table-item-preview gap10 list-item flex align-center space-between" @click="updateMailingList(list)">
+                <p>{{list.title}}</p>
+              </div>
+            </div>
           </template>
           <p v-else>{{$t('distribute.cantCreateEmptyMailingList')}}..</p>
           <div class="width-all flex justify-end">
@@ -311,15 +316,17 @@ export default {
 
 
     async getMailingLists() {
-      this.isLoadingLocal = true;
-      try {
-        const listsData = await distributionService.queryMailingLists(this.organizationId);
-        this.emailLists = listsData.items;
-        this.showEmailListsSelectionModal = true;
-      } catch(err) {
-        alertService.toast({ msg: `Somethind went wrong, cant load mailing lists` });
-      }
-      this.isLoadingLocal = false;
+      const listsData = await distributionService.queryMailingLists(this.organizationId);
+      this.emailLists = listsData.items;
+      // this.isLoadingLocal = true;
+      // try {
+      //   const listsData = await distributionService.queryMailingLists(this.organizationId);
+      //   this.emailLists = listsData.items;
+      //   this.showEmailListsSelectionModal = true;
+      // } catch(err) {
+      //   alertService.toast({ msg: `Somethind went wrong, cant load mailing lists` });
+      // }
+      // this.isLoadingLocal = false;
     },
     selectMailingList(list) {
       this.contactsForDistribute = [
@@ -344,12 +351,29 @@ export default {
         alertService.toast({ msg: `Somethind went wrong, cant create new mailing list` });
       }
       this.isLoadingLocal = false;
-    }
+    },
+    async updateMailingList(mailingListItem) {
+      this.isLoadingLocal = true;
+      try {
+        const newListItem = {
+          ...mailingListItem,
+          contacts: this.contactsForDistribute,
+        }
+        await distributionService.updateMailingList(newListItem);
+        this.newMailingListName = '';
+        this.showAddMailingListItemModal = false;
+      } catch(err) {
+        alertService.toast({ msg: `Somethind went wrong, cant update mailing list` });
+      }
+      this.isLoadingLocal = false;
+    },
   },
+  
   created() {
     this.getItem();
     this.getOrg();
     this.getContacts();
+    this.getMailingLists();
 
     evManager.on('toggle-distribute-contact', this.toggleContact);
   },
@@ -430,7 +454,7 @@ export default {
       }
     }
 
-    .mailing-lists-modal {
+    .mailing-list-list {
       min-width: em(300px);
       .list-item {
         cursor: pointer;

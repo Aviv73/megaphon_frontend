@@ -10,6 +10,7 @@ export const distributionService = {
   getMailingList,
   queryMailingLists,
   addMailingList,
+  updateMailingList,
 
   getByReleaseId,
   reportReleaseOpened
@@ -47,6 +48,9 @@ function queryMailingLists(organizationId) {
 }
 function addMailingList(mailingListItem) {
   return httpService.post(`${ENDPOINT}/mailing-list/`, mailingListItem);
+}
+function updateMailingList(mailingListItem) {
+  return httpService.put(`${ENDPOINT}/mailing-list/${mailingListItem._id}`, mailingListItem);
 }
 
 
