@@ -64,6 +64,7 @@ const  en = {
     "enterenceOrigins": 'Enterence Origins',
     copySendToEmailUrl: 'Copy url to send in email',
     'origin': 'Origin',
+    'unsubscribed': 'Unsubscribed',
     origins: {
       email: 'Email',
       distribution: 'Distribution'
@@ -135,6 +136,7 @@ const he = {
     "enterenceOrigins": 'מקורות כניסה',
     copySendToEmailUrl: 'העתק קישור לשליחה במייל',
     origin: 'מקור',
+    'unsubscribed': 'ביטל מנוי',
     origins: {
       email: 'אימייל',
       distribution: 'הפצה'
