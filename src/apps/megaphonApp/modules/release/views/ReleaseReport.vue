@@ -7,18 +7,18 @@
       <div class="flex column gap10">
         <div class="table-like-list flex-1">
           <div class="table-item-preview gap10 table-header flex space-between">
-            <p class="flex-2">{{$t('date')}}</p>
+            <p class="flex-1">{{$t('date')}}</p>
             <p class="flex-2">{{$t('contact.contactName')}}</p>
-            <p class="flex-2">{{$t('distribute.origin')}}</p>
+            <p class="flex-1">{{$t('distribute.origin')}}</p>
             <!-- <p>{{$t('email')}}</p> -->
             <p class="flex-1">{{$t('distribute.newsletter')}}</p>
             <p class="flex-1">{{$t('distribute.wached')}}</p>
             <p class="flex-1">{{$t('distribute.unsubscribed')}}</p>
           </div>
           <div v-for="contact in contactsToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
-            <p class="flex-2">{{pretyDate(contact.activity.distributedAt)}}</p>
+            <p class="flex-1">{{pretyDate(contact.activity.distributedAt)}}</p>
             <p class="flex-2">{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || contact.token || ''}}</p>
-            <p class="flex-2">{{$t(`distribute.origins.${contact.origin}`)}}</p>
+            <p class="flex-1">{{$t(`distribute.origins.${contact.origin}`)}}</p>
             <!-- <p>{{contact.email}}</p> -->
             <p class="flex-1">{{vOrX(contact.activity.openedNewsAt)}}</p>
             <p class="flex-1">{{vOrX(contact.activity.openedLandingPageAt)}}</p>
