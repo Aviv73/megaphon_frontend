@@ -52,7 +52,7 @@
         />
         <div class="data-info">
           <div v-for="(key, idx) in Object.keys(originsMap)" :key="key">
-            <span :style="{backgroundColor: chartClrs[idx]}"></span> {{$t(`distribute.origins.${key}`)}} 
+            <span :style="{backgroundColor: chartClrs[idx]}"></span> {{$t(`distribute.origins.${key}`)}} - {{originsMap[key]}}
           </div>
         </div>
         <hr/>
