@@ -11,16 +11,16 @@
             <p>{{$t('contact.contactName')}}</p>
             <p>{{$t('distribute.origin')}}</p>
             <!-- <p>{{$t('email')}}</p> -->
-            <p>{{$t('distribute.wached')}}</p>
             <p>{{$t('distribute.newsletter')}}</p>
+            <p>{{$t('distribute.wached')}}</p>
           </div>
           <div v-for="contact in contactsToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
             <p>{{pretyDate(contact.activity.distributedAt)}}</p>
             <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || ''}}</p>
             <p>{{$t(`distribute.origins.${contact.origin}`)}}</p>
             <!-- <p>{{contact.email}}</p> -->
-            <p>{{vOrX(contact.activity.openedLandingPageAt)}}</p>
             <p>{{vOrX(contact.activity.openedNewsAt)}}</p>
+            <p>{{vOrX(contact.activity.openedLandingPageAt)}}</p>
           </div>
         </div>
         <PaginationBtns :perPage="15" :total="report.recipients.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination.page" />
