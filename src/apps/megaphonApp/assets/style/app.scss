@@ -36,6 +36,9 @@ html {
       padding: 0 em(10px);
       >* {
         flex: 1;
+        &.flex-2 {
+          flex: 2;
+        }
       }
       &:nth-child(odd) {
         background-color: #EFEFEF;
