@@ -1,29 +1,31 @@
 <template>
-  <div class="release-report container flex column gap10 width-all" v-if="release && report">
+  <div class="release-report container flex column gap20 width-all" v-if="release && report">
     <div class="flex align-center space-between gap10 width-all">
       <h2>{{$t('distribute.report')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
     </div>
-    <div class="flex gap10 width-all">
-      <div class="flex column gap10 flex-1">
+    <div class="main-section flex gap30 width-all">
+      <div class="flex column gap10">
         <div class="table-like-list flex-1">
           <div class="table-item-preview gap10 table-header flex space-between">
             <p>{{$t('date')}}</p>
             <p>{{$t('contact.contactName')}}</p>
+            <p>{{$t('distribute.origin')}}</p>
             <!-- <p>{{$t('email')}}</p> -->
             <p>{{$t('distribute.wached')}}</p>
-            <p>{{$t('distribute.newsletter')}}</p>
+            <!-- <p>{{$t('distribute.newsletter')}}</p> -->
           </div>
           <div v-for="contact in contactsToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
             <p>{{pretyDate(contact.activity.distributedAt)}}</p>
             <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || ''}}</p>
+            <p>{{$t(`distribute.origins.${contact.origin}`)}}</p>
             <!-- <p>{{contact.email}}</p> -->
             <p>{{vOrX(contact.activity.openedLandingPageAt)}}</p>
-            <p>{{vOrX(contact.activity.openedNewsAt)}}</p>
+            <!-- <p>{{vOrX(contact.activity.openedNewsAt)}}</p> -->
           </div>
         </div>
         <PaginationBtns :perPage="15" :total="report.recipients.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination.page" />
       </div>
-      <div class="flex column gap30 flex-1">
+      <div class="flex column gap30">
         <h2>{{$t('distribute.enterenceOrigins')}}</h2>
         <PieChart
           chart-id="report-chart"
@@ -32,20 +34,34 @@
           :height="400"
           :chart-options="{
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              }
+            }
           }"
           :chart-data="{
-            labels: Object.keys(originsMap),
-            datasets: Object.values(originsMap),
+            labels: Object.keys(originsMap).map(key => $t(`distribute.origins.${key}`)),
             datasets: [
               {
-                backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-                data:Object.values(originsMap)
+                backgroundColor: chartClrs,
+                data: Object.values(originsMap)
               }
             ]
           }"
         />
-        <pre>{{originsMap}}</pre>
+        <div class="data-info">
+          <div v-for="(key, idx) in Object.keys(originsMap)" :key="key">
+            <span :style="{backgroundColor: chartClrs[idx]}"></span> {{$t(`distribute.origins.${key}`)}} 
+          </div>
+        </div>
+        <hr/>
+        <div class="data-info">
+            <p>{{$t('distribute.wached')}}: {{activityMap.landing}}</p>
+        </div>
+        <hr/>
+        <!-- <pre>{{activityMap}}</pre> -->
       </div>
     </div>
     <!-- <pre>{{report}}</pre> -->
@@ -67,7 +83,8 @@ export default {
           page: 0,
           limit: 15,
         }
-      }
+      },
+      chartClrs: ['#41B883', '#E46651', '#00D8FF', '#DD1B16']
     }
   },
   methods: {
@@ -112,7 +129,16 @@ export default {
           [c.origin]: acc[c.origin]? acc[c.origin] + 1 : 1
         };
       }, {});
-    }
+    },
+    activityMap() {
+      return this.report.recipients.reduce((acc, c) => {
+        const activities = c.activity;
+        if (activities.openedNewsAt) acc.news += 1;
+        if (activities.openedLandingPageAt) acc.landing += 1;
+        if (activities.unsubscribedAt) acc.unsubscribe += 1;
+        return acc;
+      }, { news: 0, landing: 0, unsubscribe: 0 });
+    },
   },
   created() {
     this.init();
@@ -128,5 +154,28 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .release-report {
+  padding-top: em(20px);
+  .main-section {
+    >:first-child {
+      flex: 2;
+    }
+    >:nth-child(2) {
+      flex: 1;
+    }
+  }
+  hr {
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    // padding-bottom: em(20px);
+    width: 90%;
+    height: 2px;
+  }
+  .data-info {
+    font-size: em(30px);
+    span {
+      display: inline-block;
+      height: em(12px);
+      width: em(12px);
+    }
+  }
 }
 </style>

@@ -228,7 +228,8 @@ export default {
     },
 
     sendInEmailUrl() {
-      return getReleaseLandingPageUrl(this.release, this.org, false) + `?origin=email&releaseId=${this.release?._id}&token=${getRandomId('')}`;
+      // &token=${getRandomId('')
+      return getReleaseLandingPageUrl(this.release, this.org, false) + `?releaseId=${this.release?._id}}&origin=email`;
     }
   },
 

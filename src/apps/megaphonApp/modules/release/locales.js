@@ -61,7 +61,12 @@ const  en = {
     wached: 'Wached',
     newsletter: 'News letter',
     "enterenceOrigins": 'Enterence Origins',
-    copySendToEmailUrl: 'Copy url to send in email'
+    copySendToEmailUrl: 'Copy url to send in email',
+    'origin': 'Origin',
+    origins: {
+      email: 'Email',
+      distribution: 'Distribution'
+    }
   }
 }
 const he = {
@@ -126,7 +131,12 @@ const he = {
     wached: 'צפייה',
     newsletter: 'ניוזלטר',
     "enterenceOrigins": 'מקורות כניסה',
-    copySendToEmailUrl: 'העתק קישור לשליחה במייל'
+    copySendToEmailUrl: 'העתק קישור לשליחה במייל',
+    origin: 'מקור',
+    origins: {
+      email: 'אימייל',
+      distribution: 'הפצה'
+    }
   }
 }
 const heF = {
