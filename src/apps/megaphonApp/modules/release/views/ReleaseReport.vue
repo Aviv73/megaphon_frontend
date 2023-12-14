@@ -7,22 +7,22 @@
       <div class="flex column gap10">
         <div class="table-like-list flex-1">
           <div class="table-item-preview gap10 table-header flex space-between">
-            <p>{{$t('date')}}</p>
-            <p>{{$t('contact.contactName')}}</p>
-            <p>{{$t('distribute.origin')}}</p>
+            <p class="flex-2">{{$t('date')}}</p>
+            <p class="flex-2">{{$t('contact.contactName')}}</p>
+            <p class="flex-2">{{$t('distribute.origin')}}</p>
             <!-- <p>{{$t('email')}}</p> -->
-            <p>{{$t('distribute.newsletter')}}</p>
-            <p>{{$t('distribute.wached')}}</p>
-            <p>{{$t('distribute.unsubscribed')}}</p>
+            <p class="flex-1">{{$t('distribute.newsletter')}}</p>
+            <p class="flex-1">{{$t('distribute.wached')}}</p>
+            <p class="flex-1">{{$t('distribute.unsubscribed')}}</p>
           </div>
           <div v-for="contact in contactsToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
-            <p>{{pretyDate(contact.activity.distributedAt)}}</p>
-            <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || contact.token || ''}}</p>
-            <p>{{$t(`distribute.origins.${contact.origin}`)}}</p>
+            <p class="flex-2">{{pretyDate(contact.activity.distributedAt)}}</p>
+            <p class="flex-2">{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || contact.token || ''}}</p>
+            <p class="flex-2">{{$t(`distribute.origins.${contact.origin}`)}}</p>
             <!-- <p>{{contact.email}}</p> -->
-            <p>{{vOrX(contact.activity.openedNewsAt)}}</p>
-            <p>{{vOrX(contact.activity.openedLandingPageAt)}}</p>
-            <p>{{vOrX(contact.activity.unsubscribedAt)}}</p>
+            <p class="flex-1">{{vOrX(contact.activity.openedNewsAt)}}</p>
+            <p class="flex-1">{{vOrX(contact.activity.openedLandingPageAt)}}</p>
+            <p class="flex-1">{{vOrX(contact.activity.unsubscribedAt)}}</p>
           </div>
         </div>
         <PaginationBtns :perPage="15" :total="report.recipients.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination.page" />
@@ -52,13 +52,13 @@
             ]
           }"
         />
-        <div class="data-info">
+        <div class="data-info flex column gap5">
           <div v-for="(key, idx) in Object.keys(originsMap)" :key="key">
             <span :style="{backgroundColor: chartClrs[idx]}"></span> {{$t(`distribute.origins.${key}`)}} - {{originsMap[key]}}
           </div>
         </div>
         <hr/>
-        <div class="data-info">
+        <div class="data-info flex column gap5">
             <p>{{$t('distribute.wached')}}: {{activityMap.landing}}</p>
             <p>{{$t('distribute.newsOpened')}}: {{activityMap.news}}</p>
         </div>
