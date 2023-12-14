@@ -59,6 +59,7 @@ const  en = {
 
     "loadingMsg": "Distributing release, it might take a while",
     wached: 'Wached',
+    newsOpened: 'Newsletter opened',
     newsletter: 'News letter',
     "enterenceOrigins": 'Enterence Origins',
     copySendToEmailUrl: 'Copy url to send in email',
@@ -129,6 +130,7 @@ const he = {
 
     "loadingMsg": "מפיץ את הרליס, זה עשוי לקחת רגע..",
     wached: 'צפייה',
+    newsOpened: 'ניוזלטר נפתח',
     newsletter: 'ניוזלטר',
     "enterenceOrigins": 'מקורות כניסה',
     copySendToEmailUrl: 'העתק קישור לשליחה במייל',
