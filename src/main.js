@@ -1,5 +1,6 @@
 import i18n from '@/plugins/i18n';
 import '@/plugins/dnd';
+import '@/plugins/chartJs';
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'

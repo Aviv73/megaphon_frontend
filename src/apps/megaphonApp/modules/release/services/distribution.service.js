@@ -1,5 +1,5 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
-import { splitDataToPages } from '../../../../common/modules/common/services/util.service';
+import { getQueryParam, splitDataToPages } from '../../../../common/modules/common/services/util.service';
 
 const ENDPOINT = 'distribution';
 
@@ -69,7 +69,25 @@ function reportReleaseOpened(releaseId, queryParams) {
   // let token = params.token; 
   const origin = queryParams.origin;
   const token = queryParams.token;
-  console.log({ origin, token, releaseId, isLandingPage: true });
   if (!origin) return;
   return httpService.get(`${ENDPOINT}/release-opened/`, { origin, token, releaseId, isLandingPage: true });
+}
+
+
+function reportReleaseOpenedForOutsourceSite(releaseId = '') {
+  function getQueryParam(param) {
+    const queryParams = new URLSearchParams(window.location.search);
+    return queryParams.get(param);
+  }
+  const origin = getQueryParam('origin');
+  const token = getQueryParam('token');
+  const releaseIdInQuery = getQueryParam('releaseId');
+  if (!origin) return;
+  return fetch(
+    `${BASE_API_URL}/distribution/release-opened/`
+      + `?token=${token}`
+      + `&origin=${origin}`
+      + `&releaseId=${releaseIdInQuery || releaseId}`
+      + `&isLandingPage=${true}`
+  );
 }

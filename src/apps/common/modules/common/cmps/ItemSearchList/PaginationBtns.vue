@@ -43,7 +43,7 @@ export default {
     value: [Number],
     initFilter: {
       type: Object,
-      required: true
+      // required: true
     }
   },
   data() {
@@ -53,14 +53,15 @@ export default {
     }
   },
   created() {
-    this.filterBy = JSON.parse(JSON.stringify(this.initFilter));
+    this.filterBy = JSON.parse(JSON.stringify(this.initFilter || { pagination: { limit: this.perPage, page: this.value } }));
   },
   computed: {
     page() {
       return this.value + 1;
     },
     totalPages() {
-      return Math.ceil(this.total/this.perPage);
+      // return Math.ceil(this.total/this.perPage);
+      return Math.ceil(this.total/this.filterBy.pagination.limit);
     },
     isLotsOfPages() {
       return this.totalPages > this.renderPagesLimit;
@@ -84,13 +85,13 @@ export default {
   methods: {
     emitFilter() {
       this.$emit('filtered', this.filterBy);
+      this.$emit('input', this.filterBy.pagination.page);
     },
     routeToNewPage(pageNum) {
       pageNum -= 1;
       if (pageNum < 0 || pageNum >= this.totalPages) return;
       this.filterBy.pagination.page = pageNum;
       this.emitFilter();
-      // this.$emit('input', pageNum);
     },
     updateLimit(val) {
       this.filterBy.pagination.limit = val;

@@ -47,7 +47,7 @@ export function getRandomId(s = '-') {
     var pt1 = Date.now().toString(16);
     var pt2 = getRandomInt(1000, 9999).toString(16);
     var pt3 = getRandomInt(1000, 9999).toString(16);
-    return `ID_${pt3}${s}${pt1}${s}${pt2}`.toUpperCase();
+    return `ID${s}${pt3}${s}${pt1}${s}${pt2}`.toUpperCase();
 }
 
 export function getRandomInt(num1, num2, inclusive = false) {
@@ -457,6 +457,13 @@ export function imgSrcToDataUrl(url) {
         }
     });
 }
+
+
+export function getQueryParam(param) {
+    const queryParams = new URLSearchParams(window.location.search);
+    return queryParams.get(param);
+}
+  
 
 
 //////////////////STORAGE_SERVICE////////////////////

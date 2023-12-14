@@ -42,8 +42,9 @@
         </div>
 
         <div style="flex:1.5" class="from-email-section flex column gap20">
-          <div>
+          <div class="flex align-center space-between">
             <h3>{{contactsForDistribute.length}} {{$t('distribute.contactsWasSelected')}}</h3>
+            <button class="btn" @click="copyUrlToClipboard">{{$t('distribute.copySendToEmailUrl')}} <img class="ico-img" :src="require('@/assets/images/url.png')" alt=""></button>
           </div>
           <div class="width-all flex column gap5">
             <p>{{$t('distribute.fromEmail')}}</p>
@@ -162,7 +163,8 @@ import { contactService } from '../../contact/contact.service';
 import { distributionService } from '../services/distribution.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
-import { getReleaseRelevantTmplate } from '../../common/services/template.util.service';
+import { getReleaseLandingPageUrl, getReleaseRelevantTmplate } from '../../common/services/template.util.service';
+import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 export default {
   name: 'ReleaseDistribute',
   data() {
@@ -223,10 +225,18 @@ export default {
       return this.contactsForDistribute.filter(c => {
         return c.name?.toLowerCase?.().includes(this.searchSelectedTerm.toLowerCase()) || c.email?.toLowerCase?.().includes(this.searchSelectedTerm.toLowerCase());
       })
+    },
+
+    sendInEmailUrl() {
+      return getReleaseLandingPageUrl(this.release, this.org, false) + `?origin=email&releaseId=${this.release?._id}&token=${getRandomId('')}`;
     }
   },
 
   methods: {
+    copyUrlToClipboard() {
+      copyToClipBoard(this.sendInEmailUrl);
+      alertService.toast({ msg: this.$t(`copiedToClipboard`), type: 'safe' });
+    },
     async getItem() {
       this.release = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });
     },

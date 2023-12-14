@@ -20,7 +20,9 @@ const  en = {
     },
 
     bought: 'bought',
-    original: 'original'
+    original: 'original',
+
+    distributedAt: "Distributed at"
   },
   "distribute": {
     "distributeRelease": "Distribute release",
@@ -55,7 +57,11 @@ const  en = {
 
     "report": "Report",
 
-    "loadingMsg": "Distributing release, it might take a while"
+    "loadingMsg": "Distributing release, it might take a while",
+    wached: 'Wached',
+    newsletter: 'News letter',
+    "enterenceOrigins": 'Enterence Origins',
+    copySendToEmailUrl: 'Copy url to send in email'
   }
 }
 const he = {
@@ -79,7 +85,9 @@ const he = {
       "leaveConfirm": "האם אתה בטוח שאתה מעוניין לעזוב מבלי לשמור את השינויים?"
     },
     bought: 'רכש',
-    original: 'מקור'
+    original: 'מקור',
+
+    distributedAt: "הופץ"
   },
   "distribute": {
     "distributeRelease": "הפצת רליס",
@@ -114,7 +122,11 @@ const he = {
 
     "report": "דוח רליס",
 
-    "loadingMsg": "מפיץ את הרליס, זה עשוי לקחת רגע.."
+    "loadingMsg": "מפיץ את הרליס, זה עשוי לקחת רגע..",
+    wached: 'צפייה',
+    newsletter: 'ניוזלטר',
+    "enterenceOrigins": 'מקורות כניסה',
+    copySendToEmailUrl: 'העתק קישור לשליחה במייל'
   }
 }
 const heF = {

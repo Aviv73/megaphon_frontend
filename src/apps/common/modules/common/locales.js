@@ -61,6 +61,8 @@ const en = {
   "internalError": "Internal error",
 
   "serverSleepsMsg": "Seems like the server fell asleep..\nHang in there,\nFew more seconds and we'r Waking it up!",
+  
+  "date": "Date",
 
   "months": {
     1: "ינואר",
@@ -75,7 +77,9 @@ const en = {
     10: "אוקטובר",
     11: "נובמבר",
     12: "דצמבר",
-  }
+  },
+
+  "copiedToClipboard": "Coppied to clipboard"
 }
 const he = {
   "hello": "שלום",
@@ -139,6 +143,8 @@ const he = {
   
   "serverSleepsMsg": "נראה שהשרת הלך לישון..\nהחזיקו מעמד,\n כמה רגעים והוא מתעורר!",
 
+  "date": "תאריך",
+
   "months": {
     1: "ינואר",
     2: "פברואר",
@@ -152,7 +158,9 @@ const he = {
     10: "אוקטובר",
     11: "נובמבר",
     12: "דצמבר",
-  }
+  },
+
+  "copiedToClipboard": "הועתק ללוח"
 }
 const heF = {
   ...he,
@@ -172,7 +180,7 @@ const heF = {
   "createYourFirstOne": "צרי את הראשון",
   "createNew": "צרי חדש",
   "leave": "עזבי",
-  "add": "הוסיפי",
+  "add": "הוסיפי"
 }
 
 export const commonLocales = {
