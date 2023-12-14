@@ -30,8 +30,7 @@
         <PieChart
           chart-id="report-chart"
           dataset-id-key="datasetIdKey"
-          :width="400"
-          :height="400"
+          :style="{ width: '200px', height: '200px', margin: '0 auto' }"
           :chart-options="{
             responsive: true,
             maintainAspectRatio: false,
@@ -165,16 +164,17 @@ export default {
   }
   hr {
     border: 1px solid rgba(128, 128, 128, 0.5);
+    background: rgba(128, 128, 128, 0.5);
     // padding-bottom: em(20px);
     width: 90%;
-    height: 2px;
+    // height: 2px;
   }
   .data-info {
     font-size: em(30px);
     span {
       display: inline-block;
-      height: em(12px);
-      width: em(12px);
+      height: em(9px);
+      width: em(9px);
     }
   }
 }
