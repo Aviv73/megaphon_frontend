@@ -16,7 +16,7 @@
           </div>
           <div v-for="contact in contactsToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
             <p>{{pretyDate(contact.activity.distributedAt)}}</p>
-            <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || ''}}</p>
+            <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || contact.token || ''}}</p>
             <p>{{$t(`distribute.origins.${contact.origin}`)}}</p>
             <!-- <p>{{contact.email}}</p> -->
             <p>{{vOrX(contact.activity.openedNewsAt)}}</p>
