@@ -93,7 +93,7 @@ export default {
       return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
     },
     vOrX(val) {
-      return val? 'V' : 'X';
+      return val? '✔' : '-'; // ✓ ✔
     },
     getRelease() {
       this.$store.dispatch({ type: 'release/loadItem', id: this.releaseId });
