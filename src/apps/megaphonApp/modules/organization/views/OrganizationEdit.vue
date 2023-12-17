@@ -83,12 +83,14 @@
               <p>{{$t('title')}}</p>
               <p>{{$t('releaseTypes')}}</p>
               <p>{{$t('wasDistributed')}}</p>
+              <p>{{$t('showInClient')}}</p>
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.filters || []" :key="idx">
               <FormInput type="text" placeholder="title" v-model="curr.title"/>
               <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
               <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.wasDistributed"/>
+              <FormInput type="checkbox" v-model="curr.showInClient"/>
               <TableActionBtns v-model="organizationToEdit.filters" :idx="idx"/>
             </li>
           </ul>

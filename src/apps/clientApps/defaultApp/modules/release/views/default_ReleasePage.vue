@@ -8,6 +8,7 @@
       itemDetailesPageName="ReleaseDetails"
       :singlePreviewCmp="ReleasePreview"
       :filterByCmp="ReleaseFilter"
+      :dontRoute="false"
     />
     <Loader v-if="isLoading" fullScreen/>
   </section>
@@ -28,7 +29,9 @@ export default {
   },
   methods: {
     getAllReleases(filterBy) {
-      this.$store.dispatch({ type: 'release/loadItems', filterBy });
+      const filterToSend = JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) }));
+      // filterToSend.params.releaseType = this.releaseType;
+      this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.orgFilter });
     }
   },
   computed: {
@@ -40,10 +43,54 @@ export default {
     },
     isLoading() {
       return this.$store.getters['release/isLoading'];
+    },
+    releaseTypeInQuery() {
+      return this.$route.query.releaseType;
+    },
+
+    
+    org () {
+      return this.$store.getters['organization/selectedItem'];
+    },
+    allFilters() {
+      return this.org?.filters || [];
+    },
+    orgFilter() {
+      const typeName = this.releaseTypeInQuery;
+      const filterItem = this.allFilters.find(c => c.title === typeName) || {};
+      return filterItem;
     }
   },
   created() {
-    this.getAllReleases()
+    // this.getAllReleases()
+    // this.$store.commit({ type: 'release/resetFilter' });
+  },
+  watch: {
+    org: {
+      deep: true,
+      handler() {
+        this.getAllReleases();
+      }
+    },
+    releaseTypeInQuery(val, prev) {
+      if (!val || !prev) return;
+      const newFilter = JSON.parse(JSON.stringify(this.filterBy));
+      newFilter.filter.params.type = newFilter.filter.params.subType = '';
+      this.$store.commit({ type: 'release/resetFilter' });
+      this.getAllReleases(newFilter);
+    },
+    'filterBy': {
+      deep: true,
+      handler(val, prev) {
+        if (!prev) return;
+        if ((val?.filter.params.type != prev?.filter.params.type)) {
+          const newFilter = JSON.parse(JSON.stringify(this.filterBy));
+          newFilter.filter.params.subType = '';
+          this.getAllReleases(newFilter);
+        }
+        // this.$store.commit({ type: 'release/resetFilter' });
+      }
+    }
   },
   components: { ReleasePreview, ReleaseFilter, ItemSearchList, Loader }
 }

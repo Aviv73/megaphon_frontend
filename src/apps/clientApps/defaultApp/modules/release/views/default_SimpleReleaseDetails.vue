@@ -1,29 +1,34 @@
 <template>
-  <section class="book-release-details inner-container main-pad-y flex column gap50">
-    <img class="main-img" :src="release.mainImage[0].src" :alt="release.title"/>
-    <div class="main-content-section flex-1 flex column gap20">
-      <h1>{{release.title}}</h1>
-      <div class="description-container" v-html="release.desc"></div>
-      <div class="flex gap10 mini-info-section">
-        <p>
-          {{release.by}}
-        </p>
-        <p>
-          {{publishedAt}}
-        </p>
+  <section v-if="release" class="simple-release-details inner-container main-pad-y flex column gap20">
+    <h1>{{release.title}}</h1>
+    <h5>{{release.subTitle}}</h5>
+    <div class="main-content-section flex-1 flex space-between gap60 wrap">
+      <img class="main-img" :src="release.mainImage[0].src" :alt="release.title"/>
+      <div class="hero-content flex column align-start gap15">
+        <div class="description-container" v-if="release.desc" v-html="release.desc"></div>
+        <div class="flex gap60 links">
+          <h3>{{$t('release.main')}}<hr/></h3>
+          
+          <!-- <router-link target="_blank" v-if="release.comunicatLink?.[0]?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.comunicatLink[0].src) } }"><h3>{{$t('release.comunicat')}}</h3></router-link> -->
+
+        </div>
+        <div class="table-like">
+          <div class="row" v-if="monthPublish"><p>{{$t('release.monthPublish')}}</p><p>{{monthPublish}}</p></div>
+        </div>
       </div>
     </div>
-    <div v-if="release.video" class="video-section flex column gap30">
+    <div v-if="release.video?.[0]?.src" class="video-section flex column gap30">
       <h2>{{release.video.title}}</h2>
+      <!-- <iframe :src="release.video.src"></iframe> -->
       <video controls :src="release.video[0].src"></video>
     </div>
   </section>
 </template>
 
 <script>
-import RoutesLocator from '../cmps/default_RoutesLocator.vue';
+import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+
 export default {
-  components: { RoutesLocator },
   name: 'default_SimpleReleaseDetails',
   props: {
     release: {
@@ -31,13 +36,16 @@ export default {
       required: true
     }
   },
+  methods: {
+    fixFileSrcToThumbnail
+  },
   computed: {
-    publishedAt() {
+    monthPublish() {
       const at = new Date(this.release.publishedAt);
       const month = at.getMonth() + 1;
       const year = at.getFullYear();
-      const day = at.getDate();
-      return `${day}.${month}.${year}`;
+      const pretyMont = this.$t('months.'+month);
+      return `${pretyMont} ${year}`;
     },
 
     initReleaseId() {
@@ -50,34 +58,110 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .default-app {
-  .book-release-details {
-    position: relative;
-    .main-img {
-      height: 500px;
-      width: 500px;
-      border-radius: 50%;
-    }
-
+  .simple-release-details {
     .main-content-section {
-      position: absolute;
-      top: 0;
-      right: 50%;
-      transform: translateX(50%);
-      background-color: #F7F7EF;
-      width: 55%;
-      padding: 30px;
-    }
-
-    .description-container {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-      padding-bottom: 5px;
-    }
-
-    .mini-info-section {
-      p:not(:last-child) {
-        border-inline-end: 1px solid #9A9993;
+      height: 100%;
+      
+      .links {
+        width: 100%;
+        border-bottom: 2px solid lighten($layout-red, 30%);
+        >* {
+          padding: 5px;
+          &:not(:first-child) {
+            h3 {
+              color: $layout-black;
+            }
+          }
+          &:first-child {
+            // border-bottom: 4px solid $layout-red;
+          }
+          position: relative;
+          hr {
+            margin: 0;
+            position: absolute;
+            bottom: -3px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 95%;
+            height: 4px;
+            background-color: $layout-red;
+            border: 0;
+  
+          }
+        }
       }
+  
+      .main-img {
+        height: 100%;
+        // width: auto;
+        width: 30%;
+        object-fit: contain;
+        background-color: rgb(255, 216, 216);
+        // flex: 1;
+        // flex-grow: 1;
+        margin: 0 auto;
+      }
+  
+      .hero-content {
+        flex: 1;
+        // flex-grow: 3;
+      }
+  
+      .description-container {
+        line-height: 1.3em;
+      }
+  
+      .table-like {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 7.5px;
+        .row {
+          padding: 7.5px;
+          display: flex;
+          gap: em(5px);
+          >:first-child {
+            flex: 2;
+          }
+          >:nth-child(2) {
+            flex: 5;
+          }
+          &:not(:last-child) {
+            border-bottom: 2px solid rgba(83, 83, 83, 0.2);
+          }
+        }
+      }
+
+      
+      @media (max-width: $small-screen-breake) {
+        flex-direction: column;
+        .main-img {
+          width: 80%;
+        }
+
+        .table-like {
+          .row {
+            >:first-child {
+              flex: 1;
+            }
+            >:nth-child(2) {
+              flex: 1;
+            }
+          }
+        }
+      }
+
+
+  
+      // {
+      //   .hero-content, .main-img {
+      //     flex: unset;
+      //     width: 100%;
+      //   }
+      // }
+
     }
+  
   
     iframe, video {
       box-shadow: $light-shadow;

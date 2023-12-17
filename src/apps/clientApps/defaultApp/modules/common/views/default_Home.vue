@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'default_Home',
   created() {
     const releaseId = this.$store.getters['release/initReleaseId'];
     this.$router.push({

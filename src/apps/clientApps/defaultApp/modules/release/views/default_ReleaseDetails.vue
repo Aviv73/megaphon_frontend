@@ -1,13 +1,13 @@
 <template>
   <div class="release-details height-all" v-if="release">
-    <GroupReleaseDetails v-if="isGroupRelease" :release="releaseData"/>
-    <BookReleaseDetails v-else :release="releaseData"/>
+    <GroupReleaseDetails v-if="isMonthlyRelease" :release="releaseData"/>
+    <SimpleReleaseDetails v-else :release="releaseData"/>
   </div>
 </template>
 
 <script>
 import GroupReleaseDetails from './default_GroupReleaseDetails.vue';
-import BookReleaseDetails from './default_SimpleReleaseDetails.vue';
+import SimpleReleaseDetails from './default_SimpleReleaseDetails.vue';
 
 export default {
   name: 'default_ReleaseDetails',
@@ -20,7 +20,7 @@ export default {
     release() {
       return this.$store.getters['release/selectedItem'];
     },
-    isGroupRelease() {
+    isMonthlyRelease() {
       // return this.release.releaseData.releaseType === 'group';
       return !!this.release.releaseData.childrenReleases;
     },
@@ -39,13 +39,15 @@ export default {
   },
   components: {
     GroupReleaseDetails,
-    BookReleaseDetails
+    SimpleReleaseDetails
   }
 }
 </script>
     
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.release-details {
+.default-app {
+  .release-details {
+  }
 }
 </style>

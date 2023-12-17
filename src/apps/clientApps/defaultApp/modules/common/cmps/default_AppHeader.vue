@@ -1,57 +1,56 @@
 <template>
   <header class="app-header flex align-center">
     <div class="container header-content width-all flex align-center space-between">
-      <!-- <router-link :to="{name: 'HomePage'}" class="height=all">
-      </router-link> -->
-
-      <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
-      <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/apps/clientApps/agam/assets/images/mine/navBurger.png')"/></button>
-      <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
-      <nav class="flex align-center wrap gap40" :class="{show: mobileShow}">
-        <router-link :to="mainTo">{{$t('main')}}</router-link>
-        <!-- <router-link :to="{name: 'AboutPage'}">{{$t('about')}}</router-link> -->
-      </nav>
-      <div class="flex align-center gap20 height-all">
-        <ul class="media-list flex gap10 wrap">
-          <li class="media-preview" v-for="(mediaItem, idx) in mediaItems" :key="idx">
-            <a :href="mediaItem.link" target="_blank" class="flex-center gap5 height-all width-all">
-              <img :src="mediaItem.img" :alt="mediaItem.name">
-            </a>
-          </li>
-        </ul>
-        <div class="logo-title height-all flex align-center">
+      <div>
+        <div class="org-logo">
           <!-- <div class="actual flex column align-center gap10">
             <h1>אגם</h1>
             <p class="sub">הוצאה לאור</p>
           </div> -->
-          <img class="actual" :src="logoImgSrc" alt="">
+          <img class="actual" :src="org.logoUrl" :alt="org.name">
         </div>
       </div>
-      </div>
+
+      <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
+      <button @click="mobileShow = !mobileShow" class="nav-burger"><img :src="require('@/assets/images/nav_burger_white.png')"/></button>
+      <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
+      <nav class="flex align-center space-between wrap gap30" :class="{show: mobileShow}">
+        <!-- <div class="space-div"></div> -->
+        <div class="flex align-center wrap gap30">
+          <!-- <router-link class="nav-link" :to="mainTo">{{$t('main')}}</router-link> -->
+          <!-- <button @click="toggleMainView" class="nav-link" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
+          <!-- <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link> -->
+          
+          <router-link 
+            v-for="filterItem in allFilters" :key="filterItem.id"
+            :to="{ name: 'ReleasePage', query: { releaseType: filterItem.title  } }"
+            class="nav-link" 
+          >
+            {{filterItem.title}}
+          </router-link>
+          <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
+        </div>
+      </nav>
+    </div>
   </header>
 </template>
 
 <script>
-import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
-import { contactData } from '../../../static.data.js'
 export default {
-  name: 'AppHeader',
+  name: 'default_AppHeader',
   data() {
     return {
       mobileShow: false,
-      mediaItems: [contactData.mediaItems[3], contactData.mediaItems[2], contactData.mediaItems[1], contactData.mediaItems[0]],
+      // mediaItems: [contactData.mediaItems[3], contactData.mediaItems[2], contactData.mediaItems[1], contactData.mediaItems[0]],
     }
   },
   computed: {
-    organization() {
-      return this.$store.getters['organization/selectedItem'];
-    },
-    logoImgSrc() {
-      return this.organization?.logoUrl || '';
-    },
     // initReleaseId() {
     //   return this.$store.getters['release/initReleaseId'];
     // },
+    showOnlyreleases() {
+      return this.$route.query?.releasesView === 'true';
+    },
 
     mainTo() {
       return this.$store.getters.mainLinkRouteTo;
@@ -60,36 +59,47 @@ export default {
       //   : { name: 'ReleasePage' }
     },
 
-    release() {
-      return this.$store.getters['release/selectedItem'];
+    org () {
+      return this.$store.getters['organization/selectedItem'] || {};
     },
-    releaseTitle() {
-      return this.release?.releaseData?.title || '';
-      // if (!this.release.releaseData.publishedAt) return this.release.releaseData.title;
-      // const at = new Date(this.release.releaseData.publishedAt);
-      // const month = at.getMonth() + 1;
-      // const year = at.getFullYear();
-      // const pretyMont = this.$t('months.'+month);
-      // return `${pretyMont} ${year}`;
+    allFilters() {
+      return this.org?.filters?.filter(c => c.showInClient) || [];
+    },
+
+    // release() {
+    //   return this.$store.getters['release/selectedItem'];
+    // },
+    // releaseTitle() {
+    //   if (!this.release?.releaseData?.publishedAt) return this.release?.releaseData?.title || '';
+    //   const at = new Date(this.release.releaseData.publishedAt);
+    //   const month = at.getMonth() + 1;
+    //   const year = at.getFullYear();
+    //   if (isNaN(month) || isNaN(year)) return this.release.releaseData.title;
+    //   const pretyMont = this.$t('months.'+month);
+    //   return `${pretyMont} ${year}`;
+    // }
+  },
+  methods: {
+    toggleMainView() {
+      const newVal = this.$route.query.releasesView ? !(this.$route.query.releasesView === 'true') + '' : 'false';
+      this.$router.push({ ...this.mainTo, query: { ...this.$route.query, releasesView: newVal } });
     }
   },
   watch: {
     '$route.path'() {
       this.mobileShow = false;
     }
-  },
-  components: { Avatar },
+  }
 }
 </script>
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
 @import '@/assets/styles/themes/index';
-
 .default-app {
   .app-header {
-    background-color: white;
-    color: black;
+    background-color: $layout-black;
+    color: $light-white;
     position: relative;
   
     .header-content {
@@ -104,56 +114,20 @@ export default {
       }
     }
   
-    .logo-title, .release-title { // .logo-title, 
-      width: 120px;
-      // height: $header-height;
-      // text-align: center;
-      h1, h2 {
-        color: white;
-      }
+    .org-logo {
+      // width: 60px;
+      height: $header-height;
       .actual {
-        // height: 100%;
-        // width: 100%;
-        width: 120px;
-        // height: 110%;
-        // background-color: $layout-red;
-        // position: absolute;
-        // top: 0;
+        height: 100%;
       }
-      .sub {
-        width: 80px
-      }
-    }
-    .logo-title {
-      .actual {
-        width: 100px;
-        background-color: unset;
-        height: unset;
-        // position: absolute;
-        // top: 10px;
-        // right: 0;
-        // right: 12px;
-        // left: unset;
-        // width: 120px;
-        // padding-top: 10px;
-        // width: 120px;
-        // right: 12px;
-        // border-bottom-left-radius: 50%;
-        // border-bottom-right-radius: 50%;
-      }
-    }
-    .release-title .actual {
-      left: 12px
     }
   
   
     nav {
-      @include flex-center;
       flex-wrap: wrap;
-      justify-content: flex-end;
       a {
         &:hover {
-          transform: scale(1.1);
+          transform: scale(1.05);
           transition: 0.1s;
         }
       }
@@ -161,22 +135,20 @@ export default {
     .nav-burger {
       display: none;
     }
-    @media (max-width: 0px) { // $small-screen-breake
+    @media (max-width: $small-screen-breake) { // $small-screen-breake
       $height: calc(100vh - #{$header-height});
-      // color: ;
       .nav-burger {
         display: block;
         width: 25px;
         height: 25px;
         font-weight: bold;
         @include font-size-big;
-        // font-size: 22px;
       }
       .blure {   
         position: fixed;
-        top: $header-height;
+        top: 0;
         right: 0;
-        height: $height;
+        height: 100vh;
         width: 100vw;
         background-color: $blure-clr;
         z-index: 31;
@@ -189,8 +161,8 @@ export default {
         height: $height;
         top: $header-height;
         overflow-y: auto;
-        right: 0;
-        transform: translateX(100%);
+        left: 0;
+        transform: translateX(-100%);
         transition: 0.3s;
         &.show {
           transform: translateX(0);
@@ -198,8 +170,8 @@ export default {
         width: 175px;
         border-inline-start: 1px solid black;
   
-        background-color: white;
-        >* {
+        background-color: $layout-black;
+        .nav-link {
           width: 100%;
           height: 100px;
           display: flex;
@@ -210,11 +182,10 @@ export default {
           border-bottom: 1px solid black;
           text-align: center;
           &.router-link-exact-active {
-            color: rgb(157, 193, 255);
+            color: #EF4B49;
           }
           &:hover {
-            background-color: rgb(190, 190, 250);
-            transform: unset;
+            transform: unset !important;
           }
         }
       }

@@ -2,7 +2,7 @@ import appConfig from '../appConfig.js';
 import megaphonAppData from './megaphonApp';
 import AgamAppData from './clientApps/agam';
 import DefaultClientAppData from './clientApps/defaultApp';
-DefaultClientAppData.organizationId = appConfig.appName;
+DefaultClientAppData.params.organizationId = appConfig.appName;
 
 const costumeClentApps = [AgamAppData];
 

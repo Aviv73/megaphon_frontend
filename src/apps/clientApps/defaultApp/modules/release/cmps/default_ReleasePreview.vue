@@ -1,22 +1,18 @@
 <template>
   <router-link :to="{ name: 'ReleaseDetails', params: {id: release._id} }">
     <li class="release-preview flex column gap10">
-        <p v-if="releaseData.type" class="type">{{releaseData.type}}</p>
-        <img v-if="releaseData.mainImage" :src="releaseData.mainImage[0].src" :alt="releaseData.title">
-        <p class="sub-type" v-if="releaseData.subType">{{releaseData.subType}}</p>
+        <img v-if="releaseData.mainImage?.[0]" :src="imgToShow" :alt="releaseData.title">
         <h3 class="title" :title="releaseData.title" v-if="releaseData.title">{{shrtenTitle}}</h3>
-        <div class="flex column gap10">
-          <p v-if="releaseData.author">{{$t('release.by')}}: {{releaseData.author}}</p>
-          <p :title="fullDescStr" v-if="shortenDesc">{{shortenDesc}}</p>
-        </div>
+        <p :title="fullDescStr" v-if="shortenDesc">{{shortenDesc}}</p>
     </li>
   </router-link>
 </template>
 
 <script>
 import { htmlStrToText } from '@/apps/common/modules/common/services/util.service';
+import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
 export default {
-  name: 'ReleasePreview',
+  name: 'default_ReleasePreview',
   props: {
     item: {
       type: Object,
@@ -44,6 +40,10 @@ export default {
       const title = this.releaseData.title;
       if (title.length <= 22) return title;
       return title.substring(0, 22) + '...';
+    },
+
+    imgToShow() {
+      return fixFileSrcToThumbnail(this.releaseData.mainImage[0].src);
     }
   }
 }
@@ -66,19 +66,6 @@ export default {
   
     h3 {
       color: $layout-red;
-    }
-    
-    .type {
-      position: absolute;
-      background-color: white;
-      top: 0;
-      left: -10px;
-      transform: translateY(-50%);
-      color: $layout-red;
-      border: 1px solid $layout-red;
-      border-radius: 14px;
-      padding: 5px 12px;
-      font-weight: bold;;
     }
   }
 }

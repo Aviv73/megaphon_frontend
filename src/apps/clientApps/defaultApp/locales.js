@@ -9,12 +9,10 @@ export default {
   },
   he: {
     // ...commonLocales.he,
-    ...releaseLocales.he,
-    "about": "אודות",
+    ...releaseLocales.he
   },
   heF: {
     // ...commonLocales.heF,
-    ...releaseLocales.heF,
-    "about": "אודות",
+    ...releaseLocales.heF
   },
 }

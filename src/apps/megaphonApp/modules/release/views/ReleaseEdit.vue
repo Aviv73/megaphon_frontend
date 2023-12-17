@@ -49,7 +49,7 @@
 import { getDeepVal, setDeepVal } from '../../../../common/modules/common/services/util.service';
 import DynamicInput from '../cmps/DynamicFormInputs/DynamicInput.vue';
 import { createItemForDynamicForm } from '../../common/services/CreateItemForDynamicForm';
-import { getReleaseLandingPageUrl, getReleaseRelevantTmplates } from '../../common/services/template.util.service';
+import { getReleaseLandingPageUrl, getReleaseRelevantTemplate } from '../../common/services/template.util.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 export default {
@@ -89,11 +89,13 @@ export default {
 
     designsOpts() {
       if (!this.org) return [];
-      const templates = getReleaseRelevantTmplates(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1');
+      const templates = getReleaseRelevantTemplate(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1', this.releaseType);
       return templates;
     },
     landingPageUrl() {
-      return getReleaseLandingPageUrl(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1');
+      // console.log(this.selectedDesignTypeToShow, typeof (this.selectedDesignTypeToShow));
+      console.log(getReleaseLandingPageUrl(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1'))
+      return getReleaseLandingPageUrl(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1', this.releaseType);
     },
 
     iframeStyle() {
@@ -239,6 +241,9 @@ export default {
       margin-bottom: em(50px);
       padding: em(10px) 0;
     }
+  }
+  iframe {
+    background-color: #fff;
   }
   .toggle-btns {
     background-color: #fff;

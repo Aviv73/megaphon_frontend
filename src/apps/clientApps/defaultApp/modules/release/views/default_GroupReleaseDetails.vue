@@ -1,35 +1,39 @@
 <template>
-  <section class="monthly-release-details flex column gap30 height-all">
-    <section class="release-hero-view flex align-center justify-center gap10">
-      <div class="hero flex column inner-container">
-        <button class="arrow-btn" @click="shiftChild(1)" :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')">
+  <section class="group-release-details flex column gap30 height-all">
+    <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${release.mainImage[0]?.src}')`, 'background-size': 'cover' }">
+      <div class="hero flex align-center justify-center gap30">
+        <button class="arrow-btn" @click="shiftChild(1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)">
         </button>
-        <div v-if="viewdChild" class="hero-main flex-1 flex gap30">
-          <img class="main-img" :src="viewdChild.mainImage[0].src" :alt="viewdChild.title"/>
-          <div class="hero-content flex column align-start gap20">
-            <h2>{{viewdChild.title}}</h2>
-            <p>{{$t('release.by')}}: {{viewdChild.author}}</p>
-            <div v-html="viewdChild.desc"></div>
-            <hr/>
-            <router-link :to="{ params: {id: viewdChild._id} }">
-              <button class="flex align-center gap5">
-                <span>
-                  לפרטים 
-                </span>
-                <img :src="require('@/apps/clientApps/agam/assets/images/small-arrow-white.png')" alt="➜"/>
-              </button>
-            </router-link>
+        <div v-if="viewdChild" class="">
+          <div class="hero-main inner-container flex gap30 width-all">
+            <img class="main-img" :src="viewdChild.mainImage[0]?.src" :alt="viewdChild.title"/>
+            <div class="hero-content flex column align-start gap20">
+              <h2>{{viewdChild.title}}</h2>
+              <div v-html="viewdChild.desc"></div>
+              <hr/>
+              <router-link :to="{ params: {id: viewdChild._id} }">
+                <button class="flex align-center gap5">
+                  <span>
+                    לפרטים 
+                  </span>
+                  <img :src="require('@/apps/clientApps/agam/assets/images/small-arrow-white.png')" alt="➜"/>
+                </button>
+              </router-link>
+            </div>
           </div>
+          <div class="hero-footer"></div>
         </div>
-        <div class="hero-footer"></div>
-        <button class="arrow-btn" @click="shiftChild(-1)" :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')">
+        <button class="arrow-btn" @click="shiftChild(-1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'">
         </button>
       </div>
     </section>
     <div class="inner-container flex column gap30">
       <h1>{{release.title}}</h1>
+      <h5>{{release.subTitle}}</h5>
+      <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
+      <div v-html="release.desc"></div>
       <ItemList
         class="flex-1"
         :items="release.childrenReleases"
@@ -37,23 +41,6 @@
         :singlePreviewCmp="ReleasePreview"
       />
     </div>
-    <ItemSearchList
-      class="inner-container"
-      :itemsData="allReleasesData"
-      :initFilterBy="allReleasesFilterBy"
-      @filter="getAllReleases"
-      itemDetailesPageName="ReleaseDetails"
-      :singlePreviewCmp="ReleasePreview"
-      :filterByCmp="ReleaseFilter"
-    />
-    <!-- <ul>
-      <li v-for="child in release.childrenReleases" :key="child.id">
-        <router-link :to="{ params: {id: child._id} }">
-          <img :src="child.releaseData.mainImage" :alt="child.releaseData.title">
-          <p>{{child.releaseData.title}}</p>
-        </router-link>
-      </li>
-    </ul> -->
   </section>
 </template>
 
@@ -94,7 +81,17 @@ export default {
     },
     orgId() {
       return this.$store.getters['release/organizationId'];
-    }
+    },
+    showOnlyreleases() {
+      return this.$route.query?.releasesView === 'true';
+    },
+    monthPublish() {
+      const at = new Date(this.release.publishedAt);
+      const month = at.getMonth() + 1;
+      const year = at.getFullYear();
+      const pretyMont = this.$t('months.'+month);
+      return `${pretyMont} ${year}`;
+    },
   },
   methods: {
     shiftChild(diff) {
@@ -122,50 +119,32 @@ export default {
 @import '@/assets/styles/global/index';
 @import '../../../assets/style/index';
 .default-app {
-  .monthly-release-details {
+  .group-release-details {
     padding-bottom: $main-pad-y;
   
     .release-hero-view {
       background-color: rgb(255, 216, 216);
-      background: url('~@/apps/clientApps/agam/assets/images/bookshelf_background.jpg') fixed;
-      padding: 30px;
+      padding: em(30px);
       .hero {
         position: relative;
-        .arrow-btn {
-          position: absolute;
-          top: 50%;;
-          right: -60px;
-          &:last-child {
-            right: unset;
-            left: -60px;
-          }
-        }
         width: 60%;
         @media (max-width: 1700px) {
           width: 90%;
         }
-        // height: 400px;
-        // overflow-y: auto;
-        // overflow-x: hidden;
         min-height: 400px;
-        // height: 400px;
-        background: white;
         .hero-main {
+          background: white;
           flex: 1;
-          padding: 40px;
+          padding: em(40px);
           height: 100%;
+          margin: unset;
           
           .main-img {
             height: 100%;
             max-height: 300px;
-            // width: auto;
             width: 35%;
             object-fit: contain;
             background-color: rgb(255, 216, 216);
-            // flex: 1;
-          }
-          .hero-content {
-            // flex: 3;
           }
   
           hr {
@@ -187,7 +166,7 @@ export default {
               width: 12px;
             }
           }
-  
+
         }
         .hero-footer {
           height: 15px;
@@ -202,6 +181,35 @@ export default {
         overflow-y: unset;
       }
     }
+
+    
+    @media (max-width: $small-screen-breake) {
+      .hero {
+        gap: em(5px);
+        width: 98% !important;
+        
+      }
+      .hero-main {
+        flex: 1;
+        flex-wrap: wrap;
+        padding: em(15px) !important;
+      }
+      .arrow-btn {
+        width: 100px;
+        height: 100px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .release-hero-view {
+        padding: em(0px);
+        width: 100%;
+      }
+    }
+
   }
 }
 </style>

@@ -11,7 +11,7 @@
 <script>
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 export default {
-  name: 'default_ReleaseApp',
+  name: 'agam_ReleaseApp',
   computed: {
     isLoading() {
       return this.$store.getters['release/isLoading'];

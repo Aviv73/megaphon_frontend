@@ -21,14 +21,14 @@ import AppFooter from './modules/common/cmps/default_AppFooter.vue';
 
 
 export default {
-  name: 'AgamApp',
+  name: 'DefaultClientApp',
   components: {
     AppHeader,
     AppFooter,
     // AppAside
   },
   created() {
-    document.title = 'אגם הוצאת ספרים';
+    // document.title = 'אגם הוצאת ספרים';
   }
 }
 </script>

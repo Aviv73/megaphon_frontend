@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     goToLandingPage() {
-      const pageUrl = getReleaseLandingPageUrl(this.item, this.organization);
+      const pageUrl = getReleaseLandingPageUrl(this.item, this.organization, false, this.release.releaseType);
       window.open(pageUrl);
     },
     toggleToSelectedReleases(isDraging) {

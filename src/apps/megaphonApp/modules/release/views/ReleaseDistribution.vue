@@ -4,8 +4,8 @@
       <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.backToEditRelease')}}</button></router-link>
       <h2>{{$t('distribute.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
     </div>
-    <p v-if="!isLoading && !distributionTemplate">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
-    <template v-else>
+    <!-- <p v-if="!isLoading && !distributionTemplate">{{$t('distribute.noMatchingDesignTemplateFound')}}</p> -->
+    <template>
       <div class="flex gap30 width-all flex-1">
         <div style="flex:3" class="flex column gap10">
           <div class="tab-nav light">
@@ -164,7 +164,7 @@ import { contactService } from '../../contact/contact.service';
 import { distributionService } from '../services/distribution.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
-import { getReleaseLandingPageUrl, getReleaseRelevantTmplate } from '../../common/services/template.util.service';
+import { getReleaseLandingPageUrl, getReleaseRelevantTemplate } from '../../common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 export default {
   name: 'ReleaseDistribute',
@@ -219,7 +219,7 @@ export default {
     },
 
     distributionTemplate() {
-      return getReleaseRelevantTmplate(this.release, this.org, true);
+      return getReleaseRelevantTemplate(this.release, this.org, true);
     },
 
     contactsForDistributeToShow() {
@@ -231,7 +231,7 @@ export default {
 
     sendInEmailUrl() {
       // &token=${getRandomId('')}
-      return getReleaseLandingPageUrl(this.release, this.org, false) + `?releaseId=${this.release?._id}&origin=email&token=`;
+      return getReleaseLandingPageUrl(this.release, this.org, false, this.release.releaseType) + `?releaseId=${this.release?._id}&origin=email&token=`;
     }
   },
 

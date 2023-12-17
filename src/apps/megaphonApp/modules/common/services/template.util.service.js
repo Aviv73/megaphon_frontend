@@ -5,7 +5,7 @@ const serverBaseUrl = config.baseApiUrl;
 const origin = location.origin;
 
 export function getReleaseLandingPageUrl(release, organization, isNews) {
-  const template = getReleaseRelevantTmplate(release, organization, isNews);
+  const template = getReleaseRelevantTemplate(release, organization, isNews);
   // if (!template) return '';
   if (template?.url) { // if outer site url
     let pageUrl = template?.url || '';
@@ -15,9 +15,13 @@ export function getReleaseLandingPageUrl(release, organization, isNews) {
   let url = '';
   if (template?.handlebarsLocalFilePath) { // if giving local handlebars file
     // const pageUrl = `${serverBaseUrl}/release/${organization.appName || organization._id}/${isNews ? 'newsletter' : 'client'}/${release._id}`;
-    url = `${serverBaseUrl}client/${organization.appName || organization._id}/${isNews ? 'newsletter/' : ''}${release._id}`;
+    url = `${serverBaseUrl}client/${organization._id}/${isNews ? 'newsletter/' : ''}${release._id}`;
   } else { // if using vueJs app
-    url = `${origin}/client/${organization._id}/#/release/${release._id}`;
+    if (!isNews) {
+      url = `${origin}/client/${organization._id}/#/release/${release._id}`;
+    } else {
+      url = `${serverBaseUrl}client/${organization._id}/${isNews ? 'newsletter/' : ''}${release._id}`;
+    }
   }
   if (template?.appName) { // nested domain;
     url = url.split(organization._id).join(template.appName);
@@ -25,7 +29,7 @@ export function getReleaseLandingPageUrl(release, organization, isNews) {
   return url;
 }
 
-export function getReleaseRelevantTmplate(release, organization, isNews) {
+export function getReleaseRelevantTemplate(release, organization, isNews) {
   const type = isNews? '1' : '0';
   const templates = organization.templates
         .filter(c => c.type == type)

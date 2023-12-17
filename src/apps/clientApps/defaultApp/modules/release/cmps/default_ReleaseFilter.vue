@@ -1,33 +1,33 @@
 <template>
   <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20">
+    <ToggleModal class="small-screen-item" :fullScreen="true">
+      <template #toggler>
+        <div class="btn">
+          {{$t('filter')}}
+        </div>
+      </template>
+      <template #content>
+        <div class="flex column gap30">
+          <ToggleBtns class="sorters flex gap10" :options="sortOpts" v-model="filterBy.simpleSort" @input="setSortKey" />
+        </div>
+      </template>
+    </ToggleModal>
     <div class="serach flex align-center">
       <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left"/>
       <button>
         <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
       </button>
     </div>
-    <div class="sorters toggle-btns flex gap10">
-      <button 
-        :class="{selected: !filterBy.simpleSort}"
-        @click.prevent.stop="setSortKey('')"
-      ><img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/filter.svg')"/></button>
-      <button 
-        :class="{selected: filterBy.simpleSort === 'publishedAt'}"
-        @click.prevent.stop="setSortKey('publishedAt')"
-      >תאריך</button>
-      <button
-        :class="{selected: filterBy.simpleSort === 'title'}"
-        @click.prevent.stop="setSortKey('title')"
-      >א-ב</button>
-    </div>
-    <!-- <button @click="emitFilter">{{$t('filter')}}</button> -->
+    <ToggleBtns class="wide-screen-item sorters flex gap10" :options="sortOpts" v-model="filterBy.simpleSort" @input="setSortKey" />
   </form>
 </template>
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
+import ToggleBtns from '../../../../../common/modules/common/cmps/ToggleBtns.vue';
+import ToggleModal from '../../../../../common/modules/common/cmps/ToggleModal.vue';
 export default {
-  name: 'ReleaseFilter',
+  name: 'default_ReleaseFilter',
   props: {
     initFilter: {
       type: Object,
@@ -37,13 +37,17 @@ export default {
   data() {
     return {
       filterBy: null,
-      filterTypes: [
-        'ספרי ילדים',
-        'ספרי נוער',
-        'ספרי עיון ופנאי',
-        'ספרות'
+      sortOpts: [
+        {img: require('@/apps/clientApps/agam/assets/images/filter.svg'), value: ''},
+        {label: 'תאריך', value: 'publishedAt'},
+        {label: 'א-ב', value: 'title'},
       ]
     }
+  },
+  computed: {
+    showBookTypes() {
+      return this.$route.query.releaseType === 'book';
+    },
   },
   methods: {
     emitFilter() {
@@ -74,7 +78,7 @@ export default {
   //     } 
   //   }
   // },
-  components: { FormInput }
+  components: { FormInput, ToggleBtns, ToggleModal }
 }
 </script>
 
@@ -86,21 +90,7 @@ export default {
       width: 15px;
       height: 15px;
     }
-  
-    .type-filter {
-      box-shadow: unset;
-      button {
-        color: $light-white;
-        background-color: $layout-black;
-        border-inline-end: unset !important;
-        border-radius: 12px;
-        padding: 2px 10px;
-        height: unset;
-        &.selected {
-          background-color: $layout-red;
-        }
-      }
-    }
+    
     .sorters {
       box-shadow: unset;
       button {
@@ -109,6 +99,10 @@ export default {
         &.selected {
           background-color: unset;
           color: $layout-red
+        }
+        img {
+          width: 15px;
+          height: 15px;
         }
       }
     }
