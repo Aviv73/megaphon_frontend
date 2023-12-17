@@ -18,10 +18,6 @@
         border-color: black;
       }
     }
-    .ico-img {
-      height: em(15px);
-      width: em(15px);
-    }
   }
   
   .toggle-btns {
@@ -97,6 +93,11 @@
       border-color: white;
     }
 
+  }
+  
+  .ico-img {
+    height: em(15px);
+    width: em(15px);
   }
 
   &:hover {cursor: pointer;}
