@@ -50,8 +50,9 @@
             <p>{{$t('distribute.fromEmail')}}</p>
             <div class="flex align-center space-between gap10">
               <!-- <FormInput type="select" :items="fromEmails.map(c => ({value: c.email, label: c.title}))" :value="fromEmail"/> -->
-              <FormInput class="flex-1" placeholder="email" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => fromEmail.title = fromEmails.find(c => c.email === val)?.title || ''"/>
+              <FormInput class="flex-1" placeholder="email" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => onFromEmailChanged(val)"/>
               <FormInput class="flex-1" placeholder="name" type="text" v-model="fromEmail.title"/>
+              <FormInput class="flex-1 ltr" label="distribute.allowReply" type="checkbox" v-model="fromEmail.allowReply"/>
 
             </div>
           </div>
@@ -180,7 +181,8 @@ export default {
 
       fromEmail: {
         email: '',
-        title: ''
+        title: '',
+        fromEmail: false
       },
       customEmailToAdd: '',
 
@@ -234,6 +236,11 @@ export default {
   },
 
   methods: {
+    onFromEmailChanged(val) {
+      const fromEmailItem = this.fromEmails.find(c => c.email === val);
+      this.fromEmail.title = fromEmailItem?.title || ''
+      this.fromEmail.allowReply = fromEmailItem?.allowReply || false;
+    },
     copyUrlToClipboard() {
       copyToClipBoard(this.sendInEmailUrl);
       alertService.toast({ msg: this.$t(`copiedToClipboard`), type: 'safe' });

@@ -68,7 +68,8 @@ const  en = {
     origins: {
       email: 'Email',
       distribution: 'Distribution'
-    }
+    },
+    allowReply: 'Allow response'
   }
 }
 const he = {
@@ -140,7 +141,8 @@ const he = {
     origins: {
       email: 'אימייל',
       distribution: 'הפצה'
-    }
+    },
+    allowReply: 'אפשר תגובה'
   }
 }
 const heF = {
