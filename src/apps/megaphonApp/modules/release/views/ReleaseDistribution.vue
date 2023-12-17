@@ -44,7 +44,7 @@
         <div style="flex:1.5" class="from-email-section flex column gap20">
           <div class="flex align-center space-between">
             <h3>{{contactsForDistribute.length}} {{$t('distribute.contactsWasSelected')}}</h3>
-            <button class="btn" @click="copyUrlToClipboard">{{$t('distribute.copySendToEmailUrl')}} <img class="ico-img" :src="require('@/assets/images/url.png')" alt=""></button>
+            <!-- <button class="btn" @click="copyUrlToClipboard">{{$t('distribute.copySendToEmailUrl')}} <img class="ico-img" :src="require('@/assets/images/url.png')" alt=""></button> -->
           </div>
           <div class="width-all flex column gap5">
             <p>{{$t('distribute.fromEmail')}}</p>
