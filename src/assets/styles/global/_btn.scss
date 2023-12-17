@@ -55,6 +55,12 @@
       //   width: calc(100% - 2px);
       // }
     }
+    
+    .ico-img {
+      height: em(15px);
+      // width: em(15px);
+    }
+
     &.small {
       height: (em13px);
       width: (em13px);
@@ -95,10 +101,6 @@
 
   }
   
-  .ico-img {
-    height: em(15px);
-    width: em(15px);
-  }
 
   &:hover {cursor: pointer;}
 

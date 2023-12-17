@@ -57,8 +57,8 @@
             </div>
           </div>
           <div class="load-distributions-section flex align-center space-between gap5">
-            <button @click="showEmailListsSelectionModal = true" class="btn">{{$t('distribute.loadDistributionList')}} <img :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
-            <button @click="showAddMailingListItemModal = true" class="btn">{{$t('distribute.saveDistributionList')}} <img :src="require('@/apps/megaphonApp/assets/images/save_black.svg')"/></button>
+            <button @click="showEmailListsSelectionModal = true" class="btn">{{$t('distribute.loadDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
+            <button @click="showAddMailingListItemModal = true" class="btn">{{$t('distribute.saveDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/save_black.svg')"/></button>
           </div>
           <div class="width-all flex column gap5">
             <p>{{$t('distribute.addCustomContact')}}</p>
@@ -482,10 +482,10 @@ export default {
     .load-distributions-section {
       font-size: em(15px);
       button {
-        box-shadow: none;
-        img {
-          height: em(15px);
-        }
+        // box-shadow: none;
+        // img {
+        //   height: em(15px);
+        // }
       }
     }
 
