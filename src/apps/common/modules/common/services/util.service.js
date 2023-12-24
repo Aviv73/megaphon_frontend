@@ -463,6 +463,11 @@ export function getQueryParam(param) {
     const queryParams = new URLSearchParams(window.location.search);
     return queryParams.get(param);
 }
+
+export function cropText(txt = '', maxLength = 100, afterTxt = '...') {
+    if (txt.length <= maxLength) return txt;
+    return `${txt.substring(0, maxLength)}${afterTxt}`
+}
   
 
 

@@ -1,9 +1,9 @@
 <template>
-  <section v-if="release" class="simple-release-details inner-container main-pad-y flex column gap20">
+  <section v-if="release" class="simple-release-details inner-container main-pad-y flex column gap30">
     <h1>{{release.title}}</h1>
     <h5>{{release.subTitle}}</h5>
     <div class="main-content-section flex-1 flex space-between gap60 wrap">
-      <img class="main-img" :src="release.mainImage[0].src" :alt="release.title"/>
+      <img class="main-img" :src="release.mainImage.src" :alt="release.title"/>
       <div class="hero-content flex column align-start gap15">
         <div class="description-container" v-if="release.desc" v-html="release.desc"></div>
         <div class="flex gap60 links">
@@ -17,18 +17,17 @@
         </div>
       </div>
     </div>
-    <div v-if="release.video?.[0]?.src" class="video-section flex column gap30">
-      <h2>{{release.video.title}}</h2>
-      <!-- <iframe :src="release.video.src"></iframe> -->
-      <video controls :src="release.video[0].src"></video>
-    </div>
+
+    <FilesSection :release="release"/>
   </section>
 </template>
 
 <script>
 import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+import FilesSection from '../cmps/FilesSection.vue';
 
 export default {
+  components: { FilesSection },
   name: 'default_SimpleReleaseDetails',
   props: {
     release: {
@@ -41,9 +40,11 @@ export default {
   },
   computed: {
     monthPublish() {
+      if (!this.release.publishedAt) return '';
       const at = new Date(this.release.publishedAt);
       const month = at.getMonth() + 1;
       const year = at.getFullYear();
+      if (isNaN(year)) return '';
       const pretyMont = this.$t('months.'+month);
       return `${pretyMont} ${year}`;
     },
@@ -163,7 +164,7 @@ export default {
     }
   
   
-    iframe, video {
+    iframe, video, .media-item {
       box-shadow: $light-shadow;
       height: 600px;
       width: 100%;

@@ -24,6 +24,17 @@
             {value: 'tablet', img: require('@/apps/megaphonApp/assets/images/devices/tablet.jpg')},
             {value: 'mobile', img: require('@/apps/megaphonApp/assets/images/devices/mobile.png')},
           ]"/>
+          <FormInput 
+            type="select"
+            v-model="itemToEdit.design[selectedDesignTypeToShow == 0? 'landingPage' : 'email']"
+            @change="saveItem"
+            :items="
+              org.templates
+                .filter(c => c.releaseTypes.includes(itemToEdit.releaseType))
+                .filter(c => c.type == selectedDesignTypeToShow)
+                .map(c => ({ label: c.name, value: c.id }))
+            "
+          />
           <iframe v-if="landingPageUrl" :style="iframeStyle" :src="landingPageUrl" frameborder="0"></iframe>
           <p v-else>{{$t('noMatchingDesign')}}</p>
         </div>
@@ -52,6 +63,7 @@ import { createItemForDynamicForm } from '../../common/services/CreateItemForDyn
 import { getReleaseLandingPageUrl, getReleaseRelevantTemplate } from '../../common/services/template.util.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
+import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 export default {
   name: 'ReleaseEdit',
   data() {
@@ -186,6 +198,7 @@ export default {
   components: {
     DynamicInput,
     ToggleBtns,
+    FormInput,
   }
 }
 </script>

@@ -39,10 +39,10 @@ function getEmptyRelease() {
     releaseType: '',
     releaseData: {},
     design: {
-      landingPage: {},
-      email: {},
+      landingPage: '',
+      email: '',
     },
-    distribution: {},
+    // distribution: {},
     distributionId: '',
     organizationId: '',
     allText: ''

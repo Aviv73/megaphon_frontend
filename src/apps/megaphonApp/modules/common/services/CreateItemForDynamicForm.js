@@ -40,16 +40,30 @@ export function createItemForDynamicForm(dataFields = []) {
         item[field.fieldName] = '';
 
       case 'IMAGE':
+      case 'FILE':
+      case 'VIDEO':
+        if (field.propsToPass?.onlySrc) item[field.fieldName] = '';
+        else item[field.fieldName] = {src: '', title: ''};
+        break;
+        
       case 'CORPABLE_IMAGE':
       case 'IMAGEGALLERY':
-      case 'IMAGEGALLERY':
-      case 'FILE':
       case 'RELEASES_SELECTOR':
+      case 'SELECT_RELEASES_FROM_INNER_PARAM':
         item[field.fieldName] = [];
+        break;
+
+      case 'IMAGEINARRAY':
+      case 'VIDEOINARRAY':
+      case 'FILEINARRAY':
+        item[field.fieldName] = [];
+        break;
+
 
       case 'SEPARATOR':
       case 'SEPARATOR_BOLD':
         break;
+
 
       default:
         item[field.fieldName] = '';

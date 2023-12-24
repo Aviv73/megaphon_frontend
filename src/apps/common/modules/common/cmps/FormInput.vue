@@ -183,7 +183,9 @@ export default {
       inputId: this.id || getRandomId(),
       isOpen: false,
 
-      valsFilterStr: ''
+      valsFilterStr: '',
+      didInit: false,
+      dontEmit: false,
     };
   },
   created() {
@@ -261,6 +263,7 @@ export default {
       deep: true,
       handler(val, prev) {
         if (val === prev) return;
+        if (this.dontEmit) return;
         if (this.type === 'number') {
           const { min, max } = this;
           if (typeof min === 'number' && val < min) this.val = min;
@@ -273,8 +276,12 @@ export default {
     },
 
     value(val, prev) {
+      if (this.didInit) return;
       if (val === prev) return;
+      if (!this.didInit) this.dontEmit = true;
       this.val = val;
+      this.dontEmit = false;
+      this.didInit = true;
     },
   },
 };

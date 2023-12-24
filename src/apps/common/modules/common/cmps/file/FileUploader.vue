@@ -15,6 +15,7 @@
 import { uploadFileToServer } from '../../services/file.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import MiniLoader from '../MiniLoader.vue';
+import { cropText } from '../../services/util.service';
 export default {
   components: { MiniLoader },
   name: 'FileUploader',
@@ -34,7 +35,7 @@ export default {
       return this.valToShow?.src || ''; // defaultImg
     },
     valToShow() {
-      return this.onlySrc ? { src: this.value } : this.value;
+      return this.onlySrc ? { src: this.value, title: cropText(this.value, 30) } : this.value;
     }
   },
   methods: {

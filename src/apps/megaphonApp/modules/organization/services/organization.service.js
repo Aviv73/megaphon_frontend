@@ -47,8 +47,42 @@ function getEmptyOrganization() { // todo
     defaultGalleryCredit: '',
     distributionBcc: '',
     fromEmails: [/* { email: '', title: '' } */],
-    filters: [/* { title: '', releaseTypes: [releaseTypesIds], wasDisterbuted: false } */],
-    releaseTypes: [/* { name: '', id: '', dataFieldsLocalFilePath: '', fileUrl: '', dataFieldsStr: 'NOT IN USE ___ JSON STRING FON NOW' } */],
+    // filters: [/* { title: '', releaseTypes: [releaseTypesIds], wasDisterbuted: false } */],
+    // releaseTypes: [/* { name: '', id: '', dataFieldsLocalFilePath: '', fileUrl: '', dataFieldsStr: 'NOT IN USE ___ JSON STRING FON NOW' } */],
+
+    "filters" : [ 
+      {
+          "id" : "DEFAULT_SIMPLE",
+          "title" : "פשוטים",
+          "releaseTypes" : [
+              "DEFAULT_SIMPLE"
+          ],
+          "showInClient" : true
+      }, 
+      {
+          "id" : "DEFAULT_GROUP",
+          "title" : "קבוצתיים",
+          "releaseTypes" : [
+              "DEFAULT_GROUP"
+          ],
+          "showInClient" : true
+      }
+    ],
+    "releaseTypes" : [ 
+        {
+            "name" : "פשוט",
+            "id" : "DEFAULT_SIMPLE",
+            "dataFieldsStr" : "",
+            "isGroup" : false
+        }, 
+        {
+            "name" : "קבוצתי",
+            "id" : "DEFAULT_GROUP",
+            "dataFieldsStr" : "",
+            "isGroup" : true
+        }
+    ],
+
 
     templates: [/* { name: '', type: enum('0' => page, '1' => email), releaseTypes: [releaseTypesIds], handlebarsLocalFilePath: '', url: '', id: '', hadlebarsFileStr: 'NOT IN USE', appName: '' , previewUrl: 'NOT_IN_USE' } */],
 

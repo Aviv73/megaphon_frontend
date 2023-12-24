@@ -83,7 +83,12 @@ const en = {
   copy: 'Copy',
   origin: 'Origin',
   missingFields: 'Missing fields',
-  site: 'Site'
+  site: 'Site',
+
+  images: 'Images',
+  videos: 'Videos',
+  files: 'Files',
+  links: 'Links'
 }
 const he = {
   "hello": "שלום",
@@ -168,7 +173,12 @@ const he = {
   copy: 'העתק',
   origin: 'מקור',
   missingFields: 'שדות חסרים',
-  site: 'אתר'
+  site: 'אתר',
+  
+  images: 'תמונות',
+  videos: 'וידאוים',
+  files: 'קבצים',
+  links: 'קישורים'
 }
 const heF = {
   ...he,
@@ -189,7 +199,7 @@ const heF = {
   "createNew": "צרי חדש",
   "leave": "עזבי",
   "add": "הוסיפי",
-  copy: 'העתיקי'
+  copy: 'העתיקי',
 }
 
 export const commonLocales = {

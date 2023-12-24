@@ -1,13 +1,13 @@
 <template>
   <section class="group-release-details flex column gap30 height-all">
-    <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${release.mainImage[0]?.src}')`, 'background-size': 'cover' }">
+    <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${release.mainImage.src}')`, 'background-size': 'cover' }">
       <div class="hero flex align-center justify-center gap30">
         <button class="arrow-btn" @click="shiftChild(1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)">
         </button>
         <div v-if="viewdChild" class="">
           <div class="hero-main inner-container flex gap30 width-all">
-            <img class="main-img" :src="viewdChild.mainImage[0]?.src" :alt="viewdChild.title"/>
+            <img class="main-img" :src="viewdChild.mainImage.src" :alt="viewdChild.title"/>
             <div class="hero-content flex column align-start gap20">
               <h2>{{viewdChild.title}}</h2>
               <div v-html="viewdChild.desc"></div>
@@ -40,6 +40,7 @@
         itemDetailesPageName="ReleaseDetails"
         :singlePreviewCmp="ReleasePreview"
       />
+      <FilesSection :release="release"/>
     </div>
   </section>
 </template>
@@ -49,10 +50,11 @@ import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue'
 import ReleasePreview from '../cmps/default_ReleasePreview.vue'
 import ReleaseFilter from '../cmps/default_ReleaseFilter.vue'
+import FilesSection from '../cmps/FilesSection.vue'
 
 export default {
   name: 'default_GroupReleaseDetails',
-  components: { ItemList, ReleasePreview, ItemSearchList, ReleaseFilter },
+  components: { ItemList, ReleasePreview, ItemSearchList, ReleaseFilter, FilesSection },
   props: {
     release: {
       type: Object,
@@ -86,9 +88,11 @@ export default {
       return this.$route.query?.releasesView === 'true';
     },
     monthPublish() {
+      if (!this.release.publishedAt) return '';
       const at = new Date(this.release.publishedAt);
       const month = at.getMonth() + 1;
       const year = at.getFullYear();
+      if (isNaN(year)) return '';
       const pretyMont = this.$t('months.'+month);
       return `${pretyMont} ${year}`;
     },

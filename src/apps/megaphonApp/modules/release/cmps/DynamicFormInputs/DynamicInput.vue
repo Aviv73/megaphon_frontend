@@ -136,26 +136,27 @@ export default {
           ]
         }
       }
+      const propsToPass = {...(this.dataField.propsToPass || {})};
       switch (type) {
         case 'TEXT':
         case 'DATE':
         case 'NUMBER':
-          this.propsToPass = { type: type.toLowerCase(), placeholder: this.dataField.title };
+          this.propsToPass = { ...propsToPass, type: type.toLowerCase(), placeholder: this.dataField.title };
           this.cmpName = 'FormInput';
           break;
         case 'SELECTION':
-          this.propsToPass = { type: 'select', items: this.dataField.options || [] };
+          this.propsToPass = { ...propsToPass, type: 'select', items: this.dataField.options || [] };
           this.cmpName = 'FormInput';
           break;
         case 'SEPARATOR':
         case 'SEPARATOR_BOLD':
           this.cmpName = 'hr';
-          if (type === 'SEPARATOR_BOLD') this.propsToPass = { style: 'border-width:3px' };
+          if (type === 'SEPARATOR_BOLD') this.propsToPass = { ...propsToPass, style: 'border-width:3px' };
           break;
         case 'LONGRICHTEXT':
         case 'RICHTEXT':
-          // this.propsToPass = { width: 400 };
-          // this.propsToPass = { style: 'direction: ltr' };
+          // this.propsToPass = { ...propsToPass, width: 400 };
+          // this.propsToPass = { ...propsToPass, style: 'direction: ltr' };
           setTimeout(() => {
             try {
               this.$refs.input.quill.format('align', 'right');
@@ -166,43 +167,63 @@ export default {
           break;
         case 'TABLE':
         case 'ROW':
-          this.propsToPass = { hidden: true };
+          this.propsToPass = { ...propsToPass, hidden: true };
           this.cmpName = 'div';
           break;
         case 'RELEASES_SELECTOR': 
           this.cmpName = 'ReleasePicker'
-          this.propsToPass = { organization: this.organization };
+          this.propsToPass = { ...propsToPass, organization: this.organization };
           break;
+
         case 'FILE':
         case 'VIDEO':
-          this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { isSingleItem: true, accept: this.dataField.filter };
+          this.cmpName = 'FileUploader';
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter };
+          break;
+        case 'IMAGE':
+          this.cmpName = 'ImageCrop';
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter };
+          break;
+
+        case 'FILE_SRC':
+          this.cmpName = 'FileUploader';
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, onlySrc: true };
           break;
         case 'IMAGE_SRC':
           // this.cmpName = 'FileUploader';
           this.cmpName = 'ImageCrop';
-          this.propsToPass = { viewAsImg: true, accept: this.dataField.filter, onlySrc: true };
+          this.propsToPass = { ...propsToPass, viewAsImg: true, accept: this.dataField.filter, onlySrc: true };
           break;
-        case 'IMAGE':
-          this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
-          break;
-        case 'IMAGEGALLERY':
-          this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { viewAsImg: true, isSingleItem: false, accept: this.dataField.filter };
-          break;
-        case 'SELECT_RELEASES': // change to something like: SELECT_RELEASES_FROM_INNER_PARAM
+        // case 'IMAGEGALLERY':
+        //   this.cmpName = 'MultipleFilePicker';
+        //   this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: false, accept: this.dataField.filter };
+        //   break;
+        case 'SELECT_RELEASES_FROM_INNER_PARAM': // change to something like: SELECT_RELEASES_FROM_INNER_PARAM
           this.cmpName = 'ReleaseIdsPicker';
-          this.propsToPass = { releases: this.parentItem[this.dataField.fromField], fromField: this.dataField.fromField };
+          this.propsToPass = { ...propsToPass, releases: this.parentItem[this.dataField.fromField], fromField: this.dataField.fromField };
           break;
+
+        // BAD: single items in array;
         case 'CORPABLE_IMAGE':
           // this.cmpName = 'ImageCrop';
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
+          this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
           break;
+        case 'FILEINARRAY':
+        case 'VIDEOINARRAY':
+          this.cmpName = 'MultipleFilePicker';
+          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter };
+          break;
+
+
+        case 'IMAGEINARRAY':
+          this.cmpName = 'MultipleFilePicker';
+          this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
+          break;
+
         case 'LOGOSELECTION':
           this.cmpName = 'FormInput';
-          this.propsToPass = { type: 'select', items: this.organization?.logos?.map(c => ({value: c.url, img: c.url, label: c.title})) || [] };
+          this.propsToPass = { ...propsToPass, type: 'select', items: this.organization?.logos?.map(c => ({value: c.url, img: c.url, label: c.title})) || [] };
           break;
         case 'SELECTIONWITHIMAGE': // change to somethong like: IMG_SELECTION_FOR_VIDEO_LINK
           this.cmpName = 'FormInput';
@@ -214,6 +235,7 @@ export default {
           };
           const videoUrl = getDeepVal(this.parentItem, this.basePath.replace(this.dataField.fieldName, this.dataField.linkedVideoField));
           this.propsToPass = { 
+            ...propsToPass, 
             type: 'select', 
             items: range(4).map((_, idx) => {
               const currUrl = getYoutubeVideoThumb(videoUrl, idx)

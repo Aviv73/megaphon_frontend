@@ -30,6 +30,8 @@ export function getReleaseLandingPageUrl(release, organization, isNews) {
 }
 
 export function getReleaseRelevantTemplate(release, organization, isNews) {
+  const selectedTEmplate = release.design[isNews? 'email' : 'landingPage'];
+  if (selectedTEmplate && (typeof(selectedTEmplate) === 'string') && organization.templates.find(c => c.id === selectedTEmplate)) return organization.templates.find(c => c.id === selectedTEmplate);
   const type = isNews? '1' : '0';
   const templates = organization.templates
         .filter(c => c.type == type)

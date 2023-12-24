@@ -60,22 +60,23 @@
         <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
       </div>
 
-      
-      <div class="logos-section flex column gap20 align-start">
-        <p>{{$t('organization.designPreferences')}}</p>
-        <div class="input-container">
-          <p>{{$t('organization.color')}}</p>
-          <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.color"/>
-        </div>
-        <div class="input-container">
-          <p>{{$t('organization.bgColor')}}</p>
-          <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.bgColor"/>
-        </div>
-      </div>
-
 
       <h2 @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</h2>
+      
+
       <div class="developer-zone" v-if="showDeveloperZone">
+        <div class="flex column gap20 align-start">
+          <p>{{$t('organization.designPreferences')}}</p>
+          <div class="input-container">
+            <p>{{$t('organization.color')}}</p>
+            <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/>
+          </div>
+          <div class="input-container">
+            <p>{{$t('organization.bgColor')}}</p>
+            <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/>
+          </div>
+        </div>
+
         <div class="filters-section flex column gap20 align-start">
           <p>{{$t('organization.filters')}}</p>
           <ul class="flex column gap10 table-like">
@@ -101,6 +102,7 @@
           <p>{{$t('organization.releaseTypes')}}</p>
           <ul class="flex column gap10 table-like">
             <li>
+              <p>{{$t('id')}}</p>
               <p>{{$t('name')}}</p>
               <p>{{$t('dataFieldsLocalFilePath')}}</p>
               <p>{{$t('isGroup')}}</p>
@@ -108,6 +110,7 @@
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.releaseTypes || []" :key="idx">
+              <FormInput type="autocomplete" placeholder="id" v-model="curr.id" :items="['DEFAULT_SIMPLE', 'DEFAULT_GROUP']"/>
               <FormInput type="text" placeholder="name" v-model="curr.name"/>
               <FormInput type="text" placeholder="dataFieldsFilePath" v-model="curr.dataFieldsLocalFilePath"/>
               <FormInput type="checkbox" v-model="curr.isGroup"/>

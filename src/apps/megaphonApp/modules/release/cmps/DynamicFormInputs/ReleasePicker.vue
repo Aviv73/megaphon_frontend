@@ -2,7 +2,7 @@
   <div class="release-peacker flex column align-start gap10">
     <ul class="release-list flex column gap10">
       <li v-for="(release, idx) in (value || [])" :key="release._id" class="flex align-end gap10">
-        <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || ''" :alt="release.releaseData?.title" />
+        <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || release.releaseData?.mainImage?.src || ''" :alt="release.releaseData?.title" />
         <p>{{release.releaseData?.title}}</p>
         
         <TableActionBtns :value="value" @input="val => $emit('input', val)" :idx="idx"/>
@@ -18,7 +18,7 @@
         </form>
         <ul class="release-select-list flex column gap20 flex-1" v-if="releases?.length">
           <li v-for="(release) in releases" :key="release._id" class="flex align-end gap10">
-            <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || ''" :alt="release.releaseData?.title" />
+            <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || release.releaseData?.mainImage?.src || ''" :alt="release.releaseData?.title" />
             <p>{{release.releaseData?.title}}</p>
             <input type="checkbox" v-model="releasesToAdd" :value="release"/>
           </li>

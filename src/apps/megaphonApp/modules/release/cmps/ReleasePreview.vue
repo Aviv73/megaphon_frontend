@@ -45,7 +45,7 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     imgSrc() {
-      return fixFileSrcToThumbnail(this.release.mainImage?.[0]?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png'));
+      return fixFileSrcToThumbnail(this.release.mainImage?.[0]?.src || this.release.mainImage?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png'));
     },
 
     pretyDistributionTime() {

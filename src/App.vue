@@ -92,6 +92,7 @@ export default {
     displayUiConfig() {
       if (appConfig.client) this.setLocale('he');
       else this.setLocale('he');
+      // else this.setLocale();
       alertService.setConfig({ direction: this.isRtl? 'rtl' : 'ltr' });
       if (appConfig.client) return;
       const config = this.uiConfig;

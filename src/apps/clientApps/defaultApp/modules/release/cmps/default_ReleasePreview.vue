@@ -1,7 +1,7 @@
 <template>
   <router-link :to="{ name: 'ReleaseDetails', params: {id: release._id} }">
     <li class="release-preview flex column gap10">
-        <img v-if="releaseData.mainImage?.[0]" :src="imgToShow" :alt="releaseData.title">
+        <img v-if="releaseData.mainImage.src" :src="imgToShow" :alt="releaseData.title">
         <h3 class="title" :title="releaseData.title" v-if="releaseData.title">{{shrtenTitle}}</h3>
         <p :title="fullDescStr" v-if="shortenDesc">{{shortenDesc}}</p>
     </li>
@@ -43,7 +43,7 @@ export default {
     },
 
     imgToShow() {
-      return fixFileSrcToThumbnail(this.releaseData.mainImage[0].src);
+      return fixFileSrcToThumbnail(this.releaseData.mainImage.src);
     }
   }
 }
