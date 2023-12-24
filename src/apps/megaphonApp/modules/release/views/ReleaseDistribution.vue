@@ -44,7 +44,8 @@
         <div style="flex:1.5" class="from-email-section flex column gap20">
           <div class="flex align-center space-between">
             <h3>{{contactsForDistribute.length}} {{$t('distribute.contactsWasSelected')}}</h3>
-            <!-- <button class="btn" @click="copyUrlToClipboard">{{$t('distribute.copySendToEmailUrl')}} <img class="ico-img" :src="require('@/assets/images/url.png')" alt=""></button> -->
+            <!-- <button class="btn" @click="copyUrlToClipboard">{{$t('distribute.copyReleaseDistributionUrl')}} <img class="ico-img" :src="require('@/assets/images/url.png')" alt=""></button> -->
+            <ReleaseDistributionLinkCoppier :release="this.release" :organization="this.org"/>
           </div>
           <div class="width-all flex column gap5">
             <p>{{$t('distribute.fromEmail')}}</p>
@@ -166,6 +167,7 @@ import { alertService } from '@/apps/common/modules/common/services/alert.servic
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import { getReleaseLandingPageUrl, getReleaseRelevantTemplate } from '../../common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
+import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
 export default {
   name: 'ReleaseDistribute',
   data() {
@@ -415,6 +417,7 @@ export default {
     FormInput,
     ItemSearchList, Loader, DistributeContactPreview, ContactFilter,
     Modal,
+    ReleaseDistributionLinkCoppier,
   },
 
 

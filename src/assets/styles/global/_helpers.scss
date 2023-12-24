@@ -157,6 +157,10 @@
   &.gap30 {
     gap: e,(30px);
   }
+
+  >.btn {
+    width: fit-content;
+  }
 }
 
 

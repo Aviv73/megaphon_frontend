@@ -79,7 +79,11 @@ const en = {
     12: "דצמבר",
   },
 
-  "copiedToClipboard": "Coppied to clipboard"
+  "copiedToClipboard": "Coppied to clipboard",
+  copy: 'Copy',
+  origin: 'Origin',
+  missingFields: 'Missing fields',
+  site: 'Site'
 }
 const he = {
   "hello": "שלום",
@@ -160,7 +164,11 @@ const he = {
     12: "דצמבר",
   },
 
-  "copiedToClipboard": "הועתק ללוח"
+  "copiedToClipboard": "הועתק ללוח",
+  copy: 'העתק',
+  origin: 'מקור',
+  missingFields: 'שדות חסרים',
+  site: 'אתר'
 }
 const heF = {
   ...he,
@@ -180,7 +188,8 @@ const heF = {
   "createYourFirstOne": "צרי את הראשון",
   "createNew": "צרי חדש",
   "leave": "עזבי",
-  "add": "הוסיפי"
+  "add": "הוסיפי",
+  copy: 'העתיקי'
 }
 
 export const commonLocales = {

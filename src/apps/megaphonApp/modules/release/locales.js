@@ -62,14 +62,27 @@ const  en = {
     newsOpened: 'Newsletter opened',
     newsletter: 'News letter',
     "enterenceOrigins": 'Enterence Origins',
-    copySendToEmailUrl: 'Copy url to send in email',
+    copyReleaseDistributionUrl: 'Copy release distribution url',
     'origin': 'Origin',
     'unsubscribed': 'Unsubscribed',
+    'wachedCount': 'Wached count',
     origins: {
       email: 'Email',
-      distribution: 'Distribution'
+      distribution: 'Distribution',
+      site: 'Site'
     },
-    allowReply: 'Allow response'
+    allowReply: 'Allow response',
+
+    token: 'Token',
+    tokenType: 'Token type',
+    tokenTypes: {
+      'unique': 'Unique',
+      'insert': 'Insert',
+      'none': 'None'
+    },
+    uniqueTokenNote: '',
+    regenerateToken: 'Regenerate unique token',
+    noDistributionDataForRelease: 'No distribution data for release'
   }
 }
 const he = {
@@ -135,14 +148,29 @@ const he = {
     newsOpened: 'ניוזלטר נפתח',
     newsletter: 'ניוזלטר',
     "enterenceOrigins": 'מקורות כניסה',
-    copySendToEmailUrl: 'העתק קישור לשליחה במייל',
+    copyReleaseDistributionUrl: 'העתק קישור להפצת רליס',
     origin: 'מקור',
     'unsubscribed': 'ביטל מנוי',
+    wachedCount: 'מספר צפיות',
     origins: {
       email: 'אימייל',
-      distribution: 'הפצה'
+      distribution: 'הפצה',
+      site: 'אתר'
     },
-    allowReply: 'אפשר תגובה'
+    allowReply: 'אפשר תגובה',
+
+    token: 'מזהה',
+    tokenType: 'סוג מזהה',
+    tokenTypes: {
+      'unique': 'ייחודי',
+      'insert': 'הזן',
+      'none': 'ללא'
+    },
+    uniqueTokenNote: 'שימו לב - שימוש במזהה ייחודי (או ייחודי בהזנה) עוזר למערכת לספור כמה פעמים הרליס נפתח על ידי נמענים שונים. במידה ולא נעשה שימוש במזהה ייחודי, המערכת תחשיב כל פתיחה של הרליס מאותו הקישור כפתיחה חדשה שנעשתה ידי נמען אחר.',
+    uniqueTokenNote: 'שימו לב - שימוש במזהה ייחודי (או ייחודי בהזנה) עוזר למערכת לספור כמה פעמים הרליס נפתח על ידי נמענים שונים. במידה ולא נעשה שימוש במזהה ייחודי, או במידה ואותו קישור עם אותו מזהה נשלח למספר נמענים שונים - המערכת תחשיב כל פתיחה של הרליס מאותו הקישור כפתיחה שנעשתה על ידי אותו נמען. מומלץ ליצור מזהה ייחודי חדש (או להזין מזהה ייחודי באופן ידני) לכל נמען.',
+    urlDistributionNote: 'לאחר פתיחת הקישור ובמידה ולא הופץ לפני - הרליס ייחשב במערכת כרליס שהופץ.',
+    regenerateToken: 'צור מזהה ייחודי חדש',
+    noDistributionDataForRelease: 'לא נמצא מידע הפצה לרליס'
   }
 }
 const heF = {
