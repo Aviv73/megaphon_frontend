@@ -16,9 +16,18 @@
           </router-link>
         </div>
         <div class="filters flex align-center height-all">
-          <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.filters" :key="filter._id" @click="emitFilter(filter)">
+          <!-- <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.filters" :key="filter._id" @click="emitFilter(filter)">
             {{filter.title}}
-          </button>
+          </button> -->
+          
+          <router-link
+            v-for="filterItem in organization.filters" :key="filterItem.id"
+            :to="{ name: 'ReleasePage', query: { releaseType: filterItem.title  } }"
+            class="nav-link flex align-center"
+            :class="{selected: $route.query.releaseType === filterItem.title}"
+          >
+            {{filterItem.title}}
+          </router-link>
         </div>
       </div>
 

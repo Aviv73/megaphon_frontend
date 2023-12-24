@@ -43,8 +43,14 @@ export default {
   },
   methods: {
     getAllReleases(filterBy) {
-      if (!this.currOrgFilter) return;
-      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.filters?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
+      // if (!this.currOrgFilter) return;
+      // this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.filters?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
+      
+      const typeName = this.$route.query.releaseType;
+      if (!typeName) return;
+      const filterItem = this.organization?.filters.find(c => c.title === typeName) || this.organization?.filters?.[0] || undefined;
+      if (!filterItem) return;
+      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterItem, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
     handleOrgReleaseFilter(orgFilter) {
       this.$store.commit({ type: 'release/resetFilter' });
@@ -79,18 +85,27 @@ export default {
   },
   created() {
     // this.getAllReleases(); // header emits filter when creates => loading releases;
-    evManager.on('org-release-filter', this.handleOrgReleaseFilter);
+    // evManager.on('org-release-filter', this.handleOrgReleaseFilter);
     evManager.on('folder-selected', this.handleFolderSelection);
   },
   destroyed() {
-    evManager.off('org-release-filter', this.handleOrgReleaseFilter);
+    // evManager.off('org-release-filter', this.handleOrgReleaseFilter);
     evManager.off('folder-selected', this.handleFolderSelection);
   },
   watch: {
-    organizationId() {
-      this.getAllReleases();
+    organizationId(org) {
+      // this.getAllReleases();
       // this.currOrgFilter = null
-    }
+    },
+    organization(org) {
+      // if (this.$route.query.releaseType) return;
+      if (!org) return;
+      if (org.filters?.find(c => c.title === this.$route.query.releaseType)) this.getAllReleases();
+      else this.$router.push({ query: { ...this.$route.query, releaseType: org?.filters?.[0]?.title || '' } });
+    },
+    releaseTypeInQuery(val, prev) {
+      this.getAllReleases();
+    },
   },
   components: { ItemSearchList, Loader, ReleasePreview, ReleaseFilter }
 }
