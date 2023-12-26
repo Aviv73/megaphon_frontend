@@ -1,6 +1,16 @@
 <template>
   <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20">
-    <FormInput @change="emitFilter" type="select" placeholder="type" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" />
+    <!-- <FormInput @change="emitFilter" type="select" placeholder="type" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" /> -->
+    <template v-if="org && org.innerFilters && org.innerFilters.length">
+      <FormInput
+        v-for="(currFilterItem, idx) in org.innerFilters" :key="idx"
+        type="select"
+        :placeholder="currFilterItem.title"
+        :items="currFilterItem.options.map(c => ({label: c.label, value: (c.value === ''? undefined : c.value)}))"
+        v-model="filterBy.filter.params[currFilterItem.field]"
+        @change="emitFilter"
+      />
+    </template>
     <FormInput @change="setDateRange" type="select" placeholder="release.filterByYear" :items="yearsOpts" v-model="dateSelectVal" />
     <FormInput v-if="selectedReleaseIds.length" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
     <div class="flex align-center gap20">

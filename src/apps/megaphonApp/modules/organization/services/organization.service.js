@@ -85,7 +85,7 @@ function getEmptyOrganization() { // todo
 
 
     templates: [/* { name: '', type: enum('0' => page, '1' => email), releaseTypes: [releaseTypesIds], handlebarsLocalFilePath: '', url: '', id: '', hadlebarsFileStr: 'NOT IN USE', appName: '' , previewUrl: 'NOT_IN_USE' } */],
-
+    innerFilters: [/* { field: String, title: '', options: [ { value: Any, label: String } ], id: String } */],
     // subfilters: [/* { name: '', optionns: [{title:'', value: ''}], hideOnFilters: [releaseTyIds] } */],
     folders: [/* { name: '', children: [folders], content: [] } */],
     logos: [/* {url: '', id: '', title: ''} */],

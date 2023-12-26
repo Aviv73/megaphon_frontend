@@ -77,25 +77,46 @@
           </div>
         </div>
 
-        <div class="filters-section flex column gap20 align-start">
-          <p>{{$t('organization.filters')}}</p>
+        <div class="route-filters-section flex column gap20 align-start">
+          <p>{{$t('organization.routes')}}</p>
           <ul class="flex column gap10 table-like">
             <li>
               <p>{{$t('title')}}</p>
               <p>{{$t('releaseTypes')}}</p>
               <p>{{$t('wasDistributed')}}</p>
+              <p>{{$t('htmlContentFilePath')}}</p>
               <p>{{$t('showInClient')}}</p>
               <p></p>
             </li>
-            <li v-for="(curr, idx) in organizationToEdit.filters || []" :key="idx">
+            <li v-for="(curr, idx) in organizationToEdit.routes || []" :key="idx">
               <FormInput type="text" placeholder="title" v-model="curr.title"/>
-              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
-              <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.wasDistributed"/>
+              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseFilter.releaseTypes"/>
+              <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.releaseFilter.wasDistributed"/>
+              <FormInput type="text" placeholder="htmlContentFilePath" v-model="curr.htmlContentFilePath"/>
               <FormInput type="checkbox" v-model="curr.showInClient"/>
-              <TableActionBtns v-model="organizationToEdit.filters" :idx="idx"/>
+              <TableActionBtns v-model="organizationToEdit.routes" :idx="idx"/>
             </li>
           </ul>
-          <button @click="addFilterItem" class="btn big">{{$t('add')}}</button>
+          <button @click="addRouteFilterItem" class="btn big">{{$t('add')}}</button>
+        </div>
+
+        <div class="inner-filters-section flex column gap20 align-start">
+          <p>{{$t('organization.innerFilters')}}</p>
+          <ul class="flex column gap10 table-like">
+            <li>
+              <p>{{$t('field')}}</p>
+              <p>{{$t('title')}}</p>
+              <p>{{$t('options')}}</p>
+              <p></p>
+            </li>
+            <li v-for="(curr, idx) in organizationToEdit.innerFilters || []" :key="idx">
+              <FormInput type="text" placeholder="field" v-model="curr.field"/>
+              <FormInput type="text" placeholder="title" v-model="curr.title"/>
+              <FormInput type="text" placeholder="options" v-model="curr.options"/>
+              <TableActionBtns v-model="organizationToEdit.innerFilters" :idx="idx"/>
+            </li>
+          </ul>
+          <button @click="addInnerFilterItem" class="btn big">{{$t('add')}}</button>
         </div>
 
         <div class="release-types-section flex column gap20 align-start">
@@ -203,23 +224,27 @@ export default {
 
     addFromEmailItem() {
       if (!this.organizationToEdit.fromEmails) this.organizationToEdit.fromEmails = [];
-      this.organizationToEdit.fromEmails.push({ title: '', email: '' })
+      this.organizationToEdit.fromEmails.push({ title: '', email: '' });
     },
-    addFilterItem() {
-      if (!this.organizationToEdit.filters) this.organizationToEdit.filters = [];
-      this.organizationToEdit.filters.push({ title: '', releaseTypes: [], wasDistributed: undefined, id: getRandomId() })
+    addRouteFilterItem() {
+      if (!this.organizationToEdit.routes) this.organizationToEdit.routes = [];
+      this.organizationToEdit.routes.push({ title: '', releaseFilter: {releaseTypes: [], wasDistributed: undefined}, id: getRandomId(), showInClient: false, htmlContentFilePath: '' });
+    },
+    addInnerFilterItem() {
+      if (!this.organizationToEdit.innerFilters) this.organizationToEdit.innerFilters = [];
+      this.organizationToEdit.innerFilters.push({ field: '', title: '', options: [], id: getRandomId() });
     },
     addReleaseTypeItem() {
       if (!this.organizationToEdit.releaseTypes) this.organizationToEdit.releaseTypes = [];
-      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), /* fileUrl: '', */ dataFieldsStr: '', isGroup: false })
+      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), /* fileUrl: '', */ dataFieldsStr: '', isGroup: false });
     },
     addTemplateItem() {
       if (!this.organizationToEdit.templates) this.organizationToEdit.templates = [];
-      this.organizationToEdit.templates.push( { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), hadlebarsFileStr: '' })
+      this.organizationToEdit.templates.push( { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), handlebarsLocalFilePath: '' });
     },
     addLogoItem() {
       if (!this.organizationToEdit.logos) this.organizationToEdit.logos = [];
-      this.organizationToEdit.logos.push({url: '', id: getRandomId(), title: ''})
+      this.organizationToEdit.logos.push({url: '', id: getRandomId(), title: ''});
     },
   },
   created() {

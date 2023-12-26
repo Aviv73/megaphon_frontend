@@ -30,8 +30,8 @@ export default {
   methods: {
     getAllReleases(filterBy) {
       const filterToSend = JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) }));
-      // filterToSend.params.releaseType = this.releaseType;
-      this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.orgFilter });
+      // filterToSend.params.page = this.page;
+      this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.orgFilter.releaseFilter });
     }
   },
   computed: {
@@ -44,20 +44,20 @@ export default {
     isLoading() {
       return this.$store.getters['release/isLoading'];
     },
-    releaseTypeInQuery() {
-      return this.$route.query.releaseType;
+    releasePageInQuery() {
+      return this.$route.query.page;
     },
 
     
     org () {
       return this.$store.getters['organization/selectedItem'];
     },
-    allFilters() {
-      return this.org?.filters || [];
+    allRouteFilters() {
+      return this.org?.routes || [];
     },
     orgFilter() {
-      const typeName = this.releaseTypeInQuery;
-      const filterItem = this.allFilters.find(c => c.title === typeName) || {};
+      const typeName = this.releasePageInQuery;
+      const filterItem = this.allRouteFilters.find(c => c.title === typeName) || {};
       return filterItem;
     }
   },
@@ -72,7 +72,7 @@ export default {
         this.getAllReleases();
       }
     },
-    releaseTypeInQuery(val, prev) {
+    releasePageInQuery(val, prev) {
       if (!val || !prev) return;
       const newFilter = JSON.parse(JSON.stringify(this.filterBy));
       newFilter.filter.params.type = newFilter.filter.params.subType = '';

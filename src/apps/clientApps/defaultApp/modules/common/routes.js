@@ -1,5 +1,6 @@
 import Home from './views/default_Home';
 import About from './views/default_About';
+import CostumePage from './views/default_CostumePage';
 
 export const commonRoutes = [
   {
@@ -11,5 +12,10 @@ export const commonRoutes = [
     path: '/about',
     component: About,
     name: 'AboutPage'
+  },
+  {
+    name: 'CostumePage',
+    path: '/nav',
+    component: CostumePage
   }
 ]

@@ -44,13 +44,13 @@ export default {
   methods: {
     getAllReleases(filterBy) {
       // if (!this.currOrgFilter) return;
-      // this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.filters?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
+      // this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.routes?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
       
-      const typeName = this.$route.query.releaseType;
-      if (!typeName) return;
-      const filterItem = this.organization?.filters.find(c => c.title === typeName) || this.organization?.filters?.[0] || undefined;
+      const routeName = this.$route.query.page;
+      if (!routeName) return;
+      const filterItem = this.organization?.routes.find(c => c.title === routeName) || this.organization?.routes?.[0] || undefined;
       if (!filterItem) return;
-      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterItem, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
+      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterItem.releaseFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
     handleOrgReleaseFilter(orgFilter) {
       this.$store.commit({ type: 'release/resetFilter' });
@@ -98,10 +98,10 @@ export default {
       // this.currOrgFilter = null
     },
     organization(org) {
-      // if (this.$route.query.releaseType) return;
+      // if (this.$route.query.page) return;
       if (!org) return;
-      if (org.filters?.find(c => c.title === this.$route.query.releaseType)) this.getAllReleases();
-      else this.$router.push({ query: { ...this.$route.query, releaseType: org?.filters?.[0]?.title || '' } });
+      if (org.routes?.find(c => c.title === this.$route.query.page)) this.getAllReleases();
+      else this.$router.push({ query: { ...this.$route.query, page: org?.routes?.[0]?.title || '' } });
     },
     releaseTypeInQuery(val, prev) {
       this.getAllReleases();

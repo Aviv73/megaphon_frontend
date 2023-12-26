@@ -58,7 +58,7 @@ export default {
           releaseTypes: this.dataField.filter?.length? this.dataField.filter : undefined,
           // wasDistributed : false
         }
-        // orgFilter: this.organization.filters?.find(c => c._id === this.dataField.filter)
+        // orgFilter: this.organization.routes?.find(c => c._id === this.dataField.filter)
       },
       releases: [],
       showMsg: false,

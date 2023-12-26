@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     showBookTypes() {
-      return this.$route.query.releaseType === 'book';
+      return this.$route.query.page === 'book';
     },
   },
   methods: {

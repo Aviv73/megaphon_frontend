@@ -22,8 +22,8 @@
           <!-- <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link> -->
           
           <router-link 
-            v-for="filterItem in allFilters" :key="filterItem.id"
-            :to="{ name: 'ReleasePage', query: { releaseType: filterItem.title  } }"
+            v-for="filterItem in allRouteFilters" :key="filterItem.id"
+            :to="{ name: 'CostumePage', query: { page: filterItem.title  } }"
             class="nav-link" 
           >
             {{filterItem.title}}
@@ -62,8 +62,8 @@ export default {
     org () {
       return this.$store.getters['organization/selectedItem'] || {};
     },
-    allFilters() {
-      return this.org?.filters?.filter(c => c.showInClient) || [];
+    allRouteFilters() {
+      return this.org?.routes?.filter(c => c.showInClient) || [];
     },
 
     // release() {

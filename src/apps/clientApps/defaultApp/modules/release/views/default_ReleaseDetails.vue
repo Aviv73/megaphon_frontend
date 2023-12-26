@@ -21,7 +21,7 @@ export default {
       return this.$store.getters['release/selectedItem'];
     },
     isMonthlyRelease() {
-      // return this.release.releaseData.releaseType === 'group';
+      // return this.release.releaseData.page === 'group';
       return !!this.release.releaseData.childrenReleases;
     },
 

@@ -23,7 +23,7 @@
           <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
           <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
           <router-link class="nav-link" :to="bookReleasePageRouteTo">{{$t('allBooks')}}</router-link>
-          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { releaseType: 'monthly', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('archive')}}</router-link>
+          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { page: 'monthly', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('archive')}}</router-link>
           <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
         </div>
         <div class="flex align-center gap20">
@@ -61,7 +61,7 @@ export default {
     //   return this.$store.getters['release/initReleaseId'];
     // },
     bookReleasePageRouteTo() {
-      return { name: 'ReleasePage', query: { releaseType: 'book', 'filter_params_subType': '', 'filter_params_type': ''  } };
+      return { name: 'ReleasePage', query: { page: 'book', 'filter_params_subType': '', 'filter_params_type': ''  } };
     },
     showOnlyreleases() {
       return this.$route.query?.releasesView === 'true';

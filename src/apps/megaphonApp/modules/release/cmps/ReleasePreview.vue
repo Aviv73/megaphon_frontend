@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     goToLandingPage() {
-      const pageUrl = getReleaseLandingPageUrl(this.item, this.organization, false, this.release.releaseType);
+      const pageUrl = getReleaseLandingPageUrl(this.item, this.organization, false);
       window.open(pageUrl);
     },
     toggleToSelectedReleases(isDraging) {

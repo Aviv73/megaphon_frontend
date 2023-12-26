@@ -9,22 +9,22 @@
 
       <div class="release-actions flex align-center gap50 height-all" v-if="($route.name === 'ReleasePage') && organization">
         <div class="links flex align-center gap10 height-all">
-          <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
+          <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {page: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn big primary">
               {{$t('create')}} {{type.name}}
             </button>
           </router-link>
         </div>
         <div class="filters flex align-center height-all">
-          <!-- <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.filters" :key="filter._id" @click="emitFilter(filter)">
+          <!-- <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.routes" :key="filter._id" @click="emitFilter(filter)">
             {{filter.title}}
           </button> -->
           
           <router-link
-            v-for="filterItem in organization.filters" :key="filterItem.id"
-            :to="{ name: 'ReleasePage', query: { releaseType: filterItem.title  } }"
+            v-for="filterItem in organization.routes" :key="filterItem.id"
+            :to="{ name: 'ReleasePage', query: { page: filterItem.title  } }"
             class="nav-link flex align-center"
-            :class="{selected: $route.query.releaseType === filterItem.title}"
+            :class="{selected: $route.query.page === filterItem.title}"
           >
             {{filterItem.title}}
           </router-link>
@@ -83,7 +83,7 @@ export default {
       deep: true,
       handler(val) {
         if (!val) return;
-        const firstFilter = val.filters?.[0];
+        const firstFilter = val.routes?.[0];
         // if (!firstFilter) return;
         // this.selecterOrgFilterId = firstFilter?._id || null;
         this.emitFilter(firstFilter);

@@ -30,7 +30,7 @@ export default {
   methods: {
     getAllReleases(filterBy) {
       const filterToSend = JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) }));
-      // filterToSend.params.releaseType = this.releaseType;
+      // filterToSend.params.page = this.page;
       this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.orgFilter });
     }
   },
@@ -44,11 +44,11 @@ export default {
     isLoading() {
       return this.$store.getters['release/isLoading'];
     },
-    releaseTypeInQuery() {
-      return this.$route.query.releaseType;
+    releasePageInQuery() {
+      return this.$route.query.page;
     },
     orgFilter() {
-      switch (this.releaseTypeInQuery) {
+      switch (this.releasePageInQuery) {
         case 'monthly':
           return {releaseTypes: ['643eb005afc5d349300c0881']}
         case 'book':
@@ -63,7 +63,7 @@ export default {
     // this.$store.commit({ type: 'release/resetFilter' });
   },
   watch: {
-    releaseTypeInQuery(val, prev) {
+    releasePageInQuery(val, prev) {
       if (!val || !prev) return;
       const newFilter = JSON.parse(JSON.stringify(this.filterBy));
       newFilter.filter.params.type = newFilter.filter.params.subType = '';

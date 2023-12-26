@@ -101,13 +101,13 @@ export default {
 
     designsOpts() {
       if (!this.org) return [];
-      const templates = getReleaseRelevantTemplate(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1', this.releaseType);
+      const templates = getReleaseRelevantTemplate(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1');
       return templates;
     },
     landingPageUrl() {
       // console.log(this.selectedDesignTypeToShow, typeof (this.selectedDesignTypeToShow));
       console.log(getReleaseLandingPageUrl(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1'))
-      return getReleaseLandingPageUrl(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1', this.releaseType);
+      return getReleaseLandingPageUrl(this.itemToEdit, this.org, this.selectedDesignTypeToShow === '1');
     },
 
     iframeStyle() {

@@ -2,8 +2,8 @@
   <section v-if="release" class="book-release-details inner-container main-pad-y flex column gap50">
     <RoutesLocator :links="[
       {label: $t('main'), to: {name: 'ReleasePage'}/*$store.getters.mainLinkRouteTo*/ },
-      {label: release.type, to: {name: 'ReleasePage', query: {'filter_params_type': release.type, releaseType: 'book'} } },
-      {label: release.subType, to: {name: 'ReleasePage', query: {'filter_params_subType': release.subType, releaseType: 'book'} } },
+      {label: release.type, to: {name: 'ReleasePage', query: {'filter_params_type': release.type, page: 'book'} } },
+      {label: release.subType, to: {name: 'ReleasePage', query: {'filter_params_subType': release.subType, page: 'book'} } },
       {label: release.title, to: {name: 'ReleaseDetails', params: { id: release._id} }, disabled: true },
     ]"/>
     <h1>{{release.title}}</h1>
