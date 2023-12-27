@@ -21,7 +21,7 @@
           </button> -->
           
           <router-link
-            v-for="filterItem in organization.routes" :key="filterItem.id"
+            v-for="filterItem in organization.routes.filter(c => !c.htmlContentFilePath)" :key="filterItem.id"
             :to="{ name: 'ReleasePage', query: { page: filterItem.title  } }"
             class="nav-link flex align-center"
             :class="{selected: $route.query.page === filterItem.title}"
