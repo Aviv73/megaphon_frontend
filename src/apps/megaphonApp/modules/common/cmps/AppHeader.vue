@@ -9,7 +9,7 @@
 
       <div class="release-actions flex align-center gap50 height-all" v-if="($route.name === 'ReleasePage') && organization">
         <div class="links flex align-center gap10 height-all">
-          <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {page: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
+          <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn big primary">
               {{$t('create')}} {{type.name}}
             </button>
