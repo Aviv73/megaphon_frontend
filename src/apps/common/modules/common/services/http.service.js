@@ -15,7 +15,7 @@ const BASE_URL = config.baseApiUrl
 async function ajax(endpoint = '', method = 'get', data = {}, params = {}, headers = {}) {
   try {
     const res = await axios({
-      url: BASE_URL + endpoint,
+      url: BASE_URL + '/' + endpoint,
       method,
       data,
       params,
@@ -41,7 +41,7 @@ export const httpService = {
 
 
 async function download(endpoint, params) {
-  const url = `${BASE_URL}${endpoint}${Utils.getQuerysStr(params)}`;
+  const url = `${BASE_URL}/${endpoint}${Utils.getQuerysStr(params)}`;
   // let fileName;
   // let blob;
   try {

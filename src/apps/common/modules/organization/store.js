@@ -6,7 +6,7 @@ import selectedAppData from '@/apps/index.js';
 
 const initState = () => ({
   ...basicStoreService.initState(),
-  organizationId: selectedAppData.params.organizationId,
+  organizationId: '',
 });
 
 export const basicStore = basicStoreService.createSimpleCrudStore(initState, organizationService, 'organization');
@@ -19,7 +19,10 @@ const _organizationStore = {
       return dispatch({
         type: '_Ajax',
         do: async () => organizationService.get(organizationId || selectedAppData.params.organizationId),
-        onSuccess: (item) => commit({ type: 'setSelectedItem', item })
+        onSuccess: (item) => {
+          commit({ type: 'setSelectedItem', item })
+          commit({ type: 'setProp', key: 'organizationId', val: item.organizationId })
+        }
       });
     }
   }

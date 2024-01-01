@@ -68,12 +68,16 @@
         <div class="flex column gap20 align-start">
           <p>{{$t('organization.designPreferences')}}</p>
           <div class="input-container">
-            <p>{{$t('organization.color')}}</p>
-            <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/>
+            <p>{{$t('organization.colors')}}</p>
+            <!-- <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/> -->
+            <FormInput type="color" placeholder="clr1" v-model="organizationToEdit.designPreferences.colorsPalate[0]"/>
+            <FormInput type="color" placeholder="clr2" v-model="organizationToEdit.designPreferences.colorsPalate[1]"/>
           </div>
           <div class="input-container">
-            <p>{{$t('organization.bgColor')}}</p>
-            <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/>
+            <p>{{$t('organization.bgColors')}}</p>
+            <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
+            <FormInput type="color" placeholder="clr3" v-model="organizationToEdit.designPreferences.colorsPalate[2]"/>
+            <FormInput type="color" placeholder="clr4" v-model="organizationToEdit.designPreferences.colorsPalate[3]"/>
           </div>
         </div>
 
@@ -89,7 +93,7 @@
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.routes || []" :key="idx">
-              <FormInput type="text" placeholder="title" v-model="curr.title"/>
+              <FormInput type="text" placeholder="name" v-model="curr.name"/>
               <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseFilter.releaseTypes"/>
               <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.releaseFilter.wasDistributed"/>
               <FormInput type="text" placeholder="htmlContentFilePath" v-model="curr.htmlContentFilePath"/>
@@ -131,7 +135,7 @@
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.releaseTypes || []" :key="idx">
-              <FormInput type="autocomplete" placeholder="id" v-model="curr.id" :items="['DEFAULT_SIMPLE', 'DEFAULT_GROUP']"/>
+              <FormInput type="autocomplete" placeholder="id" v-model="curr.id" :items="defaultTemplateTypesIds"/>
               <FormInput type="text" placeholder="name" v-model="curr.name"/>
               <FormInput type="text" placeholder="dataFieldsFilePath" v-model="curr.dataFieldsLocalFilePath"/>
               <FormInput type="checkbox" v-model="curr.isGroup"/>
@@ -186,6 +190,7 @@ import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
 import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service'
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import TableActionBtns from '../../../../common/modules/common/cmps/TableActionBtns.vue';
+import { templateUtils } from '../../common/services/template.util.service';
 export default {
   name: 'OrganizationEdit',
   data() {
@@ -202,6 +207,9 @@ export default {
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
     },
+    defaultTemplateTypesIds() {
+      return templateUtils.DEFAULY_TEMPLATES_DATA.templates.map(c => c.id);
+    }
   },
   methods: {
     async getOrganization() {
@@ -228,7 +236,7 @@ export default {
     },
     addRouteFilterItem() {
       if (!this.organizationToEdit.routes) this.organizationToEdit.routes = [];
-      this.organizationToEdit.routes.push({ title: '', releaseFilter: {releaseTypes: [], wasDistributed: undefined}, id: getRandomId(), showInClient: false, htmlContentFilePath: '' });
+      this.organizationToEdit.routes.push({ name: '', releaseFilter: {releaseTypes: [], wasDistributed: undefined}, id: getRandomId(), showInClient: false, htmlContentFilePath: '' });
     },
     addInnerFilterItem() {
       if (!this.organizationToEdit.innerFilters) this.organizationToEdit.innerFilters = [];

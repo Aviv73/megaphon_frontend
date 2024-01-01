@@ -48,7 +48,7 @@ export default {
       
       const routeName = this.$route.query.page;
       if (!routeName) return;
-      const filterItem = this.organization?.routes.find(c => c.title === routeName) || this.organization?.routes?.[0] || undefined;
+      const filterItem = this.organization?.routes.find(c => c.name === routeName) || this.organization?.routes?.[0] || undefined;
       if (!filterItem) return;
       this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterItem.releaseFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
@@ -100,8 +100,8 @@ export default {
     organization(org) {
       // if (this.$route.query.page) return;
       if (!org) return;
-      if (org.routes?.find(c => c.title === this.$route.query.page)) this.getAllReleases();
-      else this.$router.push({ query: { ...this.$route.query, page: org?.routes?.[0]?.title || '' } });
+      if (org.routes?.find(c => c.name === this.$route.query.page)) this.getAllReleases();
+      else this.$router.push({ query: { ...this.$route.query, page: org?.routes?.[0]?.name || '' } });
     },
     releaseTypeInQuery(val, prev) {
       this.getAllReleases();

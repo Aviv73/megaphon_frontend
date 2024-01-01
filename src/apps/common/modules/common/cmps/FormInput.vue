@@ -176,6 +176,8 @@ export default {
     
     showVals: { required: false, type: Boolean, default: false },
     listUp: { required: false, type: Boolean, default: false },
+
+    debug: { required: false, type: Boolean, default: false },
   },
   data() {
     return {
@@ -199,6 +201,7 @@ export default {
       // else this.val = this.val?.value || this.val;
       // if (!this.val || typeof this.val === 'string') this.val = { value: this.value || '', label: this.value || '' };  
       // else 
+      if (this.debug) console.log('WOWOWOW', this.value, this.val);
       this.val = this.val?.value || this.val;
     }
     if (this.type === 'date') {

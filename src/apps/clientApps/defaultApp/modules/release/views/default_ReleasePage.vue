@@ -57,7 +57,7 @@ export default {
     },
     orgFilter() {
       const typeName = this.releasePageInQuery;
-      const filterItem = this.allRouteFilters.find(c => c.title === typeName) || {};
+      const filterItem = this.allRouteFilters.find(c => c.name === typeName) || {};
       return filterItem;
     }
   },

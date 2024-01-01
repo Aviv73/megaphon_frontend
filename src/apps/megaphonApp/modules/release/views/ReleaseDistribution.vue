@@ -165,7 +165,7 @@ import { contactService } from '../../contact/contact.service';
 import { distributionService } from '../services/distribution.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
-import { getReleaseLandingPageUrl, getReleaseRelevantTemplate } from '../../common/services/template.util.service';
+import { templateUtils } from '../../common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
 export default {
@@ -221,7 +221,7 @@ export default {
     },
 
     distributionTemplate() {
-      return getReleaseRelevantTemplate(this.release, this.org, true);
+      return templateUtils.getReleaseRelevantTemplateItem(this.release, this.org, true);
     },
 
     contactsForDistributeToShow() {
@@ -233,7 +233,7 @@ export default {
 
     sendInEmailUrl() {
       // &token=${getRandomId('')}
-      return getReleaseLandingPageUrl(this.release, this.org, false) + `?releaseId=${this.release?._id}&origin=email&token=`;
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.org, false) + `?releaseId=${this.release?._id}&origin=email&token=`;
     }
   },
 

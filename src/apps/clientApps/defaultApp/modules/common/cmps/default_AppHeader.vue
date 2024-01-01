@@ -23,10 +23,10 @@
           
           <router-link 
             v-for="filterItem in allRouteFilters" :key="filterItem.id"
-            :to="{ name: 'CostumePage', query: { page: filterItem.title  } }"
+            :to="{ name: 'CostumePage', query: { page: filterItem.name  } }"
             class="nav-link" 
           >
-            {{filterItem.title}}
+            {{filterItem.name}}
           </router-link>
           <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
         </div>

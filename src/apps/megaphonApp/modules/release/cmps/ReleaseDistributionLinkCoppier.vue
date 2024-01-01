@@ -32,7 +32,7 @@
 <script>
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
-import { getReleaseLandingPageUrl, getReleaseRelevantTemplate } from '../../common/services/template.util.service';
+import { templateUtils } from '../../common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 export default {
@@ -62,7 +62,7 @@ export default {
       // this.token === 'random'? getRandomId('') : this.token
       // &token=${getRandomId('')}
       const _token = this.tokenType === 'unique'? this.randomToken : this.tokenType === 'none'? '' : this.token;
-      return getReleaseLandingPageUrl(this.release, this.organization, false) + 
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, false) + 
           `?releaseId=${this.release?._id}&origin=${this.origin}&token=${_token}`;
     }
   },

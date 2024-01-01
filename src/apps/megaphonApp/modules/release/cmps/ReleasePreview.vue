@@ -17,7 +17,7 @@
 
 <script>
 import DragDiv from '../../common/cmps/dnd/DragDiv.vue';
-import { getReleaseLandingPageUrl } from '../../common/services/template.util.service';
+import { templateUtils } from '../../common/services/template.util.service';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 export default {
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     goToLandingPage() {
-      const pageUrl = getReleaseLandingPageUrl(this.item, this.organization, false);
+      const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, false);
       window.open(pageUrl);
     },
     toggleToSelectedReleases(isDraging) {

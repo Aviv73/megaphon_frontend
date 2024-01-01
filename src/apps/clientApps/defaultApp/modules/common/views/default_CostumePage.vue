@@ -30,7 +30,7 @@ export default {
       return this.org?.routes || [];
     },
     routeItem() {
-      return this.allRouteFilters.find(c => c.title === this.pageNameInRoute) || {};
+      return this.allRouteFilters.find(c => c.name === this.pageNameInRoute) || {};
     },
     isReleasePage() {
       return !!this.routeItem.releaseFilter?.releaseTypes?.length;

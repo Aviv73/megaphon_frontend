@@ -14,6 +14,7 @@ config = {
   ...config,
   env: ENV,
   isDev: ENV === 'development',
+  baseServerUrl: location.origin
 }
 
 export default config;

@@ -1,26 +1,34 @@
 
 import config from '@/config';
-// const serverBaseUrl = location.origin || config.baseApiUrl;
-const serverBaseUrl = config.baseApiUrl;
-const origin = location.origin;
 
-export function getReleaseLandingPageUrl(release, organization, isNews) {
-  const template = getReleaseRelevantTemplate(release, organization, isNews);
-  // if (!template) return '';
-  if (template?.url) { // if outer site url
+
+const DEFAULY_TEMPLATES_DATA = _getDefaultTEmplatesData();
+
+
+export const templateUtils = {
+  DEFAULY_TEMPLATES_DATA,
+  getReleaseLandingPageUrl,
+  getReleaseRelevantTemplateItem,
+  getAllRelevantTemplatesForRelease,
+  getAllDefaultTemplatesForReleaseType,
+}
+
+
+function getReleaseLandingPageUrl(release, organization, isNews) {
+  const template = getReleaseRelevantTemplateItem(release, organization, isNews);
+  if (template?.url) { // if outer site url, like ho1/hot8;
     let pageUrl = template?.url || '';
     pageUrl = pageUrl.split('${releaseId}').join(release._id);
     return pageUrl;
   } 
   let url = '';
   if (template?.handlebarsLocalFilePath) { // if giving local handlebars file
-    // const pageUrl = `${serverBaseUrl}/release/${organization.appName || organization._id}/${isNews ? 'newsletter' : 'client'}/${release._id}`;
-    url = `${serverBaseUrl}client/${organization._id}/${isNews ? 'newsletter/' : ''}${release._id}`;
+    url = `${config.baseApiUrl}/client/${organization._id}/${isNews ? 'newsletter/' : ''}${release._id}`;
   } else { // if using vueJs app
     if (!isNews) {
-      url = `${origin}/client/${organization._id}/#/release/${release._id}`;
+      url = `${config.baseServerUrl}/client/${organization._id}/#/release/${release._id}`;
     } else {
-      url = `${serverBaseUrl}client/${organization._id}/${isNews ? 'newsletter/' : ''}${release._id}`;
+      url = `${config.baseApiUrl}/client/${organization._id}/${isNews ? 'newsletter/' : ''}${release._id}`;
     }
   }
   if (template?.appName) { // nested domain;
@@ -29,16 +37,121 @@ export function getReleaseLandingPageUrl(release, organization, isNews) {
   return url;
 }
 
-export function getReleaseRelevantTemplate(release, organization, isNews) {
-  const selectedTEmplate = release.design[isNews? 'email' : 'landingPage'];
-  if (selectedTEmplate && (typeof(selectedTEmplate) === 'string') && organization.templates.find(c => c.id === selectedTEmplate)) return organization.templates.find(c => c.id === selectedTEmplate);
+function getReleaseRelevantTemplateItem(release, organization, isNews) {
+  const allTemplatesToSearch = [...organization.templates, ...DEFAULY_TEMPLATES_DATA.templates];
+  const selectedTEmplateId = release.design[isNews? 'email' : 'landingPage'];
+  if (selectedTEmplateId && (typeof(selectedTEmplateId) === 'string') && allTemplatesToSearch.find(c => c.id === selectedTEmplateId)) return allTemplatesToSearch.find(c => c.id === selectedTEmplateId);
+  return getAllRelevantTemplatesForRelease(release, organization, isNews, true)[0];
+}
+
+function getAllRelevantTemplatesForRelease(release, organization, isNews, withDefaults = true) {
   const type = isNews? '1' : '0';
   const templates = organization.templates
         .filter(c => c.type == type)
         .filter(c => c.releaseTypes.includes(release.releaseType));
-  return templates[0];
+  if (withDefaults) {
+    templates.push(
+      ...getAllDefaultTemplatesForReleaseType(organization.releaseTypes.find(c => c.id === release.releaseType), isNews)
+    );
+  }
+  return templates;
 }
 
-export async function uploadImg(fileData) { // { src, name };
-  return fileData
+function getAllDefaultTemplatesForReleaseType(releaseTypeItem, isNews) {
+  const isGroup = releaseTypeItem.isGroup;
+  const defaultReleaseTypeIds = DEFAULY_TEMPLATES_DATA.releaseTypes.filter(c => c.isGroup === isGroup).map(c => c.id);
+  const defaultTemplatesToSearch = DEFAULY_TEMPLATES_DATA.templates.filter(c => c.releaseTypes.find(type => defaultReleaseTypeIds.includes(type)));
+  const type = isNews? '1' : '0';
+  const templates = defaultTemplatesToSearch
+        .filter(c => c.type == type);
+  return templates;
+}
+
+function _getDefaultTEmplatesData() {
+  return {
+    "releaseTypes" : [
+      {
+          "name" : "פשוט",
+          "id" : "DEFAULT_SIMPLE_RELEASE",
+          "dataFieldsStr" : "",
+          "isGroup" : false,
+          dataFieldsLocalFilePath: 'default/simple/default.simple.datafields'
+      },
+      {
+          "name" : "קבוצתי",
+          "id" : "DEFAULT_GROUP_RELEASE",
+          "dataFieldsStr" : "",
+          "isGroup" : true,
+          dataFieldsLocalFilePath: 'default/group/default.group.datafields'
+      }
+    ],
+    "templates": [
+      {
+          "name" : "דיפולטיבי - רליס פשוט",
+          "id" : "DEFAULT_SIMPLE_LANDINGPAGE",
+          "type" : "0", // landing page
+          isNews: false,
+          "releaseTypes" : [ 
+              "DEFAULT_SIMPLE_RELEASE"
+          ],
+          "appName" : ""
+      },
+      {
+          "name" : "דיפולטיבי - רליס קבוצתי",
+          "id" : "DEFAULT_GROUP_LANDINGPAGE",
+          "type" : "0",
+          isNews: false,
+          "releaseTypes" : [ 
+              "DEFAULT_GROUP_RELEASE"
+          ],
+          "appName" : ""
+      },
+      {
+          "name" : "דיפולטיבי - ניוזלטר רליס קבוצתי",
+          "id" : "DEFAULT_GROUP_NEWSLETTER",
+          "type" : "1",
+          isNews: true,
+          "releaseTypes" : [ 
+              "DEFAULT_GROUP_RELEASE"
+          ],
+          // "handlebarsLocalFilePath" : "default/group/default.group.email"
+          "handlebarsLocalFilePath" : "default/simple/default.simple.email"
+      },
+      {
+          "name" : "דיפולטיבי - ניוזלטר רליס פשוט",
+          "id" : "DEFAULT_SIMPLE_NEWSLETTER",
+          "type" : "1",
+          isNews: true,
+          "releaseTypes" : [ 
+              "DEFAULT_SIMPLE_RELEASE"
+          ],
+          "handlebarsLocalFilePath" : "default/simple/default.simple.email"
+      }
+    ],
+  
+    "routes" : [
+      {
+          "name" : "פשוטים",
+          "id" : "DEFAULT_SIMPLE_ROUTE",
+          "releaseFilter" : {
+              "releaseTypes" : [ 
+                  "DEFAULT_SIMPLE_RELEASE"
+              ]
+          },
+          "showInClient" : true,
+          "htmlContentFilePath" : ""
+      },
+      {
+          "name" : "קבוצתיים",
+          "id" : "DEFAULT_GROUP_ROUTE",
+          "releaseFilter" : {
+              "releaseTypes" : [ 
+                  "DEFAULT_GROUP_RELEASE"
+              ]
+          },
+          "showInClient" : true,
+          "htmlContentFilePath" : ""
+      }
+    ]
+  }
 }

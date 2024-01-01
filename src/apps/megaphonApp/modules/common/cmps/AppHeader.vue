@@ -22,11 +22,11 @@
           
           <router-link
             v-for="filterItem in organization.routes.filter(c => !c.htmlContentFilePath)" :key="filterItem.id"
-            :to="{ name: 'ReleasePage', query: { page: filterItem.title  } }"
+            :to="{ name: 'ReleasePage', query: { page: filterItem.name  } }"
             class="nav-link flex align-center"
-            :class="{selected: $route.query.page === filterItem.title}"
+            :class="{selected: $route.query.page === filterItem.name}"
           >
-            {{filterItem.title}}
+            {{filterItem.name}}
           </router-link>
         </div>
       </div>
