@@ -13,7 +13,7 @@
       <!-- <FormInput
         :debug="true"
         type="select"
-        :value="release.design[designTypeKey]"
+        :value="release.design[designTypeKey] || allTemplates[0]?.id || ''"
         @change="val => $emit('design-template-updated', designTypeKey, val)"
         :items="
           allTemplates
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      selectedDesignTypeToShow: '1',
+      selectedDesignTypeToShow: '0',
       previewPlatform: 'desktop', // / tablet / mobile
     }
   },
