@@ -69,7 +69,7 @@ function reportReleaseOpened(releaseId, queryParams) {
   // let token = params.token; 
   const origin = queryParams.origin;
   const token = queryParams.token;
-  if (!origin) return;
+  if (!origin || !token) return;
   return httpService.get(`${ENDPOINT}/release-opened/`, { origin, token, releaseId, isLandingPage: true });
 }
 
@@ -82,7 +82,7 @@ function reportReleaseOpenedForOutsourceSite(releaseId = '') {
   const origin = getQueryParam('origin');
   const token = getQueryParam('token');
   const releaseIdInQuery = getQueryParam('releaseId');
-  if (!origin) return;
+  if (!origin || !token) return;
   return fetch(
     `${BASE_API_URL}/distribution/release-opened/`
       + `?token=${token}`

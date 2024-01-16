@@ -1,17 +1,19 @@
-
-import config from '@/config';
-
-
 const DEFAULY_TEMPLATES_DATA = _getDefaultTEmplatesData();
-
-
-export const templateUtils = {
+const exportItems = {
   DEFAULY_TEMPLATES_DATA,
   getReleaseLandingPageUrl,
   getReleaseRelevantTemplateItem,
   getAllRelevantTemplatesForRelease,
   getAllDefaultTemplatesForReleaseType,
 }
+
+// /* FOR NODE ENV:: */
+// const config = require("../config");
+// module.exports = { templateUtils: exportItems };
+
+/* FOR ES6 ENV:: */
+import config from '@/config';
+export const templateUtils = exportItems;
 
 
 function getReleaseLandingPageUrl(release, organization, isNews) {
@@ -75,14 +77,14 @@ function _getDefaultTEmplatesData() {
           "id" : "DEFAULT_SIMPLE_RELEASE",
           "dataFieldsStr" : "",
           "isGroup" : false,
-          dataFieldsLocalFilePath: 'default/simple/default.simple.datafields'
+          dataFieldsLocalFilePath: 'default/templates/simple/default.simple.datafields'
       },
       {
           "name" : "קבוצתי",
           "id" : "DEFAULT_GROUP_RELEASE",
           "dataFieldsStr" : "",
           "isGroup" : true,
-          dataFieldsLocalFilePath: 'default/group/default.group.datafields'
+          dataFieldsLocalFilePath: 'default/templates/group/default.group.datafields'
       }
     ],
     "templates": [
@@ -114,8 +116,8 @@ function _getDefaultTEmplatesData() {
           "releaseTypes" : [ 
               "DEFAULT_GROUP_RELEASE"
           ],
-          // "handlebarsLocalFilePath" : "default/group/default.group.email"
-          "handlebarsLocalFilePath" : "default/simple/default.simple.email"
+          // "handlebarsLocalFilePath" : "default/templates/group/default.group.email"
+          "handlebarsLocalFilePath" : "default/templates/simple/default.simple.email"
       },
       {
           "name" : "דיפולטיבי - ניוזלטר רליס פשוט",
@@ -125,7 +127,7 @@ function _getDefaultTEmplatesData() {
           "releaseTypes" : [ 
               "DEFAULT_SIMPLE_RELEASE"
           ],
-          "handlebarsLocalFilePath" : "default/simple/default.simple.email"
+          "handlebarsLocalFilePath" : "default/templates/simple/default.simple.email"
       }
     ],
   
