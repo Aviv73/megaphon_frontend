@@ -23,7 +23,8 @@ export function createItemForDynamicForm(dataFields = []) {
         item[field.fieldName] = '';
         break;
       case 'TABLE':
-        item[field.fieldName] = [createItemForDynamicForm(field.fields)];
+        // item[field.fieldName] = [createItemForDynamicForm(field.fields)];
+        item[field.fieldName] = [];
         break;
       case 'LONGRICHTEXT':
       case 'RICHTEXT':

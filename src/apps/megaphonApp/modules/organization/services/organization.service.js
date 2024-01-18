@@ -61,8 +61,9 @@ function getEmptyOrganization() { // todo
     folders: [/* { name: '', children: [folders], content: [] } */],
     logos: [/* {url: '', id: '', title: ''} */],
     designPreferences: {
-      color: 'black',
-      bgColor: 'white'
+      // color: 'black',
+      // bgColor: 'white',
+      colorsPalate: ['black', 'black', 'black', 'black']
     },
   }
 }

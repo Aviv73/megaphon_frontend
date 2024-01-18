@@ -216,10 +216,10 @@ export default {
           break;
 
 
-        case 'IMAGEINARRAY':
-          this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
-          break;
+        // case 'IMAGEINARRAY':
+        //   this.cmpName = 'MultipleFilePicker';
+        //   this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
+        //   break;
 
         case 'LOGOSELECTION':
           this.cmpName = 'FormInput';
