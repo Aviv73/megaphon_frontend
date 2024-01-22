@@ -469,6 +469,13 @@ export function cropText(txt = '', maxLength = 100, afterTxt = '...') {
     return `${txt.substring(0, maxLength)}${afterTxt}`
 }
   
+export function scrollToEl(toSelector, diff = 0, scrollInElSelector = 'body') {
+    const targetEl = document.querySelector(toSelector);
+    if (!targetEl) return;
+    const pos = getElPosInParent(targetEl, scrollInElSelector);
+    // const scrollEl = document.querySelector(scrollInElSelector);
+    window.scrollTo(0, pos.y + diff);
+  }
 
 
 //////////////////STORAGE_SERVICE////////////////////

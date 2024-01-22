@@ -3,6 +3,7 @@
   <div v-else class="container release-app inner-app">
     <Loader v-if="isLoading" :fullScreen="true"/>
     <div v-else v-html="loadedHtml"></div>
+    <!-- <iframe :src="'/apps/' + this.htmlFilePath" frameborder="0"></iframe> -->
   </div>
 </template>
 
@@ -45,6 +46,10 @@ export default {
       this.loadedHtml = await loadStaticFile(this.htmlFilePath);
       this.isLoading = false;
     }
+  },
+  created() {
+    if (!this.htmlFilePath) return;
+    this.loadHtml();
   },
   watch: {
     htmlFilePath(val) {

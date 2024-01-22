@@ -67,17 +67,22 @@
       <div class="developer-zone" v-if="showDeveloperZone">
         <div class="flex column gap20 align-start">
           <p>{{$t('organization.designPreferences')}}</p>
-          <div class="input-container">
-            <p>{{$t('organization.colors')}}</p>
+          <div class="input-container flex gap20">
+            <!-- <p>{{$t('organization.colors')}}</p> -->
             <!-- <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/> -->
-            <FormInput type="color" placeholder="clr1" v-model="organizationToEdit.designPreferences.colorsPalate[0]"/>
-            <FormInput type="color" placeholder="clr2" v-model="organizationToEdit.designPreferences.colorsPalate[1]"/>
+            <FormInput type="color" labelholder="bodyColor" v-model="organizationToEdit.designPreferences.colorsPalate[0]"/>
+            <FormInput type="color" labelholder="bodyBg" v-model="organizationToEdit.designPreferences.colorsPalate[1]"/>
+          </div>
+          <div class="input-container flex gap20">
+            <!-- <p>{{$t('organization.bgColors')}}</p> -->
+            <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
+            <FormInput type="color" labelholder="headerColor" v-model="organizationToEdit.designPreferences.colorsPalate[2]"/>
+            <FormInput type="color" labelholder="headerBg" v-model="organizationToEdit.designPreferences.colorsPalate[3]"/>
           </div>
           <div class="input-container">
-            <p>{{$t('organization.bgColors')}}</p>
+            <!-- <p>{{$t('organization.headersColor')}}</p> -->
             <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
-            <FormInput type="color" placeholder="clr3" v-model="organizationToEdit.designPreferences.colorsPalate[2]"/>
-            <FormInput type="color" placeholder="clr4" v-model="organizationToEdit.designPreferences.colorsPalate[3]"/>
+            <FormInput type="color" labelholder="headersColor" v-model="organizationToEdit.designPreferences.colorsPalate[4]"/>
           </div>
         </div>
 
@@ -127,7 +132,8 @@
           <p>{{$t('organization.releaseTypes')}}</p>
           <ul class="flex column gap10 table-like">
             <li>
-              <p>{{$t('id')}}</p>
+              <!-- <p>{{$t('id')}}</p> -->
+              <p>{{$t('followReleaseType')}}</p>
               <p>{{$t('name')}}</p>
               <p>{{$t('dataFieldsLocalFilePath')}}</p>
               <p>{{$t('isGroup')}}</p>
@@ -135,7 +141,8 @@
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.releaseTypes || []" :key="idx">
-              <FormInput type="autocomplete" placeholder="id" v-model="curr.id" :items="defaultTemplateTypesIds"/>
+              <!-- <FormInput type="autocomplete" placeholder="id" v-model="curr.id" :items="defaultTemplateTypesIds"/> -->
+              <FormInput type="select" placeholder="followReleaseType" v-model="curr.followReleaseType" :items="[...allReleaseTypes.map(c => ({ value: c.id, label: c.name })), {label: 'none', value: ''}]"/>
               <FormInput type="text" placeholder="name" v-model="curr.name"/>
               <FormInput type="text" placeholder="dataFieldsFilePath" v-model="curr.dataFieldsLocalFilePath"/>
               <FormInput type="checkbox" v-model="curr.isGroup"/>
@@ -207,8 +214,11 @@ export default {
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
     },
-    defaultTemplateTypesIds() {
-      return templateUtils.DEFAULY_TEMPLATES_DATA.templates.map(c => c.id);
+    // defaultTemplateTypesIds() {
+    //   return templateUtils.DEFAULY_TEMPLATES_DATA.templates.map(c => c.id);
+    // },
+    allReleaseTypes() {
+      return templateUtils.getAllReleaseTypesForOrg(this.organizationToEdit);
     }
   },
   methods: {
@@ -244,7 +254,7 @@ export default {
     },
     addReleaseTypeItem() {
       if (!this.organizationToEdit.releaseTypes) this.organizationToEdit.releaseTypes = [];
-      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), /* fileUrl: '', */ dataFieldsStr: '', isGroup: false });
+      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), followReleaseType: '', /* fileUrl: '', */ dataFieldsStr: '', isGroup: false });
     },
     addTemplateItem() {
       if (!this.organizationToEdit.templates) this.organizationToEdit.templates = [];

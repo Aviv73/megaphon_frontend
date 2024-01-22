@@ -4,7 +4,8 @@
   src: url("~@/apps/clientApps/defaultApp/assets/fonts/noyland/noyland-bold-aaa.ttf");
 }
 
-$defaultAppFont: Segoe UI;
+// $defaultAppFont: Segoe UI;
+$defaultAppFont: Rubik,sans-serif;;
 
 $main-font-color: #666666;
 
@@ -16,10 +17,10 @@ html {
 
 
 $layout-red: #EF4B49;
-$headers-font: "noylandBold";
+// $headers-font: "noylandBold";
 
 .default-app {
-  color: $main-font-color;
+  // color: $main-font-color;
   font-family: $defaultAppFont;
   font-weight: 500;
   
@@ -29,8 +30,8 @@ $headers-font: "noylandBold";
   
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: $headers-font;
-    color: $layout-red;
+    // font-family: $headers-font;
+    // color: $layout-red;
   }
 
   .item-page {

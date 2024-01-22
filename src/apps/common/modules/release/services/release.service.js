@@ -44,12 +44,12 @@ function getEmptyRelease() {
     releaseType: '',
     releaseData: {},
     design: {
-      landingPage: {},
-      email: {},
+      landingPage: '',
+      email: '',
     },
-    distribution: {},
-    distributionId: '',
     organizationId: '',
-    allText: ''
+    // distribution: {},
+    // distributionId: '',
+    // allText: ''
   }
 }

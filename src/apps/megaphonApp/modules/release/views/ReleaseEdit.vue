@@ -42,6 +42,7 @@ import DynamicInput from '../cmps/DynamicFormInputs/DynamicInput.vue';
 import { createItemForDynamicForm } from '../../common/services/CreateItemForDynamicForm';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import ReleaseDesignViewer from '../cmps/ReleaseDesignViewer.vue';
+import { templateUtils } from '../../common/services/template.util.service';
 export default {
   name: 'ReleaseEdit',
   data() {
@@ -67,7 +68,8 @@ export default {
 
     selectedReleaseTypeItem() {
       if (!this.org || !this.releaseType) return null;
-      return this.org.releaseTypes.find(c => c.id === this.releaseType);
+      // return this.org.releaseTypes.find(c => c.id === this.releaseType);
+      return templateUtils.getRelevantReleaseTypeItemForRelease(this.releaseType, this.org);
     },
     // dataFields() {
     //   if (!this.selectedReleaseTypeItem) return []

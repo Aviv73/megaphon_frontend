@@ -88,7 +88,8 @@ const en = {
   images: 'Images',
   videos: 'Videos',
   files: 'Files',
-  links: 'Links'
+  links: 'Links',
+  download: "Download"
 }
 const he = {
   "hello": "שלום",
@@ -178,7 +179,8 @@ const he = {
   images: 'תמונות',
   videos: 'וידאוים',
   files: 'קבצים',
-  links: 'קישורים'
+  links: 'קישורים',
+  download: "הורדה"
 }
 const heF = {
   ...he,

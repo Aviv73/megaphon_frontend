@@ -10,11 +10,15 @@
         class="video-file-preview"
         :src="fixFileSrcToThumbnail(file.src)" controls
       />
-      <img
-        v-else-if="cmpType === 'img'"
-        class="img-file-preview"
-        :src="fixFileSrcToThumbnail(file.src)" :alt="file.title"
-      />
+      <template v-else-if="cmpType === 'img'">
+        <img
+          class="img-file-preview"
+          :src="fixFileSrcToThumbnail(file.src)" :alt="file.title"
+        />
+        <div class="actions">
+          <button class="btn" @click="downloadImg(file.src, file.title)">{{$t('download')}}</button>
+        </div>
+      </template>
       <a
         v-else-if="cmpType === 'link'"
         class="link-file-preview"
@@ -35,6 +39,7 @@
 
 <script>
 import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+import { downloadImg } from '../../../../../common/modules/common/services/util.service';
 export default {
   name: 'FileList',
   props: {
@@ -47,7 +52,8 @@ export default {
     }
   },
   methods: {
-    fixFileSrcToThumbnail
+    fixFileSrcToThumbnail,
+    downloadImg
   },
 }
 </script>

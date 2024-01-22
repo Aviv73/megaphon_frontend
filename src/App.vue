@@ -72,7 +72,8 @@ export default {
       return;
     }
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
-    document.title = org.name;
+    // document.title = org.name;
+    // this.setOrgStyling(org);
 
     if (this.$route.meta.reportReleaseOpen) {
       const releaseId = this.$route.params[this.$route.meta.releaseIdParamName];

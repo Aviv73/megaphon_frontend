@@ -36,6 +36,7 @@ function save(item, organizationId) {
 
 function getEmptyRelease() {
   return {
+    organizationId: '',
     releaseType: '',
     releaseData: {},
     design: {
@@ -43,8 +44,7 @@ function getEmptyRelease() {
       email: '',
     },
     // distribution: {},
-    distributionId: '',
-    organizationId: '',
-    allText: ''
+    // distributionId: '',
+    // allText: ''
   }
 }

@@ -30,7 +30,12 @@ const he = {
       "removeSuccess": "רליס נמחק בהצלחה!",
       "savedReleaseSuccess": "פרטי רליס נשמרו בהצלחה!",
       "reportReleaseSuccess": "רליס דווח בהצלחה!"
-    }
+    },
+    "desc": "תקציר",
+    "images": "תמונות",
+    "videos": "לצפיה",
+    "files": "קבצים",
+    "links": "קישורים"
   }
 }
 const heF = {

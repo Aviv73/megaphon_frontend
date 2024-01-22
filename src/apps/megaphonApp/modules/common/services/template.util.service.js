@@ -3,15 +3,17 @@ const exportItems = {
   DEFAULY_TEMPLATES_DATA,
   getReleaseLandingPageUrl,
   getReleaseRelevantTemplateItem,
-  getAllRelevantTemplatesForRelease,
+  getAllRelevantTemplatesForReleaseType,
   getAllDefaultTemplatesForReleaseType,
+  getRelevantReleaseTypeItemForRelease,
+  getAllReleaseTypesForOrg
 }
 
-// /* FOR NODE ENV:: */
+/* FOR NODE ENV:: */
 // const config = require("../config");
 // module.exports = { templateUtils: exportItems };
 
-/* FOR ES6 ENV:: */
+// /* FOR ES6 ENV:: */
 import config from '@/config';
 export const templateUtils = exportItems;
 
@@ -41,19 +43,24 @@ function getReleaseLandingPageUrl(release, organization, isNews) {
 
 function getReleaseRelevantTemplateItem(release, organization, isNews) {
   const allTemplatesToSearch = [...organization.templates, ...DEFAULY_TEMPLATES_DATA.templates];
-  const selectedTEmplateId = release.design[isNews? 'email' : 'landingPage'];
-  if (selectedTEmplateId && (typeof(selectedTEmplateId) === 'string') && allTemplatesToSearch.find(c => c.id === selectedTEmplateId)) return allTemplatesToSearch.find(c => c.id === selectedTEmplateId);
-  return getAllRelevantTemplatesForRelease(release, organization, isNews, true)[0];
+  const selectedTemplateId = release.design[isNews? 'email' : 'landingPage'];
+  if (selectedTemplateId && (typeof(selectedTemplateId) === 'string') && allTemplatesToSearch.find(c => c.id === selectedTemplateId)) return allTemplatesToSearch.find(c => c.id === selectedTemplateId);
+  // return getAllRelevantTemplatesForReleaseType(release.releaseType, organization, isNews, true)[0];
+  return getAllRelevantTemplatesForReleaseType(
+    getRelevantReleaseTypeItemForRelease(release.releaseType, organization).id,
+    organization, isNews, true
+  )[0];
 }
 
-function getAllRelevantTemplatesForRelease(release, organization, isNews, withDefaults = true) {
+function getAllRelevantTemplatesForReleaseType(releaseTypeId, organization, isNews, withDefaults = true) {
   const type = isNews? '1' : '0';
   const templates = organization.templates
         .filter(c => c.type == type)
-        .filter(c => c.releaseTypes.includes(release.releaseType));
+        .filter(c => c.releaseTypes.includes(releaseTypeId));
   if (withDefaults) {
     templates.push(
-      ...getAllDefaultTemplatesForReleaseType(organization.releaseTypes.find(c => c.id === release.releaseType), isNews)
+      // ...getAllDefaultTemplatesForReleaseType(organization.releaseTypes.find(c => c.id === releaseTypeId), isNews)
+      ...getAllDefaultTemplatesForReleaseType(getRelevantReleaseTypeItemForRelease(releaseTypeId, organization), isNews)
     );
   }
   return templates;
@@ -69,18 +76,33 @@ function getAllDefaultTemplatesForReleaseType(releaseTypeItem, isNews) {
   return templates;
 }
 
+
+function getRelevantReleaseTypeItemForRelease(releaseTypeId, organization) {
+  const allTypeItems = getAllReleaseTypesForOrg(organization);
+  const releaseTypeItem = allTypeItems.find(c => c.id === releaseTypeId);
+  if (!releaseTypeItem.followReleaseType) return releaseTypeItem;
+  return allTypeItems.find(c => c.id === releaseTypeItem.followReleaseType);
+}
+
+function getAllReleaseTypesForOrg(organization) {
+  return [
+    ...organization.releaseTypes,
+    ...DEFAULY_TEMPLATES_DATA.releaseTypes
+  ]
+}
+
 function _getDefaultTEmplatesData() {
   return {
     "releaseTypes" : [
       {
-          "name" : "פשוט",
+          "name" : "רליס דיפולטיבי פשוט",
           "id" : "DEFAULT_SIMPLE_RELEASE",
           "dataFieldsStr" : "",
           "isGroup" : false,
           dataFieldsLocalFilePath: 'default/templates/simple/default.simple.datafields'
       },
       {
-          "name" : "קבוצתי",
+          "name" : "רליס דיפולטיבי קבוצתי",
           "id" : "DEFAULT_GROUP_RELEASE",
           "dataFieldsStr" : "",
           "isGroup" : true,

@@ -1,29 +1,38 @@
 <template>
-  <section v-if="release" class="simple-release-details inner-container main-pad-y flex column gap30">
-    <h1>{{release.title}}</h1>
-    <h5>{{release.subTitle}}</h5>
-    <div class="main-content-section flex-1 flex space-between gap60 wrap">
-      <img class="main-img" :src="release.mainImage.src" :alt="release.title"/>
-      <div class="hero-content flex column align-start gap15">
-        <div class="description-container" v-if="release.desc" v-html="release.desc"></div>
-        <div class="flex gap60 links">
-          <h3>{{$t('release.main')}}<hr/></h3>
-          
-          <!-- <router-link target="_blank" v-if="release.comunicatLink?.[0]?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.comunicatLink[0].src) } }"><h3>{{$t('release.comunicat')}}</h3></router-link> -->
-
-        </div>
-        <div class="table-like">
-          <div class="row" v-if="monthPublish"><p>{{$t('release.monthPublish')}}</p><p>{{monthPublish}}</p></div>
+  <section v-if="release" class="simple-release-details inner-container main-pad-y flex align-start gap50">
+    <div class="release-page-nav wide-screen-item sticky flex column gap10">
+      <!-- :style="{position: 'fixed', top: '110px'}" -->
+      <template v-for="tabName in ['desc', 'images', 'videos', 'files', 'links']">
+        <a
+          :key="tabName"
+          :class="{bold: selectedTab === tabName}" 
+          @click="scrollToEl(tabName)"
+          v-if="typeof release[tabName] === 'string'? true : release[tabName]?.filter(c => c.src).length"
+        >
+          {{$t(`release.${tabName}`)}}
+        </a>
+      </template>
+      <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
+    </div>
+    <div class="content-section flex column gap30">
+      <h1>{{release.title}}</h1>
+      <h5>{{release.subTitle}}</h5>
+      <div class="main-content-section flex-1 flex wrap space-between gap60">
+        <img class="main-img" :src="release.mainImage.src" :alt="release.title"/>
+        <div id="desc" class="hero-content flex column align-start gap15">
+          <div class="description-container" v-if="release.desc" v-html="release.desc"></div>
+          <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
         </div>
       </div>
-    </div>
 
-    <FilesSection :release="release"/>
+      <FilesSection :release="release"/>
+    </div>
   </section>
 </template>
 
 <script>
 import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+import { scrollToEl } from '../../../../../common/modules/common/services/util.service';
 import FilesSection from '../cmps/FilesSection.vue';
 
 export default {
@@ -33,6 +42,11 @@ export default {
     release: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      selectedTab: ''
     }
   },
   methods: {
@@ -52,6 +66,12 @@ export default {
     initReleaseId() {
       return this.$store.getters['release/initReleaseId'];
     },
+  },
+  methods: {
+    scrollToEl(elId) {
+      this.selectedTab = elId;
+      return scrollToEl(`#${elId}`, -20);
+    }
   }
 }
 </script>
@@ -60,6 +80,13 @@ export default {
 @import '@/assets/styles/global/index';
 .default-app {
   .simple-release-details {
+    .release-page-nav {
+      height: fit-content;
+      top: em(10px);
+    }
+    .content-section {
+      height: fit-content;
+    }
     .main-content-section {
       height: 100%;
       

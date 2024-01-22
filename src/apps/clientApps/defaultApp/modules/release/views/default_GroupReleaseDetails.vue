@@ -17,12 +17,10 @@
                   <span>
                     לפרטים 
                   </span>
-                  <img :src="require('@/apps/clientApps/agam/assets/images/small-arrow-white.png')" alt="➜"/>
                 </button>
               </router-link>
             </div>
           </div>
-          <div class="hero-footer"></div>
         </div>
         <button class="arrow-btn" @click="shiftChild(-1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'">
@@ -161,20 +159,13 @@ export default {
           }
   
           button {
-            padding: 6px 25px;
             border-radius: 20px;
-            background-color: $layout-red;
-            color: $light-white;
             img {
               height: 12px;
               width: 12px;
             }
           }
 
-        }
-        .hero-footer {
-          height: 15px;
-          background: linear-gradient(90deg, $layout-black 80%, $layout-red 20%);
         }
       }
     }

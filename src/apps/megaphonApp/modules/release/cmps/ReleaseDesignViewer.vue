@@ -56,7 +56,7 @@ export default {
       return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow === '1') + '?selectedDesignID=' + this.release.design[this.designTypeKey];
     },
     allTemplates() {
-      return templateUtils.getAllRelevantTemplatesForRelease(this.release, this.organization, this.selectedDesignTypeToShow == '1', true);
+      return templateUtils.getAllRelevantTemplatesForReleaseType(this.release.releaseType, this.organization, this.selectedDesignTypeToShow == '1', true);
       // return this.org.templates
       //           .filter(c => c.releaseTypes.includes(itemToEdit.releaseType))
       //           .filter(c => c.type == selectedDesignTypeToShow);

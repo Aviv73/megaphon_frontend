@@ -30,6 +30,9 @@
 .main-pad-y {
   padding-top: $main-pad-y;
   padding-bottom: $main-pad-y;
+  &.no-pad-bottom {
+    padding-bottom: 0;
+  }
 }
 
 .app-footer {
