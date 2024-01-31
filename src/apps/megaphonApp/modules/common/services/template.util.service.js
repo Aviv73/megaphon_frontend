@@ -22,6 +22,7 @@ function getReleaseLandingPageUrl(release, organization, isNews) {
   const template = getReleaseRelevantTemplateItem(release, organization, isNews);
   if (template?.url) { // if outer site url, like ho1/hot8;
     let pageUrl = template?.url || '';
+    pageUrl = pageUrl.split('${DOMAIN}').join(config.baseServerUrl);
     pageUrl = pageUrl.split('${releaseId}').join(release._id);
     return pageUrl;
   } 
