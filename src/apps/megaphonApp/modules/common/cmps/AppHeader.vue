@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       mobileShow: false,
-      selecterOrgFilterId: null
+      // selecterOrgFilterId: null
     }
   },
   computed: {
@@ -69,27 +69,32 @@ export default {
       return this.orgId == '-1'? megaphonLogog : this.organization?.logoUrl || megaphonLogog;
     },
   },
-  methods: {
-    emitFilter(filter = null) {
-      evManager.emit('org-release-filter', filter);
-      this.selecterOrgFilterId = filter?.id || null;
-    }
-  },
-  watch: {
-    '$route.path'() {
-      this.mobileShow = false;
-    },
-    organization: {
-      deep: true,
-      handler(val) {
-        if (!val) return;
-        const firstFilter = val.routes?.[0];
-        // if (!firstFilter) return;
-        // this.selecterOrgFilterId = firstFilter?._id || null;
-        this.emitFilter(firstFilter);
-      }
-    }
-  },
+  // methods: {
+  //   emitDefaultFilter() {
+  //     if (!this.organization) return;
+  //     const firstFilter = this.organization.routes?.[0];
+  //     console.log('WOOWOWO', firstFilter);
+  //     // if (!firstFilter) return;
+  //     // this.selecterOrgFilterId = firstFilter?._id || null;
+  //     this.emitFilter(firstFilter);
+  //   },
+  //   emitFilter(filter = null) {
+  //     evManager.emit('org-release-filter', filter);
+  //     this.selecterOrgFilterId = filter?.id || null;
+  //   }
+  // },
+  // watch: {
+  //   '$route.path'() {
+  //     this.mobileShow = false;
+  //     this.emitDefaultFilter();
+  //   },
+  //   organization: {
+  //     deep: true,
+  //     handler(val) {
+  //       this.emitDefaultFilter(val);
+  //     }
+  //   }
+  // },
   components: { Avatar },
 }
 </script>

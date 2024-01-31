@@ -7,36 +7,33 @@ const initState = () => ({
   selectedFolderPath: null
 });
 
-export const basicStore = basicStoreService.createSimpleCrudStore(initState, organizationService, 'organization');
-
-const _organizationStore = {
-  ...basicStore,
-  getters: {
-    ...basicStore.getters,
-    selectedFolder(state) { return state.selectedFolder },
-    selectedFolderPath(state) { return state.selectedFolderPath }
-  },
-  mutations: {
-    ...basicStore.mutations,
-    setSelectedFolder(state, { folderPath, folder }) {
-      state.selectedFolderPath = folderPath;
-      state.selectedFolder = folder;
-    }
-  },
-  actions: {
-    ...basicStore.actions,
-    getAllItems() {
-      return organizationService.query(basicStoreService.initFilterBy());
+export const organizationStore = basicStoreService.createSimpleCrudStore(
+  'organization',
+  initState,
+  {
+    getters: {
+      selectedFolder(state) { return state.selectedFolder },
+      selectedFolderPath(state) { return state.selectedFolderPath }
     },
-    async loadDataFields({ commit, dispatch, getters }, { organizationId, dataFieldsLocalFilePath, releaseType }) {
-      return dispatch({
-        type: '_Ajax',
-        do: async () => {
-          return await organizationService.loadDataFields(dataFieldsLocalFilePath, organizationId, releaseType);
-        },
-      });
+    mutations: {
+      setSelectedFolder(state, { folderPath, folder }) {
+        state.selectedFolderPath = folderPath;
+        state.selectedFolder = folder;
+      }
+    },
+    actions: {
+      getAllItems() {
+        return organizationService.query(basicStoreService.initFilterBy());
+      },
+      async loadDataFields({ commit, dispatch, getters }, { organizationId, dataFieldsLocalFilePath, releaseType }) {
+        return dispatch({
+          type: '_Ajax',
+          do: async () => {
+            return await organizationService.loadDataFields(dataFieldsLocalFilePath, organizationId, releaseType);
+          },
+        });
+      }
     }
-  }
-}
-
-export const organizationStore = { organization: _organizationStore };
+  },
+  organizationService
+);

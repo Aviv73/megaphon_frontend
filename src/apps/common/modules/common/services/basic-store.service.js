@@ -1,3 +1,4 @@
+import { httpService } from '@/apps/common/modules/common/services/http.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service'
 import { delay } from '@/apps/common/modules/common/services/util.service';
 
@@ -53,17 +54,20 @@ async function StoreAjax({ commit, dispatch }, { do: toDo, onSuccess, onError, d
   }
 }
 
-const createSimpleCrudStore = (_initState = initState, service = {}, moduleName = 'item') => {
-  return {
+const createSimpleCrudStore = (moduleName = 'item', _initState = initState, storeData = {}, service, getEmptyItemCb) => {
+  if (!service) service = createDefaultService(moduleName, getEmptyItemCb);
+  const store = {
     namespaced: true,
     state: _initState(),
     getters: {
+      service: () => service,
       data: (state) => state.data,
       items: (state) => state.data.items,
       total: (state) => state.data.total,
       selectedItem: (state) => state.selectedItem,
       filterBy: (state) => state.filterBy,
       isLoading: (state) => state.isLoading,
+      ...(storeData.getters || {})
     },
     mutations: {
       setProp(state, { key, val }) {
@@ -99,11 +103,11 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
         else state.data.items.splice(idx, 1, item);
         if (state.selectedItem?._id === item._id) this.selectedItem = item;
       },
-
       resetFilter(state) {
         const newFilter = _initState().filterBy;
         state.filterBy = newFilter;
-      }
+      },
+      ...(storeData.mutations || {})
     },
     actions: {
       _Ajax: StoreAjax,
@@ -151,13 +155,44 @@ const createSimpleCrudStore = (_initState = initState, service = {}, moduleName 
           }
         });
       },
+      ...(storeData.actions || {})
     }
   }
+  return { [moduleName]: store };
 }
+
+
+function createDefaultService(moduleName, getEmptyItemCb = () => ({})) {
+  const _orgSpace = (orgId) => orgId? `${orgId}/` : '';
+  const service = {
+   query: (filterBy, organizationId) => {
+     return httpService.get(`${moduleName}/${_orgSpace(organizationId)}`, filterBy);
+   },
+   get: (id, organizationId) => {
+     if (!id) return getEmptyItemCb();
+     return httpService.get(`${moduleName}/${_orgSpace(organizationId)}${id}`);
+   },
+   add: (item, organizationId) => {
+     return httpService.post(`${moduleName}/${_orgSpace(organizationId)}`, item);
+   },
+   update: (item, organizationId) => {
+     return httpService.put(`${moduleName}/${_orgSpace(organizationId)}`, item);
+   },
+   remove: (id, organizationId) => {
+     return httpService.delete(`${moduleName}/${_orgSpace(organizationId)}${id}`);
+   },
+   save: (item, organizationId) => {
+     return item._id? service.update(item, organizationId) : service.add(item, organizationId);
+   }
+  }
+  return service;
+}
+
 
 export const basicStoreService = {
   initFilterBy,
   StoreAjax,
   initState,
-  createSimpleCrudStore
+  createSimpleCrudStore,
+  createDefaultService
 }

@@ -46,21 +46,28 @@ export default {
       // if (!this.currOrgFilter) return;
       // this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.routes?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
       
-      const routeName = this.$route.query.page;
+      const routeName = this.pageNameInQuery;
       if (!routeName) return;
       const filterItem = this.organization?.routes.find(c => c.name === routeName) || this.organization?.routes?.[0] || undefined;
       if (!filterItem) return;
       this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterItem.releaseFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
-    handleOrgReleaseFilter(orgFilter) {
-      this.$store.commit({ type: 'release/resetFilter' });
-      this.currOrgFilter = orgFilter;
-      this.getAllReleases();
-    },
+    // handleOrgReleaseFilter(orgFilter) {
+    //   this.$store.commit({ type: 'release/resetFilter' });
+    //   this.currOrgFilter = orgFilter;
+    //   this.getAllReleases();
+    // },
 
     async handleFolderSelection(foldPath, folder) {
       this.$store.commit({ type: 'release/resetFilter' });
       this.getAllReleases();
+    },
+
+    initOrgPage() {
+      const org = this.organization;
+      if (!org) return;
+      if (org.routes?.find(c => c.name === this.pageNameInQuery)) this.getAllReleases();
+      else this.$router.push({ query: { ...this.$route.query, page: org?.routes?.[0]?.name || '' } });
     }
   },
   computed: {
@@ -81,11 +88,15 @@ export default {
     },
     selectedFolder() {
       return this.$store.getters['organization/selectedFolder']
+    },
+    pageNameInQuery() {
+      return this.$route.query.page;
     }
   },
   created() {
     // this.getAllReleases(); // header emits filter when creates => loading releases;
     // evManager.on('org-release-filter', this.handleOrgReleaseFilter);
+    this.initOrgPage();
     evManager.on('folder-selected', this.handleFolderSelection);
   },
   destroyed() {
@@ -98,14 +109,18 @@ export default {
       // this.currOrgFilter = null
     },
     organization(org) {
-      // if (this.$route.query.page) return;
-      if (!org) return;
-      if (org.routes?.find(c => c.name === this.$route.query.page)) this.getAllReleases();
-      else this.$router.push({ query: { ...this.$route.query, page: org?.routes?.[0]?.name || '' } });
+      // if (this.pageNameInQuery) return;
+      this.initOrgPage();
     },
-    releaseTypeInQuery(val, prev) {
+    pageNameInQuery(val, prev) {
       this.getAllReleases();
     },
+    // '$route.path': {
+    //   imidiate: true,
+    //   handler() {
+    //     this.initOrgPage();
+    //   }
+    // }
   },
   components: { ItemSearchList, Loader, ReleasePreview, ReleaseFilter }
 }

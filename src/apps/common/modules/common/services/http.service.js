@@ -41,7 +41,7 @@ export const httpService = {
 
 
 async function download(endpoint, params) {
-  const url = `${BASE_URL}/${endpoint}${Utils.getQuerysStr(params)}`;
+  const url = `${BASE_URL}/${endpoint}?${Utils.getQuerysStr(params)}`;
   // let fileName;
   // let blob;
   try {

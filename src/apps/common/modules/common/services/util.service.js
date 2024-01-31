@@ -24,14 +24,18 @@ export const Utils = {
 
 
 export function getQuerysStr(filterBy = {}) {
-    var queryStr = '?';
+    var queryStr = '';
+    const vals = [];
     for (let key in filterBy) {
         let val = (typeof(filterBy[key]) === 'object')? 
                             JSON.stringify(filterBy[key]) : 
                             filterBy[key];
-        queryStr += `${key}=${val}&`;
+        // queryStr += `${key}=${val}&`;
+        vals.push(`${key}=${val}`);
     }
-    return queryStr.slice(0, queryStr.length-1);
+    // return queryStr.slice(0, queryStr.length-1);
+    queryStr = vals.join('&');
+    return queryStr;
 } 
 
 export function getQuerysStr2(criteria = {}) {

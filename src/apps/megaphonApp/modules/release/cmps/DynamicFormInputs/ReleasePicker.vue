@@ -36,7 +36,7 @@
 <script>
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
-import { releaseService } from '@/apps/common/modules/release/services/release.service.js'
+import { releaseService } from '@/apps/megaphonApp/modules/release/services/release.service.js'
 import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
 export default {
   components: { Modal, FormInput, TableActionBtns },
