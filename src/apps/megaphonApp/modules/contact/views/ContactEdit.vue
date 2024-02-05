@@ -37,25 +37,29 @@ export default {
   computed: {
     isItemValid() {
       return this.itemToEdit && this.itemToEdit.email && this.itemToEdit.firstName && this.itemToEdit.lastName;
+    },
+    orgId() {
+      return this.$route.params.organizationId;
     }
   },
   methods: {
     async getItem() {
-      this.itemToEdit = await this.$store.dispatch({ type: 'contact/loadItem', id: this.$route.params.id });
-      this.itemToEdit.organizationId = this.$route.params.organizationId;
+      this.itemToEdit = await this.$store.dispatch({ type: 'contact/loadItem', id: this.$route.params.id, organizationId: this.orgId });
+      console.log('WOWOW', this.itemToEdit);
+      this.itemToEdit.organizationId = this.orgId;
     },
     async saveItem() {
       if (!this.isItemValid) return;
-      await this.$store.dispatch({ type: 'contact/saveItem', item: this.itemToEdit });
+      await this.$store.dispatch({ type: 'contact/saveItem', item: this.itemToEdit, organizationId: this.orgId });
       this.close();
     },
 
     async deleteItem() {
-      await this.$store.dispatch({ type: 'contact/removeItem', id: this.$route.params.id, organizationId: this.$route.params.organizationId });
+      await this.$store.dispatch({ type: 'contact/removeItem', id: this.$route.params.id, organizationId: this.orgId });
       this.close();
     },
     close() {
-      this.$router.push({ name: 'ContactPage', params: { organizationId: this.$route.params.organizationId } })
+      this.$router.push({ name: 'ContactPage', params: { organizationId: this.orgId } })
     }
   },
   created() {

@@ -115,6 +115,10 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
         return dispatch({
           type: '_Ajax',
           do: async () => {
+            // if (organizationId) {
+            //   if (filterBy) filterBy.organizationId = organizationId;
+            //   else filterBy = { organizationId };
+            // }
             if (filterBy) commit({ type: 'setFilterBy', filterBy });
             const itemsRes = await service.query(getters.filterBy, organizationId);
             return itemsRes;

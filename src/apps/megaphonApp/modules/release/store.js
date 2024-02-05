@@ -30,7 +30,7 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
             const filterToSend = {...getters.filterBy};
             filterToSend.orgFilter = orgFilter;
             filterToSend.folder = folder;
-            const itemsRes = await releaseService.query(filterToSend, organizationId || getters.organizationId);
+            const itemsRes = await getters.service.query(filterToSend, organizationId || getters.organizationId);
             return itemsRes;
           },
           onSuccess: (data) => commit({ type: 'setData', data })
@@ -47,5 +47,6 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
       },
     }
   },
-  releaseService
+  undefined,
+  releaseService.getEmptyRelease
 );

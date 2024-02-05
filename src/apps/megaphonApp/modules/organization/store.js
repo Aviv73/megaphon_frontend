@@ -22,18 +22,19 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
       }
     },
     actions: {
-      getAllItems() {
-        return organizationService.query(basicStoreService.initFilterBy());
+      getAllItems({ getters }) {
+        return getters.service.query(basicStoreService.initFilterBy());
       },
-      async loadDataFields({ commit, dispatch, getters }, { organizationId, dataFieldsLocalFilePath, releaseType }) {
+      async loadReleaseDataFields({ commit, dispatch, getters }, { organizationId, dataFieldsLocalFilePath, releaseType }) {
         return dispatch({
           type: '_Ajax',
           do: async () => {
-            return await organizationService.loadDataFields(dataFieldsLocalFilePath, organizationId, releaseType);
+            return await organizationService.loadReleaseDataFields(dataFieldsLocalFilePath, organizationId, releaseType);
           },
         });
       }
     }
   },
-  organizationService
+  undefined,
+  organizationService.getEmptyOrganization
 );

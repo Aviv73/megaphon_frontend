@@ -248,7 +248,7 @@ export default {
       alertService.toast({ msg: this.$t(`copiedToClipboard`), type: 'safe' });
     },
     async getItem() {
-      this.release = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });
+      this.release = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id, organizationId: this.organizationId });
     },
     async getOrg() {
       this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.organizationId });

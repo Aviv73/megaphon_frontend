@@ -3,6 +3,7 @@ const en = {
     "organization": "Organization",
     "organizations": "Organizations",
     "editOrganization": "Edit organization",
+    "createOrganization": "Create organization",
     "name": "Organization name",
     "fromEmails": "From emails",
     "logos": "logos",
@@ -21,6 +22,7 @@ const he = {
     "organization": "ארגון",
     "organizations": "ארגונים",
     "editOrganization": "ערוך פרטי ארגון",
+    "createOrganization": "צור ארגון חדש",
     "newPassword": "סיסמה חדשה",
     "unBlock": "בטל חסימה",
     "name": "שם האירגון",
@@ -41,6 +43,7 @@ const heF = {
   organization: {
     ...he.organization,
     "editOrganization": "ערכי פרטי ארגון",
+    "createOrganization": "צרי ארגון חדש",
     alerts: {
       ...he.organization.alerts,
       "confirmRemove": "האם את בטוחה שאת רוצה למחוק את הארגון?",

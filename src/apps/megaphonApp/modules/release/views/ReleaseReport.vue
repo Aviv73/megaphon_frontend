@@ -112,7 +112,7 @@ export default {
       this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId });
     },
     getRelease() {
-      this.$store.dispatch({ type: 'release/loadItem', id: this.releaseId });
+      this.$store.dispatch({ type: 'release/loadItem', id: this.releaseId, organizationId: this.$route.params.organizationId });
     },
     getReport() {
       this.$store.dispatch({ type: 'release/loadReport', releaseId: this.releaseId });

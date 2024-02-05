@@ -12,4 +12,4 @@ const initState = () => ({
   }
 });
 
-export const contactStore = basicStoreService.createSimpleCrudStore('contact', initState, contactService);
+export const contactStore = basicStoreService.createSimpleCrudStore('contact', initState, undefined, undefined, contactService.getEmptyItem);

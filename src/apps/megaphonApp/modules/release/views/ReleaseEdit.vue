@@ -82,15 +82,15 @@ export default {
     },
   },
   methods: {
-    async loadDataFields() {
-      this.dataFields = await this.$store.dispatch({ type: 'organization/loadDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.orgId, releaseType: this.releaseType });
+    async loadReleaseDataFields() {
+      this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.orgId, releaseType: this.releaseType });
     },
     async getOrg() {
       this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId });
     },
     async getItem() {
-      this.itemToEdit = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });
-      await this.loadDataFields();
+      this.itemToEdit = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id, organizationId: this.orgId });
+      await this.loadReleaseDataFields();
       if (!this.itemToEdit.organizationId) this.itemToEdit.organizationId = this.orgId;
       if (!this.itemToEdit.releaseType) this.itemToEdit.releaseType = this.releaseType;
       const emptyDataItem = createItemForDynamicForm(this.dataFields);
@@ -143,7 +143,7 @@ export default {
   },
   async created() {
     await this.getOrg();
-    // await this.loadDataFields();
+    // await this.loadReleaseDataFields();
     await this.getItem();
   },
   watch: {

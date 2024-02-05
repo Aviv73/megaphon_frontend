@@ -40,7 +40,8 @@ export default {
   },
   methods: {
     getAllRAccounts(filterBy) {
-      this.$store.dispatch({ type: 'account/loadItems', filterBy, organizationId: this.$route.params.organizationId });
+      filterBy.organizationId = this.$route.params.organizationId;
+      this.$store.dispatch({ type: 'account/loadItems', filterBy });
     },
   },
   computed: {
