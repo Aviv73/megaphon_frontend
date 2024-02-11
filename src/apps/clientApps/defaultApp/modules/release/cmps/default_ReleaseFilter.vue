@@ -98,7 +98,7 @@ export default {
         border-inline-end: unset !important;
         &.selected {
           background-color: unset;
-          color: $layout-red
+          // color: $layout-red
         }
         img {
           width: 15px;

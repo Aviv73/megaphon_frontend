@@ -10,7 +10,7 @@
             <img class="main-img" :src="viewdChild.mainImage.src" :alt="viewdChild.title"/>
             <div class="hero-content flex column align-start gap20">
               <h2>{{viewdChild.title}}</h2>
-              <div v-html="viewdChild.desc"></div>
+              <div v-html="viewdChild.content"></div>
               <hr/>
               <router-link :to="{ params: {id: viewdChild._id} }">
                 <button class="flex align-center gap5">
@@ -31,7 +31,7 @@
       <h1>{{release.title}}</h1>
       <h5>{{release.subTitle}}</h5>
       <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
-      <div v-html="release.desc"></div>
+      <div v-html="release.content"></div>
       <ItemList
         class="flex-1"
         :items="release.childrenReleases"
@@ -125,7 +125,7 @@ export default {
     padding-bottom: $main-pad-y;
   
     .release-hero-view {
-      background-color: rgb(255, 216, 216);
+      background-color: rgb(255, 255, 255);
       padding: em(30px);
       .hero {
         position: relative;
@@ -154,7 +154,7 @@ export default {
             height: 1px;
             align-self: flex-start;
             margin: 0;
-            background-color: $main-font-color;
+            // background-color: $main-font-color;
             border: 0;
           }
   

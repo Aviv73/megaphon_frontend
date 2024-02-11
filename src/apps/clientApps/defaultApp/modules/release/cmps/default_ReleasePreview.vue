@@ -11,6 +11,7 @@
 <script>
 import { htmlStrToText } from '@/apps/common/modules/common/services/util.service';
 import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+import { cropText } from '../../../../../common/modules/common/services/util.service';
 export default {
   name: 'default_ReleasePreview',
   props: {
@@ -28,12 +29,13 @@ export default {
     },
 
     fullDescStr() {
-      return htmlStrToText(this.releaseData.desc);
+      return htmlStrToText(this.releaseData.content);
     },
     shortenDesc() {
-      const desc = this.fullDescStr;
-      if (desc.length <= 100) return desc;
-      return desc.substring(0, 100) + '...';
+      return cropText(this.fullDescStr, 100);
+      // const content = this.fullDescStr;
+      // if (content.length <= 100) return content;
+      // return content.substring(0, 100) + '...';
     },
 
     shrtenTitle() {
@@ -61,12 +63,12 @@ export default {
       width: 100%;
       object-fit: contain;
       // object-fit: cover;
-      background-color: rgb(241, 241, 241);
+      background-color: rgb(255, 255, 255);
     }
   
-    h3 {
-      color: $layout-red;
-    }
+    // h3 {
+    //   color: $layout-red;
+    // }
   }
 }
 </style>

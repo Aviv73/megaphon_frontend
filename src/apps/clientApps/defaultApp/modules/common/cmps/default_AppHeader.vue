@@ -98,7 +98,7 @@ export default {
 @import '@/assets/styles/themes/index';
 .default-app {
   .app-header {
-    background-color: $layout-black;
+    // background-color: $layout-black;
     color: $light-white;
     position: relative;
   
@@ -182,7 +182,7 @@ export default {
           border-bottom: 1px solid black;
           text-align: center;
           &.router-link-exact-active {
-            color: #EF4B49;
+            // color: #EF4B49;
           }
           &:hover {
             transform: unset !important;

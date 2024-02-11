@@ -2,7 +2,7 @@
   <section v-if="release" class="simple-release-details inner-container main-pad-y flex align-start gap50">
     <div class="release-page-nav wide-screen-item sticky flex column gap10">
       <!-- :style="{position: 'fixed', top: '110px'}" -->
-      <template v-for="tabName in ['desc', 'images', 'videos', 'files', 'links']">
+      <template v-for="tabName in ['content', 'images', 'videos', 'files', 'links']">
         <a
           :key="tabName"
           :class="{bold: selectedTab === tabName}" 
@@ -19,8 +19,8 @@
       <h5>{{release.subTitle}}</h5>
       <div class="main-content-section flex-1 flex wrap space-between gap60">
         <img class="main-img" :src="release.mainImage.src" :alt="release.title"/>
-        <div id="desc" class="hero-content flex column align-start gap15">
-          <div class="description-container" v-if="release.desc" v-html="release.desc"></div>
+        <div id="content" class="hero-content flex column align-start gap15">
+          <div class="description-container" v-if="release.content" v-html="release.content"></div>
           <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
         </div>
       </div>
@@ -90,34 +90,34 @@ export default {
     .main-content-section {
       height: 100%;
       
-      .links {
-        width: 100%;
-        border-bottom: 2px solid lighten($layout-red, 30%);
-        >* {
-          padding: 5px;
-          &:not(:first-child) {
-            h3 {
-              color: $layout-black;
-            }
-          }
-          &:first-child {
-            // border-bottom: 4px solid $layout-red;
-          }
-          position: relative;
-          hr {
-            margin: 0;
-            position: absolute;
-            bottom: -3px;
-            right: 50%;
-            transform: translateX(50%);
-            width: 95%;
-            height: 4px;
-            background-color: $layout-red;
-            border: 0;
+      // .links {
+      //   width: 100%;
+      //   // border-bottom: 2px solid lighten($layout-red, 30%);
+      //   >* {
+      //     padding: 5px;
+      //     &:not(:first-child) {
+      //       h3 {
+      //         // color: $layout-black;
+      //       }
+      //     }
+      //     &:first-child {
+      //       // border-bottom: 4px solid $layout-red;
+      //     }
+      //     position: relative;
+      //     hr {
+      //       margin: 0;
+      //       position: absolute;
+      //       bottom: -3px;
+      //       right: 50%;
+      //       transform: translateX(50%);
+      //       width: 95%;
+      //       height: 4px;
+      //       background-color: $layout-red;
+      //       border: 0;
   
-          }
-        }
-      }
+      //     }
+      //   }
+      // }
   
       .main-img {
         height: 100%;
@@ -139,26 +139,26 @@ export default {
         line-height: 1.3em;
       }
   
-      .table-like {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 7.5px;
-        .row {
-          padding: 7.5px;
-          display: flex;
-          gap: em(5px);
-          >:first-child {
-            flex: 2;
-          }
-          >:nth-child(2) {
-            flex: 5;
-          }
-          &:not(:last-child) {
-            border-bottom: 2px solid rgba(83, 83, 83, 0.2);
-          }
-        }
-      }
+      // .table-like {
+      //   width: 100%;
+      //   display: flex;
+      //   flex-direction: column;
+      //   gap: 7.5px;
+      //   .row {
+      //     padding: 7.5px;
+      //     display: flex;
+      //     gap: em(5px);
+      //     >:first-child {
+      //       flex: 2;
+      //     }
+      //     >:nth-child(2) {
+      //       flex: 5;
+      //     }
+      //     &:not(:last-child) {
+      //       border-bottom: 2px solid rgba(83, 83, 83, 0.2);
+      //     }
+      //   }
+      // }
 
       
       @media (max-width: $small-screen-breake) {
@@ -167,16 +167,16 @@ export default {
           width: 80%;
         }
 
-        .table-like {
-          .row {
-            >:first-child {
-              flex: 1;
-            }
-            >:nth-child(2) {
-              flex: 1;
-            }
-          }
-        }
+        // .table-like {
+        //   .row {
+        //     >:first-child {
+        //       flex: 1;
+        //     }
+        //     >:nth-child(2) {
+        //       flex: 1;
+        //     }
+        //   }
+        // }
       }
 
 

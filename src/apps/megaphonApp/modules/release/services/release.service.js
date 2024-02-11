@@ -1,9 +1,9 @@
-// import { httpService } from '@/apps/common/modules/common/services/http.service';
+import { httpService } from '@/apps/common/modules/common/services/http.service';
 
-// const ENDPOINT = 'release';
+const ENDPOINT = 'release';
 
 export const releaseService = {
-  // query,
+  query,
   // get,
   // add,
   // update,
@@ -12,9 +12,9 @@ export const releaseService = {
   getEmptyRelease
 }
 
-// function query(filterBy, organizationId) {
-//   return httpService.get(`${ENDPOINT}/${organizationId}`, filterBy);
-// }
+function query(filterBy, organizationId) {
+  return httpService.get(`${ENDPOINT}/${organizationId}`, filterBy);
+}
 // function get(id, organizationId) {
 //   if (!id) return getEmptyRelease();
 //   return httpService.get(`${ENDPOINT}/${organizationId}/${id}`);
