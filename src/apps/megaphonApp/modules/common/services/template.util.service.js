@@ -99,14 +99,16 @@ function _getDefaultTEmplatesData() {
   return {
     "releaseTypes" : [
       {
-          "name" : "רליס דיפולטיבי פשוט",
+          // "name" : "רליס דיפולטיבי פשוט",
+          "name" : "רליס",
           "id" : "DEFAULT_SIMPLE_RELEASE",
           "dataFieldsStr" : "",
           "isGroup" : false,
           dataFieldsLocalFilePath: 'default/templates/simple/default.simple.datafields'
       },
       {
-          "name" : "רליס דיפולטיבי קבוצתי",
+          // "name" : "רליס דיפולטיבי קבוצתי",
+          "name" : "רליס קבוצתי",
           "id" : "DEFAULT_GROUP_RELEASE",
           "dataFieldsStr" : "",
           "isGroup" : true,

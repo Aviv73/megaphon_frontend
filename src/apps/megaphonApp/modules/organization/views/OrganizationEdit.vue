@@ -60,11 +60,6 @@
         <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
       </div>
 
-      
-      <div class="flex column gap20 align-start">
-        <!-- <p>{{$t('organization.domain')}}</p> -->
-      </div>
-
       <div class="flex column gap20 align-start">
         <p>{{$t('organization.designPreferences')}}</p>
         <div class="input-container flex gap20">

@@ -65,11 +65,11 @@ function getEmptyOrganization() { // todo
       // color: 'black',
       // bgColor: 'white',
       colorsPalate: [
-        'black', // bodyColor
-        'white', // bodyBg
-        'white', // headerColor
-        'black', // headerBg
-        'gold'  // headersColor
+        '#000000', // bodyColor
+        '#ffffff', // bodyBg
+        '#ffffff', // headerColor
+        '#000000', // headerBg
+        '#ffd700'  // headersColor
       ]
     },
   }
