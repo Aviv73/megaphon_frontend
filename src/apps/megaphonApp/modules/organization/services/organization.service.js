@@ -64,7 +64,13 @@ function getEmptyOrganization() { // todo
     designPreferences: {
       // color: 'black',
       // bgColor: 'white',
-      colorsPalate: ['black', 'black', 'black', 'black', 'black']
+      colorsPalate: [
+        'black', // bodyColor
+        'white', // bodyBg
+        'white', // headerColor
+        'black', // headerBg
+        'gold'  // headersColor
+      ]
     },
   }
 }
