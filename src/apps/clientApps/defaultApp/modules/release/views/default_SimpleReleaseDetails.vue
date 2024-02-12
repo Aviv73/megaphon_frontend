@@ -1,6 +1,6 @@
 <template>
   <section v-if="release" class="simple-release-details inner-container main-pad-y flex align-start gap50">
-    <div class="release-page-nav wide-screen-item sticky flex column gap10">
+    <div class="wide-screen-item release-page-nav wide-screen-item sticky flex column gap10">
       <!-- :style="{position: 'fixed', top: '110px'}" -->
       <template v-for="tabName in ['content', 'images', 'videos', 'files', 'links']">
         <a
@@ -63,9 +63,9 @@ export default {
       return `${pretyMont} ${year}`;
     },
 
-    initReleaseId() {
-      return this.$store.getters['release/initReleaseId'];
-    },
+    // initReleaseId() {
+    //   return this.$store.getters['release/initReleaseId'];
+    // },
   },
   methods: {
     scrollToEl(elId) {

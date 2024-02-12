@@ -47,6 +47,7 @@ function getEmptyOrganization() { // todo
     logoUrl: '',
     defaultGalleryCredit: '',
     distributionBcc: '',
+    domain: '',
     fromEmails: [/* { email: '', title: '' } */],
     // filters: [/* { title: '', releaseTypes: [releaseTypesIds], wasDisterbuted: false } */],
     // releaseTypes: [/* { name: '', id: '', dataFieldsLocalFilePath: '', fileUrl: '', dataFieldsStr: 'NOT IN USE ___ JSON STRING FON NOW' } */],

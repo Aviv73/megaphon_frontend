@@ -65,9 +65,9 @@ export default {
       return this.release.publishedAt;
     },
 
-    initReleaseId() {
-      return this.$store.getters['release/initReleaseId'];
-    },
+    // initReleaseId() {
+    //   return this.$store.getters['release/initReleaseId'];
+    // },
   }
 }
 </script>

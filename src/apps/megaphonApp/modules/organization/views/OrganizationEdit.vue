@@ -60,31 +60,38 @@
         <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
       </div>
 
+      
+      <div class="flex column gap20 align-start">
+        <!-- <p>{{$t('organization.domain')}}</p> -->
+      </div>
+
+      <div class="flex column gap20 align-start">
+        <p>{{$t('organization.designPreferences')}}</p>
+        <div class="input-container flex gap20">
+          <FormInput type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
+        </div>
+        <div class="input-container flex gap20">
+          <!-- <p>{{$t('organization.colors')}}</p> -->
+          <!-- <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/> -->
+          <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.colorsPalate[0]"/>
+          <FormInput type="color" labelholder="organization.bodyBg" v-model="organizationToEdit.designPreferences.colorsPalate[1]"/>
+        </div>
+        <div class="input-container flex gap20">
+          <!-- <p>{{$t('organization.bgColors')}}</p> -->
+          <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
+          <FormInput type="color" labelholder="organization.headerColor" v-model="organizationToEdit.designPreferences.colorsPalate[2]"/>
+          <FormInput type="color" labelholder="organization.headerBg" v-model="organizationToEdit.designPreferences.colorsPalate[3]"/>
+        </div>
+        <div class="input-container">
+          <!-- <p>{{$t('organization.headersColor')}}</p> -->
+          <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
+          <FormInput type="color" labelholder="organization.headersColor" v-model="organizationToEdit.designPreferences.colorsPalate[4]"/>
+        </div>
+      </div>
+
 
       <h2 @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</h2>
-      
-
       <div class="developer-zone" v-if="showDeveloperZone">
-        <div class="flex column gap20 align-start">
-          <p>{{$t('organization.designPreferences')}}</p>
-          <div class="input-container flex gap20">
-            <!-- <p>{{$t('organization.colors')}}</p> -->
-            <!-- <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/> -->
-            <FormInput type="color" labelholder="bodyColor" v-model="organizationToEdit.designPreferences.colorsPalate[0]"/>
-            <FormInput type="color" labelholder="bodyBg" v-model="organizationToEdit.designPreferences.colorsPalate[1]"/>
-          </div>
-          <div class="input-container flex gap20">
-            <!-- <p>{{$t('organization.bgColors')}}</p> -->
-            <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
-            <FormInput type="color" labelholder="headerColor" v-model="organizationToEdit.designPreferences.colorsPalate[2]"/>
-            <FormInput type="color" labelholder="headerBg" v-model="organizationToEdit.designPreferences.colorsPalate[3]"/>
-          </div>
-          <div class="input-container">
-            <!-- <p>{{$t('organization.headersColor')}}</p> -->
-            <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
-            <FormInput type="color" labelholder="headersColor" v-model="organizationToEdit.designPreferences.colorsPalate[4]"/>
-          </div>
-        </div>
 
         <div class="route-filters-section flex column gap20 align-start">
           <p>{{$t('organization.routes')}}</p>
@@ -163,7 +170,7 @@
               <p>{{$t('templateType')}}</p>
               <p>{{$t('releaseTypes')}}</p>
               <p>{{$t('hadlebarsFilePath')}}</p>
-              <p>{{$t('appName')}}</p>
+              <!-- <p>{{$t('appName')}}</p> -->
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.templates || []" :key="idx">
@@ -173,7 +180,7 @@
               <FormInput type="select" :itemsMap="{landingPage: '0', newsLetter: '1'}" placeholder="templateType" v-model="curr.type"/>
               <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
               <FormInput type="text" placeholder="hadlebarsFilePath" v-model="curr.handlebarsLocalFilePath"/>
-              <FormInput type="text" placeholder="appName" v-model="curr.appName"/>
+              <!-- <FormInput type="text" placeholder="appName" v-model="curr.appName"/> -->
 
               <!-- <FormInput type="textarea" placeholder="hadlebarsFileStr" v-model="curr.hadlebarsFileStr"/> -->
               <TableActionBtns v-model="organizationToEdit.templates" :idx="idx"/>

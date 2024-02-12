@@ -53,7 +53,8 @@ export default {
     },
 
     mainTo() {
-      return this.$store.getters.mainLinkRouteTo;
+      return { name: 'ReleasePage' };
+      // return this.$store.getters.mainLinkRouteTo;
       // return this.initReleaseId
       //   ? {name: 'ReleaseDetails', params: {id: this.initReleaseId} }
       //   : { name: 'ReleasePage' }

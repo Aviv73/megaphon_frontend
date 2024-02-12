@@ -19,7 +19,7 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
           do: async () => getters.service.get(organizationId || selectedAppData.params.organizationId),
           onSuccess: (item) => {
             commit({ type: 'setSelectedItem', item })
-            commit({ type: 'setProp', key: 'organizationId', val: item.organizationId })
+            commit({ type: 'setProp', key: 'organizationId', val: item._id });
           }
         });
       }

@@ -1,9 +1,15 @@
 <template>
   <div class="files-list flex wrap align-center gap30">
-    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5">
+    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview">
       <template v-if="['video', 'img'].includes(cmpType)">
-        <h2 v-if="file.title">{{file.title}}</h2>
-        <p v-if="file.info">{{file.info}}</p>
+        <h5 v-if="file.title">{{file.title}}</h5>
+        <div class="flex align-center gap5 wrap">
+          <p v-if="file.info">{{file.info}}</p>
+          <!-- <template v-if="cmpType === 'img'">
+            <span v-if="file.info">|</span>
+            <button class="btn clear underline" @click="downloadImg(file.src, file.title)">{{$t('download')}}</button>
+          </template> -->
+        </div>
       </template>
       <video
         v-if="cmpType === 'video'"
@@ -15,7 +21,7 @@
           class="img-file-preview"
           :src="fixFileSrcToThumbnail(file.src)" :alt="file.title"
         />
-        <div class="actions">
+        <div class="img-actions flex align-center gap10">
           <button class="btn" @click="downloadImg(file.src, file.title)">{{$t('download')}}</button>
         </div>
       </template>
@@ -74,6 +80,20 @@ export default {
     color: blue;
     text-decoration: underline !important;
     cursor: pointer;
+  }
+  .file-preview {
+    position: relative;
+  }
+  .img-actions {
+    position: absolute;
+    left: em(10px);
+    bottom: em(10px);
+    .btn {
+      border-radius: 0;
+      border: 1px solid black;
+      // width: em(50px);
+      // height: em(25px);
+    }
   }
 }
 </style>

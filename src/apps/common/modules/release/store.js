@@ -8,7 +8,7 @@ const initState = () => ({
   filterBy: {
     ...basicStoreService.initFilterBy(['type', 'subType'], []),
   },
-  initReleaseId: null,
+  // initReleaseId: null,
   organizationId: null,
 });
 
@@ -17,19 +17,19 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
   initState,
   {
     getters: {
-      initReleaseId(state) { return state.initReleaseId },
+      // initReleaseId(state) { return state.initReleaseId },
       // organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName || sessionStorage.organizationId || state.organizationId }
       organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName }
     },
     mutations: {
-      setInitReleaseId(state, { id, orgId }) {
-        if (state.initReleaseId) return;
-        // if (sessionStorage.initReleaseId) state.initReleaseId = sessionStorage.initReleaseId;
-        else {
-          state.initReleaseId = sessionStorage.initReleaseId = id;
-          state.organizationId = sessionStorage.organizationId = orgId;
-        }
-      }
+      // setInitReleaseId(state, { id, orgId }) {
+      //   if (state.initReleaseId) return;
+      //   // if (sessionStorage.initReleaseId) state.initReleaseId = sessionStorage.initReleaseId;
+      //   else {
+      //     state.initReleaseId = sessionStorage.initReleaseId = id;
+      //     state.organizationId = sessionStorage.organizationId = orgId;
+      //   }
+      // }
     },
     actions: {
       async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, orgFilter }) {
@@ -44,6 +44,7 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
             filterToSend.orgFilter = orgFilter;
             // filterToSend.folder = folder;
             const itemsRes = await getters.service.query(filterToSend, organizationId || getters.organizationId);
+            // const itemsRes = await getters.service.query(filterToSend, this.getters['organization.selectedItem']?._id);
             return itemsRes;
           },
           onSuccess: (data) => commit({ type: 'setData', data })
@@ -55,7 +56,7 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
           do: async () => getters.service.get(id, getters.organizationId),
           onSuccess: (item) => {
             commit({ type: 'setSelectedItem', item })
-            commit({ type: 'setInitReleaseId', id, orgId: item.organizationId });
+            // commit({ type: 'setInitReleaseId', id, orgId: item.organizationId });
           }
         });
       },

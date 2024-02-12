@@ -8,13 +8,13 @@ export const _commonStore = {
   getters: {
     isRootLoading: (state) => state.isLoading,
     rootError: (state) => state.error,
-    mainLinkRouteTo(state, getters) {
-      // return { name: 'ReleasePage' };
-      const initReleaseId = getters['release/initReleaseId'];
-      return initReleaseId
-        ? {name: 'ReleaseDetails', params: {id: initReleaseId} }
-        : { name: 'ReleasePage' }
-    },
+    // mainLinkRouteTo(state, getters) {
+    //   // return { name: 'ReleasePage' };
+    //   const initReleaseId = getters['release/initReleaseId'];
+    //   return initReleaseId
+    //     ? {name: 'ReleaseDetails', params: {id: initReleaseId} }
+    //     : { name: 'ReleasePage' }
+    // },
   },
   mutations: {
     setRootLoading(state, { val }) {

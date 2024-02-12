@@ -9,11 +9,11 @@ const exportItems = {
   getAllReleaseTypesForOrg
 }
 
-/* FOR NODE ENV:: */
+// /* FOR NODE ENV:: */
 // const config = require("../config");
 // module.exports = { templateUtils: exportItems };
 
-// /* FOR ES6 ENV:: */
+/* FOR ES6 ENV:: */
 import config from '@/config';
 export const templateUtils = exportItems;
 
@@ -36,8 +36,11 @@ function getReleaseLandingPageUrl(release, organization, isNews) {
       url = `${config.baseApiUrl}/client/${organization._id}/${isNews ? 'newsletter/' : ''}${release._id}`;
     }
   }
-  if (template?.appName) { // nested domain;
-    url = url.split(organization._id).join(template.appName);
+  // if (template?.appName) { // nested domain;
+  //   url = url.split(organization._id).join(template.appName);
+  // }
+  if (organization?.domain) { // nested domain;
+    url = url.split(organization._id).join(organization.domain);
   }
   return url;
 }
@@ -156,7 +159,8 @@ function _getDefaultTEmplatesData() {
   
     "routes" : [
       {
-          "name" : "פשוטים",
+          // "name" : "פשוטים",
+          "name" : "רליסים",
           "id" : "DEFAULT_SIMPLE_ROUTE",
           "releaseFilter" : {
               "releaseTypes" : [ 
@@ -167,7 +171,8 @@ function _getDefaultTEmplatesData() {
           "htmlContentFilePath" : ""
       },
       {
-          "name" : "קבוצתיים",
+          // "name" : "קבוצתיים",
+          "name" : "רליסים קבוצתיים",
           "id" : "DEFAULT_GROUP_ROUTE",
           "releaseFilter" : {
               "releaseTypes" : [ 
