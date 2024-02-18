@@ -3,7 +3,7 @@
     <div @click="showContent = true" class="modal-toggle-btn">
       <slot name="toggler"/>
     </div>
-    <Modal :fullScreen="fullScreen" @close="showContent = false" v-if="showContent">
+    <Modal :showCloseBtn="true" :fullScreen="fullScreen" @close="showContent = false" v-if="showContent">
       <slot name="content"/>
     </Modal>
   </div>

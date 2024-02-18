@@ -2,6 +2,7 @@
   <div class="modal-container" :class="{fullScreen}" @click.stop="">
     <div class="blure" @click.stop="$emit('close')" @touchstart.stop="" @touchend.stop=""></div>
     <div class="modal" :class="{ 'modal-style': styling }">
+      <button v-if="showCloseBtn" class="close-btn" @click.stop="$emit('close')">✖</button>
       <slot/>
     </div>
   </div>
@@ -16,6 +17,10 @@ export default {
       default: true
     },
     fullScreen: {
+      type: Boolean,
+      default: false
+    },
+    showCloseBtn: {
       type: Boolean,
       default: false
     }
@@ -50,8 +55,16 @@ export default {
     height: fit-content;
     transform: translate(-50%, -50%);
 
+    .close-btn {
+      width: em(10px);
+      height: em(10px);
+      position: absolute;
+      top: em(5px);
+      right: em(5px);
+    }
+
     &.modal-style {
-      padding: em(10px);
+      padding: em(20px);
       border-radius: em(5px);
       box-shadow: $light-shadow;
       background-color: #fff;
