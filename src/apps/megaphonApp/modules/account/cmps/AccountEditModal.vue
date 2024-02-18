@@ -1,5 +1,5 @@
 <template>
-  <Modal :fullScreen="true" @close="$router.back()">
+  <Modal :showCloseBtn="true" :fullScreen="true" @close="$router.back()"> 
     <AccountEdit :isNested="true"/>
   </Modal>
 </template>

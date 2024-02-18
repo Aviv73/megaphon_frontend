@@ -65,7 +65,16 @@ export default {
     },
 
     yearsOpts() {
-      return [2017, 2018, 2019, 2020, 2021, 2022, 2023, {value: undefined, label: 'clear'}].reverse();
+      // return [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, {value: undefined, label: 'clear'}].reverse();
+      return [
+        ...(() => {
+          const nowYear = new Date().getFullYear();
+          const years = [];
+          for (let year = nowYear; year >= 2017; year--) years.push(year);
+          return years;
+        })(),
+        {value: undefined, label: 'clear'}
+      ]
     },
 
     foldersOpts() {
