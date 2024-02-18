@@ -104,7 +104,7 @@ function _getDefaultTEmplatesData() {
           "id" : "DEFAULT_SIMPLE_RELEASE",
           "dataFieldsStr" : "",
           "isGroup" : false,
-          dataFieldsLocalFilePath: 'default/templates/simple/default.simple.datafields'
+          dataFieldsLocalFilePath: 'default/templates/simple/default.simple.dataFields'
       },
       {
           // "name" : "רליס דיפולטיבי קבוצתי",
@@ -112,7 +112,7 @@ function _getDefaultTEmplatesData() {
           "id" : "DEFAULT_GROUP_RELEASE",
           "dataFieldsStr" : "",
           "isGroup" : true,
-          dataFieldsLocalFilePath: 'default/templates/group/default.group.datafields'
+          dataFieldsLocalFilePath: 'default/templates/group/default.group.dataFields'
       }
     ],
     "templates": [
