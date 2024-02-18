@@ -1,6 +1,8 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 import { templateUtils } from '../../common/services/template.util.service';
 
+import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service'
+
 const ENDPOINT = 'organization';
 
 export const organizationService = {
@@ -11,6 +13,10 @@ export const organizationService = {
   // save,
   // remove,
   getEmptyOrganization,
+  createEmptyReleaseTypeItem,
+  createEmptyRouteItem,
+  createEmptyInnerFilterItem,
+  createEmptyTemplateItem,
 
   loadReleaseDataFields
 }
@@ -40,9 +46,22 @@ function loadReleaseDataFields(dataFieldsLocalFilePath, organizationId, releaseT
 }
 
 
+function createEmptyReleaseTypeItem(name = '', isGroup = false) {
+  return { name, id: getRandomId(), followReleaseType: '', /* fileUrl: '', */ dataFieldsStr: '', isGroup };
+}
+function createEmptyRouteItem(name = '', releaseTypes = []) {
+  return { name, releaseFilter: {releaseTypes, wasDistributed: undefined}, id: getRandomId(), showInClient: true, htmlContentFilePath: '' };
+}
+function createEmptyInnerFilterItem() {
+  return { field: '', title: '', options: [], id: getRandomId() };
+}
+function createEmptyTemplateItem() {
+  return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), handlebarsLocalFilePath: '' };
+}
 
-function getEmptyOrganization() { // todo
-  return {
+
+function getEmptyOrganization() {
+  const org = {
     name: '',
     logoUrl: '',
     defaultGalleryCredit: '',
@@ -52,9 +71,13 @@ function getEmptyOrganization() { // todo
     // filters: [/* { title: '', releaseTypes: [releaseTypesIds], wasDisterbuted: false } */],
     // releaseTypes: [/* { name: '', id: '', dataFieldsLocalFilePath: '', fileUrl: '', dataFieldsStr: 'NOT IN USE ___ JSON STRING FON NOW' } */],
 
-    routes: JSON.parse(JSON.stringify(templateUtils.DEFAULY_TEMPLATES_DATA.routes)),
-    releaseTypes: JSON.parse(JSON.stringify(templateUtils.DEFAULY_TEMPLATES_DATA.releaseTypes)),
-
+    routes: [],
+    // routes: JSON.parse(JSON.stringify(templateUtils.DEFAULY_TEMPLATES_DATA.routes)),
+    // releaseTypes: JSON.parse(JSON.stringify(templateUtils.DEFAULY_TEMPLATES_DATA.releaseTypes)),
+    releaseTypes: [
+      {...createEmptyReleaseTypeItem('רליס', false), followReleaseType: templateUtils.DEFAULY_TEMPLATES_DATA.releaseTypes[0].id},
+      {...createEmptyReleaseTypeItem('רליס קבוצתי', true), followReleaseType: templateUtils.DEFAULY_TEMPLATES_DATA.releaseTypes[1].id}
+    ],
 
     templates: [/* { name: '', type: enum('0' => page, '1' => email), releaseTypes: [releaseTypesIds], handlebarsLocalFilePath: '', url: '', id: '', hadlebarsFileStr: 'NOT IN USE', appName: '' , previewUrl: 'NOT_IN_USE' } */],
     innerFilters: [/* { field: String, title: '', options: [ { value: Any, label: String } ], id: String } */],
@@ -73,4 +96,6 @@ function getEmptyOrganization() { // todo
       ]
     },
   }
+  org.releaseTypes.forEach(c => org.routes.push(createEmptyRouteItem(c.name, [c.id])));
+  return org;
 }

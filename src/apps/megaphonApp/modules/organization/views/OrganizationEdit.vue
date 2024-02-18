@@ -135,19 +135,19 @@
           <ul class="flex column gap10 table-like">
             <li>
               <!-- <p>{{$t('id')}}</p> -->
-              <p>{{$t('followReleaseType')}}</p>
               <p>{{$t('name')}}</p>
               <p>{{$t('dataFieldsLocalFilePath')}}</p>
               <p>{{$t('isGroup')}}</p>
+              <p>{{$t('followReleaseType')}}</p>
               <!-- <p>{{$t('dataFieldsStr')}}</p> -->
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.releaseTypes || []" :key="idx">
               <!-- <FormInput type="autocomplete" placeholder="id" v-model="curr.id" :items="defaultTemplateTypesIds"/> -->
-              <FormInput type="select" placeholder="followReleaseType" v-model="curr.followReleaseType" :items="[...allReleaseTypes.map(c => ({ value: c.id, label: c.name })), {label: 'none', value: ''}]"/>
               <FormInput type="text" placeholder="name" v-model="curr.name"/>
               <FormInput type="text" placeholder="dataFieldsFilePath" v-model="curr.dataFieldsLocalFilePath"/>
               <FormInput type="checkbox" v-model="curr.isGroup"/>
+              <FormInput type="select" placeholder="followReleaseType" v-model="curr.followReleaseType" :items="[...allReleaseTypes.map(c => ({ value: c.id, label: c.name })), {label: 'none', value: ''}]"/>
               <!-- <FormInput type="textarea" placeholder="dataFieldsStr" v-model="curr.dataFieldsStr"/> -->
               <TableActionBtns v-model="organizationToEdit.releaseTypes" :idx="idx"/>
             </li>
@@ -160,21 +160,21 @@
           <ul class="flex column gap10 table-like">
             <li>
               <p>{{$t('name')}}</p>
+              <p>{{$t('releaseTypes')}}</p>
+              <p>{{$t('templateType')}}</p>
+              <p>{{$t('hadlebarsFilePath')}}</p>
               <p>{{$t('url')}}</p>
               <!-- <p>{{$t('previewUrl')}}</p> -->
-              <p>{{$t('templateType')}}</p>
-              <p>{{$t('releaseTypes')}}</p>
-              <p>{{$t('hadlebarsFilePath')}}</p>
               <!-- <p>{{$t('appName')}}</p> -->
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.templates || []" :key="idx">
               <FormInput type="text" placeholder="name" v-model="curr.name"/>
+              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
+              <FormInput type="select" :itemsMap="{landingPage: '0', newsLetter: '1'}" placeholder="templateType" v-model="curr.type"/>
+              <FormInput type="text" placeholder="hadlebarsFilePath" v-model="curr.handlebarsLocalFilePath"/>
               <FormInput type="text" placeholder="url" v-model="curr.url"/>
               <!-- <FormInput type="text" placeholder="previewUrl" v-model="curr.previewUrl"/> -->
-              <FormInput type="select" :itemsMap="{landingPage: '0', newsLetter: '1'}" placeholder="templateType" v-model="curr.type"/>
-              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
-              <FormInput type="text" placeholder="hadlebarsFilePath" v-model="curr.handlebarsLocalFilePath"/>
               <!-- <FormInput type="text" placeholder="appName" v-model="curr.appName"/> -->
 
               <!-- <FormInput type="textarea" placeholder="hadlebarsFileStr" v-model="curr.hadlebarsFileStr"/> -->
@@ -200,6 +200,7 @@ import { getRandomId, setDeepVal } from '../../../../common/modules/common/servi
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import TableActionBtns from '../../../../common/modules/common/cmps/TableActionBtns.vue';
 import { templateUtils } from '../../common/services/template.util.service';
+import { organizationService } from '../services/organization.service';
 export default {
   name: 'OrganizationEdit',
   data() {
@@ -248,19 +249,19 @@ export default {
     },
     addRouteFilterItem() {
       if (!this.organizationToEdit.routes) this.organizationToEdit.routes = [];
-      this.organizationToEdit.routes.push({ name: '', releaseFilter: {releaseTypes: [], wasDistributed: undefined}, id: getRandomId(), showInClient: false, htmlContentFilePath: '' });
+      this.organizationToEdit.routes.push(organizationService.createEmptyRouteItem());
     },
     addInnerFilterItem() {
       if (!this.organizationToEdit.innerFilters) this.organizationToEdit.innerFilters = [];
-      this.organizationToEdit.innerFilters.push({ field: '', title: '', options: [], id: getRandomId() });
+      this.organizationToEdit.innerFilters.push(organizationService.createEmptyInnerFilterItem());
     },
     addReleaseTypeItem() {
       if (!this.organizationToEdit.releaseTypes) this.organizationToEdit.releaseTypes = [];
-      this.organizationToEdit.releaseTypes.push({ name: '', id: getRandomId(), followReleaseType: '', /* fileUrl: '', */ dataFieldsStr: '', isGroup: false });
+      this.organizationToEdit.releaseTypes.push(organizationService.createEmptyReleaseTypeItem());
     },
     addTemplateItem() {
       if (!this.organizationToEdit.templates) this.organizationToEdit.templates = [];
-      this.organizationToEdit.templates.push( { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), handlebarsLocalFilePath: '' });
+      this.organizationToEdit.templates.push(organizationService.createEmptyTemplateItem());
     },
     addLogoItem() {
       if (!this.organizationToEdit.logos) this.organizationToEdit.logos = [];
