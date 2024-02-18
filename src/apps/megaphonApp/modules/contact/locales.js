@@ -10,6 +10,7 @@ const  en = {
     "notes": "Notes",
     "cellular": "Cellular",
     "phone": "Phone",
+    "uploadFromFile": "Import file",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this contact?",
       "removeSuccess": "Contact removed successfully",
@@ -29,6 +30,7 @@ const he = {
     "notes": "הערות",
     "cellular": "נייד",
     "phone": "טלפן",
+    "uploadFromFile": "העלה קובץ",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את איש הקשר?",
       "removeSuccess": "איש קשר נמחק בהצלחה",

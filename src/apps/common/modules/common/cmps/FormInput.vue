@@ -127,6 +127,25 @@
         </div>
       </div>
 
+      <template v-else-if="['file'].includes(componentType)">
+        <input
+          type="file"
+          ref="elInput"
+          :disabled="disabled"
+          :id="inputId"
+          :required="required"
+          :placeholder="$t(placeholder || labelholder)"
+          :accept="accept"
+          @change="$event => val = $event.target.files"
+          hidden
+        />
+        <button
+          class="btn primary mid file-btn"
+          @click="$refs.elInput.click()"
+        >{{$t(placeholder || labelholder)}}
+        </button>
+      </template>
+
       <datalist v-if="componentType === 'autocomplete'" :id="'autocomplete-datalist-' + this.inputId">
         <option v-for="item in itemsToRender" :key="item.value" :value="item.value" :label="item.label"/>
       </datalist>
