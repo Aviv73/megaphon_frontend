@@ -63,7 +63,7 @@
       <div class="flex column gap20 align-start">
         <p>{{$t('organization.designPreferences')}}</p>
         <div class="input-container flex gap20">
-          <FormInput type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
+          <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
         </div>
         <div class="input-container flex gap20">
           <!-- <p>{{$t('organization.colors')}}</p> -->
@@ -205,14 +205,16 @@ export default {
   name: 'OrganizationEdit',
   data() {
     return {
+      itemBeforeEdit: null,
       organizationToEdit: null,
-      showDeveloperZone: false
+      showDeveloperZone: false,
+      allDomains: []
     }
   },
   computed: {
     isOrganizationValid() {
       const item = this.organizationToEdit;
-      return !!item;
+      return !!item && !this.isDomainExistsError;
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
@@ -222,11 +224,22 @@ export default {
     // },
     allReleaseTypes() {
       return templateUtils.getAllReleaseTypesForOrg(this.organizationToEdit);
+    },
+
+    otherDomains() {
+      return this.allDomains.filter(d => d !== this.itemBeforeEdit?.domain);
+    },
+    isDomainExistsError() {
+      return this.otherDomains.includes(this.organizationToEdit.domain);
     }
   },
   methods: {
     async getOrganization() {
       this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id });
+      this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));
+    },
+    async getAllDomains() {
+      this.allDomains = await this.$store.dispatch({ type: 'organization/loadAllDomainNames' });
     },
     async saveOrganization() {
       if (!this.isOrganizationValid) return;
@@ -270,6 +283,7 @@ export default {
   },
   created() {
     this.getOrganization();
+    this.getAllDomains();
   },
   watch: {
     '$route.params.id'() {

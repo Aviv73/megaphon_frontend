@@ -11,6 +11,7 @@ const  en = {
     "cellular": "Cellular",
     "phone": "Phone",
     "uploadFromFile": "Import file",
+    "unsubscribed": "Unsubscribed",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this contact?",
       "removeSuccess": "Contact removed successfully",
@@ -31,6 +32,7 @@ const he = {
     "cellular": "נייד",
     "phone": "טלפן",
     "uploadFromFile": "העלה קובץ",
+    "unsubscribed": "ביטל מנוי",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את איש הקשר?",
       "removeSuccess": "איש קשר נמחק בהצלחה",

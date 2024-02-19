@@ -1,9 +1,10 @@
 <template>
-  <router-link v-if="contact" :to="{ name: 'ContactEdit', params: { id: contact._id, organizationId: $route.params.organizationId } }" class="table-item-preview">
+  <router-link v-if="contact" :to="{ name: 'ContactEdit', params: { id: contact._id, organizationId: $route.params.organizationId } }" class="table-item-preview contact-preview" :class="{unsubscribed: contact.unsubscribed}">
     <p>{{contact.email}}</p>
     <p>{{contact.firstName}} {{contact.lastName}}</p>
     <p>{{contact.role}}</p>
     <p>{{companiesToShow.join(', ')}}</p>
+    <p>{{contact.unsubscribed? '✔' : '-'}}</p>
   </router-link>
 </template>
 
@@ -34,8 +35,11 @@ export default {
 <style lang="scss">
 .megaphon-app {
   .contact-preview {
-    position: relative;
-    width: 100%;
+    // position: relative;
+    // width: 100%;
+    &.unsubscribed {
+      opacity: 0.7;
+    }
   }
 }
 </style>

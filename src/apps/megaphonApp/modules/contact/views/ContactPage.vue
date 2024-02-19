@@ -29,6 +29,7 @@
         <p>{{$t('contact.contactName')}}</p>
         <p>{{$t('contact.role')}}</p>
         <p>{{$t('contact.companyName')}}</p>
+        <p>{{$t('contact.unsubscribed')}}</p>
       </div>
     </ItemSearchList>
     <Loader v-if="isLoading" fullScreen/>
@@ -55,7 +56,7 @@ export default {
   },
   methods: {
     getAllRContacts(filterBy) {
-      this.$store.dispatch({ type: 'contact/loadItems', filterBy, organizationId: this.$route.params.organizationId });
+      this.$store.dispatch({ type: 'contact/loadItems', filterBy: {...filterBy, includeUnsubscribed: true}, organizationId: this.$route.params.organizationId });
     },
     async uploadContactsFromFile(files) {
       this.$store.commit({type: 'contact/setProp', key: 'isLoading', value: true});

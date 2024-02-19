@@ -392,6 +392,7 @@ export default {
   created() {
     this.getItem();
     this.getOrg();
+    this.$store.commit('contact/resetFilter');
     this.getContacts();
     this.getMailingLists();
 

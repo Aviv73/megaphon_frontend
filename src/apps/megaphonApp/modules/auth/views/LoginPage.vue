@@ -4,15 +4,31 @@
     <form @submit.prevent="login" class="simple-form">
       <img class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
       <h4>{{$t('login')}}</h4>
-      <FormInput type="text" labelholder="account.username" v-model="userCred.username"/>
+      <FormInput type="text" labelholder="account.email" v-model="userCred.username"/>
       <FormInput type="password" labelholder="account.password" v-model="userCred.password"/>
-      <button class="btn big primary flex align-center justify-center" :disabled="!isUserValid"><span>{{$t('submit')}}</span></button>
+      <div class="flex align-center space-between">
+        <button class="btn big primary flex align-center justify-center" :disabled="!isUserValid"><span>{{$t('submit')}}</span></button>
+      </div>
     </form>
+    <ToggleModal>
+      <template v-slot:toggler>
+        <button class="btn">{{$t('auth.forgotPassword')}}</button>
+      </template>
+      <template v-slot:content>
+        <form @submit.prevent="sendNewPasswordEmail" class="simple-form align-center gap30">
+          <h3>{{$t('auth.forgotPassword')}}</h3>
+          <FormInput labelholder="account.email" v-model="forgotEmailEmail"/>
+          <button class="btn big primary">{{$t('auth.sendMeNewPassword')}}</button>
+        </form>
+      </template>
+    </ToggleModal>
   </div>
 </template>
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
+import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
 export default {
   name: 'LoginPage',
   data() {
@@ -20,7 +36,8 @@ export default {
       userCred: JSON.parse(localStorage.userCred || 'null') || {
         username: '',
         password: ''
-      }
+      },
+      forgotEmailEmail: ''
     }
   },
   computed: {
@@ -34,10 +51,15 @@ export default {
       localStorage.userCred = JSON.stringify(this.userCred);
       await this.$store.dispatch({ type: 'auth/login', cred: this.userCred });
       this.$router.push('/');
+    },
+    async sendNewPasswordEmail() {
+      await this.$store.dispatch({ type: 'auth/sendNewPasswordEmail', email: this.forgotEmailEmail });
+      alertService.toast({type: 'safe', msg: `${this.$t(`auth.newPasswordSentTo`)} ${this.forgotEmailEmail}!`});
     }
   },
   components: {
-    FormInput
+    FormInput,
+    ToggleModal
   }
 }
 </script>

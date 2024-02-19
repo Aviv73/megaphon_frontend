@@ -83,6 +83,15 @@ export const _authStore = {
         }
       });
     },
+    async sendNewPasswordEmail({ commit, dispatch }, { email }) {
+      return dispatch({
+        type: '_Ajax',
+        do: async () => authService.sendNewPasswordEmail(email),
+        onSuccess: (res) => {
+          alertService.toast({type: 'safe', msg: `${$t(`auth.newPasswordSentTo`)}: ${email}!`});
+        }
+      });
+    },
   }
 }
 

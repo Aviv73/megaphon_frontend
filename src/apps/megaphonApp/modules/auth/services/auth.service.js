@@ -6,7 +6,8 @@ export const authService = {
   login,
   getUserInfo,
   logout,
-  signup
+  signup,
+  sendNewPasswordEmail
 }
 
 function login(cred) {
@@ -20,4 +21,7 @@ function getUserInfo() {
 }
 function signup(cred) {
   return httpService.post(`${ENDPOINT}/signup`, cred);
+}
+function sendNewPasswordEmail(email) {
+  return httpService.post(`${ENDPOINT}/sendNewPasswordEmail`, {email});
 }

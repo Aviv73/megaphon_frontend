@@ -18,7 +18,8 @@ export const organizationService = {
   createEmptyInnerFilterItem,
   createEmptyTemplateItem,
 
-  loadReleaseDataFields
+  loadReleaseDataFields,
+  loadAllDomainNames
 }
 
 // function query(filterBy) {
@@ -43,6 +44,9 @@ export const organizationService = {
 
 function loadReleaseDataFields(dataFieldsLocalFilePath, organizationId, releaseType) {
   return httpService.get(`${ENDPOINT}/${organizationId}/releaseDataFields`, { dataFieldsLocalFilePath, releaseType });
+}
+function loadAllDomainNames() {
+  return httpService.get(`${ENDPOINT}/allDomainNames`, { });
 }
 
 

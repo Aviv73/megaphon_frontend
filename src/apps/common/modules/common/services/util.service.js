@@ -481,6 +481,13 @@ export function scrollToEl(toSelector, diff = 0, scrollInElSelector = 'body') {
     window.scrollTo(0, pos.y + diff);
   }
 
+export function getRandomPassword(length = 10) {
+    const options = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*?';
+    var res = '';
+    for (let i = 0; i < length; i++) res += options[getRandomInt(0, options.length-1)];
+    return res;
+}
+
 
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////

@@ -17,6 +17,7 @@ const en = {
     "headerColor": "Header text color",
     "headerBg": "Header background color",
     "headersColor": "Headings text color",
+    "domainTakenError": "Domain is alredy taken by another organization!",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this organization?",
       "removeSuccess": "Organization removed successfully",
@@ -45,6 +46,7 @@ const he = {
     "headerColor": "צבע טקסט הדר",
     "headerBg": "צבע רקע הדר",
     "headersColor": "צבע כותרים",
+    "domainTakenError": "הדומיין הזה כבר בשימוש באירגון אחר!",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הארגון?",
       "removeSuccess": "ארגון נמחק בהצלחה",

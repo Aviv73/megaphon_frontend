@@ -32,7 +32,10 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
             return await organizationService.loadReleaseDataFields(dataFieldsLocalFilePath, organizationId, releaseType);
           },
         });
-      }
+      },
+      loadAllDomainNames({ getters }) {
+        return organizationService.loadAllDomainNames();
+      },
     }
   },
   undefined,

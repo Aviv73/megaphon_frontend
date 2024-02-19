@@ -82,7 +82,7 @@
                 <li v-for="curr in val.filter(Boolean)" :key="curr.name">
                   <!-- <span>{{itemsToRender.find(c => c.value === curr).label}}</span>
                   <button @click="val.splice(val.findIndex(c => c === curr) ,1)">X</button> -->
-                  <span :title="curr.name || curr">{{subValName(curr.name || curr)}}</span>
+                  <span :title="(typeof curr.name === 'string')? curr.name : curr">{{subValName((typeof curr.name === 'string')? curr.name : curr)}}</span>
                   <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
                 </li>
                 <li class="clear-li">
@@ -151,10 +151,15 @@
       </datalist>
 
       <template>
-        <!-- <div class="icon-img" @click="$refs.elInput.$el.querySelector('input').focus()" v-if="$slots.default || showError"> -->
-        <div class="icon-img" @click="$refs.elInput.focus()" v-if="$slots.default || showError">
-          <slot/>
+        <!-- <div class="icon-container" @click="$refs.elInput.$el.querySelector('input').focus()" v-if="$slots.default || showError"> -->
+        <div class="icon-container" @click="$refs.elInput.focus()" v-if="$slots.default || showError">
+          <slot v-if="$slots.default"/>
         </div>
+        <Tooltip class="icon-container" v-if="error" :msg="error">
+          <template v-slot:preview>
+            <img class="icon-img" :src="require('@/assets/images/red_exclamation_mark.png')" alt="">
+          </template>
+        </Tooltip>
       </template>
     </div>
   </section>
@@ -162,6 +167,7 @@
 
 <script>
 import { getRandomId, padNum } from '../services/util.service';
+import Tooltip from './Tooltip.vue';
 
 const inputTypes = [
   'text',
@@ -174,6 +180,7 @@ const inputTypes = [
 ];
 
 export default {
+  components: { Tooltip },
   name: 'FormInput',
   props: {
     label: { required: false, default: '', type: String },
@@ -195,6 +202,8 @@ export default {
     
     showVals: { required: false, type: Boolean, default: false },
     listUp: { required: false, type: Boolean, default: false },
+
+    error: { required: false, type: String, default: '' },
 
     debug: { required: false, type: Boolean, default: false },
   },
@@ -220,7 +229,6 @@ export default {
       // else this.val = this.val?.value || this.val;
       // if (!this.val || typeof this.val === 'string') this.val = { value: this.value || '', label: this.value || '' };  
       // else 
-      if (this.debug) console.log('WOWOWOW', this.value, this.val);
       this.val = this.val?.value || this.val;
     }
     if (this.type === 'date') {
@@ -358,11 +366,15 @@ export default {
     }
   }
 
-  .icon-img {
+  .icon-container {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: em(5px);
     transform: translateY(-50%);
+    .icon-img, .tooltip-preview, .tooltip {
+      width: em(18px);
+      height: em(18px);
+    }
   }
 }
 
