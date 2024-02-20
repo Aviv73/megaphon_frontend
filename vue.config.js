@@ -1,7 +1,7 @@
 // const CompressionPlugin = require('compression-webpack-plugin');
 // require('../../old proj/megaphone_backend/src/public/apps/client')
 module.exports = {
-  outputDir: '../megaphon_backend/public/frontend',
+  outputDir: '../megaphon_backend/src/public/frontend',
   // outputDir: '../../old proj/megaphone_backend/src/better-api/public/frontend',
   pages: {
     index: {

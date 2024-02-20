@@ -1,6 +1,6 @@
 <template>
-  <div class="files-list flex wrap align-center gap30">
-    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview">
+  <div class="files-list flex wrap gap30">
+    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview space-between">
       <template v-if="['video', 'img'].includes(cmpType)">
         <h5>
           {{file.title || ''}}
