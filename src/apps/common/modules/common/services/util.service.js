@@ -134,6 +134,7 @@ export function stringToLowerKabab(str) {
 
 //input: 'someKababValString' || output: some-kabab-val-string;
 /**@param {String} str * @param {String} separator * @param {Boolean} isLowerCase */
+//everythingToKababCase
 export function strKababToSeperator(str, separator = '-', isLowerCase = true) {
     const capitals = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let fixedStr = '';
