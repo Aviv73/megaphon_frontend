@@ -2,7 +2,9 @@
   <div class="files-list flex wrap align-center gap30">
     <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview">
       <template v-if="['video', 'img'].includes(cmpType)">
-        <h5 v-if="file.title">{{file.title}}</h5>
+        <h5>
+          {{file.title || ''}}
+        </h5>
         <div class="flex align-center gap5 wrap">
           <p v-if="file.info">{{file.info}}</p>
           <!-- <template v-if="cmpType === 'img'">
