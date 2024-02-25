@@ -129,7 +129,7 @@
       </Modal>
       <Modal :fullScreen="true" v-else-if="showDistributionReportModal && distributionReport">
         <div class="flex column gap10 distribution-report-modal">
-          <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}} / {{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length}}</span> {{$t('contact.contacts')}}.</p>
+          <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}}/{{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length}}</span> {{$t('contact.contacts')}}.</p>
           <div class="flex column gap10 new--lists-modal" v-if="distributionReport.faildSendToUsers.length">
             <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}:</p>
             <div class="table-like-list flex-1 selected-table">
