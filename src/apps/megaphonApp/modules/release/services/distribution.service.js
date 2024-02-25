@@ -18,7 +18,7 @@ export const distributionService = {
 
 async function distribute(releaseId, distributionData, onChunkEndCb = (sentToCount) => {} ) {
   const contacts = distributionData.contacts;
-  const pages = splitDataToPages(contacts, 500);
+  const pages = splitDataToPages(contacts, 200);
   const results = [];
   console.log('DISTRIBUTING! tatal of', pages.length, 'pages');
   let sentTo = 0;
