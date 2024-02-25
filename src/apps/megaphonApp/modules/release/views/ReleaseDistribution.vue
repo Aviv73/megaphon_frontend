@@ -129,7 +129,7 @@
       </Modal>
       <Modal :fullScreen="true" v-else-if="showDistributionReportModal && distributionReport">
         <div class="flex column gap10 distribution-report-modal">
-          <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} {{distributionReport.sentToUsers.length}} / {{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}.</p>
+          <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}} / {{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length}}</span> {{$t('contact.contacts')}}.</p>
           <div class="flex column gap10 new--lists-modal" v-if="distributionReport.faildSendToUsers.length">
             <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}:</p>
             <div class="table-like-list flex-1 selected-table">
@@ -150,7 +150,13 @@
         </div>
       </Modal>
     </template>
-    <Loader :fullScreen="true" v-if="isLoading" :msg="isLoadingForDist? $t('distribute.loadingMsg') : ''"/>
+    <Loader :fullScreen="true" v-if="isLoading" 
+      :msg="isLoadingForDist? `
+        <div class='flex column align-center'>
+          <p>${$t('distribute.loadingMsg')}</p>
+          <p class='ltr'>${sendingToStatus.sent}/${sendingToStatus.total}</p>
+        </div>`
+      : ''"/>
   </div>
 </template>
 
@@ -199,7 +205,12 @@ export default {
       showDistributionReportModal: false,
 
       searchSelectedTerm: '',
-      isLoadingForDist: false
+      isLoadingForDist: false,
+
+      sendingToStatus: {
+        total: 0,
+        sent: 0,
+      }
     }
   },
   computed: {
@@ -296,12 +307,15 @@ export default {
       const isToSend = await alertService.Confirm(this.$t('distribute.distributeReleaseConfirmMsg'));
       if (!isToSend) return;
       try {
+        this.sendingToStatus.total = (contacts || this.contactsForDistribute).length;
+        this.sendingToStatus.sent = 0;
         this.isLoadingLocal = true;
         this.isLoadingForDist = true;
         const res = await distributionService.distribute(this.release._id, { 
           from: this.fromEmail,
           contacts: (contacts || this.contactsForDistribute).map(({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name}))
-        });
+        },
+        updatedSentToCount => this.sendingToStatus.sent = updatedSentToCount);
         // alertService.toast({ msg: `Successfully distributed release to ${res.sentToUsers.length} out of ${this.contactsForDistribute.length} contacts` });
         alertService.toast({ msg: `Successfully distributed release`, type: 'safe' });
         console.log(res);
@@ -310,6 +324,8 @@ export default {
       } catch(err) {
         alertService.toast({ msg: `Somethind went wrong, cant distribute release` });
       }
+      this.sendingToStatus.total = 0;
+      this.sendingToStatus.sent = 0;
       this.isLoadingLocal = false;
       this.isLoadingForDist = false;
     },

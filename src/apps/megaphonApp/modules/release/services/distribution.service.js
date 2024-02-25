@@ -16,16 +16,19 @@ export const distributionService = {
   reportReleaseOpened
 }
 
-async function distribute(releaseId, distributionData) {
+async function distribute(releaseId, distributionData, onChunkEndCb = (sentToCount) => {} ) {
   const contacts = distributionData.contacts;
   const pages = splitDataToPages(contacts, 500);
   const results = [];
   console.log('DISTRIBUTING! tatal of', pages.length, 'pages');
+  let sentTo = 0;
   for (let i = 0; i < pages.length; i++) {
     console.log('WORKING ON PAG', i+1);
     const currContacts = pages[i];
     const currRes = await httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, {...distributionData, contacts: currContacts});
     results.push(currRes);
+    sentTo += currContacts.length;
+    onChunkEndCb?.(sentTo);
     console.log('DONE WORKING ON PAG', i+1);
   }
   console.log('DONE DISTRIBUTING!');

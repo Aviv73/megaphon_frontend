@@ -41,6 +41,7 @@ export default {
     }
   },
   async created() {
+    if (this.$route.name === 'LoginPage') return;
     this.isLoading = true;
     // await socketService.connect();
     try {
@@ -51,7 +52,7 @@ export default {
       ]);
     } catch(e) {};
     this.isLoading = false;
-    if (!this.loggedUser) this.$router.push('/login');
+    if (!this.loggedUser) this.$router.push({name: 'LoginPage'});
     // else {
     //   if (this.$route.params.organizationId) return;
     //   const firstOrg = this.loggedUser.organizations.filter(c => c.organizationId != '-1')[0];
