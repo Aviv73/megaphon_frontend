@@ -1,10 +1,14 @@
 
 @function rem($size) {
   $rem-size: ($size / 16px);
-  @return ($rem-size * 1rem);
+  @return calc(#{$rem-size} * 1rem);
+  // $rem-size: ($size / 16) + rem;
+  // @return $rem-size;
 }
 
 @function em($size) {
   $em-size: ($size / 16px);
-  @return ($em-size * 1em);
+  @return calc(#{$em-size} * 1em);
+  // $em-size: ($size / 16) + em;
+  // @return $em-size;
 }
