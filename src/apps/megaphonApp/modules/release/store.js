@@ -36,10 +36,10 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
           onSuccess: (data) => commit({ type: 'setData', data })
         });
       },
-      async loadReport({ commit, dispatch, getters }, { releaseId }) {
+      async loadReport({ commit, dispatch, getters }, { releaseId, organizationId }) {
         return dispatch({
           type: '_Ajax',
-          do: async () => distributionService.getByReleaseId(releaseId),
+          do: async () => distributionService.getByReleaseId(organizationId, releaseId),
           onSuccess: (report) => {
             commit({ type: 'setSelectedReleaseReport', report });
           }

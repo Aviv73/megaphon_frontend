@@ -169,7 +169,7 @@ function _getDefaultTEmplatesData() {
                   "DEFAULT_SIMPLE_RELEASE"
               ]
           },
-          "showInClient" : true,
+          "showInRoles": ['admin', 'producer'],
           "htmlContentFilePath" : ""
       },
       {
@@ -181,7 +181,7 @@ function _getDefaultTEmplatesData() {
                   "DEFAULT_GROUP_RELEASE"
               ]
           },
-          "showInClient" : true,
+          "showInRoles": ['admin', 'producer'],
           "htmlContentFilePath" : ""
       }
     ]

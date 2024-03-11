@@ -25,9 +25,9 @@
               </div>
             </DropDiv>
           </router-link>
-          <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }">{{$t('contact.contacts')}}</router-link>
-          <router-link class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }">{{$t('account.accounts')}}</router-link>
-          <FoldersNav :currentDropableFolderPath="currentDropableFolderPath" :folders="org.folders || []" :parentItem="org"/>
+          <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }">{{$t('contact.contacts')}}</router-link>
+          <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }">{{$t('account.accounts')}}</router-link>
+          <FoldersNav v-if="isRoleInOrg('producer')" :currentDropableFolderPath="currentDropableFolderPath" :folders="org.folders || []" :parentItem="org"/>
         </div>
       </li>
       <li class="organization-preview" v-if="isAdmin">
@@ -61,6 +61,7 @@ import Avatar from '../../../../../common/modules/common/cmps/Avatar.vue';
 import FoldersNav from './FoldersNav.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import DropDiv from '../dnd/DropDiv.vue';
+import { organizationService } from '../../../organization/services/organization.service';
 export default {
   components: { Avatar, FoldersNav, DropDiv },
   name: 'SideBar',
@@ -93,6 +94,9 @@ export default {
     }
   },
   methods: {
+    isRoleInOrg(role) {
+      return organizationService.isUserRoleInOrg(this.selectedOrgId, role, this.loggedUser);
+    },
     selectOrg(orgId) {
       this.$router.push({ name: 'ReleasePage', params: { organizationId: orgId } });
       this.showFolders = false;

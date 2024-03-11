@@ -16,7 +16,7 @@ export const distributionService = {
   reportReleaseOpened
 }
 
-async function distribute(releaseId, distributionData, onChunkEndCb = (sentToCount) => {} ) {
+async function distribute(organizationId, releaseId, distributionData, onChunkEndCb = (sentToCount) => {} ) {
   const contacts = distributionData.contacts;
   const pages = splitDataToPages(contacts, 200);
   const results = [];
@@ -25,7 +25,7 @@ async function distribute(releaseId, distributionData, onChunkEndCb = (sentToCou
   for (let i = 0; i < pages.length; i++) {
     console.log('WORKING ON PAG', i+1);
     const currContacts = pages[i];
-    const currRes = await httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, {...distributionData, contacts: currContacts});
+    const currRes = await httpService.post(`${ENDPOINT}/${organizationId}/distribute-release/${releaseId}`, {...distributionData, contacts: currContacts});
     results.push(currRes);
     sentTo += currContacts.length;
     onChunkEndCb?.(sentTo);
@@ -38,27 +38,27 @@ async function distribute(releaseId, distributionData, onChunkEndCb = (sentToCou
   }
   // return httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, distributionData);
 }
-function testDistribute(releaseId, distributionData) {
-  return httpService.post(`${ENDPOINT}/test/${releaseId}`, distributionData);
+function testDistribute(organizationId, releaseId, distributionData) {
+  return httpService.post(`${ENDPOINT}/${organizationId}/test/${releaseId}`, distributionData);
 }
 
 
-function getMailingList(id, organizationId) {
-  return httpService.get(`${ENDPOINT}/mailing-list/${organizationId}/${id}`);
+function getMailingList(organizationId, id) {
+  return httpService.get(`${ENDPOINT}/${organizationId}/mailing-list/${id}`);
 }
 function queryMailingLists(organizationId) {
-  return httpService.get(`${ENDPOINT}/mailing-list/${organizationId}`);
+  return httpService.get(`${ENDPOINT}/${organizationId}/mailing-list`);
 }
-function addMailingList(mailingListItem) {
-  return httpService.post(`${ENDPOINT}/mailing-list/`, mailingListItem);
+function addMailingList(organizationId, mailingListItem) {
+  return httpService.post(`${ENDPOINT}/${organizationId}/mailing-list/`, mailingListItem);
 }
-function updateMailingList(mailingListItem) {
-  return httpService.put(`${ENDPOINT}/mailing-list/${mailingListItem._id}`, mailingListItem);
+function updateMailingList(organizationId, mailingListItem) {
+  return httpService.put(`${ENDPOINT}/${organizationId}/mailing-list/${mailingListItem._id}`, mailingListItem);
 }
 
 
-function getByReleaseId(releaseId) {
-  return httpService.get(`${ENDPOINT}/distribution-data-by-release/${releaseId}`);
+function getByReleaseId(organizationId, releaseId) {
+  return httpService.get(`${ENDPOINT}/${organizationId}/distribution-data-by-release/${releaseId}`);
 }
 
 function reportReleaseOpened(releaseId, queryParams) {

@@ -11,6 +11,7 @@ const en = {
     "newPassword": "New password",
     "confirmPassword": "Confirm password",
     "role": "Role",
+    "viewAllAccounts": "View all accounts",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this account?",
       "removeSuccess": "Account removed successfully",
@@ -31,6 +32,7 @@ const he = {
     "newPassword": "סיסמה חדשה",
     "confirmPassword": "הזן שוב סיסמה",
     "role": "תפקיד",
+    "viewAllAccounts": "הצג את כל משתמשי המערכת",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את המשתמש?",
       "removeSuccess": "משתמש נמחק בהצלחה",

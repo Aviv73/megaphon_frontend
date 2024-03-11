@@ -10,6 +10,7 @@
       <template v-if="!showDesign">
         <h2>{{$t(itemToEdit._id? 'release.editRelease' : 'release.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
         <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
+          <FormInput class="gap30" type="select" labelholder="locale" :itemsMap="{'english': 'en', 'עברית': 'he'}" v-model="itemToEdit.design.locale"/>
           <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :parentItem="itemToEdit.releaseData" :organization="org"/>
         </form>
       </template>
@@ -43,6 +44,7 @@ import { createItemForDynamicForm } from '../../common/services/CreateItemForDyn
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import ReleaseDesignViewer from '../cmps/ReleaseDesignViewer.vue';
 import { templateUtils } from '../../common/services/template.util.service';
+import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 export default {
   name: 'ReleaseEdit',
   data() {
@@ -154,6 +156,7 @@ export default {
   components: {
     DynamicInput,
     ReleaseDesignViewer,
+    FormInput,
   }
 }
 </script>

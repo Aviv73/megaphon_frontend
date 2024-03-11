@@ -311,7 +311,7 @@ export default {
         this.sendingToStatus.sent = 0;
         this.isLoadingLocal = true;
         this.isLoadingForDist = true;
-        const res = await distributionService.distribute(this.release._id, { 
+        const res = await distributionService.distribute(this.organizationId, this.release._id, { 
           from: this.fromEmail,
           contacts: (contacts || this.contactsForDistribute).map(({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name}))
         },
@@ -335,7 +335,7 @@ export default {
       localStorage.testEmailVal = testEmail;
       this.isLoadingLocal = true;
       try {
-        const res = await distributionService.testDistribute(this.release._id, { 
+        const res = await distributionService.testDistribute(this.organizationId, this.release._id, { 
           from: this.fromEmail,
           contacts: [{ email: testEmail }]
         });
@@ -380,7 +380,7 @@ export default {
           title: this.newMailingListName,
           organizationId: this.organizationId
         }
-        await distributionService.addMailingList(newListItem);
+        await distributionService.addMailingList(this.organizationId, newListItem);
         this.newMailingListName = '';
         this.showAddMailingListItemModal = false;
       } catch(err) {
@@ -395,7 +395,7 @@ export default {
           ...mailingListItem,
           contacts: this.contactsForDistribute,
         }
-        await distributionService.updateMailingList(newListItem);
+        await distributionService.updateMailingList(this.organizationId, newListItem);
         this.newMailingListName = '';
         this.showAddMailingListItemModal = false;
       } catch(err) {

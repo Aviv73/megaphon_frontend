@@ -19,7 +19,8 @@ export const organizationService = {
   createEmptyTemplateItem,
 
   loadReleaseDataFields,
-  loadAllDomainNames
+  loadAllDomainNames,
+  isUserRoleInOrg
 }
 
 // function query(filterBy) {
@@ -54,13 +55,18 @@ function createEmptyReleaseTypeItem(name = '', isGroup = false) {
   return { name, id: getRandomId(), followReleaseType: '', /* fileUrl: '', */ dataFieldsStr: '', isGroup };
 }
 function createEmptyRouteItem(name = '', releaseTypes = []) {
-  return { name, releaseFilter: {releaseTypes, wasDistributed: undefined}, id: getRandomId(), showInClient: true, htmlContentFilePath: '' };
+  return { name, releaseFilter: {releaseTypes, wasDistributed: undefined}, id: getRandomId(), showInRoles: ['admin', 'producer'], htmlContentFilePath: '' };
 }
 function createEmptyInnerFilterItem() {
   return { field: '', title: '', options: [], id: getRandomId() };
 }
 function createEmptyTemplateItem() {
   return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), handlebarsLocalFilePath: '' };
+}
+
+function isUserRoleInOrg(orgId, role, user) {
+  if (!orgId || !role || !user) return false;
+  return user.organizations?.find(org => org.organizationId === orgId)?.roles?.includes(role);
 }
 
 

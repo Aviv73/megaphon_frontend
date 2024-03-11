@@ -96,7 +96,7 @@
               <p>{{$t('releaseTypes')}}</p>
               <p>{{$t('wasDistributed')}}</p>
               <p>{{$t('htmlContentFilePath')}}</p>
-              <p>{{$t('showInClient')}}</p>
+              <p>{{$t('showInRoles')}}</p>
               <p></p>
             </li>
             <li v-for="(curr, idx) in organizationToEdit.routes || []" :key="idx">
@@ -104,7 +104,7 @@
               <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseFilter.releaseTypes"/>
               <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.releaseFilter.wasDistributed"/>
               <FormInput type="text" placeholder="htmlContentFilePath" v-model="curr.htmlContentFilePath"/>
-              <FormInput type="checkbox" v-model="curr.showInClient"/>
+              <FormInput type="multiselect" :items="userRolesToSelect" placeholder="showInRoles" v-model="curr.showInRoles"/>
               <TableActionBtns v-model="organizationToEdit.routes" :idx="idx"/>
             </li>
           </ul>
@@ -201,6 +201,7 @@ import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vu
 import TableActionBtns from '../../../../common/modules/common/cmps/TableActionBtns.vue';
 import { templateUtils } from '../../common/services/template.util.service';
 import { organizationService } from '../services/organization.service';
+import consts from '@/apps/common/modules/common/services/const.service.js';
 export default {
   name: 'OrganizationEdit',
   data() {
@@ -208,7 +209,8 @@ export default {
       itemBeforeEdit: null,
       organizationToEdit: null,
       showDeveloperZone: false,
-      allDomains: []
+      allDomains: [],
+      userRolesToSelect: [...Object.values(consts.userRoles)]
     }
   },
   computed: {
@@ -250,9 +252,9 @@ export default {
       this.$router.push({ name: 'OrganizationPage', params: { organizationId: this.$route.params.organizationId } })
     },
 
-    async imgUploaded(imgData, pathToSet) {
-      // const uploadedImg = await imgUploaded(imgData);
-      setDeepVal(this.organizationToEdit, pathToSet, imgData.src);
+    async imgUploaded(imgsrc, pathToSet) {
+      // const uploadedImg = await imgUploaded(imgsrc);
+      setDeepVal(this.organizationToEdit, pathToSet, imgsrc);
     },
 
 

@@ -10,7 +10,7 @@
       <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
 
       <template v-if="isUserAdmin && !isNested">
-        <FormInput type="multiselect" labelholder="role" v-model="accountToEdit.systemRoles" :items="systemRoles"/>
+        <FormInput type="multiselect" labelholder="roles" v-model="accountToEdit.roles" :items="systemRoles"/>
         <div class="organizations flex column gap5">
           <div v-for="org in orgsToShow" :key="org._id" class="flex align-center space-between gap5">
             <div class="flex align-center gap5">
@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
+import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
+import consts from '@/apps/common/modules/common/services/const.service.js';
 export default {
   name: 'AccountEdit',
   props: {
@@ -40,7 +41,8 @@ export default {
     return {
       accountToEdit: null,
       confirmPassword: '',
-      systemRoles: ['user', 'producer', 'admin'],
+      // systemRoles: ['user', 'producer', 'admin'],
+      systemRoles: [...Object.values(consts.userRoles)],
       // allOrgs: []
     }
   },

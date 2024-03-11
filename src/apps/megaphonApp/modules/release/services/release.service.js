@@ -43,6 +43,7 @@ function getEmptyRelease() {
     design: {
       landingPage: '',
       email: '',
+      locale: "he"
     },
     // distribution: {},
     // distributionId: '',

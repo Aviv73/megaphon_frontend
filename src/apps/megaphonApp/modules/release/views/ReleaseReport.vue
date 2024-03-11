@@ -8,14 +8,14 @@
         <div class="flex column gap10">
           <div class="table-like-list flex-1">
             <div class="table-item-preview gap10 table-header flex space-between">
-              <p class="flex-1">{{$t('date')}}</p>
-              <p class="flex-2">{{$t('contact.contactName')}} / {{$t('distribute.token')}}</p>
-              <p class="flex-1">{{$t('distribute.origin')}}</p>
+              <p :class="{selected: sortContactsKeys[0] === 'activity.distributedAt'}" @click="setContactsSorter('activity.distributedAt')" class="flex-1">{{$t('date')}}</p>
+              <p :class="{selected: sortContactsKeys[0] === 'name'}" @click="setContactsSorter('name', 'firstName', 'email', 'token')" class="flex-2">{{$t('contact.contactName')}} / {{$t('distribute.token')}}</p>
+              <p :class="{selected: sortContactsKeys[0] === 'origin'}" @click="setContactsSorter('origin')" class="flex-1">{{$t('distribute.origin')}}</p>
               <!-- <p>{{$t('email')}}</p> -->
-              <p class="flex-1">{{$t('distribute.newsletter')}}</p>
-              <p class="flex-1">{{$t('distribute.wached')}}</p>
-              <p class="flex-1">{{$t('distribute.wachedCount')}}</p>
-              <p class="flex-1">{{$t('distribute.unsubscribed')}}</p>
+              <p :class="{selected: sortContactsKeys[0] === 'activity.openedNewsAt'}" @click="setContactsSorter('activity.openedNewsAt')" class="flex-1">{{$t('distribute.newsletter')}}</p>
+              <p :class="{selected: sortContactsKeys[0] === 'activity.openedLandingPageAt'}" @click="setContactsSorter('activity.openedLandingPageAt')" class="flex-1">{{$t('distribute.wached')}}</p>
+              <p :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')" class="flex-1">{{$t('distribute.wachedCount')}}</p>
+              <p :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')" class="flex-1">{{$t('distribute.unsubscribed')}}</p>
             </div>
             <div v-for="contact in contactsToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
               <p class="flex-1">{{pretyDate(contact.activity.distributedAt)}}</p>
@@ -85,6 +85,7 @@ import PaginationBtns from '../../../../common/modules/common/cmps/ItemSearchLis
 
 import { Pie as PieChart } from 'vue-chartjs';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
+import { getDeepVal } from '../../../../common/modules/common/services/util.service';
 
 export default {
   components: { PaginationBtns, PieChart, ReleaseDistributionLinkCoppier },
@@ -97,10 +98,15 @@ export default {
           limit: 15,
         }
       },
-      chartClrs: ['#41B883', '#E46651', '#00D8FF', '#DD1B16']
+      chartClrs: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
+      sortContactsKeys: []
     }
   },
   methods: {
+    setContactsSorter(...sortKeys) {
+      this.contactFilter.pagination.page = 0;
+      this.sortContactsKeys = [...sortKeys];
+    },
     pretyDate(timeMs) {
       const time = new Date(timeMs);
       return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
@@ -115,7 +121,7 @@ export default {
       this.$store.dispatch({ type: 'release/loadItem', id: this.releaseId, organizationId: this.$route.params.organizationId });
     },
     getReport() {
-      this.$store.dispatch({ type: 'release/loadReport', releaseId: this.releaseId });
+      this.$store.dispatch({ type: 'release/loadReport', releaseId: this.releaseId, organizationId: this.$route.params.organizationId });
     },
     init() {
       this.getOrg();
@@ -142,7 +148,19 @@ export default {
     contactsToShow() {
       const filter = this.contactFilter.pagination;
       const startIdx = filter.page * filter.limit;
-      return this.report.recipients.slice(startIdx, startIdx+filter.limit);
+      let res = [...this.report.recipients];
+      res = res.sort((a, b) => {
+        const aKey = this.sortContactsKeys.find(key => getDeepVal(a, key));
+        const bKey = this.sortContactsKeys.find(key => getDeepVal(b, key));
+        if (!aKey && !bKey) return 0;
+        const aVal = getDeepVal(a, aKey);
+        const bVal = getDeepVal(b, bKey);
+        if (aVal === bVal) return 0;
+        if (!aKey || !aVal) return 1;
+        if (!bKey || !bVal) return -1;
+        return aVal > bVal? -1 : 1;
+      });
+      return res.slice(startIdx, startIdx+filter.limit);
     },
     originsMap() {
       return this.report.recipients.reduce((acc, c) => {
@@ -198,6 +216,14 @@ export default {
       display: inline-block;
       height: em(9px);
       width: em(9px);
+    }
+  }
+  .table-header {
+    p {
+      cursor: pointer;
+    }
+    .selected {
+      font-weight: bold;
     }
   }
 }

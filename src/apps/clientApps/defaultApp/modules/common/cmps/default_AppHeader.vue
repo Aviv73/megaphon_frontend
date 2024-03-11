@@ -64,7 +64,7 @@ export default {
       return this.$store.getters['organization/selectedItem'] || {};
     },
     allRouteFilters() {
-      return this.org?.routes?.filter(c => c.showInClient) || [];
+      return this.org?.routes?.filter(c => c.showInRoles?.includes('client')) || [];
     },
 
     // release() {

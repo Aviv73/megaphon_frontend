@@ -12,7 +12,7 @@
       />
     </template>
     <FormInput @change="setDateRange" type="select" placeholder="release.filterByYear" :items="yearsOpts" v-model="dateSelectVal" />
-    <FormInput v-if="selectedReleaseIds.length" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
+    <FormInput v-if="selectedReleaseIds.length && isRoleInOrg('producer')" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
     <div class="flex align-center gap20">
       <ToggleBtns class="sorters flex gap10" :options="[
         {img: require('@/apps/megaphonApp/assets/images/sort.svg'), value: ''},
@@ -34,6 +34,7 @@
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
+import { organizationService } from '../../organization/services/organization.service';
 export default {
   name: 'ReleaseFilter',
   props: {
@@ -62,6 +63,10 @@ export default {
   computed: {
     org() {
       return this.$store.getters['organization/selectedItem'];
+    },
+    
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
     },
 
     yearsOpts() {
@@ -95,6 +100,9 @@ export default {
     }
   },
   methods: {
+    isRoleInOrg(role) {
+      return organizationService.isUserRoleInOrg(this.org?._id, role, this.loggedUser);
+    },
     emitFilter() {
       this.$emit('filtered', this.filterBy);
       this.didInit = true;

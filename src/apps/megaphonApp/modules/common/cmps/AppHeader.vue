@@ -21,7 +21,7 @@
           </button> -->
           
           <router-link
-            v-for="filterItem in organization.routes.filter(c => !c.htmlContentFilePath)" :key="filterItem.id"
+            v-for="filterItem in filteredRoutesByRoles" :key="filterItem.id"
             :to="{ name: 'ReleasePage', query: { page: filterItem.name  } }"
             class="nav-link flex align-center"
             :class="{selected: $route.query.page === filterItem.name}"
@@ -68,6 +68,16 @@ export default {
       const megaphonLogog = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
       return this.orgId == '-1'? megaphonLogog : this.organization?.logoUrl || megaphonLogog;
     },
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
+    },
+    filteredRoutesByRoles() {
+      const OrgInUser = this.loggedUser?.organizations.find(c => c.organizationId === this.organization?._id);
+      if (!OrgInUser) return [];
+      return this.organization?.routes
+        .filter(c => !c.htmlContentFilePath)
+        .filter(c => c.showInRoles.find(role => OrgInUser.roles?.includes(role))) || [];
+    }
   },
   // methods: {
   //   emitDefaultFilter() {

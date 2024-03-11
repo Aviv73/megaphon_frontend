@@ -14,10 +14,13 @@
       :dontRoute="true"
       :showLoader="false"
     >
-      <div class="table-item-preview table-header">
-        <p>{{$t('name')}}</p>
-        <p>{{$t('email')}}</p>
-        <p>{{$t('account.role')}}</p>
+      <div class="flex column gap10 align-start">
+        <button class="btn big" v-if="isAdmin && (organizationId === '-1')" @click="getAllRAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('account.viewAllAccounts')}}</button>
+        <div class="table-item-preview table-header">
+          <p>{{$t('name')}}</p>
+          <p>{{$t('email')}}</p>
+          <p>{{$t('account.role')}}</p>
+        </div>
       </div>
     </ItemSearchList>
     <Loader v-if="isLoading" fullScreen/>
@@ -39,12 +42,15 @@ export default {
     }
   },
   methods: {
-    getAllRAccounts(filterBy) {
-      filterBy.organizationId = this.$route.params.organizationId;
+    getAllRAccounts(filterBy, orgId) {
+      filterBy.organizationId = typeof orgId === 'string'? orgId : this.$route.params.organizationId;
       this.$store.dispatch({ type: 'account/loadItems', filterBy });
     },
   },
   computed: {
+    isAdmin() {
+      return this.$store.getters['auth/isAdmin'];
+    },
     organizationId() {
       return this.$route.params.organizationId;
     },

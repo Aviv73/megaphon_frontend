@@ -89,7 +89,8 @@ const en = {
   videos: 'Videos',
   files: 'Files',
   links: 'Links',
-  download: "Download"
+  download: "Download",
+  "locale": "Locale"
 }
 const he = {
   "hello": "שלום",
@@ -180,7 +181,8 @@ const he = {
   videos: 'וידאוים',
   files: 'קבצים',
   links: 'קישורים',
-  download: "הורדה"
+  download: "הורדה",
+  "locale": "שפה"
 }
 const heF = {
   ...he,
@@ -201,7 +203,7 @@ const heF = {
   "createNew": "צרי חדש",
   "leave": "עזבי",
   "add": "הוסיפי",
-  copy: 'העתיקי',
+  "copy": 'העתיקי'
 }
 
 export const commonLocales = {
