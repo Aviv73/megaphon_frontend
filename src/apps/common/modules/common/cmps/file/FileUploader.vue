@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { uploadFileToServer } from '../../services/file.service';
+import { fixFileSrcToThumbnail, uploadFileToServer } from '../../services/file.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import MiniLoader from '../MiniLoader.vue';
 import { cropText } from '../../services/util.service';
@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     imgToShow() {
-      return this.valToShow?.src || ''; // defaultImg
+      return fixFileSrcToThumbnail(this.valToShow?.src || ''); // defaultImg
     },
     valToShow() {
       return this.onlySrc ? { src: this.value, title: cropText(this.value, 30) } : this.value;
