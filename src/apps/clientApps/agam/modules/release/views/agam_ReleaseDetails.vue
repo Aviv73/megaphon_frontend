@@ -8,12 +8,18 @@
 <script>
 import MonthlyReleaseDetails from './agam_MonthlyReleaseDetails.vue';
 import BookReleaseDetails from './agam_BookReleaseDetails.vue';
+import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 
 export default {
   name: 'agam_ReleaseDetails',
   methods: {
     getItem() {
-      this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });
+      return this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });
+    },
+    async init() {
+      await this.getItem();
+      const locale = this.release?.design?.locale || 'he';
+      if (locale) this.$i18n.locale = locale;
     }
   },
   computed: {
@@ -30,11 +36,14 @@ export default {
     }
   },
   created() {
-    this.getItem();
+    this.init();
+  },
+  destroyed() {
+    evEmmiter.emit('set_locale'); // reset locale to uiConfig locale
   },
   watch: {
     '$route.params.id'() {
-      this.getItem();
+      this.init();
     }
   },
   components: {

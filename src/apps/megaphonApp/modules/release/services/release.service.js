@@ -44,9 +44,6 @@ function getEmptyRelease() {
       landingPage: '',
       email: '',
       locale: "he"
-    },
-    // distribution: {},
-    // distributionId: '',
-    // allText: ''
+    }
   }
 }

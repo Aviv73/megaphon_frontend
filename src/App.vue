@@ -67,6 +67,7 @@ export default {
     this.displayUiConfig()
     
     evEmmiter.on('app_config_update', this.displayUiConfig);
+    evEmmiter.on('set_locale', this.setLocale);
 
     if (!appConfig.client) {
       return;

@@ -2,29 +2,27 @@ const  en = {
   "release": {
     "release": "Release",
     "releases": "Releases",
-    "by": "By",
+    "monthPublish": "Month of publish",
+    "main": "Main",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this release?",
       "removeSuccess": "Release removed successfully!",
       "savedReleaseSuccess": "Release saved successfully!",
       "reportReleaseSuccess": "Release reported successfully!"
-    }
+    },
+    "content": "Content",
+    "images": "Images",
+    "videos": "Videos",
+    "files": "Files",
+    "links": "Links"
   }
 }
 const he = {
   "release": {
     "release": "רליס",
     "releases": "רליסים",
-    "by": "מאת",
-    "paint": "איור",
-    "translator": "תרגום",
-    "pageCount": "מספר עמודים",
-    "forAge": "גילאים",
     "monthPublish": "חודש הוצאה לאור",
-    "price": "מחיר לצרכן",
     "main": "כללי",
-    "firstChapter": "פרק ראשון",
-    "comunicat": "קומוניקט",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הרליס?",
       "removeSuccess": "רליס נמחק בהצלחה!",

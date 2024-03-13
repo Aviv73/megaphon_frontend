@@ -80,6 +80,7 @@ export default {
   .release-design-viewer {
     iframe {
       background-color: #fff;
+      direction: ltr !important;
     }
     .toggle-btns {
       background-color: #fff;

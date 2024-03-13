@@ -291,7 +291,8 @@ export default {
         const contactsToAdd = await contactService.query({...this.filterBy, pagination: undefined, loadSystemContacts: this.loadSystemContacts}, this.organizationId);
         contactsToAdd.items.forEach(this.addContact);
       } catch (err) {
-        alertService.toast({ msg: `Somethind went wrong, cant load mailing lists` });
+        console.error(err);
+        alertService.toast({ msg: `Somethind went wrong, cant add contacts` });
       }
       this.isLoadingLocal = false;
     },
