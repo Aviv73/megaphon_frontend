@@ -225,8 +225,8 @@ export default {
         padding: em(15px) !important;
       }
       .arrow-btn {
-        width: 100px;
-        height: 100px;
+        width: em(100px);
+        height: em(100px);
         img {
           width: 100%;
           height: 100%;

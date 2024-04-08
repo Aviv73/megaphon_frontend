@@ -146,7 +146,7 @@ export default {
     }
     .logo-title {
       .actual {
-        width: 100px;
+        width: em(100px);
         background-color: unset;
         height: unset;
         // position: absolute;
@@ -227,7 +227,7 @@ export default {
         .nav-link {
           // color: black;
           width: 100%;
-          height: 100px;
+          height: em(100px);
           display: flex;
           align-items: center;
           justify-content: center;

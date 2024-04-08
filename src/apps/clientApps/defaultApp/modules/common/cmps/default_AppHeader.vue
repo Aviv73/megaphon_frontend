@@ -174,7 +174,7 @@ export default {
         background-color: $layout-black;
         .nav-link {
           width: 100%;
-          height: 100px;
+          height: em(100px);
           display: flex;
           align-items: center;
           justify-content: center;

@@ -326,10 +326,10 @@ export default {
         width: 100%;
         >* {
           flex: 1;
-          width: 200px;
+          width: em(200px);
           &:last-child {
             flex: unset;
-            width: 100px;
+            width: em(100px);
           }
         }
       }
@@ -345,7 +345,13 @@ export default {
           flex: unset;
         }
         >:first-child {
-          width: 200px;
+          width: em(200px);
+          // &:last-child {
+          //   flex: unset;
+          // }
+        }
+        >:nth-child(2) {
+          width: em(325px);
           // &:last-child {
           //   flex: unset;
           // }
