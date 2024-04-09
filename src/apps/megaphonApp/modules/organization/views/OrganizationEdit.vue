@@ -9,7 +9,7 @@
       </div>
       <div class="flex column gap20">
         <p>{{$t('organization.logo')}}</p>
-        <FileUploader :viewAsImg="true" :value="{src: organizationToEdit.logoUrl}" @input="val => imgUploaded(val, 'logoUrl')"/>
+        <FileUploader :viewAsImg="true" :value="{src: organizationToEdit.logoUrl}" @input="val => imgUploaded(val.src, 'logoUrl')"/>
       </div>
 
       <div class="from-emails-section flex column gap20 align-start">
