@@ -178,7 +178,7 @@ const he = {
   site: 'אתר',
   
   images: 'תמונות',
-  videos: 'וידאוים',
+  videos: 'וידאו',
   files: 'קבצים',
   links: 'קישורים',
   download: "הורדה",
