@@ -57,6 +57,7 @@
 
             </div>
           </div>
+          <FormInput class="width-all space-between row-reverse" label="distribute.forceDistribute" type="checkbox" v-model="isForceDistribute"/>
           <div class="load-distributions-section flex align-center space-between gap5">
             <button @click="showEmailListsSelectionModal = true" class="btn">{{$t('distribute.loadDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
             <button @click="showAddMailingListItemModal = true" class="btn">{{$t('distribute.saveDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/save_black.svg')"/></button>
@@ -129,7 +130,7 @@
       </Modal>
       <Modal :fullScreen="true" v-else-if="showDistributionReportModal && distributionReport">
         <div class="flex column gap10 distribution-report-modal">
-          <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}}/{{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length}}</span> {{$t('contact.contacts')}}.</p>
+          <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}}/{{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length + distributionReport.allreadyDistributedTo.length}}</span> {{$t('contact.contacts')}}.</p>
           <div class="flex column gap10 new--lists-modal" v-if="distributionReport.faildSendToUsers.length">
             <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}:</p>
             <div class="table-like-list flex-1 selected-table">
@@ -138,6 +139,20 @@
                 <p>{{$t('email')}}</p>
               </div>
               <div v-for="contact in distributionReport.faildSendToUsers" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
+                <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || ''}}</p>
+                <p>{{contact.email}}</p>
+              </div>
+            </div>
+            <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
+          </div>
+          <div class="flex column gap10 new--lists-modal" v-if="distributionReport.allreadyDistributedTo.length">
+            <p>{{$t('distribute.alreadyDistributedToAccounts')}} {{distributionReport.allreadyDistributedTo.length}} {{$t('contact.contacts')}}:</p>
+            <div class="table-like-list flex-1 selected-table">
+              <div class="table-item-preview gap10 table-header flex space-between">
+                <p>{{$t('contact.contactName')}}</p>
+                <p>{{$t('email')}}</p>
+              </div>
+              <div v-for="contact in distributionReport.allreadyDistributedTo" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
                 <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || ''}}</p>
                 <p>{{contact.email}}</p>
               </div>
@@ -190,8 +205,10 @@ export default {
       fromEmail: {
         email: '',
         title: '',
-        fromEmail: false
+        allowReply: false
       },
+      isForceDistribute: false,
+
       customEmailToAdd: '',
 
       emailLists: [],
@@ -314,7 +331,8 @@ export default {
         this.isLoadingForDist = true;
         const res = await distributionService.distribute(this.organizationId, this.release._id, { 
           from: this.fromEmail,
-          contacts: (contacts || this.contactsForDistribute).map(({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name}))
+          contacts: (contacts || this.contactsForDistribute).map(({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name})),
+          forceDistribute: this.isForceDistribute
         },
         updatedSentToCount => this.sendingToStatus.sent = updatedSentToCount);
         // alertService.toast({ msg: `Successfully distributed release to ${res.sentToUsers.length} out of ${this.contactsForDistribute.length} contacts` });

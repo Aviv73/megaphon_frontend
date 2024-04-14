@@ -12,6 +12,9 @@ export const organizationService = {
   // update,
   // save,
   // remove,
+
+  inviteAccount,
+
   getEmptyOrganization,
   createEmptyReleaseTypeItem,
   createEmptyRouteItem,
@@ -42,6 +45,20 @@ export const organizationService = {
 // function save(item) {
 //   return item._id? update(item) : add(item);
 // }
+
+function inviteAccount(organizationId, accountId) {
+  return httpService.post(`${ENDPOINT}/${organizationId}/invite`, { accountId });
+}
+// function updateAccountStatus(organizationId, accountId, status) {
+//   return httpService.post(`${ENDPOINT}/${organizationId}/update-status`, { accountId, status });
+// }
+// function updateAccountRole(organizationId, accountId, roles) {
+//   return httpService.post(`${ENDPOINT}/${organizationId}/update-roles`, { accountId, roles });
+// }
+// function removeAccount(organizationId, accountId) {
+//   return httpService.post(`${ENDPOINT}/${organizationId}/remove-user`, { accountId });
+// }
+
 
 function loadReleaseDataFields(dataFieldsLocalFilePath, organizationId, releaseType) {
   return httpService.get(`${ENDPOINT}/${organizationId}/releaseDataFields`, { dataFieldsLocalFilePath, releaseType });

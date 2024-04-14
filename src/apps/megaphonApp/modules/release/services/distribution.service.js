@@ -34,7 +34,8 @@ async function distribute(organizationId, releaseId, distributionData, onChunkEn
   console.log('DONE DISTRIBUTING!');
   return {
     sentToUsers: results.reduce((acc, c) => [...acc, ...c.sentToUsers], []),
-    faildSendToUsers: results.reduce((acc, c) => [...acc, ...c.faildSendToUsers], [])
+    faildSendToUsers: results.reduce((acc, c) => [...acc, ...c.faildSendToUsers], []),
+    allreadyDistributedTo: results.reduce((acc, c) => [...acc, ...c.allreadyDistributedTo], []),
   }
   // return httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, distributionData);
 }

@@ -1,5 +1,6 @@
 const en = {
   "account": {
+    "createAccount": "Create Account",
     "account": "Account",
     "accounts": "Accounts",
     "firstname": "First name",
@@ -12,6 +13,7 @@ const en = {
     "confirmPassword": "Confirm password",
     "role": "Role",
     "viewAllAccounts": "View all accounts",
+    "inviteAccounts": "Invite accounts",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this account?",
       "removeSuccess": "Account removed successfully",
@@ -21,6 +23,7 @@ const en = {
 }
 const he = {
   "account": {
+    "createAccount": "צור משתמש",
     "account": "משתמש",
     "accounts": "משתמשים",
     "firstname": "שם פרטי",
@@ -33,6 +36,7 @@ const he = {
     "confirmPassword": "הזן שוב סיסמה",
     "role": "תפקיד",
     "viewAllAccounts": "הצג את כל משתמשי המערכת",
+    "inviteAccounts": "הזמן משתמשים",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את המשתמש?",
       "removeSuccess": "משתמש נמחק בהצלחה",
@@ -44,6 +48,7 @@ const heF = {
   ...he,
   account: {
     ...he.account,
+    "createAccount": "צרי משתמש",
     "editAccount": "ערכי פרטי משתמש",
     "confirmPassword": "הזיני שוב סיסמה",
     "block": "חסמי",

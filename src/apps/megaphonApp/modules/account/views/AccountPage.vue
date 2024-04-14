@@ -7,7 +7,7 @@
       :initFilterBy="filterBy"
       @filter="getAllRAccounts"
       itemDetailesPageName="AccountDetails"
-      newItemPageName="AccountEdit"
+      newItemPageName=""
       :singlePreviewCmp="AccountPreview"
       :filterByCmp="AccountFilter"
       :showActions="true"
@@ -15,7 +15,13 @@
       :showLoader="false"
     >
       <div class="flex column gap10 align-start">
-        <button class="btn big" v-if="isAdmin && (organizationId === '-1')" @click="getAllRAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('account.viewAllAccounts')}}</button>
+        <div class="actions flex gap10 align-center justify-end width-all" v-if="isAdmin">
+          <template v-if="organizationId === '-1'">
+            <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
+            <button class="btn big" @click="getAllRAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('account.viewAllAccounts')}}</button>
+          </template>
+          <InviteAccountModal v-else/>
+        </div>
         <div class="table-item-preview table-header">
           <p>{{$t('name')}}</p>
           <p>{{$t('email')}}</p>
@@ -32,6 +38,7 @@ import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/Ite
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import AccountPreview from '../cmps/AccountPreview.vue';
 import AccountFilter from '../cmps/AccountFilter.vue';
+import InviteAccountModal from '../../organization/cmps/InviteAccountModal.vue';
 
 export default {
   name: 'AccountPage',
@@ -69,7 +76,7 @@ export default {
       this.getAllRAccounts();
     }
   },
-  components: { ItemSearchList, Loader, AccountPreview, AccountFilter }
+  components: { ItemSearchList, Loader, AccountPreview, AccountFilter, InviteAccountModal }
 }
 </script>
 

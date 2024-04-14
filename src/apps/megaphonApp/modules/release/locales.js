@@ -48,6 +48,7 @@ const  en = {
 
     "sccessfullyDistributedReleaseTo": "Successfully distributed release to",
     "cantSenDistributionTo": "Couldn`t send distribution email to",
+    "alreadyDistributedToAccounts": "Already distributed release to",
     "tryAgain": "Try again",
     "backToEditRelease": "Back to edit release",
     "noMatchingDesignTemplateFound": "No matching newsletter design was found",
@@ -72,6 +73,7 @@ const  en = {
       site: 'Site'
     },
     allowReply: 'Allow response',
+    forceDistribute: 'Allow redistribute if distributed in the past',
 
     token: 'Token',
     tokenType: 'Token type',
@@ -134,6 +136,7 @@ const he = {
 
     "sccessfullyDistributedReleaseTo": "רליס הופץ בהצלחה ל",
     "cantSenDistributionTo": "המערכת לא הצליחה להפיץ רליס ל",
+    "alreadyDistributedToAccounts": "המערכת נמנעה מלהפיץ את הרליס פעם נוספת מכיוון שכבר הפיצה את הרליס בעבר ל",
     "tryAgain": "נסה שוב",
     "backToEditRelease": "חזור לעריכת רליס",
     "noMatchingDesignTemplateFound": "לא נמצאה תבנית עיצובית מתאימה למייל הפצה",
@@ -158,6 +161,7 @@ const he = {
       site: 'אתר'
     },
     allowReply: 'אפשר תגובה',
+    forceDistribute: 'אפשר להפיץ בשנית אם כבר הופץ בעבר',
 
     token: 'מזהה',
     tokenType: 'סוג מזהה',

@@ -27,7 +27,7 @@ const initState = () => ({
   isLoading: false
 });
 
-async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, onError, dontDelay = false, loading = true }) {
+async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, onError, dontDelay = false, loading = true, dontSet = false }) {
   try {
     if (loading) commit({ type: 'setLoading', val: true });
     // if (!dontDelay) await delay(700);
@@ -114,7 +114,7 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
     },
     actions: {
       _Ajax: StoreAjax,
-      async loadItems({ commit, dispatch, getters }, { filterBy, organizationId }) {
+      async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, dontSet = false }) {
         return dispatch({
           type: '_Ajax',
           do: async () => {
@@ -126,31 +126,31 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
             const itemsRes = await service.query(getters.filterBy, organizationId);
             return itemsRes;
           },
-          onSuccess: (data) => commit({ type: 'setData', data })
+          onSuccess: (data) => { if (!dontSet) commit({ type: 'setData', data }) }
         });
       },
-      async loadItem({ commit, dispatch }, { id, organizationId }) {
+      async loadItem({ commit, dispatch }, { id, organizationId, dontSet = false }) {
         commit({ type: 'setSelectedItem', item: null });
         return dispatch({
           type: '_Ajax',
           do: async () => service.get(id, organizationId),
-          onSuccess: (item) => commit({ type: 'setSelectedItem', item })
+          onSuccess: (item) => { if (!dontSet) commit({ type: 'setSelectedItem', item }) }
         });
       },
-      async removeItem({ commit, dispatch, getters }, { id, organizationId, reload = false }) {
+      async removeItem({ commit, dispatch, getters }, { id, organizationId, reload = false, dontSet = false }) {
         if (!await alertService.Confirm($t(`${moduleName}.alerts.confirmRemove`))) throw new Error('Dont want to remove!');
         return dispatch({
           type: '_Ajax',
           do: async () => service.remove(id, organizationId),
           onSuccess: () => {
-            commit({ type: 'removeItem', id });
+            if (!dontSet) commit({ type: 'removeItem', id });
             // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.removeSuccess`)}! id: ${id}`});
             alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.removeSuccess`)}!`});
             if (reload) dispatch({ type: 'loadItems', organizationId, filterBy: getters.filterBy });
           }
         });
       },
-      async saveItem({ commit, dispatch }, { item, organizationId, loading }) {
+      async saveItem({ commit, dispatch }, { item, organizationId, loading, dontSet = false }) {
         return dispatch({
           type: '_Ajax',
           loading,
@@ -158,7 +158,7 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
           onSuccess: (item) => {
             // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}! id: ${item._id}`})
             alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}!`})
-            commit({ type: 'saveItem', item });
+            if (!dontSet) commit({ type: 'saveItem', item });
           }
         });
       },

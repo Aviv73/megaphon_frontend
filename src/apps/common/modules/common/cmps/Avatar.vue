@@ -3,7 +3,7 @@
     <div v-if="$slots.default" :style="{fontSize: renderFontSize}">
       <slot/>
     </div>
-    <img class="avatar-img" v-else :src="imgSrc" alt="">
+    <!-- <img class="avatar-img" v-else :src="imgSrc" alt=""> -->
   </section>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     imgSrc() {
-      return this.accont? this.account.img || `https://robohash.org/${this.account.username}` : this.img || '';
+      return this.account? this.account.img || `https://robohash.org/${this.account.username}` : this.img || '';
     },
     renderSizeEm() {
       const size = (this.size || 30) / 16;

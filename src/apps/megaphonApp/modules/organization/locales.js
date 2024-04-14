@@ -18,10 +18,12 @@ const en = {
     "headerBg": "Header background color",
     "headersColor": "Headings text color",
     "domainTakenError": "Domain is alredy taken by another organization!",
+    "inviteMembers": "Invite members",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this organization?",
       "removeSuccess": "Organization removed successfully",
-      "savedSuccess": "Organization saved successfully"
+      "savedSuccess": "Organization saved successfully",
+      "invetationSentSuccess": "Invetation sent successfully",
     }
   }
 }
@@ -47,10 +49,13 @@ const he = {
     "headerBg": "צבע רקע הדר",
     "headersColor": "צבע כותרים",
     "domainTakenError": "הדומיין הזה כבר בשימוש באירגון אחר!",
+    "inviteMembers": "הזמן משתמשים",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הארגון?",
       "removeSuccess": "ארגון נמחק בהצלחה",
-      "savedSuccess": "פרטי ארגון נשמרו בהצלחה"
+      "savedSuccess": "פרטי ארגון נשמרו בהצלחה",
+      "invetationSentSuccess": "Invetation sent successfully",
+      "invetationSentSuccess": "הזמנה נשלחה בהצלחה",
     }
   }
 }
@@ -60,6 +65,7 @@ const heF = {
     ...he.organization,
     "editOrganization": "ערכי פרטי ארגון",
     "createOrganization": "צרי ארגון חדש",
+    "inviteMembers": "הזמיני משתמשים",
     alerts: {
       ...he.organization.alerts,
       "confirmRemove": "האם את בטוחה שאת רוצה למחוק את הארגון?",
