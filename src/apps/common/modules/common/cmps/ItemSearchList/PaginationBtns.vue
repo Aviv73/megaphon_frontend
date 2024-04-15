@@ -1,6 +1,10 @@
 <template>
     <div class="pagination-btns">
-      <FormInput type="select" labell="Per page:" v-model="filterBy.pagination.limit" @change="updateLimit" :items="[15,30,50,100,150,200]" class="align-center gap15" :listUp="true"/>
+      <div class="flex align-center gap5 ltr">
+        <FormInput type="select" labell="Per page:" v-model="filterBy.pagination.limit" @change="updateLimit" :items="[15,30,50,100,150,200]" class="align-center gap15" :listUp="true"/>
+        <span class="out-of-span">/</span>
+        <span>{{total}}</span>
+      </div>
       <div class="page-buttons" :class="{ disable: (page <= 1) }">
         <button @click="routeToNewPage(+page - 1)">
           <
@@ -149,6 +153,11 @@ export default {
     button, span {
         min-width: em(26px);
         // min-width: em(15px);
+    }
+
+    .out-of-span {
+        width: fit-content;
+        min-width: unset;
     }
 
     .page-num-btns {

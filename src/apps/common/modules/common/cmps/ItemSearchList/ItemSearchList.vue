@@ -22,7 +22,7 @@
         </router-link>
       </div>
     </div>
-    <PaginationBtns v-if="filterBy && (totalItems > items.length)" :total="totalItems" :perPage="filterBy.pagination.limit" :initFilter="filterBy" @filtered="setFilter" v-model="filterBy.pagination.page"/>
+    <PaginationBtns v-if="(filterBy && (totalItems > items.length) || true)" :total="totalItems" :perPage="filterBy.pagination.limit" :initFilter="filterBy" @filtered="setFilter" v-model="filterBy.pagination.page"/>
     <!-- <div v-else-if="!isLoading" class="flex column space-between align-center no-results-preview"> -->
     
     <Loader v-if="showLoader && isLoading"/>
