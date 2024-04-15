@@ -5,7 +5,8 @@ import { distributionService } from './services/distribution.service';
 
 const initState = () => ({
   ...basicStoreService.initState(),
-  selectedReleaseReport: null
+  selectedReleaseReport: null,
+  selectedContactReport: null,
 });
 
 export const releaseStore = basicStoreService.createSimpleCrudStore(
@@ -13,11 +14,15 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
   initState,
   {
     getters: {
-      selectedReleaseReport(state) { return state.selectedReleaseReport }
+      selectedReleaseReport(state) { return state.selectedReleaseReport },
+      selectedContactReport(state) { return state.selectedContactReport }
     },
     mutations: {
       setSelectedReleaseReport(state, { report }) {
         state.selectedReleaseReport = report;
+      },
+      setSelectedContactReport(state, { report }) {
+        state.selectedContactReport = report;
       }
     },
     actions: {
@@ -42,6 +47,15 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
           do: async () => distributionService.getByReleaseId(organizationId, releaseId),
           onSuccess: (report) => {
             commit({ type: 'setSelectedReleaseReport', report });
+          }
+        });
+      },
+      async loadContactReport({ commit, dispatch, getters }, { id, email }) {
+        return dispatch({
+          type: '_Ajax',
+          do: async () => distributionService.getContactReport(id, email),
+          onSuccess: (report) => {
+            commit({ type: 'setSelectedContactReport', report });
           }
         });
       },

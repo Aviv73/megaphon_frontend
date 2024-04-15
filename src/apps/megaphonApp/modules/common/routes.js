@@ -3,6 +3,7 @@ import ReleasePage from '../release/views/ReleasePage';
 import ReleaseEdit from '../release/views/ReleaseEdit';
 import ReleaseDistribution from '../release/views/ReleaseDistribution';
 import ReleaseReport from '../release/views/ReleaseReport';
+import ContactReportPage from '../release/views/ContactReportPage';
 import ContactPage from '../contact/views/ContactPage';
 import { contactRoutes } from '../contact/routes';
 import { accountRoutes } from '../account/routes';
@@ -25,6 +26,11 @@ export const commonRoutes = [
     path: '/release/report/:organizationId/:id',
     component: ReleaseReport,
     name: 'ReleaseReport'
+  },
+  {
+    path: '/release/contact-report/:id?',
+    component: ContactReportPage,
+    name: 'ContactReportPage'
   },
   {
     path: '/',

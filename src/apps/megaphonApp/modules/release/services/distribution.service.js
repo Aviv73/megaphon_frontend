@@ -13,7 +13,8 @@ export const distributionService = {
   updateMailingList,
 
   getByReleaseId,
-  reportReleaseOpened
+  reportReleaseOpened,
+  getContactReport
 }
 
 async function distribute(organizationId, releaseId, distributionData, onChunkEndCb = (sentToCount) => {} ) {
@@ -60,6 +61,10 @@ function updateMailingList(organizationId, mailingListItem) {
 
 function getByReleaseId(organizationId, releaseId) {
   return httpService.get(`${ENDPOINT}/${organizationId}/distribution-data-by-release/${releaseId}`);
+}
+
+function getContactReport(id, email) {
+  return httpService.get(`${ENDPOINT}/distribution-data-by-contact/`, { id, email });
 }
 
 function reportReleaseOpened(releaseId, queryParams) {

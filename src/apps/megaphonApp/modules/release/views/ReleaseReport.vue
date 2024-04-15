@@ -8,16 +8,20 @@
         <div class="flex column gap10">
           <div class="table-like-list flex-1">
             <div class="table-item-preview gap10 table-header flex space-between">
-              <p :class="{selected: sortContactsKeys[0] === 'activity.distributedAt'}" @click="setContactsSorter('activity.distributedAt')" class="flex-1">{{$t('date')}}</p>
-              <p :class="{selected: sortContactsKeys[0] === 'name'}" @click="setContactsSorter('name', 'firstName', 'email', 'token')" class="flex-2">{{$t('contact.contactName')}} / {{$t('distribute.token')}}</p>
-              <p :class="{selected: sortContactsKeys[0] === 'origin'}" @click="setContactsSorter('origin')" class="flex-1">{{$t('distribute.origin')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.distributedAt'}" @click="setContactsSorter('activity.distributedAt')">{{$t('date')}}</p>
+              <p class="flex-2" :class="{selected: sortContactsKeys[0] === 'name'}" @click="setContactsSorter('name', 'firstName', 'email', 'token')">{{$t('contact.contactName')}} / {{$t('distribute.token')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'origin'}" @click="setContactsSorter('origin')">{{$t('distribute.origin')}}</p>
               <!-- <p>{{$t('email')}}</p> -->
-              <p :class="{selected: sortContactsKeys[0] === 'activity.openedNewsAt'}" @click="setContactsSorter('activity.openedNewsAt')" class="flex-1">{{$t('distribute.newsletter')}}</p>
-              <p :class="{selected: sortContactsKeys[0] === 'activity.openedLandingPageAt'}" @click="setContactsSorter('activity.openedLandingPageAt')" class="flex-1">{{$t('distribute.wached')}}</p>
-              <p :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')" class="flex-1">{{$t('distribute.wachedCount')}}</p>
-              <p :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')" class="flex-1">{{$t('distribute.unsubscribed')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedNewsAt'}" @click="setContactsSorter('activity.openedNewsAt')">{{$t('distribute.newsletter')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedLandingPageAt'}" @click="setContactsSorter('activity.openedLandingPageAt')">{{$t('distribute.wached')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distribute.wachedCount')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')">{{$t('distribute.unsubscribed')}}</p>
             </div>
-            <div v-for="contact in contactsToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
+            <div
+              v-for="contact in contactsToShow" :key="contact._id"
+              class="table-item-preview gap10 flex align-center space-between"
+              :to="{ name: 'ContactReportPage', params: {id: contact._id || 'unknown'}, query: {email: contact.email} }"
+            >
               <p class="flex-1">{{pretyDate(contact.activity.distributedAt)}}</p>
               <p class="flex-2">{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || contact.token || ''}}</p>
               <p class="flex-1">{{$t(`distribute.origins.${contact.origin}`)}}</p>

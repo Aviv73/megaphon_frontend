@@ -76,7 +76,7 @@
               <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.removeAll')}}</button>
           </div>
             <div v-for="contact in contactsForDistributeToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
-              <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || ''}}</p>
+              <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || ''}}</p>
               <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.remove')}}</button>
             </div>
             <!-- <div class="item-list">
@@ -189,6 +189,9 @@ import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import { templateUtils } from '../../common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
+
+const minimizeContact = ({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name});
+
 export default {
   name: 'ReleaseDistribute',
   data() {
@@ -331,7 +334,7 @@ export default {
         this.isLoadingForDist = true;
         const res = await distributionService.distribute(this.organizationId, this.release._id, { 
           from: this.fromEmail,
-          contacts: (contacts || this.contactsForDistribute).map(({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name})),
+          contacts: (contacts || this.contactsForDistribute).map(minimizeContact),
           forceDistribute: this.isForceDistribute
         },
         updatedSentToCount => this.sendingToStatus.sent = updatedSentToCount);
@@ -395,7 +398,7 @@ export default {
       this.isLoadingLocal = true;
       try {
         const newListItem = {
-          contacts: this.contactsForDistribute,
+          contacts: this.contactsForDistribute.map(minimizeContact),
           title: this.newMailingListName,
           organizationId: this.organizationId
         }
