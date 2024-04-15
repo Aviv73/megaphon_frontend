@@ -1,6 +1,7 @@
 <template>
   <div v-if="contact" class="table-item-preview contact-preview">
-    <p>{{contact.firstName}} {{contact.lastName}}</p>
+    <p v-if="contact.firstName">{{contact.firstName}} {{contact.lastName}}</p>
+    <p v-else>{{contact.email}}</p>
     <p>{{contact.role}}</p>
     <p>{{companiesToShow.join(', ')}}</p>
     <button class="toggle-btn" v-if="isAdded" @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('remove')}}</button>
