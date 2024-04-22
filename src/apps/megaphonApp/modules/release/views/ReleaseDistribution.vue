@@ -319,7 +319,7 @@ export default {
       if (!this.customEmailToAdd) return;
       const newContact = { name: this.customEmailToAdd, email: this.customEmailToAdd };
       this.addContact(newContact);
-      this.customEmailToAdd = '';
+      this.customEmailToAdd = ''; // TODO:: doesnt work;;
     },
 
 
