@@ -1,5 +1,5 @@
 <template>
-  <div class="contact-report-page flex column gap50 width-all align-stretch">
+  <div class="contact-report-page container flex column gap50 width-all align-stretch">
     <h1>
       {{$t('distribute.contactReport')}}
     </h1>
