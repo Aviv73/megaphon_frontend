@@ -1,31 +1,40 @@
 <template>
-  <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20">
+  <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20 wrap">
     <!-- <FormInput @change="emitFilter" type="select" placeholder="type" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" /> -->
-    <template v-if="org && org.innerFilters && org.innerFilters.length">
-      <FormInput
-        v-for="(currFilterItem, idx) in org.innerFilters" :key="idx"
-        type="select"
-        :placeholder="currFilterItem.title"
-        :items="currFilterItem.options.map(c => ({label: c.label, value: (c.value === ''? undefined : c.value)}))"
-        v-model="filterBy.filter.params[currFilterItem.field]"
-        @change="emitFilter"
-      />
-    </template>
-    <FormInput @change="setDateRange" type="select" placeholder="release.filterByYear" :items="yearsOpts" v-model="dateSelectVal" />
-    <FormInput v-if="selectedReleaseIds.length && isRoleInOrg('producer')" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
-    <div class="flex align-center gap20">
-      <ToggleBtns class="sorters flex gap10" :options="[
-        {img: require('@/apps/megaphonApp/assets/images/sort.svg'), value: ''},
-        {label: 'תאריך', value: 'publishedAt'},
-        {label: 'א-ב', value: 'title'},
-      ]" v-model="filterBy.simpleSort" @input="setSortKey" />
-          
-      <FormInput class="search" placeholder="search" v-model="filterBy.filter.search" iconPos="left">
-        <button>
-          <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
-        </button>
-      </FormInput>
-    </div>
+    <component :is="isScreenWide? 'div' : ToggleModal" :fullScreen="true" class="flex-1">
+      <template v-if="!isScreenWide" #toggler>
+        <div class="btn">
+          {{$t('filter')}}
+        </div>
+      </template>
+      <div class="flex-1 flex align-center space-between gap20 wrap">
+        <template v-if="org && org.innerFilters && org.innerFilters.length">
+          <FormInput
+            v-for="(currFilterItem, idx) in org.innerFilters" :key="idx"
+            type="select"
+            :placeholder="currFilterItem.title"
+            :items="currFilterItem.options.map(c => ({label: c.label, value: (c.value === ''? undefined : c.value)}))"
+            v-model="filterBy.filter.params[currFilterItem.field]"
+            @change="emitFilter"
+          />
+        </template>
+        <FormInput @change="setDateRange" type="select" placeholder="release.filterByYear" :items="yearsOpts" v-model="dateSelectVal" />
+        <FormInput v-if="selectedReleaseIds.length && isRoleInOrg('producer')" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
+        <div class="flex align-center gap20">
+          <ToggleBtns class="sorters flex gap10" :options="[
+            {img: require('@/apps/megaphonApp/assets/images/sort.svg'), value: ''},
+            {label: 'תאריך', value: 'publishedAt'},
+            {label: 'א-ב', value: 'title'},
+          ]" v-model="filterBy.simpleSort" @input="setSortKey" />
+              
+        </div>
+      </div>
+    </component>
+    <FormInput class="search" placeholder="search" v-model="filterBy.filter.search" iconPos="left">
+      <button>
+        <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
+      </button>
+    </FormInput>
     <!-- <button @click="emitFilter">{{$t('filter')}}</button> -->
   </form>
 </template>
@@ -35,6 +44,7 @@ import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 import { organizationService } from '../../organization/services/organization.service';
+import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 export default {
   name: 'ReleaseFilter',
   props: {
@@ -49,6 +59,7 @@ export default {
   },
   data() {
     return {
+      ToggleModal,
       filterBy: null,
       filterTypes: { // licenseType
         all: undefined,
@@ -61,6 +72,10 @@ export default {
     }
   },
   computed: {
+    isScreenWide() {
+      return this.$store.getters.isScreenWide;
+    },
+
     org() {
       return this.$store.getters['organization/selectedItem'];
     },
@@ -153,7 +168,7 @@ export default {
   //     } 
   //   }
   // },
-  components: { FormInput, ToggleBtns }
+  components: { FormInput, ToggleBtns, ToggleModal }
 }
 </script>
 

@@ -1,7 +1,10 @@
 <template>
   <div class="release-distribute flex column gap20 container" v-if="release && org">
     <div class="flex align-center space-between gap10 width-all">
-      <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.backToEditRelease')}}</button></router-link>
+      <div class="flex align-center gap20">
+        <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.backToEditRelease')}}</button></router-link>
+        <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.report')}}</button></router-link>
+      </div>
       <h2>{{$t('distribute.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
     </div>
     <p v-if="!isLoading && !distributionTemplate">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
@@ -9,8 +12,8 @@
       <div class="flex gap30 width-all flex-1">
         <div style="flex:3" class="flex column gap10">
           <div class="tab-nav light">
-            <button @click="loadSystemContacts = true" :class="{selected: loadSystemContacts}">{{$t('distribute.contactsToDistribute')}}</button>
             <button @click="loadSystemContacts = false" :class="{selected: !loadSystemContacts}">{{$t('distribute.selfContacts')}}</button>
+            <button @click="loadSystemContacts = true" :class="{selected: loadSystemContacts}">{{$t('distribute.contactsToDistribute')}}</button>
           </div>
           <ItemSearchList
             class="table-like-list"
@@ -75,7 +78,7 @@
               <FormInput :placeholder="$t('contact.contactName')" v-model="searchSelectedTerm"/>
               <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.removeAll')}}</button>
           </div>
-            <div v-for="contact in contactsForDistributeToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
+            <div v-for="contact in contactsForDistributeToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between" :class="{unsubscribed: contact.unsubscribed}">
               <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || ''}}</p>
               <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.remove')}}</button>
             </div>
@@ -133,31 +136,16 @@
           <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}}/{{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length + distributionReport.allreadyDistributedTo.length}}</span> {{$t('contact.contacts')}}.</p>
           <div class="flex column gap10 new--lists-modal" v-if="distributionReport.faildSendToUsers.length">
             <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}:</p>
-            <div class="table-like-list flex-1 selected-table">
-              <div class="table-item-preview gap10 table-header flex space-between">
-                <p>{{$t('contact.contactName')}}</p>
-                <p>{{$t('email')}}</p>
-              </div>
-              <div v-for="contact in distributionReport.faildSendToUsers" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
-                <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || ''}}</p>
-                <p>{{contact.email}}</p>
-              </div>
-            </div>
+            <ContactList :contacts="distributionReport.faildSendToUsers" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
             <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
           </div>
           <div class="flex column gap10 new--lists-modal" v-if="distributionReport.allreadyDistributedTo.length">
-            <p>{{$t('distribute.alreadyDistributedToAccounts')}} {{distributionReport.allreadyDistributedTo.length}} {{$t('contact.contacts')}}:</p>
-            <div class="table-like-list flex-1 selected-table">
-              <div class="table-item-preview gap10 table-header flex space-between">
-                <p>{{$t('contact.contactName')}}</p>
-                <p>{{$t('email')}}</p>
-              </div>
-              <div v-for="contact in distributionReport.allreadyDistributedTo" :key="contact._id" class="table-item-preview gap10 flex align-center space-between">
-                <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || ''}}</p>
-                <p>{{contact.email}}</p>
-              </div>
-            </div>
-            <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
+            <p>{{$t('distribute.alreadyDistributedToContacts')}} {{distributionReport.allreadyDistributedTo.length}} {{$t('contact.contacts')}}:</p>
+            <ContactList :contacts="distributionReport.allreadyDistributedTo" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
+          </div>
+          <div class="flex column gap10 new--lists-modal" v-if="distributionReport.unsubscribedContacts.length">
+            <p>{{$t('distribute.unsubscribedContacts')}} {{distributionReport.unsubscribedContacts.length}} {{$t('contact.contacts')}}:</p>
+            <ContactList :contacts="distributionReport.unsubscribedContacts" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
           </div>
           <div class="width-all flex justify-end">
             <button @click="showDistributionReportModal = false" class="btn">{{$t('close')}}</button>
@@ -189,6 +177,8 @@ import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import { templateUtils } from '../../common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
+import ContactList from '../../contact/cmps/ContactList.vue';
+import { organizationService } from '../../organization/services/organization.service';
 
 const minimizeContact = ({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name});
 
@@ -198,7 +188,7 @@ export default {
     return {
       release: null,
       org: null,
-      loadSystemContacts: true,
+      loadSystemContacts: false,
 
       DistributeContactPreview,
       ContactFilter,
@@ -265,10 +255,18 @@ export default {
     sendInEmailUrl() {
       // &token=${getRandomId('')}
       return templateUtils.getReleaseLandingPageUrl(this.release, this.org, false) + `?releaseId=${this.release?._id}&origin=email&token=`;
+    },
+
+    
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
     }
   },
 
   methods: {
+    isRoleInOrg(role) {
+      return organizationService.isUserRoleInOrg(this.org?._id, role, this.loggedUser);
+    },
     onFromEmailChanged(val) {
       const fromEmailItem = this.fromEmails.find(c => c.email === val);
       this.fromEmail.title = fromEmailItem?.title || ''
@@ -291,7 +289,8 @@ export default {
     },
     getContacts(filterBy) {
       filterBy = filterBy || this.filterBy
-      this.$store.dispatch({ type: 'contact/loadItems', filterBy: {...filterBy, loadSystemContacts: this.loadSystemContacts }, organizationId: this.organizationId });
+      // this.$store.dispatch({ type: 'contact/loadItems', filterBy: {...filterBy, loadSystemContacts: this.loadSystemContacts }, organizationId: this.organizationId });
+      this.$store.dispatch({ type: 'contact/loadItems', filterBy: {...filterBy, includeUnsubscribed: true }, organizationId: this.loadSystemContacts? '-1' : this.organizationId });
     },
 
     addContact(contact) {
@@ -389,7 +388,9 @@ export default {
     selectMailingList(list) {
       this.contactsForDistribute = [
         ...this.contactsForDistribute,
-        ...list.contacts.filter(c => !c.unsubscribed).filter(c => !this.contactsForDistribute.find(_ => _.email === c.email))
+        ...list.contacts
+          .filter(c => !c.unsubscribed)
+          // .filter(c => !this.contactsForDistribute.find(_ => _.email === c.email))
       ];
       this.showEmailListsSelectionModal = false;
     },
@@ -457,6 +458,7 @@ export default {
     ItemSearchList, Loader, DistributeContactPreview, ContactFilter,
     Modal,
     ReleaseDistributionLinkCoppier,
+    ContactList,
   },
 
 
@@ -512,6 +514,10 @@ export default {
           flex: unset;
         }
       }
+    }
+
+    .unsubscribed {
+      opacity: 0.7;
     }
 
     .mailing-list-list {

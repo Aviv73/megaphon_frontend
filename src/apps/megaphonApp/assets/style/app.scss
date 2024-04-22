@@ -36,6 +36,8 @@ html {
       padding: 0 em(10px);
       >* {
         flex: 1;
+        // max-width: rem(200px);
+        text-overflow: clip;
         &.flex-2 {
           flex: 2;
         }

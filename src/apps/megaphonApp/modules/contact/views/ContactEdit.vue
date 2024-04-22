@@ -14,6 +14,12 @@
       <FormInput labelholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/>
       <FormInput labelholder="contact.notes" type="text" v-model="itemToEdit.notes"/>
     </form>
+    <div>
+      <button @click="toggleSubscribtionValue" class="btn big primary">
+        <p v-if="unsubscribed">{{$t('contact.reSubscribe')}}</p>
+        <p v-else>{{$t('contact.unsubscribe')}}</p>
+      </button>
+    </div>
     <div class="flex align-center gap30">
       <button class="btn big danger" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
       <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('submit')}}</button>
@@ -27,11 +33,14 @@
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import CompanyPicker from '../../company/cmps/CompanyPicker.vue';
 import TagPicker from '../../tag/cmps/TagPicker.vue';
+import { distributionService } from '../../release/services/distribution.service';
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
 export default {
   name: 'ContactEdit',
   data() {
     return {
-      itemToEdit: null
+      itemToEdit: null,
+      unsubscribed: false
     }
   },
   computed: {
@@ -45,8 +54,9 @@ export default {
   methods: {
     async getItem() {
       this.itemToEdit = await this.$store.dispatch({ type: 'contact/loadItem', id: this.$route.params.id, organizationId: this.orgId });
-      console.log('WOWOW', this.itemToEdit);
       this.itemToEdit.organizationId = this.orgId;
+      this.unsubscribed = this.itemToEdit.unsubscribed || false;
+      delete this.itemToEdit.unsubscribed;
     },
     async saveItem() {
       if (!this.isItemValid) return;
@@ -60,6 +70,13 @@ export default {
     },
     close() {
       this.$router.push({ name: 'ContactPage', params: { organizationId: this.orgId } })
+    },
+    async toggleSubscribtionValue() {
+      if (!await alertService.Confirm(this.$t('contact.confirmToggleSubscriptionValueMsg'))) return;
+      this.$store.commit({ type: 'contact/setLoading', val: true });
+      const newVal = await distributionService.updateSubscriptionValue(this.itemToEdit._id, this.orgId, !this.unsubscribed);
+      this.unsubscribed = newVal.value;
+      this.$store.commit({ type: 'contact/setLoading', val: false });
     }
   },
   created() {

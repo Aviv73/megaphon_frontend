@@ -14,7 +14,9 @@ export const distributionService = {
 
   getByReleaseId,
   reportReleaseOpened,
-  getContactReport
+  getContactReport,
+
+  updateSubscriptionValue
 }
 
 async function distribute(organizationId, releaseId, distributionData, onChunkEndCb = (sentToCount) => {} ) {
@@ -37,6 +39,7 @@ async function distribute(organizationId, releaseId, distributionData, onChunkEn
     sentToUsers: results.reduce((acc, c) => [...acc, ...c.sentToUsers], []),
     faildSendToUsers: results.reduce((acc, c) => [...acc, ...c.faildSendToUsers], []),
     allreadyDistributedTo: results.reduce((acc, c) => [...acc, ...c.allreadyDistributedTo], []),
+    unsubscribedContacts: results.reduce((acc, c) => [...acc, ...c.unsubscribedContacts], []),
   }
   // return httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, distributionData);
 }
@@ -66,6 +69,12 @@ function getByReleaseId(organizationId, releaseId) {
 function getContactReport(id, email) {
   return httpService.get(`${ENDPOINT}/distribution-data-by-contact/`, { id, email });
 }
+
+
+function updateSubscriptionValue(contactId, organizationId, subscriptionValue) {
+  return httpService.post(`${ENDPOINT}/update-subscription-value/`, { contactId, organizationId, subscriptionValue });
+}
+
 
 function reportReleaseOpened(releaseId, queryParams) {
   // const urlParams = new URLSearchParams(window.location.search);

@@ -17,20 +17,20 @@
               <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distribute.wachedCount')}}</p>
               <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')">{{$t('distribute.unsubscribed')}}</p>
             </div>
-            <div
+            <router-link
               v-for="contact in contactsToShow" :key="contact._id"
               class="table-item-preview gap10 flex align-center space-between"
               :to="{ name: 'ContactReportPage', params: {id: contact._id || 'unknown'}, query: {email: contact.email} }"
             >
-              <p class="flex-1">{{pretyDate(contact.activity.distributedAt)}}</p>
+              <p class="flex-1">{{contact.activity?.distributedAt? pretyDate(contact.activity?.distributedAt) : '-'}}</p>
               <p class="flex-2">{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || contact.token || ''}}</p>
               <p class="flex-1">{{$t(`distribute.origins.${contact.origin}`)}}</p>
               <!-- <p>{{contact.email}}</p> -->
-              <p class="flex-1">{{vOrX(contact.activity.openedNewsAt)}}</p>
-              <p class="flex-1">{{vOrX(contact.activity.openedLandingPageAt)}}</p>
-              <p class="flex-1">{{contact.activity.openLandingPageCount || (contact.activity.openedLandingPageAt? 1 : '-')}}</p>
-              <p class="flex-1">{{vOrX(contact.activity.unsubscribedAt)}}</p>
-            </div>
+              <p class="flex-1">{{vOrX(contact.activity?.openedNewsAt)}}</p>
+              <p class="flex-1">{{vOrX(contact.activity?.openedLandingPageAt)}}</p>
+              <p class="flex-1">{{contact.activity?.openLandingPageCount || (contact.activity?.openedLandingPageAt? 1 : '-')}}</p>
+              <p class="flex-1">{{vOrX(contact.activity?.unsubscribedAt)}}</p>
+            </router-link>
           </div>
           <PaginationBtns :perPage="15" :total="report.recipients.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination.page" />
         </div>
@@ -89,7 +89,7 @@ import PaginationBtns from '../../../../common/modules/common/cmps/ItemSearchLis
 
 import { Pie as PieChart } from 'vue-chartjs';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
-import { getDeepVal } from '../../../../common/modules/common/services/util.service';
+import { getDeepVal, Utils } from '../../../../common/modules/common/services/util.service';
 
 export default {
   components: { PaginationBtns, PieChart, ReleaseDistributionLinkCoppier },
@@ -111,13 +111,8 @@ export default {
       this.contactFilter.pagination.page = 0;
       this.sortContactsKeys = [...sortKeys];
     },
-    pretyDate(timeMs) {
-      const time = new Date(timeMs);
-      return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
-    },
-    vOrX(val) {
-      return val? '✔' : '-'; // ✓ ✔
-    },
+    pretyDate: Utils.pretyDate,
+    vOrX: Utils.vOrX,
     getOrg() {
       this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId });
     },

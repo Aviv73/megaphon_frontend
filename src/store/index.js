@@ -10,6 +10,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
   },
+  getters: {
+    isScreenWide() {
+      return window.innerWidth > 1000;
+    }
+  },
   mutations: {
   },
   actions: {

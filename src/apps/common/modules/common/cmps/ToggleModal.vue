@@ -4,7 +4,8 @@
       <slot name="toggler"/>
     </div>
     <Modal :showCloseBtn="true" :fullScreen="fullScreen" @close="showContent = false" v-if="showContent">
-      <slot name="content"/>
+      <slot v-if="$slots.content" name="content"/>
+      <slot v-else />
     </Modal>
   </div>
 </template>

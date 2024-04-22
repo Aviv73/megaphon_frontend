@@ -25,6 +25,7 @@ const  en = {
     distributedAt: "Distributed at"
   },
   "distribute": {
+    "distributions": "Distributions",
     "distributeRelease": "Distribute release",
     "contactsToDistribute": "Contacts to distribute",
     "selfContacts": "Self contacts",
@@ -48,7 +49,7 @@ const  en = {
 
     "sccessfullyDistributedReleaseTo": "Successfully distributed release to",
     "cantSenDistributionTo": "Couldn`t send distribution email to",
-    "alreadyDistributedToAccounts": "Already distributed release to",
+    "alreadyDistributedToContacts": "Already distributed release to",
     "tryAgain": "Try again",
     "backToEditRelease": "Back to edit release",
     "noMatchingDesignTemplateFound": "No matching newsletter design was found",
@@ -57,6 +58,7 @@ const  en = {
     "saveDistributionList": "Save distribution list",
 
     "report": "Report",
+    "contactReport": "Contact report",
 
     "loadingMsg": "Distributing release, it might take a while",
     wached: 'Wached',
@@ -70,7 +72,8 @@ const  en = {
     origins: {
       email: 'Email',
       distribution: 'Distribution',
-      site: 'Site'
+      site: 'Site',
+      undefined: 'Unknown'
     },
     allowReply: 'Allow response',
     forceDistribute: 'Allow redistribute if distributed in the past',
@@ -113,6 +116,7 @@ const he = {
     distributedAt: "הופץ"
   },
   "distribute": {
+    "distributions": "הפצות",
     "distributeRelease": "הפצת רליס",
     "contactsToDistribute": "אנשי קשר להפצה",
     "selfContacts": "ספר כתובות אישי",
@@ -136,7 +140,7 @@ const he = {
 
     "sccessfullyDistributedReleaseTo": "רליס הופץ בהצלחה ל",
     "cantSenDistributionTo": "המערכת לא הצליחה להפיץ רליס ל",
-    "alreadyDistributedToAccounts": "המערכת נמנעה מלהפיץ את הרליס פעם נוספת מכיוון שכבר הפיצה את הרליס בעבר ל",
+    "alreadyDistributedToContacts": "המערכת נמנעה מלהפיץ את הרליס פעם נוספת מכיוון שכבר הפיצה את הרליס בעבר ל",
     "tryAgain": "נסה שוב",
     "backToEditRelease": "חזור לעריכת רליס",
     "noMatchingDesignTemplateFound": "לא נמצאה תבנית עיצובית מתאימה למייל הפצה",
@@ -145,6 +149,7 @@ const he = {
     "saveDistributionList": "שמור רשימת תפוצה",
 
     "report": "דוח רליס",
+    "contactReport": "דוח הפצות איש קשר",
 
     "loadingMsg": "מפיץ את הרליס, זה עשוי לקחת רגע..",
     wached: 'צפייה',
@@ -158,7 +163,8 @@ const he = {
     origins: {
       email: 'אימייל',
       distribution: 'הפצה',
-      site: 'אתר'
+      site: 'אתר',
+      undefined: '-'
     },
     allowReply: 'אפשר תגובה',
     forceDistribute: 'אפשר להפיץ בשנית אם כבר הופץ בעבר',

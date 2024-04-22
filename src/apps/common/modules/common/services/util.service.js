@@ -14,7 +14,9 @@ export const Utils = {
     getStyleStr,
     deepSearch,
     getElPosOnScreen,
-    createBoard
+    createBoard,
+    vOrX,
+    pretyDate
 };
 
 
@@ -487,6 +489,15 @@ export function getRandomPassword(length = 10) {
     var res = '';
     for (let i = 0; i < length; i++) res += options[getRandomInt(0, options.length-1)];
     return res;
+}
+
+
+export function pretyDate(timeMs) {
+    const time = new Date(timeMs);
+    return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
+}
+export function vOrX(val) {
+    return val? '✔' : '-'; // ✓ ✔
 }
 
 

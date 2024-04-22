@@ -12,6 +12,9 @@ const  en = {
     "phone": "Phone",
     "uploadFromFile": "Import file",
     "unsubscribed": "Unsubscribed",
+    "unsubscribe": "Unsubscribe",
+    "reSubscribe": "Resubscribe",
+    "confirmToggleSubscriptionValueMsg": "Are you sure you want to change the subscribtion settings for this contact?",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this contact?",
       "removeSuccess": "Contact removed successfully",
@@ -33,6 +36,9 @@ const he = {
     "phone": "טלפן",
     "uploadFromFile": "העלה קובץ",
     "unsubscribed": "ביטל מנוי",
+    "unsubscribe": "ביטול מנוי",
+    "reSubscribe": "חידוש מנוי",
+    "confirmToggleSubscriptionValueMsg": "האם אתה בטוח שאתה מעוניין לשנות את פרטי ההרשמה של איש קשר זה?",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את איש הקשר?",
       "removeSuccess": "איש קשר נמחק בהצלחה",

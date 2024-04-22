@@ -7,7 +7,7 @@
         </div>
       </router-link>
 
-      <div class="release-actions flex align-center gap50 height-all" v-if="($route.name === 'ReleasePage') && organization">
+      <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="($route.name === 'ReleasePage') && organization">
         <div class="links flex align-center gap10 height-all">
           <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn big primary">
@@ -32,17 +32,18 @@
       </div>
 
 
-      <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
+      <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button>
+      <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
       <!-- <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/apps/clientApps/agam/assets/images/mine/navBurger.png')"/></button> -->
 
-      <div class="flex align-center gap20 height-all">
+      <div class="flex align-center gap20 height-all ph">
         <div class="release-title height-all">
           <div class="actual height-all flex-center">
             <!-- <h2>Megaphon</h2> -->
           </div>
         </div>
       </div>
-      </div>
+    </div>
   </header>
 </template>
 
@@ -93,18 +94,22 @@ export default {
   //     this.selecterOrgFilterId = filter?.id || null;
   //   }
   // },
-  // watch: {
-  //   '$route.path'() {
-  //     this.mobileShow = false;
-  //     this.emitDefaultFilter();
-  //   },
-  //   organization: {
-  //     deep: true,
-  //     handler(val) {
-  //       this.emitDefaultFilter(val);
-  //     }
-  //   }
-  // },
+  watch: {
+    '$route.path'() {
+      this.mobileShow = false;
+      // this.emitDefaultFilter();
+    },
+    '$route.query'() {
+      this.mobileShow = false;
+      // this.emitDefaultFilter();
+    },
+    // organization: {
+    //   deep: true,
+    //   handler(val) {
+    //     this.emitDefaultFilter(val);
+    //   }
+    // }
+  },
   components: { Avatar },
 }
 </script>
@@ -121,6 +126,7 @@ export default {
     // position: relative;
   
     .header-content {
+      width: 100%;
       position: relative;
     }
     
@@ -162,7 +168,14 @@ export default {
     .nav-burger {
       display: none;
     }
-    @media (max-width: 0) { // $small-screen-breake
+    .blure {
+      display: none;
+    }
+    @media (max-width: $small-screen-breake) { // $small-screen-breake
+      .ph {
+        display: none;
+      }
+
       $height: calc(100vh - #{$header-height});
       // color: ;
       .nav-burger {
@@ -174,6 +187,7 @@ export default {
         // font-size: em(22px);
       }
       .blure {   
+        display: block;
         position: fixed;
         top: $header-height;
         right: 0;
@@ -182,7 +196,14 @@ export default {
         background-color: $blure-clr;
         z-index: 31;
       }
-      nav {
+      .release-actions {
+        .filters {
+          >* {
+            height: unset;
+          }
+        }
+      }
+      .nav {
         font-weight: bold;
         display: block;
         position: fixed;
@@ -190,8 +211,8 @@ export default {
         height: $height;
         top: $header-height;
         overflow-y: auto;
-        right: 0;
-        transform: translateX(100%);
+        left: 0;
+        transform: translateX(-100%);
         transition: 0.3s;
         &.show {
           transform: translateX(0);
@@ -201,21 +222,25 @@ export default {
   
         background-color: white;
         >* {
-          width: 100%;
-          height: em(100px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: unset;
-          border-radius: unset;
-          border-bottom: em(1px) solid black;
-          text-align: center;
-          &.router-link-exact-active {
-            color: rgb(157, 193, 255);
-          }
-          &:hover {
-            background-color: rgb(190, 190, 250);
-            transform: unset;
+          flex-direction: column;
+          height: fit-content;
+          >* {
+            width: 100%;
+            height: em(100px) !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: unset;
+            border-radius: unset;
+            border-bottom: em(1px) solid black;
+            text-align: center;
+            &.router-link-exact-active {
+              color: rgb(157, 193, 255);
+            }
+            &:hover {
+              background-color: rgb(190, 190, 250);
+              transform: unset;
+            }
           }
         }
       }
