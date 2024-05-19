@@ -1,13 +1,13 @@
 <template>
   <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20 wrap">
     <!-- <FormInput @change="emitFilter" type="select" placeholder="type" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" /> -->
-    <component :is="isScreenWide? 'div' : ToggleModal" :fullScreen="true" class="flex-1">
-      <template v-if="!isScreenWide" #toggler>
+    <ToggleModalOnlyForSmallScreen>
+      <template #toggler>
         <div class="btn">
           {{$t('filter')}}
         </div>
       </template>
-      <div class="flex-1 flex align-center space-between gap20 wrap">
+      <div class="flex-1 flex align-center space-between gap20 wrap" :class="{column: !isScreenWide}">
         <template v-if="org && org.innerFilters && org.innerFilters.length">
           <FormInput
             v-for="(currFilterItem, idx) in org.innerFilters" :key="idx"
@@ -29,7 +29,7 @@
               
         </div>
       </div>
-    </component>
+    </ToggleModalOnlyForSmallScreen>
     <FormInput class="search" placeholder="search" v-model="filterBy.filter.search" iconPos="left">
       <button>
         <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
@@ -44,7 +44,7 @@ import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 import { organizationService } from '../../organization/services/organization.service';
-import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
+import ToggleModalOnlyForSmallScreen from '../../../../common/modules/common/cmps/ToggleModalOnlyForSmallScreen.vue';
 export default {
   name: 'ReleaseFilter',
   props: {
@@ -59,7 +59,6 @@ export default {
   },
   data() {
     return {
-      ToggleModal,
       filterBy: null,
       filterTypes: { // licenseType
         all: undefined,
@@ -87,13 +86,13 @@ export default {
     yearsOpts() {
       // return [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, {value: undefined, label: 'clear'}].reverse();
       return [
+        {value: undefined, label: 'all'},
         ...(() => {
           const nowYear = new Date().getFullYear();
           const years = [];
           for (let year = nowYear; year >= 2017; year--) years.push(year);
           return years;
-        })(),
-        {value: undefined, label: 'clear'}
+        })()
       ]
     },
 
@@ -168,7 +167,7 @@ export default {
   //     } 
   //   }
   // },
-  components: { FormInput, ToggleBtns, ToggleModal }
+  components: { FormInput, ToggleBtns, ToggleModalOnlyForSmallScreen }
 }
 </script>
 

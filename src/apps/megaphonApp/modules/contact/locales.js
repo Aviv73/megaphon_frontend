@@ -20,7 +20,8 @@ const  en = {
       "removeSuccess": "Contact removed successfully",
       "savedSuccess": "Contact saved successfully",
     }
-  }
+  },
+  "emailIsTakenError": "Contact with that email already exists"
 }
 const he = {
   "contact": {
@@ -33,7 +34,7 @@ const he = {
     "createContact": "צור איש קשר",
     "notes": "הערות",
     "cellular": "נייד",
-    "phone": "טלפן",
+    "phone": "טלפון",
     "uploadFromFile": "העלה קובץ",
     "unsubscribed": "ביטל מנוי",
     "unsubscribe": "ביטול מנוי",
@@ -44,7 +45,8 @@ const he = {
       "removeSuccess": "איש קשר נמחק בהצלחה",
       "savedSuccess": "פרטי איש קשר נשמרו בהצלחה",
     },
-  }
+  },
+  "emailIsTakenError": "איש קשר עם המייל הזה כבר קיים במערכת"
 }
 const heF = {
   ...he,

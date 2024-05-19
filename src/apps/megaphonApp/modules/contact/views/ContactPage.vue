@@ -13,6 +13,9 @@
       :showActions="true"
       :dontRoute="true"
       :showLoader="false"
+      :propsToPass="{
+        fields: isScreenWide? undefined : ['name', 'unsubscribed']
+      }"
     >
       <div class="actions">
         <FormInput
@@ -25,10 +28,10 @@
       </div>
 
       <div class="table-item-preview table-header">
-        <p>{{$t('email')}}</p>
+        <p class="wide-screen-item">{{$t('email')}}</p>
         <p>{{$t('contact.contactName')}}</p>
-        <p>{{$t('contact.role')}}</p>
-        <p>{{$t('contact.companyName')}}</p>
+        <p class="wide-screen-item">{{$t('contact.role')}}</p>
+        <p class="wide-screen-item">{{$t('contact.companyName')}}</p>
         <p>{{$t('contact.unsubscribed')}}</p>
       </div>
     </ItemSearchList>
@@ -59,6 +62,7 @@ export default {
       this.$store.dispatch({ type: 'contact/loadItems', filterBy: {...filterBy, includeUnsubscribed: true}, organizationId: this.$route.params.organizationId });
     },
     async uploadContactsFromFile(files) {
+      // TODO: GET MILING LIST NAME AND SAVE A MAILING LIST WITH NEW CONTACTS;
       this.$store.commit({type: 'contact/setProp', key: 'isLoading', value: true});
       const data = new FormData();
       data.append('file', files[0]);
@@ -80,6 +84,9 @@ export default {
     },
     isLoading() {
       return this.$store.getters['contact/isLoading'];
+    },
+    isScreenWide() {
+      return this.$store.getters.isScreenWide;
     }
   },
   watch: {

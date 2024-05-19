@@ -140,6 +140,11 @@ export default {
       overflow: unset;
       .item-list {
         overflow-y: unset;
+        @media (max-width: $small-screen-breake) {
+          // justify-content: space-around !important;
+          flex-direction: column;
+          align-items: center;
+        }
       }
     }
   }

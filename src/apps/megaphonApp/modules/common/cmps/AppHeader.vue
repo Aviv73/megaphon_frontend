@@ -7,7 +7,7 @@
         </div>
       </router-link>
 
-      <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="($route.name === 'ReleasePage') && organization">
+      <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
         <div class="links flex align-center gap10 height-all">
           <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn big primary">
@@ -32,9 +32,11 @@
       </div>
 
 
-      <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button>
-      <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
-      <!-- <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/apps/clientApps/agam/assets/images/mine/navBurger.png')"/></button> -->
+      <template v-if="showNavContent">
+        <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button>
+        <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
+        <!-- <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/apps/clientApps/agam/assets/images/mine/navBurger.png')"/></button> -->
+      </template>
 
       <div class="flex align-center gap20 height-all ph">
         <div class="release-title height-all">
@@ -49,7 +51,6 @@
 
 <script>
 import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
-import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 export default {
   name: 'AppHeader',
   data() {
@@ -78,6 +79,9 @@ export default {
       return this.organization?.routes
         .filter(c => !c.htmlContentFilePath)
         .filter(c => c.showInRoles.find(role => OrgInUser.roles?.includes(role))) || [];
+    },
+    showNavContent() {
+      return (this.$route.name === 'ReleasePage') && this.organization;
     }
   },
   // methods: {

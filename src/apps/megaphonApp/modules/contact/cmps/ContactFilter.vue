@@ -1,26 +1,34 @@
 <template>
-  <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20">
-    <div class="type-filter flex align-start gap10 flex-1">
-      <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="true" :organizationId="organizationId"/>
-      <TagPicker class="flex-1" v-model="tags" :onlyRelevants="true" :organizationId="organizationId"/>
-    </div>
-    <div class="flex align-center gap20">
-      <div class="serach flex align-start">
-        <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left">
-          <button>
-            <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
-          </button>
-        </FormInput>
+  <ToggleModalOnlyForSmallScreen>
+    <template #toggler>
+      <div class="btn">
+        {{$t('filter')}}
       </div>
-    </div>
-    <!-- <button @click="emitFilter">{{$t('filter')}}</button> -->
-  </form>
+    </template>
+    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20">
+      <div class="pickers flex align-start gap10 flex-1">
+        <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="true" :organizationId="organizationId"/>
+        <TagPicker class="flex-1" v-model="tags" :onlyRelevants="true" :organizationId="organizationId"/>
+      </div>
+      <div class="flex align-center gap20">
+        <div class="serach flex align-start">
+          <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left">
+            <button>
+              <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
+            </button>
+          </FormInput>
+        </div>
+      </div>
+      <!-- <button @click="emitFilter">{{$t('filter')}}</button> -->
+    </form>
+  </ToggleModalOnlyForSmallScreen>
 </template>
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import CompanyPicker from '../../company/cmps/CompanyPicker.vue';
 import TagPicker from '../../tag/cmps/TagPicker.vue';
+import ToggleModalOnlyForSmallScreen from '../../../../common/modules/common/cmps/ToggleModalOnlyForSmallScreen.vue';
 export default {
   name: 'ContanctFilter',
   props: {
@@ -77,7 +85,7 @@ export default {
       }
     }
   },
-  components: { FormInput, TagPicker, CompanyPicker }
+  components: { FormInput, TagPicker, CompanyPicker, ToggleModalOnlyForSmallScreen }
 }
 </script>
 
@@ -85,6 +93,15 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .contact-filter {
+    
+    @media (max-width: $small-screen-breake) {
+      flex-direction: column;
+      align-items: center;
+      .pickers {
+        flex-direction: column;
+      }
+    }
+
     .filter-icon-img {
       width: em(15px);
       height: em(15px);

@@ -2,8 +2,8 @@
   <div v-if="contact" class="table-item-preview contact-preview" :class="{unsubscribed: contact.unsubscribed}">
     <p v-if="contact.firstName">{{contact.firstName}} {{contact.lastName}}</p>
     <p v-else>{{contact.email}}</p>
-    <p>{{contact.role}}</p>
-    <p>{{companiesToShow.join(', ')}}</p>
+    <p class="wide-screen-item">{{contact.role}}</p>
+    <p class="wide-screen-item">{{companiesToShow.join(', ')}}</p>
     <template v-if="!contact.unsubscribed">
       <button class="toggle-btn" v-if="isAdded" @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.remove')}}</button>
       <button class="toggle-btn" v-else @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>{{$t('add')}}</button>

@@ -189,6 +189,7 @@
       <button class="btn big primary" @click="saveOrganization" :disabled="!isOrganizationValid">{{$t('submit')}}</button>
       <button class="btn big" @click="close">{{$t('cancel')}}</button>
     </div>
+    <Loader v-if="isLoading" fullScreen/>
   </div>
 </template>
 
@@ -202,6 +203,7 @@ import TableActionBtns from '../../../../common/modules/common/cmps/TableActionB
 import { templateUtils } from '../../common/services/template.util.service';
 import { organizationService } from '../services/organization.service';
 import consts from '@/apps/common/modules/common/services/const.service.js';
+import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 export default {
   name: 'OrganizationEdit',
   data() {
@@ -233,6 +235,9 @@ export default {
     },
     isDomainExistsError() {
       return this.otherDomains.includes(this.organizationToEdit.domain);
+    },
+    isLoading() {
+      return this.$store.getters['organization/isLoading'];
     }
   },
   methods: {
@@ -296,7 +301,8 @@ export default {
     FormInput,
     // ImgInput,
     FileUploader,
-    TableActionBtns
+    TableActionBtns,
+    Loader
   }
 }
 </script>
@@ -306,6 +312,7 @@ export default {
 .megaphon-app {
   .organization-edit {
     form, .developer-zone {
+      width: 100%;
       >* {
         width: 100%;
         padding-bottom: em(10px);
@@ -314,6 +321,9 @@ export default {
     }
     .table-like {
       // width: 100%;
+      overflow-x: auto;
+      // max-width: 100%;
+      max-width: 95vw;
       li {
         width: 100%;
         // display: grid;

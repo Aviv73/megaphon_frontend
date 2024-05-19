@@ -55,12 +55,17 @@ export default {
     height: fit-content;
     transform: translate(-50%, -50%);
 
+    @media (max-width: $small-screen-breake) {
+      min-width: 90vw;
+    }
+
     .close-btn {
-      width: em(10px);
-      height: em(10px);
+      width: em(15px);
+      height: em(15px);
       position: absolute;
       top: em(5px);
       right: em(5px);
+      font-size: rem(15px);
     }
 
     &.modal-style {

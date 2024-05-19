@@ -13,19 +13,28 @@
       <div class="page-num-btns">
         <template v-if="isLotsOfPages && !pagesToRender.includes(1)">
           <button @click="routeToNewPage(1)">1</button>
-          <span class="dots" v-if="page > 3">...</span>
+          <span class="dots" v-if="(page > 3) && isScreenWide">...</span>
         </template>
 
-        <button 
-          v-for="pageNum in pagesToRender" :key="pageNum"
-          @click="routeToNewPage(pageNum)" 
-          :class="{selected: page == pageNum}" 
-        >
-          {{pageNum}}
-        </button>
+        <template v-if="isScreenWide">
+          <button 
+            v-for="pageNum in pagesToRender" :key="pageNum"
+            @click="routeToNewPage(pageNum)" 
+            :class="{selected: page == pageNum}" 
+          >
+            {{pageNum}}
+          </button>
+        </template>
+        <template v-else>
+          <button
+            :class="{selected: true}" 
+          >
+            {{page}}
+          </button>
+        </template>
           
         <template v-if="isLotsOfPages && !pagesToRender.includes(totalPages)">
-          <span class="dots" v-if="page < totalPages-2">...</span>
+          <span class="dots" v-if="(page < totalPages-2) && isScreenWide">...</span>
           <button @click="routeToNewPage(totalPages)">{{totalPages}}</button>
         </template>
       </div>
@@ -60,6 +69,9 @@ export default {
     this.filterBy = JSON.parse(JSON.stringify(this.initFilter || { pagination: { limit: this.perPage, page: this.value } }));
   },
   computed: {
+    isScreenWide() {
+      return this.$store.getters.isScreenWide;
+    },
     page() {
       return this.value + 1;
     },
@@ -83,6 +95,7 @@ export default {
       else if (startIdx >= totalPages-(renderPagesLimit-1)) startIdx = totalPages-(renderPagesLimit-1);
 
       const endIdx = startIdx + Math.floor(( (currPage > halfAmount && currPage <= totalPages-1-halfAmount)? halfAmount*1.5 : halfAmount*2));
+      // return [pageNums[startIdx]];
       return pageNums.slice(startIdx, endIdx);
     }
   },
@@ -168,6 +181,10 @@ export default {
         display: flex;
         align-items: center;
         gap: em(25px);
+        @media (max-width: $small-screen-breake) {
+          gap: em(10px);
+
+        }
         justify-content: space-around;
         
         button {

@@ -47,7 +47,8 @@ async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, o
     // const translatedErr = $t(`${getters.moduleName}.errors.${err.err || err.message || err.msg || err.error}`);
     if (err.err && onError) onError(err);
     // else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${err.err || err.message || err.msg || err.error || 'internal error'}`})
-    else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${$t(err.err) || err.err || err.message || err.msg || err.error || 'internal error'}`})
+    // else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${$t(err.err) || err.err || err.message || err.msg || err.error || 'internal error'}`})
+    else alertService.toast({type: 'danger', msg: `${$t(err.err) || err.err || err.message || err.msg || err.error || 'internal error'}`})
     // else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${(err.err && translatedErr) || err.err || err.message || err.msg || err.error || 'internal error'}`})
     setTimeout(() => {
       if (loading) commit({ type: 'setLoading', val: false });

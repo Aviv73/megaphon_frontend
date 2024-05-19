@@ -1,11 +1,11 @@
 <template>
   <div class="dynamic-input flex gap30" v-if="dataFieldToRender" :class="`input-field-${dataFieldToRender.type}`">
     <h3 v-if="!noTitle && ((dataFieldToRender.title && (dataFieldToRender.type === 'SEPARATOR') || (dataFieldToRender.type !== 'SEPARATOR')))">{{dataFieldToRender.title}}</h3>
-    <div class="flex-1">
+    <div class="flex-1 input-container" :class="{'table-container': dataFieldToRender.type === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{dataFieldToRender.type}}"</p>
       <component
         v-else
-        class="flex-1"
+        class="flex-1 dynamic-section"
         :is="cmpName" 
         ref="input"
         v-bind="propsToPass" 
@@ -99,7 +99,7 @@ export default {
     return {
       propsToPass: {},
       cmpName: '',
-      dataFieldToRender: this.dataField
+      dataFieldToRender: {...this.dataField}
     }
   },
   methods: {
@@ -227,7 +227,7 @@ export default {
           break;
         case 'SELECTIONWITHIMAGE': // change to somethong like: IMG_SELECTION_FOR_VIDEO_LINK
           this.cmpName = 'FormInput';
-          const getYoutubeVideoThumb = (url, index = 0) => { // from old developer's code:
+          const _getYoutubeVideoThumb = (url, index = 0) => { // from old developer's code:
             if (!url) return '';
             const results = url.match('[\\?&]v=([^&#]*)');
             const video = results === null ? url : results[1];
@@ -238,7 +238,7 @@ export default {
             ...propsToPass, 
             type: 'select', 
             items: range(4).map((_, idx) => {
-              const currUrl = getYoutubeVideoThumb(videoUrl, idx)
+              const currUrl = _getYoutubeVideoThumb(videoUrl, idx)
               return {value: currUrl, img: currUrl, label: `${this.$t('photo')} ${idx+1}`};
             })
           };
@@ -279,18 +279,42 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dynamic-input {
-  .row-container {
-    .dynamic-input {
-      flex-direction: column !important;
-      gap: rem(5px);
+.megaphon-app {
+  .dynamic-input {
+    max-width: 100%;
+    // .dynamic-section, .input-container {
+    //   width: 100%;
+    //   max-width: 100%;
+    //   overflow-x: auto;
+    // }
+    .row-container {
+      // max-width: 100%;
+      .dynamic-input {
+        flex-direction: column !important;
+        gap: em(5px);
+      }
+      @media (max-width: $small-screen-breake) {
+        // flex-direction: column;
+        flex-wrap: wrap;
+      }
     }
-  }
-  table {
-    // border-spacing: em(10px);
-    td {
-      padding: em(5px);
-      vertical-align: top;
+    .table-container {
+      width: 100%;
+      max-width: 90vw;
+      // max-width: 100%;
+      overflow-x: auto;
+      table {
+        // border-spacing: em(10px);
+        width: 100%;
+        // overflow-x: auto;
+        td {
+          padding: em(5px);
+          vertical-align: top;
+        }
+      }
+    }
+    @media (max-width: $small-screen-breake) {
+      flex-direction: column;
     }
   }
 }

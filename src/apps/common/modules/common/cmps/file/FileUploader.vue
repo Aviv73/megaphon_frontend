@@ -1,5 +1,5 @@
 <template>
-  <div class="file-uploader-input flex align-start gap30">
+  <div class="file-uploader-input flex align-start gap10">
     <img v-if="viewAsImg" class="val-img" :title="valToShow?.title" :src="imgToShow" :alt="valToShow?.title || $t('clickToUploadFile')" @click="clickInput"/>
     <p class="p-like" v-else-if="!valToShow?.src && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
     <a class="p-like" v-else target="_blanc" :href="valToShow.src" :title="valToShow.title">{{valToShow.title}}</a>
@@ -96,6 +96,11 @@ export default {
   .p-like {
     // width: em(200px);
     width: em(160px);
+  }
+  @media (max-width: $small-screen-breake) {
+    // flex-direction: column;
+    flex-wrap: wrap;
+    gap: em(5px) !important;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="release-distribute flex column gap20 container" v-if="release && org">
-    <div class="flex align-center space-between gap10 width-all">
+    <div class="flex align-center space-between gap10 width-all wrap-reverse">
       <div class="flex align-center gap20">
         <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.backToEditRelease')}}</button></router-link>
         <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distribute.report')}}</button></router-link>
@@ -9,7 +9,7 @@
     </div>
     <p v-if="!isLoading && !distributionTemplate">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
     <template v-else>
-      <div class="flex gap30 width-all flex-1">
+      <div class="flex gap30 width-all flex-1 main-content">
         <div style="flex:3" class="flex column gap10">
           <div class="tab-nav light">
             <button @click="loadSystemContacts = false" :class="{selected: !loadSystemContacts}">{{$t('distribute.selfContacts')}}</button>
@@ -31,8 +31,8 @@
           >
             <div class="table-item-preview gap10 table-header">
               <p>{{$t('contact.contactName')}}</p>
-              <p>{{$t('contact.role')}}</p>
-              <p>{{$t('contact.companyName')}}</p>
+              <p class="wide-screen-item">{{$t('contact.role')}}</p>
+              <p class="wide-screen-item">{{$t('contact.companyName')}}</p>
               <div>
                 <button class="toggle-btn" @click="addAllSearchContacts()">
                   <img class="add-all-btn-img reg" :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>
@@ -44,7 +44,7 @@
           </ItemSearchList>
         </div>
 
-        <div style="flex:1.5" class="from-email-section flex column gap20">
+        <div style="flex:1.5" class="distribute-detailes flex column gap20">
           <div class="flex align-center space-between">
             <h3>{{contactsForDistribute.length}} {{$t('distribute.contactsWasSelected')}}</h3>
             <!-- <button class="btn" @click="copyUrlToClipboard">{{$t('distribute.copyReleaseDistributionUrl')}} <img class="ico-img" :src="require('@/assets/images/url.png')" alt=""></button> -->
@@ -79,7 +79,7 @@
               <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.removeAll')}}</button>
           </div>
             <div v-for="contact in contactsForDistributeToShow" :key="contact._id" class="table-item-preview gap10 flex align-center space-between" :class="{unsubscribed: contact.unsubscribed}">
-              <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || ''}}</p>
+              <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + (contact.lastName || ''))) || contact.email || ''}}</p>
               <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.remove')}}</button>
             </div>
             <!-- <div class="item-list">
@@ -484,6 +484,17 @@ export default {
 .megaphon-app {
   .release-distribute {
     padding: em(10px);
+
+    .main-content {
+      @media (max-width: $small-screen-breake) {
+        flex-direction: column-reverse;
+        gap: em(50px);
+        .distribute-detailes {
+          border-bottom: 1px solid black;
+          padding-bottom: em(50px);
+        }
+      }
+    }
 
     .selected-input {
       input {

@@ -25,6 +25,7 @@ const  en = {
     distributedAt: "Distributed at"
   },
   "distribute": {
+    "distribute": "Distribute",
     "distributions": "Distributions",
     "distributeRelease": "Distribute release",
     "contactsToDistribute": "Contacts to distribute",
@@ -116,6 +117,7 @@ const he = {
     distributedAt: "הופץ"
   },
   "distribute": {
+    "distribute": "הפצה",
     "distributions": "הפצות",
     "distributeRelease": "הפצת רליס",
     "contactsToDistribute": "אנשי קשר להפצה",

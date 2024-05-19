@@ -1,5 +1,5 @@
 <template>
-  <div class="file-uploader-input img-crop-input flex align-start gap30">
+  <div class="file-uploader-input img-crop-input flex align-start gap10">
     <img class="val-img" :title="value?.[0]?.title" :src="imgToShow" :alt="value?.[0]?.title || $t('clickToUploadFile')" @click="clickInput"/>
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="chooseFile" :accept="accept"/>

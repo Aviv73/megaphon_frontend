@@ -24,7 +24,7 @@
         </div>
         <div class="table-item-preview table-header">
           <p>{{$t('name')}}</p>
-          <p>{{$t('email')}}</p>
+          <p class="wide-screen-item">{{$t('email')}}</p>
           <p>{{$t('account.role')}}</p>
         </div>
       </div>

@@ -9,7 +9,7 @@
     <main class="form-content container flex column gap30 width-all">
       <template v-if="!showDesign">
         <h2>{{$t(itemToEdit._id? 'release.editRelease' : 'release.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
-        <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
+        <form v-if="itemToEdit" @submit.prevent="" class="flex column gap50">
           <FormInput class="gap30" type="select" labelholder="locale" :itemsMap="{'english': 'en', 'עברית': 'he'}" v-model="itemToEdit.design.locale"/>
           <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :parentItem="itemToEdit.releaseData" :organization="org"/>
         </form>
@@ -22,15 +22,22 @@
       />
     </main>
     <footer class="footer width-all">
-      <div class="flex align-center space-between container height-all">
+      <div class="flex gap10 align-center space-between container height-all">
         <div>
           <button class="btn big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
         </div>
         <div class="flex align-center gap30 height-all">
           <button class="btn big" @click="close">{{$t('close')}}</button>
-          <button class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">{{$t('release.saveAndClose')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
-          <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('save')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
-          <button class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('release.confirmAndDistribute')}}</button>
+          <template v-if="isScreenWide">
+            <button class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">{{$t('release.saveAndClose')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
+            <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('save')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
+          </template>
+          <button v-else class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">
+            {{$t('save')}}
+            <!-- <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/> -->
+          </button>
+          <button v-if="isScreenWide" class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('release.confirmAndDistribute')}}</button>
+          <button v-else class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('distribute.distribute')}}</button>
         </div>
       </div>
     </footer>
@@ -82,6 +89,10 @@ export default {
     didChange() {
       return JSON.stringify(this.itemToEdit) !== JSON.stringify(this.initialItem);
     },
+
+    isScreenWide() {
+      return this.$store.getters.isScreenWide;
+    }
   },
   methods: {
     async loadReleaseDataFields() {

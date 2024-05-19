@@ -25,6 +25,7 @@
       <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('submit')}}</button>
       <button class="btn big" @click="close">{{$t('cancel')}}</button>
     </div>
+    <Loader v-if="isLoading" fullScreen/>
   </div>
 
 </template>
@@ -35,6 +36,7 @@ import CompanyPicker from '../../company/cmps/CompanyPicker.vue';
 import TagPicker from '../../tag/cmps/TagPicker.vue';
 import { distributionService } from '../../release/services/distribution.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
+import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 export default {
   name: 'ContactEdit',
   data() {
@@ -49,6 +51,9 @@ export default {
     },
     orgId() {
       return this.$route.params.organizationId;
+    },
+    isLoading() {
+      return this.$store.getters['contact/isLoading'];
     }
   },
   methods: {
@@ -90,7 +95,8 @@ export default {
   components: {
     FormInput,
     CompanyPicker,
-    TagPicker
+    TagPicker,
+    Loader
   }
 }
 </script>
