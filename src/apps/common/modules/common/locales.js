@@ -90,7 +90,10 @@ const en = {
   files: 'Files',
   links: 'Links',
   download: "Download",
-  "locale": "Locale"
+  "locale": "Locale",
+
+  "role": "Role",
+  "roles": "Roles"
 }
 const he = {
   "hello": "שלום",
@@ -182,7 +185,10 @@ const he = {
   files: 'קבצים',
   links: 'קישורים',
   download: "הורדה",
-  "locale": "שפה"
+  "locale": "שפה",
+
+  "role": "הרשאות",
+  "roles": "הרשאות"
 }
 const heF = {
   ...he,

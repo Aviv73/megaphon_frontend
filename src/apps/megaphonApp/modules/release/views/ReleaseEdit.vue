@@ -9,7 +9,7 @@
     <main class="form-content container flex column gap30 width-all">
       <template v-if="!showDesign">
         <h2>{{$t(itemToEdit._id? 'release.editRelease' : 'release.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
-        <form v-if="itemToEdit" @submit.prevent="" class="flex column gap50">
+        <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
           <FormInput class="gap30" type="select" labelholder="locale" :itemsMap="{'english': 'en', 'עברית': 'he'}" v-model="itemToEdit.design.locale"/>
           <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :parentItem="itemToEdit.releaseData" :organization="org"/>
         </form>

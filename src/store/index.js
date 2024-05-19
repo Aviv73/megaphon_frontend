@@ -12,7 +12,7 @@ export default new Vuex.Store({
   },
   getters: {
     isScreenWide() {
-      return window.innerWidth > 1000;
+      return window.innerWidth > 900; // small-screen-breake
     }
   },
   mutations: {

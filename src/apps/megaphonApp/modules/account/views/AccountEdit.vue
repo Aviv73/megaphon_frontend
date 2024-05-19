@@ -42,7 +42,7 @@ export default {
       accountToEdit: null,
       confirmPassword: '',
       // systemRoles: ['user', 'producer', 'admin'],
-      systemRoles: [...Object.values(consts.userRoles)],
+      systemRoles: [...Object.values(consts.userRoles)].map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
       // allOrgs: []
     }
   },

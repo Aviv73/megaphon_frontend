@@ -1,6 +1,6 @@
 <template>
   <component :is="isProducer? 'DragDiv' : 'div'" :onDrag="() => toggleToSelectedReleases(true)">
-    <li class="release-preview flex column gap5" :class="{ selected: selectedReleaseIds.includes(item._id) }" @click="isProducer? toggleToSelectedReleases(false) : goToLandingPage()">
+    <li class="release-preview flex column gap5" :class="{ selected: selectedReleaseIds.includes(item._id) }" @click="handleClick">
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="release-title" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p>
       <p class="release-title">{{release.title}}</p>
@@ -72,6 +72,11 @@ export default {
     },
     toggleToSelectedReleases(isDraging) {
       evManager.emit('toggleRelease-from-selected', this.item._id, isDraging);
+    },
+
+    handleClick() {
+      if (!this.$store.getters.isScreenWide) return this.goToLandingPage();
+      this.isProducer? this.toggleToSelectedReleases(false) : this.goToLandingPage();
     }
   }
 }
@@ -83,11 +88,17 @@ export default {
   .release-preview {
     position: relative;
     width: em(180px);
+    @media (max-width: $small-screen-breake) {
+      width: 90vw;
+    }
     cursor: pointer;
     .release-img {
       height: em(130px);
       width: 100%;
       object-fit: cover;
+      @media (max-width: $small-screen-breake) {
+        height: em(200px);
+      }
     }
     p.release-title {
       word-wrap: break-word;

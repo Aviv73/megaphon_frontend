@@ -19,6 +19,12 @@ const en = {
     "headersColor": "Headings text color",
     "domainTakenError": "Domain is alredy taken by another organization!",
     "inviteMembers": "Invite members",
+    "orgRoles": {
+      "admin": "Admin",
+      "producer": "Producer",
+      "user": "User",
+      "client": "Watch only"
+    },
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this organization?",
       "removeSuccess": "Organization removed successfully",
@@ -50,6 +56,12 @@ const he = {
     "headersColor": "צבע כותרים",
     "domainTakenError": "הדומיין הזה כבר בשימוש באירגון אחר!",
     "inviteMembers": "הזמן משתמשים",
+    "orgRoles": {
+      "admin": "אדמין",
+      "producer": "מפיץ",
+      "user": "משתמש",
+      "client": "צפיה בלבד"
+    },
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הארגון?",
       "removeSuccess": "ארגון נמחק בהצלחה",
