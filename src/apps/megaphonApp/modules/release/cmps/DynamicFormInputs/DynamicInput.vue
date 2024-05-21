@@ -284,7 +284,8 @@ export default {
     max-width: 100%;
     // .dynamic-section, .input-container {
     //   width: 100%;
-    //   max-width: 100%;
+    //   // max-width: 100%;
+    //   max-width: 90vw;
     //   overflow-x: auto;
     // }
     .row-container {
@@ -313,8 +314,16 @@ export default {
         }
       }
     }
+    .quillWrapper {
+      @media (max-width: $small-screen-breake) {
+        max-width: 90vw; // TODO: 95;
+        overflow-x: auto;
+        margin: 0 auto;
+      }
+    }
     @media (max-width: $small-screen-breake) {
       flex-direction: column;
+      gap: em(10px);
     }
   }
 }
