@@ -45,7 +45,7 @@ export default {
     getAllReleases(filterBy) {
       // if (!this.currOrgFilter) return;
       // this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.routes?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
-      
+
       const routeName = this.pageNameInQuery;
       if (!routeName) return;
       const filterItem = this.organization?.routes.find(c => c.name === routeName) || this.organization?.routes?.[0] || undefined;
@@ -113,7 +113,7 @@ export default {
       this.initOrgPage();
     },
     pageNameInQuery(val, prev) {
-      this.getAllReleases();
+      // this.getAllReleases();
     },
     // '$route.path': {
     //   imidiate: true,

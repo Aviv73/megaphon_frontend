@@ -175,7 +175,7 @@ export default {
     z-index: 5;
     .main-sidebar {
       height: calc(100vh - #{$header-height} - 22px);
-      // overflow-y: auto;
+      overflow-y: auto;
       color: #2090D4;
       position: sticky;
       top: calc(#{$header-height} + 0px);

@@ -113,6 +113,10 @@ export default {
         background-color: #fff;
         width: em(17px);
         height: em(17px);
+        @media (max-width: $small-screen-breake) {
+          width: em(30px);
+          height: em(30px);
+        }
         img {
           width: 100%;
           height: 100%;

@@ -29,7 +29,8 @@ const he = {
       "welcome": "ברוך הבא"
     }
   },
-  "notLoggedInError": "לא מורשה, יש להתחבר למערכת",
+  // "notLoggedInError": "לא מורשה, יש להתחבר למערכת",
+  "notLoggedInError": "יש להתחבר למערכת",
   "userNotAllowedError": "אין הרשאה למשתמש",
   "invalidUsernameOrPasswordError": "שם משתמש או סיסמא שגויים",
   "cantFindAccountWithEmailError": "לא נמצא משתמש עם כתובת המייל הזאת",
