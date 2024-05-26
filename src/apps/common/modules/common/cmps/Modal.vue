@@ -55,6 +55,8 @@ export default {
     height: fit-content;
     transform: translate(-50%, -50%);
 
+    overflow: auto;
+
     @media (max-width: $small-screen-breake) {
       min-width: 90vw;
     }

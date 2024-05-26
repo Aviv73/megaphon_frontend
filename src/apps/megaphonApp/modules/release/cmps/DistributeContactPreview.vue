@@ -1,7 +1,8 @@
 <template>
   <div v-if="contact" class="table-item-preview contact-preview" :class="{unsubscribed: contact.unsubscribed}">
-    <p v-if="contact.firstName">{{contact.firstName}} {{contact.lastName}}</p>
-    <p v-else>{{contact.email}}</p>
+    <!-- <p v-if="contact.firstName">{{contact.firstName}} {{contact.lastName}}</p>
+    <p v-else>{{contact.email}}</p> -->
+    <p>{{contactPreviewName}}</p>
     <p class="wide-screen-item">{{contact.role}}</p>
     <p class="wide-screen-item">{{companiesToShow.join(', ')}}</p>
     <template v-if="!contact.unsubscribed">
@@ -14,6 +15,7 @@
 
 <script>
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import { contactService } from '../../contact/contact.service';
 export default {
   name: 'DistributeContactPreview',
   props: {
@@ -37,6 +39,10 @@ export default {
 
     isAdded() {
       return !!this.contactsForDistribute.find(c => c._id === this.contact._id);
+    },
+
+    contactPreviewName() {
+      return contactService.getContactPreviewName(this.contact);
     }
   },
   methods: {

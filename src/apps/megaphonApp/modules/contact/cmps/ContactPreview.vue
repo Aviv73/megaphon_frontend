@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { contactService } from '../contact.service';
 export default {
   name: 'ContactPreview',
   props: {
@@ -53,7 +54,8 @@ export default {
       const { contact } = this;
       switch (field) {
         case 'name':
-          return contact.name || (contact.firstName && (contact.firstName + ' ' + (contact.lastName || ''))) || '';
+          // return contact.name || (contact.firstName && (contact.firstName + ' ' + (contact.lastName || ''))) || '';
+          return contactService.getContactPreviewName(contact);
         case 'company':
           return (contact.company?.map(c => this.allCompanies.find(comp => comp._id === c)?.name) || []).join(', ');
         case 'unsubscribed':

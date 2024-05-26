@@ -64,6 +64,9 @@ export default {
   },
   async created() {
 
+    this.$store.commit('setIsScreenWide');
+    window.addEventListener('resize', () => this.$store.commit('setIsScreenWide'));
+
     this.displayUiConfig()
     
     evEmmiter.on('app_config_update', this.displayUiConfig);

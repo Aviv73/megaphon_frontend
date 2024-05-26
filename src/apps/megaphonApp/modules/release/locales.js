@@ -88,7 +88,19 @@ const  en = {
     },
     uniqueTokenNote: '',
     regenerateToken: 'Regenerate unique token',
-    noDistributionDataForRelease: 'No distribution data for release'
+    noDistributionDataForRelease: 'No distribution data for release',
+
+    "unsubscribedContacts": "Unsubscribed contacts",
+
+    "alertMsgs": {
+      "cantAddContacts": "Somethind went wrong, cant add contacts",
+      "successDistRelease": "Successfully distributed release",
+      "errorDistRelease": "Something went wrong, cant distribute release",
+      "testDistSentSuccess": "Successfully sent test distribution for release",
+      "testDistSentError": "Somethind went wrong, cant sent test distribution for release",
+      "createMailingListError": "Somethind went wrong, cant create new mailing list",
+      "updateMailingListError": "Somethind went wrong, cant update mailing list",
+    }
   }
 }
 const he = {
@@ -142,7 +154,7 @@ const he = {
 
     "sccessfullyDistributedReleaseTo": "רליס הופץ בהצלחה ל",
     "cantSenDistributionTo": "המערכת לא הצליחה להפיץ רליס ל",
-    "alreadyDistributedToContacts": "המערכת נמנעה מלהפיץ את הרליס פעם נוספת מכיוון שכבר הפיצה את הרליס בעבר ל",
+    "alreadyDistributedToContacts": "המערכת נמנעה מלהפיץ את הרליס פעם נוספת לחלק מאנשי הקשר מכיוון שכבר הפיצה את הרליס בעבר ל",
     "tryAgain": "נסה שוב",
     "backToEditRelease": "חזור לעריכת רליס",
     "noMatchingDesignTemplateFound": "לא נמצאה תבנית עיצובית מתאימה למייל הפצה",
@@ -182,7 +194,19 @@ const he = {
     uniqueTokenNote: 'שימו לב - שימוש במזהה ייחודי (או ייחודי בהזנה) עוזר למערכת לספור כמה פעמים הרליס נפתח על ידי נמענים שונים. במידה ולא נעשה שימוש במזהה ייחודי, או במידה ואותו קישור עם אותו מזהה נשלח למספר נמענים שונים - המערכת תחשיב כל פתיחה של הרליס מאותו הקישור כפתיחה שנעשתה על ידי אותו נמען. מומלץ ליצור מזהה ייחודי חדש (או להזין מזהה ייחודי באופן ידני) לכל נמען.',
     urlDistributionNote: 'לאחר פתיחת הקישור ובמידה ולא הופץ לפני - הרליס ייחשב במערכת כרליס שהופץ.',
     regenerateToken: 'צור מזהה ייחודי חדש',
-    noDistributionDataForRelease: 'לא נמצא מידע הפצה לרליס'
+    noDistributionDataForRelease: 'לא נמצא מידע הפצה לרליס',
+
+    "unsubscribedContacts": "אנשי קשר שבטלו הרשמה",
+
+    "alertMsgs": {
+      "cantAddContacts": "משהו השתבש, לא יכול להוסיף איש קשר",
+      "successDistRelease": "רליס הופץ בהצלחה",
+      "errorDistRelease": "משהו השתבש, המערכת לא הצליחה להפיץ את הרליס",
+      "testDistSentSuccess": "מייל בדיקה נשלח בהצלחה",
+      "testDistSentError": "המערכת לא הצליחה לשלוח מייל בדיקה",
+      "createMailingListError": "המערכת לא הצליחה ליצור רשימת תפוצה",
+      "updateMailingListError": "המערכת לא הצליחה לעדכן את רשימת התפוצה",
+    }
   }
 }
 const heF = {

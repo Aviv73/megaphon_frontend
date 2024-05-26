@@ -4,7 +4,7 @@
       {{$t('distribute.contactReport')}}
     </h1>
     <div class="flex column gap20" v-if="report">
-      <h3>{{$t('contact.contact')}}: {{report.firstName}} {{report.lastName}}</h3>
+      <h3>{{$t('contact.contact')}}: {{contactPreviewName}}</h3>
       <p>{{$t('email')}}: {{report.email}}</p>
       <div class="flex column gap20">
         <h3>{{$t('distribute.distributions')}}:</h3>
@@ -44,6 +44,7 @@
 
 <script>
 import { Utils } from '../../../../common/modules/common/services/util.service';
+import { contactService } from '../../contact/contact.service';
 export default {
   name: 'ContactReportPage',
   computed: {
@@ -56,6 +57,10 @@ export default {
     report() {
       return this.$store.getters['release/selectedContactReport'];
     },
+
+    contactPreviewName() {
+      return contactService.getContactPreviewName(this.report);
+    }
   },
   methods: {
     loadContactReport() {

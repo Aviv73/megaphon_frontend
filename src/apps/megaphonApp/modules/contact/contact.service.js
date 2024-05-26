@@ -9,7 +9,8 @@ export const contactService = {
   // update,
   // save,
   // remove,
-  getEmptyItem
+  getEmptyItem,
+  getContactPreviewName
 }
 
 function query(filterBy, organizationId) {
@@ -31,6 +32,11 @@ function query(filterBy, organizationId) {
 // function save(comment, organizationId) {
 //   return comment._id? update(comment) : add(comment);
 // }
+
+function getContactPreviewName(contact) {
+  if (!contact) return '';
+  return contact.name || (contact.firstName && (contact.firstName + ' ' + (contact.lastName || ''))) || contact.email || '';
+}
 
 
 function getEmptyItem() {

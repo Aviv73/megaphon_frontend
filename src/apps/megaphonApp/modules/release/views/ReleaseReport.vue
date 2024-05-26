@@ -23,7 +23,7 @@
               :to="{ name: 'ContactReportPage', params: {id: contact._id || 'unknown'}, query: {email: contact.email} }"
             >
               <p class="flex-1 wide-screen-item">{{contact.activity?.distributedAt? pretyDate(contact.activity?.distributedAt) : '-'}}</p>
-              <p class="flex-2">{{contact.name || (contact.firstName && (contact.firstName + ' ' + contact.lastName)) || contact.email || contact.token || ''}}</p>
+              <p class="flex-2" :title="getContactName(contact)">{{getContactName(contact)}}</p>
               <p class="flex-1 wide-screen-item">{{$t(`distribute.origins.${contact.origin}`)}}</p>
               <!-- <p>{{contact.email}}</p> -->
               <p class="flex-1">{{vOrX(contact.activity?.openedNewsAt)}}</p>
@@ -90,6 +90,7 @@ import PaginationBtns from '../../../../common/modules/common/cmps/ItemSearchLis
 import { Pie as PieChart } from 'vue-chartjs';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
 import { getDeepVal, Utils } from '../../../../common/modules/common/services/util.service';
+import { contactService } from '../../contact/contact.service';
 
 export default {
   components: { PaginationBtns, PieChart, ReleaseDistributionLinkCoppier },
@@ -107,6 +108,9 @@ export default {
     }
   },
   methods: {
+    getContactName(contact) {
+      return contactService.getContactPreviewName(contact) || contact.token || '';
+    },
     setContactsSorter(...sortKeys) {
       this.contactFilter.pagination.page = 0;
       this.sortContactsKeys = [...sortKeys];

@@ -111,6 +111,7 @@ export default {
       left: em(10px);
       a, button {
         background-color: #fff;
+        box-shadow: $light-shadow;
         width: em(17px);
         height: em(17px);
         @media (max-width: $small-screen-breake) {

@@ -37,7 +37,8 @@ html {
       >* {
         flex: 1;
         // max-width: rem(200px);
-        text-overflow: clip;
+        overflow: hidden;
+        text-overflow: ellipsis;
         &.flex-2 {
           flex: 2;
         }

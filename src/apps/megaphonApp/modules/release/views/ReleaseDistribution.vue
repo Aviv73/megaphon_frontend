@@ -12,8 +12,8 @@
       <div class="flex gap30 width-all flex-1 main-content">
         <div style="flex:3" class="flex column gap10">
           <div class="tab-nav light">
-            <button @click="loadSystemContacts = false" :class="{selected: !loadSystemContacts}">{{$t('distribute.selfContacts')}}</button>
             <button @click="loadSystemContacts = true" :class="{selected: loadSystemContacts}">{{$t('distribute.contactsToDistribute')}}</button>
+            <button @click="loadSystemContacts = false" :class="{selected: !loadSystemContacts}">{{$t('distribute.selfContacts')}}</button>
           </div>
           <ItemSearchList
             class="table-like-list"
@@ -132,23 +132,28 @@
         </div>
       </Modal>
       <Modal :fullScreen="true" v-else-if="showDistributionReportModal && distributionReport">
-        <div class="flex column gap10 distribution-report-modal">
-          <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}}/{{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length + distributionReport.allreadyDistributedTo.length + distributionReport.unsubscribedContacts.length}}</span> {{$t('contact.contacts')}}.</p>
-          <div class="flex column gap10 new--lists-modal" v-if="distributionReport.faildSendToUsers.length">
-            <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}:</p>
-            <ContactList :contacts="distributionReport.faildSendToUsers" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
-            <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
-          </div>
-          <div class="flex column gap10 new--lists-modal" v-if="distributionReport.allreadyDistributedTo.length">
-            <p>{{$t('distribute.alreadyDistributedToContacts')}} {{distributionReport.allreadyDistributedTo.length}} {{$t('contact.contacts')}}:</p>
-            <ContactList :contacts="distributionReport.allreadyDistributedTo" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
-          </div>
-          <div class="flex column gap10 new--lists-modal" v-if="distributionReport.unsubscribedContacts.length">
-            <p>{{$t('distribute.unsubscribedContacts')}} {{distributionReport.unsubscribedContacts.length}} {{$t('contact.contacts')}}:</p>
-            <ContactList :contacts="distributionReport.unsubscribedContacts" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
-          </div>
-          <div class="width-all flex justify-end">
+        <div class="flex column gap30 distribution-report-modal">
+          <div class="flex space-between">
+            <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}}/{{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length + distributionReport.allreadyDistributedTo.length + distributionReport.unsubscribedContacts.length}}</span> {{$t('contact.contacts')}}.</p>
             <button @click="showDistributionReportModal = false" class="btn">{{$t('close')}}</button>
+          </div>
+          <div class="flex column gap20 distribution-report-modal-content">
+            <div class="flex column gap10 new--lists-modal" v-if="distributionReport.faildSendToUsers.length">
+              <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}:</p>
+              <ContactList :contacts="distributionReport.faildSendToUsers" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
+              <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
+            </div>
+            <div class="flex column gap10 new--lists-modal" v-if="distributionReport.allreadyDistributedTo.length">
+              <p>{{$t('distribute.alreadyDistributedToContacts')}} {{distributionReport.allreadyDistributedTo.length}} {{$t('contact.contacts')}}:</p>
+              <ContactList :contacts="distributionReport.allreadyDistributedTo" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
+            </div>
+            <div class="flex column gap10 new--lists-modal" v-if="distributionReport.unsubscribedContacts.length">
+              <p>{{$t('distribute.unsubscribedContacts')}} {{distributionReport.unsubscribedContacts.length}} {{$t('contact.contacts')}}:</p>
+              <ContactList :contacts="distributionReport.unsubscribedContacts" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}]"/>
+            </div>
+            <div class="width-all flex justify-end">
+              <button @click="showDistributionReportModal = false" class="btn">{{$t('close')}}</button>
+            </div>
           </div>
         </div>
       </Modal>
@@ -188,7 +193,7 @@ export default {
     return {
       release: null,
       org: null,
-      loadSystemContacts: false,
+      loadSystemContacts: true,
 
       DistributeContactPreview,
       ContactFilter,
@@ -272,10 +277,10 @@ export default {
       this.fromEmail.title = fromEmailItem?.title || ''
       this.fromEmail.allowReply = fromEmailItem?.allowReply || false;
     },
-    copyUrlToClipboard() {
-      copyToClipBoard(this.sendInEmailUrl);
-      alertService.toast({ msg: this.$t(`copiedToClipboard`), type: 'safe' });
-    },
+    // copyUrlToClipboard() {
+    //   copyToClipBoard(this.sendInEmailUrl);
+    //   alertService.toast({ msg: this.$t(`copiedToClipboard`), type: 'safe' });
+    // },
     async getItem() {
       this.release = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id, organizationId: this.organizationId });
     },
@@ -311,7 +316,7 @@ export default {
         contactsToAdd.items.forEach(this.addContact);
       } catch (err) {
         console.error(err);
-        alertService.toast({ msg: `Somethind went wrong, cant add contacts` });
+        alertService.toast({ msg: this.$t(`distribute.alertMsgs.cantAddContacts`) });
       }
       this.isLoadingLocal = false;
     },
@@ -338,12 +343,12 @@ export default {
         },
         updatedSentToCount => this.sendingToStatus.sent = updatedSentToCount);
         // alertService.toast({ msg: `Successfully distributed release to ${res.sentToUsers.length} out of ${this.contactsForDistribute.length} contacts` });
-        alertService.toast({ msg: `Successfully distributed release`, type: 'safe' });
+        alertService.toast({ msg: this.$t(`distribute.alertMsgs.successDistRelease`), type: 'safe' });
         console.log(res);
         this.distributionReport = res;
         this.showDistributionReportModal = true;
       } catch(err) {
-        alertService.toast({ msg: `Somethind went wrong, cant distribute release` });
+        alertService.toast({ msg: this.$t(`distribute.alertMsgs.errorDistRelease`) });
       }
       this.sendingToStatus.total = 0;
       this.sendingToStatus.sent = 0;
@@ -360,9 +365,9 @@ export default {
           from: this.fromEmail,
           contacts: [{ email: testEmail }]
         });
-        alertService.toast({ msg: `Successfully sent test distribution for release`, type: 'safe' });
+        alertService.toast({ msg: this.$t(`distribute.alertMsgs.testDistSentSuccess`), type: 'safe' });
       } catch(err) {
-        alertService.toast({ msg: `Somethind went wrong, cant sent test distribution for release` });
+        alertService.toast({ msg: this.$t(`distribute.alertMsgs.testDistSentError`) });
       }
       this.isLoadingLocal = false;
     },
@@ -407,7 +412,7 @@ export default {
         this.newMailingListName = '';
         this.showAddMailingListItemModal = false;
       } catch(err) {
-        alertService.toast({ msg: `Somethind went wrong, cant create new mailing list` });
+        alertService.toast({ msg: this.$t(`distribute.alertMsgs.createMailingListError`) });
       }
       this.isLoadingLocal = false;
     },
@@ -422,7 +427,7 @@ export default {
         this.newMailingListName = '';
         this.showAddMailingListItemModal = false;
       } catch(err) {
-        alertService.toast({ msg: `Somethind went wrong, cant update mailing list` });
+        alertService.toast({ msg: this.$t(`distribute.alertMsgs.updateMailingListError`) });
       }
       this.isLoadingLocal = false;
     },
@@ -551,8 +556,13 @@ export default {
     .distribution-report-modal {
       max-height: 70vh;
       min-width: 50vw;
+      max-width: 80vw;
       .selected-table {
         max-height: 50vh;
+      }
+
+      .distribution-report-modal-content {
+        padding-bottom: rem(20px);
       }
     }
   }

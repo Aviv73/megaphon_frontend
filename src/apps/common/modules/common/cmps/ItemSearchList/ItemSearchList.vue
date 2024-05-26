@@ -124,7 +124,7 @@ export default {
       }
       this.filterBy = newFilter;
     },
-    initFilter(forceQuery = true) {
+    initFilter(forceQuery = true) { // TODO:: IT SETS A NEW FILTER BY EVEN IF THERE IS A CHANGE ONLY IN A QUERY PARAM THAT IS NOT RELATED TO THE FILTER QUER PARAMS;
       const filterByToSet = JSON.parse(JSON.stringify(this.initFilterBy));
       if (!this.dontRoute) {
         const queryParams = this.$route.query;
