@@ -3,18 +3,18 @@
     <div class="blur" @click="mobileToggled = !mobileToggled"></div>
     <div class="toggle-btn" @click="mobileToggled = !mobileToggled">☰</div>
     <aside class="main-sidebar height-all flex column space-between gap10">
-      <div class="flex column gap10">
-        <div v-if="loggedUser" class="sidebar-header flex align-center space-between">
-          <span>{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
-          <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">
-            <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt="">
-            <div class="actions-modal" v-if="showActionsModal">
-              <div class="top-like"></div>
-              <button @click="logout">{{$t('auth.logout')}}</button> | 
-              <router-link :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
-            </div>
+      <div v-if="loggedUser" class="sidebar-header flex align-center space-between">
+        <span>{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
+        <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">
+          <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt="">
+          <div class="actions-modal" v-if="showActionsModal">
+            <div class="top-like"></div>
+            <button @click="logout">{{$t('auth.logout')}}</button> | 
+            <router-link :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
           </div>
         </div>
+      </div>
+      <div class="flex column space-between side-bar-content flex-1">
         <ul class="organization-list flex-1">
           <li :class="{selected: selectedOrgId === org._id}" class="organization-preview" v-for="org in organizations" :key="org._id">
             <div class="nav-list-item org-header flex align-center gap10" @click="selectOrg(org._id)">
@@ -34,28 +34,32 @@
               <FoldersNav v-if="isRoleInOrg('producer')" :currentDropableFolderPath="currentDropableFolderPath" :folders="org.folders || []" :parentItem="org"/>
             </div>
           </li>
-          <li class="organization-preview" v-if="isAdmin">
-            <div class="nav-list-item org-header flex align-center gap10" @click="showAdminNav = !showAdminNav">
-              <Avatar :size="25">{{'מגפון'.slice(0,2)}}</Avatar>
-              <p>{{$t('sidebar.megaphonGeneral')}}</p>
-            </div>
-            <div class="flex column" v-if="showAdminNav">
-              <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: '-1' } }">{{$t('contact.contacts')}}</router-link>
-              <router-link class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: '-1' } }">{{$t('account.accounts')}}</router-link>
-              <router-link class="nav-list-item inner-list-item" :to="{ name: 'OrganizationPage' }">{{$t('organization.organizations')}}</router-link>
-            </div>
-          </li>
-          <li class="nav-list-item">
-            <router-link :to="{name: 'SettingsPage'}">
-              {{$t('settings.settings')}}
-            </router-link>
-          </li>
         </ul>
+        <div class="organization-preview" v-if="isAdmin">
+          <div class="nav-list-item org-header flex align-center gap10" @click="showAdminNav = !showAdminNav">
+            <Avatar :size="25">{{'מגפון'.slice(0,2)}}</Avatar>
+            <p>{{$t('sidebar.megaphonGeneral')}}</p>
+          </div>
+          <div class="flex column" v-if="showAdminNav">
+            <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: '-1' } }">{{$t('contact.contacts')}}</router-link>
+            <router-link class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: '-1' } }">{{$t('account.accounts')}}</router-link>
+            <router-link class="nav-list-item inner-list-item" :to="{ name: 'OrganizationPage' }">{{$t('organization.organizations')}}</router-link>
+          </div>
+        </div>
+        <div class="nav-list-item">
+          <router-link :to="{name: 'SettingsPage'}">
+            {{$t('settings.settings')}}
+          </router-link>
+        </div>
       </div>
-      <div class="powered-by flex align-end space-between gap10">
-        <!-- Powered by Megaphon -->
-        <p>Powered by</p> <img :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
+      <div class="side-bar-footer">
+        <div class="powered-by flex align-end space-between gap10">
+          <!-- Powered by Megaphon -->
+          <p>Powered by</p> <img :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
+        </div>
       </div>
+      <!-- <div class="flex column space-between gap10 flex-1">
+      </div> -->
     </aside>
   </div>
 </template>
@@ -138,34 +142,45 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .dark-theme .megaphon-app {
-  .sidebar-container .main-sidebar {
+  .sidebar-container {
     color: #cecece;
-    .sidebar-header {
-      .avatar {
-        background-color: #2090D4;
-      }
-    }
-    .organization-preview {
-      .nav-list-item {
-        &:hover {
-          background-color: lighten($color: #2090D4, $amount: 20%) !important;
+    .main-sidebar {
+      .sidebar-header {
+        .avatar {
+          background-color: #2090D4;
         }
+      }
+      .organization-preview {
+        .nav-list-item {
+          &:hover {
+            background-color: lighten($color: #2090D4, $amount: 20%) !important;
+          }
+        }
+
+        &.selected {
+          .org-header {
+            background-color: #2090D4;
+            // color: #2090D4
+            color: white
+          }
+          .router-link-active {
+            background-color: rgba(147, 214, 254, 0.3);
+            color: #2090D4;
+          }
+        }
+      }
+      .nav-list-item {
+        border-bottom: em(0.5px) solid #003d5e;
       }
 
-      &.selected {
-        .org-header {
-          background-color: #2090D4;
-          // color: #2090D4
-          color: white
-        }
-        .router-link-active {
-          background-color: rgba(147, 214, 254, 0.3);
-          color: #2090D4;
-        }
+      @media (max-width: $small-screen-breake) {
+        // .main-sidebar {
+          background-color: black;
+        // }
       }
     }
-    .nav-list-item {
-      border-bottom: em(0.5px) solid #003d5e;
+    .toggle-btn {
+      color: black;
     }
   }
 }
@@ -175,7 +190,16 @@ export default {
     z-index: 5;
     .main-sidebar {
       height: calc(100vh - #{$header-height} - 22px);
-      overflow-y: auto;
+      max-height: calc(100vh - #{$header-height} - 22px);
+      .side-bar-content {
+        max-height: calc(100% - #{em(80px)});
+        height: calc(100% - #{em(80px)});
+        overflow-y: auto;
+        flex: 1;
+        // height: 0px;
+        // flex-grow: 1;
+        // overflow-y: auto;
+      }
       color: #2090D4;
       position: sticky;
       top: calc(#{$header-height} + 0px);
@@ -293,14 +317,15 @@ export default {
       }
     }
    
-   .blur, .toggle-btn {
-     display: none;
-   }
+    .blur, .toggle-btn {
+      display: none;
+    }
     @media (max-width: $small-screen-breake) {
       position: fixed;
       padding: 0;
       .main-sidebar {
         height: calc(100vh - #{$header-height});
+        max-height: calc(100vh - #{$header-height});
         background-color: #fff;
         position: fixed;
         top: $header-height;
