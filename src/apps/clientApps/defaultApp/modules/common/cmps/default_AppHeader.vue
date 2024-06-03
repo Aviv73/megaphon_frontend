@@ -12,7 +12,7 @@
       </div>
 
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
-      <button @click="mobileShow = !mobileShow" class="nav-burger"><img :src="require('@/assets/images/nav_burger_white.png')"/></button>
+      <button @click="mobileShow = !mobileShow" v-if="allRouteFilters.length" class="nav-burger"><img :src="require('@/assets/images/nav_burger_white.png')"/></button>
       <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
       <nav class="flex align-center space-between wrap gap30" :class="{show: mobileShow}">
         <!-- <div class="space-div"></div> -->
