@@ -8,7 +8,7 @@ module.exports = {
       entry: "src/main.js",
       template: 'public/index.html',
       filename: 'index.html',
-      title: "megaphon"
+      title: "Megaphon"
     }
   },
   configureWebpack: {
