@@ -321,7 +321,7 @@ export default {
     }
     .table-like {
       // width: 100%;
-      overflow-x: auto;
+      // overflow-x: auto;
       // max-width: 100%;
       max-width: 95vw;
       li {

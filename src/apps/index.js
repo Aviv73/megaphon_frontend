@@ -4,12 +4,12 @@ import AgamAppData from './clientApps/agam';
 import DefaultClientAppData from './clientApps/defaultApp';
 DefaultClientAppData.params.organizationId = appConfig.appName;
 
-const costumeClentApps = [AgamAppData];
+const costumeClientApps = [AgamAppData];
 
 export default (() => {
   if (appConfig.client) {
-    // return costumeClentApps.find(c => c.params.appName === appConfig.appName) || { ...DefaultClientAppData, params: {...DefaultClientAppData.params, organizationId: appConfig.appName} };
-    return costumeClentApps.find(c => c.params.appName === appConfig.appName) || DefaultClientAppData;
+    // return costumeClientApps.find(c => c.params.appName === appConfig.appName) || { ...DefaultClientAppData, params: {...DefaultClientAppData.params, organizationId: appConfig.appName} };
+    return costumeClientApps.find(c => c.params.appName === appConfig.appName) || DefaultClientAppData;
   }
   return megaphonAppData;
   // if (appConfig.appName) {

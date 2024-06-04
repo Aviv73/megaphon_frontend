@@ -10,6 +10,7 @@ export default {
   app,
   params: {
     organizationId: '',
-    appName: 'defaultApp'
+    appName: 'defaultApp',
+    title: 'Megaphon - client'
   }
 }

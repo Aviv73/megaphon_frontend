@@ -10,6 +10,7 @@ export default {
   app,
   params: {
     organizationId: '',
-    appName: 'megaphon'
+    appName: 'megaphon',
+    title: 'Megaphon'
   }
 }

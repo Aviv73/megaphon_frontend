@@ -1,8 +1,8 @@
 <template>
   <ReleasePage v-if="isReleasePage"/>
-  <div v-else class="container release-app inner-app">
+  <div v-else class="default-release-page container release-app inner-app">
     <Loader v-if="isLoading" :fullScreen="true"/>
-    <div v-else v-html="loadedHtml"></div>
+    <div class="inner-app-content" v-else v-html="loadedHtml"></div>
     <!-- <iframe :src="'/apps/' + this.htmlFilePath" frameborder="0"></iframe> -->
   </div>
 </template>

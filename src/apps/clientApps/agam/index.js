@@ -10,6 +10,7 @@ export default {
   app,
   params: {
     organizationId: '643eac15afc5d349300c087f',
-    appName: 'agam'
+    appName: 'agam',
+    title: 'אגם הוצאה לאור'
   }
 }

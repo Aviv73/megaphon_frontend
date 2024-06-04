@@ -39,6 +39,6 @@ function getEmptyAccount() {
     roles: ['user'],
     organizations: [],
     password: '',
-    gbImg: ''
+    bgImg: ''
   }
 }
