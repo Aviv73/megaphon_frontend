@@ -12,7 +12,7 @@ const userRolesMap = {
 }
 
 const organizationRoles = {
-  creator: 'creator',
+  // creator: 'creator',
   admin: 'admin',
   producer: "producer",
   client: 'client',
