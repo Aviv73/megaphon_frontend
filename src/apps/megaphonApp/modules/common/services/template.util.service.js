@@ -145,7 +145,7 @@ function _getDefaultTEmplatesData() {
               "DEFAULT_GROUP_RELEASE"
           ],
           // "handlebarsLocalFilePath" : "default/templates/group/default.group.email"
-          "handlebarsLocalFilePath" : "default/templates/release.simple.email"
+          "handlebarsLocalFilePath" : "default/templates/default.release.email"
       },
       {
           "name" : "דיפולטיבי - ניוזלטר רליס פשוט",
@@ -156,7 +156,7 @@ function _getDefaultTEmplatesData() {
               "DEFAULT_SIMPLE_RELEASE"
           ],
           // "handlebarsLocalFilePath" : "default/templates/simple/default.simple.email"
-          "handlebarsLocalFilePath" : "default/templates/release.simple.email"
+          "handlebarsLocalFilePath" : "default/templates/default.release.email"
       }
     ],
   
