@@ -212,7 +212,7 @@ export default {
       organizationToEdit: null,
       showDeveloperZone: false,
       allDomains: [],
-      userRolesToSelect: [...Object.values(consts.userRoles)]
+      userRolesToSelect: [...Object.values(consts.organizationRoles)]
     }
   },
   computed: {

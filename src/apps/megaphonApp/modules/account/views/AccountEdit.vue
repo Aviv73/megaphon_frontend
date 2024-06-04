@@ -17,7 +17,7 @@
               <FormInput type="checkbox" :value="isInOrg(org.organizationId)" @change="toggleOrg(org.organizationId)"/>
               <p>{{getOrgName(org.organizationId)}}</p>
             </div>
-            <FormInput type="multiselect" placeholder="role" :value="org.roles || []" @change="val => updateOrgRoles(org.organizationId, val)" :items="systemRoles"/>
+            <FormInput type="multiselect" placeholder="role" :value="org.roles || []" @change="val => updateOrgRoles(org.organizationId, val)" :items="orgRoles"/>
           </div>
         </div>
       </template>
@@ -43,6 +43,7 @@ export default {
       confirmPassword: '',
       // systemRoles: ['user', 'producer', 'admin'],
       systemRoles: [...Object.values(consts.userRoles)].map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
+      orgRoles: [...Object.values(consts.organizationRoles)].map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
       // allOrgs: []
     }
   },

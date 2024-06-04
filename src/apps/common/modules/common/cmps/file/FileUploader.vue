@@ -96,6 +96,8 @@ export default {
   .p-like {
     // width: em(200px);
     width: em(160px);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   @media (max-width: $small-screen-breake) {
     // flex-direction: column;

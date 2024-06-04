@@ -1,8 +1,8 @@
 const userRoles = { // 'user', 'admin', 'producer'
   admin: 'admin',
-  producer: 'producer',
   user: 'user',
-  client: 'client',
+  // producer: 'producer',
+  // client: 'client',
 }
 const userRolesMap = {
   [userRoles.admin]: 1,
@@ -14,8 +14,8 @@ const userRolesMap = {
 const organizationRoles = {
   creator: 'creator',
   admin: 'admin',
-  user: 'user',
-  producer: "producer"
+  producer: "producer",
+  client: 'client',
 }
 
 const organizationStatuses = {
@@ -45,9 +45,9 @@ const exportItems = {
 }
 
 
-// /* FOR NODE ENV:: */
+/* FOR NODE ENV:: */
 // module.exports = exportItems;
 
-/* FOR ES6 ENV:: */
+// /* FOR ES6 ENV:: */
 export default exportItems;
 
