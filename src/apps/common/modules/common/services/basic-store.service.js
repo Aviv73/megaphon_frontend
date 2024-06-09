@@ -130,11 +130,11 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
           onSuccess: (data) => { if (!dontSet) commit({ type: 'setData', data }) }
         });
       },
-      async loadItem({ commit, dispatch }, { id, organizationId, dontSet = false }) {
+      async loadItem({ commit, dispatch }, { id, organizationId, dontSet = false, queryParams = {} }) {
         commit({ type: 'setSelectedItem', item: null });
         return dispatch({
           type: '_Ajax',
-          do: async () => service.get(id, organizationId),
+          do: async () => service.get(id, organizationId, queryParams),
           onSuccess: (item) => { if (!dontSet) commit({ type: 'setSelectedItem', item }) }
         });
       },
@@ -176,9 +176,9 @@ function createDefaultService(moduleName, getEmptyItemCb = () => ({})) {
    query: (filterBy, organizationId) => {
      return httpService.get(`${moduleName}/${_orgSpace(organizationId)}`, filterBy);
    },
-   get: (id, organizationId) => {
+   get: (id, organizationId, queryParams) => {
      if (!id) return getEmptyItemCb();
-     return httpService.get(`${moduleName}/${_orgSpace(organizationId)}${id}`);
+     return httpService.get(`${moduleName}/${_orgSpace(organizationId)}${id}`, queryParams);
    },
    add: (item, organizationId) => {
      return httpService.post(`${moduleName}/${_orgSpace(organizationId)}`, item);

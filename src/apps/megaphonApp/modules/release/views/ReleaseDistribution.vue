@@ -102,6 +102,7 @@
               </div>
               <div v-for="list in emailLists" :key="list._id" class="table-item-preview gap10 list-item flex align-center space-between " @click="selectMailingList(list)">
                 <p>{{list.title}}</p>
+                <button @click.stop="onRemoveMailingList(list)">X</button>
               </div>
             </div>
           </template>
@@ -401,6 +402,10 @@ export default {
     },
 
     async createMailingList() {
+      if (!this.newMailingListName) {
+        alertService.toast({ msg: this.$t(`distribute.alertMsgs.noMailingListNameError`) })
+        return;
+      }
       this.isLoadingLocal = true;
       try {
         const newListItem = {
@@ -415,6 +420,7 @@ export default {
         alertService.toast({ msg: this.$t(`distribute.alertMsgs.createMailingListError`) });
       }
       this.isLoadingLocal = false;
+      this.getMailingLists();
     },
     async updateMailingList(mailingListItem) {
       this.isLoadingLocal = true;
@@ -430,7 +436,15 @@ export default {
         alertService.toast({ msg: this.$t(`distribute.alertMsgs.updateMailingListError`) });
       }
       this.isLoadingLocal = false;
+      this.getMailingLists();
     },
+    async onRemoveMailingList(list) {
+      if (!await alertService.Confirm(this.$t('distribute.alertMsgs.confirmRemovemailingListMsg'))) return;
+      this.isLoadingLocal = true;
+      await distributionService.removeMailingList(this.organizationId, list._id);
+      await this.getMailingLists();
+      this.isLoadingLocal = false;
+    }
   },
   
   created() {

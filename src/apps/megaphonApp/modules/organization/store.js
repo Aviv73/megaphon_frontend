@@ -46,6 +46,16 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
           onSuccess: () => alertService.toast({type: 'safe', msg: `${$t('organization.alerts.invetationSentSuccess')}!`})
         });
       },
+      loadItem({ commit, dispatch, getters }, { id, isToInheritData = true }) {
+        return dispatch({
+          type: '_Ajax',
+          do: async () => getters.service.get(id, undefined, {isToInheritData}),
+          onSuccess: (item) => {
+            commit({ type: 'setSelectedItem', item })
+            commit({ type: 'setProp', key: 'organizationId', val: item._id });
+          }
+        });
+      }
     }
   },
   undefined,

@@ -100,6 +100,8 @@ const  en = {
       "testDistSentError": "Somethind went wrong, cant sent test distribution for release",
       "createMailingListError": "Somethind went wrong, cant create new mailing list",
       "updateMailingListError": "Somethind went wrong, cant update mailing list",
+      "noMailingListNameError": "Missing new mailing list name!",
+      "confirmRemovemailingListMsg": "Are you sure you want to remove this mailing list?"
     }
   }
 }
@@ -206,6 +208,8 @@ const he = {
       "testDistSentError": "המערכת לא הצליחה לשלוח מייל בדיקה",
       "createMailingListError": "המערכת לא הצליחה ליצור רשימת תפוצה",
       "updateMailingListError": "המערכת לא הצליחה לעדכן את רשימת התפוצה",
+      "noMailingListNameError": "צריך להזין שם לרשימת תפוצה חדשה!",
+      "confirmRemovemailingListMsg": "האם אתה בטוח שאתה מעוניין למחוק את רשימת התפוצה?"
     }
   }
 }

@@ -20,6 +20,7 @@ export const templateUtils = exportItems;
 
 function getReleaseLandingPageUrl(release, organization, isNews) {
   const template = getReleaseRelevantTemplateItem(release, organization, isNews);
+  console.log(template);
   if (template?.url) { // if outer site url, like ho1/hot8;
     let pageUrl = template?.url || '';
     pageUrl = pageUrl.split('${DOMAIN}').join(config.baseServerUrl);
@@ -102,7 +103,6 @@ function _getDefaultTEmplatesData() {
           "name" : "רליס דיפולטיבי",
           // "name" : "רליס",
           "id" : "DEFAULT_SIMPLE_RELEASE",
-          "dataFieldsStr" : "",
           "isGroup" : false,
           dataFieldsLocalFilePath: 'default/templates/simple/default.simple.dataFields'
       },
@@ -110,7 +110,6 @@ function _getDefaultTEmplatesData() {
           "name" : "רליס דיפולטיבי קבוצתי",
           // "name" : "רליס קבוצתי",
           "id" : "DEFAULT_GROUP_RELEASE",
-          "dataFieldsStr" : "",
           "isGroup" : true,
           dataFieldsLocalFilePath: 'default/templates/group/default.group.dataFields'
       }
@@ -120,27 +119,27 @@ function _getDefaultTEmplatesData() {
           "name" : "דיפולטיבי - רליס פשוט",
           "id" : "DEFAULT_SIMPLE_LANDINGPAGE",
           "type" : "0", // landing page
-          isNews: false,
+          // isNews: false,
           "releaseTypes" : [ 
               "DEFAULT_SIMPLE_RELEASE"
           ],
-          "appName" : ""
+          // "appName" : ""
       },
       {
           "name" : "דיפולטיבי - רליס קבוצתי",
           "id" : "DEFAULT_GROUP_LANDINGPAGE",
           "type" : "0",
-          isNews: false,
+          // isNews: false,
           "releaseTypes" : [ 
               "DEFAULT_GROUP_RELEASE"
           ],
-          "appName" : ""
+          // "appName" : ""
       },
       {
           "name" : "דיפולטיבי - ניוזלטר רליס קבוצתי",
           "id" : "DEFAULT_GROUP_NEWSLETTER",
           "type" : "1",
-          isNews: true,
+          // isNews: true,
           "releaseTypes" : [ 
               "DEFAULT_GROUP_RELEASE"
           ],
@@ -151,7 +150,7 @@ function _getDefaultTEmplatesData() {
           "name" : "דיפולטיבי - ניוזלטר רליס פשוט",
           "id" : "DEFAULT_SIMPLE_NEWSLETTER",
           "type" : "1",
-          isNews: true,
+          // isNews: true,
           "releaseTypes" : [ 
               "DEFAULT_SIMPLE_RELEASE"
           ],

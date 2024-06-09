@@ -63,9 +63,6 @@
       <div class="flex column gap20 align-start">
         <p>{{$t('organization.designPreferences')}}</p>
         <div class="input-container flex gap20">
-          <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
-        </div>
-        <div class="input-container flex gap20">
           <!-- <p>{{$t('organization.colors')}}</p> -->
           <!-- <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/> -->
           <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.colorsPalate[0]"/>
@@ -86,7 +83,15 @@
 
 
       <h2 @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</h2>
-      <div class="developer-zone" v-if="showDeveloperZone">
+      <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
+        
+        <div class="input-container flex gap20">
+          <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
+        </div>
+
+        <div class="input-container flex gap20">
+          <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
+        </div>
 
         <div class="route-filters-section flex column gap20 align-start">
           <p>{{$t('organization.routes')}}</p>
@@ -242,7 +247,7 @@ export default {
   },
   methods: {
     async getOrganization() {
-      this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id });
+      this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id, isToInheritData: false });
       this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));
     },
     async getAllDomains() {
