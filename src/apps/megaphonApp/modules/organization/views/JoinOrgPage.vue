@@ -3,7 +3,7 @@
     <h2>{{$t('organization.searchOrganizations')}}</h2>
     <div class="join-org-page flex column gap50">
       <SearchInput class="width-content" v-model="searchOrgStr" @change="getOrgs"/>
-      <ul v-if="searchedOrgs.length" class="flex column gap30">
+      <ul v-if="searchedOrgs.length" class="flex column gap20">
         <li v-for="org in searchedOrgs" :key="org._id" class="org-preview flex gap20">
             <!-- <MiniAccountPreview :org="org"/> -->
             <img :src="org.logoUrl"/>
@@ -73,6 +73,7 @@ export default {
     border-start-start-radius: em(30px);
     padding-inline-end: em(20px);
     overflow: hidden;
+    box-shadow: $light-shadow;
     >*:not(:last-child) {
       border-inline-end: 1px solid rgba(128, 128, 128, 0.2);
       // padding-inline-end: em(20px);
@@ -87,7 +88,6 @@ export default {
       width: 50px;
       // border-radius: 50%;
       // border: 2px solid white;
-    box-shadow: $light-shadow;
     }
   }
 }
