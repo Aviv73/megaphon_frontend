@@ -62,7 +62,7 @@ export default {
     },
     async inviteAccount(account) {
       const accountId = account._id
-      await this.$store.dispatch({ type: 'organization/inviteAccount', organizationId: this.organizationId, accountId, role: this.rolesToInvite[accountId] });
+      await this.$store.dispatch({ type: 'organization/inviteAccount', organizationId: this.organizationId, accountId, role: this.rolesToInvite[accountId], status: 'approved' });
       this.orgToShow.members.push({
         ...account,
         roles: [this.rolesToInvite[accountId]]

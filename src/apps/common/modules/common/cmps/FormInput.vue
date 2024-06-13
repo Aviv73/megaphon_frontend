@@ -330,6 +330,12 @@ export default {
   flex-wrap: wrap;
   gap: em(5px);
   // border-bottom: em(1px) solid gray;
+  label {
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
   .input {
     position: relative;
     height: 100%;

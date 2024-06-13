@@ -88,6 +88,9 @@
         <div class="input-container flex gap20">
           <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
         </div>
+        <div class="input-container flex gap20">
+          <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
+        </div>
 
         <div class="input-container flex gap20">
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>

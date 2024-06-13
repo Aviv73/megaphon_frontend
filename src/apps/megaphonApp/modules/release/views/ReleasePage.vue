@@ -25,6 +25,7 @@ import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import ReleasePreview from '../cmps/ReleasePreview.vue';
 import ReleaseFilter from '../cmps/ReleaseFilter.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import { organizationService } from '../../organization/services/organization.service';
 
 export default {
   name: 'ReleasePage',
@@ -50,6 +51,7 @@ export default {
       if (!routeName) return;
       const filterItem = this.organization?.routes.find(c => c.name === routeName) || this.organization?.routes?.[0] || undefined;
       if (!filterItem) return;
+      if (!organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, filterItem.id)) return;
       this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterItem.releaseFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
     // handleOrgReleaseFilter(orgFilter) {
@@ -66,11 +68,20 @@ export default {
     initOrgPage() {
       const org = this.organization;
       if (!org) return;
-      if (org.routes?.find(c => c.name === this.pageNameInQuery)) this.getAllReleases();
-      else this.$router.push({ query: { ...this.$route.query, page: org?.routes?.[0]?.name || '' } });
+      const allAuthRoutes = org?.routes?.filter(c => organizationService.isAccountAuthorizedToRoute(this.loggedUser, org, c.id));
+      if (!organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, this.pageNameInQuery)) {
+        this.$router.push({ query: { ...this.$route.query, page: allAuthRoutes[0]?.name || '' } })
+      } else {
+        this.getAllReleases();        
+      }
+      // if (org.routes?.find(c => c.name === this.pageNameInQuery)) this.getAllReleases();
+      // else this.$router.push({ query: { ...this.$route.query, page: org?.routes?.[0]?.name || '' } });
     }
   },
   computed: {
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
+    },
     organizationId() {
       return this.$route.params.organizationId;
     },

@@ -1,5 +1,5 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
-import { alertService } from '@/apps/common/modules/common/services/alert.service'
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import { delay } from '@/apps/common/modules/common/services/util.service';
 
 import { $t } from '@/plugins/i18n';

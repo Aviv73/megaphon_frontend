@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit" class="flex align-center search-input">
+  <form @submit.prevent="onSubmit" class="flex align-center gap10 search-input">
     <FormInput class="width-content" type="text" :placeholder="placeholder" v-model="val"/>
     <button class="btn secondary">{{$t(btn)}}</button>
   </form>
@@ -56,7 +56,7 @@ export default {
     justify-content: center;
     // border-start-start-radius: 0;
     // border-end-start-radius: 0;
-    border-radius: unset;
+    border-radius: unset !important;
     // background-color: #fff;
   }
 }

@@ -8,6 +8,7 @@
 <script>
 import SideBar from '../cmps/SideBar/SideBar.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import { organizationService } from '../../organization/services/organization.service';
 export default {
   components: { SideBar },
   name: 'MainSidebarView',
@@ -58,9 +59,17 @@ export default {
   },
   methods: {
     initNavigation() {
+      if (!this.loggedUser) return;
       if (this.$route.name === 'MainSidebarView') {
-        const firstOrg = this.loggedUser?.organizations.filter(c => c.organizationId != '-1')[0];
-        if (!firstOrg) return;
+        const firstOrg = this.loggedUser?.organizations
+          .filter(c => c.status !== 'pending')
+          .filter(c => c.organizationId != '-1')
+          [0];
+        if (!firstOrg) {
+          console.log('WOWOWO', this.loggedUser?.organizations);
+          this.$router.push({ name: 'JoinOrgPage' });
+          return;
+        }
         this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
       }
     },

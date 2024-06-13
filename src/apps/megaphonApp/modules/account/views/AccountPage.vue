@@ -5,7 +5,7 @@
       class="height-all table-like-list"
       :itemsData="allAccountData"
       :initFilterBy="filterBy"
-      @filter="getAllRAccounts"
+      @filter="getAllAccounts"
       itemDetailesPageName="AccountDetails"
       newItemPageName=""
       :singlePreviewCmp="AccountPreview"
@@ -18,7 +18,7 @@
         <div class="actions flex gap10 align-center justify-end width-all" v-if="isAdmin">
           <template v-if="organizationId === '-1'">
             <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
-            <button class="btn big" @click="getAllRAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('account.viewAllAccounts')}}</button>
+            <button class="btn big" @click="getAllAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('account.viewAllAccounts')}}</button>
           </template>
           <InviteAccountModal v-else/>
         </div>
@@ -26,6 +26,7 @@
           <p>{{$t('name')}}</p>
           <p class="wide-screen-item">{{$t('email')}}</p>
           <p>{{$t('account.role')}}</p>
+          <!-- <p>{{$t('account.isPandingForApproval')}}</p> -->
         </div>
       </div>
     </ItemSearchList>
@@ -39,6 +40,8 @@ import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import AccountPreview from '../cmps/AccountPreview.vue';
 import AccountFilter from '../cmps/AccountFilter.vue';
 import InviteAccountModal from '../../organization/cmps/InviteAccountModal.vue';
+import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import { alertService } from '@/apps/common/modules/common/services/alert.service'
 
 export default {
   name: 'AccountPage',
@@ -49,10 +52,15 @@ export default {
     }
   },
   methods: {
-    getAllRAccounts(filterBy, orgId) {
+    getAllAccounts(filterBy, orgId) {
       filterBy.organizationId = typeof orgId === 'string'? orgId : this.$route.params.organizationId;
       this.$store.dispatch({ type: 'account/loadItems', filterBy });
     },
+    async approveAccount(account, orgId) {
+      if (!await alertService.Confirm(this.$t(`organization.alerts.confirmAccountApproval`))) return;
+      await this.$store.dispatch({ type: 'organization/updateAccountStatus', organizationId: orgId, accountId: account._id, newStatus: 'approved' });
+      this.getAllAccounts(this.filterBy, this.organizationId);
+    }
   },
   computed: {
     isAdmin() {
@@ -73,8 +81,14 @@ export default {
   },
   watch: {
     organizationId() {
-      this.getAllRAccounts();
+      this.getAllAccounts();
     }
+  },
+  created() {
+    evManager.on('approveAccount', this.approveAccount);
+  },
+  destroyed() {
+    evManager.off('approveAccount', this.approveAccount);
   },
   components: { ItemSearchList, Loader, AccountPreview, AccountFilter, InviteAccountModal }
 }

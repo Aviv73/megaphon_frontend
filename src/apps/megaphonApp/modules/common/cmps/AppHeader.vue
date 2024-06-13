@@ -8,7 +8,7 @@
       </router-link>
 
       <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
-        <div class="links flex align-center gap10 height-all">
+        <div class="links flex align-center gap10 height-all" v-if="isOrgProducer">
           <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn big primary">
               {{$t('create')}} {{type.name}}
@@ -51,6 +51,7 @@
 
 <script>
 import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
+import { organizationService } from '../../organization/services/organization.service';
 export default {
   name: 'AppHeader',
   data() {
@@ -82,6 +83,9 @@ export default {
     },
     showNavContent() {
       return (this.$route.name === 'ReleasePage') && this.organization;
+    },
+    isOrgProducer() {
+      return organizationService.isUserRoleInOrg(this.organization?._id, 'producer', this.loggedUser);
     }
   },
   // methods: {

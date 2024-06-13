@@ -17,9 +17,12 @@
       <div class="flex column space-between side-bar-content flex-1">
         <ul class="organization-list flex-1">
           <li :class="{selected: selectedOrgId === org._id}" class="organization-preview" v-for="org in organizations" :key="org._id">
-            <div class="nav-list-item org-header flex align-center gap10" @click="selectOrg(org._id)">
+            <div class="nav-list-item org-header flex align-center gap10" @click="selectOrg(org)">
               <Avatar :size="25">{{org.name.slice(0,2)}}</Avatar>
-              <p>{{org.name}}</p>
+              <p class="flex-1 flex space-between">
+                <span>{{org.name}}</span>
+                <span v-if="isOrgPending(org)">{{$t('pending')}}</span>
+              </p>
             </div>
             <div class="flex column" v-if="selectedOrgId === org._id">
               <router-link class="nav-list-item inner-list-item" :to="{ name: 'ReleasePage', params: { organizationId: org._id } }">
@@ -47,8 +50,14 @@
           </div>
         </div>
         <div class="nav-list-item">
-          <router-link :to="{name: 'SettingsPage'}">
-            {{$t('settings.settings')}}
+          <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'JoinOrgPage'}">
+            <Avatar :size="25">{{''.slice(0,2)}}</Avatar>
+            <p>{{$t('organization.addOrganization')}}</p>
+          </router-link>
+        </div>
+        <div class="nav-list-item">
+          <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
+            <p>{{$t('settings.settings')}}</p>
           </router-link>
         </div>
       </div>
@@ -108,7 +117,12 @@ export default {
     isRoleInOrg(role) {
       return organizationService.isUserRoleInOrg(this.selectedOrgId, role, this.loggedUser);
     },
-    selectOrg(orgId) {
+    isOrgPending(org) {
+      return organizationService.getOrgItemInAccount(this.loggedUser, org._id)?.status === 'pending';
+    },
+    selectOrg(org) {
+      if (this.isOrgPending(org)) return;
+      const orgId = org._id;
       this.$router.push({ name: 'ReleasePage', params: { organizationId: orgId } });
       this.showFolders = false;
       // this.$emit('selectOrganization', orgId);

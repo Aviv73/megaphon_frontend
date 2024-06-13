@@ -93,7 +93,8 @@ const en = {
   "locale": "Locale",
 
   "role": "Role",
-  "roles": "Roles"
+  "roles": "Roles",
+  "join": "Join"
 }
 const he = {
   "hello": "שלום",
@@ -188,7 +189,8 @@ const he = {
   "locale": "שפה",
 
   "role": "הרשאות",
-  "roles": "הרשאות"
+  "roles": "הרשאות",
+  "join": "הצטרף"
 }
 const heF = {
   ...he,

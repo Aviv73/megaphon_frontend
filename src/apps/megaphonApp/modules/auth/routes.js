@@ -1,6 +1,6 @@
 import AuthApp from './AuthApp';
 import LoginPage from './views/LoginPage';
-// import SignupPage from './views/SignupPage';
+import SignupPage from './views/SignupPage';
 
 export const authRoutes = [
   {
@@ -13,11 +13,11 @@ export const authRoutes = [
         path: '/login',
         component: LoginPage
       },
-      // {
-      //   name: 'SignupPage',
-      //   path: '/signup',
-      //   component: SignupPage
-      // },
+      {
+        name: 'SignupPage',
+        path: '/signup',
+        component: SignupPage
+      },
     ]
   }
 ]

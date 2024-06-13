@@ -39,11 +39,21 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
       loadAllDomainNames({ getters }) {
         return organizationService.loadAllDomainNames();
       },
-      async inviteAccount({ commit, dispatch }, { organizationId, accountId }) {
+      async inviteAccount({ commit, dispatch }, { organizationId, accountId, status, successMsg }) {
         return dispatch({
           type: '_Ajax',
-          do: async () => organizationService.inviteAccount(organizationId, accountId),
-          onSuccess: () => alertService.toast({type: 'safe', msg: `${$t('organization.alerts.invetationSentSuccess')}!`})
+          do: async () => organizationService.inviteAccount(organizationId, accountId, status),
+          onSuccess: () => alertService.toast({type: 'safe', msg: `${$t(successMsg || 'organization.alerts.invetationSentSuccess')}!`})
+        });
+      },
+      async updateAccountStatus({ commit, dispatch, getters }, { organizationId, accountId, newStatus }) {
+        return dispatch({
+          type: '_Ajax',
+          do: async () => organizationService.updateAccountStatus(organizationId, accountId, newStatus),
+          onSuccess: (data) => {
+            // commit({ type: 'updateOrgStatus', organizationId, newStatus });
+            commit('auth/updateOrgStatus', { organizationId, newStatus }, { root: true });
+          }
         });
       },
       loadItem({ commit, dispatch, getters }, { id, isToInheritData = true }) {
@@ -53,6 +63,15 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
           onSuccess: (item) => {
             commit({ type: 'setSelectedItem', item })
             commit({ type: 'setProp', key: 'organizationId', val: item._id });
+          }
+        });
+      },
+      searchOrganizations({ dispatch }, { filterBy }) {
+        return dispatch({
+          type: '_Ajax',
+          do: async () => organizationService.searchOrganizations(filterBy),
+          onSuccess: (orgs) => {
+            return orgs;
           }
         });
       }

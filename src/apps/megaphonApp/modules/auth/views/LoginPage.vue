@@ -1,6 +1,6 @@
 <template>
-  <div class="login-page flex column gap20 align-center justify-center width-all">
-    <!-- <router-link class="btn width-content" :to="{name: 'SignupPage'}">{{$t('signup')}}</router-link> -->
+  <div class="auth-page login-page flex column gap20 align-center justify-center width-all">
+    <router-link class="btn width-content" :to="{name: 'SignupPage'}">{{$t('signup')}}</router-link>
     <form @submit.prevent="login" class="simple-form">
       <img class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
       <h4>{{$t('login')}}</h4>
@@ -66,7 +66,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.login-page {
+.auth-page {
   .simple-form {
     max-width: em(400px);
     gap: rem(10px);

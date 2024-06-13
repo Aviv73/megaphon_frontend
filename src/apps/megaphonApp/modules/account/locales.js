@@ -14,6 +14,7 @@ const en = {
     "role": "Role",
     "viewAllAccounts": "View all accounts",
     "inviteAccounts": "Invite accounts",
+    "isPandingForApproval": "Panding for approval",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this account?",
       "removeSuccess": "Account removed successfully",
@@ -37,6 +38,7 @@ const he = {
     "role": "תפקיד",
     "viewAllAccounts": "הצג את כל משתמשי המערכת",
     "inviteAccounts": "הזמן משתמשים",
+    "isPandingForApproval": "ממתין לאישור",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את המשתמש?",
       "removeSuccess": "משתמש נמחק בהצלחה",

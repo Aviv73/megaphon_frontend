@@ -9,12 +9,13 @@ const  en = {
       "welcomeBack": "Welcome back",
       "goodby": "Goodby",
       "welcome": "Welcome"
-    }
+    },
+    "emailIsTakenError": "User with that email already exists",
+    "notLoggedInError": "Unauthorized, please login",
+    "userNotAllowedError": "User not allowed",
+    "invalidUsernameOrPasswordError": "Invalid username or password",
+    "cantFindAccountWithEmailError": "Could not find account with this email",
   },
-  "notLoggedInError": "Unauthorized, please login",
-  "userNotAllowedError": "User not allowed",
-  "invalidUsernameOrPasswordError": "Invalid username or password",
-  "cantFindAccountWithEmailError": "Could not find account with this email",
 }
 const he = {
   "auth": {
@@ -27,13 +28,14 @@ const he = {
       "welcomeBack": "ברוך שובך",
       "goodby": "להתראות",
       "welcome": "ברוך הבא"
-    }
+    },
+    "emailIsTakenError": "משתמש עם המייל הזה כבר קיים במערכת",
+    // "notLoggedInError": "לא מורשה, יש להתחבר למערכת",
+    "notLoggedInError": "יש להתחבר למערכת",
+    "userNotAllowedError": "אין הרשאה למשתמש",
+    "invalidUsernameOrPasswordError": "שם משתמש או סיסמא שגויים",
+    "cantFindAccountWithEmailError": "לא נמצא משתמש עם כתובת המייל הזאת",
   },
-  // "notLoggedInError": "לא מורשה, יש להתחבר למערכת",
-  "notLoggedInError": "יש להתחבר למערכת",
-  "userNotAllowedError": "אין הרשאה למשתמש",
-  "invalidUsernameOrPasswordError": "שם משתמש או סיסמא שגויים",
-  "cantFindAccountWithEmailError": "לא נמצא משתמש עם כתובת המייל הזאת",
 }
 const heF = {
   ...he,

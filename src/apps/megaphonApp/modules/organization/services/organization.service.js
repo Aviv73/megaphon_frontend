@@ -14,6 +14,7 @@ export const organizationService = {
   // remove,
 
   inviteAccount,
+  updateAccountStatus,
 
   getEmptyOrganization,
   createEmptyReleaseTypeItem,
@@ -23,7 +24,12 @@ export const organizationService = {
 
   loadReleaseDataFields,
   loadAllDomainNames,
-  isUserRoleInOrg
+  isUserRoleInOrg,
+  isAccountAuthorizedToRoute,
+
+  isUserInOrg,
+  getOrgItemInAccount,
+  searchOrganizations
 }
 
 // function query(filterBy) {
@@ -46,12 +52,12 @@ export const organizationService = {
 //   return item._id? update(item) : add(item);
 // }
 
-function inviteAccount(organizationId, accountId) {
-  return httpService.post(`${ENDPOINT}/${organizationId}/invite`, { accountId });
+function inviteAccount(organizationId, accountId, status) {
+  return httpService.post(`${ENDPOINT}/${organizationId}/invite`, { accountId, status });
 }
-// function updateAccountStatus(organizationId, accountId, status) {
-//   return httpService.post(`${ENDPOINT}/${organizationId}/update-status`, { accountId, status });
-// }
+function updateAccountStatus(organizationId, accountId, status) {
+  return httpService.post(`${ENDPOINT}/${organizationId}/update-status`, { accountId, status });
+}
 // function updateAccountRole(organizationId, accountId, roles) {
 //   return httpService.post(`${ENDPOINT}/${organizationId}/update-roles`, { accountId, roles });
 // }
@@ -65,6 +71,10 @@ function loadReleaseDataFields(dataFieldsLocalFilePath, organizationId, releaseT
 }
 function loadAllDomainNames() {
   return httpService.get(`${ENDPOINT}/allDomainNames`, { });
+}
+
+function searchOrganizations(filterBy) {
+  return httpService.get(`${ENDPOINT}/searchOrganizations`, filterBy);
 }
 
 
@@ -84,6 +94,22 @@ function createEmptyTemplateItem() {
 function isUserRoleInOrg(orgId, role, user) {
   if (!orgId || !role || !user) return false;
   return user.organizations?.find(org => org.organizationId === orgId)?.roles?.includes(role);
+}
+function isUserInOrg(orgId, user) {
+  if (!orgId || !user) return false;
+  return !!getOrgItemInAccount(user, orgId);
+}
+function getOrgItemInAccount(user, orgId) {
+  if (!user) return null;
+  return user.organizations?.find(org => org.organizationId === orgId);
+}
+function isAccountAuthorizedToRoute(account, org, routeItemIdOrName) {
+  if (!account|| !org || !routeItemIdOrName) return false;
+  const routeItem = org.routes.find(c => [c.id, c.name].includes(routeItemIdOrName));
+  if (!routeItem) return false;
+  const accountOrgData = getOrgItemInAccount(account, org._id);
+  if (!accountOrgData) return false;
+  return routeItem.showInRoles.find(role => accountOrgData.roles.includes(role));
 }
 
 
@@ -122,6 +148,7 @@ function getEmptyOrganization() {
         '#ffd700'  // headersColor
       ]
     },
+    searchKeys: ''
   }
   org.releaseTypes.forEach(c => org.routes.push(createEmptyRouteItem(c.name, [c.id])));
   return org;

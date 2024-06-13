@@ -19,9 +19,9 @@ const  en = {
       "confirmRemove": "Are you sure you want to remove this contact?",
       "removeSuccess": "Contact removed successfully",
       "savedSuccess": "Contact saved successfully",
-    }
+    },
+    "emailIsTakenError": "Contact with that email already exists"
   },
-  "emailIsTakenError": "Contact with that email already exists"
 }
 const he = {
   "contact": {
@@ -45,8 +45,8 @@ const he = {
       "removeSuccess": "איש קשר נמחק בהצלחה",
       "savedSuccess": "פרטי איש קשר נשמרו בהצלחה",
     },
+    "emailIsTakenError": "איש קשר עם המייל הזה כבר קיים במערכת"
   },
-  "emailIsTakenError": "איש קשר עם המייל הזה כבר קיים במערכת"
 }
 const heF = {
   ...he,

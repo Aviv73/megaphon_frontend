@@ -1,36 +1,40 @@
 <template>
-  <div class="signup-page flex column gap20">
+  <div class="auth-page signup-page flex column gap20 align-center justify-center width-all">
     <router-link class="btn width-content" :to="{name: 'LoginPage'}">{{$t('login')}}</router-link>
     <form @submit.prevent="signup" class="simple-form">
-      <FormInput type="text" labelholder="account.username" v-model="user.username"/>
-      <FormInput type="text" labelholder="account.firstname" v-model="user.firstname"/>
-      <FormInput type="text" labelholder="account.lastname" v-model="user.lastname"/>
+      <img class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
+      <h4>{{$t('signup')}}</h4>
+      <!-- <FormInput type="text" labelholder="account.username" v-model="user.username"/> -->
+      <FormInput type="text" labelholder="account.firstname" v-model="user.firstName"/>
+      <FormInput type="text" labelholder="account.lastname" v-model="user.lastName"/>
       <FormInput type="text" labelholder="account.email" v-model="user.email"/>
-      <FormInput type="password" labelholder="account.password" v-model="user.password"/>
-      <FormInput type="select" labelholder="account.gender" v-model="user.gender" :itemsMap="userGenders"/>
-      <button class="btn primary" :disabled="!isUserValid">{{$t('submit')}}</button>
+      <FormInput type="text" labelholder="account.password" v-model="user.password"/>
+      <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
+      <!-- <FormInput type="select" labelholder="account.gender" v-model="user.gender" :itemsMap="userGenders"/> -->
+      <button class="btn big primary" :disabled="!isUserValid">{{$t('submit')}}</button>
     </form>
   </div>
 </template>
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
-import { accountService } from '@/apps/common/modules/account/services/account.service';
+import { accountService } from '@/apps/megaphonApp/modules/account/services/account.service';
 export default {
   name: 'SignupPage',
   data() {
     return {
-      user: accountService.getEmptyAccount()
+      user: accountService.getEmptyAccount(),
+      confirmPassword: '',
     }
   },
   computed: {
     isUserValid() {
       const { user } = this;
-      return user.username && user.password && user.firstname && user.lastname && user.email;
+      return user.password && (user.password === this.confirmPassword) && user.firstName && user.lastName && user.email;
     },
-    userGenders() {
-      return this.$store.getters['settings/config'].userGenders;
-    }
+    // userGenders() {
+    //   return this.$store.getters['settings/config'].userGenders;
+    // }
   },
   methods: {
     async signup() {

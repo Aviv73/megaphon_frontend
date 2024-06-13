@@ -4,12 +4,13 @@ import ReleaseEdit from '../release/views/ReleaseEdit';
 import ReleaseDistribution from '../release/views/ReleaseDistribution';
 import ReleaseReport from '../release/views/ReleaseReport';
 import ContactReportPage from '../release/views/ContactReportPage';
-import ContactPage from '../contact/views/ContactPage';
+// import ContactPage from '../contact/views/ContactPage';
 import { contactRoutes } from '../contact/routes';
 import { accountRoutes } from '../account/routes';
 import { organizationRoutes } from '../organization/routes';
 
 import AccountEditModal from '../account/cmps/AccountEditModal.vue';
+import { settingsRoutes } from '../../../common/modules/settings/routes';
 
 export const commonRoutes = [
   {
@@ -56,7 +57,13 @@ export const commonRoutes = [
       // }
       ...contactRoutes,
       ...accountRoutes,
-      ...organizationRoutes
+      ...organizationRoutes,
+      // {
+      //   name: 'SettingsPage',
+      //   path: '/',
+      //   component: SettingsPage
+      // }
+      ...settingsRoutes
     ]
   },
 ]
