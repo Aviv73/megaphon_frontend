@@ -39,19 +39,21 @@
       </template>
 
       <div class="flex align-center gap20 height-all ph">
-        <div class="release-title height-all">
+        <!-- <LoggedUserPreview v-if="isUserWatchOnly"/> -->
+        <!-- <div class="release-title height-all">
           <div class="actual height-all flex-center">
-            <!-- <h2>Megaphon</h2> -->
+            <h2>Megaphon</h2>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </header>
 </template>
 
-<script>
+<script> 
 import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
 import { organizationService } from '../../organization/services/organization.service';
+import LoggedUserPreview from './LoggedUserPreview.vue';
 export default {
   name: 'AppHeader',
   data() {
@@ -86,7 +88,10 @@ export default {
     },
     isOrgProducer() {
       return organizationService.isUserRoleInOrg(this.organization?._id, 'producer', this.loggedUser);
-    }
+    },
+    isUserWatchOnly() {
+      return this.$store.getters['auth/isWatchOnly'];
+    },
   },
   // methods: {
   //   emitDefaultFilter() {
@@ -118,7 +123,7 @@ export default {
     //   }
     // }
   },
-  components: { Avatar },
+  components: { Avatar, LoggedUserPreview }
 }
 </script>
 

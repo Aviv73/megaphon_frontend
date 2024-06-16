@@ -3,17 +3,7 @@
     <div class="blur" @click="mobileToggled = !mobileToggled"></div>
     <div class="toggle-btn" @click="mobileToggled = !mobileToggled">☰</div>
     <aside class="main-sidebar height-all flex column space-between gap10">
-      <div v-if="loggedUser" class="sidebar-header flex align-center space-between">
-        <span>{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
-        <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">
-          <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt="">
-          <div class="actions-modal" v-if="showActionsModal">
-            <div class="top-like"></div>
-            <button @click="logout">{{$t('auth.logout')}}</button> | 
-            <router-link :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
-          </div>
-        </div>
-      </div>
+      <LoggedUserPreview/>
       <div class="flex column space-between side-bar-content flex-1">
         <ul class="organization-list flex-1">
           <li :class="{selected: selectedOrgId === org._id}" class="organization-preview" v-for="org in organizations" :key="org._id">
@@ -24,7 +14,7 @@
                 <span v-if="isOrgPending(org)">{{$t('pending')}}</span>
               </p>
             </div>
-            <div class="flex column" v-if="selectedOrgId === org._id">
+            <div class="flex column" v-if="selectedOrgId === org._id && isRoleInOrg('producer')">
               <router-link class="nav-list-item inner-list-item" :to="{ name: 'ReleasePage', params: { organizationId: org._id } }">
                 <DropDiv :onDrop="() => addReleasesToFolder(null, null)">
                   <div class="height-all width-all flex align-center" @click="clearFolderSelecion">
@@ -81,8 +71,9 @@ import FoldersNav from './FoldersNav.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import DropDiv from '../dnd/DropDiv.vue';
 import { organizationService } from '../../../organization/services/organization.service';
+import LoggedUserPreview from '../LoggedUserPreview.vue';
 export default {
-  components: { Avatar, FoldersNav, DropDiv },
+  components: { Avatar, FoldersNav, DropDiv, LoggedUserPreview },
   name: 'SideBar',
   data() {
     return {
@@ -132,11 +123,6 @@ export default {
       evManager.emit('folder-selected', null, null);
     },
 
-    async logout() {
-      await this.$store.dispatch('auth/logout');
-      this.$router.push({ name: 'LoginPage' });
-    },
-
     addReleasesToFolder(folder, foldPath) {
       evManager.emit('folder-updated', this.selectedOrgId, foldPath, folder);
     }
@@ -159,11 +145,6 @@ export default {
   .sidebar-container {
     color: #cecece;
     .main-sidebar {
-      .sidebar-header {
-        .avatar {
-          background-color: #2090D4;
-        }
-      }
       .organization-preview {
         .nav-list-item {
           &:hover {
@@ -222,55 +203,6 @@ export default {
       // height: auto;
   
       width: em(250px);
-      .sidebar-header {
-        width: 100%;
-        .avatar {
-          width: em(30px);
-          height: em(30px);
-          background-color: black;
-          border-radius: 50%;
-        }
-        .actions-section {
-          position: relative;
-          cursor: pointer;
-          .actions-modal {
-            // display: none;
-            position: absolute;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            gap: em(10px);
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: calc(-100% - #{em(15px)});
-            background: #fff;
-            border-radius: em(5px);
-            box-shadow: $light-shadow;
-            padding: em(10px);
-            color: #808080;
-            >* {
-              text-wrap: nowrap;
-            }
-            >*:not(.top-like):hover {
-              transform: .3s;
-              transform: scale(1.02);
-            }
-            .top-like {
-              position: absolute;
-              background-color: #fff;
-              position: absolute;
-              top: 0;
-              left: 50%;
-              transform: translate(-50%, -50%) rotate(45deg);
-  
-              width: em(10px);
-              height: em(10px);
-              // box-shadow: $light-shadow;
-              z-index: -1;
-            }
-          }
-        }
-      }
   
       .app-avatar {
        color: white;

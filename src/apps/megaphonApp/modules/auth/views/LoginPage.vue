@@ -4,7 +4,7 @@
     <form @submit.prevent="login" class="simple-form">
       <img class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
       <h4>{{$t('login')}}</h4>
-      <FormInput type="text" labelholder="account.email" v-model="userCred.username"/>
+      <FormInput type="text" labelholder="account.email" v-model="userCred.email"/>
       <FormInput type="password" labelholder="account.password" v-model="userCred.password"/>
       <div class="flex align-center space-between">
         <button class="btn big primary flex align-center justify-center" :disabled="!isUserValid"><span>{{$t('submit')}}</span></button>
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       userCred: JSON.parse(localStorage.userCred || 'null') || {
-        username: '',
+        email: '',
         password: ''
       },
       forgotEmailEmail: ''
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     isUserValid() {
-      return this.userCred.username && this.userCred.password;
+      return this.userCred.email && this.userCred.password;
     }
   },
   methods: {

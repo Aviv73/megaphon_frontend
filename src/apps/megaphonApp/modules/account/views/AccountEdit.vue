@@ -32,6 +32,7 @@
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import consts from '@/apps/common/modules/common/services/const.service.js';
+import { organizationService } from '../../organization/services/organization.service';
 export default {
   name: 'AccountEdit',
   props: {
@@ -102,10 +103,8 @@ export default {
       const idx = this.accountToEdit.organizations.findIndex(c => c.organizationId === orgId);
       if (idx !== -1) this.accountToEdit.organizations.splice(idx, 1);
       else {
-        this.accountToEdit.organizations.push({
-          organizationId: orgId,
-          roles: []
-        })
+        const orgItem = organizationService.getAccountOrgItem(orgId, this.loggedUser._id);
+        this.accountToEdit.organizations.push(orgItem);
       }
     },
     updateOrgRoles(orgId, roles) {

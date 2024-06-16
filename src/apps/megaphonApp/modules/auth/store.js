@@ -15,7 +15,9 @@ export const _authStore = {
   getters: {
     isLoading: (state) => state.isLoading,
     loggedUser: (state) => state.loggedUser,
-    isAdmin: (state) => state.loggedUser?.role === 'admin' || state.loggedUser?.roles?.includes?.('admin')
+    isAdmin: (state) => state.loggedUser?.role === 'admin' || state.loggedUser?.roles?.includes?.('admin'),
+    // isWatchOnly: (state) => state.loggedUser?.role === 'client' || (state.loggedUser?.roles?.includes?.('client') && (state.loggedUser.roles.length === 1)),
+    isWatchOnly: (state) => state.loggedUser?.organizations.every(org => (org.roles?.length === 1) && (org.roles[0] === 'client')),
   },
   mutations: {
     setLoading(state, { val }) {

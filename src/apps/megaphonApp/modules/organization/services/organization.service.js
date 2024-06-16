@@ -27,6 +27,8 @@ export const organizationService = {
   isUserRoleInOrg,
   isAccountAuthorizedToRoute,
 
+  getAccountOrgItem,
+
   isUserInOrg,
   getOrgItemInAccount,
   searchOrganizations
@@ -110,6 +112,16 @@ function isAccountAuthorizedToRoute(account, org, routeItemIdOrName) {
   const accountOrgData = getOrgItemInAccount(account, org._id);
   if (!accountOrgData) return false;
   return routeItem.showInRoles.find(role => accountOrgData.roles.includes(role));
+}
+
+function getAccountOrgItem(orgId = '', inviterId = '') {
+  return  {
+    organizationId: orgId,
+    invitedBy: inviterId,
+    roles: [],
+    invitedAt: Date.now(),
+    status: 'approved'
+  }
 }
 
 
