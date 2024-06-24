@@ -1,6 +1,6 @@
 <template>
   <section class="container main-sidebar-view flex-1 flex align-stretch gap10">
-    <SideBar :currentDropableFolderPath="currentDropableFolderPath" :organizations="organizations" :loggedUser="loggedUser"/>
+    <SideBar v-if="!isUserWatchOnly" :currentDropableFolderPath="currentDropableFolderPath" :organizations="organizations" :loggedUser="loggedUser"/>
     <router-view :selectedReleaseIds="selectedReleaseIds" class="flex-1"/>
   </section>
 </template>
@@ -34,6 +34,9 @@ export default {
     selectedFolder() {
       return this.$store.getters['organization/selectedFolder']
     },
+    isUserWatchOnly() {
+      return this.$store.getters['auth/isWatchOnly'];
+    }
   },
   created() {
     this.initNavigation();

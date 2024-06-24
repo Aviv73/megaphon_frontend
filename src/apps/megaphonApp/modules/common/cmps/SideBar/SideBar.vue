@@ -11,7 +11,7 @@
               <Avatar :size="25">{{org.name.slice(0,2)}}</Avatar>
               <p class="flex-1 flex space-between">
                 <span>{{org.name}}</span>
-                <span v-if="isOrgPending(org)">{{$t('pending')}}</span>
+                <span v-if="isOrgPending(org)">({{$t('pending')}})</span>
               </p>
             </div>
             <div class="flex column" v-if="selectedOrgId === org._id && isRoleInOrg('producer')">

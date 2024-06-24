@@ -1,6 +1,11 @@
 <template>
-  <section class="release-page flex column height-all width-all flex column">
+  <section class="release-page flex column height-all width-all flex gap20">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
+    <ReleasesSlider
+      v-if="isUserWatchOnly"
+      :releases="allReleasesData.items"
+      :getReleasePageRoute="(release => ({ name: 'ReleaseDetails', params: { id: release._id, organizationId: organizationId } }))"
+    />
     <ItemSearchList
       :itemsData="allReleasesData"
       :initFilterBy="filterBy"
@@ -26,6 +31,7 @@ import ReleasePreview from '../cmps/ReleasePreview.vue';
 import ReleaseFilter from '../cmps/ReleaseFilter.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { organizationService } from '../../organization/services/organization.service';
+import ReleasesSlider from '../../../../common/modules/release/cmps/ReleasesSlider.vue';
 
 export default {
   name: 'ReleasePage',
@@ -102,6 +108,10 @@ export default {
     },
     pageNameInQuery() {
       return this.$route.query.page;
+    },
+    isUserWatchOnly() {
+      // return this.$store.getters['auth/isWatchOnly'];
+      return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
     }
   },
   created() {
@@ -133,7 +143,7 @@ export default {
     //   }
     // }
   },
-  components: { ItemSearchList, Loader, ReleasePreview, ReleaseFilter }
+  components: { ItemSearchList, Loader, ReleasePreview, ReleaseFilter, ReleasesSlider }
 }
 </script>
 

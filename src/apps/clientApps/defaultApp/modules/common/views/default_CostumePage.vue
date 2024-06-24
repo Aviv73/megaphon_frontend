@@ -10,7 +10,7 @@
 <script>
 import Loader from '../../../../../common/modules/common/cmps/Loader.vue';
 import { loadStaticFile } from '../../../../../common/modules/common/services/file.service';
-import ReleasePage from '../../release/views/default_ReleasePage.vue';
+import ReleasePage from '../../../../../common/modules/release/views/common_ReleasePage.vue';
 export default {
   name: 'default_CostumePage',
   components: { ReleasePage, Loader },

@@ -94,7 +94,8 @@ const en = {
 
   "role": "Role",
   "roles": "Roles",
-  "join": "Join"
+  "join": "Join",
+  "new": "New"
 }
 const he = {
   "hello": "שלום",
@@ -190,7 +191,8 @@ const he = {
 
   "role": "הרשאות",
   "roles": "הרשאות",
-  "join": "הצטרף"
+  "join": "הצטרף",
+  "new": "חדש"
 }
 const heF = {
   ...he,

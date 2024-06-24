@@ -22,7 +22,18 @@ const  en = {
     bought: 'bought',
     original: 'original',
 
-    distributedAt: "Distributed at"
+    distributedAt: "Distributed at",
+
+    
+    "release": "Release",
+    "releases": "Releases",
+    "monthPublish": "Month of publish",
+    "main": "Main",
+    "content": "Content",
+    "images": "Images",
+    "videos": "Videos",
+    "files": "Files",
+    "links": "Links"
   },
   "distribute": {
     "distribute": "Distribute",
@@ -91,6 +102,7 @@ const  en = {
     noDistributionDataForRelease: 'No distribution data for release',
 
     "unsubscribedContacts": "Unsubscribed contacts",
+    "deleteDistributionData": "Delete distribution data",
 
     "alertMsgs": {
       "cantAddContacts": "Somethind went wrong, cant add contacts",
@@ -101,7 +113,8 @@ const  en = {
       "createMailingListError": "Somethind went wrong, cant create new mailing list",
       "updateMailingListError": "Somethind went wrong, cant update mailing list",
       "noMailingListNameError": "Missing new mailing list name!",
-      "confirmRemovemailingListMsg": "Are you sure you want to remove this mailing list?"
+      "confirmRemovemailingListMsg": "Are you sure you want to remove this mailing list?",
+      "confirmRemoveDistData": "Are you sure you want to delete all the distribution data of this release and put it back in editing stage?"
     }
   }
 }
@@ -128,7 +141,17 @@ const he = {
     bought: 'רכש',
     original: 'מקור',
 
-    distributedAt: "הופץ"
+    distributedAt: "הופץ",
+
+    "release": "רליס",
+    "releases": "רליסים",
+    "monthPublish": "חודש הוצאה לאור",
+    "main": "כללי",
+    "content": "מידע",
+    "images": "תמונות",
+    "videos": "לצפיה",
+    "files": "קבצים",
+    "links": "קישורים"
   },
   "distribute": {
     "distribute": "הפצה",
@@ -199,6 +222,7 @@ const he = {
     noDistributionDataForRelease: 'לא נמצא מידע הפצה לרליס',
 
     "unsubscribedContacts": "אנשי קשר שבטלו הרשמה",
+    "deleteDistributionData": "מחק מידע הפצה",
 
     "alertMsgs": {
       "cantAddContacts": "משהו השתבש, לא יכול להוסיף איש קשר",
@@ -209,7 +233,8 @@ const he = {
       "createMailingListError": "המערכת לא הצליחה ליצור רשימת תפוצה",
       "updateMailingListError": "המערכת לא הצליחה לעדכן את רשימת התפוצה",
       "noMailingListNameError": "צריך להזין שם לרשימת תפוצה חדשה!",
-      "confirmRemovemailingListMsg": "האם אתה בטוח שאתה מעוניין למחוק את רשימת התפוצה?"
+      "confirmRemovemailingListMsg": "האם אתה בטוח שאתה מעוניין למחוק את רשימת התפוצה?",
+      "confirmRemoveDistData": "האם אתה בטוח שאתה מעוניין למחוק את מידע ההפצה של רליס זה ולהחזיר אותו למצב עריכה?"
     }
   }
 }

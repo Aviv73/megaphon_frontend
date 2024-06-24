@@ -3,6 +3,7 @@
     <template v-if="report">
       <div class="flex align-center space-between gap10 width-all">
         <h2>{{$t('distribute.report')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
+        <button @click="onRemoveDistributionData" class="btn big secondary">{{$t('distribute.deleteDistributionData')}}</button>
       </div>
       <div class="main-section flex gap30 width-all">
         <div class="flex column gap10">
@@ -91,6 +92,7 @@ import { Pie as PieChart } from 'vue-chartjs';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
 import { getDeepVal, Utils } from '../../../../common/modules/common/services/util.service';
 import { contactService } from '../../contact/contact.service';
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
 
 export default {
   components: { PaginationBtns, PieChart, ReleaseDistributionLinkCoppier },
@@ -130,6 +132,12 @@ export default {
       this.getOrg();
       this.getRelease();
       this.getReport();
+    },
+
+    async onRemoveDistributionData() {
+      if (!await alertService.Confirm(this.$t('distribute.alertMsgs.confirmRemoveDistData'))) return;
+      await this.$store.dispatch({ type: 'release/removeDistData', releaseId: this.releaseId, organizationId: this.$route.params.organizationId });
+      this.$router.push({name: 'ReleasePage', params: {organizationId: this.$route.params.organizationId}});
     }
   },
   computed: {

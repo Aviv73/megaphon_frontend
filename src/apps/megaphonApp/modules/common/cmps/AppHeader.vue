@@ -1,11 +1,12 @@
 <template>
   <header class="app-header flex align-center ignore-theme-style">
     <div class="container header-content width-all flex align-center space-between height-all">
-      <router-link :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
+      <router-link v-if="!isUserWatchOnly" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
         <div class="logo-title height-all flex align-center">
           <img class="actual" :src="logoImgSrc" alt="">
         </div>
       </router-link>
+      <FormInput class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect" v-else/>
 
       <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
         <div class="links flex align-center gap10 height-all" v-if="isOrgProducer">
@@ -39,7 +40,7 @@
       </template>
 
       <div class="flex align-center gap20 height-all ph">
-        <!-- <LoggedUserPreview v-if="isUserWatchOnly"/> -->
+        <LoggedUserPreview v-if="isUserWatchOnly"/>
         <!-- <div class="release-title height-all">
           <div class="actual height-all flex-center">
             <h2>Megaphon</h2>
@@ -54,12 +55,14 @@
 import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
 import { organizationService } from '../../organization/services/organization.service';
 import LoggedUserPreview from './LoggedUserPreview.vue';
+import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 export default {
   name: 'AppHeader',
   data() {
     return {
       mobileShow: false,
-      // selecterOrgFilterId: null
+      // selecterOrgFilterId: null,
+      selectedOrgId: this.$route.params.organizationId || ''
     }
   },
   computed: {
@@ -92,21 +95,41 @@ export default {
     isUserWatchOnly() {
       return this.$store.getters['auth/isWatchOnly'];
     },
+
+    organizationsToSelect() {
+      return [
+        ...(this.$store.getters['organization/items']?.map(c => ({
+          img: c.logoUrl,
+          label: c.name + (this.isOrgPending(c._id)? ` (${this.$t('pending')})` : ''),
+          value: c._id,
+          disabled: this.isOrgPending(c._id)
+        })) || []),
+        { label: 'new', value: 'new' }
+      ];
+    }
   },
-  // methods: {
-  //   emitDefaultFilter() {
-  //     if (!this.organization) return;
-  //     const firstFilter = this.organization.routes?.[0];
-  //     console.log('WOOWOWO', firstFilter);
-  //     // if (!firstFilter) return;
-  //     // this.selecterOrgFilterId = firstFilter?._id || null;
-  //     this.emitFilter(firstFilter);
-  //   },
-  //   emitFilter(filter = null) {
-  //     evManager.emit('org-release-filter', filter);
-  //     this.selecterOrgFilterId = filter?.id || null;
-  //   }
-  // },
+  methods: {
+    // emitDefaultFilter() {
+    //   if (!this.organization) return;
+    //   const firstFilter = this.organization.routes?.[0];
+    //   console.log('WOOWOWO', firstFilter);
+    //   // if (!firstFilter) return;
+    //   // this.selecterOrgFilterId = firstFilter?._id || null;
+    //   this.emitFilter(firstFilter);
+    // },
+    // emitFilter(filter = null) {
+    //   evManager.emit('org-release-filter', filter);
+    //   this.selecterOrgFilterId = filter?.id || null;
+    // }
+    setOrg(orgId) {
+      if (orgId === 'new') this.$router.push({name: 'JoinOrgPage'});
+      else this.$router.push({ name: 'ReleasePage', params: { organizationId: orgId } });
+    },
+
+    isOrgPending(orgId) {
+      return organizationService.isOrgPending(orgId, this.loggedUser);
+    }
+  },
   watch: {
     '$route.path'() {
       this.mobileShow = false;
@@ -116,6 +139,12 @@ export default {
       this.mobileShow = false;
       // this.emitDefaultFilter();
     },
+    // 'organization._id'(val) {
+    //   this.selectedOrgId = val;
+    // },
+    '$route.params.organizationId'(val) {
+      if (val) this.selectedOrgId = val;
+    }
     // organization: {
     //   deep: true,
     //   handler(val) {
@@ -123,7 +152,7 @@ export default {
     //   }
     // }
   },
-  components: { Avatar, LoggedUserPreview }
+  components: { Avatar, LoggedUserPreview, FormInput }
 }
 </script>
 
@@ -255,6 +284,35 @@ export default {
               transform: unset;
             }
           }
+        }
+      }
+    }
+
+
+    .org-selector {
+      padding: 0;
+      * {
+        background: unset;
+        padding: 0;
+        width: fit-content;
+        border: unset;
+
+      }
+      .input {
+        // min-width: unset;
+        .head {
+          flex-direction: row-reverse;
+        }
+        .selected-preview {
+          flex-direction: row-reverse;
+          img {
+            height: $header-height;
+            width: $header-height;
+            background: unset;
+          }
+        }
+        .drop-down-item {
+          width: 100%;
         }
       }
     }

@@ -50,6 +50,14 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
           }
         });
       },
+      async removeDistData({ commit, dispatch, getters }, { releaseId, organizationId }) {
+        return dispatch({
+          type: '_Ajax',
+          do: async () => distributionService.removeDistData(organizationId, releaseId),
+          onSuccess: (report) => {
+          }
+        });
+      },
       async loadContactReport({ commit, dispatch, getters }, { id, email }) {
         return dispatch({
           type: '_Ajax',

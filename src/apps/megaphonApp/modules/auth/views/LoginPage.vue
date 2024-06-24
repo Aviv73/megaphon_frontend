@@ -4,6 +4,7 @@
     <form @submit.prevent="login" class="simple-form">
       <img class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
       <h4>{{$t('login')}}</h4>
+      asclmacslacs
       <FormInput type="text" labelholder="account.email" v-model="userCred.email"/>
       <FormInput type="password" labelholder="account.password" v-model="userCred.password"/>
       <div class="flex align-center space-between">

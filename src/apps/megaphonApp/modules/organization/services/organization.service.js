@@ -24,8 +24,11 @@ export const organizationService = {
 
   loadReleaseDataFields,
   loadAllDomainNames,
+
   isUserRoleInOrg,
   isAccountAuthorizedToRoute,
+  isUserWatchOnly,
+  isOrgPending,
 
   getAccountOrgItem,
 
@@ -93,9 +96,20 @@ function createEmptyTemplateItem() {
   return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), handlebarsLocalFilePath: '' };
 }
 
-function isUserRoleInOrg(orgId, role, user) {
+function isUserRoleInOrg(orgId, role, user, isOnlyRole) {
   if (!orgId || !role || !user) return false;
-  return user.organizations?.find(org => org.organizationId === orgId)?.roles?.includes(role);
+  const orgItem = getOrgItemInAccount(user, orgId);
+  const isRole = orgItem?.roles?.includes(role);
+  if (!isOnlyRole) return isRole;
+  return isRole && orgItem?.roles?.length === 1;
+}
+function isUserWatchOnly(orgId, user) {
+  // return true;
+  return false;
+  return isUserRoleInOrg(orgId, 'client', user, true);
+}
+function isOrgPending(orgId, user) {
+  return getOrgItemInAccount(user, orgId)?.status === 'pending';
 }
 function isUserInOrg(orgId, user) {
   if (!orgId || !user) return false;

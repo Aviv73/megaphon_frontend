@@ -4,8 +4,8 @@
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="release-title" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p>
       <p class="release-title">{{release.title}}</p>
-      <div class="actions flex column gap5">
-        <button @click.stop="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
+      <div class="actions flex column gap5" v-if="!isUserWatchOnly">
+        <button v-if="isProducer" @click.stop="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
         <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/pencil.svg')" alt=""></router-link>
         <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
         <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link>
@@ -60,6 +60,10 @@ export default {
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
+    },
+    isUserWatchOnly() {
+      // return this.$store.getters['auth/isWatchOnly'];
+      return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
     }
   },
   methods: {
@@ -75,7 +79,7 @@ export default {
     },
 
     handleClick() {
-      if (!this.$store.getters.isScreenWide) return this.goToLandingPage();
+      if (!this.$store.getters.isScreenWide || this.isUserWatchOnly) return this.goToLandingPage();
       this.isProducer? this.toggleToSelectedReleases(false) : this.goToLandingPage();
     }
   }

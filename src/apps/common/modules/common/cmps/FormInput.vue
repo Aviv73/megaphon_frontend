@@ -93,18 +93,18 @@
               <!-- {{ $t(val) }} -->
             </template>
             <template v-else>
-              <div class="placeholder" v-if="!itemsToRender.find(c => c.value === val)"><span>{{ $t(placeholder || labelholder) }}</span></div>
-              <div class="placeholder flex align-center gap20" v-else>
+              <div class="selected-preview" v-if="!itemsToRender.find(c => c.value === val)"><span>{{ $t(placeholder || labelholder) }}</span></div>
+              <div class="selected-preview flex align-center gap20" v-else>
                 <span>{{$t(itemsToRender.find(c => c.value === val)?.label || val)}}</span>
                 <img v-if="itemsToRender.find(c => c.value === val)?.img" :src="itemsToRender.find(c => c.value === val)?.img"/>
               </div>
             </template>
           </div>
         </div>
-        <div class="drop-down" @click.stop="" :class="{'direction-up': listUp}">
+        <div class="drop-down flex column" @click.stop="" :class="{'direction-up': listUp}">
           <template v-if="itemsToRender?.length">
             <template v-if="componentType === 'multiselect'">
-              <label class="gap5" v-for="item in itemsToRender" :key="item.label">
+              <label class="gap5" v-for="item in itemsToRender" :key="item.label" :class="{selected: val === item.value}">
                 <input
                   v-if="componentType === 'multiselect'"
                   type="checkbox"
@@ -117,7 +117,7 @@
               </label>
             </template>
             <template v-else>
-              <div class="flex align-center space-between gap30" v-for="item in itemsToRender" :key="item.label" @click="val = item.value, autoCloseSelect()">
+              <div class="flex align-center space-between gap30 drop-down-item" v-for="item in itemsToRender" :key="item.label" @click="item.disabled? () => {} : (val = item.value, autoCloseSelect())"  :class="{selected: val === item.value}">
                 <span>{{ $t(item.label) }}</span>
                 <img v-if="item.img" :src="item.img"/>
               </div>
@@ -206,6 +206,7 @@ export default {
     error: { required: false, type: String, default: '' },
 
     debug: { required: false, type: Boolean, default: false },
+    reactive: { required: false, type: Boolean, default: false },
   },
   data() {
     return {
@@ -306,7 +307,7 @@ export default {
     },
 
     value(val, prev) {
-      if (this.didInit) return;
+      if (this.didInit && !this.reactive) return; // TODO; MAKE SURE IT IS NOT NEEDED;
       if (val === prev) return;
       if (!this.didInit) this.dontEmit = true;
       this.val = val;
@@ -390,7 +391,7 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  .placeholder {
+  .selected-preview {
     display: flex;
     align-items: center;
     // color: $gray-700;

@@ -14,6 +14,7 @@ export const distributionService = {
   removeMailingList,
 
   getByReleaseId,
+  removeDistData,
   reportReleaseOpened,
   getContactReport,
 
@@ -68,6 +69,9 @@ function removeMailingList(organizationId, id) {
 
 function getByReleaseId(organizationId, releaseId) {
   return httpService.get(`${ENDPOINT}/${organizationId}/distribution-data-by-release/${releaseId}`);
+}
+function removeDistData(organizationId, releaseId) {
+  return httpService.delete(`${ENDPOINT}/${organizationId}/${releaseId}`);
 }
 
 function getContactReport(id, email) {
