@@ -13,7 +13,7 @@ const  en = {
     "emailIsTakenError": "User with that email already exists",
     "notLoggedInError": "Unauthorized, please login",
     "userNotAllowedError": "User not allowed",
-    "invalidUsernameOrPasswordError": "Invalid username or password",
+    "invalidEmailOrPasswordError": "Invalid email or password",
     "cantFindAccountWithEmailError": "Could not find account with this email",
   },
 }
@@ -33,7 +33,7 @@ const he = {
     // "notLoggedInError": "לא מורשה, יש להתחבר למערכת",
     "notLoggedInError": "יש להתחבר למערכת",
     "userNotAllowedError": "אין הרשאה למשתמש",
-    "invalidUsernameOrPasswordError": "שם משתמש או סיסמא שגויים",
+    "invalidEmailOrPasswordError": "מייל או סיסמה שגויים",
     "cantFindAccountWithEmailError": "לא נמצא משתמש עם כתובת המייל הזאת",
   },
 }
