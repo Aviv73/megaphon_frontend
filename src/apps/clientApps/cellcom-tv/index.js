@@ -9,8 +9,8 @@ export default {
   store,
   app,
   params: {
-    // organizationId: '643eac15afc5d349300c087f',
-    appName: 'agam-client',
-    title: 'אגם הוצאה לאור'
+    organizationId: '',
+    appName: 'cellcom-tv-app',
+    title: 'CellkomTv'
   }
 }

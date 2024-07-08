@@ -17,7 +17,7 @@
 
 <script>
 import DragDiv from '../../common/cmps/dnd/DragDiv.vue';
-import { templateUtils } from '../../common/services/template.util.service';
+import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 import { organizationService } from '../../organization/services/organization.service';

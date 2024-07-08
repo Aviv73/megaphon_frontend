@@ -24,10 +24,10 @@
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
-import ToggleBtns from '../../../../../common/modules/common/cmps/ToggleBtns.vue';
-import ToggleModal from '../../../../../common/modules/common/cmps/ToggleModal.vue';
+import ToggleBtns from '@/apps/common/modules/common/cmps/ToggleBtns.vue';
+import ToggleModal from '@/apps/common/modules/common/cmps/ToggleModal.vue';
 export default {
-  name: 'default_ReleaseFilter',
+  name: 'cellcomTv_ReleaseFilter',
   props: {
     initFilter: {
       type: Object,
@@ -84,7 +84,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.default-app {
+.cellcom-tv-app {
   .release-filter {
     .filter-icon-img {
       width: 15px;

@@ -47,12 +47,11 @@
 import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.vue'
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue'
 import ReleasePreview from '../cmps/default_ReleasePreview.vue'
-import ReleaseFilter from '../cmps/default_ReleaseFilter.vue'
-import FilesSection from '../cmps/FilesSection.vue'
+import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue'
 
 export default {
   name: 'default_GroupReleaseDetails',
-  components: { ItemList, ReleasePreview, ItemSearchList, ReleaseFilter, FilesSection },
+  components: { ItemList, ReleasePreview, ItemSearchList, FilesSection },
   props: {
     release: {
       type: Object,
@@ -62,7 +61,6 @@ export default {
   data() {
     return { 
       ReleasePreview,
-      ReleaseFilter,
       viewdChildIdx: 0
     }
   },

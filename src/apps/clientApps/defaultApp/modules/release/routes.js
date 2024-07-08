@@ -1,6 +1,6 @@
 import ReleaseApp from './default_ReleaseApp';
 import ReleasePage from '../../../../common/modules/release/views/common_ReleasePage';
-import ReleaseDetails from '../../../../common/modules/release/views/common_ReleaseDetails.vue';
+import ReleaseDetails from './views/default_ReleaseDetails.vue';
 
 export const releaseRoutes = [
   {

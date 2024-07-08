@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { templateUtils } from '../../common/services/template.util.service';
+import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 export default {

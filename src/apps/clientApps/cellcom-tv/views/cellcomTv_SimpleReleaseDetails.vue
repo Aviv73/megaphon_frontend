@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
-import { scrollToEl } from '../../../../../common/modules/common/services/util.service';
-import FilesSection from '../../../../../common/modules/release/cmps/FilesSection.vue';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
+import { scrollToEl } from '@/apps/common/modules/common/services/util.service';
+import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue';
 
 export default {
   components: { FilesSection, FilesSection },
-  name: 'default_SimpleReleaseDetails',
+  name: 'cellcomTv_SimpleReleaseDetails',
   props: {
     release: {
       type: Object,
@@ -78,7 +78,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.default-app {
+.cellcom-tv-app {
   .simple-release-details {
     .release-page-nav {
       height: fit-content;

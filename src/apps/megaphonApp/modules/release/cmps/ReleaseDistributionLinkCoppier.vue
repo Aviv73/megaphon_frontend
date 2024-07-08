@@ -32,7 +32,7 @@
 <script>
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
-import { templateUtils } from '../../common/services/template.util.service';
+import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 export default {

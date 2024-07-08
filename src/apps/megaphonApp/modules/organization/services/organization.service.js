@@ -1,5 +1,5 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
-import { templateUtils } from '../../common/services/template.util.service';
+import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 
 import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service'
 

@@ -1,7 +1,31 @@
 <template>
   <section class="group-release-details flex column gap30 height-all">
     <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${release.mainImage.src}')`, 'background-size': 'cover' }">
-      <ReleasesSlider class="inner-container" :releases="release.childrenReleases"/>
+      <div class="hero flex align-center justify-center gap30">
+        <button class="arrow-btn" @click="shiftChild(1)">
+          <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)">
+        </button>
+        <div v-if="viewdChild" class="">
+          <div class="hero-main inner-container flex gap30 width-all">
+            <img class="main-img" :src="viewdChild.mainImage.src" :alt="viewdChild.title"/>
+            <div class="hero-content flex column align-start gap20">
+              <h2>{{viewdChild.title}}</h2>
+              <div v-html="viewdChild.content"></div>
+              <hr/>
+              <router-link :to="{ params: {id: viewdChild._id} }">
+                <button class="flex align-center gap5">
+                  <span>
+                    לפרטים 
+                  </span>
+                </button>
+              </router-link>
+            </div>
+          </div>
+        </div>
+        <button class="arrow-btn" @click="shiftChild(-1)">
+          <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'">
+        </button>
+      </div>
     </section>
     <div class="inner-container flex column gap30">
       <h1>{{release.title}}</h1>
@@ -22,14 +46,12 @@
 <script>
 import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.vue'
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue'
-import ReleasePreview from '../cmps/common_ReleasePreview.vue'
-import ReleaseFilter from '../cmps/common_ReleaseFilter.vue'
-import FilesSection from '../cmps/FilesSection.vue'
-import ReleasesSlider from '../cmps/ReleasesSlider.vue'
+import ReleasePreview from '../cmps/cellcomTv_ReleasePreview.vue'
+import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue'
 
 export default {
-  name: 'common_GroupReleaseDetails',
-  components: { ItemList, ReleasePreview, ItemSearchList, ReleaseFilter, FilesSection, ReleasesSlider },
+  name: 'cellcomTv_GroupReleaseDetails',
+  components: { ItemList, ReleasePreview, ItemSearchList, FilesSection },
   props: {
     release: {
       type: Object,
@@ -39,7 +61,6 @@ export default {
   data() {
     return { 
       ReleasePreview,
-      ReleaseFilter,
       viewdChildIdx: 0
     }
   },
@@ -96,21 +117,53 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-// @import '../../../assets/style/index';
-.default-app {
+@import '../assets/style/index';
+.cellcom-tv-app {
   .group-release-details {
     padding-bottom: $main-pad-y;
   
     .release-hero-view {
       background-color: rgb(255, 255, 255);
       padding: em(30px);
-      .releases-slider {
+      .hero {
+        position: relative;
         width: 60%;
         @media (max-width: 1700px) {
           width: 90%;
         }
-        @media (max-width: $small-screen-breake) {
-          width: 98% !important;
+        min-height: 400px;
+        .hero-main {
+          background: white;
+          flex: 1;
+          padding: em(40px);
+          height: 100%;
+          margin: unset;
+          
+          .main-img {
+            height: 100%;
+            max-height: 300px;
+            width: 35%;
+            object-fit: contain;
+            background-color: rgb(255, 216, 216);
+          }
+  
+          hr {
+            width: 70px;
+            height: 1px;
+            align-self: flex-start;
+            margin: 0;
+            // background-color: $main-font-color;
+            border: 0;
+          }
+  
+          button {
+            border-radius: 20px;
+            img {
+              height: 12px;
+              width: 12px;
+            }
+          }
+
         }
       }
     }
@@ -124,12 +177,29 @@ export default {
 
     
     @media (max-width: $small-screen-breake) {
+      .hero {
+        gap: em(5px);
+        width: 98% !important;
+        
+      }
+      .hero-main {
+        flex: 1;
+        flex-wrap: wrap;
+        padding: em(15px) !important;
+      }
+      .arrow-btn {
+        width: em(100px);
+        height: em(100px);
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+
       .release-hero-view {
         padding: em(0px);
         width: 100%;
-      }
-      .releases-slider {
-        margin-bottom: em(10px);
       }
     }
 

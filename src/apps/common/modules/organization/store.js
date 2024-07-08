@@ -2,6 +2,7 @@ import { basicStoreService } from '@/apps/common/modules/common/services/basic-s
 
 // import appConfig from '@/config.js';
 import selectedAppData from '@/apps/index.js';
+import { organizationService } from './organization.service.js';
 
 const initState = () => ({
   ...basicStoreService.initState(),
@@ -22,7 +23,15 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
             commit({ type: 'setProp', key: 'organizationId', val: item._id });
           }
         });
-      }
+      },
+      async loadReleaseDataFields({ commit, dispatch, getters }, { organizationId, dataFieldsLocalFilePath, releaseType }) {
+        return dispatch({
+          type: '_Ajax',
+          do: async () => {
+            return await organizationService.loadReleaseDataFields(dataFieldsLocalFilePath, organizationId, releaseType);
+          },
+        });
+      },
     }
   }
 );

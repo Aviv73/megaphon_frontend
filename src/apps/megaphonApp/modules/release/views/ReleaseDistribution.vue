@@ -180,7 +180,7 @@ import { contactService } from '../../contact/contact.service';
 import { distributionService } from '../services/distribution.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
-import { templateUtils } from '../../common/services/template.util.service';
+import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
 import ContactList from '../../contact/cmps/ContactList.vue';

@@ -1,13 +1,14 @@
 
-const [root, appName] = location.pathname.split('/').filter(Boolean);  // /client/agam;
+const [root, subDomain] = location.pathname.split('/').filter(Boolean);  // /client/agam;
 
 var client;
-if ([root, appName].filter(Boolean).length < 2) client = false;
+if ([root, subDomain].filter(Boolean).length < 2) client = false;
 else client = true;
 
-console.log('INITIALIZING APP', appName);
+console.log('INITIALIZING APP', subDomain);
 
 export default {
+  pathname: location.pathname,
   client,
-  appName
+  subDomain
 }

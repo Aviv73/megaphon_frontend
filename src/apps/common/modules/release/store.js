@@ -19,7 +19,7 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
     getters: {
       // initReleaseId(state) { return state.initReleaseId },
       // organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName || sessionStorage.organizationId || state.organizationId }
-      organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName }
+      organizationId(state) { return  selectedAppData.params.subDomain || selectedAppData.params.organizationId }
     },
     mutations: {
       // setInitReleaseId(state, { id, orgId }) {

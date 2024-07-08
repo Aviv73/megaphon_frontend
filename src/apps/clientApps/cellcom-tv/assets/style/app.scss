@@ -1,0 +1,44 @@
+
+@font-face {
+  font-family: "noylandBold";
+  src: url("~@/apps/clientApps/defaultApp/assets/fonts/noyland/noyland-bold-aaa.ttf");
+}
+
+// $defaultAppFont: Segoe UI;
+$defaultAppFont: Rubik,sans-serif;;
+
+$main-font-color: #666666;
+
+
+html {
+  font-family: $defaultAppFont;
+  font-weight: 500;
+}
+
+
+$layout-red: #EF4B49;
+// $headers-font: "noylandBold";
+
+.default-app {
+  // color: $main-font-color;
+  font-family: $defaultAppFont;
+  font-weight: 500;
+  
+  .app-main {
+    margin-top: unset;
+  }
+  
+  
+  h1, h2, h3, h4, h5, h6 {
+    // font-family: $headers-font;
+    // color: $layout-red;
+  }
+
+  .item-page {
+    gap: em(30px);
+  }
+  .item-list {
+    justify-content: space-around;
+  }
+
+}

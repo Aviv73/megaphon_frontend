@@ -208,7 +208,7 @@ import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
 import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service'
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import TableActionBtns from '../../../../common/modules/common/cmps/TableActionBtns.vue';
-import { templateUtils } from '../../common/services/template.util.service';
+import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import { organizationService } from '../services/organization.service';
 import consts from '@/apps/common/modules/common/services/const.service.js';
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
