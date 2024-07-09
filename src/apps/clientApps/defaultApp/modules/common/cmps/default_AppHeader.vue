@@ -87,7 +87,7 @@ export default {
     }
   },
   watch: {
-    '$route.path'() {
+    '$route'() {
       this.mobileShow = false;
     }
   }

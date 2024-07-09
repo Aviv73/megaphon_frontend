@@ -198,7 +198,7 @@ export default {
       }
 
       .release-hero-view {
-        padding: em(0px);
+        padding: em(5px);
         width: 100%;
       }
     }

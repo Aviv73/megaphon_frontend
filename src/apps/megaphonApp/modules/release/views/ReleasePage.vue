@@ -110,7 +110,8 @@ export default {
       return this.$route.query.page;
     },
     isUserWatchOnly() {
-      return true;
+      return false
+      // return true;
       // return this.$store.getters['auth/isWatchOnly'];
       return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
     }

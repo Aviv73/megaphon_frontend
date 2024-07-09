@@ -1,6 +1,6 @@
 <template>
   <section v-if="release" class="simple-release-details inner-container main-pad-y flex align-start gap50">
-    <div class="wide-screen-item release-page-nav wide-screen-item sticky flex column gap10">
+    <div class="wide-screen-item release-page-nav sticky flex column gap10">
       <!-- :style="{position: 'fixed', top: '110px'}" -->
       <template v-for="tabName in ['content', 'images', 'videos', 'files', 'links']">
         <a
@@ -164,7 +164,7 @@ export default {
       @media (max-width: $small-screen-breake) {
         flex-direction: column;
         .main-img {
-          width: 80%;
+          width: 100%;
         }
 
         // .table-like {

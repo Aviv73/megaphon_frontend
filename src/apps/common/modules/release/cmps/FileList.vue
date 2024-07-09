@@ -85,6 +85,13 @@ export default {
   }
   .file-preview {
     position: relative;
+    @media (max-width: $small-screen-breake) {
+      width: 100%;
+      .img-file-preview, .video-file-preview {
+        width: 100%;
+        height: em(250px);
+      }
+    }
   }
   .img-actions {
     position: absolute;
