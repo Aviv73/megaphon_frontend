@@ -11,48 +11,47 @@
         </div>
       </router-link>
 
-      <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
-      <button @click="mobileShow = !mobileShow" class="nav-burger"><img :src="require('@/assets/images/nav_burger_white.png')"/></button>
-      <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
-      <nav class="flex align-center flex-1 space-between wrap gap30" :class="{show: mobileShow}">
-        <div class="space-div"></div>
-        <div class="flex align-center wrap gap30">
-          <!-- <router-link class="nav-link" :to="mainTo">{{$t('main')}}</router-link> -->
-          <!-- <router-link class="nav-link" :to="bookReleasePageRouteTo">{{$t('main')}}</router-link> -->
-          <!-- <button @click="toggleMainView" class="nav-link" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
-          <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
-          <router-link class="nav-link" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
-          <router-link class="nav-link" :to="bookReleasePageRouteTo">{{$t('allBooks')}}</router-link>
-          <router-link class="nav-link" :to="{ name: 'ReleasePage', query: { page: 'monthly', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('archive')}}</router-link>
-          <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
-        </div>
-        <div class="flex align-center gap20">
-          <ul class="media-list flex gap10 wrap">
-            <li class="media-preview nav-link" v-for="(mediaItem, idx) in mediaItems" :key="idx">
-              <a :href="mediaItem.link" target="_blank" class="flex-center gap5 height-all width-all">
-                <img :src="mediaItem.img" :alt="mediaItem.name">
-              </a>
-            </li>
-          </ul>
-          <div class="release-title" v-if="release">
-            <div class="actual flex-center">
-              <h2>{{releaseTitle}}</h2>
+      <NavOrBurger :showBurger="true" class="flex-1">
+        <nav class="nav-group flex align-center flex-1 space-between wrap gap30">
+          <div class="space-div"></div>
+          <div class="nav-group flex align-center wrap gap30">
+            <!-- <router-link class="nav-item" :to="mainTo">{{$t('main')}}</router-link> -->
+            <!-- <router-link class="nav-item" :to="bookReleasePageRouteTo">{{$t('main')}}</router-link> -->
+            <!-- <button @click="toggleMainView" class="nav-item" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
+            <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
+            <router-link class="nav-item" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
+            <router-link class="nav-item" :to="bookReleasePageRouteTo">{{$t('allBooks')}}</router-link>
+            <router-link class="nav-item" :to="{ name: 'ReleasePage', query: { page: 'monthly', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('archive')}}</router-link>
+            <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
+          </div>
+          <div class="flex align-center gap20">
+            <ul class="nav-group media-list flex gap10 wrap">
+              <li class="media-preview nav-item" v-for="(mediaItem, idx) in mediaItems" :key="idx">
+                <a :href="mediaItem.link" target="_blank" class="flex-center gap5 height-all width-all">
+                  <img :src="mediaItem.img" :alt="mediaItem.name">
+                </a>
+              </li>
+            </ul>
+            <div class="release-title" v-if="release">
+              <div class="actual flex-center">
+                <h2>{{releaseTitle}}</h2>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
-      </div>
+        </nav>
+      </NavOrBurger>
+    </div>
   </header>
 </template>
 
 <script>
 import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
-import { contactData } from '../../../static.data.js'
+import { contactData } from '../static.data.js'
+import NavOrBurger from '../../../common/modules/common/cmps/NavOrBurger.vue';
 export default {
   name: 'agam_AppHeader',
   data() {
     return {
-      mobileShow: false,
       mediaItems: [contactData.mediaItems[3], contactData.mediaItems[2], contactData.mediaItems[1], contactData.mediaItems[0]],
     }
   },
@@ -94,12 +93,7 @@ export default {
       this.$router.push({ ...this.mainTo, query: { ...this.$route.query, releasesView: newVal } });
     }
   },
-  watch: {
-    '$route.path'() {
-      this.mobileShow = false;
-    }
-  },
-  components: { Avatar },
+  components: { Avatar, NavOrBurger },
 }
 </script>
 
@@ -179,77 +173,21 @@ export default {
         }
       }
     }
-    .nav-burger {
-      display: none;
-    }
     @media (max-width: $small-screen-breake) { // $small-screen-breake
-      $height: calc(100vh - #{$header-height});
-      // color: ;
-      .nav-burger {
-        display: block;
-        width: 25px;
-        height: 25px;
-        font-weight: bold;
-        @include font-size-big;
-        // font-size: 22px;
+      .nav-or-burger {
+        flex: unset;
       }
-      .blure {   
-        position: fixed;
-        // top: $header-height;
-        top: 0;
-        right: 0;
-        // height: $height;
-        height: 100vh;
-        width: 100vw;
-        background-color: $blure-clr;
-        z-index: 31;
+      .space-div {
+        display: none;
+      }
+      .nav-group {
+        // gap: 0 !important;
       }
       nav {
-        font-weight: bold;
-        display: block;
-        position: fixed;
-        z-index: 32;
-        height: $height;
-        top: $header-height;
-        overflow-y: auto;
-        left: 0;
-        transform: translateX(-100%);
-        transition: 0.3s;
-        &.show {
-          transform: translateX(0);
-        }
-        width: 175px;
-        border-inline-start: 1px solid black;
-  
-        // background-color: white;
-        background-color: $layout-black;
         // >* {
-        .nav-link {
-          // color: black;
-          width: 100%;
-          height: em(100px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: unset;
-          border-radius: unset;
-          border-bottom: 1px solid black;
-          text-align: center;
           &.router-link-exact-active {
             color: #EF4B49;
           }
-          &:hover {
-            // background-color: rgb(190, 190, 250);
-            transform: unset !important;
-          }
-        }
-        // .media-list {
-        //   width: 100%;
-        //   *> {
-        //     width: 100%;
-        //   }
-
-        // }
       }
       .release-title {
         display: none;

@@ -501,6 +501,64 @@ export function vOrX(val) {
 }
 
 
+export const time = {
+    mapByTime(items, timePropName, format) {
+        items = [...items].sort((a, b) => {
+        return new Date(a[timePropName]).getTime() - new Date(b[timePropName]).getTime();
+        });
+        return items.reduce((acc, c) => {
+        const currTimeKey = time.getTimeStrAs(c[timePropName], format)
+        if (!acc[currTimeKey]) acc[currTimeKey] = [];
+        acc[currTimeKey].push(c);
+        return acc;
+        }, {});
+    },
+    getTimeStrAs(dateLike, format = 'year/month/day/hour/minute/mil', formatSeperator = '/') {
+        const time = new Date(dateLike);
+        const formatLevelsStr = 'year/month/day/hour/minute/mil'
+        const formatLevels = formatLevelsStr.split('/');
+        const splitedFormat = format.split(formatSeperator);
+        if (splitedFormat.some(c => !formatLevels.includes(c))) throw new Error(`Invalid format!, only valid words are: ${formatLevels.join(', ')} - splited by the given formatSeperator (default '/'). for example, a valid format is: 'day/month/year'`)
+        const resArr = splitedFormat.map(c => {
+            switch (c) {
+            case formatLevels[0]: return time.getFullYear();     // 'year'
+            case formatLevels[1]: return time.getMonth()+1;      // 'month
+            case formatLevels[2]: return time.getDate();         // 'day'
+            case formatLevels[3]: return time.getHours();        // 'hour'
+            case formatLevels[4]: return time.getMinutes();      // 'minute'
+            case formatLevels[4]: return time.getMilliseconds(); // 'mil'
+            }
+        });
+        return resArr.join(formatSeperator);
+    },
+    timeFrom(fromTime, erturnAs = 'months') {
+        fromTime = new Date(fromTime).getTime();
+        const now = new Date().getTime();
+        const miliSeconds = now - fromTime;
+        const seconds = miliSeconds/1000;
+        const minutes = seconds/60;
+        const houres = minutes/60;
+        const days = houres/24;
+        const months = days/30;
+        const years = days/365;
+        switch (erturnAs) {
+        case 'seconds': return seconds;
+        case 'minutes': return minutes;
+        case 'houres': return houres;
+        case 'days': return days;
+        case 'months': return months;
+        case 'years': return years;
+        default: return years;
+        }
+    }
+}
+
+export const youtubeService = {
+    isYoutubeVid: (url) => url?.includes('youtube.com'),
+    getYoutubeVideoId: url => url?.split('?v=')[1]?.split('&')[0] || '',
+    embedUtubeUrl: url => `https://www.youtube.com/embed/${youtubeService.getYoutubeVideoId(url)}/`,
+}
+
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////

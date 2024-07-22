@@ -1,28 +1,18 @@
 <template>
     <div class="files-section flex column gap40">
-      <div id="images" v-if="images.length" class="flex column gap20">
-        <h2>{{$t('images')}}</h2>
-        <FileList :files="images" cmpType="img"/>
-      </div>
-      <div id="videos" v-if="videos.length" class="flex column gap20">
-        <h2>{{$t('videos')}}</h2>
-        <FileList :files="videos" cmpType="video"/>
-      </div>
-      <div id="files" v-if="files.length" class="flex column gap20">
-        <h2>{{$t('files')}}</h2>
-        <FileList :files="files" cmpType="file"/>
-      </div>
-      <div id="links" v-if="links.length" class="flex column gap20">
-        <h2>{{$t('links')}}</h2>
-        <FileList :files="links" cmpType="link"/>
-      </div>
+      <FilesSingleSection v-if="images.length" sectionId="images" :title="$t('images')" cmpType="img" :files="images"/>
+      <FilesSingleSection v-if="videos.length" sectionId="videos" :title="$t('videos')" cmpType="video" :files="videos"/>
+      <FilesSingleSection v-if="files.length" sectionId="files" :title="$t('files')" cmpType="file" :files="files"/>
+      <FilesSingleSection v-if="links.length" sectionId="links" :title="$t('links')" cmpType="link" :files="links"/>
     </div>
 </template>
 
 <script>
+import { filterFilesCb } from './file.service';
 import FileList from './FileList.vue';
+import FilesSingleSection from './FilesSingleSection.vue';
 export default {
-  components: { FileList },
+  components: { FileList, FilesSingleSection },
   name: 'FilesSection',
   props: {
     release: {
@@ -30,13 +20,16 @@ export default {
     }
   },
   methods: {
-    filterItemsfromRelease(key) {
-      return this.release[key]?.filter(c => c.src) || [];
+    filterItemsfromRelease(...keys) {
+      for (let key of keys) {
+        if (this.release[key]) return this.release[key]?.filter(filterFilesCb) || [];
+      }
+      return [];
     } 
   },
   computed: {
     images() {
-      return this.filterItemsfromRelease('images');
+      return this.filterItemsfromRelease('images', 'imageGallery');
     },
     videos() {
       return this.filterItemsfromRelease('videos');

@@ -9,15 +9,22 @@
       <FormInput type="text" labelholder="account.newPassword" v-model="accountToEdit.password"/>
       <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
 
+      <div class="flex column gap5 mailing-section">
+        <h4>{{$t('account.createAccount')}}</h4>
+        <FormInput type="checkbox" labelholder="account.mailing.whatsapp" v-model="accountToEdit.mailing.whatsApp"/>
+        <FormInput type="checkbox" labelholder="account.mailing.newsletter" v-model="accountToEdit.mailing.newsletter"/>
+        <FormInput type="checkbox" labelholder="account.mailing.unsubscribeMsg" v-model="accountToEdit.mailing.unsubscribed"/>
+      </div>
+
       <template v-if="isUserAdmin && !isNested">
         <FormInput type="multiselect" labelholder="roles" v-model="accountToEdit.roles" :items="systemRoles"/>
         <div class="organizations flex column gap5">
           <div v-for="org in orgsToShow" :key="org._id" class="flex align-center space-between gap5">
             <div class="flex align-center gap5">
-              <FormInput type="checkbox" :value="isInOrg(org.organizationId)" @change="toggleOrg(org.organizationId)"/>
-              <p>{{getOrgName(org.organizationId)}}</p>
+              <FormInput type="checkbox" :value="isInOrg(org._id)" @change="toggleOrg(org._id)"/>
+              <p>{{getOrgName(org._id)}}</p>
             </div>
-            <FormInput type="multiselect" placeholder="role" :value="org.roles || []" @change="val => updateOrgRoles(org.organizationId, val)" :items="orgRoles"/>
+            <FormInput type="multiselect" placeholder="role" :value="org.roles || []" @change="val => updateOrgRoles(org._id, val)" :items="orgRoles"/>
           </div>
         </div>
       </template>
@@ -65,8 +72,8 @@ export default {
       return this.$store.getters['organization/items'];
     },
     orgsToShow() {
-      const orgs = this.loggedUser?.organizations.filter(org => this.orgs.find(c => c._id === org.organizationId)) || [];
-      return orgs.map(org => this.accountToEdit.organizations.find(c => c.organizationId === org.organizationId) || { organizationId: org.organizationId, roles: [] });
+      const orgs = this.loggedUser?.organizations.filter(org => this.orgs.find(c => c._id === org._id)) || [];
+      return orgs.map(org => this.accountToEdit.organizations.find(c => c._id === org._id) || { _id: org._id, roles: [] });
     },
 
     isUserAdmin() {
@@ -97,10 +104,10 @@ export default {
       return this.orgs.find(c => c._id === orgId)?.name || '';
     },
     isInOrg(orgId) {
-      return !!this.accountToEdit.organizations.find(c => c.organizationId === orgId);
+      return !!this.accountToEdit.organizations.find(c => c._id === orgId);
     },
     toggleOrg(orgId) {
-      const idx = this.accountToEdit.organizations.findIndex(c => c.organizationId === orgId);
+      const idx = this.accountToEdit.organizations.findIndex(c => c._id === orgId);
       if (idx !== -1) this.accountToEdit.organizations.splice(idx, 1);
       else {
         const orgItem = organizationService.getAccountOrgItem(orgId, this.loggedUser._id);
@@ -108,7 +115,7 @@ export default {
       }
     },
     updateOrgRoles(orgId, roles) {
-      const org = this.accountToEdit.organizations.find(c => c.organizationId === orgId);
+      const org = this.accountToEdit.organizations.find(c => c._id === orgId);
       if (!org) return;
       org.roles = roles;
     }
@@ -130,3 +137,24 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.megaphon-app {
+  .account-edit {
+    .mailing-section {
+      .form-input-checkbox {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        align-items: flex-start;
+        .label {
+          flex: 1;
+        }
+        .input {
+          width: fit-content;
+          flex: unset;
+        }
+      }
+    }
+  }
+}
+</style>

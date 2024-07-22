@@ -1,6 +1,6 @@
 <template>
-  <div class="files-list flex wrap gap30">
-    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview space-between">
+  <div class="files-list flex wrap gap30 width-all width-all">
+    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview space-between" :class="{'width-all': ['videp', 'iframe'].includes(cmpType)}">
       <template v-if="['video', 'img'].includes(cmpType)">
         <h5>
           {{file.title || ''}}
@@ -13,10 +13,15 @@
           </template> -->
         </div>
       </template>
+      <iframe
+        v-if="cmpType === 'iframe'"
+        class="video-file-preview"
+        :src="fixFileSrcToThumbnail(extractFileSrc(file))" controls
+      />
       <video
         v-if="cmpType === 'video'"
         class="video-file-preview"
-        :src="fixFileSrcToThumbnail(file.src)" controls
+        :src="fixFileSrcToThumbnail(extractFileSrc(file))" controls
       />
       <template v-else-if="cmpType === 'img'">
         <img
@@ -31,7 +36,7 @@
         v-else-if="cmpType === 'link'"
         class="link-file-preview"
         target="_blank" 
-        :href="file.src"
+        :href="extractFileSrc(file)"
       >{{file.title}}</a>
       
       <router-link
@@ -48,6 +53,7 @@
 <script>
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 import { downloadImg } from '../../common/services/util.service';
+import { extractFileSrc } from './file.service'; 
 export default {
   name: 'FileList',
   props: {
@@ -61,7 +67,8 @@ export default {
   },
   methods: {
     fixFileSrcToThumbnail,
-    downloadImg
+    downloadImg,
+    extractFileSrc
   },
 }
 </script>

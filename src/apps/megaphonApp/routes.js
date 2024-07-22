@@ -22,6 +22,9 @@ import { organizationRoutes } from './modules/organization/routes';
 import AccountEditModal from './modules/account/cmps/AccountEditModal.vue';
 import { settingsRoutes } from '../common/modules/settings/routes';
 
+import FileViewer from '../common/modules/common/views/FileViewer.vue';
+
+
 export default [
   ...commonRoutes,
   ...releaseRoutes,
@@ -71,6 +74,11 @@ export default [
         path: '/release/:organizationId/:id',
         component: ReleaseDetails,
         name: 'ReleaseDetails'
+      },
+      {
+        path: '/file-viewer',
+        component: FileViewer,
+        name: 'FileViewer'
       },
       // {
       //   path: '/contact/:organizationId',

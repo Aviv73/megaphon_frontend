@@ -15,6 +15,11 @@ const en = {
     "viewAllAccounts": "View all accounts",
     "inviteAccounts": "Invite accounts",
     "isPandingForApproval": "Panding for approval",
+    mailing: {
+      "whatsapp": "WhatsApp",
+      "newsletter": "Newsletter",
+      unsubscribeMsg: "No, I dont want to recive any mailing from Megaphon."
+    },
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this account?",
       "removeSuccess": "Account removed successfully",
@@ -39,6 +44,11 @@ const he = {
     "viewAllAccounts": "הצג את כל משתמשי המערכת",
     "inviteAccounts": "הזמן משתמשים",
     "isPandingForApproval": "ממתין לאישור",
+    mailing: {
+      "whatsapp": "וואטסאפ",
+      "newsletter": "ניוזלטר",
+      unsubscribeMsg: "לא, אני לא מעוניין בקבלת דיוור כלשהו מאתר מגפון"
+    },
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את המשתמש?",
       "removeSuccess": "משתמש נמחק בהצלחה",

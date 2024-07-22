@@ -32,7 +32,7 @@ export const _authStore = {
       for (let key in state) state[key] = newState[key];
     },
     updateOrgStatus(state, { organizationId, newStatus }) {
-      state.loggedUser.organizations.find(c => c.organizationId === organizationId).status = newStatus;
+      state.loggedUser.organizations.find(c => c._id === organizationId).status = newStatus;
     },
     addOrg(state, { organization }) {
       // const idx = state.loggedUser.organizations.find(c => c._id === organization._id);

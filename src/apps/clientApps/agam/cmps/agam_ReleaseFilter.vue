@@ -26,8 +26,8 @@
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
-import ToggleBtns from '../../../../../common/modules/common/cmps/ToggleBtns.vue';
-import ToggleModal from '../../../../../common/modules/common/cmps/ToggleModal.vue';
+import ToggleBtns from '@/apps/common/modules/common/cmps/ToggleBtns.vue';
+import ToggleModal from '@/apps/common/modules/common/cmps/ToggleModal.vue';
 export default {
   name: 'agam_ReleaseFilter',
   props: {

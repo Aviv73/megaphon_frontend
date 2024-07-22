@@ -66,14 +66,13 @@ export default {
       if (this.$route.name === 'MainSidebarView') {
         const firstOrg = this.loggedUser?.organizations
           .filter(c => c.status !== 'pending')
-          .filter(c => c.organizationId != '-1')
+          .filter(c => c._id != '-1')
           [0];
         if (!firstOrg) {
-          console.log('WOWOWO', this.loggedUser?.organizations);
           this.$router.push({ name: 'JoinOrgPage' });
           return;
         }
-        this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
+        this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg._id}});
       }
     },
     loadSelectedOrg() {
@@ -186,7 +185,7 @@ export default {
 .megaphon-app {
   .main-sidebar-view {
     >* {
-      padding: em(10px);
+      // padding: em(10px);
     }
   }
 }

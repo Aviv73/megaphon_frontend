@@ -1,5 +1,5 @@
 <template>
-  <div class="item-page flex align-center space-between gap15 column flex-1">
+  <div class="item-page flex align-center space-between gap15 column flex-1 height-all">
     <div class="width-all flex align-start space-between wrap gap50">
       <component :is="filterByCmp || 'ItemFilter'" :initFilter="filterBy" @filtered="setFilter" v-bind="propsToPass"/>
       <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>

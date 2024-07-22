@@ -17,16 +17,19 @@
         @input="val => $emit('input', val, basePath)"
       />
       <div v-if="dataFieldToRender.type === 'ROW'" class="flex gap10 row-container">
-        <DynamicInput
-          v-for="field in dataFieldToRender.fields"
-          :key="field.fieldName"
-          :dataField="field"
-          :basePath="field.fieldName"
-          :organization="organization"
-          :parentItem="parentItem"
-          :value="getVal(parentItem, field.fieldName)"
-          @input="(val, path) => $emit('input', val, path)"
-        />
+        <template v-for="field in dataFieldToRender.fields">
+          <DynamicInput
+            vfor="field in dataFieldToRender.fields"
+            :key="field.fieldName"
+            :dataField="field"
+            :basePath___="field.fieldName"
+            :basePath="field.field.fieldName? basePath : `${basePath}.${field.fieldName}`"
+            :organization="organization"
+            :parentItem="parentItem"
+            :value="field.field.fieldName? parentItem : getVal(parentItem, `${basePath}.${field.fieldName}`)"
+            @input="(val, path) => $emit('input', val, path)"
+          />
+        </template>
       </div>
       <table v-if="dataFieldToRender.type === 'TABLE'" colspacing="5px" class="flexx column gap10 width-content">
         <tr class="flexx align-center gap10" v-if="value && value.length">
@@ -45,11 +48,11 @@
             <DynamicInput
               class="flex-1"
               :dataField="field"
-              :basePath="`${basePath}.${idx}.${field.fieldName}`"
+              :basePath="[basePath, idx+'', field.fieldName].filter(Boolean).join('.')"
               :value="getVal(currVal, field.fieldName) || ''"
               :organization="organization"
               :parentItem="parentItem"
-              @input="(val, path) => $emit('input', val, path || `${basePath}.${idx}.${field.fieldName}`)"
+              @input="(val, path) => $emit('input', val, path || [basePath, idx+'', field.fieldName].filter(Boolean).join('.'))"
               :noTitle="true"
             />
           </td>
@@ -81,8 +84,8 @@ import ReleaseIdsPicker from './ReleaseIdsPicker.vue';
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import MultipleFilePicker from './MultipleFilePicker.vue';
 import ImageCrop from './ImageCrop.vue';
-import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
-import { range } from '../../../../../common/modules/common/services/util.service';
+import TableActionBtns from '@/apps/common/modules/common/cmps/TableActionBtns.vue';
+import { range } from '@/apps/common/modules/common/services/util.service';
 
 
 export default {
@@ -204,7 +207,7 @@ export default {
           break;
 
         // BAD: single items in array;
-        case 'CORPABLE_IMAGE':
+        case 'SINGLE-IMAGE_IN_ARRAY':
           // this.cmpName = 'ImageCrop';
           this.cmpName = 'MultipleFilePicker';
           this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };

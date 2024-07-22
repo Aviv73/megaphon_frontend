@@ -32,12 +32,12 @@
 </template>
 
 <script>
-import FileUploader from '../../../../../common/modules/common/cmps/file/FileUploader.vue';
+import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
-import Modal from '../../../../../common/modules/common/cmps/Modal.vue';
+import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 export default {
   components: { Modal, VueCropper },
   extends: FileUploader,

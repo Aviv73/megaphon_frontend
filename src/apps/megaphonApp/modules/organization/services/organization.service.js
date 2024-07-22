@@ -104,8 +104,8 @@ function isUserRoleInOrg(orgId, role, user, isOnlyRole) {
   return isRole && orgItem?.roles?.length === 1;
 }
 function isUserWatchOnly(orgId, user) {
-  // return true;
   return false;
+  // return false;
   return isUserRoleInOrg(orgId, 'client', user, true);
 }
 function isOrgPending(orgId, user) {
@@ -117,7 +117,7 @@ function isUserInOrg(orgId, user) {
 }
 function getOrgItemInAccount(user, orgId) {
   if (!user) return null;
-  return user.organizations?.find(org => org.organizationId === orgId);
+  return user.organizations?.find(org => org._id === orgId);
 }
 function isAccountAuthorizedToRoute(account, org, routeItemIdOrName) {
   if (!account|| !org || !routeItemIdOrName) return false;
@@ -130,7 +130,7 @@ function isAccountAuthorizedToRoute(account, org, routeItemIdOrName) {
 
 function getAccountOrgItem(orgId = '', inviterId = '') {
   return  {
-    organizationId: orgId,
+    _id: orgId,
     invitedBy: inviterId,
     roles: [],
     invitedAt: Date.now(),

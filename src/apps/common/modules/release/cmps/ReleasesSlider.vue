@@ -1,10 +1,11 @@
 <template>
   <div class="releases-slider flex align-center justify-center gap15">
-    <button class="arrow-btn" @click="shiftChild(1)">
-      <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)">
+    <button class="arrow-btn plus" @click="shiftChild(-1)">
+      <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)"> -->
+      <div class="img"></div>
     </button>
     <div v-if="viewdChild" class="flex-1">
-      <div class="hero-main flex gap30 width-all">
+      <div class="hero-main flex gap30 width-all align-center">
         <img class="main-img" :src="imgToRender" :alt="viewdChild.title"/>
         <div class="hero-content flex column align-start gap20">
           <div class="content-container flex column align-start gap20">
@@ -22,8 +23,9 @@
         </div>
       </div>
     </div>
-    <button class="arrow-btn" @click="shiftChild(-1)">
-      <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'">
+    <button class="arrow-btn minus" @click="shiftChild(1)">
+      <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'"> -->
+      <div class="img"></div>
     </button>
   </div>
 </template>
@@ -109,7 +111,8 @@ export default {
     }
 
     .content-container {
-      height: em(200px);
+      // height: em(200px);
+      flex: 1;
       overflow-y: auto;
       word-break: break-word;
     }
@@ -136,15 +139,32 @@ export default {
   
   .arrow-btn {
     width: em(30px);
+    // height: em(50px);
     height: em(30px);
     background-color: hsla(0, 0%, 0%, 0.25);
     border-radius: 50%;
+    // box-shadow: $light-shadow;
     overflow: hidden;
-    img {
+    position: absolute;
+    .img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      // background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow.svg') no-repeat center / contain;
+      background: url('~@/apps/clientApps/agam/assets/images/pageArrow.svg') no-repeat center / contain;
+      // background-size: 100%;
     }
+    &.plus {
+      right: em(5px);
+      transform: rotate(180deg);
+    }
+    &.minus {
+      left: em(5px);
+    }
+    // img {
+    //   width: 100%;
+    //   height: 100%;
+    //   object-fit: contain;
+    // }
   }
 
   @media (max-width: $small-screen-breake) {

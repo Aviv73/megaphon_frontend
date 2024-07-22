@@ -1,8 +1,46 @@
+import Home from './views/default_Home.vue';
+import About from './views/default_About.vue';
+import CostumePage from './views/default_CostumePage.vue';
 
-import { commonRoutes } from './modules/common/routes';
-import { releaseRoutes } from './modules/release/routes';
+import ReleaseApp from './views/default_ReleaseApp.vue';
+import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';
+import ReleaseDetails from './views/default_ReleaseDetails.vue';
 
 export default [
-  ...commonRoutes,
-  ...releaseRoutes
+  {
+    path: '/',
+    component: Home,
+    name: 'HomePage'
+  },
+  {
+    path: '/about',
+    component: About,
+    name: 'AboutPage'
+  },
+  {
+    name: 'CostumePage',
+    path: '/nav',
+    component: CostumePage
+  },
+  {
+    name: 'ReleaseApp',
+    path: '/release',
+    component: ReleaseApp,
+    children: [
+      {
+        name: 'ReleasePage',
+        path: '/',
+        component: ReleasePage
+      },
+      {
+        name: 'ReleaseDetails',
+        path: ':id',
+        component: ReleaseDetails,
+        meta: {
+          reportReleaseOpen: true,
+          releaseIdParamName: 'id'
+        }
+      }
+    ]
+  }
 ]

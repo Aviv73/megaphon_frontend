@@ -8,7 +8,7 @@
     ]"/>
     <h1>{{release.title}}</h1>
     <div class="main-content-section flex-1 flex space-between gap60 wrap">
-      <img class="main-img" :src="release.mainImage[0].src" :alt="release.title"/>
+      <img class="main-img" :src="release.mainImage.src" :alt="release.title"/>
       <div class="hero-content flex column align-start gap15">
         <div class="description-container" v-if="release.desc" v-html="release.desc"></div>
         <div class="flex gap60 links">
@@ -16,8 +16,8 @@
           <!-- <a target="_blank" v-if="release.firstChapterLink?.[0]?.src" :href="release.firstChapterLink[0].src"><h3>{{$t('release.firstChapter')}}</h3></a>
           <a target="_blank" v-if="release.comunicatLink?.[0]?.src" :href="release.comunicatLink[0].src"><h3>{{$t('release.comunicat')}}</h3></a> -->
           
-          <router-link target="_blank" v-if="release.firstChapterLink?.[0]?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.firstChapterLink[0].src) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
-          <router-link target="_blank" v-if="release.comunicatLink?.[0]?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.comunicatLink[0].src) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
+          <router-link target="_blank" v-if="release.firstChapterLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.firstChapterLink.src) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
+          <router-link target="_blank" v-if="release.comunicatLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.comunicatLink.src) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
 
         </div>
         <div class="table-like">
@@ -31,16 +31,16 @@
         </div>
       </div>
     </div>
-    <div v-if="release.video?.[0]?.src" class="video-section flex column gap30">
-      <h2>{{release.video.title}}</h2>
+    <div v-if="release.videos?.[0]?.src" class="video-section flex column gap30">
+      <h2>{{release.videos[0].title}}</h2>
       <!-- <iframe :src="release.video.src"></iframe> -->
-      <video controls :src="release.video[0].src"></video>
+      <video controls :src="release.videos[0].src"></video>
     </div>
   </section>
 </template>
 
 <script>
-import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 import RoutesLocator from '../cmps/agam_RoutesLocator.vue';
 
 export default {

@@ -1,29 +1,26 @@
 <template>
-  <section class="monthly-release-details flex column gap30 height-all">
-    <section class="release-hero-view flex align-center justify-center gap10">
+  <section class="group-release-details flex column gap30 height-all">
+    <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${release.mainImage.src}')`, 'background-size': 'cover' }">
       <div class="hero flex align-center justify-center gap30">
         <button class="arrow-btn" @click="shiftChild(1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)">
         </button>
         <div v-if="viewdChild" class="">
           <div class="hero-main inner-container flex gap30 width-all">
-            <img class="main-img" :src="viewdChild.mainImage[0].src" :alt="viewdChild.title"/>
+            <img class="main-img" :src="viewdChild.mainImage.src" :alt="viewdChild.title"/>
             <div class="hero-content flex column align-start gap20">
               <h2>{{viewdChild.title}}</h2>
-              <p>{{$t('release.by')}}: {{viewdChild.author}}</p>
-              <div v-html="viewdChild.desc"></div>
+              <div v-html="viewdChild.content"></div>
               <hr/>
               <router-link :to="{ params: {id: viewdChild._id} }">
                 <button class="flex align-center gap5">
                   <span>
                     לפרטים 
                   </span>
-                  <img :src="require('@/apps/clientApps/agam/assets/images/small-arrow-white.png')" alt="➜"/>
                 </button>
               </router-link>
             </div>
           </div>
-          <div class="hero-footer"></div>
         </div>
         <button class="arrow-btn" @click="shiftChild(-1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'">
@@ -32,44 +29,29 @@
     </section>
     <div class="inner-container flex column gap30">
       <h1>{{release.title}}</h1>
-      <div v-html="release.desc"></div>
+      <h5>{{release.subTitle}}</h5>
+      <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
+      <div v-html="release.content"></div>
       <ItemList
         class="flex-1"
         :items="release.childrenReleases"
         itemDetailesPageName="ReleaseDetails"
         :singlePreviewCmp="ReleasePreview"
       />
+      <FilesSection :release="release"/>
     </div>
-    <!-- <ItemSearchList
-      class="inner-container"
-      :itemsData="allReleasesData"
-      :initFilterBy="allReleasesFilterBy"
-      @filter="getAllReleases"
-      itemDetailesPageName="ReleaseDetails"
-      :singlePreviewCmp="ReleasePreview"
-      :filterByCmp="ReleaseFilter"
-      :dontRoute="true"
-    /> -->
-    <!-- <ul>
-      <li v-for="child in release.childrenReleases" :key="child.id">
-        <router-link :to="{ params: {id: child._id} }">
-          <img :src="child.releaseData.mainImage" :alt="child.releaseData.title">
-          <p>{{child.releaseData.title}}</p>
-        </router-link>
-      </li>
-    </ul> -->
   </section>
 </template>
 
 <script>
 import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.vue'
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue'
-import ReleasePreview from '../cmps/agam_ReleasePreview.vue'
-import ReleaseFilter from '../cmps/agam_ReleaseFilter.vue'
+import ReleasePreview from '../cmps/default_ReleasePreview.vue'
+import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue'
 
 export default {
-  name: 'agam_MonthlyReleaseDetails',
-  components: { ItemList, ReleasePreview, ItemSearchList, ReleaseFilter },
+  name: 'default_GroupReleaseDetails',
+  components: { ItemList, ReleasePreview, ItemSearchList, FilesSection },
   props: {
     release: {
       type: Object,
@@ -79,7 +61,6 @@ export default {
   data() {
     return { 
       ReleasePreview,
-      ReleaseFilter,
       viewdChildIdx: 0
     }
   },
@@ -101,6 +82,15 @@ export default {
     },
     showOnlyreleases() {
       return this.$route.query?.releasesView === 'true';
+    },
+    monthPublish() {
+      if (!this.release.publishedAt) return '';
+      const at = new Date(this.release.publishedAt);
+      const month = at.getMonth() + 1;
+      const year = at.getFullYear();
+      if (isNaN(year)) return '';
+      const pretyMont = this.$t('months.'+month);
+      return `${pretyMont} ${year}`;
     },
   },
   methods: {
@@ -127,35 +117,21 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-@import '../../../assets/style/index';
-.agam-app {
-  .monthly-release-details {
+@import '../assets/style/index';
+.default-app {
+  .group-release-details {
     padding-bottom: $main-pad-y;
   
     .release-hero-view {
-      background-color: rgb(255, 216, 216);
-      background: url('~@/apps/clientApps/agam/assets/images/bookshelf_background.jpg') fixed;
+      background-color: rgb(255, 255, 255);
       padding: em(30px);
       .hero {
         position: relative;
-        // .arrow-btn {
-        //   position: absolute;
-        //   top: 50%;;
-        //   right: em(-60px);
-        //   &:last-child {
-        //     right: unset;
-        //     left: em(-60px);
-        //   }
-        // }
         width: 60%;
         @media (max-width: 1700px) {
           width: 90%;
         }
-        // height: 400px;
-        // overflow-y: auto;
-        // overflow-x: hidden;
         min-height: 400px;
-        // height: 400px;
         .hero-main {
           background: white;
           flex: 1;
@@ -166,14 +142,9 @@ export default {
           .main-img {
             height: 100%;
             max-height: 300px;
-            // width: auto;
             width: 35%;
             object-fit: contain;
             background-color: rgb(255, 216, 216);
-            // flex: 1;
-          }
-          .hero-content {
-            // flex: 3;
           }
   
           hr {
@@ -181,25 +152,18 @@ export default {
             height: 1px;
             align-self: flex-start;
             margin: 0;
-            background-color: $main-font-color;
+            // background-color: $main-font-color;
             border: 0;
           }
   
           button {
-            padding: 6px 25px;
             border-radius: 20px;
-            background-color: $layout-red;
-            color: $light-white;
             img {
               height: 12px;
               width: 12px;
             }
           }
 
-        }
-        .hero-footer {
-          height: 15px;
-          background: linear-gradient(90deg, $layout-black 80%, $layout-red 20%);
         }
       }
     }
@@ -214,7 +178,6 @@ export default {
     
     @media (max-width: $small-screen-breake) {
       .hero {
-        // gap: em(10px);
         gap: em(5px);
         width: 98% !important;
         
@@ -232,20 +195,10 @@ export default {
           height: 100%;
           object-fit: contain;
         }
-        // z-index: 10;
-        // position: relative;
-        // position: absolute;
-        // top: 50%;
-        // right: 0;
-        // transform: translateY(-50%);
-        // right: unset;
-        // left: unset;
-        // position: unset !important;
       }
 
       .release-hero-view {
-        // padding: em(10px);
-        padding: em(0px);
+        padding: em(5px);
         width: 100%;
       }
     }

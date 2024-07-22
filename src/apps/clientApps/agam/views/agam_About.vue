@@ -52,8 +52,8 @@
   </div>
 </template>
 <script>
-import RoutesLocator from '../../release/cmps/agam_RoutesLocator.vue'
-import { crewMembers, features } from '../../../static.data.js'
+import RoutesLocator from '../cmps/agam_RoutesLocator.vue'
+import { crewMembers, features } from '../static.data.js'
 export default {
   components: { RoutesLocator },
   name: 'agam_About',

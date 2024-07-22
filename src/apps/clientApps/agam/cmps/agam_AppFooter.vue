@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { contactData } from '../../../static.data.js'
+import { contactData } from '../static.data.js'
 export default {
   name: "agam_AppFooter",
   data() {

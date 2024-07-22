@@ -80,7 +80,7 @@ export default {
       return this.$store.getters['auth/loggedUser'];
     },
     filteredRoutesByRoles() {
-      const OrgInUser = this.loggedUser?.organizations.find(c => c.organizationId === this.organization?._id);
+      const OrgInUser = this.loggedUser?.organizations.find(c => c._id === this.organization?._id);
       if (!OrgInUser) return [];
       return this.organization?.routes
         .filter(c => !c.htmlContentFilePath)

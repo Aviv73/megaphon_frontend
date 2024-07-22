@@ -183,7 +183,7 @@ const he = {
   site: 'אתר',
   
   images: 'תמונות',
-  videos: 'וידאו',
+  videos: 'לצפיה',
   files: 'קבצים',
   links: 'קישורים',
   download: "הורדה",

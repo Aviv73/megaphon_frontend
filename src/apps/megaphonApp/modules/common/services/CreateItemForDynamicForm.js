@@ -47,7 +47,7 @@ export function createItemForDynamicForm(dataFields = []) {
         else item[field.fieldName] = {src: '', title: ''};
         break;
         
-      case 'CORPABLE_IMAGE':
+      case 'SINGLE-IMAGE_IN_ARRAY':
       case 'IMAGEGALLERY':
       case 'RELEASES_SELECTOR':
       case 'SELECT_RELEASES_FROM_INNER_PARAM':

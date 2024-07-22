@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import { fixFileSrcToThumbnail } from '../../../../../common/modules/common/services/file.service';
-import { scrollToEl } from '../../../../../common/modules/common/services/util.service';
-import FilesSection from '../../../../../common/modules/release/cmps/FilesSection.vue';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
+import { scrollToEl } from '@/apps/common/modules/common/services/util.service';
+import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue';
 
 export default {
   components: { FilesSection, FilesSection },

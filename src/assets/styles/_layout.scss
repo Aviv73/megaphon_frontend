@@ -18,6 +18,8 @@
   margin-top:  $header-height;
   // overflow-y: auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   
   // color: $layout-body-clr;

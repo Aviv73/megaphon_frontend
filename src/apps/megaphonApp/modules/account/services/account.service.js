@@ -39,6 +39,11 @@ function getEmptyAccount() {
     roles: ['user'],
     organizations: [],
     password: '',
-    bgImg: ''
+    bgImg: '',
+    mailing: {
+      unsubscribed: false,
+      whatsApp: true,
+      newsletter: true,
+    }
   }
 }

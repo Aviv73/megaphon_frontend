@@ -16,11 +16,10 @@
 <script>
 import './assets/style/index.scss';
 
-import AppHeader from './modules/common/cmps/default_AppHeader.vue';
-import AppFooter from './modules/common/cmps/default_AppFooter.vue';
+import AppHeader from './cmps/default_AppHeader.vue';
+import AppFooter from './cmps/default_AppFooter.vue';
 
-// import { elementService } from '@/apps/common/modules/common/services/element.service.js';
-import { elementService } from '../../common/modules/common/services/element.service.js';
+import { setDynamicStylingEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 
 
 export default {
@@ -33,23 +32,7 @@ export default {
   methods: {
     async setOrgStyling() {
       const org = await this.$store.dispatch({type: 'organization/loadItem'});
-      document.title = org.name;
-      const designPreferences = org.designPreferences;
-      const colorsPalate = designPreferences?.colorsPalate || [];
-      const cssEl = elementService.StyleEl('.default-app', {
-        '.app-main': {
-          color: colorsPalate[0],
-          backgroundColor: colorsPalate[1]
-        },
-        '.app-header, .app-footer': {
-          color: colorsPalate[2],
-          backgroundColor: colorsPalate[3]
-        },
-        'h1, h2, h3, h4, h5, h6': {
-          color: colorsPalate[4],
-        }
-      });
-      document.head.appendChild(cssEl);
+      setDynamicStylingEl(org, '.default-app');
     }
   },
   created() {

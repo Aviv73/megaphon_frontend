@@ -2,7 +2,7 @@
   <section class="release-page flex column height-all width-all flex gap20">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
     <ReleasesSlider
-      v-if="isUserWatchOnly"
+      v-if="false && isUserWatchOnly"
       :releases="allReleasesData.items"
       :getReleasePageRoute="(release => ({ name: 'ReleaseDetails', params: { id: release._id, organizationId: organizationId } }))"
     />
@@ -110,7 +110,7 @@ export default {
       return this.$route.query.page;
     },
     isUserWatchOnly() {
-      return false
+      // return false
       // return true;
       // return this.$store.getters['auth/isWatchOnly'];
       return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
@@ -153,7 +153,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .release-page {
-    padding: em(10px);
+    // padding: em(10px);
     height: auto;
     .item-list {
       justify-content: space-between !important;
@@ -167,6 +167,52 @@ export default {
           // justify-content: space-around !important;
           flex-direction: column;
           align-items: center;
+        }
+      }
+    }
+    
+    .releases-slider {
+      .arrow-btn {
+        height: em(50px);
+        // position: absolute;
+        background-color: unset;
+        border-radius: unset;
+        box-shadow: $light-shadow;
+        .img {
+          background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow.svg') no-repeat center / contain;
+        }
+        &.plus {
+          // right: em(10px);
+          transform: unset;
+        }
+        &.minus {
+          // left: em(10px);
+          transform: rotate(180deg);
+        }
+      }
+      color: white;
+      .hero-main {
+        padding: 0;
+        img {
+          height: em(500px);
+          flex: 3;
+        }
+        background-color: black;
+        .hero-content {
+          height: em(350px);
+          flex: 2;
+          background-color: black;
+          color: white;
+          padding-inline-end: em(50px);
+        }
+        @media (max-width: $small-screen-breake) {
+          padding: 0 !important;
+          img {
+            height: em(250px);
+          }
+          .hero-content {
+            padding: em(5px) em(50px);
+          }
         }
       }
     }

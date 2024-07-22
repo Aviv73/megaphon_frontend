@@ -2,22 +2,23 @@
   <div class="release-details height-all inner-container main-pad-y flex align-start gap50" v-if="release">
     <div class="wide-screen-item release-page-nav wide-screen-item sticky flex column gap10">
       <!-- :style="{position: 'fixed', top: '110px'}" -->
-      <template v-for="tabName in ['content', 'images', 'videos', 'files', 'links']">
+      <template v-for="tabNames in [['content'], ['images', 'imageGallery'], ['videos'], ['files'], ['links']]">
         <a
-          :key="tabName"
-          :class="{bold: selectedTab === tabName}" 
-          @click="scrollToEl(tabName)"
-          v-if="typeof releaseData[tabName] === 'string'? true : releaseData[tabName]?.filter(c => c.src).length"
+          :key="tabNames[0]"
+          :class="{bold: selectedTab === tabNames[0]}" 
+          @click="scrollToEl($event, tabNames[0])"
+          v-if="validateTab(tabNames)"
         >
-          {{$t(`release.${tabName}`)}}
+          {{$t(`release.${tabNames[0]}`)}}
         </a>
       </template>
       <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
     </div>
     <div class="flex column gap40">
-      <div v-for="field in dataFields" :key="field.fieldName">
-        <DynamicField :dataField="field" :value="releaseData[field.fieldName]"/>
+      <div v-for="(field, idx) in dataFieldsToShow" :key="field.fieldName || idx" :id="field.fieldName">
+        <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData"/>
       </div>
+      <!-- <FilesSection :release="releaseData"/> -->
     </div>
   </div>
 </template>
@@ -56,9 +57,18 @@ export default {
     },
 
     
-    scrollToEl(elId) {
+    scrollToEl(ev, elId) {
+      ev.preventDefault();
       this.selectedTab = elId;
       return scrollToEl(`#${elId}`, -20);
+    },
+
+    validateTab(tabNames) {
+      for (let tabName of tabNames) {
+        if (!(tabName in this.releaseData)) continue;
+        return typeof this.releaseData[tabName] === 'string'? !!this.releaseData[tabName] : this.releaseData[tabName]?.filter(c => c.src || c.link || c.url).length
+      }
+      return false;
     }
   },
   computed: {
@@ -75,7 +85,6 @@ export default {
     
     selectedReleaseTypeItem() {
       if (!this.releaseType) return null;
-      console.log(this.releaseType, this.org);
       return templateUtils.getRelevantReleaseTypeItemForRelease(this.releaseType, this.org);
     },
 
@@ -86,6 +95,17 @@ export default {
 
     releaseData() {
       return {...this.release.releaseData, _id: this.release._id};
+    },
+
+    dataFieldsToShow() {
+      return this.dataFields
+              .filter(c => !c.hideFromUi)
+              .sort((a, b) => {
+                // if (a.index === b.index) return 0;
+                // else if (!'index' in a) return 1;
+                // else if (!'index' in b) return -1;
+                return (a.index || 100) - (b.index || 100)
+              })
     }
   },
   created() {
@@ -111,7 +131,7 @@ export default {
 .release-details {
   .release-page-nav {
     height: fit-content;
-    top: em(10px);
+    top: calc(#{em(10px)} + #{$header-height});
   }
 }
 </style>

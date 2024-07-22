@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import Loader from '../../../../../common/modules/common/cmps/Loader.vue';
-import { loadStaticFile } from '../../../../../common/modules/common/services/file.service';
-import ReleasePage from '../../../../../common/modules/release/views/common_ReleasePage.vue';
+import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
+import { loadStaticFile } from '@/apps/common/modules/common/services/file.service';
+import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';
 export default {
   name: 'default_CostumePage',
   components: { ReleasePage, Loader },

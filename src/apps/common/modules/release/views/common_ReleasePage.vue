@@ -1,7 +1,8 @@
 <template>
-  <section class="release-page inner-container main-pad-y flex column height-all width-all flex column">
+  <section class="release-page inner-container main-pad-y flex-1 flex column height-all width-all flex column">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
     <ItemSearchList
+      class="flex-1 height-all"
       :itemsData="allReleasesData"
       :initFilterBy="filterBy"
       @filter="getAllReleases"

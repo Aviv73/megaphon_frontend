@@ -1,9 +1,9 @@
+import Home from './views/cellcomTv_Home.vue';
+import About from './views/cellcomTv_About.vue';
+
 import ReleaseApp from './views/cellcomTv_ReleaseApp.vue';
 import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';
 import ReleaseDetails from './views/cellcomTv_ReleaseDetails.vue';
-
-import Home from './views/cellcomTv_Home';
-import About from './views/cellcomTv_About';
 
 export default [
   {
