@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20">
+  <form @submit.prevent="emitFilter" class="common-release-filter width-all flex align-center space-between gap20">
     <ToggleModal class="small-screen-item" :fullScreen="true">
       <template #toggler>
         <div class="btn">
@@ -84,8 +84,8 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.default-app {
-  .release-filter {
+// .default-app {
+  .common-release-filter {
     .filter-icon-img {
       width: 15px;
       height: 15px;
@@ -115,5 +115,5 @@ export default {
       }
     }
   }
-}
+// }
 </style>

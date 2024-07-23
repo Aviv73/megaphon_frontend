@@ -1,6 +1,7 @@
 <template>
-  <section class="release-page inner-container main-pad-y flex-1 flex column height-all width-all flex column">
+  <section class="common-release-page inner-container main-pad-y flex-1 flex column gap30 height-all width-all flex column">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
+    <ReleasesSlider :releases="allReleasesData.items"/>
     <ItemSearchList
       class="flex-1 height-all"
       :itemsData="allReleasesData"
@@ -20,6 +21,7 @@ import ReleasePreview from '../cmps/common_ReleasePreview.vue';
 import ReleaseFilter from '../cmps/common_ReleaseFilter.vue'
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue';
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
+import ReleasesSlider from '../cmps/ReleasesSlider.vue';
 export default {
   name: 'common_ReleasePage',
   data() {
@@ -32,7 +34,7 @@ export default {
     getAllReleases(filterBy) {
       const filterToSend = JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) }));
       // filterToSend.params.page = this.page;
-      this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.orgFilter.releaseFilter });
+      this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.routeItem.releaseFilter });
     }
   },
   computed: {
@@ -56,10 +58,10 @@ export default {
     allRouteFilters() {
       return this.org?.routes || [];
     },
-    orgFilter() {
+    routeItem() {
       const typeName = this.releasePageInQuery;
-      const filterItem = this.allRouteFilters.find(c => c.name === typeName) || {};
-      return filterItem;
+      const routeItem = this.allRouteFilters.find(c => c.name === typeName) || {};
+      return routeItem;
     }
   },
   created() {
@@ -93,13 +95,13 @@ export default {
       }
     }
   },
-  components: { ReleasePreview, ReleaseFilter, ItemSearchList, Loader }
+  components: { ReleasePreview, ReleaseFilter, ItemSearchList, Loader, ReleasesSlider }
 }
 </script>
 
 <style lang="scss">
-.default-app {
-  .release-page {
+// .default-app {
+  .common-release-page {
     .item-page {
       overflow: unset;
       .item-list {
@@ -107,5 +109,5 @@ export default {
       }
     }
   }
-}
+// }
 </style>

@@ -11,6 +11,6 @@ export default {
   params: {
     organizationId: '',
     appName: 'cellcom-tv-app',
-    title: 'CellkomTv'
+    title: 'cellcom-tv'
   }
 }

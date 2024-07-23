@@ -55,7 +55,7 @@ export default {
     
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.cellcom-tv-app {
+.default-app {
   .release-details {
   }
 }

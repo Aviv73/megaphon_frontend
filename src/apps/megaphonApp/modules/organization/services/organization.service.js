@@ -84,7 +84,7 @@ function searchOrganizations(filterBy) {
 
 
 function createEmptyReleaseTypeItem(name = '', isGroup = false) {
-  return { name, id: getRandomId(), followReleaseType: '', /* fileUrl: '', */ dataFieldsStr: '', isGroup };
+  return { name, id: getRandomId(), followReleaseType: '', /* fileUrl: '', */ dataFieldsLocalFilePath: '', isGroup };
 }
 function createEmptyRouteItem(name = '', releaseTypes = []) {
   return { name, releaseFilter: {releaseTypes, wasDistributed: undefined}, id: getRandomId(), showInRoles: ['admin', 'producer'], htmlContentFilePath: '' };

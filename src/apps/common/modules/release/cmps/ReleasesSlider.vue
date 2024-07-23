@@ -4,23 +4,21 @@
       <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)"> -->
       <div class="img"></div>
     </button>
-    <div v-if="viewdChild" class="flex-1">
-      <div class="hero-main flex gap30 width-all align-center">
-        <img class="main-img" :src="imgToRender" :alt="viewdChild.title"/>
-        <div class="hero-content flex column align-start gap20">
-          <div class="content-container flex column align-start gap20">
-            <h2>{{viewdChild.title}}</h2>
-            <div v-html="viewdChild.content || viewdChild.desc"></div>
-          </div>
-          <hr/>
-          <router-link :to="routeToPage">
-            <button class="flex align-center gap5">
-              <span>
-                לפרטים 
-              </span>
-            </button>
-          </router-link>
+    <div v-if="viewdChild" class="hero-main flex-1 flex gap30 width-all align-center">
+      <img class="main-img" :src="imgToRender" :alt="viewdChild.title"/>
+      <div class="hero-content flex column align-start gap20">
+        <div class="content-container flex column align-start gap20">
+          <h2>{{viewdChild.title}}</h2>
+          <div v-html="viewdChild.content || viewdChild.desc"></div>
         </div>
+        <hr/>
+        <router-link :to="routeToPage">
+          <button class="flex align-center gap5">
+            <span>
+              לפרטים 
+            </span>
+          </button>
+        </router-link>
       </div>
     </div>
     <button class="arrow-btn minus" @click="shiftChild(1)">
@@ -69,7 +67,7 @@ export default {
     },
 
     routeToPage() {
-      return this.getReleasePageRoute ? this.getReleasePageRoute(this.viewdChild) : { params: {id: this.viewdChild._id} };
+      return this.getReleasePageRoute ? this.getReleasePageRoute(this.viewdChild) : { name: 'ReleaseDetails', params: {id: this.viewdChild._id} };
     }
   },
   watch: {

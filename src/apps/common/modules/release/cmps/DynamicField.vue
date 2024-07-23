@@ -268,7 +268,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.megaphon-app {
+// .megaphon-app {
   .dynamic-field {
    
     
@@ -293,5 +293,5 @@ export default {
       cursor: pointer;
     }
   }
-}
+// }
 </style>

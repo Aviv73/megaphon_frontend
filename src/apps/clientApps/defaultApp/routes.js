@@ -1,6 +1,6 @@
 import Home from './views/default_Home.vue';
 import About from './views/default_About.vue';
-import CostumePage from './views/default_CostumePage.vue';
+import CostumePage from '@/apps/common/modules/common/views/common_CostumePage.vue';
 
 import ReleaseApp from './views/default_ReleaseApp.vue';
 import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';

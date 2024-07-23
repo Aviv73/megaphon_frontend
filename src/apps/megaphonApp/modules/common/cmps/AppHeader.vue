@@ -84,6 +84,7 @@ export default {
       if (!OrgInUser) return [];
       return this.organization?.routes
         .filter(c => !c.htmlContentFilePath)
+        .filter(c => !((c.showInRoles.length === 1) && c.showInRoles[0] === 'client'))
         .filter(c => c.showInRoles.find(role => OrgInUser.roles?.includes(role))) || [];
     },
     showNavContent() {

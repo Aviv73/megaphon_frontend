@@ -118,7 +118,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 @import '../assets/style/index';
-.cellcom-tv-app {
+.cellcomTv-app {
   .group-release-details {
     padding-bottom: $main-pad-y;
   
@@ -198,7 +198,7 @@ export default {
       }
 
       .release-hero-view {
-        padding: em(0px);
+        padding: em(5px);
         width: 100%;
       }
     }

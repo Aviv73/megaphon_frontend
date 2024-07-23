@@ -1,6 +1,6 @@
 <template>
   <ReleasePage v-if="isReleasePage"/>
-  <div v-else class="default-release-page container release-app inner-app">
+  <div v-else class="container release-app inner-app">
     <Loader v-if="isLoading" :fullScreen="true"/>
     <div class="inner-app-content" v-else v-html="loadedHtml"></div>
     <!-- <iframe :src="'/apps/' + this.htmlFilePath" frameborder="0"></iframe> -->
@@ -12,7 +12,7 @@ import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import { loadStaticFile } from '@/apps/common/modules/common/services/file.service';
 import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';
 export default {
-  name: 'default_CostumePage',
+  name: 'common_CostumePage',
   components: { ReleasePage, Loader },
   data() {
     return {
@@ -28,7 +28,7 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     allRouteFilters() {
-      return this.org?.routes || [];
+      return this.org?.routes?.filter(c => c.showInRoles?.includes('client')) || [];
     },
     routeItem() {
       return this.allRouteFilters.find(c => c.name === this.pageNameInRoute) || {};

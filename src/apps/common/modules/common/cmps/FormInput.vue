@@ -14,6 +14,7 @@
       }"
     >
       <input
+        class="actual-input"
         v-if="['input', 'autocomplete'].includes(componentType)"
         :list="componentType === 'autocomplete' ? 'autocomplete-datalist-' + this.inputId : ''"
         ref="elInput"
@@ -29,6 +30,7 @@
         :accept="accept"
       />
       <textarea
+        class="actual-input"
         v-else-if="componentType === 'textarea'"
         ref="elInput"
         :disabled="disabled"
@@ -39,6 +41,7 @@
       />
 
       <select
+        class="actual-input"
         v-else-if="componentType === '_select'"
         ref="elInput"
         :disabled="disabled"
@@ -69,7 +72,7 @@
         :id="inputId"
         :class="{ open: isOpen }"
         @blur="closeDropDown"
-        class="select"
+        class="select actual-input"
       >
         <div v-if="isOpen" @click="autoCloseSelect" class="blur"></div>
         <div @click="isOpen = !isOpen" style="height:100%;display:flex;align-items:center;gap:10px" class="head" >
@@ -129,6 +132,7 @@
 
       <template v-else-if="['file'].includes(componentType)">
         <input
+          class="actual-input"
           type="file"
           ref="elInput"
           :disabled="disabled"

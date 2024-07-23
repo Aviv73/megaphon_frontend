@@ -1,6 +1,8 @@
 <template>
   <footer class="app-footer flex column">
-    <!-- FOOTER -->
+    <div class="container">
+      FOOTER
+    </div>
   </footer>
 </template>
 
@@ -12,7 +14,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.cellcom-tv-app {
+.cellcomTv-app {
   .app-footer {
 
   }

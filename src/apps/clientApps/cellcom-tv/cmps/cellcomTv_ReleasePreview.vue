@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.cellcom-tv-app {
+.cellcomTv-app {
   .release-preview {
     position: relative;
     width: 220px;

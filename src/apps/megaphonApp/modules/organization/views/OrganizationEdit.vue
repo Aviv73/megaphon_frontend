@@ -84,18 +84,10 @@
 
       <h2 @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</h2>
       <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
-        
-        <div class="input-container flex gap20">
-          <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
-        </div>
-        <div class="input-container flex gap20">
-          <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
-        </div>
-
-        <div class="input-container flex gap20">
-          <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
-        </div>
-
+        <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
+        <FormInput type="text" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp"/>
+        <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
+        <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
         <div class="route-filters-section flex column gap20 align-start">
           <p>{{$t('organization.routes')}}</p>
           <ul class="flex column gap10 table-like">
@@ -103,6 +95,7 @@
               <p>{{$t('title')}}</p>
               <p>{{$t('releaseTypes')}}</p>
               <p>{{$t('wasDistributed')}}</p>
+              <p>{{$t('deepEditFilter')}}</p>
               <p>{{$t('htmlContentFilePath')}}</p>
               <p>{{$t('showInRoles')}}</p>
               <p></p>
@@ -111,6 +104,16 @@
               <FormInput type="text" placeholder="name" v-model="curr.name"/>
               <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseFilter.releaseTypes"/>
               <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.releaseFilter.wasDistributed"/>
+              <ToggleModal :fullScreen="true" class="filter-modal">
+                <template #toggler>
+                  <div class="btn">
+                    {{$t('edit')}}
+                  </div>
+                </template>
+                <template #content>
+                  <FormInput type="textarea" class="ltr" placeholder="deepEditFilter" :value="JSON.stringify(curr.releaseFilter.filter || {}, null, 2)" @input="val => curr.releaseFilter.filter=JSON.parse(val)"/>
+                </template>
+              </ToggleModal>
               <FormInput type="text" placeholder="htmlContentFilePath" v-model="curr.htmlContentFilePath"/>
               <FormInput type="multiselect" :items="userRolesToSelect" placeholder="showInRoles" v-model="curr.showInRoles"/>
               <TableActionBtns v-model="organizationToEdit.routes" :idx="idx"/>
@@ -212,6 +215,7 @@ import { templateUtils } from '../../../../common/modules/common/services/templa
 import { organizationService } from '../services/organization.service';
 import consts from '@/apps/common/modules/common/services/const.service.js';
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
+import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 export default {
   name: 'OrganizationEdit',
   data() {
@@ -310,7 +314,8 @@ export default {
     // ImgInput,
     FileUploader,
     TableActionBtns,
-    Loader
+    Loader,
+    ToggleModal
   }
 }
 </script>
@@ -385,6 +390,17 @@ export default {
       }
       .form-input {
         flex: 1;
+      }
+    }
+
+    .filter-modal {
+      .actual-input {
+        width: 60vw;
+        height: 60vh;
+        .input {
+          width: 100%;
+          height: 100% !important;
+        }
       }
     }
   }

@@ -46,7 +46,6 @@ const heF = {
     }
   }
 }
-
 export default {
   en,
   he,

@@ -13,22 +13,17 @@
 
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
       <NavOrBurger :showBurger="!!allRouteFilters.length">
-        <router-link 
-          v-for="filterItem in allRouteFilters" :key="filterItem.id"
-          :to="{ name: 'CostumePage', query: { page: filterItem.name  } }"
-          class="nav-item" 
-        >
-          {{filterItem.name}}
-        </router-link>
+        <CostumeNavBar/>
       </NavOrBurger>
     </div>
   </header>
 </template>
 
 <script>
+import CostumeNavBar from '../../../common/modules/common/cmps/CostumeNavBar.vue';
 import NavOrBurger from '../../../common/modules/common/cmps/NavOrBurger.vue';
 export default {
-  components: { NavOrBurger },
+  components: { NavOrBurger, CostumeNavBar },
   name: 'default_AppHeader',
   computed: {
     // initReleaseId() {
@@ -82,7 +77,7 @@ export default {
   .app-header {
     font-weight: 600;
     // background-color: $layout-black;
-    position: relative;
+    // position: relative;
 
     box-shadow: $light-shadow;
   
@@ -103,17 +98,6 @@ export default {
       height: $header-height;
       .actual {
         height: 100%;
-      }
-    }
-  
-  
-    nav {
-      flex-wrap: wrap;
-      a {
-        &:hover {
-          transform: scale(1.05);
-          transition: 0.1s;
-        }
       }
     }
     

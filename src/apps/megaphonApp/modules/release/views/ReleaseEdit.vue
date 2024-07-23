@@ -100,7 +100,7 @@ export default {
       this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.orgId, releaseType: this.releaseType });
     },
     async getOrg() {
-      this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId });
+      this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId, isToInheritData: true });
     },
     async getItem() {
       this.itemToEdit = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id, organizationId: this.orgId });
