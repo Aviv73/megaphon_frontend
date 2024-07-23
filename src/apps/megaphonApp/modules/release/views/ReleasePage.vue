@@ -173,21 +173,21 @@ export default {
     
     .releases-slider {
       .arrow-btn {
-        height: em(50px);
+        // height: em(50px);
         // position: absolute;
-        background-color: unset;
-        border-radius: unset;
-        box-shadow: $light-shadow;
+        // background-color: unset;
+        // border-radius: unset;
+        // box-shadow: $light-shadow;
         .img {
-          background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow.svg') no-repeat center / contain;
+          background-image: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_white.svg');
         }
         &.plus {
           // right: em(10px);
-          transform: unset;
+          // transform: unset;
         }
         &.minus {
           // left: em(10px);
-          transform: rotate(180deg);
+          // transform: rotate(180deg);
         }
       }
       color: white;

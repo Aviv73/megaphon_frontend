@@ -139,26 +139,27 @@ export default {
   
   .arrow-btn {
     width: em(30px);
-    // height: em(50px);
-    height: em(30px);
-    background-color: hsla(0, 0%, 0%, 0.25);
-    border-radius: 50%;
+    height: em(50px);
+    // height: em(30px);
+    // background-color: hsla(0, 0%, 0%, 0.25);
+    // border-radius: 50%;
     // box-shadow: $light-shadow;
     overflow: hidden;
     position: absolute;
     .img {
       width: 100%;
       height: 100%;
-      // background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow.svg') no-repeat center / contain;
-      background: url('~@/apps/clientApps/agam/assets/images/pageArrow.svg') no-repeat center / contain;
+      background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_black.svg') no-repeat center / contain;
+      // background: url('~@/apps/clientApps/agam/assets/images/pageArrow.svg') no-repeat center / contain;
       // background-size: 100%;
     }
     &.plus {
       right: em(5px);
-      transform: rotate(180deg);
+      // transform: rotate(180deg);
     }
     &.minus {
       left: em(5px);
+      transform: rotate(180deg);
     }
     // img {
     //   width: 100%;
