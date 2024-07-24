@@ -23,10 +23,10 @@
             :key="field.fieldName"
             :dataField="field"
             :basePath___="field.fieldName"
-            :basePath="field.fieldName? `${basePath}.${field.fieldName}` : basePath"
+            :basePath="[basePath, field?.fieldName].filter(Boolean).join('.')"
             :organization="organization"
             :parentItem="parentItem"
-            :value="field.fieldName? getVal(parentItem, `${basePath}.${field.fieldName}`) : parentItem"
+            :value="(field?.fieldName)? getVal(parentItem, [basePath, field?.fieldName].filter(Boolean).join('.')) : parentItem"
             @input="(val, path) => $emit('input', val, path)"
           />
         </template>
