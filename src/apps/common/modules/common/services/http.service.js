@@ -19,7 +19,10 @@ async function ajax(endpoint = '', method = 'get', data = {}, params = {}, heade
       method,
       data,
       params,
-      headers,
+      headers: {
+        ...headers,
+        'client-location': window.location.href
+      },
       withCredentials: true
     });
     return res.data;

@@ -12,7 +12,7 @@
     </form>
     <ToggleModal>
       <template v-slot:toggler>
-        <button class="btn">{{$t('auth.forgotPassword')}}</button>
+        <button class="btn" @click="forgotEmailEmail = userCred.email">{{$t('auth.forgotPassword')}}</button>
       </template>
       <template v-slot:content>
         <form @submit.prevent="sendNewPasswordEmail" class="simple-form align-center gap30">
@@ -48,6 +48,7 @@ export default {
   methods: {
     async login() {
       if (!this.isUserValid) return;
+      if (this.userCred.username) delete this.userCred.username;
       localStorage.userCred = JSON.stringify(this.userCred);
       await this.$store.dispatch({ type: 'auth/login', cred: this.userCred });
       this.$router.push('/');
