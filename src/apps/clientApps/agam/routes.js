@@ -1,3 +1,6 @@
+
+// import rootCommonRoutes from '../../common/routes';
+
 import Home from './views/agam_Home.vue';
 import About from './views/agam_About.vue';
 
@@ -6,6 +9,7 @@ import ReleasePage from './views/agam_ReleasePage.vue';
 import ReleaseDetails from './views/agam_ReleaseDetails.vue';
 
 export default [
+  // ...rootCommonRoutes,
   {
     path: '/',
     component: Home,

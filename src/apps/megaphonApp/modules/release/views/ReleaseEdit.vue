@@ -72,6 +72,7 @@ export default {
       return !!this.itemToEdit;
     },  
     releaseType() {
+      console.log(this.itemToEdit);
       return this.itemToEdit?.releaseType || this.$route.query.releaseType || '';
     },
 
@@ -97,6 +98,7 @@ export default {
   },
   methods: {
     async loadReleaseDataFields() {
+      console.log(this.releaseType);
       this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.orgId, releaseType: this.releaseType });
     },
     async getOrg() {

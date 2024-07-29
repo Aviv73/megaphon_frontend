@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import GroupReleaseDetails from './cellcomTv_GroupReleaseDetails.vue';
-import SimpleReleaseDetails from './cellcomTv_SimpleReleaseDetails.vue';
+import GroupReleaseDetails from './streamTv_GroupReleaseDetails.vue';
+import SimpleReleaseDetails from './streamTv_SimpleReleaseDetails.vue';
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 
 export default {
-  name: 'cellcomTv_ReleaseDetails',
+  name: 'streamTv_ReleaseDetails',
   methods: {
     getItem() {
       return this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id });

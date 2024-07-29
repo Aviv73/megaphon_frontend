@@ -1,7 +1,7 @@
 import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
 // import appConfig from '@/config.js';
-import selectedAppData from '@/apps/index.js';
+// import selectedAppData from '@/apps/index.js';
 
 const initState = () => ({
   ...basicStoreService.initState(),
@@ -19,7 +19,10 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
     getters: {
       // initReleaseId(state) { return state.initReleaseId },
       // organizationId(state) { return  selectedAppData.params.organizationId || selectedAppData.params.appName || sessionStorage.organizationId || state.organizationId }
-      organizationId(state) { return  selectedAppData.params.subDomain || selectedAppData.params.organizationId }
+      organizationId(state, getters, rootState, rootGetters) { 
+        const selectedAppData = rootGetters.selectedAppData;
+        return  selectedAppData.params.subDomain || selectedAppData.params.organizationId
+      }
     },
     mutations: {
       // setInitReleaseId(state, { id, orgId }) {

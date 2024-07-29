@@ -15,7 +15,7 @@ import CostumeNavBar from '../../../common/modules/common/cmps/CostumeNavBar.vue
 import NavOrBurger from '../../../common/modules/common/cmps/NavOrBurger.vue';
 export default {
   components: { NavOrBurger, CostumeNavBar },
-  name: 'cellcomTv_AppHeader',
+  name: 'streamTv_AppHeader',
   computed: {
     // initReleaseId() {
     //   return this.$store.getters['release/initReleaseId'];
@@ -64,7 +64,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 @import '@/assets/styles/themes/index';
-.cellcomTv-app {
+.streamTv-app {
   .app-header {
     position: sticky;
     top: 0;

@@ -37,7 +37,7 @@ import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue';
 
 export default {
   components: { FilesSection, FilesSection },
-  name: 'cellcomTv_SimpleReleaseDetails',
+  name: 'streamTv_SimpleReleaseDetails',
   props: {
     release: {
       type: Object,
@@ -78,7 +78,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.cellcomTv-app {
+.streamTv-app {
   .simple-release-details {
     .release-page-nav {
       height: fit-content;

@@ -1,7 +1,7 @@
 import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
-// import appConfig from '@/config.js';
-import selectedAppData from '@/apps/index.js';
+import appConfig from '@/appConfig.js';
+// import selectedAppData from '@/apps/index.js';
 import { organizationService } from './organization.service.js';
 
 const initState = () => ({
@@ -14,10 +14,11 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
   initState,
   {
     actions: {
-      loadItem({ commit, dispatch, getters }, { organizationId }) {
+      loadItem({ commit, dispatch, getters, rootGetters }, { organizationId }) {
+        const selectedAppData = rootGetters.selectedAppData;
         return dispatch({
           type: '_Ajax',
-          do: async () => getters.service.get(organizationId || selectedAppData.params.organizationId, undefined, {isToInheritData: true}),
+          do: async () => getters.service.get(organizationId || selectedAppData?.params?.organizationId || appConfig.subDomain, undefined, {isToInheritData: true}),
           onSuccess: (item) => {
             commit({ type: 'setSelectedItem', item })
             commit({ type: 'setProp', key: 'organizationId', val: item._id });

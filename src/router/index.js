@@ -2,13 +2,13 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import commonRoutes from '../apps/common/routes';
-import selectedAppData from '../apps/index.js';
+// import selectedAppData from '../apps/index.js';
 
 Vue.use(VueRouter)
 
 const routes = [
   ...commonRoutes,
-  ...selectedAppData.routes
+  // ...selectedAppData.routes
 ]
 
 export const router = new VueRouter({

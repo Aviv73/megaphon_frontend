@@ -1,29 +1,26 @@
 import appConfig from '../appConfig.js';
 import megaphonAppData from './megaphonApp';
 import AgamAppData from './clientApps/agam';
-import CellcomTvAppData from './clientApps/cellcom-tv';
+import StreamTvAppData from './clientApps/stream-tv';
 import DefaultClientAppData from './clientApps/defaultApp';
 // DefaultClientAppData.params.organizationId = appConfig.appName;
 
-const costumeClientApps = [AgamAppData, CellcomTvAppData];
+export const ClientApps = [DefaultClientAppData, AgamAppData, StreamTvAppData];
 
-export default (() => {
+// export default getSelectedAppData;
+
+export function getSelectedAppData(appName) {
+  console.log('GETTING APP', appName);
   if (appConfig.client) {
-    // return costumeClientApps.find(c => c.params.appName === appConfig.appName) || { ...DefaultClientAppData, params: {...DefaultClientAppData.params, organizationId: appConfig.appName} };
-    // return costumeClientApps.find(c => c.params.appName === appConfig.appName) || DefaultClientAppData;
-    const app = costumeClientApps.find(c => c.params.appName === getAppNameFromDomain(appConfig.subDomain)) || DefaultClientAppData;
-    // app.params.organizationId = appConfig.appName;
+    // const app = ClientApps.find(c => c.name === getAppNameFromDomain(appConfig.subDomain)) || DefaultClientAppData;
+    const app = ClientApps.find(c => appName === c.name) || DefaultClientAppData;
+    if (!app.params) app.params = {};
     app.params.organizationId = appConfig.subDomain;
     app.params.subDomain = appConfig.subDomain;
     return app;
   }
   return megaphonAppData;
-  // if (appConfig.appName) {
-  //   switch (appConfig.appName) {
-  //     case 'agam': return AgamAppData
-  //   }
-  // }
-})();
+}
 
 function getAppNameFromDomain(domainName) {
   const data = [
@@ -32,10 +29,9 @@ function getAppNameFromDomain(domainName) {
       domains: ['agam']
     },
     {
-      appName: 'cellcom-tv-app',
+      appName: 'stream-tv-app',
       domains: ['cellcom-tv']
     }
   ];
-  console.log(domainName, data.find(c => c.domains.includes(domainName))?.appName);
   return data.find(c => c.domains.includes(domainName))?.appName || '';
 }

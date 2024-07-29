@@ -11,7 +11,7 @@
 import CostumeNavBar from '../../../common/modules/common/cmps/CostumeNavBar.vue';
 export default {
   components: { CostumeNavBar },
-  name: "cellcomTv_AppAside",
+  name: "streamTv_AppAside",
   computed: {
     org () {
       return this.$store.getters['organization/selectedItem'] || {};
@@ -22,7 +22,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.cellcomTv-app {
+.streamTv-app {
   .app-aside {
     top: 0;
     max-height: 100vh;

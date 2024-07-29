@@ -2,7 +2,7 @@
   <section class="release-page flex column height-all width-all flex gap20">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
     <ReleasesSlider
-      v-if="false && isUserWatchOnly"
+      v-if="true || isUserWatchOnly"
       :releases="allReleasesData.items"
       :getReleasePageRoute="(release => ({ name: 'ReleaseDetails', params: { id: release._id, organizationId: organizationId } }))"
     />

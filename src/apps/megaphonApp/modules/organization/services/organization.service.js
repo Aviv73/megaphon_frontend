@@ -93,7 +93,7 @@ function createEmptyInnerFilterItem() {
   return { field: '', title: '', options: [], id: getRandomId() };
 }
 function createEmptyTemplateItem() {
-  return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), handlebarsLocalFilePath: '' };
+  return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), handlebarsLocalFilePath: '', appName: '' };
 }
 
 function isUserRoleInOrg(orgId, role, user, isOnlyRole) {
@@ -104,8 +104,7 @@ function isUserRoleInOrg(orgId, role, user, isOnlyRole) {
   return isRole && orgItem?.roles?.length === 1;
 }
 function isUserWatchOnly(orgId, user) {
-  return false;
-  // return false;
+  return true;
   return isUserRoleInOrg(orgId, 'client', user, true);
 }
 function isOrgPending(orgId, user) {
@@ -154,8 +153,8 @@ function getEmptyOrganization() {
     // routes: JSON.parse(JSON.stringify(templateUtils.DEFAULY_TEMPLATES_DATA.routes)),
     // releaseTypes: JSON.parse(JSON.stringify(templateUtils.DEFAULY_TEMPLATES_DATA.releaseTypes)),
     releaseTypes: [
-      {...createEmptyReleaseTypeItem('רליס', false), followReleaseType: templateUtils.DEFAULY_TEMPLATES_DATA.releaseTypes[0].id},
-      {...createEmptyReleaseTypeItem('רליס קבוצתי', true), followReleaseType: templateUtils.DEFAULY_TEMPLATES_DATA.releaseTypes[1].id}
+      {...createEmptyReleaseTypeItem('רליס', false), followReleaseType: templateUtils?.DEFAULY_TEMPLATES_DATA?.releaseTypes?.[0]?.id},
+      {...createEmptyReleaseTypeItem('רליס קבוצתי', true), followReleaseType: templateUtils?.DEFAULY_TEMPLATES_DATA?.releaseTypes?.[1]?.id}
     ],
 
     templates: [/* { name: '', type: enum('0' => page, '1' => email), releaseTypes: [releaseTypesIds], handlebarsLocalFilePath: '', url: '', id: '', hadlebarsFileStr: 'NOT IN USE', appName: '' , previewUrl: 'NOT_IN_USE' } */],

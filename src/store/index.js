@@ -1,30 +1,38 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import commonStore from '../apps/common/store'
-import selectedAppData from '../apps/index.js';
+// import commonStore from '../apps/common/store'
+// import selectedAppData from '../apps/index.js';
 
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isScreenWide: false
+    isScreenWide: false,
+    selectedAppData: null
   },
   getters: {
     isScreenWide(state) {
       return state.isScreenWide;
+    },
+    selectedAppData(state) {
+      return state.selectedAppData;
     }
   },
   mutations: {
     setIsScreenWide(state) {
       state.isScreenWide = window.innerWidth > 900; // small-screen-breake
+    },
+    setSelectedAppData(state, { selectedAppData }) {
+      state.selectedAppData = selectedAppData;
     }
   },
   actions: {
   },
   modules: {
-    ...commonStore,
-    ...selectedAppData.store
+    // initializing common store on App.vue so it can be removed;
+    // ...commonStore,
+    // ...selectedAppData.store
   }
 })

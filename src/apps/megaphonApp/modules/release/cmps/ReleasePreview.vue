@@ -21,6 +21,9 @@ import { templateUtils } from '../../../../common/modules/common/services/templa
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 import { organizationService } from '../../organization/services/organization.service';
+
+import config from '@/config';
+
 export default {
   components: { DragDiv },
   name: 'ReleasePreview',
@@ -71,7 +74,7 @@ export default {
       return organizationService.isUserRoleInOrg(this.organization?._id, role, this.loggedUser);
     },
     goToLandingPage() {
-      const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, false);
+      const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, false, config);
       window.open(pageUrl);
     },
     toggleToSelectedReleases(isDraging) {

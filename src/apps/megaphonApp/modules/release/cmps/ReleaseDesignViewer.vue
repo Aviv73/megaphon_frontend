@@ -10,7 +10,7 @@
         {value: 'tablet', img: require('@/apps/megaphonApp/assets/images/devices/tablet.jpg')},
         {value: 'mobile', img: require('@/apps/megaphonApp/assets/images/devices/mobile.png')},
       ]"/>
-      <!-- <FormInput
+      <FormInput
         :debug="true"
         type="select"
         :value="release.design[designTypeKey] || allTemplates[0]?.id || ''"
@@ -19,7 +19,7 @@
           allTemplates
             .map(c => ({ label: c.name, value: c.id }))
         "
-      /> -->
+      />
     </div>
     <iframe v-if="landingPageUrl" :style="iframeStyle" :src="landingPageUrl" frameborder="0"></iframe>
     <p v-else>{{$t('noMatchingDesign')}}</p>
@@ -30,6 +30,9 @@
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
+
+import config from '@/config';
+
 export default {
   name: 'ReleaseDesignViewer',
   components: { ToggleBtns, FormInput },
@@ -53,7 +56,7 @@ export default {
     },
     landingPageUrl() {
       // console.log(this.selectedDesignTypeToShow, typeof (this.selectedDesignTypeToShow));
-      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow === '1') + '?selectedDesignID=' + this.release.design[this.designTypeKey];
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow === '1', config) + '?selectedDesignID=' + this.release.design[this.designTypeKey];
     },
     allTemplates() {
       return templateUtils.getAllRelevantTemplatesForReleaseType(this.release.releaseType, this.organization, this.selectedDesignTypeToShow == '1', true);

@@ -10,7 +10,8 @@
       </div>
     </div>
     <AppFooter/> -->
-    <SelectedApp/>
+    <!-- <SelectedApp/> -->
+    <component v-if="selectedApp" :is="selectedApp"/>
     <Loader v-if="isLoading" :msg="showSleepMsg? $t('serverSleepsMsg') : ''"/>
   </div>
 </template>
@@ -26,13 +27,17 @@ import { alertService } from '@/apps/common/modules/common/services/alert.servic
 
 import appConfig from './appConfig';
 
-import selectedAppData from './apps/index.js';
+// import selectedAppData from './apps/index.js';
+import { getSelectedAppData } from './apps/index.js';
 import { distributionService } from './apps/megaphonApp/modules/release/services/distribution.service';
+
+
+import commonStoreModules from './apps/common/store'
 
 export default {
   name: 'App',
   components: {
-    SelectedApp: selectedAppData.app,
+    // SelectedApp: selectedAppData.app,
     // AppHeader,
     // AppFooter,
     // AppAside,
@@ -42,9 +47,13 @@ export default {
     return {
       isLoading: false,
       showSleepMsg: false,
+      selectedAppData: null
     }
   },
   computed: {
+    selectedApp() {
+      return this.selectedAppData?.app
+    },
     uiConfig() {
       return this.$store.getters['settings/uiConfig'];
     },
@@ -63,6 +72,7 @@ export default {
     }
   },
   async created() {
+    await this.initCommonStore();
 
     this.$store.commit('setIsScreenWide');
     window.addEventListener('resize', () => this.$store.commit('setIsScreenWide'));
@@ -72,12 +82,15 @@ export default {
     evEmmiter.on('app_config_update', this.displayUiConfig);
     evEmmiter.on('set_locale', this.setLocale);
 
+
     if (!appConfig.client) {
+      await this.initSelectedApp();
       return;
     }
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
+    await this.initSelectedApp(org);
     // document.title = org.name;
-    if (selectedAppData?.params?.title) document.title = selectedAppData.params.title;
+    if (this.selectedAppData?.params?.title) document.title = this.selectedAppData.params.title;
     // this.setOrgStyling(org);
 
     if (this.$route.meta.reportReleaseOpen) {
@@ -110,6 +123,31 @@ export default {
       });
       if (config.accessabilityMode) document.querySelector('html').classList.add('accessability');
       else document.querySelector('html').classList.remove('accessability');
+    },
+
+    async initCommonStore() {
+      for (let moduleName in commonStoreModules) {
+        this.$store.registerModule(moduleName, commonStoreModules[moduleName]);
+      }
+    },
+    async initSelectedApp(org) {
+      const selectedAppData = getSelectedAppData(org?.clientApp);
+      for (let moduleName in selectedAppData.store) {
+        if (this.$store.hasModule(moduleName)) {
+          await this.$store.unregisterModule(moduleName);
+        } 
+        this.$store.registerModule(moduleName, selectedAppData.store[moduleName]);
+      }
+      // init routes::
+      selectedAppData.routes.forEach(route => this.$router.addRoute(route));
+      // init locales::
+      for (let [locale, messages] of Object.entries(selectedAppData.locales)) {
+        const existedLocMsgs = this.$i18n.getLocaleMessage(locale) || {};
+        this.$i18n.setLocaleMessage(locale, { ...existedLocMsgs, ...messages });
+      }
+
+      this.$store.commit({ type: 'setSelectedAppData', selectedAppData});
+      this.selectedAppData = selectedAppData;
     }
   }
 }

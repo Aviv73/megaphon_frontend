@@ -1,13 +1,13 @@
 <template>
   <div class="releases-slider flex align-center justify-center gap15">
-    <button class="arrow-btn plus" @click="shiftChild(-1)">
+    <button v-if="viewMoveBtns" class="arrow-btn plus" @click="shiftChild(-1)">
       <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)"> -->
       <div class="img"></div>
     </button>
     <div v-if="viewdChild" class="hero-main flex-1 flex gap30 width-all align-center">
       <img class="main-img" :src="imgToRender" :alt="viewdChild.title"/>
       <div class="hero-content flex column align-start gap20">
-        <div class="content-container flex column align-start gap20">
+        <div class="content-container pretty-scroll flex column align-start gap20">
           <h2>{{viewdChild.title}}</h2>
           <div v-html="viewdChild.content || viewdChild.desc"></div>
         </div>
@@ -21,7 +21,7 @@
         </router-link>
       </div>
     </div>
-    <button class="arrow-btn minus" @click="shiftChild(1)">
+    <button v-if="viewMoveBtns" class="arrow-btn minus" @click="shiftChild(1)">
       <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'"> -->
       <div class="img"></div>
     </button>
@@ -68,6 +68,10 @@ export default {
 
     routeToPage() {
       return this.getReleasePageRoute ? this.getReleasePageRoute(this.viewdChild) : { name: 'ReleaseDetails', params: {id: this.viewdChild._id} };
+    },
+
+    viewMoveBtns() {
+      return !!(this.releases?.length > 1);
     }
   },
   watch: {
@@ -112,6 +116,7 @@ export default {
       // height: em(200px);
       flex: 1;
       overflow-y: auto;
+      padding-inline-end: em(10px);
       word-break: break-word;
     }
 

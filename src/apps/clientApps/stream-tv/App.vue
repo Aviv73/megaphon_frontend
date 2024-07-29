@@ -1,5 +1,5 @@
 <template>
-  <div class="app cellcomTv-app">
+  <div class="app streamTv-app">
     <div class="app-content container_">
       <AppAside class="left"/>
       <div class="right">
@@ -16,15 +16,15 @@
 <script>
 import './assets/style/index.scss';
 
-import AppHeader from './cmps/cellcomTv_AppHeader.vue';
-import AppFooter from './cmps/cellcomTv_AppFooter.vue';
-import AppAside from './cmps/cellcomTv_AppAside.vue';
+import AppHeader from './cmps/streamTv_AppHeader.vue';
+import AppFooter from './cmps/streamTv_AppFooter.vue';
+import AppAside from './cmps/streamTv_AppAside.vue';
 
 import { setDynamicStylingEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 
 
 export default {
-  name: 'cellcomTvApp',
+  name: 'streamTvApp',
   components: {
     AppHeader,
     AppFooter,
@@ -33,7 +33,7 @@ export default {
   methods: {
     async setOrgStyling() {
       const org = await this.$store.dispatch({type: 'organization/loadItem'});
-      setDynamicStylingEl(org, '.cellcomTv-app');
+      setDynamicStylingEl(org, '.streamTv-app');
     }
   },
   created() {

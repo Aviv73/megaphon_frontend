@@ -15,6 +15,7 @@ const en = {
     "viewAllAccounts": "View all accounts",
     "inviteAccounts": "Invite accounts",
     "isPandingForApproval": "Panding for approval",
+    "newsletter": "Newsletter",
     mailing: {
       "whatsapp": "WhatsApp",
       "newsletter": "Newsletter",
@@ -44,6 +45,7 @@ const he = {
     "viewAllAccounts": "הצג את כל משתמשי המערכת",
     "inviteAccounts": "הזמן משתמשים",
     "isPandingForApproval": "ממתין לאישור",
+    "newsletter": "ניוזלטר",
     mailing: {
       "whatsapp": "וואטסאפ",
       "newsletter": "ניוזלטר",

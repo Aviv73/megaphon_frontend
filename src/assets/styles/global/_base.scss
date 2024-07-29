@@ -90,22 +90,25 @@ h4 {
 
 
 
-// ::-webkit-scrollbar {
-//   margin-left: 2.5px;
-//   padding: 1px;
-//   width: 5px;
-//   /* background-color: rgb(255, 137, 137); */
-//   background-color: rgb(228, 59, 59);
-// }
-// ::-webkit-scrollbar-thumb {
-//   /* width: 5px; */
-//   /* background-color: rgb(255, 239, 149); */
-//   background-color: rgb(255, 137, 137);
-//   border-radius: 10px;
-  
-// }
-// ::-webkit-scrollbar-button {
-//   /* width: 5px; */
-//   /* background-color: blue; */
-//   background-color: rgb(228, 59, 59);
-// }
+.pretty-scroll {
+  &::-webkit-scrollbar {
+    margin-left: 2.5px;
+    padding: 1px;
+    width: 5px;
+    background-color: rgb(83, 83, 83); // rgb(228, 59, 59) // rgb(255, 137, 137)
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    /* width: 5px; */
+    background-color: rgb(60, 60, 60); // rgb(255, 137, 137) // rgb(255, 239, 149)
+    border-radius: 10px;
+    
+  }
+  &::-webkit-scrollbar-button {
+    height: 0px;
+    /* width: 0px; */
+    /* background-color: blue; */
+    border-radius: 10px;
+    background-color: rgb(83, 83, 83); // rgb(228, 59, 59)
+  }
+}

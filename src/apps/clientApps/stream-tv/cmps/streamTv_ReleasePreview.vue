@@ -13,7 +13,7 @@ import { htmlStrToText } from '@/apps/common/modules/common/services/util.servic
 import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 import { cropText } from '@/apps/common/modules/common/services/util.service';
 export default {
-  name: 'cellcomTv_ReleasePreview',
+  name: 'streamTv_ReleasePreview',
   props: {
     item: {
       type: Object,
@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.cellcomTv-app {
+.streamTv-app {
   .release-preview {
     position: relative;
     width: 220px;

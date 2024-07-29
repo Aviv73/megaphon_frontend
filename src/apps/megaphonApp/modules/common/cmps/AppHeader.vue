@@ -318,6 +318,22 @@ export default {
       }
     }
   }
+
+  .logged-user-preview {
+    .actions-section {
+      .actions-modal {
+        .top-like {
+          // display: none;
+          top: 50%;
+          left: 0;
+          transform: translate(-50%, -50%) rotate(45deg);
+        }
+        left: calc(100% + #{em(10px)});
+        transform: translateY(50%);
+        bottom: 50%;
+      }
+    }
+  }
 }
 
 </style>

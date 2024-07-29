@@ -1,13 +1,13 @@
 <template>
-  <div class="home-page container flex-center height-all">
+  <div class="about-page container flex-center height-all">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'cellcomTv_Home',
+  name: 'streamTv_about',
   created() {
-    // const releaseId = this.$store.getters['release/initReleaseId'];
+    const releaseId = this.$store.getters['release/initReleaseId'];
     this.$router.push({
       // name: releaseId? 'ReleaseDetails' : 'AboutPage',
       // params: {id: releaseId}

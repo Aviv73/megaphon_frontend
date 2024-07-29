@@ -8,13 +8,13 @@
 
 <script>
 export default {
-  name: "cellcomTv_AppFooter",
+  name: "streamTv_AppFooter",
 }
 </script>
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.cellcomTv-app {
+.streamTv-app {
   .app-footer {
 
   }

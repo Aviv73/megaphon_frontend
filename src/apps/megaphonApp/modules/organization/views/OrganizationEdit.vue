@@ -85,7 +85,7 @@
       <h2 @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</h2>
       <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
         <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
-        <FormInput type="text" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp"/>
+        <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
         <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
         <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
         <div class="route-filters-section flex column gap20 align-start">
@@ -174,6 +174,7 @@
               <p>{{$t('releaseTypes')}}</p>
               <p>{{$t('templateType')}}</p>
               <p>{{$t('hadlebarsFilePath')}}</p>
+              <p>{{$t('appName')}}</p>
               <p>{{$t('url')}}</p>
               <!-- <p>{{$t('previewUrl')}}</p> -->
               <!-- <p>{{$t('appName')}}</p> -->
@@ -184,6 +185,7 @@
               <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
               <FormInput type="select" :itemsMap="{landingPage: '0', newsLetter: '1'}" placeholder="templateType" v-model="curr.type"/>
               <FormInput type="text" placeholder="hadlebarsFilePath" v-model="curr.handlebarsLocalFilePath"/>
+              <FormInput type="select" :items="allClientAppsNames" placeholder="appName" v-model="curr.appName"/>
               <FormInput type="text" placeholder="url" v-model="curr.url"/>
               <!-- <FormInput type="text" placeholder="previewUrl" v-model="curr.previewUrl"/> -->
               <!-- <FormInput type="text" placeholder="appName" v-model="curr.appName"/> -->
@@ -216,6 +218,7 @@ import { organizationService } from '../services/organization.service';
 import consts from '@/apps/common/modules/common/services/const.service.js';
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
+import { ClientApps } from '../../../..';
 export default {
   name: 'OrganizationEdit',
   data() {
@@ -250,6 +253,10 @@ export default {
     },
     isLoading() {
       return this.$store.getters['organization/isLoading'];
+    },
+
+    allClientAppsNames() {
+      return [...ClientApps.map(c => c.name), {label: '- None -', value: ''}];
     }
   },
   methods: {

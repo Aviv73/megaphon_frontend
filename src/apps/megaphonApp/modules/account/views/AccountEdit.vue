@@ -10,7 +10,7 @@
       <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
 
       <div class="flex column gap5 mailing-section">
-        <h4>{{$t('account.createAccount')}}</h4>
+        <h4>{{$t('account.newsletter')}}</h4>
         <FormInput type="checkbox" labelholder="account.mailing.whatsapp" v-model="accountToEdit.mailing.whatsApp"/>
         <FormInput type="checkbox" labelholder="account.mailing.newsletter" v-model="accountToEdit.mailing.newsletter"/>
         <FormInput type="checkbox" labelholder="account.mailing.unsubscribeMsg" v-model="accountToEdit.mailing.unsubscribed"/>

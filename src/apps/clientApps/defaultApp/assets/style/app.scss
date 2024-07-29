@@ -1,9 +1,4 @@
 
-@font-face {
-  font-family: "noylandBold";
-  src: url("~@/apps/clientApps/defaultApp/assets/fonts/noyland/noyland-bold-aaa.ttf");
-}
-
 // $defaultAppFont: Segoe UI;
 $defaultAppFont: Rubik,sans-serif;;
 
@@ -17,7 +12,6 @@ html {
 
 
 $layout-red: #EF4B49;
-// $headers-font: "noylandBold";
 
 .default-app {
   // color: $main-font-color;

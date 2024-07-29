@@ -35,6 +35,9 @@ import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue'
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
+
+import config from '@/config';
+
 export default {
   components: { ToggleModal, FormInput },
   name: 'ReleaseDistributionLinkCoppier',
@@ -62,7 +65,7 @@ export default {
       // this.token === 'random'? getRandomId('') : this.token
       // &token=${getRandomId('')}
       const _token = this.tokenType === 'unique'? this.randomToken : this.tokenType === 'none'? '' : this.token;
-      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, false) + 
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, false, config) + 
           `?releaseId=${this.release?._id}&origin=${this.origin}&token=${_token}`;
     }
   },

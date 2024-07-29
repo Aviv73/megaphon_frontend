@@ -186,6 +186,8 @@ import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppi
 import ContactList from '../../contact/cmps/ContactList.vue';
 import { organizationService } from '../../organization/services/organization.service';
 
+import config from '@/config';
+
 const minimizeContact = ({_id, email, unsubscribed, name}) => ({_id, email, unsubscribed, name});
 
 export default {
@@ -260,7 +262,7 @@ export default {
 
     sendInEmailUrl() {
       // &token=${getRandomId('')}
-      return templateUtils.getReleaseLandingPageUrl(this.release, this.org, false) + `?releaseId=${this.release?._id}&origin=email&token=`;
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.org, false, config) + `?releaseId=${this.release?._id}&origin=email&token=`;
     },
 
     

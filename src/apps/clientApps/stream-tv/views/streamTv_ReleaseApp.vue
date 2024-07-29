@@ -8,7 +8,7 @@
 <script>
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 export default {
-  name: 'cellcomTv_ReleaseApp',
+  name: 'streamTv_ReleaseApp',
   computed: {
     isLoading() {
       return this.$store.getters['release/isLoading'];

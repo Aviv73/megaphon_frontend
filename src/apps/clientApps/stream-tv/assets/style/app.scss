@@ -1,9 +1,4 @@
 
-@font-face {
-  font-family: "noylandBold";
-  src: url("~@/apps/clientApps/defaultApp/assets/fonts/noyland/noyland-bold-aaa.ttf");
-}
-
 // $defaultAppFont: Segoe UI;
 $defaultAppFont: Rubik,sans-serif;;
 
@@ -17,12 +12,11 @@ html {
 
 
 $layout-red: #EF4B49;
-// $headers-font: "noylandBold";
 
 
 // $app-aside-width: rem(120px);
 
-.cellcomTv-app {
+.streamTv-app {
   // color: $main-font-color;
   font-family: $defaultAppFont;
   font-weight: 500;

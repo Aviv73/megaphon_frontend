@@ -1,12 +1,15 @@
-import Home from './views/cellcomTv_Home.vue';
-import About from './views/cellcomTv_About.vue';
+// import rootCommonRoutes from '../../common/routes';
+
+import Home from './views/streamTv_Home.vue';
+import About from './views/streamTv_About.vue';
 import CostumePage from '@/apps/common/modules/common/views/common_CostumePage.vue';
 
-import ReleaseApp from './views/cellcomTv_ReleaseApp.vue';
+import ReleaseApp from './views/streamTv_ReleaseApp.vue';
 import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';
-import ReleaseDetails from './views/cellcomTv_ReleaseDetails.vue';
+import ReleaseDetails from './views/streamTv_ReleaseDetails.vue';
 
 export default [
+  // ...rootCommonRoutes,
   {
     path: '/',
     component: Home,

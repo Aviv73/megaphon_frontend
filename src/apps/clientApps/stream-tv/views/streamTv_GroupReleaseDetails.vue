@@ -46,11 +46,11 @@
 <script>
 import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.vue'
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue'
-import ReleasePreview from '../cmps/cellcomTv_ReleasePreview.vue'
+import ReleasePreview from '../cmps/streamTv_ReleasePreview.vue'
 import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue'
 
 export default {
-  name: 'cellcomTv_GroupReleaseDetails',
+  name: 'streamTv_GroupReleaseDetails',
   components: { ItemList, ReleasePreview, ItemSearchList, FilesSection },
   props: {
     release: {
@@ -118,7 +118,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 @import '../assets/style/index';
-.cellcomTv-app {
+.streamTv-app {
   .group-release-details {
     padding-bottom: $main-pad-y;
   
