@@ -7,8 +7,8 @@ export const fileService = {
 }
 
 
-export function uploadFileToServer(formData) {
-  return httpService.post(`${ENDPOINT}/upload`, formData);
+export function uploadFileToServer(formData, organizationId) {
+  return httpService.post(`${ENDPOINT}/upload/${organizationId}`, formData);
 }
 
 export function fixFileSrcToThumbnail(url = '') {

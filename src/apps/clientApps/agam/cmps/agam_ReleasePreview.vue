@@ -33,7 +33,7 @@ export default {
     },
 
     fullDescStr() {
-      return htmlStrToText(this.releaseData.desc);
+      return htmlStrToText(this.releaseData.content);
     },
     shortenDesc() {
       const desc = this.fullDescStr;

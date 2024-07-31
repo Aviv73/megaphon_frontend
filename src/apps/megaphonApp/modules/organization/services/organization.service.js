@@ -104,7 +104,7 @@ function isUserRoleInOrg(orgId, role, user, isOnlyRole) {
   return isRole && orgItem?.roles?.length === 1;
 }
 function isUserWatchOnly(orgId, user) {
-  return true;
+  return false;
   return isUserRoleInOrg(orgId, 'client', user, true);
 }
 function isOrgPending(orgId, user) {

@@ -19,7 +19,6 @@
           />
         </template>
         <FormInput @change="setDateRange" type="select" placeholder="release.filterByYear" :items="yearsOpts" v-model="dateSelectVal" />
-        <FormInput v-if="selectedReleaseIds.length && isRoleInOrg('producer')" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
         <div class="flex align-center gap20">
           <ToggleBtns class="sorters flex gap10" :options="[
             {img: require('@/apps/megaphonApp/assets/images/sort.svg'), value: ''},
@@ -28,6 +27,7 @@
           ]" v-model="filterBy.simpleSort" @input="setSortKey" />
               
         </div>
+        <FormInput v-if="selectedReleaseIds.length && isRoleInOrg('producer')" @change="addToFolder" type="select" placeholder="release.addToFolder" :items="foldersOpts" v-model="folderVal" />
       </div>
     </ToggleModalOnlyForSmallScreen>
     <FormInput class="search" placeholder="search" v-model="filterBy.filter.search" iconPos="left">

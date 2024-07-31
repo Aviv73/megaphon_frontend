@@ -181,21 +181,21 @@ export default {
         case 'FILE':
         case 'VIDEO':
           this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id };
           break;
         case 'IMAGE':
           this.cmpName = 'ImageCrop';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id };
           break;
 
         case 'FILE_SRC':
           this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, onlySrc: true };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, onlySrc: true, uploadFolderName: this.organization._id };
           break;
         case 'IMAGE_SRC':
           // this.cmpName = 'FileUploader';
           this.cmpName = 'ImageCrop';
-          this.propsToPass = { ...propsToPass, viewAsImg: true, accept: this.dataField.filter, onlySrc: true };
+          this.propsToPass = { ...propsToPass, viewAsImg: true, accept: this.dataField.filter, onlySrc: true, uploadFolderName: this.organization._id };
           break;
         // case 'IMAGEGALLERY':
         //   this.cmpName = 'MultipleFilePicker';
@@ -210,12 +210,12 @@ export default {
         case 'SINGLE-IMAGE_IN_ARRAY':
           // this.cmpName = 'ImageCrop';
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter };
+          this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id };
           break;
         case 'FILEINARRAY':
         case 'VIDEOINARRAY':
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter };
+          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id };
           break;
 
 

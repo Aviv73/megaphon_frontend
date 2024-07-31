@@ -78,7 +78,7 @@ export default {
     loadSelectedOrg() {
       const id = this.selectedOrgId;
       if (id == '-1') return;
-      this.$store.dispatch({ type: 'organization/loadItem', id });
+      this.$store.dispatch({ type: 'organization/loadItem', id, isToInheritData: true });
     },
     
     createNewFolder(orgId, newFolderPath) {

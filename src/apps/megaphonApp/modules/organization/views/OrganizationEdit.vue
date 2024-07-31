@@ -9,7 +9,7 @@
       </div>
       <div class="flex column gap20">
         <p>{{$t('organization.logo')}}</p>
-        <FileUploader :viewAsImg="true" :value="{src: organizationToEdit.logoUrl}" @input="val => imgUploaded(val.src, 'logoUrl')"/>
+        <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.logoUrl}" @input="val => imgUploaded(val.src, 'logoUrl')"/>
       </div>
 
       <div class="from-emails-section flex column gap20 align-start">
@@ -53,7 +53,7 @@
           </li>
           <li v-for="(curr, idx) in organizationToEdit.logos || []" :key="idx">
             <FormInput type="text" placeholder="name" v-model="curr.title"/>
-            <FileUploader :onlySrc="true" :viewAsImg="true" :value="curr.url" @input="val => imgUploaded(val, `logos.${idx}.url`)"/>
+            <FileUploader :uploadFolderName="organizationToEdit._id" :onlySrc="true" :viewAsImg="true" :value="curr.url" @input="val => imgUploaded(val, `logos.${idx}.url`)"/>
             <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
           </li>
         </ul>

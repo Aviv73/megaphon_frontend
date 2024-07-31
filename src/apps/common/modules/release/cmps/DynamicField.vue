@@ -123,26 +123,26 @@ export default {
           this.cmpName = 'p';
           break;
         case 'FilesSection'.toUpperCase():
-          if (!this.value.filter(filterFilesCb)?.length) this.hidden = true;
+          if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           // if (!this.value?.length) this.hidden = true;
           this.propsToPass = { ...propsToPass, release: { [this.dataField.fieldName]: this.value } };
           this.cmpName = 'FilesSection';
           break;
         case 'VIDEOS'.toUpperCase():
-          if (!this.value.filter(filterFilesCb)?.length) this.hidden = true;
+          if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, sectionId: 'videos', cmpType: 'iframe', files: this.value.map(c => {
+          this.propsToPass = { ...propsToPass, sectionId: 'videos', cmpType: 'iframe', files: this.value?.map(c => {
             const src = c.src || c.link || c.url; 
             return {...c, src: youtubeService.isYoutubeVid(src)? youtubeService.embedUtubeUrl(src) : src};
-          }) };
+          }) || [] };
           break;
         case 'links'.toUpperCase():
-          if (!this.value.filter(filterFilesCb)?.length) this.hidden = true;
+          if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
           this.propsToPass = { ...propsToPass, sectionId: 'links', cmpType: 'link', files: this.value }
           break;
         case 'IMAGEGALLERY'.toUpperCase():
-          if (!this.value.filter(filterFilesCb)?.length) this.hidden = true;
+          if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
           this.propsToPass = { ...propsToPass, sectionId: 'images', cmpType: 'img', files: this.value }
           break;
@@ -153,7 +153,6 @@ export default {
           if (this.typeToShow === 'SEPARATOR_BOLD') this.propsToPass = { ...propsToPass, style: 'border-width:3px' };
           break;
         // case 'ROW':
-        //   console.log('WOWOWOW', this.dataFieldToRender.fields);
         case 'TABLE':
           if (!this.value?.length) this.hidden = true;
         case 'TABLE':
@@ -176,10 +175,10 @@ export default {
           this.propsToPass = { ...propsToPass, src: this.value?.[0]?.src || this.value };
           break;
 
-        case 'FILE_SRC':
-          this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, onlySrc: true };
-          break;
+        // case 'FILE_SRC':
+        //   this.cmpName = 'FileUploader';
+        //   this.propsToPass = { ...propsToPass, accept: this.dataField.filter, onlySrc: true };
+        //   break;
 
         case 'SELECT_RELEASES_FROM_INNER_PARAM': // change to something like: SELECT_RELEASES_FROM_INNER_PARAM
           this.cmpName = 'template';
@@ -199,6 +198,7 @@ export default {
           
         
         case 'FILE':
+          if (!this.value?.src) this.hidden = true;
           this.cmpName = 'a';
           this.valueToShow = this.dataField.title
           this.propsToPass = { ...propsToPass, href: this.value.src, target: '_blank' };

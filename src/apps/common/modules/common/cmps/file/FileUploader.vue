@@ -24,6 +24,7 @@ export default {
     accept: [String],
     viewAsImg: [Boolean],
     onlySrc: [Boolean],
+    uploadFolderName: [String]
   },
   data() {
     return {
@@ -47,7 +48,7 @@ export default {
       const file = inputEl.files[0];
       return file;
     },
-    async doUploadFile(file) {
+    async doUploadFile(file, uploadFolderName) {
       this.isLoading = true;
       try {
         const formData = new FormData();
@@ -59,7 +60,7 @@ export default {
         const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
         const fileName = `${name}.${type}`;
         formData.append('file', file);
-        const uploadedRes  = await uploadFileToServer(formData);
+        const uploadedRes  = await uploadFileToServer(formData, uploadFolderName);
         const newVal = { title: originalName, type, src: uploadedRes.src };
         return newVal;
       } catch(err) {
@@ -72,7 +73,7 @@ export default {
     async uploadFile() {
       const file = this.getFileFromInput(this.$refs.inputEl);
       if (!file) return;
-      const newVal = await this.doUploadFile(file);
+      const newVal = await this.doUploadFile(file, this.uploadFolderName);
       this.$emit('input', this.onlySrc? newVal.src : newVal);
     }
   }

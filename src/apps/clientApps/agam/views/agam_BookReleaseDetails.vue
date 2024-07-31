@@ -10,7 +10,7 @@
     <div class="main-content-section flex-1 flex space-between gap60 wrap">
       <img class="main-img" :src="release.mainImage.src" :alt="release.title"/>
       <div class="hero-content flex column align-start gap15">
-        <div class="description-container" v-if="release.desc" v-html="release.desc"></div>
+        <div class="description-container" v-if="release.content" v-html="release.content"></div>
         <div class="flex gap60 links">
           <h3>{{$t('release.main')}}<hr/></h3>
           <!-- <a target="_blank" v-if="release.firstChapterLink?.[0]?.src" :href="release.firstChapterLink[0].src"><h3>{{$t('release.firstChapter')}}</h3></a>

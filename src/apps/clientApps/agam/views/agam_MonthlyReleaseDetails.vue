@@ -11,7 +11,7 @@
             <div class="hero-content flex column align-start gap20">
               <h2>{{viewdChild.title}}</h2>
               <p>{{$t('release.by')}}: {{viewdChild.author}}</p>
-              <div v-html="viewdChild.desc"></div>
+              <div v-html="viewdChild.content"></div>
               <hr/>
               <router-link :to="{ params: {id: viewdChild._id} }">
                 <button class="flex align-center gap5">
@@ -32,7 +32,7 @@
     </section>
     <div class="inner-container flex column gap30">
       <h1>{{release.title}}</h1>
-      <div v-html="release.desc"></div>
+      <div v-html="release.content"></div>
       <ItemList
         class="flex-1"
         :items="release.childrenReleases"

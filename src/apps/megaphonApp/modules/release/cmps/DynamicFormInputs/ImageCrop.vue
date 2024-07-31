@@ -46,6 +46,7 @@ export default {
     value: null, // [{ src, title }],
     onlySrc: null, // [{ src, title }],
     accept: String,
+    uploadFolderName: String
   },
   data() {
     return {
@@ -63,7 +64,7 @@ export default {
       const file = this.base64ToFile(this.getCroppedImg());
       if (!file) return;
       this.imgBase64ToCrop = '';
-      const newVal = await this.doUploadFile(file);
+      const newVal = await this.doUploadFile(file, this.uploadFolderName);
       if (this.onlySrc) this.$emit('input', newVal.src);
       else this.$emit('input', newVal);
       this.imgBase64ToCrop = '';
