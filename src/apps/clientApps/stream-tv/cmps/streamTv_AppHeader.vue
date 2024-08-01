@@ -1,11 +1,19 @@
 <template>
   <header class="app-header flex align-center">
-    <div class="container header-content width-all flex align-center space-between">
-
-      <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
-      <NavOrBurger :showBurger="!!allRouteFilters.length" class="small-screen-item">
+    <div class="container_ header-content width-all flex align-center space-between">
+      <NavOrBurger :showBurger="!!allRouteFilters.length">
         <CostumeNavBar/>
       </NavOrBurger>
+
+      <div class="ph"></div>
+      
+      <div class="release-title" v-show="appInitedRelease">
+        <router-link :to="{ name: 'ReleaseDetails', params: { id: appInitedRelease?._id } }">
+          <div class="actual flex-center" ref="titleEl">
+            <h2>{{releaseTitle}}</h2>
+          </div>
+        </router-link>
+      </div>
     </div>
   </header>
 </template>
@@ -24,14 +32,6 @@ export default {
       return this.$route.query?.releasesView === 'true';
     },
 
-    mainTo() {
-      return { name: 'ReleasePage' };
-      // return this.$store.getters.mainLinkRouteTo;
-      // return this.initReleaseId
-      //   ? {name: 'ReleaseDetails', params: {id: this.initReleaseId} }
-      //   : { name: 'ReleasePage' }
-    },
-
     org () {
       return this.$store.getters['organization/selectedItem'] || {};
     },
@@ -39,25 +39,31 @@ export default {
       return this.org?.routes?.filter(c => c.showInRoles?.includes('client')) || [];
     },
 
-    // release() {
-    //   return this.$store.getters['release/selectedItem'];
-    // },
-    // releaseTitle() {
-    //   if (!this.release?.releaseData?.publishedAt) return this.release?.releaseData?.title || '';
-    //   const at = new Date(this.release.releaseData.publishedAt);
-    //   const month = at.getMonth() + 1;
-    //   const year = at.getFullYear();
-    //   if (isNaN(month) || isNaN(year)) return this.release.releaseData.title;
-    //   const pretyMont = this.$t('months.'+month);
-    //   return `${pretyMont} ${year}`;
-    // }
-  },
-  methods: {
-    toggleMainView() {
-      const newVal = this.$route.query.releasesView ? !(this.$route.query.releasesView === 'true') + '' : 'false';
-      this.$router.push({ ...this.mainTo, query: { ...this.$route.query, releasesView: newVal } });
+    appInitedRelease() {
+      return this.$store.getters['release/appInitedRelease'];
+    },
+
+    release() {
+      return this.$store.getters['release/selectedItem'];
+    },
+    releaseTitle() {
+      return this.appInitedRelease?.releaseData?.title || '';
     }
   },
+  methods: {
+    async setTitleClr() {
+      if (!this.$refs.titleEl) return;
+      this.$refs.titleEl.style.setProperty('--bg-color', this.org?.designPreferences?.colorsPalate?.[3] || 'black');
+    }
+  },
+  watch: {
+    org() {
+      this.setTitleClr();
+    }
+  },
+  mounted() {
+    this.setTitleClr();
+  }
 }
 </script>
 
@@ -66,17 +72,57 @@ export default {
 @import '@/assets/styles/themes/index';
 .streamTv-app {
   .app-header {
-    position: sticky;
+    position: absolute;
     top: 0;
-    background-color: #ffffff00 !important;
+    background-color: rgba(255, 255, 255, 0) !important;
     font-weight: 600;
+    width: 100%;
+    max-width: 100%;
     // background-color: $layout-black;
     // position: relative;
 
-    box-shadow: $light-shadow;
+    // box-shadow: $light-shadow;
+
+    .release-title { 
+      font-size: 1.2em;
+      width: em(130px);
+      height: $header-height;
+      text-align: center;
+      position: relative;
+      h1, h2 {
+        color: white;
+      }
+      .actual {
+        display: block;
+        --bg-color: black;
+        background-color: var(--bg-color);
+        width: 100%;
+        height: 140%;
+        // background-color: $layout-red;
+        position: absolute;
+        top: 0;
+        // left: em(20px);
+        left: 0;
+        padding: em(10px);
+        &::after {
+          content: "";
+          border-bottom: em(11px) solid transparent;
+          border-left: em(130px) solid var(--bg-color);
+          height: 0px;
+          position: absolute;
+          left: 0;
+          top: 100%;
+        }
+        box-shadow: $light-shadow;
+      }
+      .sub {
+        width: 80px
+      }
+    }
   
     .header-content {
       position: relative;
+      padding: em(20px);
     }
     
   

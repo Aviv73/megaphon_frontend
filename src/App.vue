@@ -33,6 +33,7 @@ import { distributionService } from './apps/megaphonApp/modules/release/services
 
 
 import commonStoreModules from './apps/common/store'
+import { concatItems } from './apps/common/modules/common/services/util.service';
 
 export default {
   name: 'App',
@@ -143,7 +144,7 @@ export default {
       // init locales::
       for (let [locale, messages] of Object.entries(selectedAppData.locales)) {
         const existedLocMsgs = this.$i18n.getLocaleMessage(locale) || {};
-        this.$i18n.setLocaleMessage(locale, { ...existedLocMsgs, ...messages });
+        this.$i18n.setLocaleMessage(locale, concatItems(existedLocMsgs, messages));
       }
 
       this.$store.commit({ type: 'setSelectedAppData', selectedAppData});

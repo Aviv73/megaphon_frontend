@@ -17,31 +17,31 @@ export const contactData = {
     {
       name: 'facebook',
       title: 'אגם הוצאה לאור',
-      img: require(`@/apps/clientApps/agam/assets/images/media/facebook.svg`),
+      img: require(`@/assets/images/media/facebook.svg`),
       link: 'https://www.facebook.com/agambooks/'
     },
     {
       name: 'instegram',
       title: '@agambooks',
-      img: require(`@/apps/clientApps/agam/assets/images/media/instegram.svg`),
+      img: require(`@/assets/images/media/instegram.svg`),
       link: 'https://www.instagram.com/agambooks/'
     },
     {
       name: 'tiktok',
       title: '_@agambooks',
-      img: require(`@/apps/clientApps/agam/assets/images/media/tiktok.svg`),
+      img: require(`@/assets/images/media/tiktok.svg`),
       link: 'https://www.tiktok.com/@agambooks_'
     },
     {
       name: 'youtube',
       title: 'אגם הוצאה לאור',
-      img: require(`@/apps/clientApps/agam/assets/images/media/youtube.svg`),
+      img: require(`@/assets/images/media/youtube.svg`),
       link: 'https://www.youtube.com/channel/UCqLjZATnh7TIU4YOOZ4nU7A'
     },
     {
       name: 'web',
       title: 'agambooks.com',
-      img: require(`@/apps/clientApps/agam/assets/images/media/web.svg`),
+      img: require(`@/assets/images/media/web.svg`),
       link: 'https://www.agambooks.com'
     },
   ]

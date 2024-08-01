@@ -1,14 +1,25 @@
 <template>
-  <footer class="app-footer flex column">
-    <div class="container">
-      FOOTER
+  <footer class="app-footer">
+    <div class="container flex space-between">
+      <div class="ph"></div>
+      <div class="flex align-center gap20">
+        <span>{{$t('contact')}} {{org.name}}</span>
+        <OrgMediaLinks :organization="org"/>
+      </div>
     </div>
   </footer>
 </template>
 
 <script>
+import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks.vue'
 export default {
+  components: { OrgMediaLinks },
   name: "streamTv_AppFooter",
+  computed: {
+    org () {
+      return this.$store.getters['organization/selectedItem'] || {};
+    }
+  }
 }
 </script>
 
@@ -16,6 +27,7 @@ export default {
 @import '@/assets/styles/global/index';
 .streamTv-app {
   .app-footer {
+    padding: em(20px);
 
   }
 }

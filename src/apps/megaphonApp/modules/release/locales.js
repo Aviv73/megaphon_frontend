@@ -29,11 +29,14 @@ const  en = {
     "releases": "Releases",
     "monthPublish": "Month of publish",
     "main": "Main",
-    "content": "Content",
-    "images": "Images",
-    "videos": "Videos",
-    "files": "Files",
-    "links": "Links"
+
+    // tabs: {
+    //   "content": "Content",
+    //   "images": "Images",
+    //   "videos": "Videos",
+    //   "files": "Files",
+    //   "links": "Links"
+    // }
   },
   "distribute": {
     "distribute": "Distribute",
@@ -147,11 +150,13 @@ const he = {
     "releases": "רליסים",
     "monthPublish": "חודש הוצאה לאור",
     "main": "כללי",
-    "content": "מידע",
-    "images": "תמונות",
-    "videos": "לצפיה",
-    "files": "קבצים",
-    "links": "קישורים"
+    // tabs: {
+    //   "content": "מידע",
+    //   "images": "תמונות",
+    //   "videos": "לצפיה",
+    //   "files": "קבצים",
+    //   "links": "קישורים"
+    // }
   },
   "distribute": {
     "distribute": "הפצה",

@@ -22,6 +22,7 @@ const en = {
     "inviteMembers": "Invite members",
     "searchOrganizations": "Search organization",
     "addOrganization": 'Add organization',
+    "mediaLinks": "Media",
     "orgRoles": {
       "admin": "Admin",
       "producer": "Producer",
@@ -65,6 +66,7 @@ const he = {
     "inviteMembers": "הזמן משתמשים",
     "searchOrganizations": "חפש ארגון",
     "addOrganization": 'הצטרף לארגון',
+    "mediaLinks": "מדיה",
     "orgRoles": {
       "admin": "אדמין",
       "producer": "מפיץ",

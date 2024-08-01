@@ -559,6 +559,29 @@ export const youtubeService = {
     embedUtubeUrl: url => `https://www.youtube.com/embed/${youtubeService.getYoutubeVideoId(url)}/`,
 }
 
+export function concatItems(item1, item2) {
+    const res = {...item1};
+    for (let key in item2) {
+      if (typeof item1[key] === 'object' && typeof item2[key] === 'object') {
+        // if (Array.isArray(item1[key]))
+        res[key] = concatItems(item1[key], item2[key]);
+      }
+      else res[key] = item2[key];
+    }
+    return res;
+}
+
+export function isDateValid(dateLike) {
+    try {
+        const time = new Date(dateLike);
+        if (isNaN(time.getTime())) return false;
+        return true;
+    } catch(e) {
+        return false;
+    }
+    return false;
+}
+
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////

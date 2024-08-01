@@ -292,6 +292,12 @@ export default {
       text-decoration: underline !important;
       cursor: pointer;
     }
+
+    iframe, video, .media-item {
+      box-shadow: $light-shadow;
+      height: 600px;
+      width: 100%;
+    }
   }
 // }
 </style>

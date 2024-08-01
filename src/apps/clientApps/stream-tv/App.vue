@@ -1,7 +1,7 @@
 <template>
   <div class="app streamTv-app">
     <div class="app-content container_">
-      <AppAside class="left"/>
+      <AppAside class="left wide-screen-item"/>
       <div class="right">
         <AppHeader/>
         <main class="app-main">

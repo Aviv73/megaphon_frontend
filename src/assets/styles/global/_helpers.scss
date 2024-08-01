@@ -90,6 +90,10 @@
 .gap40 { gap: em(40px); }
 .gap50 { gap: em(50px); }
 .gap60 { gap: em(60px); }
+.gap70 { gap: em(70px); }
+.gap80 { gap: em(80px); }
+.gap90 { gap: em(90px); }
+.gap100 { gap: em(100px); }
 
 .text-center {
   text-align: center;
@@ -158,7 +162,10 @@
 
 
   &.gap30 {
-    gap: e,(30px);
+    gap: em(30px);
+  }
+  &.gap40 {
+    gap: em(40px);
   }
 
   >.btn {

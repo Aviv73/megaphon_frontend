@@ -60,6 +60,25 @@
         <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
       </div>
 
+      <div class="media-links-section flex column gap20 align-start">
+        <p>{{$t('organization.mediaLinks')}}</p>
+        <ul class="flex column gap10 table-like">
+          <li>
+            <p>{{$t('type')}}</p>
+            <p>{{$t('title')}}</p>
+            <p>{{$t('url')}}</p>
+            <p></p>
+          </li>
+          <li v-for="(curr, idx) in organizationToEdit.mediaLinks || []" :key="idx">
+            <FormInput type="select" placeholder="type" v-model="curr.type" :items="['web', 'youtube', 'facebook', 'twitter', 'instegram', 'tiktok']"/>
+            <FormInput type="text" placeholder="title" v-model="curr.title"/>
+            <FormInput type="text" placeholder="url" v-model="curr.src"/>
+            <TableActionBtns v-model="organizationToEdit.mediaLinks" :idx="idx"/>
+          </li>
+        </ul>
+        <button @click="AddMediaLinkItem" class="btn big">{{$t('add')}}</button>
+      </div>
+
       <div class="flex column gap20 align-start">
         <p>{{$t('organization.designPreferences')}}</p>
         <div class="input-container flex gap20">
@@ -305,6 +324,10 @@ export default {
     addLogoItem() {
       if (!this.organizationToEdit.logos) this.organizationToEdit.logos = [];
       this.organizationToEdit.logos.push({url: '', id: getRandomId(), title: ''});
+    },
+    AddMediaLinkItem() {
+      if (!this.organizationToEdit.mediaLinks) this.organizationToEdit.mediaLinks = [];
+      this.organizationToEdit.mediaLinks.push({src: '', id: getRandomId(), type: '', title: ''});
     },
   },
   created() {

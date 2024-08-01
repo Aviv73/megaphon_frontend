@@ -1,5 +1,5 @@
 <template>
-  <CommonReleaseDetails/>
+  <CommonReleaseDetails class="inner-container main-pad-y" :tabView="true"/>
 </template>
 
 <script>

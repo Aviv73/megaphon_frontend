@@ -3,6 +3,9 @@
     <div class="org-logo">
       <img class="actual" :src="org.logoUrl" :alt="org.name">
     </div>
+    <div class="account-preview" v-if="loggedUser" :style="{'background-color': headerBg, color: headerColor}">
+      <span>{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
+    </div>
     <CostumeNavBar/>
   </aside>
 </template>
@@ -16,6 +19,19 @@ export default {
     org () {
       return this.$store.getters['organization/selectedItem'] || {};
     },
+    loggedUser() {
+      return { 
+        firstName: 'אביב',
+        lastName: 'יששכר'
+      }
+      return this.$store.getters['auth/loggedUser'];
+    },
+    headerBg() {
+      return this.org?.designPreferences?.colorsPalate?.[3];
+    },
+    headerColor() {
+      return this.org?.designPreferences?.colorsPalate?.[2];
+    }
   }
 }
 </script>
@@ -43,7 +59,7 @@ export default {
         display: flex;
         align-items: center;
         // justify-content: center;
-        padding: em(5px);
+        padding: em(10px);
         &:not(:last-child) {
           border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
@@ -51,6 +67,10 @@ export default {
         //   transform: unse;
         // }
       }
+    }
+
+    .account-preview {
+      padding: em(20px) em(10px);
     }
   }
 }
