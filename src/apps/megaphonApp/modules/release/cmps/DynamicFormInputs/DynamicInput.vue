@@ -78,7 +78,7 @@ import { getDeepVal, setDeepVal } from '@/apps/common/modules/common/services/ut
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 // import FileInput from '@/apps/common/modules/common/cmps/FileInput.vue';
 import { VueEditor } from "vue2-editor";
-import { createItemForDynamicForm } from '../../../common/services/CreateItemForDynamicForm';
+import { createItemForDynamicForm } from '../../../common/services/dynamicFormService';
 import ReleasePicker from './ReleasePicker.vue';
 import ReleaseIdsPicker from './ReleaseIdsPicker.vue';
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
@@ -204,6 +204,11 @@ export default {
         case 'SELECT_RELEASES_FROM_INNER_PARAM': // change to something like: SELECT_RELEASES_FROM_INNER_PARAM
           this.cmpName = 'ReleaseIdsPicker';
           this.propsToPass = { ...propsToPass, releases: this.parentItem[this.dataField.fromField], fromField: this.dataField.fromField };
+          break;
+
+        case 'MULTISELECT':
+          this.cmpName = 'FormInput'
+          this.propsToPass = { ...propsToPass, labelholder_: 'tags', type: 'multiselect', showVals: true, items: this.dataField.options  };
           break;
 
         // BAD: single items in array;

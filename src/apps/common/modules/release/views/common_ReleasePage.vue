@@ -3,7 +3,7 @@
     <!-- <h2>{{$t('release.releases')}}</h2> -->
     <ReleasesSlider :releases="allReleasesData.items"/>
     <ItemSearchList
-      class="flex-1 height-all"
+      class="flex-1 height-all container"
       :itemsData="allReleasesData"
       :initFilterBy="filterBy"
       @filter="getAllReleases"

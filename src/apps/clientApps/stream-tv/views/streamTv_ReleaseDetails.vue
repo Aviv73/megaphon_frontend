@@ -1,7 +1,11 @@
 <template>
   <div class="release-details height-all" v-if="release">
-    <GroupReleaseDetails v-if="isMonthlyRelease" :release="release"/>
-    <SimpleReleaseDetails v-else :release="release"/>
+    <SimpleReleaseDetails v-if="!isMonthlyRelease" :release="release"/>
+    <template v-else>
+      <div v-if="tabName === 'summary'">summary</div>
+      <div v-else-if="tabName === 'broadcastTimes'">broadcastTimes</div>
+      <GroupReleaseDetails v-else :release="release"/>
+    </template>
   </div>
 </template>
 
@@ -33,6 +37,10 @@ export default {
 
     releaseData() {
       return {...this.release.releaseData, _id: this.release._id};
+    },
+    tabName() {
+      // return 'summary';
+      return this.$route.params.tabName;
     }
   },
   created() {

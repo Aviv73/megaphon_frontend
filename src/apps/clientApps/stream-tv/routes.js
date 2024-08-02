@@ -37,7 +37,7 @@ export default [
       },
       {
         name: 'ReleaseDetails',
-        path: ':id',
+        path: ':id/:tabName?',
         component: ReleaseDetails,
         meta: {
           reportReleaseOpen: true,

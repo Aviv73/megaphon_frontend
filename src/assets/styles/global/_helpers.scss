@@ -175,7 +175,7 @@
 
 
 .underline {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 .pointer {
   cursor: pointer;
@@ -186,4 +186,11 @@
 }
 .bold {
   font-weight: bold;
+}
+
+.hover-pop {
+  transition: transform 0.1s;
+  &:hover {
+    transform: scale(1.05);
+  }
 }

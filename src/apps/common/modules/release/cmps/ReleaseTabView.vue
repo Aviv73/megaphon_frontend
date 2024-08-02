@@ -16,7 +16,7 @@
     </div>
     <div class="flex column gap20">
       <template v-for="(field, idx) in dataFieldsToShow">
-        <div :key="field.fieldName || idx" :id="field.fieldName" v-if="!isScreenWide || !allTabNames.length || (tabView && field.uiSections?.includes(selectedTab))" :class="field.fieldName">
+        <div :key="field.fieldName || idx" :id="field.fieldName" v-if="!isScreenWide || !allTabNames.length || (tabView && field.uiSections?.includes(selectedTab))" :class="field.fieldName + '-division'">
           <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData"/>
         </div>
       </template>
@@ -30,52 +30,10 @@ import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.servi
 
 import { templateUtils } from '../../common/services/template.util.service';
 import FilesSection from '../cmps/FilesSection.vue';
-import { isDateValid, scrollToEl } from '../../common/services/util.service';
 import DynamicField from '../cmps/DynamicField.vue';
 
-function validateDataByDataField(dataField, data) {
-  switch (dataField.type) {
-    case 'NUMBER':
-      return data && typeof data === 'number';
-    case 'TEXT':
-    case 'SELECTION':
-    case 'EMAIL':
-    case 'IMAGE_SRC':
-    case 'FILE_SRC':
-    case 'URL':
-    case 'VIDEOURL':
-      return !!data?.trim()?.length;
-    case 'DATE':
-      return isDateValid(data);
-      break;
-    case 'LONGRICHTEXT':
-    case 'RICHTEXT':
-      return !!data?.trim()?.length;
-    case 'VIDEOS':
-    case 'LINKS':
-    case 'IMAGEGALLERY':
-      return !!data.filter(c => c.src).length;
-    case 'SEPARATOR':
-    case 'SEPARATOR_BOLD':
-      return false;
-    // case 'ROW':
-    case 'ROW':
-      false
-    case 'TABLE':
-      if (dataField.uiType === 'FilesSection') return !!data.filter(c => c.src).length;
-    case 'TABLE':
-    case 'RELEASES_SELECTOR':
-    case 'SELECT_RELEASES_FROM_INNER_PARAM':
-      return !!data.length;
-    case 'IMAGE':
-    case 'FILE':
-      return !!data;
-    case 'SINGLE-IMAGE_IN_ARRAY':
-    case 'FILEINARRAY':
-    case 'VIDEOINARRAY':
-      return !!data?.[0]?.length;
-  }
-}
+import { isDateValid, scrollToEl } from '../../common/services/util.service';
+import { validateDataByDataField } from '../../../../megaphonApp/modules/common/services/dynamicFormService';
 
 export default {
   name: 'common_ReleaseDetails',

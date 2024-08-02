@@ -49,23 +49,44 @@ $layout-red: #EF4B49;
       }
       .hero-content {
         position: absolute;
+        z-index: 2;
         color: white;
+        width: 50%;
+        right: em(50px);
+        bottom: em(50px);
+        h2, h3 {
+          color: inherit;
+        }
+      }
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 50% em(10px) em(20px) em(10px);
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
       }
     }
     .arrow-btn {
       bottom: em(20px);
+      z-index: 3;
+      .img {
+        background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_white.svg') no-repeat center / contain;
+      }
       &.plus {
         right: 50%;
-        transform: translateX(#{em(50px)});
+        transform: translateX(#{em(100px)});
       }
       &.minus {
         left: 50%;
-        transform: translateX(-#{em(50px)}) rotate(180deg);
+        transform: translateX(-#{em(100px)}) rotate(180deg);
       }
     }
   }
   .common-release-preview, .release-preview {
     position: relative;
+    width: fit-content;
     img {
       width: em(250px);
       height: em(300px);
@@ -76,17 +97,25 @@ $layout-red: #EF4B49;
     }
     h3 {
       position: absolute;
-      bottom: em(10px);
+      // bottom: em(10px);
       left: 50%;
       transform: translateX(-50%);
       color: white;
+      
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      color: white;
+      text-align: center;
+      padding: 30% em(10px) em(20px) em(10px);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
     }
   }
   
   .item-page {
-    .common-release-filter{
-      display: none;
-    }
+    // .common-release-filter{
+    //   display: none;
+    // }
   }
   
   h1, h2, h3, h4, h5, h6 {

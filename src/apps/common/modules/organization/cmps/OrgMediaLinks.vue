@@ -1,7 +1,7 @@
 <template>
   <ul class="organization-media-links flex align-center gap10 wrap">
     <li v-for="link in mediaLinks" :key="link.id">
-      <a :href="link.src" target="_blank">
+      <a :href="link.src" target="_blank" class="hover-pop">
         <img :src="require(`@/assets/images/media/${link.type}.svg`)" alt="">
       </a>
     </li>

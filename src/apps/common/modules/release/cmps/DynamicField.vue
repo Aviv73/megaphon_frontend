@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-field flex column gap10" v-if="dataFieldToRender && !dataFieldToRender.hideFromUi && (valueToShow || (typeToShow === 'ROW')) && !hidden" :class="`field-field-${typeToShow} ${dataFieldToRender.title}`">
-    <h3 v-if="!noTitle && !dataFieldToRender.hideTitleFromUi && ((dataFieldToRender.title && (typeToShow === 'SEPARATOR') || (typeToShow !== 'SEPARATOR')))">{{dataFieldToRender.uiTitle || dataFieldToRender.title}}</h3>
+    <h3 class="field-title" v-if="!noTitle && !dataFieldToRender.hideTitleFromUi && ((dataFieldToRender.title && (typeToShow === 'SEPARATOR') || (typeToShow !== 'SEPARATOR')))">{{dataFieldToRender.uiTitle || dataFieldToRender.title}}</h3>
     <div class="flex-1 field-container" :class="{'table-container': typeToShow === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{typeToShow}}"</p>
       <component
@@ -70,6 +70,7 @@ import FilesSingleSection from './FilesSingleSection.vue';
 import ReleasesSlider from './ReleasesSlider.vue'
 import { time, youtubeService } from '../../common/services/util.service';
 import { filterFilesCb } from './file.service';
+import { validateDataByDataField } from '../../../../megaphonApp/modules/common/services/dynamicFormService';
 
 
 export default {
@@ -100,6 +101,10 @@ export default {
       const propsToPass = {...(this.dataField.propsToPass || {})};
       this.valueToShow = this.value;
       this.cmpName = 'p';
+      if (!validateDataByDataField(this.dataField, this.value)) {
+        this.hidden = true;
+        return
+      }
       switch (this.typeToShow) {
         case 'NUMBER':
           this.propsToPass = { ...propsToPass };
@@ -108,7 +113,7 @@ export default {
         case 'TEXT':
         case 'SELECTION':
         case 'EMAIL':
-          if (!this.value?.trim?.()) this.hidden = true;
+          // if (!this.value?.trim?.()) this.hidden = true;
           this.propsToPass = { ...propsToPass };
           this.cmpName = this.dataField.uiCmp || 'p';
           break;
@@ -117,19 +122,19 @@ export default {
           break;
         case 'LONGRICHTEXT':
         case 'RICHTEXT':
-          if (!this.value?.trim?.()) this.hidden = true;
+          // if (!this.value?.trim?.()) this.hidden = true;
           this.propsToPass = { ...propsToPass };
           this.bindContentToHtml = true;
           this.cmpName = 'p';
           break;
         case 'FilesSection'.toUpperCase():
-          if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
+          // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           // if (!this.value?.length) this.hidden = true;
           this.propsToPass = { ...propsToPass, release: { [this.dataField.fieldName]: this.value } };
           this.cmpName = 'FilesSection';
           break;
         case 'VIDEOS'.toUpperCase():
-          if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
+          // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
           this.propsToPass = { ...propsToPass, sectionId: 'videos', cmpType: 'iframe', files: this.value?.map(c => {
             const src = c.src || c.link || c.url; 
@@ -137,12 +142,12 @@ export default {
           }) || [] };
           break;
         case 'links'.toUpperCase():
-          if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
+          // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
           this.propsToPass = { ...propsToPass, sectionId: 'links', cmpType: 'link', files: this.value }
           break;
         case 'IMAGEGALLERY'.toUpperCase():
-          if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
+          // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
           this.propsToPass = { ...propsToPass, sectionId: 'images', cmpType: 'img', files: this.value }
           break;
@@ -153,8 +158,8 @@ export default {
           if (this.typeToShow === 'SEPARATOR_BOLD') this.propsToPass = { ...propsToPass, style: 'border-width:3px' };
           break;
         // case 'ROW':
-        case 'TABLE':
-          if (!this.value?.length) this.hidden = true;
+        // case 'TABLE':
+        //   if (!this.value?.length) this.hidden = true;
         case 'TABLE':
         case 'ROW':
           this.propsToPass = { ...propsToPass, hidden: true };
@@ -170,10 +175,12 @@ export default {
           this.cmpName = 'img';
           this.propsToPass = { ...propsToPass, src: this.value?.src || this.value };
           break;
-        case 'SINGLE-IMAGE_IN_ARRAY':
-          this.cmpName = 'img';
-          this.propsToPass = { ...propsToPass, src: this.value?.[0]?.src || this.value };
+
+        case 'MULTISELECT':
+          this.cmpName = 'p';
+          this.valueToShow = this.value.join(', ');
           break;
+
 
         // case 'FILE_SRC':
         //   this.cmpName = 'FileUploader';
@@ -185,22 +192,10 @@ export default {
           this.propsToPass = { ...propsToPass, releases: this.parentItem[this.dataField.fromField], fromField: this.dataField.fromField };
           break;
 
-        case 'FILEINARRAY':
-          if (!this.value?.[0]?.src) this.hidden = true;
-          this.cmpName = 'a';
-          this.valueToShow = this.dataField.uiTitle || this.dataField.title;
-          this.propsToPass = { ...propsToPass, href: this.value?.[0]?.src };
-          break;
-        case 'VIDEOINARRAY':
-          this.cmpName = 'template';
-          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter };
-          break;
-          
-        
         case 'FILE':
-          if (!this.value?.src) this.hidden = true;
+          // if (!this.value?.src) this.hidden = true;
           this.cmpName = 'a';
-          this.valueToShow = this.dataField.title
+          this.valueToShow = this.dataField.title;
           this.propsToPass = { ...propsToPass, href: this.value.src, target: '_blank' };
           break;
         
@@ -214,6 +209,25 @@ export default {
           this.cmpName = 'p';
           this.valueToShow = this.dataField.options.find(c => c.value === this.value)?.label
           break;
+
+        
+        case 'SINGLE-IMAGE_IN_ARRAY':
+          this.cmpName = 'img';
+          this.propsToPass = { ...propsToPass, src: this.value?.[0]?.src || this.value };
+          break;
+        case 'FILEINARRAY':
+          // if (!this.value?.[0]?.src) this.hidden = true;
+          this.cmpName = 'a';
+          this.valueToShow = this.dataField.uiTitle || this.dataField.title;
+          this.propsToPass = { ...propsToPass, href: this.value?.[0]?.src };
+          break;
+        case 'VIDEOINARRAY':
+          this.cmpName = 'template';
+          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter };
+          break;
+          
+        
+        
 
 
         // case 'LOGOSELECTION':

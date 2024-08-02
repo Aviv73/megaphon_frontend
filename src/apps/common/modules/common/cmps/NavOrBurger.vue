@@ -1,6 +1,9 @@
 <template>
   <div class="nav-or-burger">
-    <button @click="mobileShow = !mobileShow" v-if="showBurger" class="nav-burger"><img :src="require('@/assets/images/nav_burger_white.png')"/></button>
+    <button @click="mobileShow = !mobileShow" v-if="showBurger" class="nav-burger height-all flex align-center justify-center">
+      <!-- <img :src="require('@/assets/images/nav_burger_white.png')"/> -->
+      <span class="actual">☰</span>
+    </button>
     <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
     <nav class="nav flex align-center space-between wrap gap30" :class="{show: mobileShow}">
       <slot/> <!-- <div class="nav-item">About</div> -->
@@ -25,7 +28,13 @@ export default {
   watch: {
     '$route'() {
       this.mobileShow = false;
-    }
+    },
+    '$route.path'() {
+      this.mobileShow = false;
+    },
+    '$route.query'() {
+      this.mobileShow = false;
+    },
   }
 }
 </script>
@@ -40,8 +49,10 @@ export default {
     $height: calc(100vh - #{$header-height});
     .nav-burger {
       display: block;
-      width: 25px;
-      height: 25px;
+      .actual {
+        width: 25px;
+        height: 25px;
+      }
       font-weight: bold;
       @include font-size-big;
     }
@@ -65,6 +76,9 @@ export default {
       left: 0;
       transform: translateX(-100%);
       transition: 0.3s;
+      gap: 0;
+      flex-direction: column;
+      justify-content: flex-start;
       &.show {
         transform: translateX(0);
       }
@@ -72,6 +86,14 @@ export default {
       border-inline-start: 1px solid black;
 
       background-color: $layout-black;
+
+      .nav-items {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        width: 100%;
+        gap: 0;
+      }
       .nav-item {
         width: 100%;
         height: em(100px);
@@ -90,6 +112,8 @@ export default {
         }
       }
     }
+
+    
   }
 }
 </style>

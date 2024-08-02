@@ -10,7 +10,10 @@ const  en = {
       "special": "Special",
     },
     alerts: {
-    }
+    },
+    newReleases: "News",
+    mostWatched: "Most watched",
+    monthlyRecommendation: "Monthly reccommendation"
   }
 }
 const he = {
@@ -25,7 +28,10 @@ const he = {
       "special": "ספיישל",
     },
     alerts: {
-    }
+    },
+    newReleases: "חדשים",
+    mostWatched: "הנצפים ביותר",
+    monthlyRecommendation: "המלצת החודש"
   }
 }
 const heF = {

@@ -97,7 +97,10 @@ const en = {
   "join": "Join",
   "new": "New",
 
-  "contact": "Contact"
+  "contact": "Contact",
+
+  "directLink": "Direct link"
+
 }
 const he = {
   "hello": "שלום",
@@ -195,7 +198,9 @@ const he = {
   "roles": "הרשאות",
   "join": "הצטרף",
   "new": "חדש",
-  "contact": "צור קשר"
+  "contact": "צור קשר",
+
+  "directLink": "קישור ישיר"
 }
 const heF = {
   ...he,

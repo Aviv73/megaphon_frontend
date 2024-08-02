@@ -10,7 +10,8 @@ const initState = () => ({
   },
   // initReleaseId: null,
   organizationId: null,
-  appInitedRelease: null
+  lastSeenGroupRelease: null,
+  archiveReleases: [],
 });
 
 export const releaseStore = basicStoreService.createSimpleCrudStore(
@@ -24,12 +25,16 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
         const selectedAppData = rootGetters.selectedAppData;
         return  selectedAppData.params.subDomain || selectedAppData.params.organizationId
       },
-      appInitedRelease: (state) => state.appInitedRelease,
+      lastSeenGroupRelease: (state) => state.lastSeenGroupRelease,
+      archiveReleases: (state) => state.archiveReleases,
     },
     mutations: {
-      setAppInitedRelease(state, {release}) {
-        state.appInitedRelease = release;
-      }
+      setLastSeenGroupRelease(state, {release}) {
+        state.lastSeenGroupRelease = release;
+      },
+      setArchiveReleases(state, {releases}) {
+        state.archiveReleases = releases;
+      },
       // setInitReleaseId(state, { id, orgId }) {
       //   if (state.initReleaseId) return;
       //   // if (sessionStorage.initReleaseId) state.initReleaseId = sessionStorage.initReleaseId;
@@ -63,7 +68,8 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
           type: '_Ajax',
           do: async () => getters.service.get(id, getters.organizationId),
           onSuccess: (item) => {
-            if (!state.appInitedRelease) commit({ type: 'setAppInitedRelease', release: item });
+            // if (!state.lastSeenGroupRelease) commit({ type: 'setAppInitedRelease', release: item });
+            if (item?.releaseData?.childrenReleases?.length) commit({ type: 'setLastSeenGroupRelease', release: item });
             commit({ type: 'setSelectedItem', item });
             // commit({ type: 'setInitReleaseId', id, orgId: item.organizationId });
           }

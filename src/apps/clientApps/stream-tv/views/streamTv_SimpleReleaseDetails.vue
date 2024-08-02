@@ -1,8 +1,14 @@
 <template>
   <section v-if="release" class="simple-release-details flex column gap50">
     <img class="hero-img" :src="fixFileSrcToThumbnail(release.releaseData.mainImage.src)" :alt="release.title"/>
-    <ReleaseTabView :release="release" :tabView="true" class="inner-container"/>
-    <div class="ph"></div>
+    <div class="inner-container flex column space-between flex-1 gap30">
+      <ReleaseTabView :release="release" :tabView="true"/>
+      <!-- <div class="ph"></div> -->
+      <router-link :to="{ name: 'ReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="clr-4 underline bold align-self-end">
+        {{$t('directLink')}}
+      </router-link>
+      <div class="ph"></div>
+    </div>
   </section>
 </template>
 
@@ -31,11 +37,31 @@ export default {
   .simple-release-details {
     .hero-img {
       width: 100%;
-      height: em(450px);
+      height: em(300px);
     }
 
-    .mainImage {
+    .mainImage-division {
       display: none;
+    }
+
+    .tags-division {
+      color: var(--heading-color);
+      border-bottom: em(1px) solid var(--heading-color);
+      padding-bottom: em(15px);
+      .field-title {
+        display: none;
+      }
+    }
+
+    .publishedAt-division {
+      color: var(--heading-color);
+      border-bottom: em(1px) solid var(--heading-color);
+      border-top: em(1px) solid var(--heading-color);
+      padding-bottom: em(15px);
+      padding-top: em(15px);
+      .field-title {
+        display: none;
+      }
     }
   }
 }

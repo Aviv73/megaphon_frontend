@@ -12,23 +12,23 @@
       </router-link>
 
       <NavOrBurger :showBurger="true" class="flex-1">
-        <nav class="nav-group flex align-center flex-1 space-between wrap gap30">
+        <nav class="nav-items flex align-center flex-1 space-between wrap gap30">
           <div class="space-div"></div>
-          <div class="nav-group flex align-center wrap gap30">
+          <div class="nav-items flex align-center wrap gap30">
             <!-- <router-link class="nav-item" :to="mainTo">{{$t('main')}}</router-link> -->
             <!-- <router-link class="nav-item" :to="bookReleasePageRouteTo">{{$t('main')}}</router-link> -->
             <!-- <button @click="toggleMainView" class="nav-item" :to="mainTo">{{showOnlyreleases? releaseTitle : $t('main')}}</button> -->
             <!-- <router-link :to="{name: 'ReleasePage' }">{{$t('updates')}}</router-link> -->
-            <router-link class="nav-item" :to="{name: 'AboutPage'}">{{$t('about')}}</router-link>
-            <router-link class="nav-item" :to="bookReleasePageRouteTo">{{$t('allBooks')}}</router-link>
-            <router-link class="nav-item" :to="{ name: 'ReleasePage', query: { page: 'monthly', 'filter_params_subType': '', 'filter_params_type': ''  } }">{{$t('archive')}}</router-link>
+            <router-link class="nav-item" :to="{name: 'AboutPage'}"><p class="hover-pop">{{$t('about')}}</p></router-link>
+            <router-link class="nav-item" :to="bookReleasePageRouteTo"><p class="hover-pop">{{$t('allBooks')}}</p></router-link>
+            <router-link class="nav-item" :to="{ name: 'ReleasePage', query: { page: 'monthly', 'filter_params_subType': '', 'filter_params_type': ''  } }"><p class="hover-pop">{{$t('archive')}}</p></router-link>
             <!-- <router-link :to="{name: 'ArchivePage' }">{{$t('archive')}}</router-link> -->
           </div>
-          <div class="flex align-center gap20">
-            <ul class="nav-group media-list flex gap10 wrap">
+          <div class="flex nav-items align-center gap20">
+            <ul class="nav-items media-list flex gap10 wrap">
               <li class="media-preview nav-item" v-for="(mediaItem, idx) in mediaItems" :key="idx">
                 <a :href="mediaItem.link" target="_blank" class="flex-center gap5 height-all width-all">
-                  <img :src="mediaItem.img" :alt="mediaItem.name">
+                  <img :src="mediaItem.img" :alt="mediaItem.name" class="hover-pop">
                 </a>
               </li>
             </ul>
@@ -162,17 +162,6 @@ export default {
     }
   
   
-    nav {
-      // @include flex-center;
-      flex-wrap: wrap;
-      // justify-content: flex-end;
-      a {
-        &:hover {
-          transform: scale(1.05);
-          transition: 0.1s;
-        }
-      }
-    }
     @media (max-width: $small-screen-breake) { // $small-screen-breake
       .nav-or-burger {
         flex: unset;
@@ -180,7 +169,7 @@ export default {
       .space-div {
         display: none;
       }
-      .nav-group {
+      .nav-items {
         // gap: 0 !important;
       }
       nav {

@@ -7,8 +7,9 @@
     <div v-if="viewdChild" class="hero-main flex-1 flex gap30 width-all align-center">
       <img class="main-img" :src="imgToRender" :alt="viewdChild.title"/>
       <div class="hero-content flex column align-start gap20">
+        <h3 v-if="title" class="costume-title">{{title}}</h3>
+        <h2>{{viewdChild.title}}</h2>
         <div class="content-container pretty-scroll flex column align-start gap20">
-          <h2>{{viewdChild.title}}</h2>
           <div v-html="viewdChild.content || viewdChild.desc"></div>
         </div>
         <hr/>
@@ -39,6 +40,10 @@ export default {
     getReleasePageRoute: {
       type: Function,
       default: undefined
+    },
+    title: {
+      type: String,
+      required: false
     }
   },
   data() {

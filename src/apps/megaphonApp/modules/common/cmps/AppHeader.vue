@@ -8,15 +8,16 @@
       </router-link>
       <FormInput class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect" v-else/>
 
-      <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
-        <div class="links flex align-center gap10 height-all" v-if="isOrgProducer">
-          <router-link :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
+
+      <NavOrBurger class="release-actions align-center_ flex gap50 height-all">
+        <div class="links nav-items flex align-center gap10 height-all" v-if="isOrgProducer">
+          <router-link class="nav-item" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn big primary">
               {{$t('create')}} {{type.name}}
             </button>
           </router-link>
         </div>
-        <div class="filters flex align-center height-all">
+        <div class="filters nav-items flex align-center_ height-all">
           <!-- <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.routes" :key="filter._id" @click="emitFilter(filter)">
             {{filter.title}}
           </button> -->
@@ -24,20 +25,15 @@
           <router-link
             v-for="filterItem in filteredRoutesByRoles" :key="filterItem.id"
             :to="{ name: 'ReleasePage', query: { page: filterItem.name  } }"
-            class="nav-link flex align-center"
+            class="nav-item flex align-center height-all"
             :class="{selected: $route.query.page === filterItem.name}"
           >
             {{filterItem.name}}
           </router-link>
         </div>
-      </div>
-
-
-      <template v-if="showNavContent">
-        <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button>
-        <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
-        <!-- <button @click="mobileShow = !mobileShow" class="btn nav-burger"><img :src="require('@/apps/clientApps/agam/assets/images/mine/navBurger.png')"/></button> -->
-      </template>
+        <!-- <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
+        </div> -->
+      </NavOrBurger>
 
       <div class="flex align-center gap20 height-all ph">
         <LoggedUserPreview v-if="isUserWatchOnly"/>
@@ -56,11 +52,11 @@ import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
 import { organizationService } from '../../organization/services/organization.service';
 import LoggedUserPreview from './LoggedUserPreview.vue';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
+import NavOrBurger from '../../../../common/modules/common/cmps/NavOrBurger.vue';
 export default {
   name: 'AppHeader',
   data() {
     return {
-      mobileShow: false,
       // selecterOrgFilterId: null,
       selectedOrgId: this.$route.params.organizationId || ''
     }
@@ -132,14 +128,6 @@ export default {
     }
   },
   watch: {
-    '$route.path'() {
-      this.mobileShow = false;
-      // this.emitDefaultFilter();
-    },
-    '$route.query'() {
-      this.mobileShow = false;
-      // this.emitDefaultFilter();
-    },
     // 'organization._id'(val) {
     //   this.selectedOrgId = val;
     // },
@@ -153,7 +141,7 @@ export default {
     //   }
     // }
   },
-  components: { Avatar, LoggedUserPreview, FormInput }
+  components: { Avatar, LoggedUserPreview, FormInput, NavOrBurger }
 }
 </script>
 
@@ -184,7 +172,7 @@ export default {
     .release-actions {
       .filters {
         >* {
-          height: 100%;
+          // height: 100%;
           padding: em(10px);
           &:hover {
             background-color: rgba(32, 144, 212, 0.04);
@@ -196,99 +184,16 @@ export default {
         }
       }
     }
-  
-    nav {
-      @include flex-center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      a {
-        &:hover {
-          transform: scale(1.1);
-          transition: 0.1s;
-        }
-      }
-    }
-    .nav-burger {
-      display: none;
-    }
-    .blure {
-      display: none;
-    }
+    
+
     @media (max-width: $small-screen-breake) { // $small-screen-breake
+      .nav {
+        background-color: white;
+      }
       .ph {
         display: none;
       }
-
-      $height: calc(100vh - #{$header-height});
-      // color: ;
-      .nav-burger {
-        display: block;
-        width: em(25px);
-        height: em(25px);
-        font-weight: bold;
-        @include font-size-big;
-        // font-size: em(22px);
-      }
-      .blure {   
-        display: block;
-        position: fixed;
-        top: $header-height;
-        right: 0;
-        height: $height;
-        width: 100vw;
-        background-color: $blure-clr;
-        z-index: 31;
-      }
-      .release-actions {
-        .filters {
-          >* {
-            height: unset;
-          }
-        }
-      }
-      .nav {
-        font-weight: bold;
-        display: block;
-        position: fixed;
-        z-index: 32;
-        height: $height;
-        top: $header-height;
-        overflow-y: auto;
-        left: 0;
-        transform: translateX(-100%);
-        transition: 0.3s;
-        &.show {
-          transform: translateX(0);
-        }
-        width: em(175px);
-        border-inline-start: em(1px) solid black;
-  
-        background-color: white;
-        >* {
-          flex-direction: column;
-          height: fit-content;
-          >* {
-            width: 100%;
-            height: em(100px) !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: unset;
-            border-radius: unset;
-            border-bottom: em(1px) solid black;
-            text-align: center;
-            &.router-link-exact-active {
-              color: rgb(157, 193, 255);
-            }
-            &:hover {
-              background-color: rgb(190, 190, 250);
-              transform: unset;
-            }
-          }
-        }
-      }
     }
-
 
     .org-selector {
       padding: 0;

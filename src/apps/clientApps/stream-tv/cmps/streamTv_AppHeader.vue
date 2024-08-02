@@ -1,14 +1,17 @@
 <template>
   <header class="app-header flex align-center">
-    <div class="container_ header-content width-all flex align-center space-between">
+    <div class="container_ header-content width-all flex align-center space-between" v-show="lastSeenGroupRelease">
       <NavOrBurger :showBurger="!!allRouteFilters.length">
-        <CostumeNavBar/>
+        <!-- <CostumeNavBar/> -->
+        <router-link class="nav-item hover-pop" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName: 'main'} }">{{$t('main')}}</router-link>
+        <router-link class="nav-item hover-pop" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName: 'summary'} }">{{$t('summary')}}</router-link>
+        <router-link class="nav-item hover-pop" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName: 'broadcastTimes'} }">{{$t('broadcastTimes')}}</router-link>
       </NavOrBurger>
 
       <div class="ph"></div>
       
-      <div class="release-title" v-show="appInitedRelease">
-        <router-link :to="{ name: 'ReleaseDetails', params: { id: appInitedRelease?._id } }">
+      <div class="release-title">
+        <router-link :to="{ name: 'ReleaseDetails', params: { id: lastSeenGroupRelease?._id } }">
           <div class="actual flex-center" ref="titleEl">
             <h2>{{releaseTitle}}</h2>
           </div>
@@ -39,30 +42,16 @@ export default {
       return this.org?.routes?.filter(c => c.showInRoles?.includes('client')) || [];
     },
 
-    appInitedRelease() {
-      return this.$store.getters['release/appInitedRelease'];
+    lastSeenGroupRelease() {
+      return this.$store.getters['release/lastSeenGroupRelease'];
     },
 
     release() {
       return this.$store.getters['release/selectedItem'];
     },
     releaseTitle() {
-      return this.appInitedRelease?.releaseData?.title || '';
+      return this.lastSeenGroupRelease?.releaseData?.title || '';
     }
-  },
-  methods: {
-    async setTitleClr() {
-      if (!this.$refs.titleEl) return;
-      this.$refs.titleEl.style.setProperty('--bg-color', this.org?.designPreferences?.colorsPalate?.[3] || 'black');
-    }
-  },
-  watch: {
-    org() {
-      this.setTitleClr();
-    }
-  },
-  mounted() {
-    this.setTitleClr();
   }
 }
 </script>
@@ -74,10 +63,9 @@ export default {
   .app-header {
     position: absolute;
     top: 0;
-    background-color: rgba(255, 255, 255, 0) !important;
-    font-weight: 600;
     width: 100%;
     max-width: 100%;
+    background-color: rgba(255, 255, 255, 0) !important;
     // background-color: $layout-black;
     // position: relative;
 
@@ -94,8 +82,7 @@ export default {
       }
       .actual {
         display: block;
-        --bg-color: black;
-        background-color: var(--bg-color);
+        background-color: var(--header-bgc);
         width: 100%;
         height: 140%;
         // background-color: $layout-red;
@@ -107,7 +94,7 @@ export default {
         &::after {
           content: "";
           border-bottom: em(11px) solid transparent;
-          border-left: em(130px) solid var(--bg-color);
+          border-left: em(130px) solid var(--header-bgc);
           height: 0px;
           position: absolute;
           left: 0;
@@ -123,23 +110,11 @@ export default {
     .header-content {
       position: relative;
       padding: em(20px);
+      // padding: 20% em(10px) em(20px) em(10px);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)) !important;
+      font-weight: 600;
     }
     
-  
-    .media-list {
-      img {
-        width: 35px;
-        height: 35px
-      }
-    }
-  
-    .org-logo {
-      // width: 60px;
-      height: $header-height;
-      .actual {
-        height: 100%;
-      }
-    }
 
     .costume-nav-bar {
       a {

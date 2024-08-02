@@ -21,6 +21,7 @@ import AppFooter from './cmps/streamTv_AppFooter.vue';
 import AppAside from './cmps/streamTv_AppAside.vue';
 
 import { setDynamicStylingEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
+import { delay } from '../../common/modules/common/services/util.service';
 
 
 export default {
@@ -30,14 +31,30 @@ export default {
     AppFooter,
     AppAside
   },
-  methods: {
-    async setOrgStyling() {
-      const org = await this.$store.dispatch({type: 'organization/loadItem'});
-      setDynamicStylingEl(org, '.streamTv-app');
+  computed: {
+    org() {
+      return this.$store.getters['organization/selectedItem'];
     }
   },
-  created() {
+  methods: {
+    async loadOrg() {
+      await this.$store.dispatch({type: 'organization/loadItem'});
+    },
+    async setOrgStyling() {
+      setDynamicStylingEl(this.org, '.streamTv-app');
+    },
+
+    
+    async loadArchive() {
+      // await delay(2000);
+      const archiveReleases = await this.$store.dispatch({ type: 'release/loadItems', filterBy_: {}, organizationId: this.org._id, orgFilter: this.org.routes.find(c => c.id === 'ID-20BE-190DEC6AD7F-1383')?.releaseFilter });
+      this.$store.commit({ type: 'release/setArchiveReleases', releases: archiveReleases });
+    }
+  },
+  async created() {
+    await this.loadOrg();
     this.setOrgStyling();
+    this.loadArchive();
   }
 }
 </script>
