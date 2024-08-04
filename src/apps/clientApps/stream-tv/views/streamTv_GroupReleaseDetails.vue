@@ -1,8 +1,29 @@
 <template>
+  
   <section class="group-release-details flex column gap30 height-all">
     <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(release.mainImage.src))}')`, 'background-size': 'cover' }"> -->
     <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases"/>
-    <div class="inner-container_ flex column gap30">
+    <div class="page-like-section flex column gap50" v-if="tabName === 'monthlySummary'">
+      <h2>{{$t('release.monthlySummary')}}</h2>
+      <ul class="flex column gap30">
+        <li class="release-summary-preview flex gap10" v-for="release in releaseData.childrenReleases.filter(c => c.releaseData?.mainImage?.src)" :key="release._id">
+          <div class="flex-1 summery-image_">
+            <img :src="release.releaseData.mainImage.src"/>
+          </div>
+          <div class="flex-2 flex column gap10 space-between">
+            <div class="flex column gap10">
+              <h3>{{release.releaseData.title}}</h3>
+              <p v-html="release.releaseData.content"></p>
+            </div>
+            <router-link class="underline bold clr-4" :to="{name: 'ReleaseDetails', params: {id: release._id} }">{{$t('toDetails')}}</router-link>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="page-like-section flex column gap50" v-else-if="tabName === 'broadcastTimes'">
+      <h2>{{$t('release.broadcastTimes')}}</h2>
+    </div>
+    <div v-else class="inner-container_ flex column gap30">
       <div class="items-section" v-if="mostWatchedReleases?.length">
         <div class="headline">
           <h3>{{$t('release.mostWatched')}}</h3>
@@ -66,21 +87,24 @@ export default {
     }
   },
   computed: {
-    monthPublish() {
-      if (!this.release.publishedAt) return '';
-      const at = new Date(this.release.publishedAt);
-      const month = at.getMonth() + 1;
-      const year = at.getFullYear();
-      if (isNaN(year)) return '';
-      const pretyMont = this.$t('months.'+month);
-      return `${pretyMont} ${year}`;
+    // monthPublish() {
+    //   if (!this.release.publishedAt) return '';
+    //   const at = new Date(this.release.publishedAt);
+    //   const month = at.getMonth() + 1;
+    //   const year = at.getFullYear();
+    //   if (isNaN(year)) return '';
+    //   const pretyMont = this.$t('months.'+month);
+    //   return `${pretyMont} ${year}`;
+    // },
+    tabName() {
+      // return 'summary';
+      return this.$route.params.tabName;
     },
     releaseData() {
       return this.release.releaseData;
     },
 
     archiveReleases() {
-      console.log(this.$store.getters['release/archiveReleases']?.items || []);
       return this.$store.getters['release/archiveReleases']?.items || [];
     },
 
@@ -101,6 +125,11 @@ export default {
 @import '@/assets/styles/global/index';
 @import '../assets/style/index';
 .streamTv-app {
+  .page-like-section {
+    // padding-top: $main-pad-y;
+    // padding: em(100px) em(20px);
+    
+  }
   .group-release-details {
     padding-bottom: $main-pad-y;
   
@@ -117,7 +146,8 @@ export default {
         display: flex;
         align-items: center;
         gap: em(10px);
-        padding: 0 0 0 em(20px);
+        // padding: 0 0 0 em(20px);
+        padding: 0 em(10px);
         &::after {
           content: "";
           flex: 1;
@@ -141,6 +171,7 @@ export default {
     }
 
     .archive-section {
+      margin: 0 auto;
       a {
         display: inline-block;
         background-color: var(--heading-color);
@@ -153,6 +184,19 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+    }
+    
+    .summery-image {
+      width: unset;
+      height: unset;
+    }
+    .release-summary-preview {
+      @media (max-width: $small-screen-breake) {
+        flex-direction: column;
+        .flex-2 {
+          flex: 1;
+        }
       }
     }
 

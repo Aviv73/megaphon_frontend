@@ -1,7 +1,7 @@
 <template>
   <div class="app streamTv-app">
     <div class="app-content container_">
-      <AppAside class="left wide-screen-item"/>
+      <AppAside class="left wide-screen-item" v-if="!['LoginPage', 'SignupPage'].includes($route.name)"/>
       <div class="right">
         <AppHeader/>
         <main class="app-main">
@@ -21,8 +21,6 @@ import AppFooter from './cmps/streamTv_AppFooter.vue';
 import AppAside from './cmps/streamTv_AppAside.vue';
 
 import { setDynamicStylingEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
-import { delay } from '../../common/modules/common/services/util.service';
-
 
 export default {
   name: 'streamTvApp',
@@ -52,6 +50,7 @@ export default {
     }
   },
   async created() {
+    this.$store.dispatch('auth/getUserInfo')
     await this.loadOrg();
     this.setOrgStyling();
     this.loadArchive();

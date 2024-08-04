@@ -1,5 +1,7 @@
 const  en = {
   "release": {
+    alerts: {
+    },
     tabs: {
       "content": "Content",
       "images": "Images",
@@ -8,8 +10,6 @@ const  en = {
       "links": "Links",
       "festivals": "Festivals",
       "special": "Special",
-    },
-    alerts: {
     },
     newReleases: "News",
     mostWatched: "Most watched",

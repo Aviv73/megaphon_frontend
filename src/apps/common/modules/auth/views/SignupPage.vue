@@ -4,13 +4,13 @@
     <form @submit.prevent="signup" class="simple-form">
       <img class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
       <h4>{{$t('signup')}}</h4>
-      <!-- <FormInput type="text" labelholder="account.username" v-model="user.username"/> -->
-      <FormInput type="text" labelholder="account.firstname" v-model="user.firstName"/>
-      <FormInput type="text" labelholder="account.lastname" v-model="user.lastName"/>
-      <FormInput type="text" labelholder="account.email" v-model="user.email"/>
-      <FormInput type="text" labelholder="account.password" v-model="user.password"/>
-      <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
-      <!-- <FormInput type="select" labelholder="account.gender" v-model="user.gender" :itemsMap="userGenders"/> -->
+      <!-- <FormInput type="text" labelholder="auth.username" v-model="user.username"/> -->
+      <FormInput type="text" labelholder="auth.firstname" v-model="user.firstName"/>
+      <FormInput type="text" labelholder="auth.lastname" v-model="user.lastName"/>
+      <FormInput type="text" labelholder="auth.email" v-model="user.email"/>
+      <FormInput type="text" labelholder="auth.password" v-model="user.password"/>
+      <FormInput type="text" labelholder="auth.confirmPassword" v-model="confirmPassword"/>
+      <!-- <FormInput type="select" labelholder="auth.gender" v-model="user.gender" :itemsMap="userGenders"/> -->
       <button class="btn big primary" :disabled="!isUserValid">{{$t('submit')}}</button>
     </form>
   </div>

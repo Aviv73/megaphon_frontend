@@ -147,7 +147,7 @@ export default {
           this.propsToPass = { ...propsToPass, type: type.toLowerCase(), placeholder: this.dataField.title };
           this.cmpName = 'FormInput';
           break;
-        case 'SELECTION':
+        case 'SELECT':
           this.propsToPass = { ...propsToPass, type: 'select', items: this.dataField.options || [] };
           this.cmpName = 'FormInput';
           break;

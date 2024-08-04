@@ -2,21 +2,27 @@
   <ul class="organization-media-links flex align-center gap10 wrap">
     <li v-for="link in mediaLinks" :key="link.id">
       <a :href="link.src" target="_blank" class="hover-pop">
-        <img :src="require(`@/assets/images/media/${link.type}.svg`)" alt="">
+        <!-- <img :src="require(`@/assets/images/media/${link.type}.svg`)" alt=""> -->
+        <div class="img" v-html="mediaSvgs[link.type]"></div>
       </a>
     </li>
   </ul>
 </template>
 
 <script>
+import  { getSvgs } from '../../../../../../assets/images/svgs.js';
 export default {
   name: 'OrgMediaLinks',
   props: {
-    organization: Object
+    organization: Object,
+    color: String
   },
   computed: {
     mediaLinks() {
       return this.organization?.mediaLinks?.filter(c => c.src && c.type) || [];
+    },
+    mediaSvgs() {
+      return getSvgs(this.color).media;
     }
   }
 }
@@ -34,7 +40,7 @@ export default {
     display: inline-block;
     width: em(30px);
     height: em(30px);
-    img {
+    img, .img, svg {
       width: 100%;
       height: 100%;
     }

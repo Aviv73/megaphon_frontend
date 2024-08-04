@@ -4,14 +4,14 @@
       <div class="ph"></div>
       <div class="flex align-center gap20">
         <span>{{$t('contact')}} {{org.name}}</span>
-        <OrgMediaLinks :organization="org"/>
+        <OrgMediaLinks :organization="org" :color="org?.designPreferences?.colorsPalate?.[2]"/>
       </div>
     </div>
   </footer>
 </template>
 
 <script>
-import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks.vue'
+import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks/OrgMediaLinks.vue'
 export default {
   components: { OrgMediaLinks },
   name: "streamTv_AppFooter",

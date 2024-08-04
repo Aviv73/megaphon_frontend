@@ -1,5 +1,5 @@
 
-const en = {
+const en = { 
   "hello": "Hello",
   "filter": "Filter",
   "edit": "Edit",
@@ -99,7 +99,8 @@ const en = {
 
   "contact": "Contact",
 
-  "directLink": "Direct link"
+  "directLink": "Direct link",
+  toDetails: "To details"
 
 }
 const he = {
@@ -200,7 +201,8 @@ const he = {
   "new": "חדש",
   "contact": "צור קשר",
 
-  "directLink": "קישור ישיר"
+  "directLink": "קישור ישיר",
+  toDetails: "לפרטים"
 }
 const heF = {
   ...he,

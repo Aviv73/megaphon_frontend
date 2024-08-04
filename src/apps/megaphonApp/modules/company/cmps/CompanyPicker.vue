@@ -18,10 +18,6 @@ export default {
       type: Array,
       default: () => []
     },
-    getOnlyIds: {
-      type: Boolean,
-      default: false
-    },
     showLabel: {
       type: Boolean,
       default: false
@@ -40,7 +36,7 @@ export default {
       return this.allCompanies.sort((a, b) => a.name > b.name? 1 : -1).map(c => {
         return {
           label: c.name,
-          value: c
+          value: c._id
         }
       })
     },
@@ -54,13 +50,18 @@ export default {
     },
     emitChange(val) {
       val = val.filter(Boolean);
-      const valToEmit = this.getOnlyIds? val.map(c => c._id) : val;
+      const valToEmit = val;
       this.$emit('input', valToEmit)
     }
   },
   async created() {
-    if (!this.allCompanies.length) await this.loadAllCompanies();
-      if (this.getOnlyIds) this.val = this.val.map(id => this.allCompanies.find(comp => comp._id === id));
+    // if (!this.allCompanies.length)
+    await this.loadAllCompanies();
+  },
+  watch: {
+    organizationId() {
+      this.loadAllCompanies();
+    }
   },
   components: { FormInput }
 }

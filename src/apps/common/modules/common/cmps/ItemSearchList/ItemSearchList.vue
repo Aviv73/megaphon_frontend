@@ -67,8 +67,7 @@ export default {
     dontEmitOnInit: {
       type: Boolean,
       default: false
-    },
-    propsToPass: [Object]
+    }
   },
   data() {
     return {

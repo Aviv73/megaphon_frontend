@@ -7,8 +7,8 @@
     </template>
     <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20">
       <div class="pickers flex align-start gap10 flex-1">
-        <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="true" :organizationId="organizationId"/>
-        <TagPicker class="flex-1" v-model="tags" :onlyRelevants="true" :organizationId="organizationId"/>
+        <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="false" :organizationId="organizationId"/>
+        <TagPicker class="flex-1" v-model="tags" :onlyRelevants="false" :organizationId="organizationId"/>
       </div>
       <div class="flex align-center gap20">
         <div class="serach flex align-start">
@@ -30,16 +30,16 @@ import CompanyPicker from '../../company/cmps/CompanyPicker.vue';
 import TagPicker from '../../tag/cmps/TagPicker.vue';
 import ToggleModalOnlyForSmallScreen from '../../../../common/modules/common/cmps/ToggleModalOnlyForSmallScreen.vue';
 export default {
-  name: 'ContanctFilter',
+  name: 'ContactFilter',
   props: {
     initFilter: {
       type: Object,
       required: true
     },
-    // organizationId: {
-    //   type: String,
-    //   required: false
-    // }
+    organizationId: {
+      type: String,
+      required: false
+    }
   },
   data() {
     return {
@@ -50,13 +50,13 @@ export default {
     }
   },
   computed: {
-    organizationId() {
-      return this.$route.params.organizationId;
-    }
+    // organizationId() {
+    //   return this.$route.params.organizationId;
+    // }
   },
   methods: {
     emitFilter() {
-      this.$emit('filtered', {...this.filterBy, companies: this.companies.map(c => c._id), tags: this.tags.map(c => c._id)});
+      this.$emit('filtered', {...this.filterBy, companies: this.companies, tags: this.tags});
       this.didInit = true;
     },
     setSortKey(key) {

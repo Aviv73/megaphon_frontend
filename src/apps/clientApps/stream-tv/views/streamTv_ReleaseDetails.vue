@@ -1,11 +1,7 @@
 <template>
   <div class="release-details height-all" v-if="release">
     <SimpleReleaseDetails v-if="!isMonthlyRelease" :release="release"/>
-    <template v-else>
-      <div v-if="tabName === 'summary'">summary</div>
-      <div v-else-if="tabName === 'broadcastTimes'">broadcastTimes</div>
-      <GroupReleaseDetails v-else :release="release"/>
-    </template>
+    <GroupReleaseDetails v-else :release="release"/>
   </div>
 </template>
 

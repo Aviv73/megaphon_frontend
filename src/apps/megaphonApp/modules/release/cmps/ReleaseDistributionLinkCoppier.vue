@@ -4,7 +4,7 @@
       <template #toggler>
         <button class="btn">
           {{$t('distribute.copyReleaseDistributionUrl')}}
-          <img class="ico-img" :src="require('@/assets/images/url.png')" alt="">
+          <img class="ico-img" :src="require('@/assets/images/icons/url.png')" alt="">
         </button>
       </template>
       <template #content>
@@ -21,7 +21,7 @@
           </button>
           <button class="btn" @click="copyUrlToClipboard">
             {{$t('copy')}}
-            <img class="ico-img" :src="require('@/assets/images/url.png')" alt="">
+            <img class="ico-img" :src="require('@/assets/images/icons/url.png')" alt="">
           </button>
         </div>
       </template>

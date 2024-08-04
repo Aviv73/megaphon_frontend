@@ -5,8 +5,8 @@
       <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt="">
       <div class="actions-modal" v-if="showActionsModal">
         <div class="top-like"></div>
-        <button @click="logout">{{$t('auth.logout')}}</button> | 
-        <router-link :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
+        <button class="logout-btn" @click="logout">{{$t('auth.logout')}}</button> | 
+        <router-link class="edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
       </div>
     </div>
   </div>
@@ -36,14 +36,14 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme .megaphon-app {
+.dark-theme {
   .logged-user-preview {
     .avatar {
       background-color: #2090D4;
     }
   }
 }
-.megaphon-app {
+// .megaphon-app {
   .logged-user-preview {
     width: 100%;
     .avatar {
@@ -93,5 +93,5 @@ export default {
       }
     }
   }
-}
+// }
 </style>

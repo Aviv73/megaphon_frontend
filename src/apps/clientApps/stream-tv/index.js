@@ -8,7 +8,7 @@ const store = {
 import app from './App.vue';
 
 export default {
-  name: 'stream-tv-app',
+  name: 'streamTv-app',
   locales,
   routes,
   store,

@@ -50,7 +50,7 @@
 <script> 
 import Avatar from '@/apps/common/modules/common/cmps/Avatar.vue';
 import { organizationService } from '../../organization/services/organization.service';
-import LoggedUserPreview from './LoggedUserPreview.vue';
+import LoggedUserPreview from '../../../../common/modules/auth/cmps/LoggedUserPreview.vue';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import NavOrBurger from '../../../../common/modules/common/cmps/NavOrBurger.vue';
 export default {
@@ -69,8 +69,8 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     logoImgSrc() {
-      const megaphonLogog = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
-      return this.orgId == '-1'? megaphonLogog : this.organization?.logoUrl || megaphonLogog;
+      const megaphonLogo = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
+      return this.orgId == '-1'? megaphonLogo : this.organization?.logoUrl || megaphonLogo;
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
@@ -109,7 +109,6 @@ export default {
     // emitDefaultFilter() {
     //   if (!this.organization) return;
     //   const firstFilter = this.organization.routes?.[0];
-    //   console.log('WOOWOWO', firstFilter);
     //   // if (!firstFilter) return;
     //   // this.selecterOrgFilterId = firstFilter?._id || null;
     //   this.emitFilter(firstFilter);
@@ -222,23 +221,23 @@ export default {
         }
       }
     }
-  }
-
-  .logged-user-preview {
-    .actions-section {
-      .actions-modal {
-        .top-like {
-          // display: none;
-          top: 50%;
-          left: 0;
-          transform: translate(-50%, -50%) rotate(45deg);
+    .logged-user-preview {
+      .actions-section {
+        .actions-modal {
+          .top-like {
+            // display: none;
+            top: 50%;
+            left: 0;
+            transform: translate(-50%, -50%) rotate(45deg);
+          }
+          left: calc(100% + #{em(10px)});
+          transform: translateY(50%);
+          bottom: 50%;
         }
-        left: calc(100% + #{em(10px)});
-        transform: translateY(50%);
-        bottom: 50%;
       }
     }
   }
+
 }
 
 </style>

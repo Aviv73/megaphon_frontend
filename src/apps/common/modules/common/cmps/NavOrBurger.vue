@@ -1,7 +1,7 @@
 <template>
   <div class="nav-or-burger">
     <button @click="mobileShow = !mobileShow" v-if="showBurger" class="nav-burger height-all flex align-center justify-center">
-      <!-- <img :src="require('@/assets/images/nav_burger_white.png')"/> -->
+      <!-- <img :src="require('@/assets/images/icons/nav_burger_white.png')"/> -->
       <span class="actual">☰</span>
     </button>
     <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>

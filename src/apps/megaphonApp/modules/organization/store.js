@@ -61,7 +61,7 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
           type: '_Ajax',
           do: async () => getters.service.get(id, undefined, {isToInheritData}),
           onSuccess: (item) => {
-            commit({ type: 'setSelectedItem', item })
+            commit({ type: 'setSelectedItem', item });
             commit({ type: 'setProp', key: 'organizationId', val: item._id });
           }
         });

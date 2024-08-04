@@ -5,17 +5,17 @@ import SignupPage from './views/SignupPage';
 export const authRoutes = [
   {
     name: 'AuthApp',
-    path: '/example',
+    path: '/auth',
     component: AuthApp,
     children: [
       {
         name: 'LoginPage',
-        path: '/login',
+        path: 'login',
         component: LoginPage
       },
       {
         name: 'SignupPage',
-        path: '/signup',
+        path: 'signup',
         component: SignupPage
       },
     ]

@@ -55,7 +55,6 @@ export default {
       return this.selectedDesignTypeToShow == 0 ? 'landingPage' : 'email';
     },
     landingPageUrl() {
-      // console.log(this.selectedDesignTypeToShow, typeof (this.selectedDesignTypeToShow));
       return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow === '1', config) + '?selectedDesignID=' + this.release.design[this.designTypeKey];
     },
     allTemplates() {

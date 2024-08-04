@@ -131,6 +131,7 @@ function getAccountOrgItem(orgId = '', inviterId = '') {
   return  {
     _id: orgId,
     invitedBy: inviterId,
+    approverId: inviterId,
     roles: [],
     invitedAt: Date.now(),
     status: 'approved'
@@ -138,6 +139,7 @@ function getAccountOrgItem(orgId = '', inviterId = '') {
 }
 
 
+// TODO:: MAKE SURE NOT MISSING ANY FIELD;
 function getEmptyOrganization() {
   const org = {
     name: '',

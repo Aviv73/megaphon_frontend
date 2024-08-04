@@ -1,7 +1,7 @@
 <template>
   <span class="tooltip">
     <span ref="elPreview" class="tooltip-preview flex align-center justify-center" @click="toggleShow" @mouseleave="toggleHoverShow(false)" @mouseover="toggleHoverShow(true)">
-      <img class="tooltip-img" v-if="!$slots.preview" :src="require('@/assets/images/tooltip.png')" alt="" />
+      <img class="tooltip-img" v-if="!$slots.preview" :src="require('@/assets/images/icons/tooltip.png')" alt="" />
       <!-- <span v-if="!$slots.preview">(?)</span> -->
       <slot v-else name="preview"/>
     </span>

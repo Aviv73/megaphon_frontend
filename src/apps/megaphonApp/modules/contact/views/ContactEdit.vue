@@ -8,8 +8,8 @@
       <FormInput labelholder="lastName" :required="true" type="text" v-model="itemToEdit.lastName"/>
       <FormInput labelholder="contact.role" type="text" v-model="itemToEdit.role"/>
       <!-- <FormInput type="text" v-model="itemToEdit.name"/> -->
-      <TagPicker     :showLabel="true" :getOnlyIds="true" v-model="itemToEdit.tags"/>
-      <CompanyPicker :showLabel="true" :getOnlyIds="true" v-model="itemToEdit.company"/>
+      <TagPicker     :showLabel="true" v-model="itemToEdit.tags"/>
+      <CompanyPicker :showLabel="true" v-model="itemToEdit.company"/>
       <FormInput labelholder="contact.phone" type="text" v-model="itemToEdit.phone"/>
       <FormInput labelholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/>
       <FormInput labelholder="contact.notes" type="text" v-model="itemToEdit.notes"/>

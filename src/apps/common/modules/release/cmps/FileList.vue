@@ -29,7 +29,7 @@
           :src="fixFileSrcToThumbnail(file.src)" :alt="file.title"
         />
         <div class="img-actions flex align-center gap10">
-          <button class="btn" @click="downloadImg(file.src, file.title)">{{$t('download')}}</button>
+          <button class="btn download-btn" @click="downloadImg(file.src, file.title)"><span>{{$t('download')}}</span></button>
         </div>
       </template>
       <a
@@ -79,6 +79,7 @@ export default {
   .img-file-preview {
     width: em(300px);
     height: em(200px);
+    object-fit: cover;
   }
   .video-file-preview {
     box-shadow: $light-shadow;

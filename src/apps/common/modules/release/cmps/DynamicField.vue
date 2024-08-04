@@ -111,7 +111,7 @@ export default {
           this.cmpName = this.dataField.uiCmp || 'p';
           break;
         case 'TEXT':
-        case 'SELECTION':
+        case 'SELECT':
         case 'EMAIL':
           // if (!this.value?.trim?.()) this.hidden = true;
           this.propsToPass = { ...propsToPass };
@@ -180,6 +180,15 @@ export default {
           this.cmpName = 'p';
           this.valueToShow = this.value.join(', ');
           break;
+        case 'MULTISELECT_VALUE_TO_LABEL':
+          this.cmpName = 'p';
+          this.valueToShow = this.value.map(val => this.dataField.options.find(c => c.value === val)?.label).filter(Boolean).join(', ');
+          break;
+
+        case 'SELECT_VALUE_TO_LABEL':
+          this.cmpName = 'p';
+          this.valueToShow = this.dataField.options.find(c => c.value === this.value)?.label
+          break;
 
 
         // case 'FILE_SRC':
@@ -199,16 +208,14 @@ export default {
           this.propsToPass = { ...propsToPass, href: this.value.src, target: '_blank' };
           break;
         
+        
         case 'URL':
         case 'VIDEOURL':
           this.cmpName = 'a';
           this.propsToPass = { ...propsToPass, href: this.value, target: '_blank' };
           break;
 
-        case 'SELECTION_VALUE_TO_LABEL':
-          this.cmpName = 'p';
-          this.valueToShow = this.dataField.options.find(c => c.value === this.value)?.label
-          break;
+        
 
         
         case 'SINGLE-IMAGE_IN_ARRAY':

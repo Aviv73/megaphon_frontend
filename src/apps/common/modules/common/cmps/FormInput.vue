@@ -82,10 +82,8 @@
               <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @click.stop="isOpen = true"/>
               <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
               <ul class="multiselect-vals-list" v-if="showVals && val?.length">
-                <li v-for="curr in val.filter(Boolean)" :key="curr.name">
-                  <!-- <span>{{itemsToRender.find(c => c.value === curr).label}}</span>
-                  <button @click="val.splice(val.findIndex(c => c === curr) ,1)">X</button> -->
-                  <span :title="(typeof curr.name === 'string')? curr.name : curr">{{subValName((typeof curr.name === 'string')? curr.name : curr)}}</span>
+                <li v-for="curr in val.filter(Boolean)" :key="curr">
+                  <span :title="curr">{{subValName(gatValToShowForMultiSelect(curr))}}</span>
                   <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
                 </li>
                 <li class="clear-li">
@@ -161,7 +159,7 @@
         </div>
         <Tooltip class="icon-container" v-if="error" :msg="error">
           <template v-slot:preview>
-            <img class="icon-img" :src="require('@/assets/images/red_exclamation_mark.png')" alt="">
+            <img class="icon-img" :src="require('@/assets/images/icons/red_exclamation_mark.png')" alt="">
           </template>
         </Tooltip>
       </template>
@@ -205,6 +203,7 @@ export default {
     accept: { required: false, type: String, default: '' },
     
     showVals: { required: false, type: Boolean, default: false },
+    showActualValues: { required: false, type: Boolean, default: false },
     listUp: { required: false, type: Boolean, default: false },
 
     error: { required: false, type: String, default: '' },
@@ -287,6 +286,11 @@ export default {
       }
     },
 
+    gatValToShowForMultiSelect(val) {
+      return this.itemsToRender.find(c => c.value === val)?.label;
+      // if (!this.showActualValues) return val;
+      // return this.itemsToRender.find(c => c.value === val)?.label;
+    },
     subValName(name = '') {
       let sub = name.slice(0, 8);
       if (sub.length < name.length) sub += '..';

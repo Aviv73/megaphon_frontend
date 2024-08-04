@@ -103,8 +103,11 @@
 
       <h2 @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</h2>
       <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
-        <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
-        <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
+        <div class="flex column gap20">
+          <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
+          <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
+          <FormInput type="checkbox" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
+        </div>
         <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
         <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
         <div class="route-filters-section flex column gap20 align-start">

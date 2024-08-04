@@ -4,7 +4,7 @@ import { contactLocales } from './modules/contact/locales';
 import { tagLocales } from './modules/tag/locales';
 import { companyLocales } from './modules/company/locales';
 import { accountLocales } from './modules/account/locales';
-import { authLocales } from './modules/auth/locales';
+// import { authLocales } from './modules/auth/locales';
 import { organizationLocales } from './modules/organization/locales';
 
 export default {
@@ -15,7 +15,7 @@ export default {
     ...tagLocales.en,
     ...companyLocales.en,
     ...accountLocales.en,
-    ...authLocales.en,
+    // ...authLocales.en,
     ...organizationLocales.en,
   },
   he: {
@@ -25,7 +25,7 @@ export default {
     ...tagLocales.he,
     ...companyLocales.he,
     ...accountLocales.he,
-    ...authLocales.he,
+    // ...authLocales.he,
     ...organizationLocales.he,
   },
   heF: {
@@ -35,7 +35,7 @@ export default {
     ...tagLocales.heF,
     ...companyLocales.heF,
     ...accountLocales.heF,
-    ...authLocales.heF,
+    // ...authLocales.heF,
     ...organizationLocales.heF,
   },
 }

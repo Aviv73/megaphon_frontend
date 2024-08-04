@@ -19,7 +19,7 @@ export function createItemForDynamicForm(dataFields = []) {
       case 'NUMBER':
         item[field.fieldName] = 0;
         break;
-      case 'SELECTION':
+      case 'SELECT':
         item[field.fieldName] = '';
         break;
       case 'TABLE':
@@ -84,7 +84,7 @@ export function validateDataByDataField(dataField, data) {
     case 'NUMBER':
       return typeof data === 'number';
     case 'TEXT':
-    case 'SELECTION':
+    case 'SELECT':
     case 'EMAIL':
     case 'IMAGE_SRC':
     case 'FILE_SRC':

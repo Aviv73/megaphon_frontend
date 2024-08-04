@@ -19,10 +19,6 @@ export default {
       type: Array,
       default: () => []
     },
-    getOnlyIds: {
-      type: Boolean,
-      default: false
-    },
     showLabel: {
       type: Boolean,
       default: false
@@ -41,7 +37,7 @@ export default {
       return this.allTags.sort((a, b) => a.name > b.name? 1 : -1).map(c => {
         return {
           label: c.name,
-          value: c
+          value: c._id
         }
       })
     },
@@ -51,17 +47,23 @@ export default {
   },
   methods: {
     async loadAllTags() {
+      console.log(this.organizationId, this.onlyRelevants);
       await this.$store.dispatch({ type: 'tag/loadItems', filterBy: { onlyRelevants: this.onlyRelevants || undefined, organizationId: this.organizationId } });
     },
     emitChange(val) {
       val = val.filter(Boolean);
-      const valToEmit = this.getOnlyIds? val.map(c => c._id) : val;
+      const valToEmit = val;
       this.$emit('input', valToEmit)
     }
   },
   async created() {
-    if (!this.allTags.length) await this.loadAllTags();
-      if (this.getOnlyIds) this.val = this.val.map(id => this.allTags.find(tag => tag._id === id));
+    // if (!this.allTags.length)
+    await this.loadAllTags();
+  },
+  watch: {
+    organizationId() {
+      this.loadAllTags();
+    }
   },
   components: { FormInput }
 }

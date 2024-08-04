@@ -34,6 +34,7 @@ import { distributionService } from './apps/megaphonApp/modules/release/services
 
 import commonStoreModules from './apps/common/store'
 import { concatItems } from './apps/common/modules/common/services/util.service';
+import { setDynamicStylingEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 
 export default {
   name: 'App',
@@ -70,6 +71,9 @@ export default {
     isRtl() {
       const locale = this.$i18n.locale;
       return ['he', 'heF'].includes(locale);
+    },
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
     }
   },
   async created() {
@@ -86,13 +90,17 @@ export default {
 
     if (!appConfig.client) {
       await this.initSelectedApp();
+      await this.initUser(true);
       return;
     }
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
     await this.initSelectedApp(org);
+    setDynamicStylingEl(org, '.'+this.selectedAppData.name);
     // document.title = org.name;
     if (this.selectedAppData?.params?.title) document.title = this.selectedAppData.params.title;
     // this.setOrgStyling(org);
+
+    await this.initUser(org.requireAuth);
 
     if (this.$route.meta.reportReleaseOpen) {
       const releaseId = this.$route.params[this.$route.meta.releaseIdParamName];
@@ -103,6 +111,26 @@ export default {
 
   },
   methods: {
+    async initUser(requireAuth = false) {
+      if (this.$route.name === 'LoginPage') return;
+      this.isLoading = true;
+      // await socketService.connect();
+      try {
+        await Promise.all([
+          // this.$store.dispatch('settings/loadSettings'),
+          // this.$store.dispatch('settings/loadConfig'),
+          this.$store.dispatch('auth/getUserInfo')
+        ]);
+      } catch(e) {};
+      this.isLoading = false;
+      if (requireAuth && !this.loggedUser) this.$router.push({name: 'LoginPage'});
+      // else {
+      //   if (this.$route.params.organizationId) return;
+      //   const firstOrg = this.loggedUser.organizations.filter(c => c.organizationId != '-1')[0];
+      //   if (!firstOrg) return;
+      //   this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
+      // }
+    },
     setLocale(lang = this.uiConfig.locale) {
       // let locale = this.uiConfig.locale;
       let locale = lang;

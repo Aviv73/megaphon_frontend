@@ -72,14 +72,12 @@ export default {
       return !!this.itemToEdit;
     },  
     releaseType() {
-      console.log(this.itemToEdit);
       return this.itemToEdit?.releaseType || this.$route.query.releaseType || '';
     },
 
     selectedReleaseTypeItem() {
       if (!this.org || !this.releaseType) return null;
       // return this.org.releaseTypes.find(c => c.id === this.releaseType);
-      console.log(this.releaseType, this.org, templateUtils.getRelevantReleaseTypeItemForRelease(this.releaseType, this.org));
       return templateUtils.getRelevantReleaseTypeItemForRelease(this.releaseType, this.org);
     },
     // dataFields() {
@@ -98,7 +96,6 @@ export default {
   },
   methods: {
     async loadReleaseDataFields() {
-      console.log(this.releaseType);
       this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.orgId, releaseType: this.releaseType });
     },
     async getOrg() {

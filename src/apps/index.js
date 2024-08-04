@@ -22,16 +22,16 @@ export function getSelectedAppData(appName) {
   return megaphonAppData;
 }
 
-function getAppNameFromDomain(domainName) {
-  const data = [
-    {
-      appName: 'agam-client',
-      domains: ['agam']
-    },
-    {
-      appName: 'stream-tv-app',
-      domains: ['cellcom-tv']
-    }
-  ];
-  return data.find(c => c.domains.includes(domainName))?.appName || '';
-}
+// function getAppNameFromDomain(domainName) {
+//   const data = [
+//     {
+//       appName: 'agam-client',
+//       domains: ['agam']
+//     },
+//     {
+//       appName: 'stream-tv-app',
+//       domains: ['cellcom-tv']
+//     }
+//   ];
+//   return data.find(c => c.domains.includes(domainName))?.appName || '';
+// }

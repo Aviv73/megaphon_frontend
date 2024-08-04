@@ -16,7 +16,7 @@
     </div>
     <div class="flex column gap20">
       <template v-for="(field, idx) in dataFieldsToShow">
-        <div :key="field.fieldName || idx" :id="field.fieldName" v-if="!isScreenWide || !allTabNames.length || (tabView && field.uiSections?.includes(selectedTab))" :class="field.fieldName + '-division'">
+        <div :key="field.fieldName || idx" :id="field.fieldName" v-if="!isScreenWide || !allTabNames.length || (tabView && field.uiSections?.includes(selectedTab))" :class="field.fieldName + '-display'">
           <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData"/>
         </div>
       </template>

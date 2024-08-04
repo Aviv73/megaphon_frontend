@@ -71,7 +71,7 @@ import FoldersNav from './FoldersNav.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import DropDiv from '../dnd/DropDiv.vue';
 import { organizationService } from '../../../organization/services/organization.service';
-import LoggedUserPreview from '../LoggedUserPreview.vue';
+import LoggedUserPreview from '../../../../../common/modules/auth/cmps/LoggedUserPreview.vue';
 export default {
   components: { Avatar, FoldersNav, DropDiv, LoggedUserPreview },
   name: 'SideBar',

@@ -10,7 +10,7 @@
       </div>
     </div>
     <!-- <AppFooter/> -->
-    <Loader v-if="isLoading"/>
+    <!-- <Loader v-if="isLoading"/> -->
   </div>
 </template>
 
@@ -19,7 +19,7 @@ import './assets/style/index.scss';
 
 import AppHeader from './modules/common/cmps/AppHeader.vue';
 // import AppFooter from './modules/common/cmps/AppFooter.vue';
-import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
+// import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 
 
 export default {
@@ -28,37 +28,42 @@ export default {
     AppHeader,
     // AppFooter,
     // AppAside
-    Loader
+    // Loader
   },
-  data() {
-    return {
-      isLoading: false,
-    }
-  },
-  computed: {
-    loggedUser() {
-      return this.$store.getters['auth/loggedUser'];
-    }
-  },
-  async created() {
-    if (this.$route.name === 'LoginPage') return;
-    this.isLoading = true;
-    // await socketService.connect();
-    try {
-      await Promise.all([
-        // this.$store.dispatch('settings/loadSettings'),
-        // this.$store.dispatch('settings/loadConfig'),
-        this.$store.dispatch('auth/getUserInfo')
-      ]);
-    } catch(e) {};
-    this.isLoading = false;
-    if (!this.loggedUser) this.$router.push({name: 'LoginPage'});
-    // else {
-    //   if (this.$route.params.organizationId) return;
-    //   const firstOrg = this.loggedUser.organizations.filter(c => c.organizationId != '-1')[0];
-    //   if (!firstOrg) return;
-    //   this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
-    // }
-  }
+  // data() {
+  //   return {
+  //     isLoading: false,
+  //   }
+  // },
+  // computed: {
+  //   loggedUser() {
+  //     return this.$store.getters['auth/loggedUser'];
+  //   }
+  // },
+  // methods: {
+  //   // async initUser() {
+  //   //   if (this.$route.name === 'LoginPage') return;
+  //   //   this.isLoading = true;
+  //   //   // await socketService.connect();
+  //   //   try {
+  //   //     await Promise.all([
+  //   //       // this.$store.dispatch('settings/loadSettings'),
+  //   //       // this.$store.dispatch('settings/loadConfig'),
+  //   //       this.$store.dispatch('auth/getUserInfo')
+  //   //     ]);
+  //   //   } catch(e) {};
+  //   //   this.isLoading = false;
+  //   //   if (!this.loggedUser) this.$router.push({name: 'LoginPage'});
+  //   //   // else {
+  //   //   //   if (this.$route.params.organizationId) return;
+  //   //   //   const firstOrg = this.loggedUser.organizations.filter(c => c.organizationId != '-1')[0];
+  //   //   //   if (!firstOrg) return;
+  //   //   //   this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
+  //   //   // }
+  //   // }
+  // },
+  // async created() {
+  //   // this.initUser();
+  // }
 }
 </script>

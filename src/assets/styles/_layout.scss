@@ -147,11 +147,11 @@ html.accessability {
 
 @media (min-width: $small-screen-breake) {
   .small-screen-item {
-    display: none;
+    display: none !important;
   }
 }
 @media (max-width: $small-screen-breake) {
   .wide-screen-item {
-    display: none;
+    display: none !important;
   }
 }

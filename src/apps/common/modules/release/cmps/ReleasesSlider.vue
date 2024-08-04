@@ -16,7 +16,7 @@
         <router-link :to="routeToPage">
           <button class="flex align-center gap5">
             <span>
-              לפרטים 
+              {{$t('toDetails')}} 
             </span>
           </button>
         </router-link>

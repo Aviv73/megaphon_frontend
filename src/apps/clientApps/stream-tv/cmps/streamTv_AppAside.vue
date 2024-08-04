@@ -4,7 +4,7 @@
       <img class="actual" :src="org.logoUrl" :alt="org.name">
     </div>
     <div class="account-preview" v-if="loggedUser" :style="{'background-color': headerBg, color: headerColor}">
-      <span>{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
+      <LoggedUserPreview :class="{'no-auth': !org?.requireAuth}"/>
     </div>
     <CostumeNavBar/>
   </aside>
@@ -12,18 +12,19 @@
 
 <script>
 import CostumeNavBar from '../../../common/modules/common/cmps/CostumeNavBar.vue';
+import LoggedUserPreview from '../../../common/modules/auth/cmps/LoggedUserPreview.vue';
 export default {
-  components: { CostumeNavBar },
+  components: { CostumeNavBar, LoggedUserPreview },
   name: "streamTv_AppAside",
   computed: {
     org () {
       return this.$store.getters['organization/selectedItem'] || {};
     },
     loggedUser() {
-      return { 
-        firstName: 'אביב',
-        lastName: 'יששכר'
-      }
+      // return { 
+      //   firstName: 'אביב',
+      //   lastName: 'יששכר'
+      // }
       return this.$store.getters['auth/loggedUser'];
     },
     headerBg() {
@@ -71,6 +72,22 @@ export default {
 
     .account-preview {
       padding: em(20px) em(10px);
+      .logged-user-preview {
+        .avatar {
+          background-color: var(--clr-4);
+        }
+        .actions-modal {
+          .edit-btn {
+            display: none;
+          }
+        }
+
+        &.no-auth {
+          .actions-section {
+            display: none;
+          }
+        }
+      }
     }
   }
 }

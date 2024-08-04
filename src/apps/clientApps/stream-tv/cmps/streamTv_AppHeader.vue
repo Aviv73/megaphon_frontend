@@ -1,11 +1,18 @@
 <template>
   <header class="app-header flex align-center">
-    <div class="container_ header-content width-all flex align-center space-between" v-show="lastSeenGroupRelease">
+    <div class="container_ header-content height-all width-all flex align-center space-between" v-show="lastSeenGroupRelease">
       <NavOrBurger :showBurger="!!allRouteFilters.length">
-        <!-- <CostumeNavBar/> -->
-        <router-link class="nav-item hover-pop" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName: 'main'} }">{{$t('main')}}</router-link>
-        <router-link class="nav-item hover-pop" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName: 'summary'} }">{{$t('summary')}}</router-link>
-        <router-link class="nav-item hover-pop" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName: 'broadcastTimes'} }">{{$t('broadcastTimes')}}</router-link>
+        <router-link
+          v-for="(tabName, idx) in ['main', 'monthlySummary', 'broadcastTimes' ]" :key="tabName"
+          class="nav-item tab-name-nav-item"
+          :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName } }"
+          :class="{ selected: ($route.params.tabName === tabName) || (!idx && !$route.params.tabName) }"
+        >
+          <span class="hover-pop">
+            {{$t('release.'+tabName)}}
+          </span>
+        </router-link>
+        <CostumeNavBar class="small-screen-item"/>
       </NavOrBurger>
 
       <div class="ph"></div>
@@ -67,6 +74,7 @@ export default {
     max-width: 100%;
     background-color: rgba(255, 255, 255, 0) !important;
     // background-color: $layout-black;
+    color: var(--clr-0);
     // position: relative;
 
     // box-shadow: $light-shadow;
@@ -82,7 +90,7 @@ export default {
       }
       .actual {
         display: block;
-        background-color: var(--header-bgc);
+        background-color: var(--clr-4);
         width: 100%;
         height: 140%;
         // background-color: $layout-red;
@@ -94,7 +102,7 @@ export default {
         &::after {
           content: "";
           border-bottom: em(11px) solid transparent;
-          border-left: em(130px) solid var(--header-bgc);
+          border-left: em(130px) solid var(--clr-4);
           height: 0px;
           position: absolute;
           left: 0;
@@ -108,19 +116,43 @@ export default {
     }
   
     .header-content {
+      color: var(--clr-0);
       position: relative;
-      padding: em(20px);
+      padding: 0 em(20px);
       // padding: 20% em(10px) em(20px) em(10px);
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)) !important;
-      font-weight: 600;
-    }
-    
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) !important;
+      // font-weight: 600;
 
-    .costume-nav-bar {
-      a {
-        color: white;
+      
+      .tab-name-nav-item {
+        // display: inline-block;
+        &.selected {
+          border-top: em(5px) solid var(--clr-4);
+          padding-bottom: em(5px);
+          font-weight: bold;
+        }
+      }
+      @media (min-width: $small-screen-breake) {
+        .nav-or-burger, .nav {
+          height: 100%;
+        }
+        .tab-name-nav-item {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
     }
+
+    
+
+    a, .router-link {
+      // color: var(--clr-0);
+      color: white;
+    }
+    // .costume-nav-bar {
+    // }
   }
 }
 </style>

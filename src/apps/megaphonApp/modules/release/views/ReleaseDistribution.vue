@@ -7,7 +7,7 @@
       </div>
       <h2>{{$t('distribute.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
     </div>
-    <p v-if="!isLoading && !distributionTemplate">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
+    <p v-if="!isLoading && !distributionTemplate && false">{{$t('distribute.noMatchingDesignTemplateFound')}}</p>
     <template v-else>
       <div class="flex gap30 width-all flex-1 main-content">
         <div style="flex:3" class="flex column gap10">
@@ -27,7 +27,10 @@
             :showActions="false"
             :dontRoute="true"
             :showLoader="false"
-            :propsToPass="{contactsForDistribute}"
+            :propsToPass="{
+              contactsForDistribute,
+              organizationId: loadSystemContacts? '-1' : organizationId
+            }"
           >
             <div class="table-item-preview gap10 table-header">
               <p>{{$t('contact.contactName')}}</p>
@@ -47,7 +50,7 @@
         <div style="flex:1.5" class="distribute-detailes flex column gap20">
           <div class="flex align-center space-between">
             <h3>{{contactsForDistribute.length}} {{$t('distribute.contactsWasSelected')}}</h3>
-            <!-- <button class="btn" @click="copyUrlToClipboard">{{$t('distribute.copyReleaseDistributionUrl')}} <img class="ico-img" :src="require('@/assets/images/url.png')" alt=""></button> -->
+            <!-- <button class="btn" @click="copyUrlToClipboard">{{$t('distribute.copyReleaseDistributionUrl')}} <img class="ico-img" :src="require('@/assets/images/icons/url.png')" alt=""></button> -->
             <ReleaseDistributionLinkCoppier :release="this.release" :organization="this.org"/>
           </div>
           <div class="width-all flex column gap5">
@@ -250,7 +253,7 @@ export default {
     },
 
     distributionTemplate() {
-      return templateUtils.getReleaseRelevantTemplateItem(this.release, this.org, true);
+      return templateUtils.getReleaseRelevantTemplateItem?.(this.release, this.org, true) || null;
     },
 
     contactsForDistributeToShow() {

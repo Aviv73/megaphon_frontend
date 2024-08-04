@@ -2,10 +2,10 @@
   <div class="auth-page login-page flex column gap20 align-center justify-center width-all">
     <router-link class="btn width-content" :to="{name: 'SignupPage'}">{{$t('signup')}}</router-link>
     <form @submit.prevent="login" class="simple-form">
-      <img class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
+      <img class="logo" :src="appLogo" :alt="org?.name || 'Megaphon'">
       <h4>{{$t('login')}}</h4>
-      <FormInput type="text" labelholder="account.email" v-model="userCred.email"/>
-      <FormInput type="password" labelholder="account.password" v-model="userCred.password"/>
+      <FormInput type="text" labelholder="auth.email" v-model="userCred.email"/>
+      <FormInput type="password" labelholder="auth.password" v-model="userCred.password"/>
       <div class="flex align-center space-between">
         <button class="btn big primary flex align-center justify-center" :disabled="!isUserValid"><span>{{$t('submit')}}</span></button>
       </div>
@@ -17,7 +17,7 @@
       <template v-slot:content>
         <form @submit.prevent="sendNewPasswordEmail" class="simple-form align-center gap30">
           <h3>{{$t('auth.forgotPassword')}}</h3>
-          <FormInput labelholder="account.email" v-model="forgotEmailEmail"/>
+          <FormInput labelholder="auth.email" v-model="forgotEmailEmail"/>
           <button class="btn big primary">{{$t('auth.sendMeNewPassword')}}</button>
         </form>
       </template>
@@ -43,6 +43,12 @@ export default {
   computed: {
     isUserValid() {
       return this.userCred.email && this.userCred.password;
+    },
+    appLogo() {
+      return this.org?.logoUrl || require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
+    },
+    org() {
+      return this.$store.getters['organization/selectedItem'];
     }
   },
   methods: {

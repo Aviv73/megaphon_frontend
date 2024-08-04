@@ -8,6 +8,7 @@ export function setDynamicStylingEl(org, selector) {
   const colorsPalate = designPreferences?.colorsPalate || [];
   const cssEl = elementService.StyleEl(selector, {
     ...colorsPalate.reduce((acc, c, idx) => ({
+      [`--clr-${idx}`]: colorsPalate[idx],
       [`.clr-${idx}`]: {
         color: colorsPalate[idx]
       },
