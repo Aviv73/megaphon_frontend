@@ -311,7 +311,7 @@ export default {
       width: 100%;
       max-width: 90vw;
       // max-width: 100%;
-      overflow-x: auto;
+      // overflow-x: auto;
       table {
         // border-spacing: em(10px);
         width: 100%;

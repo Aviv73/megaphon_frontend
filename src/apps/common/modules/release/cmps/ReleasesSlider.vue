@@ -99,7 +99,7 @@ export default {
   // min-height: 400px;
   .hero-main {
     box-shadow: $light-shadow;
-    background: white;
+    background: var(--clr-1);
     flex: 1;
     padding: em(40px);
     height: 100%;

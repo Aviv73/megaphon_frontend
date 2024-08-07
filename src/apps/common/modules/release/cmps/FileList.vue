@@ -107,7 +107,7 @@ export default {
     bottom: em(10px);
     .btn {
       border-radius: 0;
-      border: 1px solid black;
+      border: 1px solid var(--clr-0); // black
       // width: em(50px);
       // height: em(25px);
     }

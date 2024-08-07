@@ -4,7 +4,7 @@
       <div class="ph"></div>
       <div class="flex align-center gap20">
         <span>{{$t('contact')}} {{org.name}}</span>
-        <OrgMediaLinks :organization="org" :color="org?.designPreferences?.colorsPalate?.[2]"/>
+        <OrgMediaLinks :organization="org" :color="org?.designPreferences?.colors?.[2]"/>
       </div>
     </div>
   </footer>

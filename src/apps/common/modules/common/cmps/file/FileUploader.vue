@@ -87,7 +87,7 @@ export default {
     width: em(160px);
     height: em(110px);
     object-fit: contain;
-    border: em(1px) solid black;
+    border: em(1px) solid var(--clr-0);
 
     background-color: rgb(223, 223, 223);
   }

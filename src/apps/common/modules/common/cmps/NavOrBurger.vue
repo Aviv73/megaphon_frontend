@@ -83,9 +83,9 @@ export default {
         transform: translateX(0);
       }
       width: 175px;
-      border-inline-start: 1px solid black;
+      border-inline-start: 1px solid var(--clr-0);
 
-      background-color: $layout-black;
+      background-color: var(--clr-1);
 
       .nav-items {
         display: flex;
@@ -102,7 +102,7 @@ export default {
         justify-content: center;
         border: unset;
         border-radius: unset;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid var(--clr-0); // black
         text-align: center;
         &.router-link-exact-active {
           // color: #EF4B49;

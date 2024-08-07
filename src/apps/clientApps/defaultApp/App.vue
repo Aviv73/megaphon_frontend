@@ -19,7 +19,7 @@ import './assets/style/index.scss';
 import AppHeader from './cmps/default_AppHeader.vue';
 import AppFooter from './cmps/default_AppFooter.vue';
 
-import { setDynamicStylingEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
+import { setStylingForOrgTheme } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 
 
 export default {
@@ -32,7 +32,7 @@ export default {
   methods: {
     async setOrgStyling() {
       const org = await this.$store.dispatch({type: 'organization/loadItem'});
-      setDynamicStylingEl(org, '.default-app');
+      setStylingForOrgTheme(org, '.default-app');
     }
   },
   created() {

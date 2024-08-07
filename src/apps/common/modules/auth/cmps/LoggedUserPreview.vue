@@ -17,7 +17,7 @@ export default {
   name: 'LoggedUserPreview',
   data() {
     return {
-      showActionsModal: false
+      showActionsModal: false 
     }
   },
   computed: {
@@ -36,20 +36,20 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme {
-  .logged-user-preview {
-    .avatar {
-      background-color: #2090D4;
-    }
-  }
-}
+// .dark-theme { // MOVED
+//   .logged-user-preview {
+//     .avatar {
+//       background-color: var(--clr-4);
+//     }
+//   }
+// }
 // .megaphon-app {
   .logged-user-preview {
     width: 100%;
     .avatar {
       width: em(30px);
       height: em(30px);
-      background-color: black;
+      background-color: var(--clr-0); //black
       border-radius: 50%;
     }
     .actions-section {
@@ -89,6 +89,23 @@ export default {
           height: em(10px);
           // box-shadow: $light-shadow;
           z-index: -1;
+        }
+      }
+    }
+    
+    
+    &.to-the-right {
+      .actions-section {
+        .actions-modal {
+          .top-like {
+            // display: none;
+            top: 50%;
+            left: 0;
+            transform: translate(-50%, -50%) rotate(45deg);
+          }
+          left: calc(100% + #{em(10px)});
+          transform: translateY(50%);
+          bottom: 50%;
         }
       }
     }

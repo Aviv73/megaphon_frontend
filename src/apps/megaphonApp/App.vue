@@ -1,5 +1,5 @@
 <template>
-  <div class="app megaphon-app _dark-theme height-all">
+  <div class="app megaphon-app _dark-theme height-all" :class="appThemeClassName">
     <div class="app-content">
       <!-- <AppAside/> -->
       <div class="right height-all flex column">
@@ -20,7 +20,10 @@ import './assets/style/index.scss';
 import AppHeader from './modules/common/cmps/AppHeader.vue';
 // import AppFooter from './modules/common/cmps/AppFooter.vue';
 // import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
+import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 
+import allThemes from './themes';
+import { setDynamicStylingThemeEl } from '../common/modules/common/services/dynamicPages.service.js';
 
 export default {
   name: 'MegaphonApp',
@@ -30,6 +33,26 @@ export default {
     // AppAside
     // Loader
   },
+  computed: {
+    uiConfig() {
+      return this.$store.getters['settings/uiConfig'] || {};
+    },
+    appThemeClassName() {
+      return (this.uiConfig?.theme || 'none') + '-theme';
+    },
+  },
+  methods: {
+    setTheme() {
+      const themeName = this.uiConfig.theme;
+      const themeItem = allThemes.find(c => c.name === themeName) || allThemes[0];
+      setDynamicStylingThemeEl({...themeItem, title: 'Megaphon'}, '.app');
+    }
+  },
+  created() {
+    this.setTheme();
+    evEmmiter.on('app_config_update', this.setTheme);
+  },
+
   // data() {
   //   return {
   //     isLoading: false,

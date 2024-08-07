@@ -141,44 +141,44 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme .megaphon-app {
-  .sidebar-container {
-    color: #cecece;
-    .main-sidebar {
-      .organization-preview {
-        .nav-list-item {
-          &:hover {
-            background-color: lighten($color: #2090D4, $amount: 20%) !important;
-          }
-        }
+// .dark-theme.megaphon-app { // MOVED TO
+//   .sidebar-container {
+//     color: #cecece;
+//     .main-sidebar {
+//       // .organization-preview {
+//       //   .nav-list-item {
+//       //     &:hover {
+//       //       background-color: lighten($color: #2090D4, $amount: 20%) !important;
+//       //     }
+//       //   }
 
-        &.selected {
-          .org-header {
-            background-color: #2090D4;
-            // color: #2090D4
-            color: white
-          }
-          .router-link-active {
-            background-color: rgba(147, 214, 254, 0.3);
-            color: #2090D4;
-          }
-        }
-      }
-      .nav-list-item {
-        border-bottom: em(0.5px) solid #003d5e;
-      }
+//       //   &.selected {
+//       //     .org-header {
+//       //       background-color: var(--clr-4);
+//       //       // color: var(--clr-4)
+//       //       color: white
+//       //     }
+//       //     .router-link-active {
+//       //       background-color: rgba(147, 214, 254, 0.3);
+//       //       color: var(--clr-4);
+//       //     }
+//       //   }
+//       // }
+//       .nav-list-item {
+//         border-bottom: em(0.5px) solid #003d5e;
+//       }
 
-      @media (max-width: $small-screen-breake) {
-        // .main-sidebar {
-          background-color: black;
-        // }
-      }
-    }
-    .toggle-btn {
-      color: black;
-    }
-  }
-}
+//       // @media (max-width: $small-screen-breake) {
+//       //   // .main-sidebar {
+//       //     background-color: var(--clr-2);
+//       //   // }
+//       // }
+//     }
+//     // .toggle-btn {
+//     //   color: var(--clr-0);
+//     // }
+//   }
+// }
 .megaphon-app {
   .sidebar-container {
     position: relative;
@@ -195,7 +195,7 @@ export default {
         // flex-grow: 1;
         // overflow-y: auto;
       }
-      color: #2090D4;
+      color: var(--clr-4);
       position: sticky;
       top: calc(#{$header-height} + 0px);
       
@@ -205,7 +205,7 @@ export default {
       width: em(250px);
   
       .app-avatar {
-       color: white;
+       color: var(--clr-1);
        border: 0;
       }
       .folder-avatar {
@@ -221,17 +221,20 @@ export default {
       .organization-preview {
         .nav-list-item {
           &:hover {
-            background-color: #F5F5F5 !important;
+            background-color: var(--clr-5) !important;
+            color: var(--clr-1);
           }
         }
   
         &.selected {
           .org-header {
-            background-color: #BCDDF2;
+            background-color: var(--clr-4);
+            color: var(--clr-1);
           }
           .router-link-active {
-            background-color: rgba(147, 214, 254, 0.3);
-            color: black;
+            // background-color: rgba(147, 214, 254, 0.3);
+            background-color: var(--clr-5);
+            color: var(--clr-0);
           }
         }
       }

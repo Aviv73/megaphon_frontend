@@ -156,7 +156,7 @@ export default {
     // padding: em(10px);
     height: auto;
     .item-list {
-      justify-content: space-between !important;
+      // justify-content: space-between !important;
       gap: em(10px);
     }
     .item-page {
@@ -190,19 +190,19 @@ export default {
           // transform: rotate(180deg);
         }
       }
-      color: white;
+      color: var(--clr-1);
       .hero-main {
         padding: 0;
         img {
           height: em(500px);
           flex: 3;
         }
-        background-color: black;
+        background-color: var(--clr-0);
         .hero-content {
           height: em(350px);
           flex: 2;
-          background-color: black;
-          color: white;
+          background-color: var(--clr-0);
+          color: var(--clr-1);
           padding-inline-end: em(50px);
         }
         @media (max-width: $small-screen-breake) {

@@ -1,18 +1,19 @@
-$default-theme-header-clr: black;
-$default-theme-body-clr: black;
-$default-theme-header-bg: #c4fad3;
-$default-theme-body-bg: white;
+// $default-theme-header-clr: black;
+// $default-theme-body-clr: black;
+// $default-theme-header-bg: #c4fad3;
+// $default-theme-body-bg: white;
+// $default-theme-headings-clr: #2090D4;
 
 
-.agam-app {
-  .app-main {
-    color: $default-theme-body-clr;
-    background-color: $default-theme-body-bg;
-    // .app-main {
-    // }
-  }
-  .app-header, .app-footer {
-    background-color: $layout-black;
-    color: white;
-  }
-}
+// .agam-app {
+//   .app-main {
+//     color: $default-theme-body-clr;
+//     background-color: $default-theme-body-bg;
+//     // .app-main {
+//     // }
+//   }
+//   .app-header, .app-footer {
+//     background-color: $layout-black;
+//     color: white;
+//   }
+// }

@@ -69,15 +69,15 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme.megaphon-app {
-  .company-picker {
-    .form-input {
-      input {
-        color: black;
-      }
-    }
-  }
-}
+// .dark-theme.megaphon-app {
+//   .company-picker {
+//     .form-input {
+//       input {
+//         color: black;
+//       }
+//     }
+//   }
+// }
 .megaphon-app {
   .company-picker {
     .form-input {

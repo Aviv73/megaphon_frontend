@@ -75,9 +75,9 @@ export default {
       border-radius: em(5px);
       box-shadow: $light-shadow;
       background-color: #fff;
-      color: black;
+      color: var(--clr-0);
       input, select {
-        color: black;
+        color: var(--clr-0);
       }
     }
   }

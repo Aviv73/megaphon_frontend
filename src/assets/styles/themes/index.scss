@@ -1,18 +1,18 @@
-@mixin theme($header-clr, $body-clr, $header-bg, $body-bg) {
-  // .app-header, .app-footer {
-  //   background-color: $header-bg;
-  //   color: $header-clr;
-  // }
-  // .app-main {
-  // }
-  color: $body-clr;
-  background-color: $body-bg;
-}
+// @mixin theme($header-clr, $body-clr, $header-bg, $body-bg) {
+//   // .app-header, .app-footer {
+//   //   background-color: $header-bg;
+//   //   color: $header-clr;
+//   // }
+//   // .app-main {
+//   // }
+//   color: $body-clr;
+//   background-color: $body-bg;
+// }
 
-@import "./_default.scss";
-@import "./_dark.scss";
-// @import "./_lemon.scss";
-// @import "./_red.scss";
-// @import "./_purple.scss";
-// @import "./_pink.scss";
-// @import "./_blue.scss";
+// @import "./_default.scss";
+// @import "./_dark.scss";
+// // @import "./_lemon.scss";
+// // @import "./_red.scss";
+// // @import "./_purple.scss";
+// // @import "./_pink.scss";
+// // @import "./_blue.scss";

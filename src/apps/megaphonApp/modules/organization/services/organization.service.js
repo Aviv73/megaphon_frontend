@@ -167,7 +167,7 @@ function getEmptyOrganization() {
     designPreferences: {
       // color: 'black',
       // bgColor: 'white',
-      colorsPalate: [
+      colors: [
         '#000000', // bodyColor
         '#ffffff', // bodyBg
         '#ffffff', // headerColor

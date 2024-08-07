@@ -9,7 +9,7 @@
       <FormInput class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect" v-else/>
 
 
-      <NavOrBurger class="release-actions align-center_ flex gap50 height-all">
+      <NavOrBurger class="release-actions align-center_ flex gap50 height-all" v-if="showNavContent">
         <div class="links nav-items flex align-center gap10 height-all" v-if="isOrgProducer">
           <router-link class="nav-item" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn big primary">
@@ -36,7 +36,7 @@
       </NavOrBurger>
 
       <div class="flex align-center gap20 height-all ph">
-        <LoggedUserPreview v-if="isUserWatchOnly"/>
+        <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right"/>
         <!-- <div class="release-title height-all">
           <div class="actual height-all flex-center">
             <h2>Megaphon</h2>
@@ -218,21 +218,6 @@ export default {
         }
         .drop-down-item {
           width: 100%;
-        }
-      }
-    }
-    .logged-user-preview {
-      .actions-section {
-        .actions-modal {
-          .top-like {
-            // display: none;
-            top: 50%;
-            left: 0;
-            transform: translate(-50%, -50%) rotate(45deg);
-          }
-          left: calc(100% + #{em(10px)});
-          transform: translateY(50%);
-          bottom: 50%;
         }
       }
     }

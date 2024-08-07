@@ -21,17 +21,13 @@ export default {
       return this.$store.getters['organization/selectedItem'] || {};
     },
     loggedUser() {
-      // return { 
-      //   firstName: 'אביב',
-      //   lastName: 'יששכר'
-      // }
       return this.$store.getters['auth/loggedUser'];
     },
     headerBg() {
-      return this.org?.designPreferences?.colorsPalate?.[3];
+      return this.org?.designPreferences?.colors?.[3];
     },
     headerColor() {
-      return this.org?.designPreferences?.colorsPalate?.[2];
+      return this.org?.designPreferences?.colors?.[2];
     }
   }
 }

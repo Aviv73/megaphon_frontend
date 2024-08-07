@@ -127,9 +127,13 @@ export default {
     .serach {
       border-bottom: em(1px) solid $light-gray;
       width: em(180px);
-      input {
-        border: 0;
-        // border-radius: 0;
+      .form-input {
+        width: 100%;
+        input {
+          border: 0;
+          background: unset;
+          // border-radius: 0;
+        }
       }
     }
   }

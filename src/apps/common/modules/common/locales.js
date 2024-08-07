@@ -100,7 +100,9 @@ const en = {
   "contact": "Contact",
 
   "directLink": "Direct link",
-  toDetails: "To details"
+  toDetails: "To details",
+
+  "cantUploadFileError": "Cant upload file"
 
 }
 const he = {
@@ -202,7 +204,9 @@ const he = {
   "contact": "צור קשר",
 
   "directLink": "קישור ישיר",
-  toDetails: "לפרטים"
+  toDetails: "לפרטים",
+
+  "cantUploadFileError": "המערכת נכשלה לשמור את הקובץ"
 }
 const heF = {
   ...he,

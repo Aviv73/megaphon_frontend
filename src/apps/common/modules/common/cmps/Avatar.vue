@@ -39,7 +39,7 @@ export default {
   // width: em(30px);
   // height: em(30px);
   border-radius: 50%;
-  border: em(2px) solid white;
+  border: em(2px) solid var(--clr-1);
   background: #dbdbdb;
   overflow: hidden;
   .avatar-img {
@@ -49,10 +49,10 @@ export default {
     object-fit: cover;
   }
 }
-.dark-theme {
-  .app-avatar {
-    background: white;
-    color: #676767 !important;
-  }
-}
+// .dark-theme {
+//   .app-avatar {
+//     background: white;
+//     color: #676767 !important;
+//   }
+// }
 </style>

@@ -10,20 +10,20 @@
       // color: white;
       &.primary {
         // background-color: $clr-light-green;
-        background-color: #0184d4;
-        color: white;
+        background-color: var(--clr-4);
+        color: var(--clr-1);
       }
       &:active {
-        color: black;
-        border-color: black;
+        color: var(--clr-0);
+        border-color: var(--clr-0);
       }
     }
   }
   
   .toggle-btns {
-    background-color: black;
+    background-color: var(--clr-0);
     button {
-      color: white;
+      color: var(--clr-1);
     }
   }
 }
@@ -94,10 +94,10 @@
     // &.danger {
     //   background-color: red;
     // }
-    &:active {
-      color: white;
-      border-color: white;
-    }
+    // &:active {
+    //   color: white;
+    //   border-color: white;
+    // }
 
   }
   

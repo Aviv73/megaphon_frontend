@@ -1,49 +1,60 @@
 <template>
-    <div class="pagination-btns">
-      <div class="flex align-center gap5 ltr">
-        <FormInput type="select" labell="Per page:" v-model="filterBy.pagination.limit" @change="updateLimit" :items="[15,30,50,100,150,200]" class="align-center gap15" :listUp="true"/>
-        <span class="out-of-span">/</span>
-        <span class="total-span">{{total}}</span>
-      </div>
-      <div class="page-buttons" :class="{ disable: (page <= 1) }">
-        <button @click="routeToNewPage(+page - 1)">
-          <
-        </button>
-      </div>
-      <div class="page-num-btns">
-        <template v-if="isLotsOfPages && !pagesToRender.includes(1)">
-          <button @click="routeToNewPage(1)">1</button>
-          <span class="dots" v-if="(page > 3) && isScreenWide">...</span>
-        </template>
+    <div class="pagination-btns flex column align-center gap20" v-if="filterBy">
+      <div class="navigator">
+        <div class="flex align-center gap5 ltr">
+          <FormInput type="select" labell="Per page:" v-model="filterBy.pagination.limit" @change="updateLimit" :items="[15,30,50,100,150,200,500,1000]" class="align-center gap15" :listUp="true"/>
+          <span class="out-of-span">/</span>
+          <span class="total-span">{{total}}</span>
+        </div>
+        <div class="page-buttons" :class="{ disable: (page <= 1) }">
+          <button @click="routeToNewPage(+page - 1)">
+            <
+          </button>
+        </div>
+        <div class="page-num-btns">
+          <template v-if="isLotsOfPages && !pagesToRender.includes(1)">
+            <button @click="routeToNewPage(1)">1</button>
+            <span class="dots" v-if="(page > 3) && isScreenWide">...</span>
+          </template>
 
-        <template v-if="isScreenWide">
+          <template v-if="isScreenWide">
+            <button 
+              v-for="pageNum in pagesToRender" :key="pageNum"
+              @click="routeToNewPage(pageNum)" 
+              :class="{selected: page == pageNum}" 
+            >
+              {{pageNum}}
+            </button>
+          </template>
+          <template v-else>
+            <button
+              :class="{selected: true}" 
+            >
+              {{page}}
+            </button>
+          </template>
+            
+          <template v-if="isLotsOfPages && !pagesToRender.includes(totalPages)">
+            <span class="dots" v-if="(page < totalPages-2) && isScreenWide">...</span>
+            <button @click="routeToNewPage(totalPages)">{{totalPages}}</button>
+          </template>
+        </div>
+        <div class="page-buttons" :class="{ disable: (totalPages <= page) }">
+          <button @click="routeToNewPage(+page + 1)">
+            >
+          </button>
+        </div>
+      </div>
+      <div v-if="showAllPages" class="flex align-center space-between wrap gap10">
           <button 
-            v-for="pageNum in pagesToRender" :key="pageNum"
+            v-for="pageNum in allPageNums" :key="pageNum"
             @click="routeToNewPage(pageNum)" 
             :class="{selected: page == pageNum}" 
           >
             {{pageNum}}
           </button>
-        </template>
-        <template v-else>
-          <button
-            :class="{selected: true}" 
-          >
-            {{page}}
-          </button>
-        </template>
-          
-        <template v-if="isLotsOfPages && !pagesToRender.includes(totalPages)">
-          <span class="dots" v-if="(page < totalPages-2) && isScreenWide">...</span>
-          <button @click="routeToNewPage(totalPages)">{{totalPages}}</button>
-        </template>
+        </div>
       </div>
-      <div class="page-buttons" :class="{ disable: (totalPages <= page) }">
-        <button @click="routeToNewPage(+page + 1)">
-          >
-        </button>
-      </div>
-    </div>
 </template>
 
 <script>
@@ -57,6 +68,10 @@ export default {
     initFilter: {
       type: Object,
       // required: true
+    },
+    showAllPages: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -82,9 +97,13 @@ export default {
     isLotsOfPages() {
       return this.totalPages > this.renderPagesLimit;
     },
+    allPageNums() {
+      const pageNums = '0'.repeat(this.totalPages).split('').map((_, idx) => idx+1);
+      return pageNums;
+    },
     pagesToRender() {
-      const { totalPages, page: currPage, isLotsOfPages, renderPagesLimit } = this;
-      const pageNums = '0'.repeat(totalPages).split('').map((_, idx) => idx+1);
+      const { totalPages, page: currPage, isLotsOfPages, renderPagesLimit, allPageNums : pageNums } = this;
+      // const pageNums = '0'.repeat(totalPages).split('').map((_, idx) => idx+1);
       
       if (!isLotsOfPages) return pageNums;
       
@@ -122,13 +141,13 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme {
-  .pagination-btns {
-    button, .dots {
-      color: white;
-    }
-  }
-}
+// .dark-theme {
+//   .pagination-btns {
+//     button, .dots {
+//       color: white;
+//     }
+//   }
+// }
 .pagination-btns {
     .form-input.form-input-select {
       // border-bottom: em(1px) solid black;
@@ -136,6 +155,19 @@ export default {
         width: em(80px);
         min-width: em(80px);
       }
+    }
+
+    .navigator {
+      display: flex;
+      // width: 220px;
+      justify-content: space-between;
+      align-items: center;
+      margin: auto;
+  
+      gap: 25px;
+  
+      // width: 300px;
+      width: fit-content;
     }
 
     display: flex;
@@ -158,7 +190,7 @@ export default {
         align-items: center;
         justify-content: center;
         // border: em(1px) solid black;
-        color: black;
+        color: black; // black // var(--clr-0)
         border-radius: em(5px);
         padding: 0 em(5px);
     }
@@ -175,7 +207,7 @@ export default {
 
     .page-num-btns {
         // flex: 1;
-        color: black;
+        color: black; // black // var(--clr-0)
         font-weight: 700;
 
         display: flex;

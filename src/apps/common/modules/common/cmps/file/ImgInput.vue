@@ -41,7 +41,7 @@ export default {
     width: em(150px);
     height: em(100px);
     object-fit: contain;
-    border: em(1px) solid black;
+    border: em(1px) solid var(--clr-0);
   }
 }
 </style>

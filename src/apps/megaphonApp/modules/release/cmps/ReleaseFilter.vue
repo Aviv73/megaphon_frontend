@@ -173,7 +173,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme .megaphon-app {
+.dark-theme.megaphon-app {
   .release-filter, .toggle-btns button {
     color: #cdcdcd;
   }

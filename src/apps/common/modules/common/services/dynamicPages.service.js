@@ -2,39 +2,59 @@
 import { elementService } from './element.service.js';
 
 
-export function setDynamicStylingEl(org, selector) {
-  document.title = org.name;
-  const designPreferences = org.designPreferences;
-  const colorsPalate = designPreferences?.colorsPalate || [];
+// const stylingTheme = {
+//   name: '',
+//   class: '', // css class
+//   colors: [],
+//   fonts: [],
+//   css: '' // css code as string;,
+// }
+
+export function setStylingForOrgTheme(org, selector) {
+  return setDynamicStylingThemeEl({...org.designPreferences, title: org.name}, selector);
+}
+
+var lastCssEl = null;
+export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
+  if (lastCssEl) document.head.removeChild(lastCssEl);
+  document.title = stylingTheme.title;
+  const colors = stylingTheme?.colors || [];
+  const fonts = stylingTheme?.fonts || [];
+  const _ig = ':not(.ignore-theme-style)';
   const cssEl = elementService.StyleEl(selector, {
-    ...colorsPalate.reduce((acc, c, idx) => ({
-      [`--clr-${idx}`]: colorsPalate[idx],
+    ...fonts.reduce((acc, c, idx) => ({
+      [`--font-${idx}`]: fonts[idx]
+    }), {}),
+    ...colors.reduce((acc, c, idx) => ({
+      [`--clr-${idx}`]: c,
       [`.clr-${idx}`]: {
-        color: colorsPalate[idx]
+        color: c
       },
       [`.bg-${idx}`]: {
-        backgroundColor: colorsPalate[idx]
+        backgroundColor: c
       },
       [`.border-clr-${idx}`]: {
-        'border-color': colorsPalate[idx]
+        'border-color': c
       },
     }), {}),
-    '--main-color': colorsPalate[0],
-    '--main-bgc': colorsPalate[1],
-    '--header-color': colorsPalate[2],
-    '--header-bgc': colorsPalate[3],
-    '--heading-color': colorsPalate[4],
-    '.app-main': {
-      color: colorsPalate[0] || 'black',
-      backgroundColor: colorsPalate[1] || 'white'
+    '--main-color': colors[0],
+    '--main-bgc': colors[1],
+    '--header-color': colors[2],
+    '--header-bgc': colors[3],
+    '--heading-color': colors[4],
+    [`.app-main${_ig}`]: {
+      color: colors[0] || 'black',
+      backgroundColor: colors[1] || 'white'
     },
-    '.app-header, .app-footer': {
-      color: colorsPalate[2] || 'white',
-      backgroundColor: colorsPalate[3] || 'black'
+    [`.app-header${_ig}, .app-footer${_ig}`]: {
+      color: colors[2] || 'white',
+      backgroundColor: colors[3] || 'black'
     },
-    'h1, h2, h3, h4, h5, h6': {
-      color: colorsPalate[4] || 'black',
+    [`h1${_ig}, h2${_ig}, h3${_ig}, h4${_ig}, h5${_ig}, h6${_ig}`]: {
+      color: colors[4] || 'black',
     }
-  });
+  }, stylingTheme.css);
   document.head.appendChild(cssEl);
-} 
+  lastCssEl = cssEl;
+  return cssEl;
+}

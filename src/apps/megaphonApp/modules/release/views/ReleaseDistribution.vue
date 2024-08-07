@@ -492,19 +492,19 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme .megaphon-app {
-  .release-distribute {
-    .add-all-btn-img {
-      &.reg { display: none; }
-      &.dark { display: unset; }
-    }
-  }
-  .selected-input {
-    input {
-      color: black !important;
-    }
-  }
-}
+// .dark-theme.megaphon-app { // MOVED TO
+//   .release-distribute {
+//     .add-all-btn-img {
+//       &.reg { display: none; }
+//       &.dark { display: unset; }
+//     }
+//   }
+//   // .selected-input {
+//   //   input {
+//   //     color: black !important;
+//   //   }
+//   // }
+// }
 .megaphon-app {
   .release-distribute {
     padding: em(10px);
@@ -514,7 +514,7 @@ export default {
         flex-direction: column-reverse;
         gap: em(50px);
         .distribute-detailes {
-          border-bottom: 1px solid black;
+          border-bottom: 1px solid var(--clr-0);
           padding-bottom: em(50px);
         }
       }
@@ -522,7 +522,7 @@ export default {
 
     .selected-input {
       input {
-        color: white;
+        color: var(--clr-1);
       }
     }
 

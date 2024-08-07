@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { settingsStore } from '../apps/common/modules/settings/store';
 
 // import commonStore from '../apps/common/store'
 // import selectedAppData from '../apps/index.js';
@@ -32,6 +33,7 @@ export default new Vuex.Store({
   },
   modules: {
     // initializing common store on App.vue so it can be removed;
+    ...settingsStore,
     // ...commonStore,
     // ...selectedAppData.store
   }

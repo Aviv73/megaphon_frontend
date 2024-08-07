@@ -47,11 +47,11 @@ html {
         background-color: #EFEFEF;
       }
       &:nth-child(even) {
-        background-color: white;
+        background-color: var(--clr-1);
       }
       &.table-header {
-        background-color: black;
-        color: white;
+        background-color: var(--clr-0);
+        color: var(--clr-1);
       }
     }
   }
@@ -96,20 +96,18 @@ html {
   }
 }
 
-.dark-theme {
-  .megaphon-app {
-    .table-item-preview {
-      color: white;
-      &:nth-child(odd) {
-        background-color: #6c6c6c;
-      }
-      &:nth-child(even) {
-        background-color: rgb(37, 37, 37);
-      }
-      &.table-header {
-        background-color: white;
-        color: black;
-      }
-    }
-  }
-}
+// .megaphon-app.dark-theme { // MOVED TO
+//   .table-item-preview {
+//     color: white;
+//     &:nth-child(odd) {
+//       background-color: #6c6c6c;
+//     }
+//     &:nth-child(even) {
+//       background-color: rgb(37, 37, 37);
+//     }
+//     &.table-header {
+//       background-color: white;
+//       color: black;
+//     }
+//   }
+// }

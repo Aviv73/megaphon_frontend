@@ -84,19 +84,19 @@
         <div class="input-container flex gap20">
           <!-- <p>{{$t('organization.colors')}}</p> -->
           <!-- <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/> -->
-          <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.colorsPalate[0]"/>
-          <FormInput type="color" labelholder="organization.bodyBg" v-model="organizationToEdit.designPreferences.colorsPalate[1]"/>
+          <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.colors[0]"/>
+          <FormInput type="color" labelholder="organization.bodyBg" v-model="organizationToEdit.designPreferences.colors[1]"/>
         </div>
         <div class="input-container flex gap20">
           <!-- <p>{{$t('organization.bgColors')}}</p> -->
           <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
-          <FormInput type="color" labelholder="organization.headerColor" v-model="organizationToEdit.designPreferences.colorsPalate[2]"/>
-          <FormInput type="color" labelholder="organization.headerBg" v-model="organizationToEdit.designPreferences.colorsPalate[3]"/>
+          <FormInput type="color" labelholder="organization.headerColor" v-model="organizationToEdit.designPreferences.colors[2]"/>
+          <FormInput type="color" labelholder="organization.headerBg" v-model="organizationToEdit.designPreferences.colors[3]"/>
         </div>
         <div class="input-container">
           <!-- <p>{{$t('organization.headersColor')}}</p> -->
           <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
-          <FormInput type="color" labelholder="organization.headersColor" v-model="organizationToEdit.designPreferences.colorsPalate[4]"/>
+          <FormInput type="color" labelholder="organization.headersColor" v-model="organizationToEdit.designPreferences.colors[4]"/>
         </div>
       </div>
 
@@ -362,7 +362,7 @@ export default {
       >* {
         width: 100%;
         padding-bottom: em(10px);
-        border-bottom: em(1px) solid black;
+        border-bottom: em(1px) solid var(--clr-0);
       }
     }
     .table-like {

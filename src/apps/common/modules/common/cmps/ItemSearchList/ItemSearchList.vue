@@ -22,7 +22,7 @@
         </router-link>
       </div>
     </div>
-    <PaginationBtns v-if="(filterBy && (totalItems > items.length) || true)" :total="totalItems" :perPage="filterBy.pagination?.limit || 0" :initFilter="filterBy" @filtered="setFilter" v-model="filterBy.pagination.page"/>
+    <PaginationBtns v-if="(filterBy && (totalItems > items.length) || true)" :total="totalItems" :perPage="filterBy.pagination?.limit || 0" :initFilter="filterBy" @filtered="setFilter" v-model="filterBy.pagination.page" :showAllPages="showAllPages"/>
     <!-- <div v-else-if="!isLoading" class="flex column space-between align-center no-results-preview"> -->
     
     <Loader v-if="showLoader && isLoading"/>
@@ -36,10 +36,11 @@ import PaginationBtns from './PaginationBtns.vue';
 import Loader from '../Loader.vue';
 import { setDeepVal, deepIterateWithObj } from '../../services/util.service';
 
-import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
+// import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
 export default {
   name: 'ItemSearchList',
+  components: { ItemFilter, ItemList, PaginationBtns, Loader },
   props: {
     initFilterBy: {
       type: Object,
@@ -52,6 +53,8 @@ export default {
     filterByCmp: [Object],
     propsToPass: [Object],
     isLoading: [Boolean],
+    isInnerRoute: [Boolean],
+    showAllPages: [Boolean],
     showLoader: {
       type: Boolean,
       default: true
@@ -73,7 +76,7 @@ export default {
     return {
       filterBy: null,
       dontEmit: false,
-      _initFilterItem: {},
+      // _initFilterItem: {},
     }
   },
   watch: {
@@ -90,7 +93,7 @@ export default {
     // },
     filterBy: {
       deep: true,
-      handler(filterVal) {
+      handler(/* filterVal */) {
         if (this.dontEmit && this.dontEmitOnInit) return;
         if (!this.dontRoute) {
           // const query = {};
@@ -98,9 +101,9 @@ export default {
           //   if (this.$route.query[key] != val) query[key] = val;
           // }, '_');
           // if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
-          // this.setFilterOnQuery(filterVal);
+          this.setFilterOnQuery(this.filterBy);
         }
-        this.$emit('filter', this.filterBy);
+        this.$emit('filter', JSON.parse(JSON.stringify(this.filterBy)));
       }
     },
     '$route.query'() {
@@ -149,30 +152,35 @@ export default {
   },
   computed: {
     items() {
+      if (this.isInnerRoute) {
+        const startIdx = this.filterBy.pagination.limit * this.filterBy.pagination.page;
+        const endIdx = startIdx + this.filterBy.pagination.limit;
+        return this.itemsData.items.slice(startIdx, endIdx);
+      }
       return this.itemsData.items;
     },
     totalItems() {
       return this.itemsData.total;
     },
     isFilterEmpty() {
-      return JSON.stringify(this.filterBy) === JSON.stringify(basicStoreService.initFilterBy())
+      return false;
+      // return JSON.stringify(this.filterBy) === JSON.stringify(basicStoreService.initFilterBy())
     }
   },
   created() {
     // this._initFilterItem = JSON.parse(JSON.stringify(this.initFilterBy));
     this.initFilter();
-  },
-  components: { ItemFilter, ItemList, PaginationBtns, Loader }
+  }
 }
 </script>
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme {
-  .item-preview {
-    color: black;
-  }
-}
+// .dark-theme {
+//   .item-preview {
+//     // color: black; // black
+//   }
+// }
 .item-page {
   position: relative;
   display: flex;
@@ -190,9 +198,9 @@ export default {
       height: em(200px);
       border-radius: em(5px);
       background-color: #fff;
-      color: black;
+      color: black; // black // var(--clr-0)
       input {
-        color: black;
+        color: black; // black // var(--clr-0)
       }
       box-shadow: $light-shadow;
       padding: em(20px);

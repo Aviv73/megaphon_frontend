@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     async loadAllTags() {
-      console.log(this.organizationId, this.onlyRelevants);
       await this.$store.dispatch({ type: 'tag/loadItems', filterBy: { onlyRelevants: this.onlyRelevants || undefined, organizationId: this.organizationId } });
     },
     emitChange(val) {
@@ -71,15 +70,15 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme .megaphon-app {
-  .tag-picker {
-    .form-input {
-      input {
-        color: black;
-      }
-    }
-  }
-}
+// .dark-theme.megaphon-app {
+//   .tag-picker {
+//     .form-input {
+//       input {
+//         color: black;
+//       }
+//     }
+//   }
+// }
 .megaphon-app {
   .tag-picker {
     .form-input {

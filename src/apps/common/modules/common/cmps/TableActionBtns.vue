@@ -38,15 +38,15 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.dark-theme {
-  .table-action-btns {
-    .delete-mini-btn {
-      background-color: #fff;
-      border-radius: 50%;
-      padding: em(1px);
-    }
-  }
-}
+// .dark-theme { // moved to;
+//   .table-action-btns {
+//     .delete-mini-btn {
+//       background-color: #fff;
+//       border-radius: 50%;
+//       padding: em(1px);
+//     }
+//   }
+// }
 .table-action-btns {
   .delete-mini-btn {
     width: em(15px);

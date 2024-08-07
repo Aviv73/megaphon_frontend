@@ -11,8 +11,8 @@
     </div>
     <AppFooter/> -->
     <!-- <SelectedApp/> -->
-    <component v-if="selectedApp" :is="selectedApp"/>
     <Loader v-if="isLoading" :msg="showSleepMsg? $t('serverSleepsMsg') : ''"/>
+    <component v-else-if="selectedApp" :is="selectedApp"/>
   </div>
 </template>
 
@@ -34,7 +34,8 @@ import { distributionService } from './apps/megaphonApp/modules/release/services
 
 import commonStoreModules from './apps/common/store'
 import { concatItems } from './apps/common/modules/common/services/util.service';
-import { setDynamicStylingEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
+import { setDynamicStylingThemeEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
+import { loadScripts } from './apps/common/modules/common/services/loadScript.service';
 
 export default {
   name: 'App',
@@ -60,13 +61,13 @@ export default {
       return this.$store.getters['settings/uiConfig'];
     },
     appThemeClassName() {
-      return ((!appConfig.client && this.uiConfig.theme) || 'none') + '-theme';
+      return ((!appConfig.client && this.uiConfig?.theme) || 'none') + '-theme_';
     },
     remSize() {
-      return ((!appConfig.client && this.uiConfig.remSize) || 16) + 'px';
+      return ((!appConfig.client && this.uiConfig?.remSize) || 16) + 'px';
     },
     isAccessabilityMode() {
-      return this.uiConfig.accessabilityMode
+      return this.uiConfig?.accessabilityMode
     },
     isRtl() {
       const locale = this.$i18n.locale;
@@ -77,12 +78,16 @@ export default {
     }
   },
   async created() {
-    await this.initCommonStore();
+    this.isLoading = true;
+    await loadScripts();
+    this.initCommonStore();
+
+    // console.log(this.uiConfig);
 
     this.$store.commit('setIsScreenWide');
     window.addEventListener('resize', () => this.$store.commit('setIsScreenWide'));
 
-    this.displayUiConfig()
+    this.displayUiConfig();
     
     evEmmiter.on('app_config_update', this.displayUiConfig);
     evEmmiter.on('set_locale', this.setLocale);
@@ -91,16 +96,18 @@ export default {
     if (!appConfig.client) {
       await this.initSelectedApp();
       await this.initUser(true);
+      this.isLoading = false;
       return;
     }
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
     await this.initSelectedApp(org);
-    setDynamicStylingEl(org, '.'+this.selectedAppData.name);
+    setDynamicStylingThemeEl(org, '.'+this.selectedAppData.name);
     // document.title = org.name;
     if (this.selectedAppData?.params?.title) document.title = this.selectedAppData.params.title;
     // this.setOrgStyling(org);
 
     await this.initUser(org.requireAuth);
+    this.isLoading = false;
 
     if (this.$route.meta.reportReleaseOpen) {
       const releaseId = this.$route.params[this.$route.meta.releaseIdParamName];
@@ -113,7 +120,7 @@ export default {
   methods: {
     async initUser(requireAuth = false) {
       if (this.$route.name === 'LoginPage') return;
-      this.isLoading = true;
+      // this.isLoading = true;
       // await socketService.connect();
       try {
         await Promise.all([
@@ -122,7 +129,7 @@ export default {
           this.$store.dispatch('auth/getUserInfo')
         ]);
       } catch(e) {};
-      this.isLoading = false;
+      // this.isLoading = false;
       if (requireAuth && !this.loggedUser) this.$router.push({name: 'LoginPage'});
       // else {
       //   if (this.$route.params.organizationId) return;
@@ -131,7 +138,7 @@ export default {
       //   this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg.organizationId}});
       // }
     },
-    setLocale(lang = this.uiConfig.locale) {
+    setLocale(lang = this.uiConfig?.locale) {
       // let locale = this.uiConfig.locale;
       let locale = lang;
       if ((locale === 'he') && (this.loggedUser?.gender === 'female')) locale = 'heF';
@@ -150,11 +157,11 @@ export default {
         close: this.$t('close'),
         submit: this.$t('submit'),
       });
-      if (config.accessabilityMode) document.querySelector('html').classList.add('accessability');
+      if (config?.accessabilityMode) document.querySelector('html').classList.add('accessability');
       else document.querySelector('html').classList.remove('accessability');
     },
 
-    async initCommonStore() {
+    initCommonStore() {
       for (let moduleName in commonStoreModules) {
         this.$store.registerModule(moduleName, commonStoreModules[moduleName]);
       }
