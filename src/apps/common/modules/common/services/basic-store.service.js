@@ -32,12 +32,12 @@ async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, o
     if (loading) commit({ type: 'setLoading', val: true });
     // if (!dontDelay) await delay(700);
   
-    const res = await toDo();
+    let res = await toDo();
     if (res.err) {
       if (onError) onError(res);
       else throw res;
     }
-    else if (onSuccess) onSuccess(res);
+    else if (onSuccess) res = await onSuccess(res);
   
     if (loading) commit({ type: 'setLoading', val: false });
     
@@ -127,7 +127,10 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
             const itemsRes = await service.query(getters.filterBy, organizationId);
             return itemsRes;
           },
-          onSuccess: (data) => { if (!dontSet) commit({ type: 'setData', data }) }
+          onSuccess: (data) => {
+            if (!dontSet) commit({ type: 'setData', data });
+            return data;
+          }
         });
       },
       async loadItem({ commit, dispatch }, { id, organizationId, dontSet = false, queryParams = {} }) {
@@ -135,7 +138,10 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
         return dispatch({
           type: '_Ajax',
           do: async () => service.get(id, organizationId, queryParams),
-          onSuccess: (item) => { if (!dontSet) commit({ type: 'setSelectedItem', item }) }
+          onSuccess: (item) => {
+            if (!dontSet) commit({ type: 'setSelectedItem', item })
+            return item;
+          }
         });
       },
       async removeItem({ commit, dispatch, getters }, { id, organizationId, reload = false, dontSet = false }) {
@@ -160,6 +166,7 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
             // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}! id: ${item._id}`})
             alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}!`})
             if (!dontSet) commit({ type: 'saveItem', item });
+            return item;
           }
         });
       },

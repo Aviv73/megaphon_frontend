@@ -27,6 +27,18 @@
     }
   }
 }
+
+.icon {
+  height: em(20px);
+  width: em(20px);
+  padding: 0;
+  border: unset;
+  // padding: em(1px);
+  // img {
+  //   height: calc(100% - 2px);
+  //   width: calc(100% - 2px);
+  // }
+}
 .btn {
   &:not(.clear) {
     // height: em(20px);
@@ -44,17 +56,17 @@
       height: em(20px);
       width: unset;
     }
-    &.icon {
-      height: em(20px);
-      width: em(20px);
-      padding: 0;
-      border: unset;
-      // padding: em(1px);
-      // img {
-      //   height: calc(100% - 2px);
-      //   width: calc(100% - 2px);
-      // }
-    }
+    // &.icon {
+    //   height: em(20px);
+    //   width: em(20px);
+    //   padding: 0;
+    //   border: unset;
+    //   // padding: em(1px);
+    //   // img {
+    //   //   height: calc(100% - 2px);
+    //   //   width: calc(100% - 2px);
+    //   // }
+    // }
     
     .ico-img {
       height: em(15px);

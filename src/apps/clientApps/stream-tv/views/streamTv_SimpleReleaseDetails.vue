@@ -37,7 +37,8 @@ export default {
   .simple-release-details {
     .hero-img {
       width: 100%;
-      height: em(300px);
+      height: em(350px);
+      object-position: center center;
     }
 
     .mainImage-display {

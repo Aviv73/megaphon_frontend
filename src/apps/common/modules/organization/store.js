@@ -32,6 +32,7 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
             commit({ type: 'setSelectedItem', item });
             // if (isRootAppOrg) commit({ type: 'setRootAppOrg', org: item });
             commit({ type: 'setProp', key: 'organizationId', val: item._id });
+            return item;
           }
         });
       },

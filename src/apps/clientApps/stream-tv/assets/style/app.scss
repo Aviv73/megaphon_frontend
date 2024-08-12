@@ -100,12 +100,12 @@ $layout-red: #EF4B49;
       // bottom: em(10px);
       left: 50%;
       transform: translateX(-50%);
-      color: white;
+      color: white !important;
       
       position: absolute;
       bottom: 0;
       width: 100%;
-      color: white;
+      color: white !important;
       text-align: center;
       padding: 30% em(10px) em(20px) em(10px);
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));

@@ -14,8 +14,10 @@ export function setStylingForOrgTheme(org, selector) {
   return setDynamicStylingThemeEl({...org.designPreferences, title: org.name}, selector);
 }
 
-var lastCssEl = null;
+// var lastCssEl = null;\
+const STYLE_EL_CLASSNAME = 'theme-styling-element';
 export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
+  const lastCssEl = document.head.querySelector('.'+STYLE_EL_CLASSNAME)
   if (lastCssEl) document.head.removeChild(lastCssEl);
   document.title = stylingTheme.title;
   const colors = stylingTheme?.colors || [];
@@ -54,7 +56,8 @@ export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
       color: colors[4] || 'black',
     }
   }, stylingTheme.css);
+  cssEl.classList.add(STYLE_EL_CLASSNAME);
   document.head.appendChild(cssEl);
-  lastCssEl = cssEl;
+  // lastCssEl = cssEl;
   return cssEl;
 }

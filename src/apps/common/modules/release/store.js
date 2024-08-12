@@ -60,7 +60,10 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
             // const itemsRes = await getters.service.query(filterToSend, this.getters['organization.selectedItem']?._id);
             return itemsRes;
           },
-          onSuccess: (data) => commit({ type: 'setData', data })
+          onSuccess: (data) => {
+            commit({ type: 'setData', data });
+            return data;
+          }
         });
       },
       async loadItem({ commit, dispatch, getters, state }, { id }) {
@@ -71,6 +74,7 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
             // if (!state.lastSeenGroupRelease) commit({ type: 'setAppInitedRelease', release: item });
             if (item?.releaseData?.childrenReleases?.length) commit({ type: 'setLastSeenGroupRelease', release: item });
             commit({ type: 'setSelectedItem', item });
+            return item;
             // commit({ type: 'setInitReleaseId', id, orgId: item.organizationId });
           }
         });

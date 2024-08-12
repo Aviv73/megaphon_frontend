@@ -103,6 +103,7 @@ export default {
     },
     async getItem() {
       this.itemToEdit = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id, organizationId: this.orgId });
+      console.log(this.itemToEdit);
       await this.loadReleaseDataFields();
       if (!this.itemToEdit.organizationId) this.itemToEdit.organizationId = this.orgId;
       if (!this.itemToEdit.releaseType) this.itemToEdit.releaseType = this.releaseType;

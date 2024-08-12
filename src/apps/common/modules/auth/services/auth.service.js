@@ -7,11 +7,15 @@ export const authService = {
   getUserInfo,
   logout,
   signup,
-  sendNewPasswordEmail
+  sendNewPasswordEmail,
+  finishAuth
 }
 
-function login(cred) {
-  return httpService.post(`${ENDPOINT}/login`, cred);
+function login(cred, orgId = '') {
+  return httpService.post(`${ENDPOINT}/login/${orgId}`, cred);
+}
+function finishAuth(pass) {
+  return httpService.post(`${ENDPOINT}/finishAuth`, {pass});
 }
 function logout() {
   return httpService.post(`${ENDPOINT}/logout`);

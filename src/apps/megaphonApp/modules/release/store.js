@@ -38,7 +38,10 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
             const itemsRes = await getters.service.query(filterToSend, organizationId || getters.organizationId);
             return itemsRes;
           },
-          onSuccess: (data) => commit({ type: 'setData', data })
+          onSuccess: (data) => {
+            commit({ type: 'setData', data })
+            return data;
+          }
         });
       },
       async loadReport({ commit, dispatch, getters }, { releaseId, organizationId }) {
@@ -47,6 +50,7 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
           do: async () => distributionService.getByReleaseId(organizationId, releaseId),
           onSuccess: (report) => {
             commit({ type: 'setSelectedReleaseReport', report });
+            return report;
           }
         });
       },
@@ -64,6 +68,7 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
           do: async () => distributionService.getContactReport(id, email),
           onSuccess: (report) => {
             commit({ type: 'setSelectedContactReport', report });
+            return report;
           }
         });
       },

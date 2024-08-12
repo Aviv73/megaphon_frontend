@@ -107,6 +107,8 @@
           <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
           <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
           <FormInput type="checkbox" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
+          <FormInput type="checkbox" labelholder="require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
+          <FormInput type="checkbox" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
         </div>
         <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
         <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
@@ -237,7 +239,7 @@ import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vu
 import TableActionBtns from '../../../../common/modules/common/cmps/TableActionBtns.vue';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import { organizationService } from '../services/organization.service';
-import consts from '@/apps/common/modules/common/services/const.service.js';
+import { consts } from '@/apps/common/modules/common/services/const.service.js';
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 import { ClientApps } from '../../../..';
@@ -249,10 +251,10 @@ export default {
       organizationToEdit: null,
       showDeveloperZone: false,
       allDomains: [],
-      userRolesToSelect: [...Object.values(consts.organizationRoles)]
     }
   },
   computed: {
+    userRolesToSelect: () => [...Object.values(consts.organizationRoles)].slice(1),
     isOrganizationValid() {
       const item = this.organizationToEdit;
       return !!item && !this.isDomainExistsError;

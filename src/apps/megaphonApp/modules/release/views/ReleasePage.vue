@@ -1,11 +1,12 @@
 <template>
   <section class="release-page flex column height-all width-all flex gap20">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
-    <ReleasesSlider
-      v-if="false && isUserWatchOnly"
-      :releases="allReleasesData.items"
-      :getReleasePageRoute="(release => ({ name: 'ReleaseDetails', params: { id: release._id, organizationId: organizationId } }))"
-    />
+    <div class="width-all" v-if="true || isUserWatchOnly">
+      <ReleasesSlider
+        :releases="allReleasesData.items"
+        :getReleasePageRoute="(release => ({ name: 'ReleaseDetails', params: { id: release._id, organizationId: organizationId } }))"
+      />
+    </div>
     <ItemSearchList
       :itemsData="allReleasesData"
       :initFilterBy="filterBy"
@@ -112,8 +113,8 @@ export default {
     isUserWatchOnly() {
       // return false
       // return true;
-      // return this.$store.getters['auth/isWatchOnly'];
-      return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
+      return this.$store.getters['auth/isWatchOnly'];
+      // return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
     }
   },
   created() {
@@ -203,6 +204,10 @@ export default {
           flex: 2;
           background-color: var(--clr-0);
           color: var(--clr-1);
+          * {
+            background: unset !important;
+            background-color: unset !important;
+          }
           padding-inline-end: em(50px);
         }
         @media (max-width: $small-screen-breake) {

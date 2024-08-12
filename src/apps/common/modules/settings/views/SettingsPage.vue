@@ -66,7 +66,7 @@ export default {
 .settings-page {
   .simple-form {
     .form-input {
-      // width: em(180px);
+      width: em(300px);
     }
   }
 }

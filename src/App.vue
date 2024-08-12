@@ -36,6 +36,7 @@ import commonStoreModules from './apps/common/store'
 import { concatItems } from './apps/common/modules/common/services/util.service';
 import { setDynamicStylingThemeEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 import { loadScripts } from './apps/common/modules/common/services/loadScript.service';
+import { organizationService } from './apps/megaphonApp/modules/organization/services/organization.service';
 
 export default {
   name: 'App',
@@ -95,11 +96,16 @@ export default {
 
     if (!appConfig.client) {
       await this.initSelectedApp();
+      if (appConfig.appOrganizationId) {
+        appConfig.appOrganization = await this.$store.dispatch({type: 'organization/loadItem', id: appConfig.appOrganizationId, dontSet: true, isToInheritData: true })
+      }
       await this.initUser(true);
       this.isLoading = false;
       return;
     }
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
+    appConfig.appOrganization = org;
+    appConfig.appOrganizationId = org?._id;
     await this.initSelectedApp(org);
     setDynamicStylingThemeEl(org, '.'+this.selectedAppData.name);
     // document.title = org.name;

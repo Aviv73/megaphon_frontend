@@ -22,6 +22,15 @@
         </form>
       </template>
     </ToggleModal>
+    <Modal :fullScreen="true" v-if="showFinishAuthModal">
+      <form @submit.prevent="finishAuth" class="simple-form align-stretch">
+        <h4 class="text-center">
+          To finish authentication, please open your mobile and enter the password we sent to you
+        </h4>
+        <FormInput v-model="finishAuthPass" placeholder="token"/>
+        <button class="btn big primary">{{$t('submit')}}</button>
+      </form>
+    </Modal>
   </div>
 </template>
 
@@ -29,6 +38,8 @@
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
+import appConfig from '../../../../../appConfig';
+import Modal from '../../common/cmps/Modal.vue';
 export default {
   name: 'LoginPage',
   data() {
@@ -37,7 +48,9 @@ export default {
         email: '',
         password: ''
       },
-      forgotEmailEmail: ''
+      forgotEmailEmail: '',
+      showFinishAuthModal: false,
+      finishAuthPass: ''
     }
   },
   computed: {
@@ -48,7 +61,7 @@ export default {
       return this.org?.logoUrl || require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
     },
     org() {
-      return this.$store.getters['organization/selectedItem'];
+      return appConfig.appOrganization || this.$store.getters['organization/selectedItem'];
     }
   },
   methods: {
@@ -56,17 +69,26 @@ export default {
       if (!this.isUserValid) return;
       if (this.userCred.username) delete this.userCred.username;
       localStorage.userCred = JSON.stringify(this.userCred);
-      await this.$store.dispatch({ type: 'auth/login', cred: this.userCred });
-      this.$router.push('/');
+      const res = await this.$store.dispatch({ type: 'auth/login', cred: this.userCred, organizationId: appConfig.appOrganizationId /*sometimes undefined*/ });
+      if (res.needs2FactorAuth) {
+        this.showFinishAuthModal = true;
+      }
+      else this.$router.push('/');
     },
     async sendNewPasswordEmail() {
       await this.$store.dispatch({ type: 'auth/sendNewPasswordEmail', email: this.forgotEmailEmail });
       alertService.toast({type: 'safe', msg: `${this.$t(`auth.newPasswordSentTo`)} ${this.forgotEmailEmail}!`});
+    },
+    async finishAuth() {
+      await this.$store.dispatch({ type: 'auth/finishAuth', pass: this.finishAuthPass });
+      this.showFinishAuthModal = false;
+      this.$router.push('/');
     }
   },
   components: {
     FormInput,
-    ToggleModal
+    ToggleModal,
+    Modal
   }
 }
 </script>

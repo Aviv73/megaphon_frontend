@@ -1,6 +1,6 @@
 <template>
   <section class="container main-sidebar-view flex-1 flex align-stretch gap10">
-    <SideBar v-if="!isUserWatchOnly" :currentDropableFolderPath="currentDropableFolderPath" :organizations="organizations" :loggedUser="loggedUser"/>
+    <SideBar v-if="!isUserWatchOnly" :currentDropableFolderPath="currentDropableFolderPath" :organizations="organizationsToShow" :loggedUser="loggedUser"/>
     <router-view :selectedReleaseIds="selectedReleaseIds" class="flex-1"/>
   </section>
 </template>
@@ -9,6 +9,8 @@
 import SideBar from '../cmps/SideBar/SideBar.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { organizationService } from '../../organization/services/organization.service';
+import appConfig from '../../../../../appConfig';
+import { consts } from '@/apps/common/modules/common/services/const.service.js';
 export default {
   components: { SideBar },
   name: 'MainSidebarView',
@@ -25,6 +27,11 @@ export default {
     organizations() {
       return this.$store.getters['organization/items'].reverse();
     },
+    organizationsToShow() {
+      return this.getOnlyOrgsToShow(this.organizations, appConfig);
+      // if (appConfig.appOrganizationId) return [this.organizations.find(c => [c._id, c.domain].includes(appConfig.appOrganizationId))].filter(Boolean);
+      // return this.organizations;
+    },
     selectedOrgId() {
       return this.$route.params.organizationId;
     },
@@ -38,9 +45,9 @@ export default {
       return this.$store.getters['auth/isWatchOnly'];
     }
   },
-  created() {
+  async created() {
+    await this.$store.dispatch({ type: 'organization/loadItems' });
     this.initNavigation();
-    this.$store.dispatch({ type: 'organization/loadItems' });
     this.loadSelectedOrg();
     
     evManager.on('create-new-folder', this.createNewFolder);
@@ -61,11 +68,25 @@ export default {
     evManager.off('org-release-filter', this.handleReleaseFilterChanged);
   },
   methods: {
+    getOnlyOrgsToShow: organizationService.getOnlyOrgsToShow,
+    // getOnlyOrgsToShow(orgs) {
+    //   // if (appConfig.appOrganizationId) return [orgs.find(c => [c._id, c.domain].includes(appConfig.appOrganizationId))].filter(Boolean);
+    //   // if (this.$store.getters['auth/isWatchOnly']) {
+    //   //   return orgs.filter(c => !c.isStandAlone);
+    //   // }
+    //   // return orgs;
+    //   return organizationService.getOnlyOrgsToShow(orgs, appConfig);
+    // },
     initNavigation() {
       if (!this.loggedUser) return;
       if (this.$route.name === 'MainSidebarView') {
-        const firstOrg = this.loggedUser?.organizations
-          .filter(c => c.status !== 'pending')
+        const firstOrg = 
+          // this.getOnlyOrgsToShow(this.loggedUser?.organizations)
+          this.organizationsToShow.map(c => this.loggedUser?.organizations.find(_ => _._id === c._id))
+        // this.loggedUser?.organizations
+          .filter(Boolean)
+          // .filter(c => !organizationService.isOrgPending())
+          .filter(c => c.status !== consts.organizationStatuses.pending)
           .filter(c => c._id != '-1')
           [0];
         if (!firstOrg) {

@@ -1,7 +1,8 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 
-import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service'
+import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service';
+import { consts } from '@/apps/common/modules/common/services/const.service.js';
 
 const ENDPOINT = 'organization';
 
@@ -34,7 +35,9 @@ export const organizationService = {
 
   isUserInOrg,
   getOrgItemInAccount,
-  searchOrganizations
+  searchOrganizations,
+
+  getOnlyOrgsToShow
 }
 
 // function query(filterBy) {
@@ -104,11 +107,11 @@ function isUserRoleInOrg(orgId, role, user, isOnlyRole) {
   return isRole && orgItem?.roles?.length === 1;
 }
 function isUserWatchOnly(orgId, user) {
-  return false;
+  // return false;
   return isUserRoleInOrg(orgId, 'client', user, true);
 }
 function isOrgPending(orgId, user) {
-  return getOrgItemInAccount(user, orgId)?.status === 'pending';
+  return getOrgItemInAccount(user, orgId)?.status === consts.organizationStatuses.pending;
 }
 function isUserInOrg(orgId, user) {
   if (!orgId || !user) return false;
@@ -126,6 +129,15 @@ function isAccountAuthorizedToRoute(account, org, routeItemIdOrName) {
   if (!accountOrgData) return false;
   return routeItem.showInRoles.find(role => accountOrgData.roles.includes(role));
 }
+
+function getOnlyOrgsToShow(orgs, appConfig) { // vue method
+  if (appConfig.appOrganizationId) return [orgs.find(c => [c._id, c.domain].includes(appConfig.appOrganizationId))].filter(Boolean);
+  if (this.$store.getters['auth/isWatchOnly']) {
+    return orgs.filter(c => !c.isStandAlone);
+  }
+  return orgs;
+}
+
 
 function getAccountOrgItem(orgId = '', inviterId = '') {
   return  {

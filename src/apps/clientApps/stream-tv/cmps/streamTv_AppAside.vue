@@ -70,7 +70,8 @@ export default {
       padding: em(20px) em(10px);
       .logged-user-preview {
         .avatar {
-          background-color: var(--clr-4);
+          // background-color: var(--clr-4);
+          background-color: unset;
         }
         .actions-modal {
           .edit-btn {

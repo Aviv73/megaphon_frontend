@@ -53,16 +53,20 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
           onSuccess: (data) => {
             // commit({ type: 'updateOrgStatus', organizationId, newStatus });
             commit('auth/updateOrgStatus', { organizationId, newStatus }, { root: true });
+            return data;
           }
         });
       },
-      loadItem({ commit, dispatch, getters }, { id, isToInheritData = true }) {
+      loadItem({ commit, dispatch, getters }, { id, isToInheritData = true, dontSet = false, isToAddMembersData = false }) {
         return dispatch({
           type: '_Ajax',
-          do: async () => getters.service.get(id, undefined, {isToInheritData}),
+          do: async () => getters.service.get(id, undefined, {isToInheritData, isToAddMembersData}),
           onSuccess: (item) => {
-            commit({ type: 'setSelectedItem', item });
-            commit({ type: 'setProp', key: 'organizationId', val: item._id });
+            if (!dontSet) {
+              commit({ type: 'setSelectedItem', item });
+              commit({ type: 'setProp', key: 'organizationId', val: item._id });
+            }
+            return item;
           }
         });
       },

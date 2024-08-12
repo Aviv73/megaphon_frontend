@@ -70,7 +70,7 @@ export default {
     }
   },
   async created() {
-    this.orgToShow = await this.$store.dispatch({ type: 'organization/loadItem', id: this.organizationId, dontSet: true });
+    this.orgToShow = await this.$store.dispatch({ type: 'organization/loadItem', id: this.organizationId, dontSet: true, isToAddMembersData: true });
   }
 }
 </script>

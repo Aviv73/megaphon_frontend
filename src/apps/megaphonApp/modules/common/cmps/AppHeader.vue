@@ -36,7 +36,13 @@
       </NavOrBurger>
 
       <div class="flex align-center gap20 height-all ph">
-        <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right"/>
+        <template v-if="isUserWatchOnly">
+          <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
+            <!-- <p>{{$t('settings.settings')}}</p> -->
+            <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt="">
+          </router-link>
+          <LoggedUserPreview class="to-the-right"/>
+        </template>
         <!-- <div class="release-title height-all">
           <div class="actual height-all flex-center">
             <h2>Megaphon</h2>
@@ -53,6 +59,7 @@ import { organizationService } from '../../organization/services/organization.se
 import LoggedUserPreview from '../../../../common/modules/auth/cmps/LoggedUserPreview.vue';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import NavOrBurger from '../../../../common/modules/common/cmps/NavOrBurger.vue';
+import appConfig from '../../../../../appConfig';
 export default {
   name: 'AppHeader',
   data() {
@@ -95,7 +102,7 @@ export default {
 
     organizationsToSelect() {
       return [
-        ...(this.$store.getters['organization/items']?.map(c => ({
+        ...(this.getOnlyOrgsToShow(this.$store.getters['organization/items'], appConfig)?.map(c => ({
           img: c.logoUrl,
           label: c.name + (this.isOrgPending(c._id)? ` (${this.$t('pending')})` : ''),
           value: c._id,
@@ -117,6 +124,7 @@ export default {
     //   evManager.emit('org-release-filter', filter);
     //   this.selecterOrgFilterId = filter?.id || null;
     // }
+    getOnlyOrgsToShow: organizationService.getOnlyOrgsToShow,
     setOrg(orgId) {
       if (orgId === 'new') this.$router.push({name: 'JoinOrgPage'});
       else this.$router.push({ name: 'ReleasePage', params: { organizationId: orgId } });

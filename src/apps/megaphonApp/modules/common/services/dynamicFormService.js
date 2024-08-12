@@ -79,7 +79,8 @@ export function createItemForDynamicForm(dataFields = []) {
 
 
 import { isDateValid } from '@/apps/common/modules/common/services/util.service';
-export function validateDataByDataField(dataField, data) {
+import { getDeepVal, htmlStrToText } from '../../../../common/modules/common/services/util.service';
+export function validateDataByDataField(dataField, data, rootData) {
   switch (dataField.type) {
     case 'NUMBER':
       return typeof data === 'number';
@@ -95,7 +96,8 @@ export function validateDataByDataField(dataField, data) {
       return isDateValid(data);
     case 'LONGRICHTEXT':
     case 'RICHTEXT':
-      return !!data?.trim()?.length;
+      // return !!data?.trim()?.length;
+      return !!htmlStrToText(data).trim()?.length;
     case 'VIDEOS':
     case 'LINKS':
     case 'IMAGEGALLERY':
@@ -105,9 +107,13 @@ export function validateDataByDataField(dataField, data) {
       return false;
     // case 'ROW':
     case 'ROW':
-      return false
+      // return true;
+      // console.log(dataField, data, rootData)
+      return dataField.fields.some(c => validateDataByDataField(c, getDeepVal(rootData, c.fieldName)))
+      // return false
     case 'TABLE':
       if (dataField.uiType === 'FilesSection') return !!data.filter(c => c.src).length;
+      // return data.filter(c => dataField, c)
     case 'TABLE':
     case 'RELEASES_SELECTOR':
     case 'SELECT_RELEASES_FROM_INNER_PARAM':

@@ -14,7 +14,7 @@
       </template>
       <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
     </div>
-    <div class="flex column gap20">
+    <div class="flex column gap30">
       <template v-for="(field, idx) in dataFieldsToShow">
         <div :key="field.fieldName || idx" :id="field.fieldName" v-if="!isScreenWide || !allTabNames.length || (tabView && field.uiSections?.includes(selectedTab))" :class="field.fieldName + '-display'">
           <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData"/>
@@ -36,7 +36,7 @@ import { isDateValid, scrollToEl } from '../../common/services/util.service';
 import { validateDataByDataField } from '../../../../megaphonApp/modules/common/services/dynamicFormService';
 
 export default {
-  name: 'common_ReleaseDetails',
+  name: 'ReleaseTabView',
   props: {
     tabView: Boolean,
     release: Object
@@ -110,11 +110,12 @@ export default {
     },
 
     dataFieldsToShow() {
-      return this.dataFields
-              .reduce((acc, c) => [...acc, ...(c.type === 'ROW'? c.fields : [c])], [])
+      const formatFields = (fields = []) => {
+        return fields
+              // .reduce((acc, c) => [...acc, ...(c.type === 'ROW'? c.fields : [c])], [])
               .filter(c => !c.hideFromUi)
               .filter((field) => {
-                return validateDataByDataField(field, this.releaseData[field.fieldName]);
+                return validateDataByDataField(field, this.releaseData[field.fieldName], this.releaseData);
                 // if (typeof this.releaseData[field.fieldName] === 'string') return !!this.releaseData[field.fieldName];
                 // if (Array.isArray(this.releaseData[field.fieldName])) return !!this.releaseData[field.fieldName]?.filter(c => c.src).length;
                 // else if (this.releaseData[field.fieldName]) return true;
@@ -125,6 +126,33 @@ export default {
                 // else if (!'index' in b) return -1;
                 return (a.index || 100) - (b.index || 100)
               })
+              .map(c => {
+                if (c.type === 'ROW') {
+                  c.fields = formatFields(c.fields);
+                }
+                return c;
+              })
+              .filter(c => {
+                if ((c.type === 'ROW') && !c.fields.length) return false;
+                return true; 
+              });
+      }
+      return formatFields(this.dataFields);
+      // return this.dataFields
+      //         .reduce((acc, c) => [...acc, ...(c.type === 'ROW'? c.fields : [c])], [])
+      //         .filter(c => !c.hideFromUi)
+      //         .filter((field) => {
+      //           return validateDataByDataField(field, this.releaseData[field.fieldName]);
+      //           // if (typeof this.releaseData[field.fieldName] === 'string') return !!this.releaseData[field.fieldName];
+      //           // if (Array.isArray(this.releaseData[field.fieldName])) return !!this.releaseData[field.fieldName]?.filter(c => c.src).length;
+      //           // else if (this.releaseData[field.fieldName]) return true;
+      //         })
+      //         .sort((a, b) => {
+      //           // if (a.index === b.index) return 0;
+      //           // else if (!'index' in a) return 1;
+      //           // else if (!'index' in b) return -1;
+      //           return (a.index || 100) - (b.index || 100)
+      //         })
     },
 
     allTabNames() {

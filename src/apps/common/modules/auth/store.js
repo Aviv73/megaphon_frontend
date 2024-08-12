@@ -3,6 +3,7 @@ import { alertService } from '@/apps/common/modules/common/services/alert.servic
 import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
 import { $t } from '@/plugins/i18n';
+import { organizationService } from '../../../megaphonApp/modules/organization/services/organization.service';
 
 const initState = () => ({
   loggedUser: null,
@@ -17,7 +18,8 @@ export const _authStore = {
     loggedUser: (state) => state.loggedUser,
     isAdmin: (state) => state.loggedUser?.role === 'admin' || state.loggedUser?.roles?.includes?.('admin'),
     // isWatchOnly: (state) => state.loggedUser?.role === 'client' || (state.loggedUser?.roles?.includes?.('client') && (state.loggedUser.roles.length === 1)),
-    isWatchOnly: (state) => false && state.loggedUser?.organizations.every(org => (org.roles?.length === 1) && (org.roles[0] === 'client')),
+    // isWatchOnly: (state) => true || state.loggedUser?.organizations.every(org => (org.roles?.length === 1) && (org.roles[0] === 'client')),
+    isWatchOnly: (state) => state.loggedUser?.organizations.every(org => organizationService.isUserWatchOnly(org._id, state.loggedUser)),
   },
   mutations: {
     setLoading(state, { val }) {
@@ -43,13 +45,30 @@ export const _authStore = {
   },
   actions: {
     _Ajax: basicStoreService.StoreAjax,
-    async login({ commit, dispatch }, { cred }) {
+    async login({ commit, dispatch }, { cred, organizationId }) {
       return dispatch({
         type: '_Ajax',
-        do: async () => authService.login(cred),
+        do: async () => authService.login(cred, organizationId),
         onSuccess: (res) => {
-          commit({ type: 'setLoggedUser', user: res.user });
-          alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
+          if (res.user) {
+            commit({ type: 'setLoggedUser', user: res.user });
+            alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
+          }
+          return res;
+        }
+      });
+    },
+    async finishAuth({ commit, dispatch }, { pass }) {
+      return dispatch({
+        type: '_Ajax',
+        do: async () => authService.finishAuth(pass),
+        onSuccess: (res) => {
+          if (res.user) {
+            commit({ type: 'setLoggedUser', user: res.user });
+            alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
+          }
+          console.log(res);
+          return res;
         }
       });
     },

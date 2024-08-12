@@ -38,7 +38,7 @@
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
-import consts from '@/apps/common/modules/common/services/const.service.js';
+import { consts } from '@/apps/common/modules/common/services/const.service.js';
 import { organizationService } from '../../organization/services/organization.service';
 export default {
   name: 'AccountEdit',
@@ -50,12 +50,12 @@ export default {
       accountToEdit: null,
       confirmPassword: '',
       // systemRoles: ['user', 'producer', 'admin'],
-      systemRoles: [...Object.values(consts.userRoles)].map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
-      orgRoles: [...Object.values(consts.organizationRoles)].map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
       // allOrgs: []
     }
   },
   computed: {
+    systemRoles: () => [...Object.values(consts.userRoles)].map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
+    orgRoles: () => [...Object.values(consts.organizationRoles)].slice(1).map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
     isAccountValid() {
       const user = this.accountToEdit;
       return user && user.firstName && user.lastName && user.email &&

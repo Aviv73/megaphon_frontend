@@ -109,7 +109,8 @@ export default {
       return organizationService.isUserRoleInOrg(this.selectedOrgId, role, this.loggedUser);
     },
     isOrgPending(org) {
-      return organizationService.getOrgItemInAccount(this.loggedUser, org._id)?.status === 'pending';
+      // return organizationService.getOrgItemInAccount(this.loggedUser, org._id)?.status === 'pending';
+      organizationService.isOrgPending(org._id, this.loggedUser);
     },
     selectOrg(org) {
       if (this.isOrgPending(org)) return;
