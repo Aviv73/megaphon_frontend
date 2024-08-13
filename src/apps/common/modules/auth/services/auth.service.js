@@ -8,14 +8,12 @@ export const authService = {
   logout,
   signup,
   sendNewPasswordEmail,
-  finishAuth
+  finishAuth,
+  makeSecondFactorAuthPass
 }
 
 function login(cred, orgId = '') {
   return httpService.post(`${ENDPOINT}/login/${orgId}`, cred);
-}
-function finishAuth(pass) {
-  return httpService.post(`${ENDPOINT}/finishAuth`, {pass});
 }
 function logout() {
   return httpService.post(`${ENDPOINT}/logout`);
@@ -28,4 +26,10 @@ function signup(cred) {
 }
 function sendNewPasswordEmail(email) {
   return httpService.post(`${ENDPOINT}/sendNewPasswordEmail`, {email});
+}
+function finishAuth(pass) {
+  return httpService.post(`${ENDPOINT}/finishAuth`, {pass});
+}
+function makeSecondFactorAuthPass() {
+  return httpService.post(`${ENDPOINT}/makeSecondFactorAuthPass`);
 }

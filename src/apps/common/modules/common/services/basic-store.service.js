@@ -1,6 +1,7 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import { delay } from '@/apps/common/modules/common/services/util.service';
+import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 
 import { $t } from '@/plugins/i18n';
 
@@ -44,15 +45,13 @@ async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, o
     if (typeof res === 'object') return JSON.parse(JSON.stringify(res));
     return res;
   } catch(err) {
-    // const translatedErr = $t(`${getters.moduleName}.errors.${err.err || err.message || err.msg || err.error}`);
+    console.log(err);
     if (err.err && onError) onError(err);
-    // else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${err.err || err.message || err.msg || err.error || 'internal error'}`})
-    // else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${$t(err.err) || err.err || err.message || err.msg || err.error || 'internal error'}`})
-    else alertService.toast({type: 'danger', msg: `${$t(err.err) || err.err || err.message || err.msg || err.error || 'internal error'}`})
-    // else alertService.toast({type: 'danger', msg: `Error ${err.status || 500}: ${(err.err && translatedErr) || err.err || err.message || err.msg || err.error || 'internal error'}`})
-    setTimeout(() => {
-      if (loading) commit({ type: 'setLoading', val: false });
-    }, 3000);
+    else alertService.toast({type: 'danger', msg: /*`Error ${err.status || 500}: + `*/ `${$t(err.err) || err.err || err.message || err.msg || err.error || 'internal error'}`});
+    // setTimeout(() => {
+    if (loading) commit({ type: 'setLoading', val: false });
+    // }, 3000);
+    if (err.needs2FactorAuth) evEmmiter.emit('needs_2_factor_auth');
     throw err;
   }
 }

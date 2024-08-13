@@ -93,6 +93,13 @@ export default {
     evEmmiter.on('app_config_update', this.displayUiConfig);
     evEmmiter.on('set_locale', this.setLocale);
 
+    evEmmiter.on('needs_2_factor_auth', async (endPoint) => {
+      if (this.loggedUser) await this.$store.dispatch({ type: 'auth/makeSecondFactorAuthPass' });
+      const pass = await alertService.Prompt(this.$t('auth.required2FactorAthMsg'), this.$t('auth.password'));
+      await this.$store.dispatch({ type: 'auth/finishAuth', pass });
+      if (endPoint) this.$router.push(endPoint);
+    });
+
 
     if (!appConfig.client) {
       await this.initSelectedApp();

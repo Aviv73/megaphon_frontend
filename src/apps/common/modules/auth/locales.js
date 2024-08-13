@@ -22,7 +22,9 @@ const  en = {
     "userNotAllowedError": "User not allowed",
     "invalidEmailOrPasswordError": "Invalid email or password",
     "cantFindAccountWithEmailError": "Could not find account with this email",
-    "unAuthorizedError": "Un Authorized"
+    "unAuthorizedError": "Un Authorized",
+
+    "required2FactorAthMsg": "Required 2 factor authentication. To finish authentication, please open your mobile and enter the password we sent to you"
   },
 }
 const he = {
@@ -50,7 +52,9 @@ const he = {
     "userNotAllowedError": "אין הרשאה למשתמש",
     "invalidEmailOrPasswordError": "מייל או סיסמה שגויים",
     "cantFindAccountWithEmailError": "לא נמצא משתמש עם כתובת המייל הזאת",
-    "unAuthorizedError": "לא מורשה"
+    "unAuthorizedError": "לא מורשה",
+
+    "required2FactorAthMsg": "נדרשת הזדהות נוספת. כדי לסיים את הליך ההתחברות, אנא הזן את הסיסמה שנשלחה אליך לנייד."
   },
 }
 const heF = {

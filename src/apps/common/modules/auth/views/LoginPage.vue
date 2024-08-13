@@ -22,15 +22,13 @@
         </form>
       </template>
     </ToggleModal>
-    <Modal :fullScreen="true" v-if="showFinishAuthModal">
+    <!-- <Modal :fullScreen="true" v-if="showFinishAuthModal">
       <form @submit.prevent="finishAuth" class="simple-form align-stretch">
-        <h4 class="text-center">
-          To finish authentication, please open your mobile and enter the password we sent to you
-        </h4>
-        <FormInput v-model="finishAuthPass" placeholder="token"/>
+        <h4 class="text-center">{{$t('required2FactorAthMsg')}}</h4>
+        <FormInput v-model="finishAuthPass" placeholder="auth.password"/>
         <button class="btn big primary">{{$t('submit')}}</button>
       </form>
-    </Modal>
+    </Modal> -->
   </div>
 </template>
 
@@ -40,6 +38,8 @@ import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue'
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import appConfig from '../../../../../appConfig';
 import Modal from '../../common/cmps/Modal.vue';
+import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
+
 export default {
   name: 'LoginPage',
   data() {
@@ -49,8 +49,8 @@ export default {
         password: ''
       },
       forgotEmailEmail: '',
-      showFinishAuthModal: false,
-      finishAuthPass: ''
+      // showFinishAuthModal: false,
+      // finishAuthPass: ''
     }
   },
   computed: {
@@ -71,7 +71,8 @@ export default {
       localStorage.userCred = JSON.stringify(this.userCred);
       const res = await this.$store.dispatch({ type: 'auth/login', cred: this.userCred, organizationId: appConfig.appOrganizationId /*sometimes undefined*/ });
       if (res.needs2FactorAuth) {
-        this.showFinishAuthModal = true;
+        // this.showFinishAuthModal = true;
+        evEmmiter.emit('needs_2_factor_auth', '/');
       }
       else this.$router.push('/');
     },
@@ -79,11 +80,11 @@ export default {
       await this.$store.dispatch({ type: 'auth/sendNewPasswordEmail', email: this.forgotEmailEmail });
       alertService.toast({type: 'safe', msg: `${this.$t(`auth.newPasswordSentTo`)} ${this.forgotEmailEmail}!`});
     },
-    async finishAuth() {
-      await this.$store.dispatch({ type: 'auth/finishAuth', pass: this.finishAuthPass });
-      this.showFinishAuthModal = false;
-      this.$router.push('/');
-    }
+    // async finishAuth() {
+    //   await this.$store.dispatch({ type: 'auth/finishAuth', pass: this.finishAuthPass });
+    //   this.showFinishAuthModal = false;
+    //   this.$router.push('/');
+    // }
   },
   components: {
     FormInput,

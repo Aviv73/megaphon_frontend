@@ -58,20 +58,6 @@ export const _authStore = {
         }
       });
     },
-    async finishAuth({ commit, dispatch }, { pass }) {
-      return dispatch({
-        type: '_Ajax',
-        do: async () => authService.finishAuth(pass),
-        onSuccess: (res) => {
-          if (res.user) {
-            commit({ type: 'setLoggedUser', user: res.user });
-            alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
-          }
-          console.log(res);
-          return res;
-        }
-      });
-    },
     async getUserInfo({ commit, dispatch }) {
       return dispatch({
         type: '_Ajax',
@@ -113,6 +99,26 @@ export const _authStore = {
         }
       });
     },
+    async finishAuth({ commit, dispatch }, { pass }) {
+      return dispatch({
+        type: '_Ajax',
+        do: async () => authService.finishAuth(pass),
+        onSuccess: (res) => {
+          if (res.user) {
+            commit({ type: 'setLoggedUser', user: res.user });
+            alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
+          }
+          console.log(res);
+          return res;
+        }
+      });
+    },
+    async makeSecondFactorAuthPass({ commit, dispatch }) {
+      return dispatch({
+        type: '_Ajax',
+        do: async () => authService.makeSecondFactorAuthPass()
+      });
+    }
   }
 }
 
