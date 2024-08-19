@@ -53,6 +53,7 @@ export default {
     left: 50%;
     width: fit-content;
     height: fit-content;
+    max-width: 95vw;
     transform: translate(-50%, -50%);
 
     overflow: auto;

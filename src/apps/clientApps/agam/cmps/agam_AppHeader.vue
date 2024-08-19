@@ -163,20 +163,24 @@ export default {
   
   
     @media (max-width: $small-screen-breake) { // $small-screen-breake
-      .nav-or-burger {
+      .nav-or-burger.mobileView {
+        .nav-item {
+          background-color: $layout-black;
+        }
         flex: unset;
+        nav {
+          // >* {
+            &.router-link-exact-active {
+              color: #EF4B49;
+            }
+            background-color: var(--clr-1);
+        }
       }
       .space-div {
         display: none;
       }
       .nav-items {
         // gap: 0 !important;
-      }
-      nav {
-        // >* {
-          &.router-link-exact-active {
-            color: #EF4B49;
-          }
       }
       .release-title {
         display: none;

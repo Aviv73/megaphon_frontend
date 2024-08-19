@@ -84,7 +84,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-// .default-app {
+// .defaultApp {
   .common-release-filter {
     .filter-icon-img {
       width: 15px;

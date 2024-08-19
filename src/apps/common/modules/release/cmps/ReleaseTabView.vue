@@ -5,7 +5,7 @@
       <template v-for="tabName in allTabNames || ['content', 'images', 'videos', 'files', 'links']">
         <a
           :key="tabName"
-          :class="{bold: selectedTab === tabName}" 
+          :class="{bold: selectedTab === tabName, selected: selectedTab === tabName}" 
           @click="scrollToEl($event, tabName)"
           v-if="validateTab(tabName)"
         >
@@ -49,8 +49,9 @@ export default {
   },
   methods: {
     async loadReleaseDataFields() {
-      await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.organizationId });
-      this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.org._id, releaseType: this.releaseType });
+      // await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.organizationId });
+      // this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.org._id, releaseType: this.releaseType });
+      this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.release.organizationId, releaseType: this.releaseType });
       this.selectedTab = this.allTabNames[0];
     },
     async init() {

@@ -2,7 +2,11 @@ import { organizationService } from './services/organization.service';
 import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service'
 
+// import { setStylingForOrgTheme, setDynamicStylingThemeEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
+import allThemes from '../../themes/index';
+
 import { $t } from '@/plugins/i18n';
+import { getRelevantThemeForOrg } from '../../../common/modules/common/services/dynamicPages.service';
 
 const initState = () => ({
   ...basicStoreService.initState(),
@@ -65,6 +69,14 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
             if (!dontSet) {
               commit({ type: 'setSelectedItem', item });
               commit({ type: 'setProp', key: 'organizationId', val: item._id });
+              if (item._id) {
+                // setStylingForOrgTheme(item, '.megaphon-app');
+                commit('setSelectedTheme', {theme: getRelevantThemeForOrg(item, false), selector: '.megaphon-app' }, { root: true });
+              }
+              else {
+                // setDynamicStylingThemeEl({...allThemes[0], title: 'Megaphon'}, '.megaphon-app');
+                commit('setSelectedTheme', {theme: allThemes[0], selector: '.megaphon-app' }, { root: true });
+              }
             }
             return item;
           }

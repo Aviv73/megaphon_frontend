@@ -78,7 +78,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.default-app {
+.defaultApp {
   .simple-release-details {
     .release-page-nav {
       height: fit-content;

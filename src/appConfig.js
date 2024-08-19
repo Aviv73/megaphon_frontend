@@ -6,7 +6,6 @@ var client;
 if (allParts.length < 2) client = false;
 else client = true;
 
-console.log('WOWOWO', allParts);
 var appOrganizationId = null;
 if (allParts.length === 1) appOrganizationId = root;
 

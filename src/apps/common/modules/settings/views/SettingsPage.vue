@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-page flex column gap15">
+  <div class="settings-page flex column gap10">
     <h2>{{$t('settings.settings')}}</h2>
     <!-- <pre>{{settings}}</pre>
     <form @submit.prevent="saveSettings">
@@ -8,7 +8,7 @@
     </form> -->
     <div class="simple-form">
       <!-- <FormInput type="select" class="gap10" labelholder="settings.locale" v-model="uiConfig.locale" :items="langs"/> -->
-      <FormInput type="select" class="gap10" labelholder="settings.theme" v-model="uiConfig.theme" :items="themes"/>
+      <!-- <FormInput type="select" class="gap10" labelholder="settings.theme" v-model="uiConfig.theme" :items="themes"/> -->
       <FormInput type="select" class="gap10" labelholder="settings.textSize" v-model="uiConfig.remSize" :items="remOpts"/>
       <!-- <FormInput class="gap10 row-reverse" label="settings.darkMode" :value="uiConfig.darkMode" type="checkbox" @input="setDarkMode"/> -->
       <!-- <FormInput type="checkbox" class="gap10" label="settings.accessability" v-model="uiConfig.accessabilityMode"/> -->
@@ -26,7 +26,7 @@ export default {
     return {
       langs: [{value: 'en', label: 'english'}, {value: 'he', label: 'hebrew'}],
       themes: ['default', 'dark'].map(c => ({value: c, label: `settings.themes.${c}`})),
-      remOpts: [{label: 'Small', value: 12}, {label: 'Medium', value: 15}, {label: 'Big', value: 17}].map(c => ({...c, label: `settings.textSize${c.label}`})),
+      remOpts: [{label: 'Small', value: 12}, {label: 'Medium', value: 15}, {label: 'Big', value: 17}, {label: 'Bigger', value: 20}].map(c => ({...c, label: `settings.textSize${c.label}`})),
       settings: null,
       uiConfig: {...this.$store.getters['settings/uiConfig']},
     }

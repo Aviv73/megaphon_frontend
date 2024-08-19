@@ -104,13 +104,14 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .megaphon-app {
-  // .contact-edit {
+  .contact-edit {
+    padding: em(10px) 0;
   //   .input {
   //     flex: 1;
   //   }
   //   .label {
   //     width: em(100px);
   //   }
-  // }
+  }
 }
 </style>

@@ -23,11 +23,14 @@ export default {
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
     },
+    selectedTheme() {
+      return this.$store.getters['selectedTheme'];
+    },
     headerBg() {
-      return this.org?.designPreferences?.colors?.[3];
+      return this.selectedTheme.colors?.[3];
     },
     headerColor() {
-      return this.org?.designPreferences?.colors?.[2];
+      return this.selectedTheme.colors?.[2];
     }
   }
 }
@@ -39,11 +42,16 @@ export default {
   .app-aside {
     top: 0;
     max-height: 100vh;
+    width: em(150px);
+    font-size: em(13px);
     .org-logo {
-      // width: 60px;
-      height: $header-height;
+      // width: em(150px);
+      // height: $header-height;
+      height: em(50px);
+      padding: em(10px);
       .actual {
         height: 100%;
+        object-fit: contain;
       }
     }
     .costume-nav-bar {
@@ -67,7 +75,8 @@ export default {
     }
 
     .account-preview {
-      padding: em(20px) em(10px);
+      // padding: em(20px) em(10px);
+      padding: em(5px);
       .logged-user-preview {
         .avatar {
           // background-color: var(--clr-4);
@@ -83,6 +92,13 @@ export default {
           .actions-section {
             display: none;
           }
+        }
+        .avatar {
+          width: em(25px);
+          height: em(25px);
+        }
+        .wellcome-msg {
+          font-size: em(13px);
         }
       }
     }

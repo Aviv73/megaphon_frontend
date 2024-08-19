@@ -23,7 +23,7 @@ import AppHeader from './modules/common/cmps/AppHeader.vue';
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 
 import allThemes from './themes';
-import { setDynamicStylingThemeEl } from '../common/modules/common/services/dynamicPages.service.js';
+// import { setDynamicStylingThemeEl } from '../common/modules/common/services/dynamicPages.service.js';
 
 export default {
   name: 'MegaphonApp',
@@ -45,7 +45,8 @@ export default {
     setTheme() {
       const themeName = this.uiConfig.theme;
       const themeItem = allThemes.find(c => c.name === themeName) || allThemes[0];
-      setDynamicStylingThemeEl({...themeItem, title: 'Megaphon'}, '.app');
+      // setDynamicStylingThemeEl({...themeItem, title: 'Megaphon'}, '.app');
+      this.$store.commit({ type: 'setSelectedTheme', theme: themeItem, selector:  '.app' });
     }
   },
   created() {

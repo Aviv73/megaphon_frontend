@@ -1,5 +1,5 @@
 <template>
-  <div class="app default-app">
+  <div class="app defaultApp">
     <div class="app-content">
       <!-- <AppAside/> -->
       <div class="right">
@@ -19,7 +19,7 @@ import './assets/style/index.scss';
 import AppHeader from './cmps/default_AppHeader.vue';
 import AppFooter from './cmps/default_AppFooter.vue';
 
-import { setStylingForOrgTheme } from '@/apps/common/modules/common/services/dynamicPages.service.js';
+// import { setStylingForOrgTheme } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 
 
 export default {
@@ -29,14 +29,14 @@ export default {
     AppFooter,
     // AppAside
   },
-  methods: {
-    async setOrgStyling() {
-      const org = await this.$store.dispatch({type: 'organization/loadItem'});
-      setStylingForOrgTheme(org, '.default-app');
-    }
-  },
-  created() {
-    this.setOrgStyling();
-  }
+  // methods: {
+  //   async setOrgStyling() {
+  //     const org = await this.$store.dispatch({type: 'organization/loadItem'});
+  //     setStylingForOrgTheme(org, '.defaultApp', true);
+  //   }
+  // },
+  // created() {
+  //   this.setOrgStyling();
+  // }
 }
 </script>

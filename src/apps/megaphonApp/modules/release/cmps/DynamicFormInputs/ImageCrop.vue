@@ -3,7 +3,7 @@
     <img class="val-img" :title="value?.[0]?.title" :src="imgToShow" :alt="value?.[0]?.title || $t('clickToUploadFile')" @click="clickInput"/>
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="chooseFile" :accept="accept"/>
-      <button @click.prevent.stop="clickInput" class="btn big primary">{{$t('chooseFile')}}</button>
+      <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
     </template>
     <MiniLoader v-else/>
 

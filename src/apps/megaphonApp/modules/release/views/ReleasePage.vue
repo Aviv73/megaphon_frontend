@@ -3,6 +3,7 @@
     <!-- <h2>{{$t('release.releases')}}</h2> -->
     <div class="width-all" v-if="true || isUserWatchOnly">
       <ReleasesSlider
+        :localNav="false"
         :releases="allReleasesData.items"
         :getReleasePageRoute="(release => ({ name: 'ReleaseDetails', params: { id: release._id, organizationId: organizationId } }))"
       />
@@ -17,6 +18,8 @@
       :showActions="false"
       :dontRoute="true"
       :propsToPass="{ selectedReleaseIds }"
+      :isLoading="isLoading"
+      :showLoader="false"
     >
       <h2 v-if="selectedFolder">{{selectedFolder.name}}</h2>
     </ItemSearchList>

@@ -2,7 +2,7 @@
   <div class="auth-page login-page flex column gap20 align-center justify-center width-all">
     <router-link class="btn width-content" :to="{name: 'SignupPage'}">{{$t('signup')}}</router-link>
     <form @submit.prevent="login" class="simple-form">
-      <img class="logo" :src="appLogo" :alt="org?.name || 'Megaphon'">
+      <img v-if="!rootOrg" class="logo" :src="appLogo" :alt="org?.name || 'Megaphon'">
       <h4>{{$t('login')}}</h4>
       <FormInput type="text" labelholder="auth.email" v-model="userCred.email"/>
       <FormInput type="password" labelholder="auth.password" v-model="userCred.password"/>
@@ -22,13 +22,6 @@
         </form>
       </template>
     </ToggleModal>
-    <!-- <Modal :fullScreen="true" v-if="showFinishAuthModal">
-      <form @submit.prevent="finishAuth" class="simple-form align-stretch">
-        <h4 class="text-center">{{$t('required2FactorAthMsg')}}</h4>
-        <FormInput v-model="finishAuthPass" placeholder="auth.password"/>
-        <button class="btn big primary">{{$t('submit')}}</button>
-      </form>
-    </Modal> -->
   </div>
 </template>
 
@@ -62,6 +55,9 @@ export default {
     },
     org() {
       return appConfig.appOrganization || this.$store.getters['organization/selectedItem'];
+    },
+    rootOrg() {
+      return this.$store.getters.rootOrg;
     }
   },
   methods: {
@@ -79,12 +75,7 @@ export default {
     async sendNewPasswordEmail() {
       await this.$store.dispatch({ type: 'auth/sendNewPasswordEmail', email: this.forgotEmailEmail });
       alertService.toast({type: 'safe', msg: `${this.$t(`auth.newPasswordSentTo`)} ${this.forgotEmailEmail}!`});
-    },
-    // async finishAuth() {
-    //   await this.$store.dispatch({ type: 'auth/finishAuth', pass: this.finishAuthPass });
-    //   this.showFinishAuthModal = false;
-    //   this.$router.push('/');
-    // }
+    }
   },
   components: {
     FormInput,

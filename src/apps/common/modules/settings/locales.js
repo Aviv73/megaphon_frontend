@@ -13,6 +13,7 @@ const  en = {
     "textSizeSmall": "Small",
     "textSizeMedium": "Medium",
     "textSizeBig": "Big",
+    "textSizeBigger": "Bigger",
     "alerts": {}
   }
 }
@@ -31,6 +32,7 @@ const he = {
     "textSizeSmall": "קטן",
     "textSizeMedium": "בינוני",
     "textSizeBig": "גדול",
+    "textSizeBigger": "ענק",
     "alerts": {}
   }
 }

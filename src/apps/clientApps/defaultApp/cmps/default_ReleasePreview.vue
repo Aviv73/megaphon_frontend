@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.default-app {
+.defaultApp {
   .release-preview {
     position: relative;
     width: 220px;

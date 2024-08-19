@@ -1,6 +1,6 @@
 <template>
-  <section class="account-page flex column width-all flex column">
-    <!-- <h2>{{$t('release.releases')}}</h2> -->
+  <section class="account-page flex column gap10 width-all">
+    <h2>{{$t('account.accounts')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allAccountData"
@@ -12,6 +12,7 @@
       :filterByCmp="AccountFilter"
       :showActions="true"
       :dontRoute="true"
+      :isLoading="isLoading"
       :showLoader="false"
     >
       <div class="flex column gap10 align-start">
@@ -98,7 +99,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .account-page {
-    padding: em(10px);
+    padding: em(10px) 0;
     height: auto;
 
     // background-color: #E0E0E0;

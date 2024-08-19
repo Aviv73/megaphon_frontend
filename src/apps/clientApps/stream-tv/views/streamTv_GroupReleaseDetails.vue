@@ -1,10 +1,10 @@
 <template>
   
-  <section class="group-release-details flex column gap30 height-all">
+  <section class="group-release-details flex column gap20 height-all">
     <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(release.mainImage.src))}')`, 'background-size': 'cover' }"> -->
     <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases"/>
-    <div class="page-like-section flex column gap50" v-if="tabName === 'monthlySummary'">
-      <h2>{{$t('release.monthlySummary')}}</h2>
+    <div class="page-like-section container flex column gap50" v-if="tabName === 'monthlySummary'">
+      <!-- <h2>{{$t('release.monthlySummary')}}</h2> -->
       <ul class="flex column gap30">
         <li class="release-summary-preview flex gap10" v-for="release in releaseData.childrenReleases.filter(c => c.releaseData?.mainImage?.src)" :key="release._id">
           <div class="flex-1 summery-image_">
@@ -20,12 +20,24 @@
         </li>
       </ul>
     </div>
-    <div class="page-like-section flex column gap50" v-else-if="tabName === 'broadcastTimes'">
-      <h2>{{$t('release.broadcastTimes')}}</h2>
+    <div class="page-like-section container flex column gap50" v-else-if="tabName === 'broadcastTimes'">
+      <!-- <h2>{{$t('release.broadcastTimes')}}</h2> -->
     </div>
-    <div v-else class="inner-container_ flex column gap30">
+    <div class="page-like-section container width-all flex column gap50" v-else-if="tabName === 'archive'">
+      <!-- <h2>{{$t('release.archive')}}</h2> -->
+      <ul class="archive-section flex align-center-wrap-justify-center gap20">
+          <li v-for="release in archiveReleases" :key="release._id">
+            <router-link :to="{name: 'ReleaseDetails', params: { id: release._id } }">
+              {{release.releaseData.title}}
+            </router-link>
+          </li>
+        </ul>
+    </div>
+    <div v-else class="inner-container_ flex column gap10">
+      <!-- <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases"/> -->
       <div class="items-section" v-if="mostWatchedReleases?.length">
         <div class="headline">
+          <div class="img" v-html="icons.eye"></div>
           <h3>{{$t('release.mostWatched')}}</h3>
         </div>
         <ItemList
@@ -37,6 +49,7 @@
       </div>
       <div class="items-section">
         <div class="headline">
+          <div class="img" v-html="icons.new"></div>
           <h3>{{$t('release.newReleases')}}</h3>
         </div>
         <ItemList
@@ -48,6 +61,7 @@
       </div>
       <div class="items-section">
         <div class="headline">
+          <div class="img" v-html="icons.archive"></div>
           <h3>{{$t('archive')}}</h3>
         </div>
         <ul class="archive-section flex align-center-wrap-justify-center gap20">
@@ -64,13 +78,16 @@
 </template>
 
 <script>
-import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.vue'
-import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue'
-// import ReleasePreview from '../cmps/streamTv_ReleasePreview.vue'
-import ReleasePreview from '@/apps/common/modules/release/cmps/common_ReleasePreview.vue'
-import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue'
-import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service'
-import ReleasesSlider from '../../../common/modules/release/cmps/ReleasesSlider.vue'
+import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.vue';
+import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue';
+// import ReleasePreview from '../cmps/streamTv_ReleasePreview.vue';
+import ReleasePreview from '@/apps/common/modules/release/cmps/common_ReleasePreview.vue';
+import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
+import ReleasesSlider from '../../../common/modules/release/cmps/ReleasesSlider.vue';
+
+
+import  { getSvgs } from '../assets/images/svgs.js';
 
 export default {
   name: 'streamTv_GroupReleaseDetails',
@@ -113,6 +130,15 @@ export default {
     },
     recommendedReleases() {
       return this.releaseData.recommendedReleases?.map(c => this.releaseData.childrenReleases.find(_ => _._id === c)) || [];
+    },
+
+    selectedTheme() {
+      return this.$store.getters['selectedTheme'];
+    },
+
+    icons() {
+      const clr = this.selectedTheme?.colors?.[4];
+      return getSvgs(clr).icons; 
     }
   },
   methods: {
@@ -138,16 +164,20 @@ export default {
     .items-section {
       display: flex;
       flex-direction: column;
-      gap: em(20px);
+      gap: em(10px);
       max-width: 100%;
       width: 100%;
       .headline {
+        .img, svg {
+          width: em(25px);
+          height: em(25px);
+        }
         --headcolor: black;
         display: flex;
         align-items: center;
         gap: em(10px);
-        // padding: 0 0 0 em(20px);
-        padding: 0 em(10px);
+        padding: 0 0 0 em(20px);
+        // padding: 0 em(10px);
         &::after {
           content: "";
           flex: 1;

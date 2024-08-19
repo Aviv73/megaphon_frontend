@@ -1,20 +1,31 @@
 <template>
   <div v-if="loggedUser" class="logged-user-preview flex align-center space-between gap30">
-    <span>{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
+    <span class="wellcome-msg">{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
     <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">
-      <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt="">
-      <div class="actions-modal" v-if="showActionsModal">
-        <div class="top-like"></div>
-        <button class="logout-btn" @click="logout">{{$t('auth.logout')}}</button> | 
+      <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
+      <div class="avatar img" v-html="avatarIco"></div>
+      <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
+      <div class="blure" v-if="showActionsModal && !viewAsModal" @click.stop="showActionsModal = false"></div>
+      <component :is="viewAsModal? 'Modal' : 'div'" class="actions-modal" @close="showActionsModal = false" v-if="showActionsModal" :fullScreen="true">
+        <div class="top-like" v-if="!viewAsModal"></div>
+        <button class="logout-btn" @click="logout">{{$t('auth.logout')}}</button>
+        <span class="sep-span"> | </span>
         <router-link class="edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
-      </div>
+      </component>
     </div>
   </div>
 </template>
 
 <script>
+import  { getSvgs } from '@/assets/images/svgs.js';
+import { getSelectedTheme } from '../../common/services/dynamicPages.service';
+import Modal from '../../common/cmps/Modal.vue';
 export default {
+  components: { Modal },
   name: 'LoggedUserPreview',
+  props: {
+    viewAsModal: [Boolean]
+  },
   data() {
     return {
       showActionsModal: false 
@@ -23,6 +34,11 @@ export default {
   computed: {
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
+    },
+    avatarIco() {
+      const theme = this.$store.getters.selectedTheme;
+      const clr = theme?.colors?.[1] || 'black';
+      return getSvgs(clr).icons.avatar; 
     }
   },
   methods: {
@@ -38,6 +54,7 @@ export default {
 @import '@/assets/styles/global/index';
 // .dark-theme { // MOVED
 //   .logged-user-preview {
+    // .avatar {
 //     .avatar {
 //       background-color: var(--clr-4);
 //     }
@@ -45,20 +62,35 @@ export default {
 // }
 // .megaphon-app {
   .logged-user-preview {
+    background-color: var(--clr-4); //black
+    color: var(--clr-1);
+    // padding: em(10px);
     width: 100%;
+    // .avatar {
+    position: relative;
+    z-index: 11;
     .avatar {
       width: em(30px);
       height: em(30px);
-      background-color: var(--clr-0); //black
+      // background-color: var(--clr-0); //black
       border-radius: 50%;
     }
     .actions-section {
+      .blure {
+        position: fixed;
+        z-index: 35;
+        top: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: $blure-clr;
+      }
       position: relative;
       cursor: pointer;
-      .actions-modal {
+      .actions-modal:not(.modal-container) {
         // display: none;
         position: absolute;
-        z-index: 10;
+        z-index: 36;
         display: flex;
         align-items: center;
         gap: em(10px);

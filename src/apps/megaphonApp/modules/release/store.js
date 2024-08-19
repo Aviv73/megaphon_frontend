@@ -26,7 +26,8 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
       }
     },
     actions: {
-      async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, orgFilter, folder }) {
+      async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, orgFilter, folder, dontSet }) {
+        if (!dontSet) commit({ type: 'setData', data: {items:[], total: 0} });
         return dispatch({
           type: '_Ajax',
           do: async () => {

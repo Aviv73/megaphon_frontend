@@ -10,16 +10,31 @@ import { elementService } from './element.service.js';
 //   css: '' // css code as string;,
 // }
 
-export function setStylingForOrgTheme(org, selector) {
-  return setDynamicStylingThemeEl({...org.designPreferences, title: org.name}, selector);
+
+export function setStylingForOrgTheme(org, selector, isClient = false) {
+  const theme = getRelevantThemeForOrg(org, isClient);
+  return setDynamicStylingThemeEl({...theme, title: org.name}, selector);
+}
+
+export function getRelevantThemeForOrg(org, isClient) {
+  const themeItem = isClient ? org?.designPreferences?.clientApp?.[0] : org?.designPreferences?.producerApp?.[0];
+  if (themeItem) themeItem.title = `Megaphon - ${org?.name}`;
+  return themeItem;
+}
+
+
+var SelectedhTeme = null;
+export function getSelectedTheme() {
+  return SelectedhTeme;
 }
 
 // var lastCssEl = null;\
 const STYLE_EL_CLASSNAME = 'theme-styling-element';
 export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
+  SelectedhTeme = stylingTheme;
   const lastCssEl = document.head.querySelector('.'+STYLE_EL_CLASSNAME)
   if (lastCssEl) document.head.removeChild(lastCssEl);
-  document.title = stylingTheme.title;
+  if (stylingTheme.title) document.title = stylingTheme.title;
   const colors = stylingTheme?.colors || [];
   const fonts = stylingTheme?.fonts || [];
   const _ig = ':not(.ignore-theme-style)';
@@ -28,6 +43,7 @@ export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
       [`--font-${idx}`]: fonts[idx]
     }), {}),
     ...colors.reduce((acc, c, idx) => ({
+      ...acc,
       [`--clr-${idx}`]: c,
       [`.clr-${idx}`]: {
         color: c

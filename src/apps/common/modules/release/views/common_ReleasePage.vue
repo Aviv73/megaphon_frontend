@@ -100,7 +100,7 @@ export default {
 </script>
 
 <style lang="scss">
-// .default-app {
+// .defaultApp {
   .common-release-page {
     .item-page {
       overflow: unset;

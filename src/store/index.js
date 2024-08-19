@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { settingsStore } from '../apps/common/modules/settings/store';
+import { setDynamicStylingThemeEl } from '../apps/common/modules/common/services/dynamicPages.service';
 
 // import commonStore from '../apps/common/store'
 // import selectedAppData from '../apps/index.js';
@@ -11,7 +12,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isScreenWide: false,
-    selectedAppData: null
+    selectedAppData: null,
+    rootOrg: null,
+    selectedTheme: null
   },
   getters: {
     isScreenWide(state) {
@@ -19,6 +22,12 @@ export default new Vuex.Store({
     },
     selectedAppData(state) {
       return state.selectedAppData;
+    },
+    rootOrg(state) {
+      return state.rootOrg;
+    },
+    selectedTheme(state) {
+      return state.selectedTheme;
     }
   },
   mutations: {
@@ -27,6 +36,13 @@ export default new Vuex.Store({
     },
     setSelectedAppData(state, { selectedAppData }) {
       state.selectedAppData = selectedAppData;
+    },
+    setRootOrg(state, { org }) {
+      state.rootOrg = org;
+    },
+    setSelectedTheme(state, { theme, selector }) {
+      state.selectedTheme = theme;
+      setDynamicStylingThemeEl(theme, selector);
     }
   },
   actions: {

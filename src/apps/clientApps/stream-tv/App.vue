@@ -20,7 +20,7 @@ import AppHeader from './cmps/streamTv_AppHeader.vue';
 import AppFooter from './cmps/streamTv_AppFooter.vue';
 import AppAside from './cmps/streamTv_AppAside.vue';
 
-import { setStylingForOrgTheme } from '@/apps/common/modules/common/services/dynamicPages.service.js';
+// import { setStylingForOrgTheme } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 
 export default {
   name: 'streamTvApp',
@@ -38,9 +38,9 @@ export default {
     async loadOrg() {
       await this.$store.dispatch({type: 'organization/loadItem'});
     },
-    async setOrgStyling() {
-      setStylingForOrgTheme(this.org, '.streamTv-app');
-    },
+    // async setOrgStyling() {
+    //   setStylingForOrgTheme(this.org, '.streamTv-app', true);
+    // },
 
     
     async loadArchive() {
@@ -52,7 +52,7 @@ export default {
   async created() {
     this.$store.dispatch('auth/getUserInfo')
     await this.loadOrg();
-    this.setOrgStyling();
+    // this.setOrgStyling();
     this.loadArchive();
   }
 }

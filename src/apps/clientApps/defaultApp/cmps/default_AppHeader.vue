@@ -73,7 +73,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 @import '@/assets/styles/themes/index';
-.default-app {
+.defaultApp {
   .app-header {
     font-weight: 600;
     // background-color: $layout-black;

@@ -2,14 +2,15 @@
   <div v-if="organizationToEdit" class="organization-edit app-form-styling simple-form flex column gap40 width-all">
     <h2 v-if="organizationToEdit._id">{{$t('organization.editOrganization')}}</h2>
     <h2 v-else>{{$t('organization.createOrganization')}}</h2>
-    <form v-if="organizationToEdit" @submit.prevent="" class="flex column width-all gap50">
+    <form v-if="organizationToEdit" @submit.prevent="" class="flex column width-all gap50 align-start">
       <div class="input-container">
         <p>{{$t('organization.name')}}</p>
         <FormInput type="text" placeholder="organization.name" v-model="organizationToEdit.name"/>
       </div>
       <div class="flex column gap20">
         <p>{{$t('organization.logo')}}</p>
-        <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.logoUrl}" @input="val => imgUploaded(val.src, 'logoUrl')"/>
+        <FileUploader v-if="organizationToEdit._id" :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.logoUrl}" @input="val => imgUploaded(val.src, 'logoUrl')"/>
+        <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
       </div>
 
       <div class="from-emails-section flex column gap20 align-start">
@@ -45,7 +46,7 @@
       
       <div class="logos-section flex column gap20 align-start">
         <p>{{$t('organization.logos')}}</p>
-        <ul class="flex column gap10 table-like">
+        <ul  v-if="organizationToEdit._id" class="flex column gap10 table-like">
           <li>
             <p>{{$t('name')}}</p>
             <p>{{$t('file')}}</p>
@@ -57,6 +58,7 @@
             <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
           </li>
         </ul>
+        <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
         <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
       </div>
 
@@ -81,144 +83,169 @@
 
       <div class="flex column gap20 align-start">
         <p>{{$t('organization.designPreferences')}}</p>
-        <div class="input-container flex gap20">
-          <!-- <p>{{$t('organization.colors')}}</p> -->
-          <!-- <FormInput type="color" placeholder="organization.color" v-model="organizationToEdit.designPreferences.color"/> -->
-          <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.colors[0]"/>
-          <FormInput type="color" labelholder="organization.bodyBg" v-model="organizationToEdit.designPreferences.colors[1]"/>
+        <div class="flex column gap20"> 
+          <p>Megaphon app</p>
+          <div class="input-container flex gap20">
+            <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.producerApp[0].colors[0]"/>
+            <FormInput type="color" labelholder="organization.bodyBg" v-model="organizationToEdit.designPreferences.producerApp[0].colors[1]"/>
+          </div>
+          <div class="input-container flex gap20">
+            <FormInput type="color" labelholder="organization.headerColor" v-model="organizationToEdit.designPreferences.producerApp[0].colors[2]"/>
+            <FormInput type="color" labelholder="organization.headerBg" v-model="organizationToEdit.designPreferences.producerApp[0].colors[3]"/>
+          </div>
+          <div class="input-container">
+            <FormInput type="color" labelholder="organization.headersColor" v-model="organizationToEdit.designPreferences.producerApp[0].colors[4]"/>
+            <FormInput type="color" labelholder="organization.headersBgColor" v-model="organizationToEdit.designPreferences.producerApp[0].colors[5]"/>
+          </div>
         </div>
-        <div class="input-container flex gap20">
-          <!-- <p>{{$t('organization.bgColors')}}</p> -->
-          <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
-          <FormInput type="color" labelholder="organization.headerColor" v-model="organizationToEdit.designPreferences.colors[2]"/>
-          <FormInput type="color" labelholder="organization.headerBg" v-model="organizationToEdit.designPreferences.colors[3]"/>
+        <div class="flex column gap20">
+          <p>Client app</p>
+          <div class="input-container flex gap20">
+            <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.clientApp[0].colors[0]"/>
+            <FormInput type="color" labelholder="organization.bodyBg" v-model="organizationToEdit.designPreferences.clientApp[0].colors[1]"/>
+          </div>
+          <div class="input-container flex gap20">
+            <FormInput type="color" labelholder="organization.headerColor" v-model="organizationToEdit.designPreferences.clientApp[0].colors[2]"/>
+            <FormInput type="color" labelholder="organization.headerBg" v-model="organizationToEdit.designPreferences.clientApp[0].colors[3]"/>
+          </div>
+          <div class="input-container">
+            <FormInput type="color" labelholder="organization.headersColor" v-model="organizationToEdit.designPreferences.clientApp[0].colors[4]"/>
+            <FormInput type="color" labelholder="organization.headersBgColor" v-model="organizationToEdit.designPreferences.clientApp[0].colors[5]"/>
+          </div>
         </div>
-        <div class="input-container">
-          <!-- <p>{{$t('organization.headersColor')}}</p> -->
-          <!-- <FormInput type="color" placeholder="organization.bgColor" v-model="organizationToEdit.designPreferences.bgColor"/> -->
-          <FormInput type="color" labelholder="organization.headersColor" v-model="organizationToEdit.designPreferences.colors[4]"/>
+        <div class="flex column gap20 align-start">
+          <p>{{$t('organization.loginPagePreferences')}}</p>
+          <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
+          <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :onlySrc="true" :uploadFolderName="organizationToEdit._id" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')"/>
+          <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
+          <FormInput type="textarea" labelholder="organization.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
+        </div>
+        <div class="flex column gap20 align-start">
+          <p>{{$t('organization.contactMsg')}}</p>
+          <FormInput type="textarea" labelholder="organization.contactMsg" v-model="organizationToEdit.designPreferences.contactMsg"/>
         </div>
       </div>
 
+      <div class="flex column gap50">
+        <button class="btn big secondary align-self-start"><span @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</span></button>
+        <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
+          <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
+          <div class="flex column gap20">
+            <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
+            <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
+            <FormInput type="checkbox" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
+            <FormInput type="checkbox" labelholder="require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
+            <FormInput type="checkbox" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
+          </div>
+          <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
+          <div class="route-filters-section flex column gap20 align-start">
+            <p>{{$t('organization.routes')}}</p>
+            <ul class="flex column gap10 table-like">
+              <li>
+                <p>{{$t('title')}}</p>
+                <p>{{$t('releaseTypes')}}</p>
+                <p>{{$t('wasDistributed')}}</p>
+                <p>{{$t('deepEditFilter')}}</p>
+                <p>{{$t('htmlContentFilePath')}}</p>
+                <p>{{$t('showInRoles')}}</p>
+                <p></p>
+              </li>
+              <li v-for="(curr, idx) in organizationToEdit.routes || []" :key="idx">
+                <FormInput type="text" placeholder="name" v-model="curr.name"/>
+                <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseFilter.releaseTypes"/>
+                <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.releaseFilter.wasDistributed"/>
+                <ToggleModal :fullScreen="true" class="filter-modal">
+                  <template #toggler>
+                    <div class="btn">
+                      {{$t('edit')}}
+                    </div>
+                  </template>
+                  <template #content>
+                    <FormInput type="textarea" class="ltr" placeholder="deepEditFilter" :value="JSON.stringify(curr.releaseFilter.filter || {}, null, 2)" @input="val => curr.releaseFilter.filter=JSON.parse(val)"/>
+                  </template>
+                </ToggleModal>
+                <FormInput type="text" placeholder="htmlContentFilePath" v-model="curr.htmlContentFilePath"/>
+                <FormInput type="multiselect" :items="userRolesToSelect" placeholder="showInRoles" v-model="curr.showInRoles"/>
+                <TableActionBtns v-model="organizationToEdit.routes" :idx="idx"/>
+              </li>
+            </ul>
+            <button @click="addRouteFilterItem" class="btn big">{{$t('add')}}</button>
+          </div>
 
-      <h2 @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</h2>
-      <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
-        <div class="flex column gap20">
-          <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
-          <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
-          <FormInput type="checkbox" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
-          <FormInput type="checkbox" labelholder="require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
-          <FormInput type="checkbox" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
-        </div>
-        <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
-        <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
-        <div class="route-filters-section flex column gap20 align-start">
-          <p>{{$t('organization.routes')}}</p>
-          <ul class="flex column gap10 table-like">
-            <li>
-              <p>{{$t('title')}}</p>
-              <p>{{$t('releaseTypes')}}</p>
-              <p>{{$t('wasDistributed')}}</p>
-              <p>{{$t('deepEditFilter')}}</p>
-              <p>{{$t('htmlContentFilePath')}}</p>
-              <p>{{$t('showInRoles')}}</p>
-              <p></p>
-            </li>
-            <li v-for="(curr, idx) in organizationToEdit.routes || []" :key="idx">
-              <FormInput type="text" placeholder="name" v-model="curr.name"/>
-              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseFilter.releaseTypes"/>
-              <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.releaseFilter.wasDistributed"/>
-              <ToggleModal :fullScreen="true" class="filter-modal">
-                <template #toggler>
-                  <div class="btn">
-                    {{$t('edit')}}
-                  </div>
-                </template>
-                <template #content>
-                  <FormInput type="textarea" class="ltr" placeholder="deepEditFilter" :value="JSON.stringify(curr.releaseFilter.filter || {}, null, 2)" @input="val => curr.releaseFilter.filter=JSON.parse(val)"/>
-                </template>
-              </ToggleModal>
-              <FormInput type="text" placeholder="htmlContentFilePath" v-model="curr.htmlContentFilePath"/>
-              <FormInput type="multiselect" :items="userRolesToSelect" placeholder="showInRoles" v-model="curr.showInRoles"/>
-              <TableActionBtns v-model="organizationToEdit.routes" :idx="idx"/>
-            </li>
-          </ul>
-          <button @click="addRouteFilterItem" class="btn big">{{$t('add')}}</button>
-        </div>
+          <div class="inner-filters-section flex column gap20 align-start">
+            <p>{{$t('organization.innerFilters')}}</p>
+            <ul class="flex column gap10 table-like">
+              <li>
+                <p>{{$t('field')}}</p>
+                <p>{{$t('title')}}</p>
+                <p>{{$t('options')}}</p>
+                <p></p>
+              </li>
+              <li v-for="(curr, idx) in organizationToEdit.innerFilters || []" :key="idx">
+                <FormInput type="text" placeholder="field" v-model="curr.field"/>
+                <FormInput type="text" placeholder="title" v-model="curr.title"/>
+                <FormInput type="text" placeholder="options" v-model="curr.options"/>
+                <TableActionBtns v-model="organizationToEdit.innerFilters" :idx="idx"/>
+              </li>
+            </ul>
+            <button @click="addInnerFilterItem" class="btn big">{{$t('add')}}</button>
+          </div>
 
-        <div class="inner-filters-section flex column gap20 align-start">
-          <p>{{$t('organization.innerFilters')}}</p>
-          <ul class="flex column gap10 table-like">
-            <li>
-              <p>{{$t('field')}}</p>
-              <p>{{$t('title')}}</p>
-              <p>{{$t('options')}}</p>
-              <p></p>
-            </li>
-            <li v-for="(curr, idx) in organizationToEdit.innerFilters || []" :key="idx">
-              <FormInput type="text" placeholder="field" v-model="curr.field"/>
-              <FormInput type="text" placeholder="title" v-model="curr.title"/>
-              <FormInput type="text" placeholder="options" v-model="curr.options"/>
-              <TableActionBtns v-model="organizationToEdit.innerFilters" :idx="idx"/>
-            </li>
-          </ul>
-          <button @click="addInnerFilterItem" class="btn big">{{$t('add')}}</button>
-        </div>
+          <div class="release-types-section flex column gap20 align-start">
+            <p>{{$t('organization.releaseTypes')}}</p>
+            <ul class="flex column gap10 table-like">
+              <li>
+                <!-- <p>{{$t('id')}}</p> -->
+                <p>{{$t('name')}}</p>
+                <p>{{$t('dataFieldsLocalFilePath')}}</p>
+                <p>{{$t('isGroup')}}</p>
+                <p>{{$t('followReleaseType')}}</p>
+                <!-- <p>{{$t('dataFieldsStr')}}</p> -->
+                <p></p>
+              </li>
+              <li v-for="(curr, idx) in organizationToEdit.releaseTypes || []" :key="idx">
+                <!-- <FormInput type="autocomplete" placeholder="id" v-model="curr.id" :items="defaultTemplateTypesIds"/> -->
+                <FormInput type="text" placeholder="name" v-model="curr.name"/>
+                <FormInput type="text" placeholder="dataFieldsFilePath" v-model="curr.dataFieldsLocalFilePath"/>
+                <FormInput type="checkbox" v-model="curr.isGroup"/>
+                <FormInput type="select" placeholder="followReleaseType" v-model="curr.followReleaseType" :items="[...allReleaseTypes.map(c => ({ value: c.id, label: c.name })), {label: 'none', value: ''}]"/>
+                <!-- <FormInput type="textarea" placeholder="dataFieldsStr" v-model="curr.dataFieldsStr"/> -->
+                <TableActionBtns v-model="organizationToEdit.releaseTypes" :idx="idx"/>
+              </li>
+            </ul>
+            <button @click="addReleaseTypeItem" class="btn big">{{$t('add')}}</button>
+          </div>
+          
+          <div class="templates-section flex column gap20 align-start">
+            <p>{{$t('organization.templates')}}</p>
+            <ul class="flex column gap10 table-like">
+              <li>
+                <p>{{$t('name')}}</p>
+                <p>{{$t('releaseTypes')}}</p>
+                <p>{{$t('templateType')}}</p>
+                <p>{{$t('hadlebarsFilePath')}}</p>
+                <p>{{$t('appName')}}</p>
+                <p>{{$t('url')}}</p>
+                <!-- <p>{{$t('previewUrl')}}</p> -->
+                <!-- <p>{{$t('appName')}}</p> -->
+                <p></p>
+              </li>
+              <li v-for="(curr, idx) in organizationToEdit.templates || []" :key="idx">
+                <FormInput type="text" placeholder="name" v-model="curr.name"/>
+                <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
+                <FormInput type="select" :itemsMap="{landingPage: '0', newsLetter: '1'}" placeholder="templateType" v-model="curr.type"/>
+                <FormInput type="text" placeholder="hadlebarsFilePath" v-model="curr.handlebarsLocalFilePath"/>
+                <FormInput type="select" :items="allClientAppsNames" placeholder="appName" v-model="curr.appName"/>
+                <FormInput type="text" placeholder="url" v-model="curr.url"/>
+                <!-- <FormInput type="text" placeholder="previewUrl" v-model="curr.previewUrl"/> -->
+                <!-- <FormInput type="text" placeholder="appName" v-model="curr.appName"/> -->
 
-        <div class="release-types-section flex column gap20 align-start">
-          <p>{{$t('organization.releaseTypes')}}</p>
-          <ul class="flex column gap10 table-like">
-            <li>
-              <!-- <p>{{$t('id')}}</p> -->
-              <p>{{$t('name')}}</p>
-              <p>{{$t('dataFieldsLocalFilePath')}}</p>
-              <p>{{$t('isGroup')}}</p>
-              <p>{{$t('followReleaseType')}}</p>
-              <!-- <p>{{$t('dataFieldsStr')}}</p> -->
-              <p></p>
-            </li>
-            <li v-for="(curr, idx) in organizationToEdit.releaseTypes || []" :key="idx">
-              <!-- <FormInput type="autocomplete" placeholder="id" v-model="curr.id" :items="defaultTemplateTypesIds"/> -->
-              <FormInput type="text" placeholder="name" v-model="curr.name"/>
-              <FormInput type="text" placeholder="dataFieldsFilePath" v-model="curr.dataFieldsLocalFilePath"/>
-              <FormInput type="checkbox" v-model="curr.isGroup"/>
-              <FormInput type="select" placeholder="followReleaseType" v-model="curr.followReleaseType" :items="[...allReleaseTypes.map(c => ({ value: c.id, label: c.name })), {label: 'none', value: ''}]"/>
-              <!-- <FormInput type="textarea" placeholder="dataFieldsStr" v-model="curr.dataFieldsStr"/> -->
-              <TableActionBtns v-model="organizationToEdit.releaseTypes" :idx="idx"/>
-            </li>
-          </ul>
-          <button @click="addReleaseTypeItem" class="btn big">{{$t('add')}}</button>
-        </div>
-        
-        <div class="templates-section flex column gap20 align-start">
-          <p>{{$t('organization.templates')}}</p>
-          <ul class="flex column gap10 table-like">
-            <li>
-              <p>{{$t('name')}}</p>
-              <p>{{$t('releaseTypes')}}</p>
-              <p>{{$t('templateType')}}</p>
-              <p>{{$t('hadlebarsFilePath')}}</p>
-              <p>{{$t('appName')}}</p>
-              <p>{{$t('url')}}</p>
-              <!-- <p>{{$t('previewUrl')}}</p> -->
-              <!-- <p>{{$t('appName')}}</p> -->
-              <p></p>
-            </li>
-            <li v-for="(curr, idx) in organizationToEdit.templates || []" :key="idx">
-              <FormInput type="text" placeholder="name" v-model="curr.name"/>
-              <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
-              <FormInput type="select" :itemsMap="{landingPage: '0', newsLetter: '1'}" placeholder="templateType" v-model="curr.type"/>
-              <FormInput type="text" placeholder="hadlebarsFilePath" v-model="curr.handlebarsLocalFilePath"/>
-              <FormInput type="select" :items="allClientAppsNames" placeholder="appName" v-model="curr.appName"/>
-              <FormInput type="text" placeholder="url" v-model="curr.url"/>
-              <!-- <FormInput type="text" placeholder="previewUrl" v-model="curr.previewUrl"/> -->
-              <!-- <FormInput type="text" placeholder="appName" v-model="curr.appName"/> -->
-
-              <!-- <FormInput type="textarea" placeholder="hadlebarsFileStr" v-model="curr.hadlebarsFileStr"/> -->
-              <TableActionBtns v-model="organizationToEdit.templates" :idx="idx"/>
-            </li>
-          </ul>
-          <button @click="addTemplateItem" class="btn big">{{$t('add')}}</button>
+                <!-- <FormInput type="textarea" placeholder="hadlebarsFileStr" v-model="curr.hadlebarsFileStr"/> -->
+                <TableActionBtns v-model="organizationToEdit.templates" :idx="idx"/>
+              </li>
+            </ul>
+            <button @click="addTemplateItem" class="btn big">{{$t('add')}}</button>
+          </div>
         </div>
       </div>
     </form>
@@ -243,6 +270,7 @@ import { consts } from '@/apps/common/modules/common/services/const.service.js';
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 import { ClientApps } from '../../../..';
+import ImageCrop from '../../release/cmps/DynamicFormInputs/ImageCrop.vue';
 export default {
   name: 'OrganizationEdit',
   data() {
@@ -350,7 +378,8 @@ export default {
     FileUploader,
     TableActionBtns,
     Loader,
-    ToggleModal
+    ToggleModal,
+    ImageCrop
   }
 }
 </script>
@@ -359,6 +388,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .organization-edit {
+    padding: em(10px) 0;
     form, .developer-zone {
       width: 100%;
       >* {

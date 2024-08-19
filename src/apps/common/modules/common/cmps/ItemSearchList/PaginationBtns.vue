@@ -7,52 +7,71 @@
           <span class="total-span">{{total}}</span>
         </div>
         <div class="page-buttons" :class="{ disable: (page <= 1) }">
-          <button @click="routeToNewPage(+page - 1)">
-            <
-          </button>
+          <component :is="btnCmp" class="button" 
+            :to="getTo(+page - 1)"
+            @click="routeToNewPage(+page - 1)"
+          >
+            {{btnIcos[0]}}
+          </component>
         </div>
         <div class="page-num-btns">
-          <template v-if="isLotsOfPages && !pagesToRender.includes(1)">
-            <button @click="routeToNewPage(1)">1</button>
+          <template v-if="isLotsOfPages && !pagesToRender.includes(0)">
+            <component :is="btnCmp" class="button"
+              :to="getTo(0)"
+              @click="routeToNewPage(0)"
+            >
+              1
+            </component>
             <span class="dots" v-if="(page > 3) && isScreenWide">...</span>
           </template>
 
           <template v-if="isScreenWide">
-            <button 
+            <component :is="btnCmp" class="button"
+              :to="getTo(pageNum)" 
               v-for="pageNum in pagesToRender" :key="pageNum"
               @click="routeToNewPage(pageNum)" 
               :class="{selected: page == pageNum}" 
             >
-              {{pageNum}}
-            </button>
+              {{pageToDisplay(pageNum)}}
+            </component>
           </template>
           <template v-else>
-            <button
+            <component :is="btnCmp" class="button" 
+              :to="getTo(page)"
               :class="{selected: true}" 
             >
-              {{page}}
-            </button>
+              {{pageToDisplay(page)}}
+            </component>
           </template>
             
-          <template v-if="isLotsOfPages && !pagesToRender.includes(totalPages)">
-            <span class="dots" v-if="(page < totalPages-2) && isScreenWide">...</span>
-            <button @click="routeToNewPage(totalPages)">{{totalPages}}</button>
+          <template v-if="isLotsOfPages && !pagesToRender.includes(totalPages-1)">
+            <span class="dots" v-if="(page < (totalPages-1)-2) && isScreenWide">...</span>
+            <component :is="btnCmp" class="button"
+              :to="getTo(totalPages-1)"
+              @click="routeToNewPage(totalPages-1)"
+            >
+              {{pageToDisplay(totalPages-1)}}
+            </component>
           </template>
         </div>
         <div class="page-buttons" :class="{ disable: (totalPages <= page) }">
-          <button @click="routeToNewPage(+page + 1)">
-            >
-          </button>
+          <component :is="btnCmp" class="button"
+            :to="getTo(+page + 1)"
+            @click="routeToNewPage(+page + 1)"
+          >
+            {{btnIcos[1]}}
+          </component>
         </div>
       </div>
       <div v-if="showAllPages" class="flex align-center space-between wrap gap10">
-          <button 
+          <component :is="btnCmp" class="button"
             v-for="pageNum in allPageNums" :key="pageNum"
+            :to="getTo(pageNum)" 
             @click="routeToNewPage(pageNum)" 
             :class="{selected: page == pageNum}" 
           >
-            {{pageNum}}
-          </button>
+            {{pageToDisplay(pageNum)}}
+          </component>
         </div>
       </div>
 </template>
@@ -72,23 +91,32 @@ export default {
     showAllPages: {
       type: Boolean,
       default: false
+    },
+    btnsAsLinks: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       renderPagesLimit: 7,
-      filterBy: null
+      filterBy: null,
+      btnIcos: ['<', '>']
     }
   },
   created() {
     this.filterBy = JSON.parse(JSON.stringify(this.initFilter || { pagination: { limit: this.perPage, page: this.value } }));
   },
   computed: {
+    btnCmp() {
+      if (this.btnsAsLinks) return 'router-link';
+      return 'button';
+    },
     isScreenWide() {
       return this.$store.getters.isScreenWide;
     },
     page() {
-      return this.value + 1;
+      return this.value;
     },
     totalPages() {
       // return Math.ceil(this.total/this.perPage);
@@ -98,7 +126,7 @@ export default {
       return this.totalPages > this.renderPagesLimit;
     },
     allPageNums() {
-      const pageNums = '0'.repeat(this.totalPages).split('').map((_, idx) => idx+1);
+      const pageNums = '0'.repeat(this.totalPages).split('').map((_, idx) => idx);
       return pageNums;
     },
     pagesToRender() {
@@ -119,18 +147,24 @@ export default {
     }
   },
   methods: {
+    getTo(pageNum) {
+      return { query: { ...this.$route.query, pagination_page: pageNum } };
+    },
+    pageToDisplay(pageNum) {
+      return pageNum + 1;
+    },
     emitFilter() {
       this.$emit('filtered', this.filterBy);
       this.$emit('input', this.filterBy.pagination.page);
     },
     routeToNewPage(pageNum) {
-      pageNum -= 1;
+      // pageNum -= 1;
       if (pageNum < 0 || pageNum >= this.totalPages) return;
       this.filterBy.pagination.page = pageNum;
       this.emitFilter();
     },
     updateLimit(val) {
-      this.filterBy.pagination.limit = val;
+      this.filterBy.pagination.limit = val || 50;
       this.filterBy.pagination.page = 0;
       this.emitFilter();
     }
@@ -185,7 +219,7 @@ export default {
         opacity: 0.5;
     }
 
-    button {
+    .button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -195,7 +229,7 @@ export default {
         padding: 0 em(5px);
     }
 
-    button, span {
+    .button, span {
         min-width: em(26px);
         // min-width: em(15px);
     }
@@ -203,6 +237,12 @@ export default {
     .out-of-span {
         width: fit-content;
         min-width: unset;
+    }
+
+    .button {
+        &.selected {
+            color: #0075FF;
+        }
     }
 
     .page-num-btns {
@@ -219,11 +259,7 @@ export default {
         }
         justify-content: space-around;
         
-        button {
-            &.selected {
-                color: #0075FF;
-            }
-        }
+        
         .dots {
             display: flex;
             align-items: center;

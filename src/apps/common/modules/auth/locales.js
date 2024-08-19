@@ -24,7 +24,10 @@ const  en = {
     "cantFindAccountWithEmailError": "Could not find account with this email",
     "unAuthorizedError": "Un Authorized",
 
-    "required2FactorAthMsg": "Required 2 factor authentication. To finish authentication, please open your mobile and enter the password we sent to you"
+    "required2FactorAthMsg_": "Required 2 factor authentication. To finish authentication, please open your mobile and enter the password we sent to you",
+    "required2FactorAthMsg": "Required 2 factor authentication",
+  
+    "secondFactorMethodMsg": "Method"
   },
 }
 const he = {
@@ -54,7 +57,10 @@ const he = {
     "cantFindAccountWithEmailError": "לא נמצא משתמש עם כתובת המייל הזאת",
     "unAuthorizedError": "לא מורשה",
 
-    "required2FactorAthMsg": "נדרשת הזדהות נוספת. כדי לסיים את הליך ההתחברות, אנא הזן את הסיסמה שנשלחה אליך לנייד."
+    "required2FactorAthMsg_": "נדרשת הזדהות נוספת. כדי לסיים את הליך ההתחברות, אנא הזן את הסיסמה שנשלחה אליך לנייד.",
+    "required2FactorAthMsg": "נדרשת הזדהות נוספת כדי לסיים את הליך ההתחברות על ידי סיסמה חד פעמית שתשלח אליך",
+    
+    "secondFactorMethodMsg": "בחר כיצד אתה מעוניין לקבל את הסיסמה"
   },
 }
 const heF = {

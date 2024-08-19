@@ -8,7 +8,7 @@ export const authService = {
   logout,
   signup,
   sendNewPasswordEmail,
-  finishAuth,
+  finish2FactorAuth,
   makeSecondFactorAuthPass
 }
 
@@ -27,9 +27,9 @@ function signup(cred) {
 function sendNewPasswordEmail(email) {
   return httpService.post(`${ENDPOINT}/sendNewPasswordEmail`, {email});
 }
-function finishAuth(pass) {
-  return httpService.post(`${ENDPOINT}/finishAuth`, {pass});
+function finish2FactorAuth(pass) {
+  return httpService.post(`${ENDPOINT}/finish2FactorAuth`, {pass});
 }
-function makeSecondFactorAuthPass() {
-  return httpService.post(`${ENDPOINT}/makeSecondFactorAuthPass`);
+function makeSecondFactorAuthPass(method) {
+  return httpService.post(`${ENDPOINT}/makeSecondFactorAuthPass`, null, { method });
 }

@@ -5,7 +5,7 @@
     <a class="p-like" v-else target="_blanc" :href="valToShow.src" :title="valToShow.title">{{valToShow.title}}</a>
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>
-      <button @click.prevent.stop="clickInput" class="btn big primary">{{$t('chooseFile')}}</button>
+      <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
     </template>
     <MiniLoader v-else/>
   </div>

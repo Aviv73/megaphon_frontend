@@ -115,6 +115,7 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
     actions: {
       _Ajax: StoreAjax,
       async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, dontSet = false }) {
+        if (!dontSet) commit({ type: 'setData', data: {items:[], total: 0} });
         return dispatch({
           type: '_Ajax',
           do: async () => {
@@ -133,7 +134,7 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
         });
       },
       async loadItem({ commit, dispatch }, { id, organizationId, dontSet = false, queryParams = {} }) {
-        commit({ type: 'setSelectedItem', item: null });
+        if (!dontSet) commit({ type: 'setSelectedItem', item: null });
         return dispatch({
           type: '_Ajax',
           do: async () => service.get(id, organizationId, queryParams),

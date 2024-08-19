@@ -81,7 +81,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 @import '../assets/style/index';
-.default-app {
+.defaultApp {
   .group-release-details {
     padding-bottom: $main-pad-y;
   

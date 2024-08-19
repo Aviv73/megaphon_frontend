@@ -183,9 +183,9 @@ export default {
     .dynamic-input:not(.input-field-SEPARATOR) h3 {
       width: em(150px);
     }
-    h2, h3 {
-      color: #0084D4;
-    }
+    // h2, h3 {
+    //   color: #0084D4;
+    // }
     footer {
       padding: em(10px);
       position: fixed; 

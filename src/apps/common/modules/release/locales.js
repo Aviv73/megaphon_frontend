@@ -34,7 +34,7 @@ const he = {
     alerts: {
     },
     newReleases: "חדשים",
-    mostWatched: "הנצפים ביותר",
+    mostWatched: "הכי הנצפים",
     monthlyRecommendation: "המלצת החודש"
   }
 }

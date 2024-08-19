@@ -2,14 +2,14 @@
   <component :is="isProducer? 'DragDiv' : 'div'" :onDrag="() => toggleToSelectedReleases(true)">
     <li class="release-preview flex column gap5" :class="{ selected: selectedReleaseIds.includes(item._id) }" @click="handleClick">
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
-      <p class="release-title" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p>
+      <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p>
       <p class="release-title">{{release.title}}</p>
-      <div class="actions flex column gap5" v-if="!isUserOrgWatchOnly">
-        <button v-if="isProducer" @click.stop="goToLandingPage"><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/eye.svg')" alt=""></button>
-        <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/pencil.svg')" alt=""></router-link>
+      <div class="actions flex column align-end gap5" v-if="!isUserOrgWatchOnly">
+        <button v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
+        <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
         <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
-        <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link>
-        <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/distribute.svg')" alt=""></router-link>
+        <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
+        <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
       </div>
     </li>
   </component>
@@ -21,6 +21,8 @@ import { templateUtils } from '../../../../common/modules/common/services/templa
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 import { organizationService } from '../../organization/services/organization.service';
+
+import  { getSvgs } from '../../../assets/images/svgs.js';
 
 import config from '@/config';
 
@@ -53,7 +55,7 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     imgSrc() {
-      return fixFileSrcToThumbnail(this.release.mainImage?.[0]?.src || this.release.mainImage?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png'));
+      return fixFileSrcToThumbnail(this.release.mainImage?.src || require('@/apps/megaphonApp/assets/images/image_placeholder.png'));
     },
 
     pretyDistributionTime() {
@@ -67,6 +69,15 @@ export default {
     isUserOrgWatchOnly() {
       // return this.$store.getters['auth/isWatchOnly'];
       return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
+    },
+    
+    selectedTheme() {
+      return this.$store.getters['selectedTheme'];
+    },
+
+    actionSvgs() {
+      const clr = this.selectedTheme?.colors?.[4] || 'black';
+      return getSvgs(clr).PreviewActions; 
     }
   },
   methods: {
@@ -93,6 +104,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .release-preview {
+    color: var(--clr-0);
     position: relative;
     width: em(180px);
     @media (max-width: $small-screen-breake) {
@@ -107,17 +119,21 @@ export default {
         height: em(200px);
       }
     }
+    .dist-title {
+      font-size: em(12px);
+    }
     p.release-title {
       word-wrap: break-word;
-      font-size: em(12px);
+      font-size: em(16px);
     }
 
     .actions {
       position: absolute;
       top: em(10px);
       left: em(10px);
+      color: var(--clr-4);
       a, button {
-        background-color: #fff;
+        background-color: var(--clr-1);
         box-shadow: $light-shadow;
         width: em(17px);
         height: em(17px);
@@ -125,9 +141,10 @@ export default {
           width: em(30px);
           height: em(30px);
         }
-        img {
+        img, .img, svg {
           width: 100%;
           height: 100%;
+          color: var(--clr-4);
         }
       }
     }

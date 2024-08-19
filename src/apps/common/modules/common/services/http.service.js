@@ -35,7 +35,7 @@ export const httpService = {
   url: BASE_URL,
   ajax,
   get: (endpoint, query) => ajax(endpoint, 'GET', {}, query),
-  post: (endpoint, data, headers) => ajax(endpoint, 'POST', data, {}, headers),
+  post: (endpoint, data, query, headers) => ajax(endpoint, 'POST', data, query, headers),
   put: (endpoint, data) => ajax(endpoint, 'PUT', data),
   delete: (endpoint, data) => ajax(endpoint, 'DELETE', data),
   download,

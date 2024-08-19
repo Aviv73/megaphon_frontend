@@ -1,13 +1,14 @@
 export default {
   name: 'default',
   class: 'default-theme',
-  colors: ['black', 'white', 'black', '#c4fad3', '#2090D4', '#BCDDF2'],
+  colors: [
+    'black',    // bodyColor
+    'white',    // bodyBg
+    'black',    // headerColor
+    '#F2F2F2',  // headerBg
+    '#2090D4',  // headersColor
+    '#BCDDF2',  // headersBgColor
+    'rgba(32,144,212,.04)'
+  ],
   fonts: []
 }
-
-
-// $default-theme-header-clr: black;
-// $default-theme-body-clr: black;
-// $default-theme-header-bg: #c4fad3;
-// $default-theme-body-bg: white;
-// $dark-theme-headings-clr: #2090D4;

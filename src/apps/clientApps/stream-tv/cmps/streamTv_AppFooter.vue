@@ -4,7 +4,7 @@
       <div class="ph"></div>
       <div class="flex align-center gap20">
         <span>{{$t('contact')}} {{org.name}}</span>
-        <OrgMediaLinks :organization="org" :color="org?.designPreferences?.colors?.[2]"/>
+        <OrgMediaLinks :organization="org" :color="selectedTheme?.colors?.[2]"/>
       </div>
     </div>
   </footer>
@@ -18,6 +18,10 @@ export default {
   computed: {
     org () {
       return this.$store.getters['organization/selectedItem'] || {};
+    },
+    selectedTheme() {
+      console.log(this.$store.getters['selectedTheme']);
+      return this.$store.getters['selectedTheme'];
     }
   }
 }

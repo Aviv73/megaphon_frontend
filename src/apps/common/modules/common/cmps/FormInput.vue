@@ -148,6 +148,13 @@
         </button>
       </template>
 
+      <div v-else-if="['radio'].includes(componentType)" class="flex column gap10 align-start">
+        <label v-for="item in itemsToRender" :key="item.label" class="flex align-center gap5">
+          <input type="radio" :value="item.value" v-model="val">
+          <span>{{item.label}}</span>
+        </label>
+      </div>
+
       <datalist v-if="componentType === 'autocomplete'" :id="'autocomplete-datalist-' + this.inputId">
         <option v-for="item in itemsToRender" :key="item.value" :value="item.value" :label="item.label"/>
       </datalist>

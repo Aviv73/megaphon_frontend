@@ -11,6 +11,8 @@ import evManager from '@/apps/common/modules/common/services/event-emmiter.servi
 import { organizationService } from '../../organization/services/organization.service';
 import appConfig from '../../../../../appConfig';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';
+// import { setDynamicStylingThemeEl } from '@/apps/common/modules/common/services/dynamicPages.service';
+import allThemes from '../../../themes/index';
 export default {
   components: { SideBar },
   name: 'MainSidebarView',
@@ -98,7 +100,12 @@ export default {
     },
     loadSelectedOrg() {
       const id = this.selectedOrgId;
-      if (id == '-1') return;
+      if (!id || (id == '-1')) {
+        // setDynamicStylingThemeEl({...allThemes[0], title: 'Megaphon'}, '.megaphon-app');
+        this.$store.commit({ type: 'setSelectedTheme', theme: allThemes[0], selector: '.megaphon-app' });  
+        return;
+      }
+      // if (!id) return;
       this.$store.dispatch({ type: 'organization/loadItem', id, isToInheritData: true });
     },
     

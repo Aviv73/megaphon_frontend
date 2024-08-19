@@ -4,22 +4,22 @@
       <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)"> -->
       <div class="img"></div>
     </button>
-    <div v-if="viewdChild" class="hero-main flex-1 flex gap30 width-all align-center">
-      <img class="main-img" :src="imgToRender" :alt="viewdChild.title"/>
+    <div v-if="viewdChildData" class="hero-main flex-1 flex gap30 width-all align-center">
+      <img class="main-img" :src="imgToRender" :alt="viewdChildData.title"/>
       <div class="hero-content flex column align-start gap20">
         <h3 v-if="title" class="costume-title">{{title}}</h3>
-        <h2>{{viewdChild.title}}</h2>
+        <h2>{{viewdChildData.title}}</h2>
         <div class="content-container pretty-scroll flex column align-start gap20">
-          <div v-html="viewdChild.content || viewdChild.desc"></div>
+          <div v-html="viewdChildData.content || viewdChildData.desc"></div>
         </div>
         <hr/>
-        <router-link :to="routeToPage">
-          <button class="flex align-center gap5">
+        <!-- <router-link :to="routeToPage"> -->
+          <button @click="routeToPage" class="flex align-center gap5">
             <span>
               {{$t('toDetails')}} 
             </span>
           </button>
-        </router-link>
+        <!-- </router-link> -->
       </div>
     </div>
     <button v-if="viewMoveBtns" class="arrow-btn minus" @click="shiftChild(1)">
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import config from '@/config';
+import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 export default {
   name: 'ReleasesSlider',
   props: {
@@ -44,6 +46,11 @@ export default {
     title: {
       type: String,
       required: false
+    },
+    localNav: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data() {
@@ -58,25 +65,37 @@ export default {
       if (newIdx < 0) newIdx = max;
       else if (newIdx > max) newIdx = 0;
       this.viewdChildIdx = newIdx;
-    }
+    },
+
+    routeToPage() {
+      if (this.localNav) this.$router.push(
+        this.getReleasePageRoute ? this.getReleasePageRoute(this.viewdChild) : { name: 'ReleaseDetails', params: {id: this.viewdChildData._id} }
+      );
+      else window.open(
+        templateUtils.getReleaseLandingPageUrl(this.viewdChild, this.organization, false, config)
+      );
+    },
   },
   computed: {
     viewdChild() {
       const res = this.releases[this.viewdChildIdx] || null;
-      if (!res) return null;
-      return {...res.releaseData, _id: res._id};
+      return res;
+    },
+    viewdChildData() {
+      if (!this.viewdChild) return null;
+      return {...this.viewdChild.releaseData, _id: this.viewdChild._id};
     },
 
     imgToRender() {
-      return this.viewdChild?.mainImage?.src || this.viewdChild?.mainImage?.[0]?.src;
-    },
-
-    routeToPage() {
-      return this.getReleasePageRoute ? this.getReleasePageRoute(this.viewdChild) : { name: 'ReleaseDetails', params: {id: this.viewdChild._id} };
+      return this.viewdChildData?.mainImage?.src || this.viewdChildData?.mainImage?.[0]?.src;
     },
 
     viewMoveBtns() {
       return !!(this.releases?.length > 1);
+    },
+
+    organization() {
+      return this.$store.getters['organization/selectedItem'];
     }
   },
   watch: {
@@ -99,7 +118,7 @@ export default {
   // min-height: 400px;
   .hero-main {
     box-shadow: $light-shadow;
-    background: var(--clr-1);
+    background: black;
     flex: 1;
     padding: em(40px);
     height: 100%;

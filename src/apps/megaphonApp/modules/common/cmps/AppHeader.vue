@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header flex align-center ignore-theme-style">
+  <header class="app-header flex align-center ignore-theme-style_">
     <div class="container header-content width-all flex align-center space-between height-all">
       <router-link v-if="!isUserWatchOnly" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
         <div class="logo-title height-all flex align-center">
@@ -91,7 +91,7 @@ export default {
         .filter(c => c.showInRoles.find(role => OrgInUser.roles?.includes(role))) || [];
     },
     showNavContent() {
-      return (this.$route.name === 'ReleasePage') && this.organization;
+      return true || ((this.$route.name === 'ReleasePage') && this.organization);
     },
     isOrgProducer() {
       return organizationService.isUserRoleInOrg(this.organization?._id, 'producer', this.loggedUser);
@@ -178,17 +178,24 @@ export default {
     
     .release-actions {
       .filters {
-        >* {
+        >*, .nav-item {
           // height: 100%;
           padding: em(10px);
           &:hover {
-            background-color: rgba(32, 144, 212, 0.04);
+            // background-color: rgba(32, 144, 212, 0.04);
+            color: var(--clr-0);
+            background-color: var(--clr-5) !important;
           }
           &.selected {
-            border-top: em(3px) solid #2090D4;
+            border-top: em(3px) solid var(--clr-4);
             font-weight: bold
           }
         }
+      }
+
+      .btn {
+        color: var(--clr-0);
+        background-color: var(--clr-4);
       }
     }
     

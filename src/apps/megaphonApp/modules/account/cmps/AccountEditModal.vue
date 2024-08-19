@@ -17,8 +17,11 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .account-edit-modal {
   .modal {
+    width: em(500px);
+    max-width: 95vw;
     background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 3px, transparent 3px) 0% 0%/5px 5px no-repeat,
                     radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px) 100% 0%/5px 5px no-repeat,
                     radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px) 0% 100%/5px 5px no-repeat,

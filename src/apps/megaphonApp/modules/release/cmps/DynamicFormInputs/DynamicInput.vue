@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-input flex gap30" v-if="dataFieldToRender" :class="`input-field-${dataFieldToRender.type}`">
-    <h3 v-if="!noTitle && ((dataFieldToRender.title && (dataFieldToRender.type === 'SEPARATOR') || (dataFieldToRender.type !== 'SEPARATOR')))">{{dataFieldToRender.title}}</h3>
+    <h3 class="ignore-theme-style" v-if="!noTitle && ((dataFieldToRender.title && (dataFieldToRender.type === 'SEPARATOR') || (dataFieldToRender.type !== 'SEPARATOR')))">{{dataFieldToRender.title}}</h3>
     <div class="flex-1 input-container" :class="{'table-container': dataFieldToRender.type === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{dataFieldToRender.type}}"</p>
       <component
@@ -289,6 +289,16 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .dynamic-input {
+
+    // h3 {
+    //   color: var(--clr-0);
+    // }
+    &.input-field-SEPARATOR, .input-field-SEPARATOR_BOLD {
+      h3 {
+        color: var(--clr-4);
+      }
+    }
+
     max-width: 100%;
     // .dynamic-section, .input-container {
     //   width: 100%;

@@ -1,6 +1,6 @@
 <template>
-  <section class="contact-page flex column width-all flex column">
-    <!-- <h2>{{$t('release.releases')}}</h2> -->
+  <section class="contact-page flex column gap10 width-all">
+    <h2>{{$t('contact.contacts')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allContactData"
@@ -12,6 +12,7 @@
       :filterByCmp="ContactFilter"
       :showActions="true"
       :dontRoute="true"
+      :isLoading="isLoading"
       :showLoader="false"
       :propsToPass="{
         fields: isScreenWide? undefined : ['name', 'unsubscribed']
@@ -102,6 +103,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .contact-page {
+    padding: em(10px) 0;
     height: auto;
     .actions {
       text-align: end;

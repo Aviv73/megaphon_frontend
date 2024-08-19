@@ -99,10 +99,10 @@ export const _authStore = {
         }
       });
     },
-    async finishAuth({ commit, dispatch }, { pass }) {
+    async finish2FactorAuth({ commit, dispatch }, { pass }) {
       return dispatch({
         type: '_Ajax',
-        do: async () => authService.finishAuth(pass),
+        do: async () => authService.finish2FactorAuth(pass),
         onSuccess: (res) => {
           if (res.user) {
             commit({ type: 'setLoggedUser', user: res.user });
@@ -113,10 +113,10 @@ export const _authStore = {
         }
       });
     },
-    async makeSecondFactorAuthPass({ commit, dispatch }) {
+    async makeSecondFactorAuthPass({ commit, dispatch }, { method }) {
       return dispatch({
         type: '_Ajax',
-        do: async () => authService.makeSecondFactorAuthPass()
+        do: async () => authService.makeSecondFactorAuthPass(method)
       });
     }
   }

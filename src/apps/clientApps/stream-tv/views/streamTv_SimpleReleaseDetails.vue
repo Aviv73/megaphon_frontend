@@ -35,6 +35,11 @@ export default {
 @import '@/assets/styles/global/index';
 .streamTv-app {
   .simple-release-details {
+
+    .selected {
+      color: var(--clr-4);
+    }
+
     .hero-img {
       width: 100%;
       height: em(350px);

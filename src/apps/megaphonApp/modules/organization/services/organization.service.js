@@ -4,6 +4,8 @@ import { templateUtils } from '../../../../common/modules/common/services/templa
 import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';
 
+import allThemes from '../../../themes/index';
+
 const ENDPOINT = 'organization';
 
 export const organizationService = {
@@ -177,15 +179,16 @@ function getEmptyOrganization() {
     folders: [/* { name: '', children: [folders], content: [] } */],
     logos: [/* {url: '', id: '', title: ''} */],
     designPreferences: {
-      // color: 'black',
-      // bgColor: 'white',
-      colors: [
-        '#000000', // bodyColor
-        '#ffffff', // bodyBg
-        '#ffffff', // headerColor
-        '#000000', // headerBg
-        '#ffd700'  // headersColor
-      ]
+      clientApp: [{
+        colors: [...allThemes[0].colors]
+      }],
+      producerApp: [{
+        colors: [...allThemes[0].colors]
+      }],
+      loginPage: [{
+        bgImg: '',
+        msg: ''
+      }]
     },
     searchKeys: ''
   }

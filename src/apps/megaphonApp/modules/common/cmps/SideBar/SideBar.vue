@@ -6,9 +6,9 @@
       <LoggedUserPreview/>
       <div class="flex column space-between side-bar-content flex-1">
         <ul class="organization-list flex-1">
-          <li :class="{selected: selectedOrgId === org._id}" class="organization-preview" v-for="org in organizations" :key="org._id">
-            <div class="nav-list-item org-header flex align-center gap10" @click="selectOrg(org)">
-              <Avatar :size="25">{{org.name.slice(0,2)}}</Avatar>
+          <li :class="{selected: selectedOrgId === org._id}" class="nav-item-preview organization-preview" v-for="org in organizations" :key="org._id">
+            <div class="nav-list-item item-header flex align-center gap10" @click="selectOrg(org)">
+              <Avatar :size="25">{{org?.name?.slice(0,2) || ''}}</Avatar>
               <p class="flex-1 flex space-between">
                 <span>{{org.name}}</span>
                 <span v-if="isOrgPending(org)">({{$t('pending')}})</span>
@@ -28,8 +28,14 @@
             </div>
           </li>
         </ul>
-        <div class="organization-preview" v-if="isAdmin">
-          <div class="nav-list-item org-header flex align-center gap10" @click="showAdminNav = !showAdminNav">
+        <div class="nav-list-item">
+          <router-link class="nav-list-item item-header flex align-center gap10" :to="{name: 'JoinOrgPage'}">
+            <Avatar :size="25">{{''.slice(0,2)}}</Avatar>
+            <p>{{$t('organization.addOrganization')}}</p>
+          </router-link>
+        </div>
+        <div class="nav-item-preview" v-if="isAdmin">
+          <div class="nav-list-item item-header flex align-center gap10" @click="showAdminNav = !showAdminNav">
             <Avatar :size="25">{{'מגפון'.slice(0,2)}}</Avatar>
             <p>{{$t('sidebar.megaphonGeneral')}}</p>
           </div>
@@ -39,14 +45,9 @@
             <router-link class="nav-list-item inner-list-item" :to="{ name: 'OrganizationPage' }">{{$t('organization.organizations')}}</router-link>
           </div>
         </div>
+        
         <div class="nav-list-item">
-          <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'JoinOrgPage'}">
-            <Avatar :size="25">{{''.slice(0,2)}}</Avatar>
-            <p>{{$t('organization.addOrganization')}}</p>
-          </router-link>
-        </div>
-        <div class="nav-list-item">
-          <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
+          <router-link class="nav-list-item item-header flex align-center gap10" :to="{name: 'SettingsPage'}">
             <p>{{$t('settings.settings')}}</p>
           </router-link>
         </div>
@@ -146,7 +147,7 @@ export default {
 //   .sidebar-container {
 //     color: #cecece;
 //     .main-sidebar {
-//       // .organization-preview {
+//       // .nav-item-preview {
 //       //   .nav-list-item {
 //       //     &:hover {
 //       //       background-color: lighten($color: #2090D4, $amount: 20%) !important;
@@ -154,7 +155,7 @@ export default {
 //       //   }
 
 //       //   &.selected {
-//       //     .org-header {
+//       //     .item-header {
 //       //       background-color: var(--clr-4);
 //       //       // color: var(--clr-4)
 //       //       color: white
@@ -200,7 +201,7 @@ export default {
       position: sticky;
       top: calc(#{$header-height} + 0px);
       
-      padding: em(10px);
+      // padding: em(10px);
       // height: auto;
   
       width: em(250px);
@@ -218,8 +219,12 @@ export default {
           border-radius: 0;
         }
       }
+
+      .logged-user-preview {
+          padding: em(10px);
+      }
   
-      .organization-preview {
+      .nav-item-preview {
         .nav-list-item {
           &:hover {
             background-color: var(--clr-5) !important;
@@ -228,7 +233,7 @@ export default {
         }
   
         &.selected {
-          .org-header {
+          .item-header {
             background-color: var(--clr-4);
             color: var(--clr-1);
           }
@@ -236,6 +241,17 @@ export default {
             // background-color: rgba(147, 214, 254, 0.3);
             background-color: var(--clr-5);
             color: var(--clr-0);
+          }
+        }
+      }
+
+      .organization-preview_ {
+        &:only-child {
+          .inner-list-item {
+            padding-inline-start: 0;
+          }
+          .item-header {
+            display: none;
           }
         }
       }

@@ -4,7 +4,8 @@ const  en = {
     "releases": "Releases",
     "main": "Main",
     "monthlySummary": "Monthly summary",
-    "broadcastTimes": "Broadcast times"
+    "broadcastTimes": "Broadcast times",
+    archive: "Archive"
     // "monthPublish": "Month of publish",
     // "alerts": {
     //   "confirmRemove": "Are you sure you want to remove this release?",
@@ -17,7 +18,8 @@ const  en = {
     // "videos": "Videos",
     // "files": "Files",
     // "links": "Links"
-  }
+  },
+  archive: "Archive"
 }
 const he = {
   "release": {
@@ -25,7 +27,8 @@ const he = {
     "releases": "רליסים",
     "main": "ראשי",
     "monthlySummary": "תקצירי החודש",
-    "broadcastTimes": "לוח שידורים"
+    "broadcastTimes": "לוח שידורים",
+    archive: "ארכיון"
     // "monthPublish": "חודש הוצאה לאור",
     // "alerts": {
     //   "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הרליס?",
@@ -38,7 +41,8 @@ const he = {
     // "videos": "לצפיה",
     // "files": "קבצים",
     // "links": "קישורים"
-  }
+  },
+  archive: "ארכיון"
 }
 const heF = {
   ...he,

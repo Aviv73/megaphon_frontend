@@ -13,11 +13,15 @@ const en = {
     "domain": "Sub Domain",
     "clientApp": "Client app",
     "designPreferences": "Landing page preferences",
+    "loginPagePreferences": "Login page preferences",
+    "loginBgImg": "Login page bg img",
+    "loginPageMsg": "Login page msg",
     "bodyColor": "Text color",
     "bodyBg": "Bsckground color",
     "headerColor": "Header text color",
     "headerBg": "Header background color",
     "headersColor": "Headings text color",
+    "headersBgColor": "Headings bg color",
     "domainTakenError": "Domain is alredy taken by another organization!",
     "inviteMembers": "Invite members",
     "searchOrganizations": "Search organization",
@@ -37,7 +41,8 @@ const en = {
       "requestSentSuccess": "Request sent successfully",
       "confirmAccountApproval": "Are you sure you want to approve this account to join the organization?"
     },
-    "approveJoin": "Approve join"
+    "approveJoin": "Approve join",
+    "saveOrgToUploadFilesMsg": "Save organization in order to upload files"
   }
 }
 const he = {
@@ -57,11 +62,15 @@ const he = {
     "domain": "תת דומיין",
     "clientApp": "אפליקציית לקוח",
     "designPreferences": "העדפות דף נחיתה",
+    "loginPagePreferences": "העדפות דף התחברות",
+    "loginBgImg": "צבע רקע",
+    "loginPageMsg": "הודעה",
     "bodyColor": "צבע טקסט",
     "bodyBg": "צבע רקע",
     "headerColor": "צבע טקסט הדר",
     "headerBg": "צבע רקע הדר",
     "headersColor": "צבע כותרים",
+    "headersBgColor": "צבע רקע כותרים",
     "domainTakenError": "הדומיין הזה כבר בשימוש באירגון אחר!",
     "inviteMembers": "הזמן משתמשים",
     "searchOrganizations": "חפש ארגון",
@@ -81,7 +90,8 @@ const he = {
       "requestSentSuccess": "בקשה נשלחה בהצלחה",
       "confirmAccountApproval": "האם אתה בטוח שאתה מעוניין לאשר את הצטרפות המשתמש לארגון?"
     },
-    "approveJoin": "אשר הצרפות"
+    "approveJoin": "אשר הצרפות",
+    "saveOrgToUploadFilesMsg": "שמור את הארגון על מנת להעלות קבצים"
   }
 }
 const heF = {

@@ -1,5 +1,5 @@
 <template>
-  <CommonReleaseDetails class="inner-container main-pad-y" :tabView="true"/>
+  <CommonReleaseDetails v-if="org" class="inner-container main-pad-y" :tabView="true"/>
 </template>
 
 <script>
@@ -19,22 +19,26 @@ export default {
   //     if (locale) this.$i18n.locale = locale;
   //   }
   // },
-  // computed: {
-  //   release() {
-  //     return this.$store.getters['release/selectedItem'];
-  //   },
-  //   isMonthlyRelease() {
-  //     // return this.release.releaseData.page === 'group';
-  //     return !!this.release.releaseData.childrenReleases;
-  //   },
+  computed: {
+    org() {
+      return this.$store.getters['organization/selectedItem'];
+    },
+    // release() {
+    //   return this.$store.getters['release/selectedItem'];
+    // },
+    // isMonthlyRelease() {
+    //   // return this.release.releaseData.page === 'group';
+    //   return !!this.release.releaseData.childrenReleases;
+    // },
 
-  //   releaseData() {
-  //     return {...this.release.releaseData, _id: this.release._id};
-  //   }
-  // },
-  // created() {
-  //   this.init();
-  // },
+    // releaseData() {
+    //   return {...this.release.releaseData, _id: this.release._id};
+    // }
+  },
+  created() {
+    // this.init();
+    this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.organizationId });
+  },
   // destroyed() {
   //   evEmmiter.emit('set_locale'); // reset locale to uiConfig locale
   // },

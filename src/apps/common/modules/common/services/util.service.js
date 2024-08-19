@@ -230,7 +230,7 @@ export function getDeepVal(obj, field = '') {
     let val = obj;
     for (const curr of splited) {
     //   if (!val[curr]) {
-      if (!(curr in val)) {
+      if (!val || !(curr in val)) {
         val = undefined;
         break;
       } else val = val[curr];

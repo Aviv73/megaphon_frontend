@@ -9,8 +9,15 @@ input, select, textarea {
 
   border-radius: em(5px);
   border: em(0.5px) solid rgba(114, 114, 114, 0.5);
-  background-color: var(--clr-1); // rgba(0, 0, 0, 0.01)
-  color: var(--clr-0);
+  // background-color: var(--clr-1); // rgba(0, 0, 0, 0.01)
+  // color: var(--clr-0);
+}
+.actual-input {
+  background-color: var(--clr-1) !important; // rgba(0, 0, 0, 0.01)
+}
+input, select, textarea, .form-input .head, .form-input .drop-down_ {
+  background-color: var(--clr-1) !important; // rgba(0, 0, 0, 0.01)
+  color: var(--clr-0) !important;
 }
 
 // .dark-theme.megaphon-app { // MOVED TO

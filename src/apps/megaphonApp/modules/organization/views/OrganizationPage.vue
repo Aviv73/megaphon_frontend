@@ -1,6 +1,6 @@
 <template>
-  <section class="organization-page flex column width-all flex column">
-    <!-- <h2>{{$t('release.releases')}}</h2> -->
+  <section class="organization-page flex column gap10 width-all">
+    <h2>{{$t('organization.organizations')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allOrganizationData"
@@ -12,6 +12,7 @@
       :filterByCmp="OrganizationFilter"
       :showActions="true"
       :dontRoute="true"
+      :isLoading="isLoading"
       :showLoader="false"
     >
       <div class="table-item-preview table-header">
@@ -65,8 +66,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .megaphon-app {
   .organization-page {
+    padding: em(10px) 0;
     height: auto;
 
     // background-color: #E0E0E0;

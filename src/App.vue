@@ -13,6 +13,7 @@
     <!-- <SelectedApp/> -->
     <Loader v-if="isLoading" :msg="showSleepMsg? $t('serverSleepsMsg') : ''"/>
     <component v-else-if="selectedApp" :is="selectedApp"/>
+    <SecondFactorAuthModal/>
   </div>
 </template>
 
@@ -34,9 +35,11 @@ import { distributionService } from './apps/megaphonApp/modules/release/services
 
 import commonStoreModules from './apps/common/store'
 import { concatItems } from './apps/common/modules/common/services/util.service';
-import { setDynamicStylingThemeEl } from '@/apps/common/modules/common/services/dynamicPages.service.js';
+// import { setStylingForOrgTheme } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 import { loadScripts } from './apps/common/modules/common/services/loadScript.service';
 import { organizationService } from './apps/megaphonApp/modules/organization/services/organization.service';
+import { getRelevantThemeForOrg } from './apps/common/modules/common/services/dynamicPages.service';
+import SecondFactorAuthModal from './apps/common/modules/auth/cmps/SecondFactorAuthModal.vue';
 
 export default {
   name: 'App',
@@ -45,7 +48,8 @@ export default {
     // AppHeader,
     // AppFooter,
     // AppAside,
-    Loader
+    Loader,
+    SecondFactorAuthModal
   },
   data() {
     return {
@@ -93,30 +97,46 @@ export default {
     evEmmiter.on('app_config_update', this.displayUiConfig);
     evEmmiter.on('set_locale', this.setLocale);
 
-    evEmmiter.on('needs_2_factor_auth', async (endPoint) => {
-      if (this.loggedUser) await this.$store.dispatch({ type: 'auth/makeSecondFactorAuthPass' });
-      const pass = await alertService.Prompt(this.$t('auth.required2FactorAthMsg'), this.$t('auth.password'));
-      await this.$store.dispatch({ type: 'auth/finishAuth', pass });
-      if (endPoint) this.$router.push(endPoint);
-    });
+    // const on2AuthCb = async (endPoint) => {
+    //   // evEmmiter.off('needs_2_factor_auth', on2AuthCb);
+    //   try {
+    //     if (this.loggedUser) await this.$store.dispatch({ type: 'auth/makeSecondFactorAuthPass' });
+    //     const pass = await alertService.Prompt(this.$t('auth.required2FactorAthMsg'), this.$t('auth.password'));
+    //     await this.$store.dispatch({ type: 'auth/finish2FactorAuth', pass });
+    //     if (endPoint) this.$router.push(endPoint);
+    //     evEmmiter.on('needs_2_factor_auth', on2AuthCb);
+    //   } catch(err) {
+    //     if (err.needs2FactorAuth) on2AuthCb();
+    //     // else evEmmiter.on('needs_2_factor_auth', on2AuthCb);
+    //   }
+    //   // finally {
+    //   //   evEmmiter.on('needs_2_factor_auth', on2AuthCb);
+    //   // }
+    // }
+    // evEmmiter.on('needs_2_factor_auth', on2AuthCb);
 
 
     if (!appConfig.client) {
       await this.initSelectedApp();
       if (appConfig.appOrganizationId) {
         appConfig.appOrganization = await this.$store.dispatch({type: 'organization/loadItem', id: appConfig.appOrganizationId, dontSet: true, isToInheritData: true })
+        this.$store.commit({ type: 'setRootOrg', org: appConfig.appOrganization, isClient: false });
+        this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, false), selector:  '.megaphon-app' });
+        // setStylingForOrgTheme(appConfig.appOrganization, '.megaphon-app');
       }
       await this.initUser(true);
       this.isLoading = false;
       return;
     }
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
+    this.$store.commit({ type: 'setRootOrg', org, isClient: true });
     appConfig.appOrganization = org;
     appConfig.appOrganizationId = org?._id;
     await this.initSelectedApp(org);
-    setDynamicStylingThemeEl(org, '.'+this.selectedAppData.name);
+    // setStylingForOrgTheme(org, '.'+this.selectedAppData.name, true);
+    this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, true), selector:  '.'+this.selectedAppData.name });
     // document.title = org.name;
-    if (this.selectedAppData?.params?.title) document.title = this.selectedAppData.params.title;
+    // if (this.selectedAppData?.params?.title) document.title = this.selectedAppData.params.title;
     // this.setOrgStyling(org);
 
     await this.initUser(org.requireAuth);
@@ -162,7 +182,7 @@ export default {
       else this.setLocale('he');
       // else this.setLocale();
       alertService.setConfig({ direction: this.isRtl? 'rtl' : 'ltr' });
-      if (appConfig.client) return;
+      // if (appConfig.client) return;
       const config = this.uiConfig;
       alertService.instance.setBtnMsgs({
         confirm: this.$t('confirm'),
