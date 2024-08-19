@@ -188,7 +188,8 @@ function getEmptyOrganization() {
       loginPage: [{
         bgImg: '',
         msg: ''
-      }]
+      }],
+      contactMsg: ''
     },
     searchKeys: ''
   }
