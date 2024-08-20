@@ -111,6 +111,7 @@ export default {
 .releases-slider {
   max-width: 100%;
   position: relative;
+  background-color: var(--clr-0);
   // width: 60%;
   // @media (max-width: 1700px) {
   //   width: 90%;
@@ -144,8 +145,10 @@ export default {
       word-break: break-word;
       line-height: 1.2em;
       * {
-        background-color: unset !important;
-        background: unset !important;
+        // background-color: unset !important;
+        // background: unset !important;
+        // color: var(--clr-1);
+        // color: var(--clr-1);
       }
     }
 

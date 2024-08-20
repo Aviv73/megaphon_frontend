@@ -56,6 +56,14 @@ $layout-red: #EF4B49;
     .hero-main {
       padding: 0 !important;
       position: relative;
+      .content-container {
+        * {
+          background-color: unset !important;
+          background: unset !important;
+          color: white !important
+          // color: var(--clr-1);
+        }
+      }
       .main-img {
         object-fit: cover;
         width: 100%;
