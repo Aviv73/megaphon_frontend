@@ -66,7 +66,7 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
           }
         });
       },
-      async loadItem({ commit, dispatch, getters, state }, { id }) {
+      async loadItem({ commit, dispatch, getters, state }, { id, dontSet }) {
         return dispatch({
           type: '_Ajax',
           do: async () => getters.service.get(id, getters.organizationId),

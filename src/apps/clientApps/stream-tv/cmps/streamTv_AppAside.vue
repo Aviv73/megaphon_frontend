@@ -92,9 +92,10 @@ export default {
         }
 
         &.no-auth {
-          .actions-section {
-            display: none;
-          }
+          display: none;
+          // .actions-section {
+          //   display: none;
+          // }
         }
         .avatar {
           width: em(25px);

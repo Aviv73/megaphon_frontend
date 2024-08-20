@@ -9,6 +9,9 @@
       </router-link>
       <div class="ph"></div>
     </div>
+    <router-link v-if="lastSeenGroupRelease" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease._id} }">
+      <button class="back-btn"> < </button>
+    </router-link>
   </section>
 </template>
 
@@ -27,6 +30,17 @@ export default {
   },
   methods: {
     fixFileSrcToThumbnail
+  },
+  computed: {
+    lastSeenGroupRelease() {
+      return this.$store.getters['release/lastSeenGroupRelease'];
+    }
+  },
+  async created() {
+    if (this.$route.query.relateTo && !this.lastSeenGroupRelease) {
+      const fatherRelease = await this.$store.getters['release/service'].get(this.$route.query.relateTo, this.$store.getters['release/organizationId']);
+      this.$store.commit({ type: 'release/setLastSeenGroupRelease', release: fatherRelease });
+    }
   }
 }
 </script>
@@ -110,6 +124,18 @@ export default {
           }
         }
       }
+    }
+
+    .back-btn {
+      width: em(50px);
+      height: em(50px);
+      background-color: #fff;
+      box-shadow: $light-shadow;
+      position: fixed;
+      top: 50%;
+      right: em(10px);
+      transform: translateY(-50%);
+      border-radius: 50%;
     }
   }
 }

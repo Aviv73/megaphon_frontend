@@ -16,7 +16,11 @@
               {{$t('release.'+tabName)}}
             </span>
           </router-link>
-          <router-link :to="{name: 'ReleasePage', query: {page: 0} }">{{$t('search')}}</router-link>
+          <router-link class="nav-item tab-name-nav-item" :to="{name: 'ReleasePage', query: {page: 0} }">
+            <span class="hover-pop">
+              {{$t('search')}}
+            </span>
+          </router-link>
           <CostumeNavBar class="small-screen-item"/>
         <!-- </template> -->
       </NavOrBurger>

@@ -2,7 +2,7 @@
   
   <section class="group-release-details flex column gap20 height-all">
     <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(release.mainImage.src))}')`, 'background-size': 'cover' }"> -->
-    <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases"/>
+    <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
     <div class="page-like-section container flex column gap50" v-if="tabName === 'monthlySummary'">
       <!-- <h2>{{$t('release.monthlySummary')}}</h2> -->
       <ul class="flex column gap30">
@@ -15,7 +15,7 @@
               <h3>{{release.releaseData.title}}</h3>
               <p v-html="release.releaseData.content"></p>
             </div>
-            <router-link class="underline bold clr-4" :to="{name: 'ReleaseDetails', params: {id: release._id} }">{{$t('toDetails')}}</router-link>
+            <router-link class="underline bold clr-4" :to="getChildRoute(release)">{{$t('toDetails')}}</router-link>
           </div>
         </li>
       </ul>
@@ -45,6 +45,7 @@
           :items="mostWatchedReleases"
           itemDetailesPageName="ReleaseDetails"
           :singlePreviewCmp="ReleasePreview"
+          :propsToPass="{getReleasePageRoute:getChildRoute}"
         />
       </div>
       <div class="items-section">
@@ -57,6 +58,7 @@
           :items="releaseData.childrenReleases"
           itemDetailesPageName="ReleaseDetails"
           :singlePreviewCmp="ReleasePreview"
+          :propsToPass="{getReleasePageRoute:getChildRoute}"
         />
       </div>
       <div class="items-section">
@@ -103,6 +105,12 @@ export default {
       ReleasePreview
     }
   },
+  methods: {
+    fixFileSrcToThumbnail,
+    getChildRoute(rel) {
+      return { name: 'ReleaseDetails', params: {id: rel._id}, query: { relateTo: this.release._id } };
+    }
+  },
   computed: {
     // monthPublish() {
     //   if (!this.release.publishedAt) return '';
@@ -140,9 +148,6 @@ export default {
       const clr = this.selectedTheme?.colors?.[4];
       return getSvgs(clr).icons; 
     }
-  },
-  methods: {
-    fixFileSrcToThumbnail
   }
 }
 </script>

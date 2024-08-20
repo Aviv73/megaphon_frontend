@@ -1,7 +1,7 @@
 <template>
   <div class="app streamTv-app">
     <div class="app-content container_">
-      <AppAside class="left wide-screen-item" v-if="!['LoginPage', 'SignupPage'].includes($route.name)"/>
+      <AppAside class="left wide-screen-item" v-if="!(['LoginPage', 'SignupPage'].includes($route.name) || isSimpleReleasePage)"/>
       <div class="right">
         <AppHeader/>
         <main class="app-main">
@@ -33,6 +33,11 @@ export default {
   computed: {
     org() {
       return this.$store.getters['organization/selectedItem'];
+    },
+    isSimpleReleasePage() {
+      if (this.$route.name !== 'ReleaseDetails') return false;
+      console.log(!this.$store.getters['release/selectedItem']?.releaseData?.childrenReleases)
+      return !this.$store.getters['release/selectedItem']?.releaseData?.childrenReleases;
     }
   },
   methods: {
