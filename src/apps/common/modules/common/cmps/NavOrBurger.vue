@@ -83,6 +83,7 @@ export default {
       z-index: 31;
     }
     .nav-container {
+      background-color: var(--clr-1);
       height: $height;
       display: flex;
       flex-direction: column;

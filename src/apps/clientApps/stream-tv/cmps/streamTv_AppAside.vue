@@ -49,7 +49,7 @@ export default {
     .org-logo {
       // width: em(150px);
       // height: $header-height;
-      height: em(50px);
+      height: rem(45px);
       padding: em(10px);
       .actual {
         height: 100%;

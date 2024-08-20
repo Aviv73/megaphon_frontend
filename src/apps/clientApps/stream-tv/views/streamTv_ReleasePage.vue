@@ -36,7 +36,6 @@ import ReleaseFilter from '../cmps/ReleaseFilter.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { organizationService } from '../../organization/services/organization.service';
 import ReleasesSlider from '../../../../common/modules/release/cmps/ReleasesSlider.vue';
-import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 
 export default {
   name: 'ReleasePage',
@@ -60,8 +59,7 @@ export default {
 
       const routeName = this.pageNameInQuery;
       if (!routeName) return;
-      let filterItem = this.organization?.routes.find(c => c.name === routeName) || this.allAuthRoutes?.[0] || undefined;
-      if (this.noPageMode) filterItem = { releaseFilter: { releaseTpes: templateUtils.getAllReleaseTypesForOrg(org).map(c => c.id) } }
+      const filterItem = this.organization?.routes.find(c => c.name === routeName) || this.organization?.routes?.[0] || undefined;
       if (!filterItem) return;
       if (!organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, filterItem.id)) return;
       this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterItem.releaseFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
@@ -80,12 +78,9 @@ export default {
     initOrgPage() {
       const org = this.organization;
       if (!org) return;
-      if (this.noPageMode) {
-        this.getAllReleases(); 
-        return;
-      }
+      const allAuthRoutes = org?.routes?.filter(c => organizationService.isAccountAuthorizedToRoute(this.loggedUser, org, c.id));
       if (!organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, this.pageNameInQuery)) {
-        this.$router.push({ query: { ...this.$route.query, page: this.allAuthRoutes[0]?.name || '' } })
+        this.$router.push({ query: { ...this.$route.query, page: allAuthRoutes[0]?.name || '' } })
       } else {
         this.getAllReleases();        
       }
@@ -123,13 +118,6 @@ export default {
       // return true;
       return this.$store.getters['auth/isWatchOnly'];
       // return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
-    },
-    allAuthRoutes() {
-      const allAuthRoutes = this.organization?.routes?.filter(c => organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, c.id));
-      return allAuthRoutes;
-    },
-    noPageMode() {
-      return this.$route.query.page == 0;
     }
   },
   created() {

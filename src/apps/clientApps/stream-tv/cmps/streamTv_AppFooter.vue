@@ -4,7 +4,7 @@
       <div>
         {{org?.designPreferences?.contactMsg || ''}}
       </div>
-      <div class="flex align-center gap20">
+      <div class="flex align-center gap20" v-if="org?.mediaLinks?.length">
         <span>{{$t('contact')}} {{org.name}}</span>
         <OrgMediaLinks :organization="org" :color="selectedTheme?.colors?.[2]"/>
       </div>

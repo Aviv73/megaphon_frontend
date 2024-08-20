@@ -1,11 +1,11 @@
 <template>
   <header class="app-header flex align-center">
-    <div class="container_ header-content height-all width-all flex align-center space-between" v-if="lastSeenGroupRelease || true">
+    <div class="container_ header-content height-all width-all flex align-center space-between" v-if="lastSeenGroupRelease || !isScreenWide">
       <NavOrBurger :showBurger="!!allRouteFilters.length" side="right">
         <template v-slot:header>
           <LoggedUserPreview class="small-screen-item to-the-right_" :viewAsModal="false"/>
         </template>
-        <template  v-if="lastSeenGroupRelease">
+        <!-- <template  v-if="lastSeenGroupRelease"> -->
           <router-link
             v-for="(tabName, idx) in ['main', 'monthlySummary', 'archive' /*'broadcastTimes'*/ ]" :key="tabName"
             class="nav-item tab-name-nav-item"
@@ -16,17 +16,16 @@
               {{$t('release.'+tabName)}}
             </span>
           </router-link>
+          <router-link :to="{name: 'ReleasePage', query: {page: 0} }">{{$t('search')}}</router-link>
           <CostumeNavBar class="small-screen-item"/>
-        </template>
+        <!-- </template> -->
       </NavOrBurger>
 
       <div class="ph" v-show="lastSeenGroupRelease"></div>
       
       <div class="release-title" v-show="lastSeenGroupRelease">
         <router-link :to="{ name: 'ReleaseDetails', params: { id: lastSeenGroupRelease?._id } }">
-          <div class="actual flex-center" ref="titleEl">
-            <h2>{{releaseTitle}}</h2>
-          </div>
+            <h2 class="actual">{{releaseTitle}}</h2>
         </router-link>
       </div>
     </div>
@@ -64,6 +63,9 @@ export default {
     },
     releaseTitle() {
       return this.lastSeenGroupRelease?.releaseData?.title || '';
+    },
+    isScreenWide() {
+      return this.$store.getters.isScreenWide;
     }
   }
 }
@@ -76,6 +78,7 @@ export default {
   .app-header {
     .logged-user-preview {
       padding: em(3px);
+      margin-bottom: em(5px);
       .edit-btn, .sep-span {
         display: none;
       }
@@ -91,7 +94,7 @@ export default {
     position: absolute;
     top: 0;
     width: 100%;
-    height: em(45px);
+    height: rem(45px);
     min-height: unset;
     max-width: 100%;
     background-color: rgba(255, 255, 255, 0) !important;
@@ -102,26 +105,27 @@ export default {
     // box-shadow: $light-shadow;
 
     .release-title { 
-      font-size: 1.2em;
+      // font-size: 1.2em;
+      font-size: em(18px);
       width: em(80px);
       // height: $header-height;
-      height: em(40px);
+      min-height: em(40px);
       text-align: center;
       position: absolute;
       top: 0;
       left: em(20px);
       // left: 0;
-      h1, h2 {
-        color: white;
-        font-size: em(18px);
-      }
       .actual {
+        font-size: 1em;
+        color: white;
         display: block;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // word-break: break-all;
         background-color: var(--clr-4);
         width: 100%;
         height: 140%;
         position: relative;
-        // background-color: $layout-red;
         padding: em(10px);
         &::after {
           content: "";
@@ -145,7 +149,8 @@ export default {
       position: relative;
       padding: 0 em(20px);
       // padding: 20% em(10px) em(20px) em(10px);
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) !important;
+      // background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) !important;
+      background-color: rgba(0, 0, 0, 0.4) !important;
       // font-weight: 600;
       position: relative;
       
@@ -178,9 +183,9 @@ export default {
           }
         }
         &.mobileView {
-          a, .router-link {
-            color: black;
-          }
+          // a, .router-link {
+          //   color: black;
+          // }
           .nav-burger {
             color: white;
           }

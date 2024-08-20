@@ -36,7 +36,7 @@ export default {
   //   },
   //   isMonthlyRelease() {
   //     // return this.release.releaseData.page === 'group';
-  //     return !!this.release.releaseData.childrenReleases;
+  //     return !!this.release?.releaseData?.childrenReleases;
   //   },
 
   //   releaseData() {
