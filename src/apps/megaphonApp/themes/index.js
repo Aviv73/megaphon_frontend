@@ -1,7 +1,7 @@
 
 export default [
-  require('./default').default,
+  require('./light').default,
   require('./dark').default,
-  require('./lemon').default,
-  require('./red').default,
+  // require('./lemon').default,
+  // require('./red').default,
 ]

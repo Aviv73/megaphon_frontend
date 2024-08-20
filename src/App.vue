@@ -121,7 +121,7 @@ export default {
       if (appConfig.appOrganizationId) {
         appConfig.appOrganization = await this.$store.dispatch({type: 'organization/loadItem', id: appConfig.appOrganizationId, dontSet: true, isToInheritData: true })
         this.$store.commit({ type: 'setRootOrg', org: appConfig.appOrganization, isClient: false });
-        this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, false), selector:  '.megaphon-app' });
+        this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, false, '.megaphon-app'), selector:  '.megaphon-app' });
         // setStylingForOrgTheme(appConfig.appOrganization, '.megaphon-app');
       }
       await this.initUser(true);
@@ -134,7 +134,7 @@ export default {
     appConfig.appOrganizationId = org?._id;
     await this.initSelectedApp(org);
     // setStylingForOrgTheme(org, '.'+this.selectedAppData.name, true);
-    this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, true), selector:  '.'+this.selectedAppData.name });
+    this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, true, '.'+this.selectedAppData.name), selector:  '.'+this.selectedAppData.name });
     // document.title = org.name;
     // if (this.selectedAppData?.params?.title) document.title = this.selectedAppData.params.title;
     // this.setOrgStyling(org);

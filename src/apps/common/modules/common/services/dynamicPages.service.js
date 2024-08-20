@@ -16,9 +16,15 @@ export function setStylingForOrgTheme(org, selector, isClient = false) {
   return setDynamicStylingThemeEl({...theme, title: org.name}, selector);
 }
 
-export function getRelevantThemeForOrg(org, isClient) {
-  const themeItem = isClient ? org?.designPreferences?.clientApp?.[0] : org?.designPreferences?.producerApp?.[0];
-  if (themeItem) themeItem.title = `Megaphon - ${org?.name}`;
+export function getRelevantThemeForOrg(org, isClient, selector) {
+  let themeItem = isClient ? org?.designPreferences?.clientApp?.[0] : org?.designPreferences?.producerApp?.[0];
+  if (themeItem) {
+    themeItem = {
+      ...themeItem,
+      title: `Megaphon - ${org?.name}`,
+      // css: `${selector} {}`
+    };
+  }
   return themeItem;
 }
 
@@ -35,6 +41,7 @@ export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
   const lastCssEl = document.head.querySelector('.'+STYLE_EL_CLASSNAME)
   if (lastCssEl) document.head.removeChild(lastCssEl);
   if (stylingTheme.title) document.title = stylingTheme.title;
+  console.log(stylingTheme);
   const colors = stylingTheme?.colors || [];
   const fonts = stylingTheme?.fonts || [];
   const _ig = ':not(.ignore-theme-style)';

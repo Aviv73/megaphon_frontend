@@ -11,3 +11,18 @@
 @mixin font-size-big {
   font-size: $font-size-big;
 }
+
+
+@mixin lightShadow {
+  position: relative;
+  &::before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    // z-index: -1;
+    box-shadow: 0 0 em(10px) em(1px) var(--clr-0);
+    // opacity: 0.2;
+  }
+}

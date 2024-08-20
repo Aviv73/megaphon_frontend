@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loggedUser" class="logged-user-preview flex align-center space-between gap30">
+  <div v-if="loggedUser" class="logged-user-preview flex align-center space-between gap5">
     <span class="wellcome-msg">{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
     <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">
       <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->

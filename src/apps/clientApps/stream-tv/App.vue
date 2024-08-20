@@ -19,6 +19,7 @@ import './assets/style/index.scss';
 import AppHeader from './cmps/streamTv_AppHeader.vue';
 import AppFooter from './cmps/streamTv_AppFooter.vue';
 import AppAside from './cmps/streamTv_AppAside.vue';
+import { templateUtils } from '../../common/modules/common/services/template.util.service';
 
 // import { setStylingForOrgTheme } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 
@@ -45,7 +46,11 @@ export default {
     
     async loadArchive() {
       // await delay(2000);
-      const archiveReleases = await this.$store.dispatch({ type: 'release/loadItems', filterBy_: {}, organizationId: this.org._id, orgFilter: this.org.routes.find(c => c.id === 'ID-20BE-190DEC6AD7F-1383')?.releaseFilter });
+      // TODO; LOAD ALL GROUP RELEASES INSTREAD;
+      const orgFilter = this.org.routes.find(c => c.type === 'archive')?.releaseFilter || {
+        "releaseTypes" : templateUtils.getAllReleaseTypesForOrg(this.org).filter(c => c.isGroup).map(c => c.id)
+      }
+      const archiveReleases = await this.$store.dispatch({ type: 'release/loadItems', filterBy_: {}, organizationId: this.org._id, orgFilter });
       this.$store.commit({ type: 'release/setArchiveReleases', releases: archiveReleases });
     }
   },

@@ -207,10 +207,10 @@ export default {
           flex: 2;
           background-color: var(--clr-0);
           color: var(--clr-1);
-          * {
-            background: unset !important;
-            background-color: unset !important;
-          }
+          // * {
+          //   background: unset !important;
+          //   background-color: unset !important;
+          // }
           padding-inline-end: em(50px);
         }
         @media (max-width: $small-screen-breake) {

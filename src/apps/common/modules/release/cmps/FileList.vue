@@ -1,6 +1,6 @@
 <template>
   <div class="files-list flex wrap gap30 width-all width-all">
-    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview space-between" :class="{'width-all': ['videp', 'iframe'].includes(cmpType)}">
+    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview space-between" :class="{'width-all': ['videp', 'iframe'].includes(cmpType), [`${cmpType}-section`]: true}">
       <template v-if="['video', 'img'].includes(cmpType)">
         <h5>
           {{file.title || ''}}
@@ -76,6 +76,11 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .files-list {
+  .img-section {
+    h5 {
+      width: em(300px);
+    }
+  }
   .img-file-preview {
     width: em(300px);
     height: em(200px);

@@ -39,17 +39,17 @@ function El(htmlStr = '', attrs = {}, children = []) {
 // function StyleEl(selector = '', style = {}) {
 //   return El(dataToCssElStr(selector, style));
 // }
-function dataToCssElStr(selector = '', style = {}) {
-  return StyleElWrapper(dataToCss(selector, style));
+function dataToCssElStr(selector = '', style = {}, importantAll) {
+  return StyleElWrapper(dataToCss(selector, style, importantAll));
 }
 
-function StyleEl(selector = '', style = {}, cssStr = '') {
-  return El(StyleElWrapper(dataToCss(selector, style) + cssStr));
+function StyleEl(selector = '', style = {}, cssStr = '', importantAll) {
+  return El(StyleElWrapper(dataToCss(selector, style, importantAll) + cssStr));
 }
 function StyleElWrapper(cssStr = '') {
   return `<style>${cssStr}</style>`;
 }
-function dataToCss(selector = '', style = {}, tab = 0) {
+function dataToCss(selector = '', style = {}, importantAll = false, tab = 0) {
   const tabStr = '\t'.repeat(tab);
   let styleStr = `${tabStr}${selector} {`;
   let nestedStyle = ''
@@ -67,16 +67,19 @@ function dataToCss(selector = '', style = {}, tab = 0) {
                 nestedSelectors.push(currNestedSelector);
                 return nestedSelectors;
               }, []).filter(Boolean).join(', ');
-              nestedStyle += dataToCss(nestedSelector, val);
+              nestedStyle += dataToCss(nestedSelector, val, importantAll);
           } else {
               nestedStyle += `${key} {\n`;
               const rullType = key.split(' ')[0].split('@')[1];
-              if (rullType === 'keyframes') for (let c in val) nestedStyle += dataToCss(c, val[c]);
-              else nestedStyle += dataToCss(selector, val, 1);
+              if (rullType === 'keyframes') for (let c in val) nestedStyle += dataToCss(c, val[c], importantAll);
+              else nestedStyle += dataToCss(selector, val, importantAll, 1);
               nestedStyle += '}\n';
           }
       }
-      else styleStr += `\n${tabStr}\t${key}: ${val};`;
+      else {
+        const actualVal = importantAll && !val.includes('!important') ? `${val} !important` : val;
+        styleStr += `\n${tabStr}\t${key}: ${actualVal};`;
+      }
   }
   styleStr += `\n${tabStr}}\n`;
   styleStr += nestedStyle;

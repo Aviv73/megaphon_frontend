@@ -71,7 +71,7 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
               commit({ type: 'setProp', key: 'organizationId', val: item._id });
               if (item._id) {
                 // setStylingForOrgTheme(item, '.megaphon-app');
-                commit('setSelectedTheme', {theme: getRelevantThemeForOrg(item, false), selector: '.megaphon-app' }, { root: true });
+                commit('setSelectedTheme', {theme: getRelevantThemeForOrg(item, false, '.megaphon-app'), selector: '.megaphon-app' }, { root: true });
               }
               else {
                 // setDynamicStylingThemeEl({...allThemes[0], title: 'Megaphon'}, '.megaphon-app');

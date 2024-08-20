@@ -1,6 +1,6 @@
 <template>
   <footer class="app-footer">
-    <div class="container flex space-between">
+    <div class="container flex space-between align-center wrap gap20">
       <div>
         {{org?.designPreferences?.contactMsg || ''}}
       </div>

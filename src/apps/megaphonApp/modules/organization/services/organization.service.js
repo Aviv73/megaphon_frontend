@@ -180,12 +180,17 @@ function getEmptyOrganization() {
     logos: [/* {url: '', id: '', title: ''} */],
     designPreferences: {
       clientApp: [{
-        colors: [...allThemes[0].colors]
+        id: getRandomId(),
+        colors: [...allThemes[0].colors],
+        css: ''
       }],
       producerApp: [{
-        colors: [...allThemes[0].colors]
+        id: getRandomId(),
+        colors: [...allThemes[0].colors],
+        css: ''
       }],
       loginPage: [{
+        id: getRandomId(),
         bgImg: '',
         msg: ''
       }],

@@ -97,7 +97,7 @@ export function validateDataByDataField(dataField, data, rootData) {
     case 'LONGRICHTEXT':
     case 'RICHTEXT':
       // return !!data?.trim()?.length;
-      return !!htmlStrToText(data).trim()?.length;
+      return data && !!htmlStrToText(data).trim()?.length;
     case 'VIDEOS':
     case 'LINKS':
     case 'IMAGEGALLERY':

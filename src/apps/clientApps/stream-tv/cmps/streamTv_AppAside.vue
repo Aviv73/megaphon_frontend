@@ -40,9 +40,11 @@ export default {
 @import '@/assets/styles/global/index';
 .streamTv-app {
   .app-aside {
+    background-color: var(--clr-1);
+    color: var(--clr-0);
     top: 0;
     max-height: 100vh;
-    width: em(150px);
+    width: em(170px);
     font-size: em(13px);
     .org-logo {
       // width: em(150px);
@@ -76,8 +78,9 @@ export default {
 
     .account-preview {
       // padding: em(20px) em(10px);
-      padding: em(5px);
       .logged-user-preview {
+        padding: em(10px) em(5px);
+        // align-items: flex-start;
         .avatar {
           // background-color: var(--clr-4);
           background-color: unset;

@@ -1,6 +1,6 @@
 export default {
-  name: 'default',
-  class: 'default-theme',
+  name: 'light',
+// class: 'default-theme',
   colors: [
     'black',    // bodyColor
     'white',    // bodyBg

@@ -1,10 +1,10 @@
 <template>
   <div class="table-action-btns flex gap10 align-center">
     <button class="btn clear" :disabled="!allowEmptyArray && (value.length <= 1)" @click.stop.prevent="spliceFromVal"><img class="delete-mini-btn" :src="require('@/assets/images/icons/delete_red.svg')"/></button>
-    <!-- <button class="btn clear" :disabled="!idx" @click.stop.prevent="updateIdx(-1)"><img class="delete-mini-btn" :src="require('@/assets/images/icons/arrow-up.png')"/></button>
-    <button class="btn clear" :disabled="idx >= value.length-1" @click.stop.prevent="updateIdx(1)"><img class="delete-mini-btn" :src="require('@/assets/images/icons/arrow-down.png')"/></button> -->
-    <button class="btn clear" :disabled="!idx" @click.stop.prevent="updateIdx(-1)"><span class="delete-mini-btn ↑">↑</span></button> <!--  -->
-    <button class="btn clear" :disabled="idx >= value.length-1" @click.stop.prevent="updateIdx(1)"><span class="delete-mini-btn ↓">↓</span></button>
+    <button class="btn clear" :disabled="!idx" @click.stop.prevent="updateIdx(-1)"><img class="delete-mini-btn" :src="require('@/assets/images/icons/arrow-up.png')"/></button>
+    <button class="btn clear" :disabled="idx >= value.length-1" @click.stop.prevent="updateIdx(1)"><img class="delete-mini-btn" :src="require('@/assets/images/icons/arrow-down.png')"/></button>
+    <!-- <button class="btn clear" :disabled="!idx" @click.stop.prevent="updateIdx(-1)"><span class="delete-mini-btn ↑">↑</span></button>
+    <button class="btn clear" :disabled="idx >= value.length-1" @click.stop.prevent="updateIdx(1)"><span class="delete-mini-btn ↓">↓</span></button> -->
   </div>
 </template>
 

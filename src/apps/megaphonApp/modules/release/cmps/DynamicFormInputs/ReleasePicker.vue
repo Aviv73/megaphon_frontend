@@ -8,7 +8,7 @@
         <TableActionBtns :value="value" @input="val => $emit('input', val)" :idx="idx"/>
       </li>
     </ul>
-    <button class="btn big primary" @click="showSearchModal = true">{{$t('add')}}</button>
+    <button class="btn big primary_" @click="showSearchModal = true">{{$t('add')}}</button>
     <Modal class="search-modal" v-if="showSearchModal" @close="showSearchModal = false" :fullScreen="true">
       <div class="search-modal-content flex column gap10">
         <p>{{$t('release.searchReleases')}}</p>

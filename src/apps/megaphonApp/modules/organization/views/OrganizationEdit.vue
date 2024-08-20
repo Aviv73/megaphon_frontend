@@ -85,32 +85,58 @@
         <p>{{$t('organization.designPreferences')}}</p>
         <div class="flex column gap20"> 
           <p>Megaphon app</p>
-          <div class="input-container flex gap20">
-            <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.producerApp[0].colors[0]"/>
-            <FormInput type="color" labelholder="organization.bodyBg" v-model="organizationToEdit.designPreferences.producerApp[0].colors[1]"/>
-          </div>
-          <div class="input-container flex gap20">
-            <FormInput type="color" labelholder="organization.headerColor" v-model="organizationToEdit.designPreferences.producerApp[0].colors[2]"/>
-            <FormInput type="color" labelholder="organization.headerBg" v-model="organizationToEdit.designPreferences.producerApp[0].colors[3]"/>
-          </div>
-          <div class="input-container">
-            <FormInput type="color" labelholder="organization.headersColor" v-model="organizationToEdit.designPreferences.producerApp[0].colors[4]"/>
-            <FormInput type="color" labelholder="organization.headersBgColor" v-model="organizationToEdit.designPreferences.producerApp[0].colors[5]"/>
+          <div v-for="theme in organizationToEdit.designPreferences.producerApp" :key="theme.id" class="flex column gap10">
+            <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
+            <div class="input-container flex gap20">
+              <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
+              <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
+            </div>
+            <div class="input-container flex gap20">
+              <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
+              <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
+            </div>
+            <div class="input-container">
+              <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
+              <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
+            </div>
+            <ToggleModal :fullScreen="true" class="code-edit-modal">
+              <template #toggler>
+                <div class="btn">
+                  {{$t('css')}}
+                </div>
+              </template>
+              <template #content>
+                <FormInput type="textarea" class="ltr" placeholder="editCssCode" v-model="theme.css"/>
+              </template>
+            </ToggleModal>
           </div>
         </div>
         <div class="flex column gap20">
           <p>Client app</p>
-          <div class="input-container flex gap20">
-            <FormInput type="color" labelholder="organization.bodyColor" v-model="organizationToEdit.designPreferences.clientApp[0].colors[0]"/>
-            <FormInput type="color" labelholder="organization.bodyBg" v-model="organizationToEdit.designPreferences.clientApp[0].colors[1]"/>
-          </div>
-          <div class="input-container flex gap20">
-            <FormInput type="color" labelholder="organization.headerColor" v-model="organizationToEdit.designPreferences.clientApp[0].colors[2]"/>
-            <FormInput type="color" labelholder="organization.headerBg" v-model="organizationToEdit.designPreferences.clientApp[0].colors[3]"/>
-          </div>
-          <div class="input-container">
-            <FormInput type="color" labelholder="organization.headersColor" v-model="organizationToEdit.designPreferences.clientApp[0].colors[4]"/>
-            <FormInput type="color" labelholder="organization.headersBgColor" v-model="organizationToEdit.designPreferences.clientApp[0].colors[5]"/>
+          <div v-for="theme in organizationToEdit.designPreferences.clientApp" :key="theme.id" class="flex column gap10">
+            <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
+            <div class="input-container flex gap20">
+              <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
+              <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
+            </div>
+            <div class="input-container flex gap20">
+              <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
+              <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
+            </div>
+            <div class="input-container">
+              <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
+              <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
+            </div>
+            <ToggleModal :fullScreen="true" class="code-edit-modal">
+              <template #toggler>
+                <div class="btn">
+                  {{$t('css')}}
+                </div>
+              </template>
+              <template #content>
+                <FormInput type="textarea" class="ltr" placeholder="editCssCode" v-model="theme.css"/>
+              </template>
+            </ToggleModal>
           </div>
         </div>
         <div class="flex column gap20 align-start">
@@ -122,7 +148,7 @@
         </div>
         <div class="flex column gap20 align-start">
           <p>{{$t('organization.contactMsg')}}</p>
-          <FormInput type="textarea" labelholder="organization.contactMsg" v-model="organizationToEdit.designPreferences.contactMsg"/>
+          <FormInput type="text" labelholder="organization.contactMsg" v-model="organizationToEdit.designPreferences.contactMsg"/>
         </div>
       </div>
 
@@ -154,7 +180,7 @@
                 <FormInput type="text" placeholder="name" v-model="curr.name"/>
                 <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseFilter.releaseTypes"/>
                 <FormInput type="select" :itemsMap="{undefined:undefined, true:true,false:false}" placeholder="wasDistributed" v-model="curr.releaseFilter.wasDistributed"/>
-                <ToggleModal :fullScreen="true" class="filter-modal">
+                <ToggleModal :fullScreen="true" class="code-edit-modal">
                   <template #toggler>
                     <div class="btn">
                       {{$t('edit')}}
@@ -271,6 +297,10 @@ import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 import { ClientApps } from '../../../..';
 import ImageCrop from '../../release/cmps/DynamicFormInputs/ImageCrop.vue';
+
+
+import allDefaultThemes from '../../../themes/index';
+
 export default {
   name: 'OrganizationEdit',
   data() {
@@ -279,6 +309,8 @@ export default {
       organizationToEdit: null,
       showDeveloperZone: false,
       allDomains: [],
+
+      allDefaultThemes: allDefaultThemes.map(c => ({label: c.name, value: c}))
     }
   },
   computed: {
@@ -362,6 +394,16 @@ export default {
       if (!this.organizationToEdit.mediaLinks) this.organizationToEdit.mediaLinks = [];
       this.organizationToEdit.mediaLinks.push({src: '', id: getRandomId(), type: '', title: ''});
     },
+
+    inheritTheme(theme, themeToInherit) {
+      // for (let key in theme) {
+      //   theme[key] = inheritTheme[key]
+      // }
+      console.log('W(OWOWOW)', theme, themeToInherit);
+      if (themeToInherit.css) theme.css = themeToInherit.css;
+      if (themeToInherit.colors) theme.colors = [...themeToInherit.colors];
+      if (themeToInherit.fonts) theme.fonts = [...themeToInherit.fonts];
+    }
   },
   created() {
     this.getOrganization();
@@ -458,7 +500,7 @@ export default {
       }
     }
 
-    .filter-modal {
+    .code-edit-modal {
       .actual-input {
         width: 60vw;
         height: 60vh;

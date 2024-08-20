@@ -72,6 +72,11 @@ export default {
 
     .images-display {
       .file-preview {
+        h5 {
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
         .img-file-preview {
           border-radius: em(8px);
           box-shadow: $light-shadow;

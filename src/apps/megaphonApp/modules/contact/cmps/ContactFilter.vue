@@ -5,7 +5,7 @@
         {{$t('filter')}}
       </div>
     </template>
-    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20">
+    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-end space-between gap20">
       <div class="pickers flex align-start gap10 flex-1">
         <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="false" :organizationId="organizationId"/>
         <TagPicker class="flex-1" v-model="tags" :onlyRelevants="false" :organizationId="organizationId"/>

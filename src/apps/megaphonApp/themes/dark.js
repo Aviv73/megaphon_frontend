@@ -4,10 +4,35 @@ const em = elementService._.em;
 
 export default {
   name: 'dark',
-  class: 'dark-theme',
+  // class: 'dark-theme',
   colors: ['#cbcbcb', '#000000', 'white', '#505050', '#2090D4', 'rgba(147,214,254,.3)'],
   fonts: [],
-  css: elementService.dataToCss('.megaphon-app.dark-theme', {
+  css: elementService.dataToCss('.megaphon-app', {
+    'input, select, textarea': {
+      'background-color': 'rgba(255, 255, 255, 0.2)',
+       color: 'white'
+    },
+    '.btn': {
+      '&:not(.clear)': {
+        // background-color: black;
+        // color: white;
+        '&.primary': {
+          // background-color: $clr-light-green;
+          'background-color': '#0184d4',
+          'color': 'white'
+        },
+        '&:active': {
+          'color': 'black',
+          'border-color': 'black'
+        }
+      }
+    },
+    '.toggle-btns': {
+      'background-color': 'black',
+      button: {
+        color: 'white'
+      }
+    },
     '.table-item-preview': {
       color: 'white',
       '&:nth-child(odd)': {
@@ -20,10 +45,6 @@ export default {
         'background-color': 'white',
         color: 'black'
       }
-    },
-    'input, select, textarea': {
-      'background-color': 'rgba(255, 255, 255, 0.2)',
-       color: 'white'
     },
     '.app-form-styling': {
       'input, textarea': {
@@ -98,7 +119,7 @@ export default {
         '&.dark': { display: 'unset' }
       }
     }
-  })
+  }, true)
 }
 
 // $dark-theme-header-clr: white;
