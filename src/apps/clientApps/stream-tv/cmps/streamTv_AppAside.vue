@@ -47,6 +47,7 @@ export default {
     width: em(170px);
     font-size: em(13px);
     .org-logo {
+      background-color: var(--clr-3);
       // width: em(150px);
       // height: $header-height;
       height: rem(45px);
