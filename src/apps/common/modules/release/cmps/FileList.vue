@@ -16,17 +16,17 @@
       <iframe
         v-if="cmpType === 'iframe'"
         class="video-file-preview"
-        :src="fixFileSrcToThumbnail(extractFileSrc(file))" controls
+        :src="fixFileSrcToThumbnail(file)" controls
       />
       <video
         v-if="cmpType === 'video'"
         class="video-file-preview"
-        :src="fixVideoSrcToThumbnail(extractFileSrc(file), organizationId)" controls
+        :src="fixVideoSrcToThumbnail(file, organizationId)" controls
       />
       <template v-else-if="cmpType === 'img'">
         <img
           class="img-file-preview"
-          :src="fixFileSrcToThumbnail(file.src)" :alt="file.title"
+          :src="fixFileSrcToThumbnail(file)" :alt="file.title"
         />
         <div class="img-actions flex align-center gap10">
           <button class="btn download-btn" @click="downloadImg(file.src, file.title)"><span>{{$t('download')}}</span></button>
@@ -43,7 +43,7 @@
         v-else-if="cmpType === 'file'"
         class="link-file-preview"
         target="_blank" 
-        :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(file.src) } }"
+        :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(file) } }"
       >{{file.title}}</router-link>
 
     </div>

@@ -7,7 +7,7 @@
         </button>
         <div v-if="viewdChild" class="">
           <div class="hero-main inner-container flex gap30 width-all">
-            <img class="main-img" :src="fixFileSrcToThumbnail(viewdChild.mainImage.src)" :alt="viewdChild.title"/>
+            <img class="main-img" :src="fixFileSrcToThumbnail(viewdChild.mainImage)" :alt="viewdChild.title"/>
             <div class="hero-content flex column align-start gap20">
               <h2>{{viewdChild.title}}</h2>
               <p>{{$t('release.by')}}: {{viewdChild.author}}</p>

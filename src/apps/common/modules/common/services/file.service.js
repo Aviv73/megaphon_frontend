@@ -15,17 +15,17 @@ export const fileUtilsService = {};
 appendScript('/fileUtils-service', 'fileUtilsModule', fileUtilsService);
 
 
-export function fixFileSrcToThumbnail(url = '') {
-  return fileUtilsService.fixFileSrcToThumbnail(url, config);
+export function fixFileSrcToThumbnail(file = {}) {
+  return fileUtilsService.fixFileSrcToThumbnail(file, config);
 }
 
-export function fixVideoSrcToThumbnail(url = '', organizationId = '') {
-  return fileUtilsService.fixVideoSrcToThumbnail(url, organizationId, config);
+export function fixVideoSrcToThumbnail(file = {}, organizationId = '') {
+  return fileUtilsService.fixVideoSrcToThumbnail(file, organizationId, config);
 }
 
 
-export function uploadFileToServer(formData, organizationId) {
-  return httpService.post(`${ENDPOINT}/upload/${organizationId}`, formData);
+export function uploadFileToServer(formData, organizationId, parentData) {
+  return httpService.post(`${ENDPOINT}/upload/${organizationId}`, formData, {parentData});
 }
 
 export function loadStaticFile(filePath) {

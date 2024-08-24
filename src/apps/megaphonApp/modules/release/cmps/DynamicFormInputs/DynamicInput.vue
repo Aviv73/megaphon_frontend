@@ -13,6 +13,7 @@
         :dataField="dataFieldToRender"
         :organization="organization"
         :parentItem="parentItem"
+        :release="release"
         @change="val => $emit('input', val, basePath)"
         @input="val => $emit('input', val, basePath)"
       />
@@ -26,6 +27,7 @@
             :basePath="[basePath, field?.fieldName].filter(Boolean).join('.')"
             :organization="organization"
             :parentItem="parentItem"
+            :release="release"
             :value="(field?.fieldName)? getVal(parentItem, [basePath, field?.fieldName].filter(Boolean).join('.')) : parentItem"
             @input="(val, path) => $emit('input', val, path)"
           />
@@ -52,6 +54,7 @@
               :value="getVal(currVal, field.fieldName) || ''"
               :organization="organization"
               :parentItem="parentItem"
+              :release="release"
               @input="(val, path) => $emit('input', val, path || [basePath, idx+'', field.fieldName].filter(Boolean).join('.'))"
               :noTitle="true"
             />
@@ -88,6 +91,8 @@ import TableActionBtns from '@/apps/common/modules/common/cmps/TableActionBtns.v
 import { range } from '@/apps/common/modules/common/services/util.service';
 
 
+import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+
 export default {
   name: 'DynamicInput',
   props: {
@@ -95,6 +100,7 @@ export default {
     value: [Object, String, Array, Number, Boolean],
     basePath: [String],
     parentItem: [Object],
+    release: [Object],
     noTitle: [Boolean],
     organization: [Object]
   },
@@ -139,6 +145,9 @@ export default {
           ]
         }
       }
+      const _appendNewFile = (file) => {
+        evManager.emit('file-uploaded', file);
+      }
       const propsToPass = {...(this.dataField.propsToPass || {})};
       switch (type) {
         case 'TEXT':
@@ -181,22 +190,22 @@ export default {
         case 'FILE':
         case 'VIDEO':
           this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: val => _appendNewFile(val) };
           break;
         case 'IMAGE':
           this.cmpName = 'ImageCrop';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: val => _appendNewFile(val) };
           break;
 
-        case 'FILE_SRC':
-          this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, onlySrc: true, uploadFolderName: this.organization._id };
-          break;
-        case 'IMAGE_SRC':
-          // this.cmpName = 'FileUploader';
-          this.cmpName = 'ImageCrop';
-          this.propsToPass = { ...propsToPass, viewAsImg: true, accept: this.dataField.filter, onlySrc: true, uploadFolderName: this.organization._id };
-          break;
+        // case 'FILE_SRC':
+        //   this.cmpName = 'FileUploader';
+        //   this.propsToPass = { ...propsToPass, accept: this.dataField.filter, onlySrc: true, uploadFolderName: this.organization._id };
+        //   break;
+        // case 'IMAGE_SRC':
+        //   // this.cmpName = 'FileUploader';
+        //   this.cmpName = 'ImageCrop';
+        //   this.propsToPass = { ...propsToPass, viewAsImg: true, accept: this.dataField.filter, onlySrc: true, uploadFolderName: this.organization._id };
+        //   break;
         // case 'IMAGEGALLERY':
         //   this.cmpName = 'MultipleFilePicker';
         //   this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: false, accept: this.dataField.filter };
@@ -215,12 +224,12 @@ export default {
         case 'SINGLE-IMAGE_IN_ARRAY':
           // this.cmpName = 'ImageCrop';
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id };
+          this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id} };
           break;
-        case 'FILEINARRAY':
+        // case 'FILEINARRAY':
         case 'VIDEOINARRAY':
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id };
+          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id} };
           break;
 
 

@@ -1,14 +1,18 @@
 
+import { isDateValid } from '@/apps/common/modules/common/services/util.service';
+import { getDeepVal, getRandomId, htmlStrToText } from '../../../../common/modules/common/services/util.service';
 
 export function createItemForDynamicForm(dataFields = []) {
   const item = {};
   for (let field of dataFields) {
     switch (field.type) {
+      case 'ID':
+        return item[field.fieldName] = getRandomId();
       case 'TEXT':
       case 'EMAIL':
-      case 'URL':
-      case 'VIDEOURL':
-      case 'IMAGE_SRC':
+      // case 'URL':
+      // case 'VIDEOURL':
+      // case 'IMAGE_SRC':
       case 'LOGOSELECTION':
       case 'SELECTIONWITHIMAGE':
         item[field.fieldName] = '';
@@ -37,14 +41,14 @@ export function createItemForDynamicForm(dataFields = []) {
         });
         break;
         
-      case 'VIDEOURL': 
-        item[field.fieldName] = '';
+      // case 'VIDEOURL': 
+      //   item[field.fieldName] = '';
 
       case 'IMAGE':
       case 'FILE':
       case 'VIDEO':
-        if (field.propsToPass?.onlySrc) item[field.fieldName] = '';
-        else item[field.fieldName] = {src: '', title: ''};
+        // if (field.propsToPass?.onlySrc) item[field.fieldName] = '';
+        /* else */ item[field.fieldName] = {src: '', title: ''};
         break;
         
       case 'MULTISELECT':
@@ -54,10 +58,10 @@ export function createItemForDynamicForm(dataFields = []) {
         item[field.fieldName] = [];
         break;
 
-      case 'SINGLE-IMAGE_IN_ARRAY':
-      case 'IMAGEINARRAY':
+      // case 'SINGLE-IMAGE_IN_ARRAY':
+      // case 'IMAGEINARRAY':
       case 'VIDEOINARRAY':
-      case 'FILEINARRAY':
+      // case 'FILEINARRAY':
         item[field.fieldName] = [];
         break;
 
@@ -78,19 +82,19 @@ export function createItemForDynamicForm(dataFields = []) {
 
 
 
-import { isDateValid } from '@/apps/common/modules/common/services/util.service';
-import { getDeepVal, htmlStrToText } from '../../../../common/modules/common/services/util.service';
 export function validateDataByDataField(dataField, data, rootData) {
   switch (dataField.type) {
+    case 'ID':
+      return typeof !!data;
     case 'NUMBER':
       return typeof data === 'number';
     case 'TEXT':
     case 'SELECT':
     case 'EMAIL':
-    case 'IMAGE_SRC':
-    case 'FILE_SRC':
-    case 'URL':
-    case 'VIDEOURL':
+    // case 'IMAGE_SRC':
+    // case 'FILE_SRC':
+    // case 'URL':
+    // case 'VIDEOURL':
       return data && !!data?.trim()?.length;
     case 'DATE':
       return isDateValid(data);
@@ -124,8 +128,8 @@ export function validateDataByDataField(dataField, data, rootData) {
       return data && !!data.src;
     case 'MULTISELECT':
       return data && !!data.filter(Boolean).length;
-    case 'SINGLE-IMAGE_IN_ARRAY':
-    case 'FILEINARRAY':
+    // case 'SINGLE-IMAGE_IN_ARRAY':
+    // case 'FILEINARRAY':
     case 'VIDEOINARRAY':
       return !!data?.[0]?.length;
   }

@@ -24,7 +24,9 @@ export default {
     accept: [String],
     viewAsImg: [Boolean],
     onlySrc: [Boolean],
-    uploadFolderName: [String]
+    uploadFolderName: [String],
+    parentData: [Object],
+    onupload: [Function]
   },
   data() {
     return {
@@ -33,7 +35,7 @@ export default {
   },
   computed: {
     imgToShow() {
-      return fixFileSrcToThumbnail(this.valToShow?.src || ''); // defaultImg
+      return this.valToShow? fixFileSrcToThumbnail(this.valToShow) : ''; // defaultImg
     },
     valToShow() {
       return this.onlySrc ? { src: this.value, title: cropText(this.value, 30) } : this.value;
@@ -48,7 +50,7 @@ export default {
       const file = inputEl.files[0];
       return file;
     },
-    async doUploadFile(file, uploadFolderName) {
+    async doUploadFile(file, uploadFolderName, parentData) {
       this.isLoading = true;
       try {
         const formData = new FormData();
@@ -60,8 +62,8 @@ export default {
         const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
         const fileName = `${name}.${type}`;
         formData.append('file', file);
-        const uploadedRes  = await uploadFileToServer(formData, uploadFolderName);
-        const newVal = { title: originalName, type, src: uploadedRes.src };
+        const uploadedRes  = await uploadFileToServer(formData, uploadFolderName, parentData);
+        const newVal = { title: originalName, type, src: uploadedRes.src, fileId: uploadedRes.fileId };
         return newVal;
       } catch(err) {
         alertService.toast({type: 'danger', msg: `cantUploadFileError`});
@@ -73,7 +75,8 @@ export default {
     async uploadFile() {
       const file = this.getFileFromInput(this.$refs.inputEl);
       if (!file) return;
-      const newVal = await this.doUploadFile(file, this.uploadFolderName);
+      const newVal = await this.doUploadFile(file, this.uploadFolderName, this.parentData);
+      if (onupload) onupload(this.onlySrc? newVal.src : newVal);
       this.$emit('input', this.onlySrc? newVal.src : newVal);
     }
   }

@@ -157,7 +157,7 @@ function getAccountOrgItem(orgId = '', inviterId = '') {
 function getEmptyOrganization() {
   const org = {
     name: '',
-    logoUrl: '',
+    logo: {src:''},
     defaultGalleryCredit: '',
     distributionBcc: '',
     domain: '',
@@ -177,7 +177,7 @@ function getEmptyOrganization() {
     innerFilters: [/* { field: String, title: '', options: [ { value: Any, label: String } ], id: String } */],
     // subfilters: [/* { name: '', optionns: [{title:'', value: ''}], hideOnFilters: [releaseTyIds] } */],
     folders: [/* { name: '', children: [folders], content: [] } */],
-    logos: [/* {url: '', id: '', title: ''} */],
+    logos: [/* {src: '', id: '', title: ''} */],
     designPreferences: {
       clientApp: [{
         id: getRandomId(),
@@ -191,7 +191,7 @@ function getEmptyOrganization() {
       }],
       loginPage: [{
         id: getRandomId(),
-        bgImg: '',
+        bgImg: {src:''},
         msg: ''
       }],
       contactMsg: ''

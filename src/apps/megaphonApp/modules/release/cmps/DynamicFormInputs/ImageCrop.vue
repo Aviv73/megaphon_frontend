@@ -46,7 +46,9 @@ export default {
     value: null, // [{ src, title }],
     onlySrc: null, // [{ src, title }],
     accept: String,
-    uploadFolderName: String
+    uploadFolderName: String,
+    parentData: Object,
+    onupload: Function,
   },
   data() {
     return {
@@ -56,7 +58,8 @@ export default {
   },
   computed: {
     imgToShow() {
-      return fixFileSrcToThumbnail(this.onlySrc? this.value : this.value?.src || ''); // defaultImg
+      // return fixFileSrcToThumbnail(this.onlySrc? this.value : this.value?.src || ''); // defaultImg
+      return fixFileSrcToThumbnail(this.value); // defaultImg
     }
   },
   methods: { 
@@ -64,9 +67,15 @@ export default {
       const file = this.base64ToFile(this.getCroppedImg());
       if (!file) return;
       this.imgBase64ToCrop = '';
-      const newVal = await this.doUploadFile(file, this.uploadFolderName);
-      if (this.onlySrc) this.$emit('input', newVal.src);
-      else this.$emit('input', newVal);
+      const newVal = await this.doUploadFile(file, this.uploadFolderName, this.parentData);
+      if (this.onlySrc) {
+        this.$emit('input', newVal.src);
+        if (this.onupload) this.onupload(newVal.src);
+      }
+      else {
+        this.$emit('input', newVal);
+        if (this.onupload) this.onupload(newVal);
+      }
       this.imgBase64ToCrop = '';
     },
     async chooseFile() {

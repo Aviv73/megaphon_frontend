@@ -172,9 +172,10 @@ export default {
           break;
 
         case 'IMAGE':
-        case 'IMAGE_SRC':
+        // case 'IMAGE_SRC':
           this.cmpName = 'img';
-          this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value?.src || this.value) };
+          // this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value?.src || this.value) };
+          this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value) };
           break;
 
         case 'MULTISELECT':
@@ -206,12 +207,12 @@ export default {
           // if (!this.value?.src) this.hidden = true;
           this.cmpName = 'a';
           this.valueToShow = this.dataField.title;
-          this.propsToPass = { ...propsToPass, href: fixFileSrcToThumbnail(this.value.src), target: '_blank' };
+          this.propsToPass = { ...propsToPass, href: fixFileSrcToThumbnail(this.value), target: '_blank' };
           break;
         
         
         case 'URL':
-        case 'VIDEOURL':
+        // case 'VIDEOURL':
           this.cmpName = 'a';
           this.propsToPass = { ...propsToPass, href: this.value, target: '_blank' };
           break;

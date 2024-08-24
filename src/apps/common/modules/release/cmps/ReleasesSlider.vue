@@ -87,7 +87,7 @@ export default {
     },
 
     imgToRender() {
-      return this.viewdChildData?.mainImage?.src || this.viewdChildData?.mainImage?.[0]?.src;
+      return this.viewdChildData?.mainImage?.src;
     },
 
     viewMoveBtns() {

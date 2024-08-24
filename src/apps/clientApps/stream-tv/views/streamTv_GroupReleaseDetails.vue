@@ -1,14 +1,14 @@
 <template>
   
   <section class="group-release-details flex column gap20 height-all">
-    <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(release.mainImage.src))}')`, 'background-size': 'cover' }"> -->
+    <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(release.mainImage))}')`, 'background-size': 'cover' }"> -->
     <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
     <div class="page-like-section container flex column gap50" v-if="tabName === 'monthlySummary'">
       <!-- <h2>{{$t('release.monthlySummary')}}</h2> -->
       <ul class="flex column gap30">
         <li class="release-summary-preview flex gap10" v-for="release in releaseData.childrenReleases.filter(c => c.releaseData?.mainImage?.src)" :key="release._id">
           <div class="flex-1 summery-image_">
-            <img :src="fixFileSrcToThumbnail(release.releaseData.mainImage?.src)"/>
+            <img :src="fixFileSrcToThumbnail(release.releaseData.mainImage)"/>
           </div>
           <div class="flex-2 flex column gap10 space-between">
             <div class="flex column gap10">

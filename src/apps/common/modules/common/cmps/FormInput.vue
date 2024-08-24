@@ -467,7 +467,7 @@ export default {
         // transform: translateY(50%) rotate(180deg);
         transform: rotate(180deg);
         transition: 0.2s;
-        z-index: 2;
+        z-index: 1;
         &:hover {
           cursor: pointer;
         }

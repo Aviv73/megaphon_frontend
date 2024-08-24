@@ -11,7 +11,7 @@
         <h2>{{$t(itemToEdit._id? 'release.editRelease' : 'release.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
         <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
           <FormInput class="gap30" type="select" labelholder="locale" :itemsMap="{'english': 'en', 'עברית': 'he'}" v-model="itemToEdit.design.locale"/>
-          <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :parentItem="itemToEdit.releaseData" :organization="org"/>
+          <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :release="itemToEdit" :parentItem="itemToEdit.releaseData" :organization="org"/>
         </form>
       </template>
       <ReleaseDesignViewer
@@ -52,6 +52,7 @@ import { alertService } from '@/apps/common/modules/common/services/alert.servic
 import ReleaseDesignViewer from '../cmps/ReleaseDesignViewer.vue';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
+import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 export default {
   name: 'ReleaseEdit',
   data() {
@@ -153,12 +154,23 @@ export default {
       setDeepVal(this.itemToEdit.releaseData, fieldPath, val);
       this.itemToEdit.releaseData = {...this.itemToEdit.releaseData};
       this.$forceUpdate();
+    },
+
+
+    onFileUploaded(file) {
+      if (this.itemToEdit._id) return;
+      if (!this.itemToEdit.__newFiles__) this.itemToEdit.__newFiles__ = [];
+      this.itemToEdit.__newFiles__.push(file);
     }
   },
   async created() {
     await this.getOrg();
     // await this.loadReleaseDataFields();
     await this.getItem();
+    evManager.on('file-uploaded', this.onFileUploaded);
+  },
+  destroyed() {
+    evManager.off('file-uploaded', this.onFileUploaded);
   },
   watch: {
     '$route.params.id'() {

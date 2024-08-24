@@ -2,7 +2,7 @@
   <div class="release-peacker flex column align-start gap10">
     <ul class="release-list flex column gap10">
       <li v-for="(release, idx) in (value || [])" :key="release._id" class="flex align-end gap10">
-        <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || release.releaseData?.mainImage?.src || ''" :alt="release.releaseData?.title" />
+        <img class="release-img" :src="fixFileSrcToThumbnail(release.releaseData?.mainImage) || ''" :alt="release.releaseData?.title" />
         <p>{{release.releaseData?.title}}</p>
         
         <TableActionBtns :value="value" @input="val => $emit('input', val)" :idx="idx"/>
@@ -18,7 +18,7 @@
         </form>
         <ul class="release-select-list flex column gap20 flex-1" v-if="releases?.length">
           <li v-for="(release) in releases" :key="release._id" class="flex align-end gap10">
-            <img class="release-img" :src="release.releaseData?.mainImage?.[0]?.src || release.releaseData?.mainImage?.src || ''" :alt="release.releaseData?.title" />
+            <img class="release-img" :src="fixFileSrcToThumbnail(release.releaseData?.mainImage) || ''" :alt="release.releaseData?.title" />
             <p>{{release.releaseData?.title}}</p>
             <input type="checkbox" v-model="releasesToAdd" :value="release"/>
           </li>
@@ -38,6 +38,7 @@ import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import { releaseService } from '@/apps/megaphonApp/modules/release/services/release.service.js'
 import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 export default {
   components: { Modal, FormInput, TableActionBtns },
   name: 'ReleasePicker',
@@ -66,6 +67,7 @@ export default {
     }
   },
   methods: {
+    fixFileSrcToThumbnail,
     async getReleases() {
       const releasesRes = await releaseService.query(this.releasesFilterBy, this.$route.params.organizationId);
       this.releases = releasesRes.items.filter(c => !this.value?.find?.(rel => rel._id === c._id));

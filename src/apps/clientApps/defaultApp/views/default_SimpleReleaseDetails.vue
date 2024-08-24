@@ -18,7 +18,7 @@
       <h1>{{release.title}}</h1>
       <h5>{{release.subTitle}}</h5>
       <div class="main-content-section flex-1 flex wrap space-between gap60">
-        <img class="main-img" :src="fixFileSrcToThumbnail(release.mainImage.src)" :alt="release.title"/>
+        <img class="main-img" :src="fixFileSrcToThumbnail(release.mainImage)" :alt="release.title"/>
         <div id="content" class="hero-content flex column align-start gap15">
           <div class="description-container" v-if="release.content" v-html="release.content"></div>
           <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>

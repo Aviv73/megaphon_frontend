@@ -8,7 +8,7 @@
     ]"/>
     <h1>{{release.title}}</h1>
     <div class="main-content-section flex-1 flex space-between gap60 wrap">
-      <img class="main-img" :src="fixFileSrcToThumbnail(release.mainImage.src)" :alt="release.title"/>
+      <img class="main-img" :src="fixFileSrcToThumbnail(release.mainImage)" :alt="release.title"/>
       <div class="hero-content flex column align-start gap15">
         <div class="description-container" v-if="release.content" v-html="release.content"></div>
         <div class="flex gap60 links">
@@ -16,8 +16,8 @@
           <!-- <a target="_blank" v-if="release.firstChapterLink?.[0]?.src" :href="release.firstChapterLink[0].src"><h3>{{$t('release.firstChapter')}}</h3></a>
           <a target="_blank" v-if="release.comunicatLink?.[0]?.src" :href="release.comunicatLink[0].src"><h3>{{$t('release.comunicat')}}</h3></a> -->
           
-          <router-link target="_blank" v-if="release.firstChapterLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.firstChapterLink.src) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
-          <router-link target="_blank" v-if="release.comunicatLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.comunicatLink.src) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
+          <router-link target="_blank" v-if="release.firstChapterLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.firstChapterLink) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
+          <router-link target="_blank" v-if="release.comunicatLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.comunicatLink) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
 
         </div>
         <div class="table-like">
@@ -34,13 +34,13 @@
     <div v-if="release.videos?.[0]?.src" class="video-section flex column gap30">
       <h2>{{release.videos[0].title}}</h2>
       <!-- <iframe :src="release.video.src"></iframe> -->
-      <video controls :src="fixFileSrcToThumbnail(release.videos[0].src)"></video>
+      <video controls :src="fixVideoSrcToThumbnail(release.videos[0])"></video>
     </div>
   </section>
 </template>
 
 <script>
-import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
+import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 import RoutesLocator from '../cmps/agam_RoutesLocator.vue';
 
 export default {
@@ -53,7 +53,7 @@ export default {
     }
   },
   methods: {
-    fixFileSrcToThumbnail
+    fixFileSrcToThumbnail, fixVideoSrcToThumbnail
   },
   computed: {
     monthPublish() {
