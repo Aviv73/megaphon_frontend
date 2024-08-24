@@ -71,6 +71,7 @@ import ReleasesSlider from './ReleasesSlider.vue'
 import { time, youtubeService } from '../../common/services/util.service';
 import { filterFilesCb } from './file.service';
 import { validateDataByDataField } from '../../../../megaphonApp/modules/common/services/dynamicFormService';
+import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 
 
 export default {
@@ -127,16 +128,16 @@ export default {
           this.bindContentToHtml = true;
           this.cmpName = 'p';
           break;
-        case 'FilesSection'.toUpperCase():
+        case 'FilesSection'.toUpperCase(): // TODO:: NO NEED?
           // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           // if (!this.value?.length) this.hidden = true;
-          this.propsToPass = { ...propsToPass, release: { [this.dataField.fieldName]: this.value } };
+          this.propsToPass = { ...propsToPass, organizationId: this.organization._id, release: { [this.dataField.fieldName]: this.value } };
           this.cmpName = 'FilesSection';
           break;
         case 'VIDEOS'.toUpperCase():
           // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, sectionId: 'videos', cmpType: 'iframe', files: this.value?.map(c => {
+          this.propsToPass = { ...propsToPass, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
             const src = c.src || c.link || c.url; 
             return {...c, src: youtubeService.isYoutubeVid(src)? youtubeService.embedUtubeUrl(src) : src};
           }) || [] };
@@ -144,12 +145,12 @@ export default {
         case 'links'.toUpperCase():
           // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, sectionId: 'links', cmpType: 'link', files: this.value }
+          this.propsToPass = { ...propsToPass, sectionId: 'links', cmpType: 'link', organizationId: this.organization._id, files: this.value }
           break;
         case 'IMAGEGALLERY'.toUpperCase():
           // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, sectionId: 'images', cmpType: 'img', files: this.value }
+          this.propsToPass = { ...propsToPass, sectionId: 'images', cmpType: 'img', organizationId: this.organization._id, files: this.value }
           break;
         case 'SEPARATOR':
         case 'SEPARATOR_BOLD':
@@ -173,7 +174,7 @@ export default {
         case 'IMAGE':
         case 'IMAGE_SRC':
           this.cmpName = 'img';
-          this.propsToPass = { ...propsToPass, src: this.value?.src || this.value };
+          this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value?.src || this.value) };
           break;
 
         case 'MULTISELECT':
@@ -205,7 +206,7 @@ export default {
           // if (!this.value?.src) this.hidden = true;
           this.cmpName = 'a';
           this.valueToShow = this.dataField.title;
-          this.propsToPass = { ...propsToPass, href: this.value.src, target: '_blank' };
+          this.propsToPass = { ...propsToPass, href: fixFileSrcToThumbnail(this.value.src), target: '_blank' };
           break;
         
         

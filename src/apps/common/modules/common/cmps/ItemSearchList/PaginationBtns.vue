@@ -184,7 +184,7 @@ export default {
 // }
 .pagination-btns {
     .form-input.form-input-select {
-      // border-bottom: em(1px) solid black;
+      border-bottom: em(1px) solid black;
       .input {
         width: em(80px);
         min-width: em(80px);

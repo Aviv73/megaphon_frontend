@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getAllReleases(filterBy) {
-      const filterToSend = JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) }));
+      const filterToSend = !(this.noPageMode)? JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) })) : { releaseFilter: { releaseTpes: templateUtils.getAllReleaseTypesForOrg(org).map(c => c.id), wasDistributed: undefined /*true*/ } }
       // filterToSend.params.page = this.page;
       this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.routeItem.releaseFilter });
     }
@@ -62,6 +62,9 @@ export default {
       const typeName = this.releasePageInQuery;
       const routeItem = this.allRouteFilters.find(c => c.name === typeName) || {};
       return routeItem;
+    },
+    noPageMode() {
+      return this.$route.query.page == 0;
     }
   },
   created() {

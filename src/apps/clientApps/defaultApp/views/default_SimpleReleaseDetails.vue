@@ -18,14 +18,14 @@
       <h1>{{release.title}}</h1>
       <h5>{{release.subTitle}}</h5>
       <div class="main-content-section flex-1 flex wrap space-between gap60">
-        <img class="main-img" :src="release.mainImage.src" :alt="release.title"/>
+        <img class="main-img" :src="fixFileSrcToThumbnail(release.mainImage.src)" :alt="release.title"/>
         <div id="content" class="hero-content flex column align-start gap15">
           <div class="description-container" v-if="release.content" v-html="release.content"></div>
           <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
         </div>
       </div>
 
-      <FilesSection :release="release"/>
+      <FilesSection :release="release" :organizationId="release.organizationId"/>
     </div>
   </section>
 </template>
@@ -36,7 +36,7 @@ import { scrollToEl } from '@/apps/common/modules/common/services/util.service';
 import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue';
 
 export default {
-  components: { FilesSection, FilesSection },
+  components: { FilesSection },
   name: 'default_SimpleReleaseDetails',
   props: {
     release: {

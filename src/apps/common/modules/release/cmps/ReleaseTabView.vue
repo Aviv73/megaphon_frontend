@@ -17,10 +17,10 @@
     <div class="flex column gap30">
       <template v-for="(field, idx) in dataFieldsToShow">
         <div :key="field.fieldName || idx" :id="field.fieldName" v-if="!isScreenWide || !allTabNames.length || (tabView && field.uiSections?.includes(selectedTab))" :class="field.fieldName + '-display'">
-          <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData"/>
+          <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData" :organization="org"/>
         </div>
       </template>
-      <!-- <FilesSection :release="releaseData"/> -->
+      <!-- <FilesSection :release="releaseData" :organizationId="release.organizationId"/> -->
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 
 import { templateUtils } from '../../common/services/template.util.service';
-import FilesSection from '../cmps/FilesSection.vue';
+// import FilesSection from '../cmps/FilesSection.vue';
 import DynamicField from '../cmps/DynamicField.vue';
 
 import { isDateValid, scrollToEl } from '../../common/services/util.service';
@@ -172,7 +172,7 @@ export default {
     }
   },
   components: {
-    FilesSection,
+    // FilesSection,
     DynamicField
   }
 }

@@ -32,6 +32,7 @@ import { alertService } from '@/apps/common/modules/common/services/alert.servic
 import appConfig from '../../../../../appConfig';
 import Modal from '../../common/cmps/Modal.vue';
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 
 export default {
   name: 'LoginPage',
@@ -51,7 +52,7 @@ export default {
       return this.userCred.email && this.userCred.password;
     },
     appLogo() {
-      return this.org?.logoUrl || require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
+      return this.org?.logoUrl? fixFileSrcToThumbnail(this.org?.logoUrl) : require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
     },
     org() {
       return appConfig.appOrganization || this.$store.getters['organization/selectedItem'];

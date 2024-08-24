@@ -1,7 +1,7 @@
 <template>
   <section class="release-page flex column height-all width-all flex gap20">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
-    <div class="width-all" v-if="true || isUserWatchOnly">
+    <div class="width-all" v-if="isUserWatchOnly">
       <ReleasesSlider
         :localNav="false"
         :releases="allReleasesData.items"
@@ -121,8 +121,8 @@ export default {
     isUserWatchOnly() {
       // return false
       // return true;
-      return this.$store.getters['auth/isWatchOnly'];
-      // return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
+      // return this.$store.getters['auth/isWatchOnly'];
+      return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
     },
     allAuthRoutes() {
       const allAuthRoutes = this.organization?.routes?.filter(c => organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, c.id));

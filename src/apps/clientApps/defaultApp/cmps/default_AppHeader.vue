@@ -7,7 +7,7 @@
             <h1>אגם</h1>
             <p class="sub">הוצאה לאור</p>
           </div> -->
-          <img class="actual" :src="org.logoUrl" :alt="org.name">
+          <img class="actual" :src="fixFileSrcToThumbnail(org.logoUrl)" :alt="org.name">
         </div>
       </div>
 
@@ -22,6 +22,7 @@
 <script>
 import CostumeNavBar from '../../../common/modules/common/cmps/CostumeNavBar.vue';
 import NavOrBurger from '../../../common/modules/common/cmps/NavOrBurger.vue';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 export default {
   components: { NavOrBurger, CostumeNavBar },
   name: 'default_AppHeader',
@@ -65,7 +66,8 @@ export default {
     toggleMainView() {
       const newVal = this.$route.query.releasesView ? !(this.$route.query.releasesView === 'true') + '' : 'false';
       this.$router.push({ ...this.mainTo, query: { ...this.$route.query, releasesView: newVal } });
-    }
+    },
+    fixFileSrcToThumbnail
   },
 }
 </script>

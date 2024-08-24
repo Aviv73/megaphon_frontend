@@ -1,7 +1,7 @@
 <template>
     <div :id="sectionId" class="flex column gap20 width-all">
       <h2 v-if="title">{{title}}</h2>
-      <FileList :files="files" :cmpType="cmpType"/>
+      <FileList :files="files" :cmpType="cmpType" :organizationId="organizationId"/>
     </div>
 </template>
 
@@ -21,6 +21,9 @@ export default {
       type: String
     },
     cmpType: {
+      type: String
+    },
+    organizationId: {
       type: String
     }
   }

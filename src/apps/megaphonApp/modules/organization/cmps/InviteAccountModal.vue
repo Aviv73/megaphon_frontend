@@ -29,16 +29,19 @@
 import SearchInput from '../../../../common/modules/common/cmps/SearchInput.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 import MiniAccountPreview from '../../account/cmps/MiniAccountPreview.vue';
+import { consts } from '@/apps/common/modules/common/services/const.service.js';
+import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 export default {
   name: 'InviteAccountModal',
-  components: { ToggleModal, SearchInput, MiniAccountPreview },
+  components: { ToggleModal, SearchInput, MiniAccountPreview, FormInput },
   data() {
     return {
       searchAccountStr: '',
       searchPristin: true,
       accounts: [],
       rolesToInvite: {},
-      orgToShow: {}
+      orgToShow: {},
+      // orgRoles: {...consts.organizationRoles}
     }
   },
   computed: {
@@ -56,7 +59,7 @@ export default {
       this.accounts = await this.$store.dispatch({ type: 'account/loadItems', dontSet: true, filterBy: { filter: { search: this.searchAccountStr } } });
       this.accounts = this.accounts.items.filter(c => !this.orgMembers.find(_ => _._id === c._id));
       this.rolesToInvite = this.accounts.reduce((acc, c) => {
-        acc[c._id] = this.rolesToInvite[c._id] || 'user';
+        acc[c._id] = this.rolesToInvite[c._id] || consts.organizationRoles.client;
         return acc;
       }, {});
     },

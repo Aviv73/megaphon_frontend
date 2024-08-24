@@ -373,7 +373,7 @@ export function fixDeepQuery(quer) {
 
 export function noop() {}; 
   
-export function htmlStrToText(htmlStr) {
+export function htmlStrToText(htmlStr = '') {
     const el = document.createElement('div');
     el.innerHTML = htmlStr;
     return el.innerText;
@@ -580,6 +580,16 @@ export function isDateValid(dateLike) {
         return false;
     }
     return false;
+}
+
+export function commaAndListJoin(list) {
+    return list.reduce((acc, c, idx, all) => {
+        acc += c;
+        if (idx === (all.length-1)) return acc;
+        else if (idx < (all.length-2)) acc += ', ';
+        else acc += ' and ';
+        return acc;
+      }, '');
 }
 
 //////////////////STORAGE_SERVICE////////////////////

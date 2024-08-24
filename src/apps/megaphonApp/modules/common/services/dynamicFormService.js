@@ -91,7 +91,7 @@ export function validateDataByDataField(dataField, data, rootData) {
     case 'FILE_SRC':
     case 'URL':
     case 'VIDEOURL':
-      return !!data?.trim()?.length;
+      return data && !!data?.trim()?.length;
     case 'DATE':
       return isDateValid(data);
     case 'LONGRICHTEXT':
@@ -101,7 +101,7 @@ export function validateDataByDataField(dataField, data, rootData) {
     case 'VIDEOS':
     case 'LINKS':
     case 'IMAGEGALLERY':
-      return !!data.filter(c => c.src).length;
+      return data && !!data.filter(c => c.src).length;
     case 'SEPARATOR':
     case 'SEPARATOR_BOLD':
       return false;
@@ -112,18 +112,18 @@ export function validateDataByDataField(dataField, data, rootData) {
       return dataField.fields.some(c => validateDataByDataField(c, getDeepVal(rootData, c.fieldName)))
       // return false
     case 'TABLE':
-      if (dataField.uiType === 'FilesSection') return !!data.filter(c => c.src).length;
+      if (dataField.uiType === 'FilesSection') return data && !!data.filter(c => c.src).length;
       // return data.filter(c => dataField, c)
     case 'TABLE':
     case 'RELEASES_SELECTOR':
     case 'SELECT_RELEASES_FROM_INNER_PARAM':
-      return !!data.length;
+      return data && !!data.length;
     case 'IMAGE':
     case 'FILE':
     case 'VIDEO':
-      return !!data.src;
+      return data && !!data.src;
     case 'MULTISELECT':
-      return !!data.filter(Boolean).length;
+      return data && !!data.filter(Boolean).length;
     case 'SINGLE-IMAGE_IN_ARRAY':
     case 'FILEINARRAY':
     case 'VIDEOINARRAY':

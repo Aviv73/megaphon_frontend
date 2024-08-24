@@ -146,7 +146,7 @@ function getAccountOrgItem(orgId = '', inviterId = '') {
     _id: orgId,
     invitedBy: inviterId,
     approverId: inviterId,
-    roles: [],
+    roles: [consts.organizationRoles.client],
     invitedAt: Date.now(),
     status: 'approved'
   }
@@ -196,7 +196,22 @@ function getEmptyOrganization() {
       }],
       contactMsg: ''
     },
-    searchKeys: ''
+    searchKeys: '',
+    mediaLinks: [],
+    filesManagement: {
+      video: {
+        requireAuth: true,
+        downloadable: true
+      },
+      img: {
+        requireAuth: true,
+        downloadable: true
+      },
+      file: {
+        requireAuth: true,
+        downloadable: true
+      },
+    }
   }
   org.releaseTypes.forEach(c => org.routes.push(createEmptyRouteItem(c.name, [c.id])));
   return org;

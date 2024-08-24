@@ -7,7 +7,7 @@
         </template>
         <!-- <template  v-if="lastSeenGroupRelease"> -->
           <router-link
-            v-for="(tabName, idx) in ['main', 'monthlySummary', 'archive' /*'broadcastTimes'*/ ]" :key="tabName"
+            v-for="(tabName, idx) in ['main', 'monthlySummary', 'archive', 'broadcastTimes' ]" :key="tabName"
             class="nav-item tab-name-nav-item"
             :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName } }"
             :class="{ selected: ($route.params.tabName === tabName) || (!idx && !$route.params.tabName) }"

@@ -1,9 +1,9 @@
 <template>
     <div class="files-section flex column gap40">
-      <FilesSingleSection v-if="images.length" sectionId="images" :title="$t('images')" cmpType="img" :files="images"/>
-      <FilesSingleSection v-if="videos.length" sectionId="videos" :title="$t('videos')" cmpType="video" :files="videos"/>
-      <FilesSingleSection v-if="files.length" sectionId="files" :title="$t('files')" cmpType="file" :files="files"/>
-      <FilesSingleSection v-if="links.length" sectionId="links" :title="$t('links')" cmpType="link" :files="links"/>
+      <FilesSingleSection :organizationId="organizationId" v-if="images.length" sectionId="images" :title="$t('images')" cmpType="img" :files="images"/>
+      <FilesSingleSection :organizationId="organizationId" v-if="videos.length" sectionId="videos" :title="$t('videos')" cmpType="video" :files="videos"/>
+      <FilesSingleSection :organizationId="organizationId" v-if="files.length" sectionId="files" :title="$t('files')" cmpType="file" :files="files"/>
+      <FilesSingleSection :organizationId="organizationId" v-if="links.length" sectionId="links" :title="$t('links')" cmpType="link" :files="links"/>
     </div>
 </template>
 
@@ -17,7 +17,8 @@ export default {
   props: {
     release: {
       type: Object
-    }
+    },
+    organizationId: [String]
   },
   methods: {
     filterItemsfromRelease(...keys) {

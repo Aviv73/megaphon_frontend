@@ -41,7 +41,6 @@ export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
   const lastCssEl = document.head.querySelector('.'+STYLE_EL_CLASSNAME)
   if (lastCssEl) document.head.removeChild(lastCssEl);
   if (stylingTheme.title) document.title = stylingTheme.title;
-  console.log(stylingTheme);
   const colors = stylingTheme?.colors || [];
   const fonts = stylingTheme?.fonts || [];
   const _ig = ':not(.ignore-theme-style)';

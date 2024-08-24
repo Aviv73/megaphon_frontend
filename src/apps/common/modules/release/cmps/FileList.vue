@@ -21,7 +21,7 @@
       <video
         v-if="cmpType === 'video'"
         class="video-file-preview"
-        :src="fixFileSrcToThumbnail(extractFileSrc(file))" controls
+        :src="fixVideoSrcToThumbnail(extractFileSrc(file), organizationId)" controls
       />
       <template v-else-if="cmpType === 'img'">
         <img
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { fixFileSrcToThumbnail } from '../../common/services/file.service';
+import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '../../common/services/file.service';
 import { downloadImg } from '../../common/services/util.service';
 import { extractFileSrc } from './file.service'; 
 export default {
@@ -63,10 +63,14 @@ export default {
     cmpType: {
       type: String,
       default: 'img'
-    }
+    },
+    organizationId: {
+      type: String
+    },
   },
   methods: {
     fixFileSrcToThumbnail,
+    fixVideoSrcToThumbnail,
     downloadImg,
     extractFileSrc
   },

@@ -8,7 +8,7 @@
       <ul class="flex column gap30">
         <li class="release-summary-preview flex gap10" v-for="release in releaseData.childrenReleases.filter(c => c.releaseData?.mainImage?.src)" :key="release._id">
           <div class="flex-1 summery-image_">
-            <img :src="release.releaseData.mainImage?.src"/>
+            <img :src="fixFileSrcToThumbnail(release.releaseData.mainImage?.src)"/>
           </div>
           <div class="flex-2 flex column gap10 space-between">
             <div class="flex column gap10">
@@ -84,7 +84,6 @@ import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue';
 // import ReleasePreview from '../cmps/streamTv_ReleasePreview.vue';
 import ReleasePreview from '@/apps/common/modules/release/cmps/common_ReleasePreview.vue';
-import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue';
 import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 import ReleasesSlider from '../../../common/modules/release/cmps/ReleasesSlider.vue';
 
@@ -93,7 +92,7 @@ import  { getSvgs } from '../assets/images/svgs.js';
 
 export default {
   name: 'streamTv_GroupReleaseDetails',
-  components: { ItemList, ReleasePreview, ItemSearchList, FilesSection, ReleasesSlider },
+  components: { ItemList, ReleasePreview, ItemSearchList, ReleasesSlider },
   props: {
     release: {
       type: Object,

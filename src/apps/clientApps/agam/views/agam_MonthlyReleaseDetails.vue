@@ -7,7 +7,7 @@
         </button>
         <div v-if="viewdChild" class="">
           <div class="hero-main inner-container flex gap30 width-all">
-            <img class="main-img" :src="viewdChild.mainImage.src" :alt="viewdChild.title"/>
+            <img class="main-img" :src="fixFileSrcToThumbnail(viewdChild.mainImage.src)" :alt="viewdChild.title"/>
             <div class="hero-content flex column align-start gap20">
               <h2>{{viewdChild.title}}</h2>
               <p>{{$t('release.by')}}: {{viewdChild.author}}</p>
@@ -66,6 +66,7 @@ import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue'
 import ReleasePreview from '../cmps/agam_ReleasePreview.vue'
 import ReleaseFilter from '../cmps/agam_ReleaseFilter.vue'
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 
 export default {
   name: 'agam_MonthlyReleaseDetails',
@@ -115,7 +116,8 @@ export default {
     getAllReleases(filterBy) {
       if (!this.orgId) return;
       this.$store.dispatch({ type: 'release/loadItems', filterBy });
-    }
+    },
+    fixFileSrcToThumbnail
   },
   watch: {
     orgId() {

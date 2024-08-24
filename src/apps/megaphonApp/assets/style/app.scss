@@ -62,7 +62,8 @@ html {
   .tab-nav {
     width: 100%;
     height: em(60px);
-    background-color: #0084D4;
+    // background-color: #0084D4;
+    background-color: var(--clr-4);
     display: flex;
     align-items: flex-end;
     gap: em(10px);

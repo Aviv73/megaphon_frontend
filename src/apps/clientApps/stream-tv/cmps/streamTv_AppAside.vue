@@ -1,7 +1,7 @@
 <template>
   <aside class="app-aside sticky flex column wide-screen-item">
     <div class="org-logo">
-      <img class="actual" :src="org.logoUrl" :alt="org.name">
+      <img class="actual" :src="fixFileSrcToThumbnail(org.logoUrl)" :alt="org.name">
     </div>
     <div class="account-preview" v-if="loggedUser" :style="{'background-color': headerBg, color: headerColor}">
       <LoggedUserPreview :class="{'no-auth': !org?.requireAuth}"/>
@@ -13,6 +13,8 @@
 <script>
 import CostumeNavBar from '../../../common/modules/common/cmps/CostumeNavBar.vue';
 import LoggedUserPreview from '../../../common/modules/auth/cmps/LoggedUserPreview.vue';
+import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
+
 export default {
   components: { CostumeNavBar, LoggedUserPreview },
   name: "streamTv_AppAside",
@@ -32,6 +34,9 @@ export default {
     headerColor() {
       return this.selectedTheme.colors?.[2];
     }
+  },
+  methods: {
+    fixFileSrcToThumbnail
   }
 }
 </script>
@@ -47,7 +52,7 @@ export default {
     width: em(170px);
     font-size: em(13px);
     .org-logo {
-      background-color: var(--clr-3);
+      
       // width: em(150px);
       // height: $header-height;
       height: rem(45px);
@@ -56,6 +61,7 @@ export default {
         height: 100%;
         object-fit: contain;
       }
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
     .costume-nav-bar {
       width: 100%;
