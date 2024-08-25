@@ -6,7 +6,7 @@
       <ul v-if="searchedOrgs.length" class="flex column gap20">
         <li v-for="org in searchedOrgs" :key="org._id" class="org-preview flex gap20">
             <!-- <MiniAccountPreview :org="org"/> -->
-            <img :src="org.logoUrl"/>
+            <img :src="fixFileSrcToThumbnail(org.logo)"/>
             <div class="flex-1 flex align-center justify-center">
               <h3>{{org.name}}</h3>
             </div>
@@ -24,6 +24,7 @@
 
 <script>
 import SearchInput from '../../../../common/modules/common/cmps/SearchInput.vue';
+import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 import { organizationService } from '../services/organization.service';
 export default {
   components: { SearchInput },
@@ -42,6 +43,7 @@ export default {
     }
   },
   methods: {
+    fixFileSrcToThumbnail,
     getOrgStatus(org) {
       const orgInAccoount = organizationService.getOrgItemInAccount(this.loggedUser, org._id);
       return orgInAccoount?.status;

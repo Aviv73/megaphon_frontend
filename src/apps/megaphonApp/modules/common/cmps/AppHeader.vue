@@ -60,6 +60,7 @@ import LoggedUserPreview from '../../../../common/modules/auth/cmps/LoggedUserPr
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import NavOrBurger from '../../../../common/modules/common/cmps/NavOrBurger.vue';
 import appConfig from '../../../../../appConfig';
+import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 export default {
   name: 'AppHeader',
   data() {
@@ -77,7 +78,7 @@ export default {
     },
     logoImgSrc() {
       const megaphonLogo = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
-      return this.orgId == '-1'? megaphonLogo : this.organization?.logoUrl || megaphonLogo;
+      return this.orgId == '-1'? megaphonLogo : fixFileSrcToThumbnail(this.organization?.logo) || megaphonLogo;
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
@@ -103,7 +104,7 @@ export default {
     organizationsToSelect() {
       return [
         ...(this.getOnlyOrgsToShow(this.$store.getters['organization/items'], appConfig)?.map(c => ({
-          img: c.logoUrl,
+          img: fixFileSrcToThumbnail(c.logo),
           label: c.name + (this.isOrgPending(c._id)? ` (${this.$t('pending')})` : ''),
           value: c._id,
           disabled: this.isOrgPending(c._id)
