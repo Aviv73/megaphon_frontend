@@ -157,7 +157,7 @@ export default {
 
 
     onFileUploaded(file) {
-      delete file.src;
+      // delete file.src;
       if (this.itemToEdit._id) return;
       if (!this.itemToEdit.__newFiles__) this.itemToEdit.__newFiles__ = [];
       this.itemToEdit.__newFiles__.push(file);
