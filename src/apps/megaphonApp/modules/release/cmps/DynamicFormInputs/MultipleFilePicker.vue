@@ -43,7 +43,7 @@ export default {
     viewAsImg: [Boolean],
     dataField: [Object],
     uploadFolderName: [String],
-    parentData: [String],
+    parentData: [Object],
     onupload: [Function],
   },
   methods: {
