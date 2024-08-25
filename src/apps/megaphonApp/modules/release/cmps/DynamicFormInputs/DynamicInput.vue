@@ -190,11 +190,11 @@ export default {
         case 'FILE':
         case 'VIDEO':
           this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: val => _appendNewFile(val) };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file) };
           break;
         case 'IMAGE':
           this.cmpName = 'ImageCrop';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: val => _appendNewFile(val) };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file) };
           break;
 
         // case 'FILE_SRC':
@@ -220,16 +220,16 @@ export default {
           this.propsToPass = { ...propsToPass, labelholder_: 'tags', type: 'multiselect', showVals: true, items: this.dataField.options  };
           break;
 
-        // BAD: single items in array;
-        case 'SINGLE-IMAGE_IN_ARRAY':
-          // this.cmpName = 'ImageCrop';
-          this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id} };
-          break;
+        // // BAD: single items in array;
+        // case 'SINGLE-IMAGE_IN_ARRAY':
+        //   // this.cmpName = 'ImageCrop';
+        //   this.cmpName = 'MultipleFilePicker';
+        //   this.propsToPass = { ...propsToPass, viewAsImg: true, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id} };
+        //   break;
         // case 'FILEINARRAY':
         case 'VIDEOINARRAY':
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id} };
+          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id}, onupload: file => _appendNewFile(file) };
           break;
 
 

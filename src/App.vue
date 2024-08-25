@@ -84,7 +84,11 @@ export default {
   },
   async created() {
     this.isLoading = true;
-    await loadScripts();
+    try {
+      await loadScripts();
+    } catch(err) {
+      alertService.toast({type: 'danger', msg: err?.msg || err?.message || err});
+    }
     this.initCommonStore();
 
     // console.log(this.uiConfig);

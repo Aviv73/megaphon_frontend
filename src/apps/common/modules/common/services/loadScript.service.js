@@ -32,7 +32,7 @@ export async function loadScript({ scriptEndpoint, scriptKey, loadOn, onloadCb }
     }
     scriptElement.onerror = (err) => {
       console.log('Had error loading script file', scriptKey);
-      reject();
+      reject('Network error');
     }
     document.head.appendChild(scriptElement);
     // return loadOn;
