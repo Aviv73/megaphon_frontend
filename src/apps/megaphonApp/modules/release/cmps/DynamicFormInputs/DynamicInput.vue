@@ -129,8 +129,8 @@ export default {
             // },
             {
               title: this.$t('photo'),
-              type: 'IMAGE_SRC',
-              fieldName: 'src',
+              type: 'IMAGE',
+              fieldName: '',
             },
             {
               title: this.$t('title'),
