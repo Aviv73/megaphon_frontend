@@ -5,15 +5,15 @@
         <button class="arrow-btn" @click="shiftChild(1)">
           <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)">
         </button>
-        <div v-if="viewdChild" class="">
+        <div v-if="viewdChildData" class="">
           <div class="hero-main inner-container flex gap30 width-all">
-            <img class="main-img" :src="fixFileSrcToThumbnail(viewdChild.mainImage, release)" :alt="viewdChild.title"/>
+            <img class="main-img" :src="fixFileSrcToThumbnail(viewdChildData.mainImage, viewdChild)" :alt="viewdChildData.title"/>
             <div class="hero-content flex column align-start gap20">
-              <h2>{{viewdChild.title}}</h2>
-              <p>{{$t('release.by')}}: {{viewdChild.author}}</p>
-              <div v-html="viewdChild.content"></div>
+              <h2>{{viewdChildData.title}}</h2>
+              <p>{{$t('release.by')}}: {{viewdChildData.author}}</p>
+              <div v-html="viewdChildData.content"></div>
               <hr/>
-              <router-link :to="{ params: {id: viewdChild._id} }">
+              <router-link :to="{ params: {id: viewdChildData._id} }">
                 <button class="flex align-center gap5">
                   <span>
                     לפרטים 
@@ -87,8 +87,11 @@ export default {
   computed: {
     viewdChild() {
       const res = this.releaseData.childrenReleases[this.viewdChildIdx] || null;
-      if (!res) return null;
-      return {...res.releaseData, _id: res._id};
+      return res;
+    },
+    viewdChildData() {
+      if (!this.viewdChild) return null;
+      return {...this.viewdChild.releaseData, _id: this.viewdChild._id};
     },
 
     allReleasesData() {
