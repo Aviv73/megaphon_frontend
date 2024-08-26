@@ -1,8 +1,8 @@
 <template>
   <div class="file-uploader-input flex align-start gap10">
     <img v-if="viewAsImg" class="val-img" :title="valToShow?.title" :src="imgToShow" :alt="valToShow?.title || $t('clickToUploadFile')" @click="clickInput"/>
-    <p class="p-like" v-else-if="!valToShow?.src && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
-    <a class="p-like" v-else target="_blanc" :href="valToShow.src" :title="valToShow.title">{{valToShow.title}}</a>
+    <p class="p-like" v-else-if="!imgToShow && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
+    <a class="p-like" v-else target="_blanc" :href="imgToShow" :title="valToShow.title">{{valToShow.title}}</a>
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
@@ -31,18 +31,20 @@ export default {
   },
   data() {
     return {
-      isLoading: false
+      isLoading: false,
+      previewSrc: ''
     }
   },
   computed: {
     imgToShow() {
-      return this.valToShow? fixFileSrcToThumbnail(this.valToShow, this.rootItem) : ''; // defaultImg
+      return this.previewSrc || (this.valToShow? fixFileSrcToThumbnail(this.valToShow, this.rootItem) : '');
     },
     valToShow() {
       return this.onlySrc ? { src: this.value, title: cropText(this.value, 30) } : this.value;
     }
   },
   methods: {
+    fixFileSrcToThumbnail,
     clickInput() {
       const { inputEl } = this.$refs;
       inputEl.click();
@@ -64,6 +66,7 @@ export default {
         const fileName = `${name}.${type}`;
         formData.append('file', file);
         const uploadedRes  = await uploadFileToServer(formData, uploadFolderName, parentData);
+        if (uploadedRes.previewSrc) this.previewSrc = uploadedRes.previewSrc;
         const newVal = { title: originalName, type, src: uploadedRes.src, fileId: uploadedRes.fileId };
         return newVal;
       } catch(err) {

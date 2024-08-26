@@ -116,7 +116,7 @@ export default {
               // .reduce((acc, c) => [...acc, ...(c.type === 'ROW'? c.fields : [c])], [])
               .filter(c => !c.hideFromUi)
               .filter((field) => {
-                return validateDataByDataField(field, this.releaseData[field.fieldName], this.releaseData);
+                return validateDataByDataField(field, this.releaseData[field.fieldName], this.releaseData, this.release);
                 // if (typeof this.releaseData[field.fieldName] === 'string') return !!this.releaseData[field.fieldName];
                 // if (Array.isArray(this.releaseData[field.fieldName])) return !!this.releaseData[field.fieldName]?.filter(c => c.src).length;
                 // else if (this.releaseData[field.fieldName]) return true;

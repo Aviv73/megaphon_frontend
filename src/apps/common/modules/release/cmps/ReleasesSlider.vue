@@ -32,6 +32,7 @@
 <script>
 import config from '@/config';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
+import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 export default {
   name: 'ReleasesSlider',
   props: {
@@ -87,7 +88,7 @@ export default {
     },
 
     imgToRender() {
-      return this.viewdChildData?.mainImage?.src;
+      return fixFileSrcToThumbnail(this.viewdChildData?.mainImage, this.viewdChild);
     },
 
     viewMoveBtns() {

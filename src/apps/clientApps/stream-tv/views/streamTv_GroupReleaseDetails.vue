@@ -6,7 +6,7 @@
     <div class="page-like-section container flex column gap50" v-if="tabName === 'monthlySummary'">
       <!-- <h2>{{$t('release.monthlySummary')}}</h2> -->
       <ul class="flex column gap30">
-        <li class="release-summary-preview flex gap10" v-for="release in releaseData.childrenReleases.filter(c => c.releaseData?.mainImage?.src)" :key="release._id">
+        <li class="release-summary-preview flex gap10" v-for="release in releaseData.childrenReleases.filter(c => c.releaseData?.mainImage)" :key="release._id">
           <div class="flex-1 summery-image_">
             <img :src="fixFileSrcToThumbnail(releaseData.mainImage, release)"/>
           </div>

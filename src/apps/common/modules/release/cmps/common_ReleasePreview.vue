@@ -1,7 +1,7 @@
 <template>
   <router-link :to="getReleasePageRoute? getReleasePageRoute(release) : { name: 'ReleaseDetails', params: {id: release._id} }">
     <li class="common-release-preview flex column gap10">
-        <img v-if="releaseData.mainImage.src" :src="imgToShow" :alt="releaseData.title">
+        <img v-if="imgToShow" :src="imgToShow" :alt="releaseData.title">
         <h3 class="title" :title="releaseData.title" v-if="releaseData.title">{{shrtenTitle}}</h3>
         <p :title="fullDescStr" v-if="shortenDesc">{{shortenDesc}}</p>
     </li>

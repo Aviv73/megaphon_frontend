@@ -79,8 +79,10 @@ html {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #B2DAF2;
-      color: #0084D4;
+      // background-color: #B2DAF2;
+      // color: #0084D4;
+      background-color: var(--clr-5);
+      color: var(--clr-4);
       &.selected {
         background-color: #fff;
       }

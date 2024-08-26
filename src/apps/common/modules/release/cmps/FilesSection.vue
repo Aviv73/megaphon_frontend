@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import { filterFilesCb } from './file.service';
+import { fixFileSrcToThumbnail } from '../../common/services/file.service';
+// import { filterFilesCb } from './file.service';
 import FilesSingleSection from './FilesSingleSection.vue';
 export default {
   components: { FilesSingleSection },
@@ -25,7 +26,7 @@ export default {
   methods: {
     filterItemsfromRelease(...keys) {
       for (let key of keys) {
-        if (this.releaseData[key]) return this.releaseData[key]?.filter(filterFilesCb) || [];
+        if (this.releaseData[key]) return this.releaseData[key]?.filter(c => fixFileSrcToThumbnail(c, this.rootItem)) || [];
       }
       return [];
     } 

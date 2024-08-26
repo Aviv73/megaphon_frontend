@@ -9,7 +9,7 @@
           <p v-if="file.info">{{file.info}}</p>
           <!-- <template v-if="cmpType === 'img'">
             <span v-if="file.info">|</span>
-            <button class="btn clear underline" @click="downloadImg(file.src, file.title)">{{$t('download')}}</button>
+            <button class="btn clear underline" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)">{{$t('download')}}</button>
           </template> -->
         </div>
       </template>
@@ -29,7 +29,7 @@
           :src="fixFileSrcToThumbnail(file, rootItem)" :alt="file.title"
         />
         <div class="img-actions flex align-center gap10">
-          <button class="btn download-btn" @click="downloadImg(file.src, file.title)"><span>{{$t('download')}}</span></button>
+          <button class="btn download-btn" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)"><span>{{$t('download')}}</span></button>
         </div>
       </template>
       <a
@@ -53,7 +53,7 @@
 <script>
 import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '../../common/services/file.service';
 import { downloadImg } from '../../common/services/util.service';
-import { extractFileSrc } from './file.service'; 
+// import { extractFileSrc } from './file.service'; 
 export default {
   name: 'FileList',
   props: {
@@ -75,7 +75,9 @@ export default {
     fixFileSrcToThumbnail,
     fixVideoSrcToThumbnail,
     downloadImg,
-    extractFileSrc
+    extractFileSrc(fileItem) {
+      return fileItem.src || fileItem.link || fileItem.url;
+    }
   },
 }
 </script>

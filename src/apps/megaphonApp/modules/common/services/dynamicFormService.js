@@ -1,6 +1,7 @@
 
 import { isDateValid } from '@/apps/common/modules/common/services/util.service';
 import { getDeepVal, getRandomId, htmlStrToText } from '../../../../common/modules/common/services/util.service';
+import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 
 export function createItemForDynamicForm(dataFields = []) {
   const item = {};
@@ -82,7 +83,7 @@ export function createItemForDynamicForm(dataFields = []) {
 
 
 
-export function validateDataByDataField(dataField, data, rootData) {
+export function validateDataByDataField(dataField, data, rootData, fullParent) {
   switch (dataField.type) {
     case 'ID':
       return typeof !!data;
@@ -105,7 +106,7 @@ export function validateDataByDataField(dataField, data, rootData) {
     case 'VIDEOS':
     case 'LINKS':
     case 'IMAGEGALLERY':
-      return data && !!data.filter(c => c.src).length;
+      return data && !!data.filter(c => fixFileSrcToThumbnail(c, fullParent)).length;
     case 'SEPARATOR':
     case 'SEPARATOR_BOLD':
       return false;
@@ -116,7 +117,7 @@ export function validateDataByDataField(dataField, data, rootData) {
       return dataField.fields.some(c => validateDataByDataField(c, getDeepVal(rootData, c.fieldName)))
       // return false
     case 'TABLE':
-      if (dataField.uiType === 'FilesSection') return data && !!data.filter(c => c.src).length;
+      if (dataField.uiType === 'FilesSection') return data && !!data.filter(c => fixFileSrcToThumbnail(c, fullParent)).length;
       // return data.filter(c => dataField, c)
     case 'TABLE':
     case 'RELEASES_SELECTOR':
@@ -125,7 +126,7 @@ export function validateDataByDataField(dataField, data, rootData) {
     case 'IMAGE':
     case 'FILE':
     case 'VIDEO':
-      return data && !!data.src;
+      return data && !!fixFileSrcToThumbnail(data, fullParent);
     case 'MULTISELECT':
       return data && !!data.filter(Boolean).length;
     // case 'SINGLE-IMAGE_IN_ARRAY':

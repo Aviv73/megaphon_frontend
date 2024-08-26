@@ -105,7 +105,7 @@ export default {
       const propsToPass = {...(this.dataField.propsToPass || {})};
       this.valueToShow = this.value;
       this.cmpName = 'p';
-      if (!validateDataByDataField(this.dataField, this.value)) {
+      if (!validateDataByDataField(this.dataField, this.value, undefined, this.release)) {
         this.hidden = true;
         return
       }
@@ -173,7 +173,6 @@ export default {
         case 'IMAGE':
         // case 'IMAGE_SRC':
           this.cmpName = 'img';
-          // this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value?.src || this.value) };
           this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value, this.release) };
           break;
 
@@ -203,7 +202,6 @@ export default {
           break;
 
         case 'FILE':
-          // if (!this.value?.src) this.hidden = true;
           this.cmpName = 'a';
           this.valueToShow = this.dataField.title;
           this.propsToPass = { ...propsToPass, href: fixFileSrcToThumbnail(this.value, this.release), target: '_blank' };
@@ -216,19 +214,7 @@ export default {
           this.propsToPass = { ...propsToPass, href: this.value, target: '_blank' };
           break;
 
-        
-
-        
-        case 'SINGLE-IMAGE_IN_ARRAY':
-          this.cmpName = 'img';
-          this.propsToPass = { ...propsToPass, src: this.value?.[0]?.src || this.value };
-          break;
-        case 'FILEINARRAY':
-          // if (!this.value?.[0]?.src) this.hidden = true;
-          this.cmpName = 'a';
-          this.valueToShow = this.dataField.uiTitle || this.dataField.title;
-          this.propsToPass = { ...propsToPass, href: this.value?.[0]?.src };
-          break;
+      
         case 'VIDEOINARRAY':
           this.cmpName = 'template';
           this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter };

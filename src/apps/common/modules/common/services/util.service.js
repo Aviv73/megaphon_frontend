@@ -435,7 +435,8 @@ export async function downloadImg(url, fileName) {
     const elLink = document.createElement('a');
     const dataUrl = await imgSrcToDataUrl(url);
     elLink.href = dataUrl;
-    elLink.download = fileName + '.jpg';
+    if (fileName.includes('.jpg')) fileName += '.jpg';
+    elLink.download = fileName;
     elLink.target = "_blank";
     document.body.appendChild(elLink);
     elLink.click();

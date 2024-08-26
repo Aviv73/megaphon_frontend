@@ -9,7 +9,7 @@
       </div>
       <div class="flex column gap20">
         <p>{{$t('organization.logo')}}</p>
-        <FileUploader v-if="organizationToEdit._id" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="{src: organizationToEdit.logo}" @input="val => imgUploaded(val.src, 'logo')" :rootItem="organizationToEdit"/>
+        <FileUploader v-if="organizationToEdit._id" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="{src: organizationToEdit.logo}" @input="val => imgUploaded(val, 'logo')" :rootItem="organizationToEdit"/>
         <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
       </div>
 
@@ -286,7 +286,6 @@
 
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
-// import ImgInput from '@/apps/common/modules/common/cmps/ImgInput.vue'
 // import { uploadImg } from '../../common/services/util.service'
 import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service'
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
@@ -417,7 +416,6 @@ export default {
   },
   components: {
     FormInput,
-    // ImgInput,
     FileUploader,
     TableActionBtns,
     Loader,

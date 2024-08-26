@@ -13,11 +13,9 @@
         <div class="description-container" v-if="releaseData.content" v-html="releaseData.content"></div>
         <div class="flex gap60 links">
           <h3>{{$t('release.main')}}<hr/></h3>
-          <!-- <a target="_blank" v-if="releaseData.firstChapterLink?.[0]?.src" :href="releaseData.firstChapterLink[0].src"><h3>{{$t('release.firstChapter')}}</h3></a>
-          <a target="_blank" v-if="releaseData.comunicatLink?.[0]?.src" :href="releaseData.comunicatLink[0].src"><h3>{{$t('release.comunicat')}}</h3></a> -->
           
-          <router-link target="_blank" v-if="releaseData.firstChapterLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.firstChapterLink, release) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
-          <router-link target="_blank" v-if="releaseData.comunicatLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.comunicatLink, release) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
+          <router-link target="_blank" v-if="fixFileSrcToThumbnail(releaseData.firstChapterLink, release)" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.firstChapterLink, release) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
+          <router-link target="_blank" v-if="fixFileSrcToThumbnail(releaseData.comunicatLink, release)" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.comunicatLink, release) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
 
         </div>
         <div class="table-like">
@@ -31,9 +29,9 @@
         </div>
       </div>
     </div>
-    <div v-if="releaseData.videos?.[0]?.src" class="video-section flex column gap30">
+    <div v-if="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)" class="video-section flex column gap30">
       <h2>{{releaseData.videos[0].title}}</h2>
-      <!-- <iframe :src="releaseData.video.src"></iframe> -->
+      <!-- <iframe :src="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)"></iframe> -->
       <video controls :src="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)"></video>
     </div>
   </section>
