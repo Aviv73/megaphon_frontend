@@ -6,7 +6,7 @@ import CostumePage from '@/apps/common/modules/common/views/common_CostumePage.v
 
 import ReleaseApp from './views/default_ReleaseApp.vue';
 import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';
-import ReleaseDetails from './views/default_ReleaseDetails.vue';
+import ReleaseDetails from '@/apps/common/modules/release/views/common_ReleaseDetails.vue';
 
 export default [
   // ...rootCommonRoutes,

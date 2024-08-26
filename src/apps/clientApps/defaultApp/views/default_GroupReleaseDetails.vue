@@ -14,7 +14,7 @@
         itemDetailesPageName="ReleaseDetails"
         :singlePreviewCmp="ReleasePreview"
       />
-      <FilesSection :release="release" :organizationId="orgId"/>
+      <FilesSection :releaseData="release" :rootItem="release" :organizationId="orgId"/>
     </div>
   </section>
 </template>

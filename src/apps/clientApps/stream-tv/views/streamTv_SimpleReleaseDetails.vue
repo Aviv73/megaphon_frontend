@@ -1,6 +1,6 @@
 <template>
   <section v-if="release" class="simple-release-details flex column gap50">
-    <img class="hero-img" :src="fixFileSrcToThumbnail(release.releaseData.mainImage)" :alt="release.title"/>
+    <img class="hero-img" :src="fixFileSrcToThumbnail(release.releaseData.mainImage, release)" :alt="release.title"/>
     <div class="inner-container flex column space-between flex-1 gap30">
       <ReleaseTabView :release="release" :tabView="true"/>
       <!-- <div class="ph"></div> -->

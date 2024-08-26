@@ -52,7 +52,7 @@ export default {
       return this.userCred.email && this.userCred.password;
     },
     appLogo() {
-      return this.org?.logo? fixFileSrcToThumbnail(this.org?.logo) : require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
+      return this.org?.logo? fixFileSrcToThumbnail(this.org?.logo, this.org) : require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
     },
     org() {
       return appConfig.appOrganization || this.$store.getters['organization/selectedItem'];

@@ -2,39 +2,39 @@
   <section v-if="release" class="book-release-details inner-container main-pad-y flex column gap50">
     <RoutesLocator :links="[
       {label: $t('main'), to: {name: 'ReleasePage'}/*$store.getters.mainLinkRouteTo*/ },
-      {label: release.type, to: {name: 'ReleasePage', query: {'filter_params_type': release.type, page: 'book'} } },
-      {label: release.subType, to: {name: 'ReleasePage', query: {'filter_params_subType': release.subType, page: 'book'} } },
-      {label: release.title, to: {name: 'ReleaseDetails', params: { id: release._id} }, disabled: true },
+      {label: releaseData.type, to: {name: 'ReleasePage', query: {'filter_params_type': releaseData.type, page: 'book'} } },
+      {label: releaseData.subType, to: {name: 'ReleasePage', query: {'filter_params_subType': releaseData.subType, page: 'book'} } },
+      {label: releaseData.title, to: {name: 'ReleaseDetails', params: { id: release._id} }, disabled: true },
     ]"/>
-    <h1>{{release.title}}</h1>
+    <h1>{{releaseData.title}}</h1>
     <div class="main-content-section flex-1 flex space-between gap60 wrap">
-      <img class="main-img" :src="fixFileSrcToThumbnail(release.mainImage)" :alt="release.title"/>
+      <img class="main-img" :src="fixFileSrcToThumbnail(releaseData.mainImage, release)" :alt="releaseData.title"/>
       <div class="hero-content flex column align-start gap15">
-        <div class="description-container" v-if="release.content" v-html="release.content"></div>
+        <div class="description-container" v-if="releaseData.content" v-html="releaseData.content"></div>
         <div class="flex gap60 links">
           <h3>{{$t('release.main')}}<hr/></h3>
-          <!-- <a target="_blank" v-if="release.firstChapterLink?.[0]?.src" :href="release.firstChapterLink[0].src"><h3>{{$t('release.firstChapter')}}</h3></a>
-          <a target="_blank" v-if="release.comunicatLink?.[0]?.src" :href="release.comunicatLink[0].src"><h3>{{$t('release.comunicat')}}</h3></a> -->
+          <!-- <a target="_blank" v-if="releaseData.firstChapterLink?.[0]?.src" :href="releaseData.firstChapterLink[0].src"><h3>{{$t('release.firstChapter')}}</h3></a>
+          <a target="_blank" v-if="releaseData.comunicatLink?.[0]?.src" :href="releaseData.comunicatLink[0].src"><h3>{{$t('release.comunicat')}}</h3></a> -->
           
-          <router-link target="_blank" v-if="release.firstChapterLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.firstChapterLink) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
-          <router-link target="_blank" v-if="release.comunicatLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(release.comunicatLink) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
+          <router-link target="_blank" v-if="releaseData.firstChapterLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.firstChapterLink, release) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
+          <router-link target="_blank" v-if="releaseData.comunicatLink?.src" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.comunicatLink, release) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
 
         </div>
         <div class="table-like">
-          <div class="row" v-if="release.author"><p>{{$t('release.by')}}</p><p>{{release.author}}</p></div>
-          <div class="row" v-if="release.painter"><p>{{$t('release.paint')}}</p><p>{{release.painter}}</p></div>
-          <div class="row" v-if="release.translator"><p>{{$t('release.translator')}}</p><p>{{release.translator}}</p></div>
-          <div class="row" v-if="release.pageCount"><p>{{$t('release.pageCount')}}</p><p>{{release.pageCount}}</p></div>
-          <div class="row" v-if="release.forAgeMax || release.forAgeMin"><p>{{$t('release.forAge')}}</p><p>{{release.forAgeMax || 99}} - {{release.forAgeMin || 0}}</p></div>
+          <div class="row" v-if="releaseData.author"><p>{{$t('release.by')}}</p><p>{{releaseData.author}}</p></div>
+          <div class="row" v-if="releaseData.painter"><p>{{$t('release.paint')}}</p><p>{{releaseData.painter}}</p></div>
+          <div class="row" v-if="releaseData.translator"><p>{{$t('release.translator')}}</p><p>{{releaseData.translator}}</p></div>
+          <div class="row" v-if="releaseData.pageCount"><p>{{$t('release.pageCount')}}</p><p>{{releaseData.pageCount}}</p></div>
+          <div class="row" v-if="releaseData.forAgeMax || releaseData.forAgeMin"><p>{{$t('release.forAge')}}</p><p>{{releaseData.forAgeMax || 99}} - {{releaseData.forAgeMin || 0}}</p></div>
           <div class="row" v-if="monthPublish"><p>{{$t('release.monthPublish')}}</p><p>{{monthPublish}}</p></div>
-          <div class="row" v-if="release.price"><p>{{$t('release.price')}}</p><p>{{release.price}}</p></div>
+          <div class="row" v-if="releaseData.price"><p>{{$t('release.price')}}</p><p>{{releaseData.price}}</p></div>
         </div>
       </div>
     </div>
-    <div v-if="release.videos?.[0]?.src" class="video-section flex column gap30">
-      <h2>{{release.videos[0].title}}</h2>
-      <!-- <iframe :src="release.video.src"></iframe> -->
-      <video controls :src="fixVideoSrcToThumbnail(release.videos[0])"></video>
+    <div v-if="releaseData.videos?.[0]?.src" class="video-section flex column gap30">
+      <h2>{{releaseData.videos[0].title}}</h2>
+      <!-- <iframe :src="releaseData.video.src"></iframe> -->
+      <video controls :src="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)"></video>
     </div>
   </section>
 </template>
@@ -57,13 +57,17 @@ export default {
   },
   computed: {
     monthPublish() {
-      const at = new Date(this.release.publishedAt);
+      const at = new Date(this.releaseData.publishedAt);
       const month = at.getMonth() + 1;
       const year = at.getFullYear();
       const pretyMont = this.$t('months.'+month);
       return `${pretyMont} ${year}`;
-      return this.release.publishedAt;
+      return this.releaseData.publishedAt;
     },
+
+    releaseData() {
+      return this.release.releaseData;
+    }
 
     // initReleaseId() {
     //   return this.$store.getters['release/initReleaseId'];

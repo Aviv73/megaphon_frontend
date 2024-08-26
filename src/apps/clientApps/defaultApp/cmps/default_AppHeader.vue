@@ -7,7 +7,7 @@
             <h1>אגם</h1>
             <p class="sub">הוצאה לאור</p>
           </div> -->
-          <img class="actual" :src="fixFileSrcToThumbnail(org.logo)" :alt="org.name">
+          <img class="actual" :src="fixFileSrcToThumbnail(org.logo, org)" :alt="org.name">
         </div>
       </div>
 

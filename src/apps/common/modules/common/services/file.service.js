@@ -15,12 +15,14 @@ export const fileUtilsService = {};
 appendScript('/fileUtils-service', 'fileUtilsModule', fileUtilsService);
 
 
-export function fixFileSrcToThumbnail(file = {}) {
-  return fileUtilsService.fixFileSrcToThumbnail(file, config);
+export function fixFileSrcToThumbnail(file = {}, rootData) {
+  return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
+  // return fileUtilsService.fixFileSrcToThumbnail(file, config);
 }
 
-export function fixVideoSrcToThumbnail(file = {}, organizationId = '') {
-  return fileUtilsService.fixVideoSrcToThumbnail(file, organizationId, config);
+export function fixVideoSrcToThumbnail(file = {}, rootData, organizationId = '') {
+  return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
+  // return fileUtilsService.fixVideoSrcToThumbnail(file, organizationId, config);
 }
 
 

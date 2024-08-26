@@ -49,6 +49,7 @@ export default {
     uploadFolderName: String,
     parentData: Object,
     onupload: Function,
+    rootItem: Object,
   },
   data() {
     return {
@@ -59,7 +60,7 @@ export default {
   computed: {
     imgToShow() {
       // return fixFileSrcToThumbnail(this.onlySrc? this.value : this.value?.src || ''); // defaultImg
-      return fixFileSrcToThumbnail(this.value); // defaultImg
+      return fixFileSrcToThumbnail(this.value, this.rootItem); // defaultImg
     }
   },
   methods: { 

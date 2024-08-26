@@ -9,7 +9,7 @@
       </div>
       <div class="flex column gap20">
         <p>{{$t('organization.logo')}}</p>
-        <FileUploader v-if="organizationToEdit._id" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="{src: organizationToEdit.logo}" @input="val => imgUploaded(val.src, 'logo')"/>
+        <FileUploader v-if="organizationToEdit._id" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="{src: organizationToEdit.logo}" @input="val => imgUploaded(val.src, 'logo')" :rootItem="organizationToEdit"/>
         <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
       </div>
 
@@ -55,7 +55,7 @@
           <li v-for="(curr, idx) in organizationToEdit.logos || []" :key="idx">
             <FormInput type="text" placeholder="name" v-model="curr.title"/>
             <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :onlySrc="true" :viewAsImg="true" :value="curr.url" @input="val => imgUploaded(val, `logos.${idx}.url`)"/> -->
-            <FileUploader :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="curr" @input="val => imgUploaded(val, `logos.${idx}`)"/>
+            <FileUploader :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="curr" @input="val => imgUploaded(val, `logos.${idx}`)" :rootItem="organizationToEdit"/>
             <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
           </li>
         </ul>
@@ -143,7 +143,7 @@
         <div class="flex column gap20 align-start">
           <p>{{$t('organization.loginPagePreferences')}}</p>
           <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
-          <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')"/>
+          <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
           <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
           <FormInput type="textarea" labelholder="organization.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-app flex align-center justify-center container_ inner-app" :style="{backgroundImage: rootOrg? `url(${fixFileSrcToThumbnail(rootOrg.designPreferences.loginPage[0].bgImg)})` : '' }">
+  <div class="auth-app flex align-center justify-center container_ inner-app" :style="{backgroundImage: rootOrg? `url(${fixFileSrcToThumbnail(rootOrg.designPreferences.loginPage[0].bgImg, rootOrg)})` : '' }">
     <router-view class="inner-app-content"/>
     <Loader v-if="isLoading"/>
   </div>

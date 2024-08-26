@@ -6,7 +6,7 @@
       <ul v-if="searchedOrgs.length" class="flex column gap20">
         <li v-for="org in searchedOrgs" :key="org._id" class="org-preview flex gap20">
             <!-- <MiniAccountPreview :org="org"/> -->
-            <img :src="fixFileSrcToThumbnail(org.logo)"/>
+            <img :src="fixFileSrcToThumbnail(org.logo, org)"/>
             <div class="flex-1 flex align-center justify-center">
               <h3>{{org.name}}</h3>
             </div>

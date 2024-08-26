@@ -13,6 +13,7 @@
         :dataField="dataFieldToRender"
         :organization="organization"
         :parentItem="parentItem"
+        :release="release"
       >
         <p v-if="bindContentToHtml" v-html="valueToShow"></p>
         <template v-else>{{valueToShow}}</template>
@@ -25,6 +26,7 @@
           :basePath="field.fieldName"
           :organization="organization"
           :parentItem="parentItem"
+          :release="release"
           :value="getVal(parentItem, field.fieldName)"
         />
       </div>
@@ -49,6 +51,7 @@
               :value="getVal(currVal, field.fieldName) || ''"
               :organization="organization"
               :parentItem="parentItem"
+              :release="release"
               :noTitle="true"
             />
           </td>
@@ -65,11 +68,10 @@ import { getDeepVal, setDeepVal, range } from '@/apps/common/modules/common/serv
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import FilesSection from './FilesSection.vue';
-import FileList from './FileList.vue';
+// import FileList from './FileList.vue';
 import FilesSingleSection from './FilesSingleSection.vue';
 import ReleasesSlider from './ReleasesSlider.vue'
 import { time, youtubeService } from '../../common/services/util.service';
-import { filterFilesCb } from './file.service';
 import { validateDataByDataField } from '../../../../megaphonApp/modules/common/services/dynamicFormService';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 
@@ -82,7 +84,8 @@ export default {
     basePath: [String],  // ?
     parentItem: [Object],  // ?
     noTitle: [Boolean],  // ?
-    organization: [Object]  // ?
+    organization: [Object],  // ?
+    release: [Object]  // ?
   },
   data() {
     return {
@@ -129,28 +132,24 @@ export default {
           this.cmpName = 'p';
           break;
         case 'FilesSection'.toUpperCase(): // TODO:: NO NEED?
-          // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           // if (!this.value?.length) this.hidden = true;
-          this.propsToPass = { ...propsToPass, organizationId: this.organization._id, release: { [this.dataField.fieldName]: this.value } };
+          this.propsToPass = { ...propsToPass, organizationId: this.organization._id, rootItem: this.release, releaseData: { [this.dataField.fieldName]: this.value } };
           this.cmpName = 'FilesSection';
           break;
         case 'VIDEOS'.toUpperCase():
-          // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
+          this.propsToPass = { ...propsToPass, rootItem: this.release, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
             const src = c.src || c.link || c.url; 
             return {...c, src: youtubeService.isYoutubeVid(src)? youtubeService.embedUtubeUrl(src) : src};
           }) || [] };
           break;
         case 'links'.toUpperCase():
-          // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, sectionId: 'links', cmpType: 'link', organizationId: this.organization._id, files: this.value }
+          this.propsToPass = { ...propsToPass, rootItem: this.release, sectionId: 'links', cmpType: 'link', organizationId: this.organization._id, files: this.value }
           break;
         case 'IMAGEGALLERY'.toUpperCase():
-          // if (!this.value?.filter(filterFilesCb)?.length) this.hidden = true;
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, sectionId: 'images', cmpType: 'img', organizationId: this.organization._id, files: this.value }
+          this.propsToPass = { ...propsToPass, rootItem: this.release, sectionId: 'images', cmpType: 'img', organizationId: this.organization._id, files: this.value }
           break;
         case 'SEPARATOR':
         case 'SEPARATOR_BOLD':
@@ -175,7 +174,7 @@ export default {
         // case 'IMAGE_SRC':
           this.cmpName = 'img';
           // this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value?.src || this.value) };
-          this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value) };
+          this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value, this.release) };
           break;
 
         case 'MULTISELECT':
@@ -207,7 +206,7 @@ export default {
           // if (!this.value?.src) this.hidden = true;
           this.cmpName = 'a';
           this.valueToShow = this.dataField.title;
-          this.propsToPass = { ...propsToPass, href: fixFileSrcToThumbnail(this.value), target: '_blank' };
+          this.propsToPass = { ...propsToPass, href: fixFileSrcToThumbnail(this.value, this.release), target: '_blank' };
           break;
         
         
@@ -281,7 +280,7 @@ export default {
     FormInput,
     FileUploader,
     FilesSection,
-    FileList,
+    // FileList,
     FilesSingleSection,
     ReleasesSlider
     // FileInput

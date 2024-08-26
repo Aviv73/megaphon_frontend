@@ -7,7 +7,7 @@
         </button>
         <div v-if="viewdChild" class="">
           <div class="hero-main inner-container flex gap30 width-all">
-            <img class="main-img" :src="fixFileSrcToThumbnail(viewdChild.mainImage)" :alt="viewdChild.title"/>
+            <img class="main-img" :src="fixFileSrcToThumbnail(viewdChild.mainImage, release)" :alt="viewdChild.title"/>
             <div class="hero-content flex column align-start gap20">
               <h2>{{viewdChild.title}}</h2>
               <p>{{$t('release.by')}}: {{viewdChild.author}}</p>
@@ -31,11 +31,11 @@
       </div>
     </section>
     <div class="inner-container flex column gap30">
-      <h1>{{release.title}}</h1>
-      <div v-html="release.content"></div>
+      <h1>{{releaseData.title}}</h1>
+      <div v-html="releaseData.content"></div>
       <ItemList
         class="flex-1"
-        :items="release.childrenReleases"
+        :items="releaseData.childrenReleases"
         itemDetailesPageName="ReleaseDetails"
         :singlePreviewCmp="ReleasePreview"
       />
@@ -86,7 +86,7 @@ export default {
   },
   computed: {
     viewdChild() {
-      const res = this.release.childrenReleases[this.viewdChildIdx] || null;
+      const res = this.releaseData.childrenReleases[this.viewdChildIdx] || null;
       if (!res) return null;
       return {...res.releaseData, _id: res._id};
     },
@@ -103,10 +103,13 @@ export default {
     showOnlyreleases() {
       return this.$route.query?.releasesView === 'true';
     },
+    releaseData() {
+      return this.release.releaseData;
+    },
   },
   methods: {
     shiftChild(diff) {
-      const max = this.release.childrenReleases.length - 1;
+      const max = this.releaseData.childrenReleases.length - 1;
       let newIdx = this.viewdChildIdx + diff;
       if (newIdx < 0) newIdx = max;
       else if (newIdx > max) newIdx = 0;

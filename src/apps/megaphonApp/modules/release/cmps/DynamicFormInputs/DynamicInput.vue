@@ -190,11 +190,11 @@ export default {
         case 'FILE':
         case 'VIDEO':
           this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file) };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
           break;
         case 'IMAGE':
           this.cmpName = 'ImageCrop';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file) };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
           break;
 
         // case 'FILE_SRC':
@@ -229,7 +229,7 @@ export default {
         // case 'FILEINARRAY':
         case 'VIDEOINARRAY':
           this.cmpName = 'MultipleFilePicker';
-          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id}, onupload: file => _appendNewFile(file) };
+          this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
           break;
 
 

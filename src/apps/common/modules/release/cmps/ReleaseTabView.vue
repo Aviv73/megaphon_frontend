@@ -17,10 +17,10 @@
     <div class="flex column gap30">
       <template v-for="(field, idx) in dataFieldsToShow">
         <div :key="field.fieldName || idx" :id="field.fieldName" v-if="!isScreenWide || !allTabNames.length || (tabView && field.uiSections?.includes(selectedTab))" :class="field.fieldName + '-display'">
-          <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData" :organization="org"/>
+          <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData" :organization="org" :release="release"/>
         </div>
       </template>
-      <!-- <FilesSection :release="releaseData" :organizationId="release.organizationId"/> -->
+      <!-- <FilesSection :releaseData="releaseData" :organizationId="release.organizationId"/> -->
     </div>
   </div>
 </template>

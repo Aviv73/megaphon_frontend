@@ -1,7 +1,7 @@
 <template>
   <div class="release-details height-all" v-if="release">
-    <MonthlyReleaseDetails v-if="isMonthlyRelease" :release="releaseData"/>
-    <BookReleaseDetails v-else :release="releaseData"/>
+    <MonthlyReleaseDetails v-if="isMonthlyRelease" :release="release"/>
+    <BookReleaseDetails v-else :release="release"/>
   </div>
 </template>
 

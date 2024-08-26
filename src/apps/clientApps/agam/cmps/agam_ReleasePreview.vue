@@ -48,7 +48,7 @@ export default {
     },
 
     imgToShow() {
-      return fixFileSrcToThumbnail(this.releaseData.mainImage);
+      return fixFileSrcToThumbnail(this.releaseData.mainImage, this.release);
     }
   }
 }

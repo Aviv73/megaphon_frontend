@@ -26,7 +26,8 @@ export default {
     onlySrc: [Boolean],
     uploadFolderName: [String],
     parentData: [Object],
-    onupload: [Function]
+    onupload: [Function],
+    rootItem: [Object],
   },
   data() {
     return {
@@ -35,7 +36,7 @@ export default {
   },
   computed: {
     imgToShow() {
-      return this.valToShow? fixFileSrcToThumbnail(this.valToShow) : ''; // defaultImg
+      return this.valToShow? fixFileSrcToThumbnail(this.valToShow, this.rootItem) : ''; // defaultImg
     },
     valToShow() {
       return this.onlySrc ? { src: this.value, title: cropText(this.value, 30) } : this.value;
@@ -76,7 +77,7 @@ export default {
       const file = this.getFileFromInput(this.$refs.inputEl);
       if (!file) return;
       const newVal = await this.doUploadFile(file, this.uploadFolderName, this.parentData);
-      if (onupload) onupload(this.onlySrc? newVal.src : newVal);
+      if (this.onupload) this.onupload(this.onlySrc? newVal.src : newVal);
       this.$emit('input', this.onlySrc? newVal.src : newVal);
     }
   }

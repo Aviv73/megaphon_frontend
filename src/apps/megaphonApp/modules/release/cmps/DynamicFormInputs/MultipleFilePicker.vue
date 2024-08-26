@@ -10,6 +10,7 @@
         :uploadFolderName="uploadFolderName"
         :parentData="parentData"
         :onupload="onupload"
+        :rootItem="rootItem"
       />
       <ImageCrop
         v-if="viewAsImg"
@@ -18,6 +19,7 @@
         :uploadFolderName="uploadFolderName"
         :parentData="parentData"
         :onupload="onupload"
+        :rootItem="rootItem"
       />
       <!-- <FormInput v-model="currVal.title"/> -->
       <TableActionBtns v-if="!isSingleItem" :value="value" @input="updateFromActions" :idx="idx"/>
@@ -45,6 +47,7 @@ export default {
     uploadFolderName: [String],
     parentData: [Object],
     onupload: [Function],
+    rootItem: [Object],
   },
   methods: {
     updateValue(val, idx) {

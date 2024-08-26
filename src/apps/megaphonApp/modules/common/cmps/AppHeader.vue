@@ -78,7 +78,7 @@ export default {
     },
     logoImgSrc() {
       const megaphonLogo = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
-      return this.orgId == '-1'? megaphonLogo : fixFileSrcToThumbnail(this.organization?.logo) || megaphonLogo;
+      return this.orgId == '-1'? megaphonLogo : fixFileSrcToThumbnail(this.organization?.logo, this.organization) || megaphonLogo;
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
@@ -104,7 +104,7 @@ export default {
     organizationsToSelect() {
       return [
         ...(this.getOnlyOrgsToShow(this.$store.getters['organization/items'], appConfig)?.map(c => ({
-          img: fixFileSrcToThumbnail(c.logo),
+          img: fixFileSrcToThumbnail(c.logo, c),
           label: c.name + (this.isOrgPending(c._id)? ` (${this.$t('pending')})` : ''),
           value: c._id,
           disabled: this.isOrgPending(c._id)

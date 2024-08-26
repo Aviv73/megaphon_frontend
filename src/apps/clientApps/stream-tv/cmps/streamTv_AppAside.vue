@@ -1,7 +1,7 @@
 <template>
   <aside class="app-aside sticky flex column wide-screen-item">
     <div class="org-logo">
-      <img class="actual" :src="fixFileSrcToThumbnail(org.logo)" :alt="org.name">
+      <img class="actual" :src="fixFileSrcToThumbnail(org.logo, org)" :alt="org.name">
     </div>
     <div class="account-preview" v-if="loggedUser" :style="{'background-color': headerBg, color: headerColor}">
       <LoggedUserPreview :class="{'no-auth': !org?.requireAuth}"/>
