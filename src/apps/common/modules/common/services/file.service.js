@@ -10,6 +10,7 @@ export const fileService = {
 }
 
 import { appendScript } from "./loadScript.service";
+import { getRandomId } from './util.service';
 export const fileUtilsService = {};
 // loading the script file from the server so it is writen only once;
 appendScript('/fileUtils-service', 'fileUtilsModule', fileUtilsService);
@@ -17,17 +18,62 @@ appendScript('/fileUtils-service', 'fileUtilsModule', fileUtilsService);
 
 export function fixFileSrcToThumbnail(file = {}, rootData) {
   return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
-  // return fileUtilsService.fixFileSrcToThumbnail(file, config);
+  // return fileUtilsService.getFileThumbUrl(file, config);
 }
 
 export function fixVideoSrcToThumbnail(file = {}, rootData, organizationId = '') {
   return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
-  // return fileUtilsService.fixVideoSrcToThumbnail(file, organizationId, config);
+  // return fileUtilsService.getVideoThumbUrl(file, organizationId, config);
 }
 
 
-export function uploadFileToServer(formData, organizationId, parentData) {
-  return httpService.post(`${ENDPOINT}/upload/${organizationId}`, formData, {parentData});
+export function uploadFileToServer(file, organizationId, parentData) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const fileSize = file.size;
+  return httpService.post(`${ENDPOINT}/upload/${organizationId}`, formData, {parentData, isFullFile: true, fileSize});
+}
+
+export async function chunkUploadFileToServer(file, organizationId, parentData, onChunkEndCb = (uploadStats) => {}) {
+  const CHUNK_SIZE = 1024 * 1024 * 10; // 10MB;
+  const fileSize = file.size;
+  const totalChunks = Math.ceil(fileSize / CHUNK_SIZE);
+  let uploadId;
+  let res;
+  const prms = [];
+  // const endpoint = ;
+  let uploadedBytes = 0;
+
+  const lastDotIdx = file.name.lastIndexOf('.');
+  const type = lastDotIdx > -1 ? file.name.substring(lastDotIdx+1) : file.mimetype?.split('/').pop();
+  const storeFileName = `file-${getRandomId()}.${type}`;
+
+  for (let i = 0; i < totalChunks; i++) {
+    const start = i * CHUNK_SIZE;
+    const end = start + CHUNK_SIZE;
+    const chunk = file.slice(start, end);
+    const formData = new FormData();
+    formData.append('file', chunk);
+    // formData.append('index', i);
+    const params = {parentData, fileSize, totalChunks, uploadId, chunkIdx: i, storeFileName};
+    if (!i) params.isFirst = true;
+    if (i === totalChunks - 1) params.isLast = true;
+    const prm = httpService.post(`${ENDPOINT}/upload/${organizationId}`, formData, params);
+    const currRes = await prm;
+    if (!i) { // if firstTime, if no uploadId
+      // res = currRes;
+      uploadId = currRes.uploadId;
+    } 
+    if (i === totalChunks - 1) {
+      res = currRes;
+    } else {
+    }
+    // prms.push(prm);
+    uploadedBytes += CHUNK_SIZE;
+    onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100) });
+  }
+  // await Promise.all(prms);
+  return res;
 }
 
 export function loadStaticFile(filePath) {

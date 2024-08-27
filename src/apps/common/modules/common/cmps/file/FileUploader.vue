@@ -1,8 +1,9 @@
 <template>
   <div class="file-uploader-input flex align-start gap10">
-    <img v-if="viewAsImg" class="val-img" :title="valToShow?.title" :src="imgToShow" :alt="valToShow?.title || $t('clickToUploadFile')" @click="clickInput"/>
-    <p class="p-like" v-else-if="!imgToShow && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
-    <a class="p-like" v-else target="_blanc" :href="imgToShow" :title="valToShow.title">{{valToShow.title}}</a>
+    <img v-if="viewAsImg" class="val-img" :title="valToShow?.title" :src="fileToShow" :alt="valToShow?.title || $t('clickToUploadFile')" @click="clickInput"/>
+    <p class="p-like" v-else-if="!fileToShow && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
+    <p class="p-like" v-else-if="isLoading" @click="clickInput">{{loadingMsg? loadingMsg : $t('loading') + '...'}}</p>
+    <a class="p-like" v-else target="_blanc" :href="fileToShow" :title="valToShow.title">{{valToShow.title}}</a>
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import { fixFileSrcToThumbnail, uploadFileToServer } from '../../services/file.service';
+import { fixFileSrcToThumbnail, uploadFileToServer, chunkUploadFileToServer } from '../../services/file.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import MiniLoader from '../MiniLoader.vue';
 import { cropText } from '../../services/util.service';
@@ -32,11 +33,12 @@ export default {
   data() {
     return {
       isLoading: false,
-      previewSrc: ''
+      previewSrc: '',
+      loadingMsg: ''
     }
   },
   computed: {
-    imgToShow() {
+    fileToShow() {
       return this.previewSrc || (this.valToShow? fixFileSrcToThumbnail(this.valToShow, this.rootItem) : '');
     },
     valToShow() {
@@ -56,7 +58,6 @@ export default {
     async doUploadFile(file, uploadFolderName, parentData) {
       this.isLoading = true;
       try {
-        const formData = new FormData();
         let lastDotIdx = file.name.lastIndexOf('.');
         if (lastDotIdx === -1) lastDotIdx = file.name.length;
         const type = file.name.substring(lastDotIdx+1);
@@ -64,9 +65,11 @@ export default {
         const originalName = file.name;
         const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
         const fileName = `${name}.${type}`;
-        formData.append('file', file);
-        const uploadedRes  = await uploadFileToServer(formData, uploadFolderName, parentData);
+        const uploadedRes  = await chunkUploadFileToServer(file, uploadFolderName, parentData, ({percents}) => {
+          this.loadingMsg = `${percents.toFixed(3)}%`;
+        });
         if (uploadedRes.previewSrc) this.previewSrc = uploadedRes.previewSrc;
+        this.loadingMsg = '';
         const newVal = { title: originalName, type, src: uploadedRes.src, fileId: uploadedRes.fileId };
         return newVal;
       } catch(err) {
