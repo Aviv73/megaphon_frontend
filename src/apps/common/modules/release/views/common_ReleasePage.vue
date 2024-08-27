@@ -1,5 +1,5 @@
 <template>
-  <section class="common-release-page inner-container main-pad-y flex-1 flex column gap30 height-all width-all flex column">
+  <section class="common-release-page inner-container main-pad-y_ flex-1 flex column gap30 height-all width-all flex column">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
     <ReleasesSlider :releases="allReleasesData.items"/>
     <ItemSearchList

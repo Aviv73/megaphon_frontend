@@ -36,26 +36,26 @@ export function uploadFileToServer(file, organizationId, parentData) {
 
 export async function chunkUploadFileToServer(file, organizationId, parentData, onChunkEndCb = (uploadStats) => {}) {
   const CHUNK_SIZE = 1024 * 1024 * 10; // 10MB;
+
   const fileSize = file.size;
-  const totalChunks = Math.ceil(fileSize / CHUNK_SIZE);
-  let uploadId;
-  let res;
-  const prms = [];
-  // const endpoint = ;
-  let uploadedBytes = 0;
+  const originalName = file.name;
 
   const lastDotIdx = file.name.lastIndexOf('.');
   const type = lastDotIdx > -1 ? file.name.substring(lastDotIdx+1) : file.mimetype?.split('/').pop();
   const storeFileName = `file-${getRandomId()}.${type}`;
-
+  
+  // const prms = [];
+  let uploadId;
+  let res;
+  let uploadedBytes = 0;
+  const totalChunks = Math.ceil(fileSize / CHUNK_SIZE);  
   for (let i = 0; i < totalChunks; i++) {
     const start = i * CHUNK_SIZE;
     const end = start + CHUNK_SIZE;
     const chunk = file.slice(start, end);
     const formData = new FormData();
     formData.append('file', chunk);
-    // formData.append('index', i);
-    const params = {parentData, fileSize, totalChunks, uploadId, chunkIdx: i, storeFileName};
+    const params = {parentData, fileSize, totalChunks, uploadId, chunkIdx: i, storeFileName, originalName};
     if (!i) params.isFirst = true;
     if (i === totalChunks - 1) params.isLast = true;
     const prm = httpService.post(`${ENDPOINT}/upload/${organizationId}`, formData, params);

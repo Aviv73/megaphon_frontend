@@ -13,7 +13,7 @@
 
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
       <NavOrBurger :showBurger="!!allRouteFilters.length">
-        <CostumeNavBar/>
+        <CostumeNavBar class="nav-items"/>
       </NavOrBurger>
     </div>
   </header>

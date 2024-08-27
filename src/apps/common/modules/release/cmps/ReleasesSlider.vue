@@ -2,7 +2,7 @@
   <div class="releases-slider flex align-center justify-center gap15">
     <button v-if="viewMoveBtns" class="arrow-btn plus" @click="shiftChild(-1)">
       <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)"> -->
-      <div class="img"></div>
+      <div class="img" v-html="sliderBtnImg"></div>
     </button>
     <div v-if="viewdChildData" class="hero-main flex-1 flex gap30 width-all align-center">
       <img class="main-img" :src="imgToRender" :alt="viewdChildData.title"/>
@@ -24,7 +24,7 @@
     </div>
     <button v-if="viewMoveBtns" class="arrow-btn minus" @click="shiftChild(1)">
       <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'"> -->
-      <div class="img"></div>
+      <div class="img" v-html="sliderBtnImg"></div>
     </button>
   </div>
 </template>
@@ -33,6 +33,7 @@
 import config from '@/config';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
+import  { getSvgs } from '@/assets/images/svgs.js';
 export default {
   name: 'ReleasesSlider',
   props: {
@@ -97,6 +98,12 @@ export default {
 
     organization() {
       return this.$store.getters['organization/selectedItem'];
+    },
+
+    sliderBtnImg() {
+      // const theme = this.$store.getters.selectedTheme;
+      // const clr = theme?.colors?.[0] || 'black';
+      return getSvgs('var(--clr-0)').sliderBtn; 
     }
   },
   watch: {
@@ -112,7 +119,8 @@ export default {
 .releases-slider {
   max-width: 100%;
   position: relative;
-  background-color: var(--clr-0);
+  // background-color: var(--clr-1);
+  // color: var(--clr-0);
   // width: 60%;
   // @media (max-width: 1700px) {
   //   width: 90%;
@@ -120,7 +128,9 @@ export default {
   // min-height: 400px;
   .hero-main {
     box-shadow: $light-shadow;
-    background: black;
+    // background: black;
+    color: var(--clr-0);
+    background-color: var(--clr-1);
     flex: 1;
     padding: em(40px);
     height: 100%;
@@ -182,10 +192,14 @@ export default {
     // box-shadow: $light-shadow;
     overflow: hidden;
     position: absolute;
-    .img {
+    .img, svg {
       width: 100%;
       height: 100%;
-      background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_black.svg') no-repeat center / contain;
+      // img {
+      //   height: 100%;
+      //   width: 100%;
+      // }
+      // background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_black.svg') no-repeat center / contain;
       // background: url('~@/apps/clientApps/agam/assets/images/pageArrow.svg') no-repeat center / contain;
       // background-size: 100%;
     }

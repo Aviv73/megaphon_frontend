@@ -63,8 +63,8 @@ export default {
         const type = file.name.substring(lastDotIdx+1);
         // const type = file.type.split('/').pop();
         const originalName = file.name;
-        const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
-        const fileName = `${name}.${type}`;
+        // const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
+        // const fileName = `${name}.${type}`;
         const uploadedRes  = await chunkUploadFileToServer(file, uploadFolderName, parentData, ({percents}) => {
           this.loadingMsg = `${percents.toFixed(3)}%`;
         });

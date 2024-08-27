@@ -3,6 +3,10 @@
     <!-- <h2>{{$t('release.releases')}}</h2> -->
     <div class="width-all" v-if="isUserWatchOnly">
       <ReleasesSlider
+        :style="selectedTheme ? {
+          '--clr-0': selectedTheme.colors[1],
+          '--clr-1': selectedTheme.colors[0]
+        } : {}"
         :localNav="false"
         :releases="allReleasesData.items"
         :getReleasePageRoute="(release => ({ name: 'ReleaseDetails', params: { id: release._id, organizationId: organizationId } }))"
@@ -130,7 +134,10 @@ export default {
     },
     noPageMode() {
       return this.$route.query.page == 0;
-    }
+    },
+    selectedTheme() {
+      return this.$store.getters.selectedTheme;
+    },
   },
   created() {
     // this.getAllReleases(); // header emits filter when creates => loading releases;
@@ -188,6 +195,8 @@ export default {
     }
     
     .releases-slider {
+      // --clr-0: var(--clr-1);
+      // --clr-1: var(--clr-0);
       .arrow-btn {
         // height: em(50px);
         // position: absolute;
@@ -195,7 +204,7 @@ export default {
         // border-radius: unset;
         // box-shadow: $light-shadow;
         .img {
-          background-image: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_white.svg');
+          // background-image: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_white.svg');
         }
         &.plus {
           // right: em(10px);
@@ -206,19 +215,19 @@ export default {
           // transform: rotate(180deg);
         }
       }
-      color: var(--clr-1);
+      // color: var(--clr-1);
       .hero-main {
         padding: 0;
         img {
           height: em(500px);
           flex: 3;
         }
-        background-color: var(--clr-0);
+        // background-color: var(--clr-0);
         .hero-content {
           height: em(350px);
           flex: 2;
-          background-color: var(--clr-0);
-          color: var(--clr-1);
+          // background-color: var(--clr-0);
+          // color: var(--clr-1);
           // * {
           //   background: unset !important;
           //   background-color: unset !important;

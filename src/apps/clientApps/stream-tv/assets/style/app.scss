@@ -53,6 +53,8 @@ $layout-red: #EF4B49;
   .releases-slider {
     position: relative;
     z-index: 0;
+    --clr-0: white;
+    --clr-1: black;
     .hero-main {
       padding: 0 !important;
       position: relative;
@@ -96,7 +98,10 @@ $layout-red: #EF4B49;
       bottom: em(20px);
       z-index: 3;
       .img {
-        background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_white.svg') no-repeat center / contain;
+        // svg {
+        //   display: none;
+        // }
+        // background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_white.svg') no-repeat center / contain;
       }
       &.plus {
         right: 50%;

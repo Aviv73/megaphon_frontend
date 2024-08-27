@@ -117,7 +117,7 @@ export default {
           flex-direction: column;
           height: fit-content;
           width: 100%;
-          gap: 0;
+          gap: 0 !important;
         }
         .nav-item {
           width: 100%;
@@ -129,6 +129,7 @@ export default {
           border-radius: unset;
           border-bottom: 1px solid var(--clr-0); // black
           text-align: center;
+          color: var(--clr-2);
           &.router-link-exact-active {
             // color: #EF4B49;
           }
