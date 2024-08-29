@@ -115,3 +115,28 @@ h4 {
     background-color: rgb(83, 83, 83); // rgb(228, 59, 59)
   }
 }
+
+
+.table-like-list {
+  display: flex;
+  flex-direction: column;
+  .item-list {
+    gap: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: $light-shadow;
+  }
+  .table-item-preview {
+    display: flex;
+    align-items: center;
+    >* {
+      flex: 1;
+      // max-width: rem(200px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &.flex-2 {
+        flex: 2;
+      }
+    }
+  }
+}

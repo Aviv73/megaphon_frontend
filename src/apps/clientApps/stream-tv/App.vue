@@ -36,7 +36,6 @@ export default {
     },
     isSimpleReleasePage() {
       if (this.$route.name !== 'ReleaseDetails') return false;
-      console.log(!this.$store.getters['release/selectedItem']?.releaseData?.childrenReleases)
       return !this.$store.getters['release/selectedItem']?.releaseData?.childrenReleases;
     }
   },

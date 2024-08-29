@@ -102,6 +102,10 @@ const en = {
   "directLink": "Direct link",
   toDetails: "To details",
 
+  "day": "Day",
+  "hour": "Hour",
+  "channel": "Channel"
+
   // "cantUploadFileError": "Cant upload file"
 
 }
@@ -205,6 +209,10 @@ const he = {
 
   "directLink": "קישור ישיר",
   toDetails: "לפרטים",
+  
+  "day": "יום",
+  "hour": "שעה",
+  "channel": "ערוץ"
 
   // "cantUploadFileError": "המערכת נכשלה לשמור את הקובץ"
 }

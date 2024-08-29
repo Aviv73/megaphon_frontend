@@ -108,9 +108,9 @@ export default {
         gap: 0;
         flex-direction: column;
         justify-content: flex-start;
-        border-inline-start: 1px solid var(--clr-0);
+        border-inline-start: 1px solid var(--clr-2);
   
-        background-color: var(--clr-1);
+        background-color: var(--clr-3);
   
         .nav-items {
           display: flex;
@@ -130,6 +130,7 @@ export default {
           border-bottom: 1px solid var(--clr-0); // black
           text-align: center;
           color: var(--clr-2);
+          background-color: var(--clr-3);
           &.router-link-exact-active {
             // color: #EF4B49;
           }

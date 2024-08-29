@@ -7,7 +7,7 @@
         </template>
         <!-- <template  v-if="lastSeenGroupRelease"> -->
           <router-link
-            v-for="(tabName, idx) in ['main', 'monthlySummary', 'archive', 'broadcastTimes' ]" :key="tabName"
+            v-for="(tabName, idx) in ['main', 'monthlySummary', 'archive', hasBroadcasts && 'broadcastTimes' ].filter(Boolean)" :key="tabName"
             class="nav-item tab-name-nav-item"
             :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName } }"
             :class="{ selected: ($route.params.tabName === tabName) || (!idx && !$route.params.tabName) }"
@@ -70,6 +70,10 @@ export default {
     },
     isScreenWide() {
       return this.$store.getters.isScreenWide;
+    },
+
+    hasBroadcasts() {
+      return this.lastSeenGroupRelease?.releaseData.childrenReleases.some(c => c.releaseData.broadcastTimes?.length);
     }
   }
 }
@@ -192,6 +196,10 @@ export default {
           // }
           .nav-burger {
             color: white;
+          }
+          .nav-item {
+            background-color: ar(--clr-1);
+            color: var(clr-4);
           }
         }
       }

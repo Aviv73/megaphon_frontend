@@ -3,32 +3,51 @@
   <section class="group-release-details flex column gap20 height-all">
     <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(releaseData.mainImage, release))}')`, 'background-size': 'cover' }"> -->
     <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
-    <div class="page-like-section container flex column gap50" v-if="tabName === 'monthlySummary'">
-      <!-- <h2>{{$t('release.monthlySummary')}}</h2> -->
+    <div class="page-like-section container flex column gap20 width-all" v-if="tabName === 'monthlySummary'">
+      <h2>{{$t('release.monthlySummary')}}</h2>
       <ul class="flex column gap30">
-        <li class="release-summary-preview flex gap10" v-for="release in releaseData.childrenReleases.filter(c => c.releaseData?.mainImage)" :key="release._id">
+        <li class="release-summary-preview flex gap10" v-for="cRelease in releaseData.childrenReleases" :key="cRelease._id">
           <div class="flex-1 summery-image_">
-            <img :src="fixFileSrcToThumbnail(releaseData.mainImage, release)"/>
+            <img :src="fixFileSrcToThumbnail(releaseData.mainImage, cRelease)"/>
           </div>
           <div class="flex-2 flex column gap10 space-between">
             <div class="flex column gap10">
-              <h3>{{release.releaseData.title}}</h3>
-              <p v-html="release.releaseData.content"></p>
+              <h3>{{cRelease.releaseData.title}}</h3>
+              <p v-html="cRelease.releaseData.content"></p>
             </div>
-            <router-link class="underline bold clr-4" :to="getChildRoute(release)">{{$t('toDetails')}}</router-link>
+            <router-link class="underline bold clr-4" :to="getChildRoute(cRelease)">{{$t('toDetails')}}</router-link>
           </div>
         </li>
       </ul>
     </div>
-    <div class="page-like-section container flex column gap50" v-else-if="tabName === 'broadcastTimes'">
-      <!-- <h2>{{$t('release.broadcastTimes')}}</h2> -->
+    <div class="page-like-section container flex column gap20 width-all" v-else-if="tabName === 'broadcastTimes'">
+      <h2>{{$t('release.broadcastTimes')}}</h2>
+      <ul class="flex column gap30">
+        <li class="flex column gap10" v-for="cRelease in releaseData.childrenReleases.filter(c => c.releaseData.broadcastTimes?.length)" :key="cRelease._id">
+          <h4>{{cRelease.releaseData.title}}</h4>
+          <div class="table-like-list gap5">
+            <div class="table-item-preview table-header">
+              <p class="flex-1">{{$t('date')}}</p>
+              <p class="flex-1">{{$t('day')}}</p>
+              <p class="flex-1">{{$t('hour')}}</p>
+              <p class="flex-1">{{$t('channel')}}</p>
+            </div>
+            <div class="table-item-preview" v-for="(bt, idx) of cRelease.releaseData.broadcastTimes" :key="idx">
+              <p class="flex-1">{{bt.dateTxt}}</p>
+              <p class="flex-1">{{bt.dayTxt}}</p>
+              <p class="flex-1">{{bt.hourTxt}}</p>
+              <p class="flex-1">{{bt.channel}}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="page-like-section container width-all flex column gap50" v-else-if="tabName === 'archive'">
+    <div class="page-like-section container width-all flex column gap20 width-all" v-else-if="tabName === 'archive'">
       <!-- <h2>{{$t('release.archive')}}</h2> -->
       <ul class="archive-section flex align-center-wrap-justify-center gap20">
-          <li v-for="release in archiveReleases" :key="release._id">
-            <router-link :to="{name: 'ReleaseDetails', params: { id: release._id } }">
-              {{release.releaseData.title}}
+          <li v-for="cRelease in archiveReleases" :key="cRelease._id">
+            <router-link :to="{name: 'ReleaseDetails', params: { id: cRelease._id } }">
+              {{cRelease.releaseData.title}}
             </router-link>
           </li>
         </ul>
@@ -67,9 +86,9 @@
           <h3>{{$t('archive')}}</h3>
         </div>
         <ul class="archive-section flex align-center-wrap-justify-center gap20">
-          <li v-for="release in archiveReleases" :key="release._id">
-            <router-link :to="{name: 'ReleaseDetails', params: { id: release._id } }">
-              {{release.releaseData.title}}
+          <li v-for="cRelease in archiveReleases" :key="cRelease._id">
+            <router-link :to="{name: 'ReleaseDetails', params: { id: cRelease._id } }">
+              {{cRelease.releaseData.title}}
             </router-link>
           </li>
         </ul>

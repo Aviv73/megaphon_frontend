@@ -16,43 +16,26 @@ html {
 }
 
 
+
 .megaphon-app {
-  .table-like-list {
-    .item-page {
-      overflow: unset;
-    }
+  .item-page {
+    overflow: unset;
+  }
+  
+  .table-item-preview {
+    width: 100%;
+    min-height: em(40px);
+    padding: 0 em(10px);
     
-    .item-list {
-      gap: 0;
-      flex-direction: column;
-      justify-content: flex-start;
-      box-shadow: $light-shadow;
+    &:nth-child(odd) {
+      background-color: #EFEFEF;
     }
-    .table-item-preview {
-      width: 100%;
-      min-height: em(40px);
-      display: flex;
-      align-items: center;
-      padding: 0 em(10px);
-      >* {
-        flex: 1;
-        // max-width: rem(200px);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        &.flex-2 {
-          flex: 2;
-        }
-      }
-      &:nth-child(odd) {
-        background-color: #EFEFEF;
-      }
-      &:nth-child(even) {
-        background-color: var(--clr-1);
-      }
-      &.table-header {
-        background-color: var(--clr-0);
-        color: var(--clr-1);
-      }
+    &:nth-child(even) {
+      background-color: var(--clr-1);
+    }
+    &.table-header {
+      background-color: var(--clr-0);
+      color: var(--clr-1);
     }
   }
   

@@ -166,6 +166,7 @@ export default {
       .nav-or-burger.mobileView {
         .nav-item {
           background-color: $layout-black;
+          color: white;
         }
         flex: unset;
         nav {
