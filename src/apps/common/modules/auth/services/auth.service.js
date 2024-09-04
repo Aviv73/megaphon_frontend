@@ -13,7 +13,7 @@ export const authService = {
 }
 
 function login(cred, orgId = '') {
-  return httpService.post(`${ENDPOINT}/login/${orgId}`, cred);
+  return httpService.post(`${ENDPOINT}/login/${orgId || ''}`, cred);
 }
 function logout() {
   return httpService.post(`${ENDPOINT}/logout`);
