@@ -8,7 +8,7 @@
       <ul class="flex column gap30">
         <li class="release-summary-preview flex gap10" v-for="cRelease in releaseData.childrenReleases" :key="cRelease._id">
           <div class="flex-1 summery-image_">
-            <img :src="fixFileSrcToThumbnail(releaseData.mainImage, cRelease)"/>
+            <img :src="fixFileSrcToThumbnail(cRelease.releaseData.mainImage, cRelease)"/>
           </div>
           <div class="flex-2 flex column gap10 space-between">
             <div class="flex column gap10">
