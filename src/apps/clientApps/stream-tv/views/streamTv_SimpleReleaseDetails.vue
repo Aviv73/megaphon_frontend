@@ -1,5 +1,5 @@
 <template>
-  <section v-if="release" class="simple-release-details flex column gap50">
+  <section v-if="release" class="simple-release-details flex column gap30">
     <img class="hero-img" :src="fixFileSrcToThumbnail(release.releaseData.mainImage, release)" :alt="release.title"/>
     <div class="inner-container flex column space-between flex-1 gap30">
       <ReleaseTabView :release="release" :tabView="true"/>
@@ -10,7 +10,9 @@
       <div class="ph"></div>
     </div>
     <router-link v-if="lastSeenGroupRelease" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease._id} }">
-      <button class="back-btn"> < </button>
+      <button class="back-btn"> 
+        <div class="img" v-html="arrowImg"></div>
+      </button>
     </router-link>
   </section>
 </template>
@@ -19,6 +21,7 @@
 import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 import ReleaseTabView from '../../../common/modules/release/cmps/ReleaseTabView.vue';
 
+import  { getSvgs } from '@/assets/images/svgs.js';
 export default {
   components: { ReleaseTabView },
   name: 'streamTv_SimpleReleaseDetails',
@@ -34,6 +37,9 @@ export default {
   computed: {
     lastSeenGroupRelease() {
       return this.$store.getters['release/lastSeenGroupRelease'];
+    },
+    arrowImg() {
+      return getSvgs('black').arrowDown;
     }
   },
   async created() {
@@ -126,6 +132,9 @@ export default {
       }
     }
 
+    // .content-display {
+    // }
+
     .back-btn {
       width: em(50px);
       height: em(50px);
@@ -136,6 +145,18 @@ export default {
       right: em(10px);
       transform: translateY(-50%);
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .img {
+        width: rem(25px);
+        height: rem(25px);
+        transform: rotate(-90deg) translateY(#{rem(2px)});
+        svg {
+          height: 100%;
+          width: 100%;
+        }
+      }
     }
   }
 }

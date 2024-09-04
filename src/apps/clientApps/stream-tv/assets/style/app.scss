@@ -1,24 +1,25 @@
 @import '@/assets/styles/global/index';
 
-// $defaultAppFont: Segoe UI;
-$defaultAppFont: Rubik,sans-serif;;
-
-$main-font-color: #666666;
-
-
-html {
-  font-family: $defaultAppFont;
-  font-weight: 500;
+@font-face {
+  font-family: "Inter";
+  src: url("~@/apps/clientApps/stream-tv/assets/fonts/inter/Inter_18pt-Regular.ttf");
+}
+@font-face {
+  font-family: "Arimo";
+  src: url("~@/apps/clientApps/stream-tv/assets/fonts/Arimo/Arimo-Medium.ttf");
 }
 
-
-$layout-red: #EF4B49;
+// $defaultAppFont: Segoe UI;
+$defaultAppFont: Inter, Arimo, Rubik, sans-serif;
 
 
 // $app-aside-width: rem(120px);
 
 .streamTv-app {
-  // color: $main-font-color;
+  --aside-width: 170px;
+  p {
+    line-height: 1.4em;
+  }
   font-family: $defaultAppFont;
   font-weight: 500;
 

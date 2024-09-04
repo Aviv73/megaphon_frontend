@@ -5,7 +5,7 @@
         <template v-slot:header>
           <LoggedUserPreview class="small-screen-item to-the-right_" :viewAsModal="false"/>
         </template>
-        <!-- <template  v-if="lastSeenGroupRelease"> -->
+        <template  v-if="lastSeenGroupRelease">
           <router-link
             v-for="(tabName, idx) in ['main', 'monthlySummary', 'archive', hasBroadcasts && 'broadcastTimes' ].filter(Boolean)" :key="tabName"
             class="nav-item tab-name-nav-item"
@@ -22,7 +22,7 @@
             </span>
           </router-link>
           <CostumeNavBar class="small-screen-item"/>
-        <!-- </template> -->
+        </template>
       </NavOrBurger>
 
       <div class="ph" v-show="lastSeenGroupRelease"></div>

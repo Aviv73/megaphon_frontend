@@ -124,12 +124,15 @@ export const getSvgs = (color) => ({
     `
   },
   sliderBtn: `<?xml version="1.0" encoding="iso-8859-1"?>
-  <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-  <svg fill="${color}" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-    viewBox="0 0 330 330" xml:space="preserve">
-  <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
-    c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
-    C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
-    C255,161.018,253.42,157.202,250.606,154.389z"/>
+    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+    <svg fill="${color}" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+      viewBox="0 0 330 330" xml:space="preserve">
+    <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
+      c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+      C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+      C255,161.018,253.42,157.202,250.606,154.389z"/>
+  </svg>`,
+  arrowDown: `<svg width="10" height="8" viewBox="0 0 10 8" fill="${color}" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.11716 2.76462C2.27337 2.63445 2.52663 2.63445 2.68284 2.76462L4.8 4.52892L6.91716 2.76462C7.07337 2.63445 7.32663 2.63445 7.48284 2.76462C7.63905 2.8948 7.63905 3.10585 7.48284 3.23603L5.08284 5.23603C4.92663 5.3662 4.67337 5.3662 4.51716 5.23603L2.11716 3.23603C1.96095 3.10585 1.96095 2.8948 2.11716 2.76462Z" fill="${color}" stroke="${color}" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`
 });

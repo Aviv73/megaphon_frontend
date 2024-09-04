@@ -52,7 +52,7 @@
           </li>
         </ul>
     </div>
-    <div v-else class="inner-container_ flex column gap10">
+    <div v-else class="inner-container_ flex column gap10 width-all">
       <!-- <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases"/> -->
       <div class="items-section" v-if="mostWatchedReleases?.length">
         <div class="headline">
@@ -174,6 +174,7 @@ export default {
 @import '@/assets/styles/global/index';
 @import '../assets/style/index';
 .streamTv-app {
+  max-width: 100%;
   .page-like-section {
     // padding-top: $main-pad-y;
     // padding: em(100px) em(20px);
@@ -181,8 +182,10 @@ export default {
   }
   .group-release-details {
     padding-bottom: $main-pad-y;
-  
-    max-width: 100%;
+    max-width: calc(100vw - var(--aside-width));
+    @media (max-width: $small-screen-breake) {
+      max-width: 100vw;
+    }
     width: 100%;
     .items-section {
       display: flex;
@@ -210,10 +213,18 @@ export default {
       }
       .item-list {
         justify-content: flex-start;
-        // flex-wrap: nowrap;
         gap: em(10px);
+        
         max-width: 100%;
+        flex-wrap: nowrap;
+        overflow-y: unset;
         overflow-x: auto;
+
+        @include prettyScroll;
+        &::-webkit-scrollbar {
+          height: 0;
+          visibility: hidden;
+        }
       }
     }
 

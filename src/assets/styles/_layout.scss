@@ -37,10 +37,10 @@
 
 
 .main-pad-y {
-  padding-top: $main-pad-y;
-  padding-bottom: $main-pad-y;
-  &.no-pad-bottom {
-    padding-bottom: 0;
+  padding-top: $main-pad-y !important;
+  &:not(.no-pad-bottom) {
+    padding-bottom: $main-pad-y !important;
+    // padding-bottom: 0;
   }
 }
 
@@ -121,6 +121,7 @@ html.accessability {
   margin: 0 auto;
   // padding: 10px 20px;
   max-width: 1500px;
+  padding: 0 10px;
 } 
 // @media (max-width: $big-screen-breake) {
 //   .container {
@@ -140,6 +141,7 @@ html.accessability {
   margin: 0 auto;
   max-width: 1100px;
   width: 100%;
+  padding: 0 10px;
 }
 
 

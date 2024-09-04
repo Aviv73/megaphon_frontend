@@ -212,6 +212,9 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .main-sidebar-view {
+    @media (min-width: $small-screen-breake) {
+      padding-inline-start: 0;
+    }
     >* {
       // padding: em(10px);
     }

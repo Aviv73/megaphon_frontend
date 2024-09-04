@@ -51,6 +51,14 @@ export default {
 @import '@/assets/styles/global/index';
 .agam-app {
   .app-footer {
+    .content {
+      .inner-container {
+        padding: 0;
+      }
+    }
+    .right, .left, {
+      padding: 0 10px;
+    }
     .inner-area {
       padding: em(20px);
       @media (max-width: $small-screen-breake) {
@@ -76,12 +84,12 @@ export default {
     .right {
       flex: 1;
       background-color: $layout-black;
-      padding-inline-start: 0;
+      // padding-inline-start: 0;
     }
     .left {
       flex: 2;
       background-color: $layout-red;
-      padding-inline-end: 0;
+      // padding-inline-end: 0;
     }
   
     .contact-list {

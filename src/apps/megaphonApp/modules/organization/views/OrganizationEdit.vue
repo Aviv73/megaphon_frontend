@@ -9,7 +9,7 @@
       </div>
       <div class="flex column gap20">
         <p>{{$t('organization.logo')}}</p>
-        <FileUploader v-if="organizationToEdit._id" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="{src: organizationToEdit.logo}" @input="val => imgUploaded(val, 'logo')" :rootItem="organizationToEdit"/>
+        <FileUploader v-if="organizationToEdit._id" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="organizationToEdit.logo" @input="val => imgUploaded(val, 'logo')" :rootItem="organizationToEdit"/>
         <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
       </div>
 

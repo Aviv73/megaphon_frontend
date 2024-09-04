@@ -49,7 +49,7 @@ export default {
     color: var(--clr-0);
     top: 0;
     max-height: 100vh;
-    width: em(170px);
+    width: var(--aside-width);
     font-size: em(13px);
     .org-logo {
       
