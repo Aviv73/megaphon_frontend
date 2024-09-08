@@ -2,7 +2,7 @@
   <header class="app-header flex align-center">
     <div class="container_ header-content height-all width-all flex align-center space-between" v-if="lastSeenGroupRelease || !isScreenWide">
       <NavOrBurger :showBurger="!!allRouteFilters.length" side="right">
-        <template v-slot:header>
+        <template v-slot:header v-if="org?.requireAuth">
           <LoggedUserPreview class="small-screen-item to-the-right_" :viewAsModal="false"/>
         </template>
         <template  v-if="lastSeenGroupRelease">

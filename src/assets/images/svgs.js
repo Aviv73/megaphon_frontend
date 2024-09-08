@@ -134,5 +134,8 @@ export const getSvgs = (color) => ({
   </svg>`,
   arrowDown: `<svg width="10" height="8" viewBox="0 0 10 8" fill="${color}" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M2.11716 2.76462C2.27337 2.63445 2.52663 2.63445 2.68284 2.76462L4.8 4.52892L6.91716 2.76462C7.07337 2.63445 7.32663 2.63445 7.48284 2.76462C7.63905 2.8948 7.63905 3.10585 7.48284 3.23603L5.08284 5.23603C4.92663 5.3662 4.67337 5.3662 4.51716 5.23603L2.11716 3.23603C1.96095 3.10585 1.96095 2.8948 2.11716 2.76462Z" fill="${color}" stroke="${color}" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
+  search: `<svg id="search" xmlns="http://www.w3.org/2000/svg" width="19.993" height="19.994" viewBox="0 0 19.993 19.994">
+    <path id="Path_360" data-name="Path 360" d="M20.727,19.442l-5.164-5.164a8.2,8.2,0,1,0-1.285,1.285l5.164,5.164a.909.909,0,1,0,1.285-1.285ZM9.179,15.54A6.361,6.361,0,1,1,15.54,9.179,6.368,6.368,0,0,1,9.179,15.54Z" transform="translate(-1 -1)" fill="${color}"/>
   </svg>`
 });

@@ -141,7 +141,7 @@ export default {
           width: em(30px);
           height: em(30px);
         }
-        img, .img, svg {
+        img, .img {
           width: 100%;
           height: 100%;
           color: var(--clr-4);

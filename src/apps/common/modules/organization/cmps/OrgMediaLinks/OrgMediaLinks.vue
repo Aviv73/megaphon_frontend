@@ -3,7 +3,7 @@
     <li v-for="link in mediaLinks" :key="link.id">
       <a :href="link.src" target="_blank" class="hover-pop">
         <!-- <img :src="require(`@/assets/images/media/${link.type}.svg`)" alt=""> -->
-        <div class="img" v-html="mediaSvgs[link.type]"></div>
+        <div class="img svg-parrent" v-html="mediaSvgs[link.type]"></div>
       </a>
     </li>
   </ul>
@@ -40,7 +40,7 @@ export default {
     display: inline-block;
     width: em(30px);
     height: em(30px);
-    img, .img, svg {
+    img, .img {
       width: 100%;
       height: 100%;
     }

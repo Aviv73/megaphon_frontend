@@ -449,7 +449,7 @@ export default {
       font-weight: 400;
       display: flex;
       align-items: center;
-      padding: 0 em(5px);
+      // padding: 0 em(5px);
       width: 100%;
       // height: 100%;
       border: em(1px) solid $borderColor;

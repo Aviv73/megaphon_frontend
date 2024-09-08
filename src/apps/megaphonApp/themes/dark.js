@@ -9,8 +9,11 @@ export default {
   fonts: [],
   css: elementService.dataToCss('.megaphon-app', {
     'input, select, textarea': {
-      'background-color': 'rgba(255, 255, 255, 0.2)',
-       color: 'white'
+      // 'background-color': 'rgba(255, 255, 255, 0.2)',
+      //  color: 'white',
+      'background-color': 'black',
+       color: 'white',
+       'color-scheme': 'dark'
     },
     '.btn': {
       '&:not(.clear)': {
@@ -46,22 +49,22 @@ export default {
         color: 'black'
       }
     },
-    '.app-form-styling': {
-      'input, textarea': {
-        'background-color': '#4d4d4d',
-        // color: white;
-        '&::placeholder, .placeholder': {
-          color: 'rgba(255, 255, 255, 0.6)'
-        }
-      },
-      '.select': {
-        'background-color': '#4d4d4d !important',
-        color: 'white',
-        '.drop-down': {
-          color: '#0084D4'
-        } 
-      }
-    },
+    // '.app-form-styling': {
+    //   'input, textarea': {
+    //     'background-color': '#4d4d4d',
+    //     // color: white;
+    //     '&::placeholder, .placeholder': {
+    //       color: 'rgba(255, 255, 255, 0.6)'
+    //     }
+    //   },
+    //   '.select': {
+    //     'background-color': '#4d4d4d !important',
+    //     color: 'white',
+    //     '.drop-down': {
+    //       color: '#0084D4'
+    //     } 
+    //   }
+    // },
 
 
     '.logged-user-preview': {
@@ -118,6 +121,9 @@ export default {
         '&.reg': { display: 'none' },
         '&.dark': { display: 'unset' }
       }
+    },
+    '.modal': {
+      'color': 'black !important'
     }
   }, true)
 }

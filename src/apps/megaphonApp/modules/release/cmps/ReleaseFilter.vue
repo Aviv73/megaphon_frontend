@@ -32,7 +32,8 @@
     </ToggleModalOnlyForSmallScreen>
     <FormInput class="search" placeholder="search" v-model="filterBy.filter.search" iconPos="left">
       <button>
-        <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
+        <div v-html="searchImg" class="filter-icon-img svg-parrent"></div>
+        <!-- <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/> -->
       </button>
     </FormInput>
     <!-- <button @click="emitFilter">{{$t('filter')}}</button> -->
@@ -45,6 +46,8 @@ import evManager from '@/apps/common/modules/common/services/event-emmiter.servi
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 import { organizationService } from '../../organization/services/organization.service';
 import ToggleModalOnlyForSmallScreen from '../../../../common/modules/common/cmps/ToggleModalOnlyForSmallScreen.vue';
+
+import  { getSvgs } from '@/assets/images/svgs.js';
 export default {
   name: 'ReleaseFilter',
   props: {
@@ -111,6 +114,11 @@ export default {
         return parsedFolders;
       }
       return parseFolders(this.org?.folders) || []
+    },
+
+    
+    searchImg() {
+      return getSvgs('var(--clr-0)').search;
     }
   },
   methods: {

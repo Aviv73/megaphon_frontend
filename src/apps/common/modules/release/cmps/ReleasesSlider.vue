@@ -24,7 +24,7 @@
     </div>
     <button v-if="viewMoveBtns" class="arrow-btn minus" @click="shiftChild(1)">
       <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'"> -->
-      <div class="img" v-html="sliderBtnImg"></div>
+      <div class="img svg-parrent" v-html="sliderBtnImg"></div>
     </button>
   </div>
 </template>
@@ -192,7 +192,7 @@ export default {
     // box-shadow: $light-shadow;
     overflow: hidden;
     position: absolute;
-    .img, svg {
+    .img {
       width: 100%;
       height: 100%;
       // img {

@@ -11,7 +11,7 @@
     </div>
     <router-link v-if="lastSeenGroupRelease" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease._id} }">
       <button class="back-btn"> 
-        <div class="img" v-html="arrowImg"></div>
+        <div class="img svg-parrent" v-html="arrowImg"></div>
       </button>
     </router-link>
   </section>
@@ -152,10 +152,6 @@ export default {
         width: rem(25px);
         height: rem(25px);
         transform: rotate(-90deg) translateY(#{rem(2px)});
-        svg {
-          height: 100%;
-          width: 100%;
-        }
       }
     }
   }

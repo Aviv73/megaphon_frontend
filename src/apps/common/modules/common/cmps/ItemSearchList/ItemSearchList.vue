@@ -36,7 +36,7 @@ import PaginationBtns from './PaginationBtns.vue';
 import Loader from '../Loader.vue';
 import { setDeepVal, deepIterateWithObj } from '../../services/util.service';
 
-// import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
+import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
 export default {
   name: 'ItemSearchList',
@@ -113,6 +113,13 @@ export default {
     }
   },
   methods: {
+    fillFilterBy(filterItem) {
+      const basicFilterItem = basicStoreService.initFilterBy();
+      for (let key in basicFilterItem) {
+        if (!filterItem[key]) filterItem[key] = basicFilterItem[key];
+      }
+      return filterItem;
+    },
     setFilterOnQuery(filterBy) {
       const query = {};
       deepIterateWithObj(filterBy, (key, val) => {
@@ -128,7 +135,7 @@ export default {
       this.filterBy = newFilter;
     },
     initFilter(forceQuery = true) { // TODO:: IT SETS A NEW FILTER BY EVEN IF THERE IS A CHANGE ONLY IN A QUERY PARAM THAT IS NOT RELATED TO THE FILTER QUER PARAMS;
-      const filterByToSet = JSON.parse(JSON.stringify(this.initFilterBy));
+      const filterByToSet = this.fillFilterBy(JSON.parse(JSON.stringify(this.initFilterBy)));
       if (!this.dontRoute) {
         const queryParams = this.$route.query;
         for (let key in queryParams) {

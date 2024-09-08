@@ -56,7 +56,7 @@
       <!-- <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases"/> -->
       <div class="items-section" v-if="mostWatchedReleases?.length">
         <div class="headline">
-          <div class="img" v-html="icons.eye"></div>
+          <div class="img svg-parrent" v-html="icons.eye"></div>
           <h3>{{$t('release.mostWatched')}}</h3>
         </div>
         <ItemList
@@ -69,7 +69,7 @@
       </div>
       <div class="items-section">
         <div class="headline">
-          <div class="img" v-html="icons.new"></div>
+          <div class="img svg-parrent" v-html="icons.new"></div>
           <h3>{{$t('release.newReleases')}}</h3>
         </div>
         <ItemList
@@ -82,7 +82,7 @@
       </div>
       <div class="items-section">
         <div class="headline">
-          <div class="img" v-html="icons.archive"></div>
+          <div class="img svg-parrent" v-html="icons.archive"></div>
           <h3>{{$t('archive')}}</h3>
         </div>
         <ul class="archive-section flex align-center-wrap-justify-center gap20">
@@ -194,7 +194,7 @@ export default {
       max-width: 100%;
       width: 100%;
       .headline {
-        .img, svg {
+        .img {
           width: em(25px);
           height: em(25px);
         }
