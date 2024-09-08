@@ -82,81 +82,12 @@
         <button @click="AddMediaLinkItem" class="btn big">{{$t('add')}}</button>
       </div>
 
-      <div class="flex column gap20 align-start">
-        <p>{{$t('organization.designPreferences')}}</p>
-        <div class="flex column gap20"> 
-          <p>Megaphon app</p>
-          <div v-for="theme in organizationToEdit.designPreferences.producerApp" :key="theme.id" class="flex column gap10">
-            <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
-            <div class="input-container flex gap20">
-              <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
-              <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
-            </div>
-            <div class="input-container flex gap20">
-              <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
-              <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
-            </div>
-            <div class="input-container">
-              <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
-              <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
-            </div>
-            <ToggleModal :fullScreen="true" class="code-edit-modal">
-              <template #toggler>
-                <div class="btn">
-                  {{$t('css')}}
-                </div>
-              </template>
-              <template #content>
-                <FormInput type="textarea" class="ltr" placeholder="editCssCode" v-model="theme.css"/>
-              </template>
-            </ToggleModal>
-          </div>
-        </div>
-        <div class="flex column gap20">
-          <p>Client app</p>
-          <div v-for="theme in organizationToEdit.designPreferences.clientApp" :key="theme.id" class="flex column gap10">
-            <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
-            <div class="input-container flex gap20">
-              <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
-              <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
-            </div>
-            <div class="input-container flex gap20">
-              <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
-              <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
-            </div>
-            <div class="input-container">
-              <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
-              <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
-            </div>
-            <ToggleModal :fullScreen="true" class="code-edit-modal">
-              <template #toggler>
-                <div class="btn">
-                  {{$t('css')}}
-                </div>
-              </template>
-              <template #content>
-                <FormInput type="textarea" class="ltr" placeholder="editCssCode" v-model="theme.css"/>
-              </template>
-            </ToggleModal>
-          </div>
-        </div>
-        <div class="flex column gap20 align-start">
-          <p>{{$t('organization.loginPagePreferences')}}</p>
-          <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
-          <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
-          <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
-          <FormInput type="textarea" labelholder="organization.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
-        </div>
-        <div class="flex column gap20 align-start">
-          <p>{{$t('organization.contactMsg')}}</p>
-          <FormInput type="text" labelholder="organization.contactMsg" v-model="organizationToEdit.designPreferences.contactMsg"/>
-        </div>
-      </div>
 
-      <div class="flex column gap50">
+      <div class="flex column gap50" v-if="loggedUser?.roles.includes('developer')">
         <button class="btn big secondary align-self-start"><span @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</span></button>
         <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
+          
           <div class="flex column gap20">
             <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
             <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
@@ -165,6 +96,79 @@
             <FormInput type="checkbox" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
           </div>
           <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
+
+          
+          <div class="flex column gap20 align-start">
+            <p>{{$t('organization.designPreferences')}}</p>
+            <div class="flex column gap20"> 
+              <p>Megaphon app</p>
+              <div v-for="theme in organizationToEdit.designPreferences.producerApp" :key="theme.id" class="flex column gap10">
+                <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
+                <div class="input-container flex gap20">
+                  <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
+                  <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
+                </div>
+                <div class="input-container flex gap20">
+                  <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
+                  <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
+                </div>
+                <div class="input-container">
+                  <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
+                  <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
+                </div>
+                <ToggleModal :fullScreen="true" class="code-edit-modal">
+                  <template #toggler>
+                    <div class="btn">
+                      {{$t('css')}}
+                    </div>
+                  </template>
+                  <template #content>
+                    <FormInput type="textarea" class="ltr" placeholder="editCssCode" v-model="theme.css"/>
+                  </template>
+                </ToggleModal>
+              </div>
+            </div>
+            <div class="flex column gap20">
+              <p>Client app</p>
+              <div v-for="theme in organizationToEdit.designPreferences.clientApp" :key="theme.id" class="flex column gap10">
+                <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
+                <div class="input-container flex gap20">
+                  <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
+                  <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
+                </div>
+                <div class="input-container flex gap20">
+                  <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
+                  <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
+                </div>
+                <div class="input-container">
+                  <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
+                  <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
+                </div>
+                <ToggleModal :fullScreen="true" class="code-edit-modal">
+                  <template #toggler>
+                    <div class="btn">
+                      {{$t('css')}}
+                    </div>
+                  </template>
+                  <template #content>
+                    <FormInput type="textarea" class="ltr" placeholder="editCssCode" v-model="theme.css"/>
+                  </template>
+                </ToggleModal>
+              </div>
+            </div>
+            <div class="flex column gap20 align-start">
+              <p>{{$t('organization.loginPagePreferences')}}</p>
+              <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
+              <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
+              <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
+              <FormInput type="textarea" labelholder="organization.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
+            </div>
+            <div class="flex column gap20 align-start">
+              <p>{{$t('organization.contactMsg')}}</p>
+              <FormInput type="text" labelholder="organization.contactMsg" v-model="organizationToEdit.designPreferences.contactMsg"/>
+            </div>
+          </div>
+
           <div class="route-filters-section flex column gap20 align-start">
             <p>{{$t('organization.routes')}}</p>
             <ul class="flex column gap10 table-like">
