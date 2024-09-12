@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loggedUser" class="logged-user-preview flex align-center space-between gap5">
+  <div v-if="loggedUser" :style="{'--preview-clr': theme?.colors?.[1] || 'black'}" class="logged-user-preview flex align-center space-between gap5">
     <span class="wellcome-msg">{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
     <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">
       <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
@@ -35,9 +35,12 @@ export default {
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
     },
+    theme() {
+      return this.$store.getters.selectedTheme;
+    },
     avatarIco() {
-      const theme = this.$store.getters.selectedTheme;
-      const clr = theme?.colors?.[1] || 'black';
+      // const clr = theme?.colors?.[1] || 'black';
+      const clr = 'var(--preview-clr)';
       return getSvgs(clr).icons.avatar; 
     }
   },
@@ -63,7 +66,7 @@ export default {
 // .megaphon-app {
   .logged-user-preview {
     background-color: var(--clr-4); //black
-    color: var(--clr-1);
+    color: var(--preview-clr);
     // padding: em(10px);
     width: 100%;
     // .avatar {

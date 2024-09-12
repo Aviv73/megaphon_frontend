@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-page flex column gap10">
+  <div class="settings-page flex column gap10 main-pad-y">
     <h2>{{$t('settings.settings')}}</h2>
     <!-- <pre>{{settings}}</pre>
     <form @submit.prevent="saveSettings">

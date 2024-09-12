@@ -133,7 +133,7 @@ function isAccountAuthorizedToRoute(account, org, routeItemIdOrName) {
 }
 
 function getOnlyOrgsToShow(orgs, appConfig) { // vue method
-  if (appConfig.appOrganizationId) return [orgs.find(c => [c._id, c.domain].includes(appConfig.appOrganizationId))].filter(Boolean);
+  if (appConfig.singleOrgMode) return [orgs.find(c => [c._id, c.domain].includes(appConfig.appOrganizationId))].filter(Boolean);
   if (this.$store.getters['auth/isWatchOnly']) {
     return orgs.filter(c => !c.isStandAlone);
   }

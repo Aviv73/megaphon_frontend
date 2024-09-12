@@ -29,6 +29,9 @@ export default {
     organizations() {
       return this.$store.getters['organization/items'].reverse();
     },
+    isSingleOrgMode() {
+      return appConfig.singleOrgMode;
+    },
     organizationsToShow() {
       return this.getOnlyOrgsToShow(this.organizations, appConfig);
       // if (appConfig.appOrganizationId) return [this.organizations.find(c => [c._id, c.domain].includes(appConfig.appOrganizationId))].filter(Boolean);
@@ -45,6 +48,9 @@ export default {
     },
     isUserWatchOnly() {
       return this.$store.getters['auth/isWatchOnly'];
+    },
+    isScreenWide() {
+      return this.$store.getters.isScreenWide;
     }
   },
   async created() {

@@ -122,7 +122,7 @@ export default {
 
     if (!appConfig.client) {
       await this.initSelectedApp();
-      if (appConfig.appOrganizationId) {
+      if (appConfig.singleOrgMode) {
         appConfig.appOrganization = await this.$store.dispatch({type: 'organization/loadItem', id: appConfig.appOrganizationId, dontSet: true, isToInheritData: true })
         this.$store.commit({ type: 'setRootOrg', org: appConfig.appOrganization, isClient: false });
         this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, false, '.megaphon-app'), selector:  '.megaphon-app' });

@@ -2,7 +2,7 @@
   <div class="releases-slider flex align-center justify-center gap15">
     <button v-if="viewMoveBtns" class="arrow-btn plus" @click="shiftChild(-1)">
       <!-- <img :src="require('@/apps/clientApps/agam/assets/images/pageArrow.svg')" :alt="'>'" style="transform:rotate(180deg)"> -->
-      <div class="img" v-html="sliderBtnImg"></div>
+      <div class="img svg-parrent" v-html="sliderBtnImg"></div>
     </button>
     <div v-if="viewdChildData" class="hero-main flex-1 flex gap30 width-all align-center">
       <img class="main-img" :src="imgToRender" :alt="viewdChildData.title"/>

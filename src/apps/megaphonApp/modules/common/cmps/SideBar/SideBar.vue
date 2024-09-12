@@ -29,7 +29,7 @@
           </li>
         </ul>
         <div class="nav-list-item">
-          <router-link class="nav-list-item item-header flex align-center gap10" :to="{name: 'JoinOrgPage'}">
+          <router-link v-if="!isSingleOrgMode" class="nav-list-item item-header flex align-center gap10" :to="{name: 'JoinOrgPage'}">
             <Avatar :size="25">{{''.slice(0,2)}}</Avatar>
             <p>{{$t('organization.addOrganization')}}</p>
           </router-link>
@@ -73,6 +73,7 @@ import evManager from '@/apps/common/modules/common/services/event-emmiter.servi
 import DropDiv from '../dnd/DropDiv.vue';
 import { organizationService } from '../../../organization/services/organization.service';
 import LoggedUserPreview from '../../../../../common/modules/auth/cmps/LoggedUserPreview.vue';
+import appConfig from '@/appConfig';
 export default {
   components: { Avatar, FoldersNav, DropDiv, LoggedUserPreview },
   name: 'SideBar',
@@ -103,7 +104,11 @@ export default {
     },
     isAdmin() {
       return this.$store.getters['auth/isAdmin'];
-    }
+    },
+    
+    isSingleOrgMode() {
+      return appConfig.singleOrgMode;
+    },
   },
   methods: {
     isRoleInOrg(role) {
@@ -111,7 +116,7 @@ export default {
     },
     isOrgPending(org) {
       // return organizationService.getOrgItemInAccount(this.loggedUser, org._id)?.status === 'pending';
-      organizationService.isOrgPending(org._id, this.loggedUser);
+      return organizationService.isOrgPending(org._id, this.loggedUser);
     },
     selectOrg(org) {
       if (this.isOrgPending(org)) return;

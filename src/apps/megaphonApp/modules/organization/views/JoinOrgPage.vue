@@ -1,5 +1,5 @@
 <template>
-  <div class="flex column align-start gap40 align-center_">
+  <div class="flex column align-start gap40 align-center_ main-pad-y">
     <h2>{{$t('organization.searchOrganizations')}}</h2>
     <div class="join-org-page flex column gap50">
       <SearchInput class="width-content" v-model="searchOrgStr" @change="getOrgs"/>

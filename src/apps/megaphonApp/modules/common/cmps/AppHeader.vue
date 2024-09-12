@@ -1,15 +1,16 @@
 <template>
   <header class="app-header flex align-center ignore-theme-style_">
     <div class="container header-content width-all flex align-center space-between height-all">
-      <router-link v-if="!isUserWatchOnly" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
+      <router-link v-if="!isUserWatchOnly || !selectedOrgId || isSingleOrgMode" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
         <div class="logo-title height-all flex align-center">
           <img class="actual" :src="logoImgSrc" alt="">
         </div>
       </router-link>
-      <FormInput class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect" v-else/>
+      <FormInput v-else class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect"/>
 
 
       <NavOrBurger class="release-actions align-center_ flex gap50 height-all" v-if="showNavContent">
+        <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
         <div class="links nav-items flex align-center gap10 height-all" v-if="isOrgProducer">
           <router-link class="nav-item" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn big primary">
@@ -31,11 +32,18 @@
             {{filterItem.name}}
           </router-link>
         </div>
+        <template v-if="isUserWatchOnly">
+          <button class="nav-item logout-btn" @click="logout">{{$t('auth.logout')}}</button>
+          <router-link class="nav-item edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
+          <router-link class="nav-item org-header flex align-center gap10 small-screen-item" :to="{name: 'SettingsPage'}">
+            <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt="">
+          </router-link>
+        </template>
         <!-- <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
         </div> -->
       </NavOrBurger>
 
-      <div class="flex align-center gap20 height-all ph">
+      <div class="flex align-center gap20 height-all ph wide-screen-item">
         <template v-if="isUserWatchOnly">
           <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
             <!-- <p>{{$t('settings.settings')}}</p> -->
@@ -59,7 +67,7 @@ import { organizationService } from '../../organization/services/organization.se
 import LoggedUserPreview from '../../../../common/modules/auth/cmps/LoggedUserPreview.vue';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import NavOrBurger from '../../../../common/modules/common/cmps/NavOrBurger.vue';
-import appConfig from '../../../../../appConfig';
+import appConfig from '@/appConfig';
 import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 export default {
   name: 'AppHeader',
@@ -70,6 +78,9 @@ export default {
     }
   },
   computed: {
+    isSingleOrgMode() {
+      return appConfig.singleOrgMode;
+    },
     orgId() {
       return this.$route.params.organizationId;
     },
@@ -133,6 +144,11 @@ export default {
 
     isOrgPending(orgId) {
       return organizationService.isOrgPending(orgId, this.loggedUser);
+    },
+
+    async logout() {
+      await this.$store.dispatch('auth/logout');
+      this.$router.push({ name: 'LoginPage' });
     }
   },
   watch: {
@@ -159,14 +175,15 @@ export default {
 
 .megaphon-app {
   .app-header {
-    padding: 0 em(10px);
-    background-color: #F2F2F2;
-    color: black;
+    // padding: 0 em(10px);
+    // background-color: #F2F2F2;
+    // color: black;
     // position: relative;
   
     .header-content {
       width: 100%;
       position: relative;
+      padding-inline-start: 0;
     }
     
   
@@ -197,6 +214,17 @@ export default {
       .btn {
         color: var(--clr-0);
         background-color: var(--clr-4);
+      }
+    }
+
+    .logged-user-preview {
+      background-color: unset;
+      // color: black;
+      --preview-clr: var(--clr-2) !important;
+      @media (max-width: $small-screen-breake) {
+        .actions-section {
+          display: none;
+        }
       }
     }
     
