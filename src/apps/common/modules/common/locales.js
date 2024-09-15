@@ -54,6 +54,7 @@ const en = {
   "hebrew": "Hebrew",
   "english": "English",
   "email": "email",
+  "mobile": "Mobile",
   "firstName": "First name",
   "lastName": "Last name",
 
@@ -163,6 +164,7 @@ const he = {
   "hebrew": "עברית",
   "english": "אנגלית",
   "email": "אימייל",
+  "mobile": "נייד",
   "firstName": "שם פרטי",
   "lastName": "שם משפחה",
 

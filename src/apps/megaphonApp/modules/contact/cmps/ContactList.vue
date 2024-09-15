@@ -1,7 +1,7 @@
 <template>
   <div class="table-like-list flex-1 selected-table">
     <div class="table-item-preview gap10 table-header flex space-between">
-      <p v-for="field in fields" :key="field.label">{{$t(field.label)}}</p>
+      <p class="flex-1" v-for="field in fields" :key="field.label">{{$t(field.label)}}</p>
     </div>
     <ContactPreview 
       v-for="contact in contacts" :key="contact._id"

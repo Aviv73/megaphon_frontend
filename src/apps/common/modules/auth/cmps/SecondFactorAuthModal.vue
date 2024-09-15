@@ -50,12 +50,14 @@ export default {
     async finishAuth() {
       await this.$store.dispatch({ type: 'auth/finish2FactorAuth', pass: this.pass });
       if (this.redirectEndpoint) this.$router.push(this.redirectEndpoint);
+      else window.location.reload();
       this.showModal = false;
     }
   },
 
   created() {
     const on2AuthCb = async (endpoint) => {
+      if (this.showModal) return;
       this.showModal = true;
       if (endpoint) this.redirectEndpoint = endpoint;
       this.pass = '';

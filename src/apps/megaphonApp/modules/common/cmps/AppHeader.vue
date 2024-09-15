@@ -183,7 +183,9 @@ export default {
     .header-content {
       width: 100%;
       position: relative;
-      padding-inline-start: 0;
+      @media (min-width: $small-screen-breake) {
+        // padding-inline-start: 0;
+      }
     }
     
   

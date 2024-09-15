@@ -152,10 +152,10 @@ export default {
     },
 
     mostWatchedReleases() {
-      return this.releaseData.mostWatchedReleases?.map(c => this.releaseData.childrenReleases.find(_ => _._id === c)) || [];
+      return this.releaseData.mostWatchedReleases?.map(c => this.releaseData.childrenReleases.find(_ => _._id === c)).filter(Boolean) || [];
     },
     recommendedReleases() {
-      return this.releaseData.recommendedReleases?.map(c => this.releaseData.childrenReleases.find(_ => _._id === c)) || [];
+      return this.releaseData.recommendedReleases?.map(c => this.releaseData.childrenReleases.find(_ => _._id === c)).filter(Boolean) || [];
     },
 
     selectedTheme() {

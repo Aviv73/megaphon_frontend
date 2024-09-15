@@ -98,21 +98,18 @@
           <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
 
           
-          <div class="flex column gap20 align-start">
+          <div class="flex column gap40 align-start">
             <p>{{$t('organization.designPreferences')}}</p>
-            <div class="flex column gap20"> 
-              <p>Megaphon app</p>
-              <div v-for="theme in organizationToEdit.designPreferences.producerApp" :key="theme.id" class="flex column gap10">
+
+            <div class="flex column gap20" v-for="designAppKey in ['producerApp', 'clientApp', 'newsletter']" :key="designAppKey">
+              <p>{{designAppKey}}</p>
+              <div v-for="theme in organizationToEdit.designPreferences[designAppKey]" :key="theme.id" class="flex column gap10">
                 <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
                 <div class="input-container flex gap20">
                   <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
                   <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
-                </div>
-                <div class="input-container flex gap20">
                   <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
                   <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
-                </div>
-                <div class="input-container">
                   <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
                   <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
                 </div>
@@ -128,34 +125,7 @@
                 </ToggleModal>
               </div>
             </div>
-            <div class="flex column gap20">
-              <p>Client app</p>
-              <div v-for="theme in organizationToEdit.designPreferences.clientApp" :key="theme.id" class="flex column gap10">
-                <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
-                <div class="input-container flex gap20">
-                  <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
-                  <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
-                </div>
-                <div class="input-container flex gap20">
-                  <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
-                  <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
-                </div>
-                <div class="input-container">
-                  <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
-                  <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
-                </div>
-                <ToggleModal :fullScreen="true" class="code-edit-modal">
-                  <template #toggler>
-                    <div class="btn">
-                      {{$t('css')}}
-                    </div>
-                  </template>
-                  <template #content>
-                    <FormInput type="textarea" class="ltr" placeholder="editCssCode" v-model="theme.css"/>
-                  </template>
-                </ToggleModal>
-              </div>
-            </div>
+
             <div class="flex column gap20 align-start">
               <p>{{$t('organization.loginPagePreferences')}}</p>
               <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
@@ -264,7 +234,7 @@
               <li v-for="(curr, idx) in organizationToEdit.templates || []" :key="idx">
                 <FormInput type="text" placeholder="name" v-model="curr.name"/>
                 <FormInput type="multiselect" :items="organizationToEdit.releaseTypes.map(({id, name}) => ({value: id, label: name}))" placeholder="releaseTypes" v-model="curr.releaseTypes"/>
-                <FormInput type="select" :itemsMap="{landingPage: '0', newsLetter: '1'}" placeholder="templateType" v-model="curr.type"/>
+                <FormInput type="select" :itemsMap="{landingPage: 'landingPage', email: 'email'}" placeholder="templateType" v-model="curr.type"/>
                 <FormInput type="text" placeholder="hadlebarsFilePath" v-model="curr.handlebarsLocalFilePath"/>
                 <FormInput type="select" :items="allClientAppsNames" placeholder="appName" v-model="curr.appName"/>
                 <FormInput type="text" placeholder="url" v-model="curr.url"/>
@@ -403,7 +373,6 @@ export default {
       // for (let key in theme) {
       //   theme[key] = inheritTheme[key]
       // }
-      console.log('W(OWOWOW)', theme, themeToInherit);
       if (themeToInherit.css) theme.css = themeToInherit.css;
       if (themeToInherit.colors) theme.colors = [...themeToInherit.colors];
       if (themeToInherit.fonts) theme.fonts = [...themeToInherit.fonts];

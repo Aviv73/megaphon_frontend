@@ -148,7 +148,7 @@
         </button>
       </template>
 
-      <div v-else-if="['radio'].includes(componentType)" class="flex column gap10 align-start">
+      <div v-else-if="['radio'].includes(componentType)" class="flex column gap10 align-start options-container">
         <label v-for="item in itemsToRender" :key="item.label" class="flex align-center gap5">
           <input type="radio" :value="item.value" v-model="val">
           <span>{{item.label}}</span>
@@ -355,8 +355,9 @@ export default {
   .input {
     position: relative;
     height: 100%;
-
-    flex: 1;
+    &:not(.checkbox):not(.radio) {
+      flex: 1;
+    }
     input, select, textarea {
       // border: unset;
       height: 100%;

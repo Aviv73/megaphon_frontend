@@ -47,7 +47,7 @@ const  en = {
     "contactsWasSelected": "contacts was selected",
     "fromEmail": "From email",
     "addCustomContact": "Add contact email",
-    "customEmailToAdd": "Contact email to add",
+    "customEmailToAdd": "Contact email / mobile to add",
     "sendTestMail": "Send test mail",
     "confirmAndDistribute": "Confirm and distribute",
     "distributeReleaseConfirmMsg": "Are you sure you want to distribute the release?",
@@ -106,6 +106,8 @@ const  en = {
 
     "unsubscribedContacts": "Unsubscribed contacts",
     "deleteDistributionData": "Delete distribution data",
+    "distributionType": "Distribution type",
+    "testMode": "Test mode",
 
     "alertMsgs": {
       "cantAddContacts": "Somethind went wrong, cant add contacts",
@@ -167,7 +169,7 @@ const he = {
     "contactsWasSelected": "אנשי קשר נבחרו",
     "fromEmail": "אימייל שליחה",
     "addCustomContact": "הוספת מייל איש קשר",
-    "customEmailToAdd": "אימייל",
+    "customEmailToAdd": "אימייל / נייד",
     "sendTestMail": "שלח מייל בדיקה",
     "confirmAndDistribute": "אישור והפצה",
     "distributeReleaseConfirmMsg": "האם אתה בטוח שאתה מעוניין להפיץ את הרליס?",
@@ -228,6 +230,8 @@ const he = {
 
     "unsubscribedContacts": "אנשי קשר שבטלו הרשמה",
     "deleteDistributionData": "מחק מידע הפצה",
+    "distributionType": "סוג הפצה",
+    "testMode": "מצב בדיקה",
 
     "alertMsgs": {
       "cantAddContacts": "משהו השתבש, לא יכול להוסיף איש קשר",

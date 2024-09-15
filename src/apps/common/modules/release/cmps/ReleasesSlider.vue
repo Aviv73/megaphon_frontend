@@ -74,7 +74,7 @@ export default {
         this.getReleasePageRoute ? this.getReleasePageRoute(this.viewdChild) : { name: 'ReleaseDetails', params: {id: this.viewdChildData._id} }
       );
       else window.open(
-        templateUtils.getReleaseLandingPageUrl(this.viewdChild, this.organization, false, config)
+        templateUtils.getReleaseLandingPageUrl(this.viewdChild, this.organization, 'landingPage', config)
       );
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="item-page flex align-center space-between gap15 column flex-1 height-all">
-    <div class="width-all flex align-start space-between wrap gap50">
+    <div class="width-all flex align-start space-between wrap gap50 filter-container">
       <component :is="filterByCmp || 'ItemFilter'" :initFilter="filterBy" @filtered="setFilter" v-bind="propsToPass"/>
       <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
     </div>
@@ -196,6 +196,9 @@ export default {
   overflow: hidden;
   // width: em(300px);
   width: 100%;
+  .filter-container {
+    padding: em(10px) 0;
+  }
   .item-list {
     // flex: 1;
     overflow-y: auto;

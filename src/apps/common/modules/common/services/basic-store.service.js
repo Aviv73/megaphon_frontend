@@ -35,8 +35,8 @@ async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, o
   
     let res = await toDo();
     if (res.err) {
-      if (onError) onError(res);
-      else throw res;
+      // if (onError) onError(res);
+      throw res;
     }
     else if (onSuccess) res = await onSuccess(res);
   

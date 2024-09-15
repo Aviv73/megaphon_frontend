@@ -70,7 +70,7 @@ export default {
     fixFileSrcToThumbnail,
     async getReleases() {
       const releasesRes = await releaseService.query(this.releasesFilterBy, this.$route.params.organizationId);
-      this.releases = releasesRes.items.filter(c => !this.value?.find?.(rel => rel._id === c._id));
+      this.releases = releasesRes.items.filter(c => !this.value?.find?.(rel => rel._id === c._id)); // TODO NOT ALLOW TO PARRENT ITSELF;
       this.showMsg = true;
     },
     addReleases() {

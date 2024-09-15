@@ -1,8 +1,8 @@
 <template>
   <div class="release-design-viewer flex column align-center gap10">
     <div class="tab-nav light width-all flex gap10 align-end">
-      <button @click="selectedDesignTypeToShow = '0'" :class="{selected: selectedDesignTypeToShow === '0'}" :disabled="!release._id">{{$t('release.landingPageDesign')}}</button>
-      <button @click="selectedDesignTypeToShow = '1'" :class="{selected: selectedDesignTypeToShow === '1'}">{{$t('release.newsletterDesign')}}</button>
+      <button @click="selectedDesignTypeToShow = 'landingPage'" :class="{selected: selectedDesignTypeToShow === 'landingPage'}" :disabled="!release._id">{{$t('release.landingPageDesign')}}</button>
+      <button @click="selectedDesignTypeToShow = 'email'" :class="{selected: selectedDesignTypeToShow === 'email'}">{{$t('release.newsletterDesign')}}</button>
     </div>
     <div class="flex align-center justify-center gap50">
       <ToggleBtns v-model="previewPlatform" :options="[
@@ -46,19 +46,19 @@ export default {
   },
   data() {
     return {
-      selectedDesignTypeToShow: '0',
+      selectedDesignTypeToShow: 'landingPage',
       previewPlatform: 'desktop', // / tablet / mobile
     }
   },
   computed: {
     designTypeKey() {
-      return this.selectedDesignTypeToShow == 0 ? 'landingPage' : 'email';
+      return this.selectedDesignTypeToShow;
     },
     landingPageUrl() {
-      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow === '1', config) + '?selectedDesignID=' + this.release.design[this.designTypeKey];
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow, config) + '?selectedDesignID=' + this.release.design[this.designTypeKey];
     },
     allTemplates() {
-      return templateUtils.getAllRelevantTemplatesForReleaseType(this.release.releaseType, this.organization, this.selectedDesignTypeToShow == '1', true);
+      return templateUtils.getAllRelevantTemplatesForReleaseType(this.release.releaseType, this.organization, this.selectedDesignTypeToShow, true);
       // return this.org.templates
       //           .filter(c => c.releaseTypes.includes(itemToEdit.releaseType))
       //           .filter(c => c.type == selectedDesignTypeToShow);

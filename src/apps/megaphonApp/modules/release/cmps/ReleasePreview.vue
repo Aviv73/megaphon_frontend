@@ -1,5 +1,5 @@
 <template>
-  <component :is="isProducer? 'DragDiv' : 'div'" :onDrag="() => toggleToSelectedReleases(true)">
+  <component :is="isProducer? 'DragDiv' : 'div'" class="preview-container" :onDrag="() => toggleToSelectedReleases(true)">
     <li class="release-preview flex column gap5" :class="{ selected: selectedReleaseIds.includes(item._id) }" @click="handleClick">
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p>
@@ -85,7 +85,7 @@ export default {
       return organizationService.isUserRoleInOrg(this.organization?._id, role, this.loggedUser);
     },
     goToLandingPage() {
-      const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, false, config);
+      const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, 'landingPage', config);
       window.open(pageUrl);
     },
     toggleToSelectedReleases(isDraging) {
@@ -103,12 +103,18 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .megaphon-app {
+  .preview-container {
+    @media (max-width: $small-screen-breake) {
+      width: 100%;
+    }
+  }
   .release-preview {
     color: var(--clr-0);
     position: relative;
     width: em(180px);
     @media (max-width: $small-screen-breake) {
-      width: 90vw;
+      // width: 90vw;
+      width: 100%;
     }
     cursor: pointer;
     .release-img {

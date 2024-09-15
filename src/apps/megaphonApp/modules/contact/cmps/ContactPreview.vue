@@ -6,7 +6,7 @@
     class="table-item-preview contact-preview"
     :class="{unsubscribed: contact.unsubscribed}"
   >
-    <p v-for="field in fields" :key="field">
+    <p class="flex-1" v-for="field in fields" :key="field" :class="getVal(field)">
       <!-- <template v-if="field === 'toggleBtn'">
         <button v-if="" class="toggle-btn" @click="toggleContact(contact)">
           <img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>
@@ -15,7 +15,7 @@
       </template>
       <template v-else>
       </template> -->
-        {{getVal(field)}}
+        {{getVal(field) || '-'}}
     </p>
     <slot v-if="$slots.default"/>
     <!-- <p>{{contact.email}}</p>

@@ -189,6 +189,11 @@ function getEmptyOrganization() {
         colors: [...allThemes[0].colors],
         css: ''
       }],
+      newsletter: [{
+        id: getRandomId(),
+        colors: [...allThemes[0].colors],
+        css: ''
+      }],
       loginPage: [{
         id: getRandomId(),
         bgImg: {src:''},
