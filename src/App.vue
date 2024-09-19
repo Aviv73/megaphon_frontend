@@ -158,7 +158,7 @@ export default {
     async initUser(requireAuth = false) {
       if (this.$route.name === 'LoginPage') return;
       // this.isLoading = true;
-      // await socketService.connect();
+      await socketService.connect();
       try {
         await Promise.all([
           // this.$store.dispatch('settings/loadSettings'),

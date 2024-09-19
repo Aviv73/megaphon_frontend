@@ -65,8 +65,9 @@ export default {
         const originalName = file.name;
         // const name = file.name.substring(0, lastDotIdx).split(' ').join('-').split('.').join('-');
         // const fileName = `${name}.${type}`;
-        const uploadedRes  = await chunkUploadFileToServer(file, uploadFolderName, parentData, ({percents}) => {
-          this.loadingMsg = `${percents.toFixed(3)}%`;
+        const uploadedRes  = await chunkUploadFileToServer(file, uploadFolderName, parentData, ({percents, msg}) => {
+          if (msg === 'encrypting') this.loadingMsg = 'Done uploding, encrypting...';
+          else this.loadingMsg = `${percents.toFixed(3)}%`;
         });
         if (uploadedRes.previewSrc) this.previewSrc = uploadedRes.previewSrc;
         this.loadingMsg = '';
