@@ -64,6 +64,7 @@ const  en = {
 
     "sccessfullyDistributedReleaseTo": "Successfully distributed release to",
     "cantSenDistributionTo": "Couldn`t send distribution email to",
+    "missingEmailOrMobile": "Missing email or mobile to",
     "alreadyDistributedToContacts": "Already distributed release to",
     "tryAgain": "Try again",
     "backToEditRelease": "Back to edit release",
@@ -186,6 +187,7 @@ const he = {
 
     "sccessfullyDistributedReleaseTo": "רליס הופץ בהצלחה ל",
     "cantSenDistributionTo": "המערכת לא הצליחה להפיץ רליס ל",
+    "missingEmailOrMobile": "חסר מייל או מספר טלפון ל",
     "alreadyDistributedToContacts": "המערכת נמנעה מלהפיץ את הרליס פעם נוספת לחלק מאנשי הקשר מכיוון שכבר הפיצה את הרליס בעבר ל",
     "tryAgain": "נסה שוב",
     "backToEditRelease": "חזור לעריכת רליס",

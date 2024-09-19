@@ -1,9 +1,10 @@
 <template>
-  <div class="table-like-list flex-1 selected-table">
+  <div class="table-like-list flex-1">
     <div class="table-item-preview gap10 table-header flex space-between">
       <p class="flex-1" v-for="field in fields" :key="field.label">{{$t(field.label)}}</p>
     </div>
     <ContactPreview 
+      class="gap10"
       v-for="contact in contacts" :key="contact._id"
       :item="contact"
       :fields="fields.map(c => c.field)"

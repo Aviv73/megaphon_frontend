@@ -59,7 +59,7 @@
               <!-- <FormInput type="select" :items="fromEmails.map(c => ({value: c.email, label: c.title}))" :value="fromEmail"/> -->
               <FormInput class="flex-1" placeholder="email" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => onFromEmailChanged(val)"/>
               <FormInput class="flex-1" placeholder="name" type="text" v-model="fromEmail.title"/>
-              <FormInput class="flex-1 ltr" label="distribute.allowReply" type="checkbox" v-model="fromEmail.allowReply"/>
+              <FormInput class="flex-1" label="distribute.allowReply" type="checkbox" v-model="fromEmail.allowReply"/>
 
             </div>
           </div>
@@ -67,7 +67,7 @@
           <FormInput class="force-distribution width-all space-between row-reverse_" label="distribute.forceDistribute" type="checkbox" v-model="isForceDistribute"/>
           <FormInput class="width-all space-between row-reverse_" label="distribute.testMode" type="checkbox" v-model="testMode"/>
           <div class="load-distributions-section flex align-center space-between gap5">
-            <button @click="showEmailListsSelectionModal = true" class="btn">{{$t('distribute.loadDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
+            <button @click="showMailingListSelectionModal = true" class="btn">{{$t('distribute.loadDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
             <button @click="showAddMailingListItemModal = true" class="btn">{{$t('distribute.saveDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/save_black.svg')"/></button>
           </div>
           <div class="width-all flex column gap5">
@@ -97,7 +97,7 @@
         <button @click="distribute()" class="btn big">{{$t('distribute.confirmAndDistribute')}}</button>
       </footer>
 
-      <Modal :fullScreen="true" v-if="showEmailListsSelectionModal" @close="showEmailListsSelectionModal = false">
+      <Modal :fullScreen="true" v-if="showMailingListSelectionModal" @close="showMailingListSelectionModal = false">
         <div class="flex column gap10 mailing-lists-modal mailing-list-list">
           <template v-if="emailLists?.length">
             <p>{{$t('distribute.loadDistributionList')}}</p>
@@ -113,12 +113,12 @@
           </template>
           <p v-else>{{$t('distribute.noMailingListsFound')}}..</p>
           <div class="width-all flex justify-end">
-            <button @click="showEmailListsSelectionModal = false" class="btn">{{$t('close')}}</button>
+            <button @click="showMailingListSelectionModal = false" class="btn">{{$t('close')}}</button>
           </div>
         </div>
       </Modal>
       <Modal :fullScreen="true" v-else-if="showAddMailingListItemModal" @close="showAddMailingListItemModal = false">
-        <div class="flex column gap10 new--lists-modal">
+        <div class="flex column gap10 new-lists-modal">
           <template v-if="contactsForDistribute?.length">
             <p>{{$t('distribute.saveDistributionList')}}</p>
             <form @submit.prevent="createMailingList" class="flex space-between gap10">
@@ -140,20 +140,25 @@
       <Modal :fullScreen="true" v-else-if="showDistributionReportModal && distributionReport">
         <div class="flex column gap30 distribution-report-modal">
           <div class="flex space-between">
-            <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToUsers.length}}/{{distributionReport.sentToUsers.length + distributionReport.faildSendToUsers.length + (distributionReport.allreadyDistributedTo?.length || 0) + (distributionReport.unsubscribedContacts?.length || 0)}}</span> {{$t('contact.contacts')}}.</p>
+            <p>{{$t('distribute.sccessfullyDistributedReleaseTo')}} <span class="ltr">{{distributionReport.sentToContacts.length}}/{{(distributionReport.sentToContacts?.length || 0) + (distributionReport.faildSendToContacts?.length || 0) + (distributionReport.allreadyDistributedTo?.length || 0) + (distributionReport.unsubscribedContacts?.length || 0) + (distributionReport.missingDataContacts?.length || 0)}}</span> {{$t('contact.contacts')}}.</p>
             <button @click="showDistributionReportModal = false" class="btn">{{$t('close')}}</button>
           </div>
           <div class="flex column gap20 distribution-report-modal-content">
-            <div class="flex column gap10 new--lists-modal" v-if="distributionReport.faildSendToUsers.length">
-              <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToUsers.length}} {{$t('contact.contacts')}}:</p>
-              <ContactList :contacts="distributionReport.faildSendToUsers" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}, {label: 'mobile', field: 'mobile'}]"/>
+            <div class="flex column gap10" v-if="distributionReport.faildSendToContacts?.length">
+              <p>{{$t('distribute.cantSenDistributionTo')}} {{distributionReport.faildSendToContacts.length}} {{$t('contact.contacts')}}:</p>
+              <ContactList :contacts="distributionReport.faildSendToContacts" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}, {label: 'mobile', field: 'mobile'}]"/>
               <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
             </div>
-            <div class="flex column gap10 new--lists-modal" v-if="distributionReport.allreadyDistributedTo?.length">
+            <div class="flex column gap10" v-if="distributionReport.missingDataContacts?.length">
+              <p>{{$t('distribute.missingEmailOrMobile')}} {{distributionReport.missingDataContacts.length}} {{$t('contact.contacts')}}:</p>
+              <ContactList :contacts="distributionReport.missingDataContacts" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}, {label: 'mobile', field: 'mobile'}]"/>
+              <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
+            </div>
+            <div class="flex column gap10" v-if="distributionReport.allreadyDistributedTo?.length">
               <p>{{$t('distribute.alreadyDistributedToContacts')}} {{distributionReport.allreadyDistributedTo.length}} {{$t('contact.contacts')}}:</p>
               <ContactList :contacts="distributionReport.allreadyDistributedTo" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}, {label: 'mobile', field: 'mobile'}]"/>
             </div>
-            <div class="flex column gap10 new--lists-modal" v-if="distributionReport.unsubscribedContacts?.length">
+            <div class="flex column gap10" v-if="distributionReport.unsubscribedContacts?.length">
               <p>{{$t('distribute.unsubscribedContacts')}} {{distributionReport.unsubscribedContacts.length}} {{$t('contact.contacts')}}:</p>
               <ContactList :contacts="distributionReport.unsubscribedContacts" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}, {label: 'mobile', field: 'mobile'}]"/>
             </div>
@@ -183,6 +188,7 @@ import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { contactService } from '../../contact/contact.service';
 import { distributionService } from '../services/distribution.service.js';
+import { mailingListService } from '../services/mailingList.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
@@ -221,7 +227,7 @@ export default {
 
       emailLists: [],
       isLoadingLocal: false,
-      showEmailListsSelectionModal: false,
+      showMailingListSelectionModal: false,
 
       showAddMailingListItemModal: false,
       newMailingListName: '',
@@ -361,7 +367,7 @@ export default {
           testMode: this.testMode,
         },
         updatedSentToCount => this.sendingToStatus.sent = updatedSentToCount);
-        // alertService.toast({ msg: `Successfully distributed release to ${res.sentToUsers.length} out of ${this.contactsForDistribute.length} contacts` });
+        // alertService.toast({ msg: `Successfully distributed release to ${res.sentToContacts.length} out of ${this.contactsForDistribute.length} contacts` });
         alertService.toast({ msg: this.$t(`distribute.alertMsgs.successDistRelease`), type: 'safe' });
         console.log(res);
         this.distributionReport = res;
@@ -394,18 +400,18 @@ export default {
     },
 
     async tryDistributeAgain() {
-      this.distribute(this.distributionReport.faildSendToUsers);
+      this.distribute(this.distributionReport.faildSendToContacts);
     },
 
 
     async getMailingLists() {
-      const listsData = await distributionService.queryMailingLists(this.organizationId);
+      const listsData = await mailingListService.queryMailingLists(this.organizationId);
       this.emailLists = listsData.items;
       // this.isLoadingLocal = true;
       // try {
-      //   const listsData = await distributionService.queryMailingLists(this.organizationId);
+      //   const listsData = await mailingListService.queryMailingLists(this.organizationId);
       //   this.emailLists = listsData.items;
-      //   this.showEmailListsSelectionModal = true;
+      //   this.showMailingListSelectionModal = true;
       // } catch(err) {
       //   alertService.toast({ msg: `Somethind went wrong, cant load mailing lists` });
       // }
@@ -418,7 +424,7 @@ export default {
           // .filter(c => !c.unsubscribed)
           .filter(c => !this.contactsForDistribute.find(_ => _.email === c.email))
       ];
-      this.showEmailListsSelectionModal = false;
+      this.showMailingListSelectionModal = false;
     },
 
     async createMailingList() {
@@ -433,7 +439,7 @@ export default {
           title: this.newMailingListName,
           organizationId: this.organizationId
         }
-        await distributionService.addMailingList(this.organizationId, newListItem);
+        await mailingListService.addMailingList(this.organizationId, newListItem);
         this.newMailingListName = '';
         this.showAddMailingListItemModal = false;
       } catch(err) {
@@ -449,7 +455,7 @@ export default {
           ...mailingListItem,
           contacts: this.contactsForDistribute,
         }
-        await distributionService.updateMailingList(this.organizationId, newListItem);
+        await mailingListService.updateMailingList(this.organizationId, newListItem);
         this.newMailingListName = '';
         this.showAddMailingListItemModal = false;
       } catch(err) {
@@ -461,7 +467,7 @@ export default {
     async onRemoveMailingList(list) {
       if (!await alertService.Confirm(this.$t('distribute.alertMsgs.confirmRemovemailingListMsg'))) return;
       this.isLoadingLocal = true;
-      await distributionService.removeMailingList(this.organizationId, list._id);
+      await mailingListService.removeMailingList(this.organizationId, list._id);
       await this.getMailingLists();
       this.isLoadingLocal = false;
     }

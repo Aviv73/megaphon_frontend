@@ -1,6 +1,6 @@
 <template>
   <div class="release-details height-all flex align-start gap50" v-if="release">
-    <ReleaseTabView :release="release" :tabView="true"/>
+    <ReleaseTabView class="width-all" :release="release" :tabView="true"/>
   </div>
 </template>
 

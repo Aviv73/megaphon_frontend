@@ -9,9 +9,9 @@ export const elementService = {
   makeEmHelperFunc,
   appendScriptEl,
   _: { // utils
-  em: (val) => `${val / 16}em`,
-  rem: (val) => `${val / 16}rem`
-}
+    em: (val) => `${val / 16}em`,
+    rem: (val) => `${val / 16}rem`
+  }
 }
 function getElType(template) {
   if (template[0] === '<' && template[template.length-1] === '>') {

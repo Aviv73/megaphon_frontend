@@ -1,0 +1,238 @@
+<template>
+  <div :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all">
+    <video class=" width-all" ref="elVideo" controls></video>
+  </div>
+</template>
+
+<script>
+import Hls from 'hls.js';
+import { elementService } from '../../common/services/element.service';
+// import { getVideoEncryptionKey } from '../../common/services/file.service';
+import { fixFileSrcToThumbnail } from '../../common/services/file.service';
+import { getRandomId } from '../../common/services/util.service';
+export default {
+  name: 'VideoTag',
+  props: {
+    src: String,
+    // type: String
+  },
+  data() {
+    return {
+      videoId: getRandomId(''),
+      styleEl: null,
+      isPlaying: false
+    }
+  },
+  mounted() {
+    const { elVideo } = this.$refs;
+    elVideo.addEventListener('play', () => {
+      this.isPlaying = true;
+    });
+    elVideo.addEventListener('pause', () => {
+      this.isPlaying = false;
+    });
+
+    const isHls = this.src?.split('?')[0]?.endsWith('.m3u8');
+    if (!isHls) {
+      elVideo.src = this.src;
+      return;
+    }
+
+    const hls = new Hls();
+    hls.loadSource(this.src);
+    // hls.loadSource('http://localhost:3000/vid-dir/ID1999192096E62588D9.m3u8');
+    hls.attachMedia(elVideo);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
+      elVideo.play();
+      setTimeout(() => {
+        this.appendWatermarkStyling();
+      }, 1000);
+      // elVideo.addEventListener('canplay', () => {
+      //   elVideo.play();
+      // });
+    });
+
+  },
+  destroyed() {
+    if (this.styleEl) document.head.removeChild(this.styleEl);
+  },
+  computed: {
+    organization() {
+      return this.$store.getters['organization/selectedItem'];
+    },
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
+    },
+    useWterMark() {
+      return this.organization.useVideoWaterMark;
+    },
+    watermarkMsg() {
+      return `${this.organization.name} - ${this.loggedUser.firstName} ${this.loggedUser.lastName} | ${this.loggedUser.email}`
+    },
+    logoUrl() {
+      return fixFileSrcToThumbnail(this.organization.logo);
+    }
+  },
+  methods: {
+    appendWatermarkStyling() {
+      const { elVideo } = this.$refs;
+      const width = elVideo.offsetWidth;
+      const fontSize = width / 50;
+      // const getEm = size => `${(size / fontSize)}em`;
+      if (!this.useWterMark) return;
+      const styleEl = elementService.StyleEl(`#${this.videoId}`, {
+        position: 'relative',
+        overflow: 'hidden',
+        fontSize: `${fontSize}px`,
+        '&:after': {
+          content: `"${this.watermarkMsg}"`,
+          position: 'absolute',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          left: '0',
+          fontSize: elementService._.em(30),
+          fontWeight: 'bold',
+          animation: '30s moving-watermark-animation infinite',
+          'text-wrap': 'nowrap',
+          opacity: '0.6'
+        },
+        '&.paused': {
+          '&:after': {
+            'animationPlayState': 'paused'
+          }
+        },
+        '@keyframes moving-watermark-animation': {
+          '0%': {left: '-100%'},
+          '100%': {left: '100%'}
+        },
+        '&:before': {
+          content: `""`,
+          position: 'absolute',
+          top: elementService._.em(20),
+          right: elementService._.em(20),
+          width: elementService._.em(70),
+          height: elementService._.em(70),
+          backgroundImage: `url(${this.logoUrl})`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+          // opacity: '0.6'
+        },
+        video: {
+          height: 'auto',
+          objectFit: 'contain',
+          width: '100%',
+          height: '100%'
+        },
+        'video::-webkit-media-controls-fullscreen-button': {
+          display: 'none',
+        }
+      });
+      styleEl.classList.add('video-styling');
+      this.styleEl == styleEl;
+      document.head.append(styleEl);
+    }
+  },
+}
+    
+  // class CustomKeyLoader extends Hls.DefaultConfig.loader {
+  //     constructor(config) {
+  //         super(config);
+  //     }
+
+  //     load(context, config, callbacks) {
+  //         if (context.type === 'key') {
+  //             console.log('Custom key loader triggered for:', context.url);
+
+  //             // Fetch your custom key (e.g., from a secure API or function)
+  //             getVideoEncryptionKey().then(key => {
+  //                 console.log('GOOD KEY:', key);
+
+  //                 // Simulate a successful key load with the custom key
+  //                 const keyBuffer = new Uint8Array(Buffer.from(key, 'hex'));
+  //                 callbacks.onSuccess(
+  //                     {
+  //                         url: context.url,
+  //                         data: keyBuffer,
+  //                     },
+  //                     context,
+  //                     null
+  //                 );
+  //             }).catch(error => {
+  //                 console.error('Failed to load the key:', error);
+  //                 callbacks.onError({
+  //                     code: 500,
+  //                     text: 'Custom key load error',
+  //                 });
+  //             });
+  //         } else {
+  //             // Fall back to default loader behavior for other requests
+  //             super.load(context, config, callbacks);
+  //         }
+  //     }
+  // }
+  // Hls.DefaultConfig.loader = CustomKeyLoader;
+
+    // console.log('HLS??', isHls, this.src?.split('?')[0], hls);
+    // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
+    // const hls = new Hls({
+    //   keyLoader: () => Promise.resolve()
+    // });
+    // hls.on(Hls.Events.KEY_LOADING, async (event, data) => {
+    //   console.log('LOADING', data);
+    //   data.frag._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
+    //   const key = await getVideoEncryptionKey();
+    //   // const keyUri = data.frag.decryptdata.uri;
+    //   // console.log('ABOUT TO FETCH KEY, BAD URI:', keyUri);
+    //   // console.log('GOOD KEY', key);
+    //   // data.frag.decryptdata.key = new Uint8Array(Buffer.from(key, 'hex'));
+    //   hls.trigger(Hls.Events.KEY_LOADED, {
+    //     key: new Uint8Array(Buffer.from(key, 'hex')),
+    //     frag: data.frag,
+    //     // keyId: data.frag.keyId
+    //     // key: data.frag.decryptdata.key
+    //   });
+    // });
+  //   hls.on(Hls.Events.FRAG_CHANGED, (event, data) => {
+  //     const fragment = data.frag;
+      
+  //     // Access the _decryptdata and change the URI
+  //     if (fragment._decryptdata) {
+  //         console.log('Current Key URI:', fragment._decryptdata.uri);
+
+  //         // Change the URI to something else (for example, from a custom key-fetching logic)
+  //         fragment._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
+  //         console.log('Modified Key URI:', fragment._decryptdata.uri);
+  //     } else {
+  //         console.log('No decryptdata found on fragment.');
+  //     }
+  // });
+    // hls.config.xhrSetup = async (xhr, url) => {
+    //   xhr.abort();
+    //   const key = await getVideoEncryptionKey();
+    //   hls.trigger(Hls.Events.KEY_LOADED, {
+    //     key: Buffer.from(key, 'hex'),
+    //     // frag: data.frag,
+    //     // keyId: data.frag.keyId
+    //   });
+      
+    //   // console.log('WOWOWOW', url);
+    //   // xhr.setRequestHeader('Authorization', `Bearer ${'OPTIONAL_TOKEN'}`)
+    // }
+    // hls.config.loader = {
+    //   loadKey: async (context, config, cbs) => {
+    //     try {
+    //       const key = await getVideoEncryptionKey();
+    //       const keyBuff = Buffer.from(key, 'hex');
+    //       cbs.onSuccess({data: keyBuff}, context);
+    //     } catch(err) {
+    //       cbs.onError(err, context);
+    //     }
+    //   }
+    // }
+</script>
+
+<style>
+
+</style>

@@ -7,12 +7,6 @@ export const distributionService = {
   distribute,
   testDistribute,
 
-  getMailingList,
-  queryMailingLists,
-  addMailingList,
-  updateMailingList,
-  removeMailingList,
-
   getByReleaseId,
   removeDistData,
   reportReleaseOpened,
@@ -38,10 +32,11 @@ async function distribute(organizationId, releaseId, distributionData, onChunkEn
   }
   console.log('DONE DISTRIBUTING!');
   return {
-    sentToUsers: results.reduce((acc, c) => [...acc, ...c.sentToUsers], []),
-    faildSendToUsers: results.reduce((acc, c) => [...acc, ...c.faildSendToUsers], []),
+    sentToContacts: results.reduce((acc, c) => [...acc, ...c.sentToContacts], []),
+    faildSendToContacts: results.reduce((acc, c) => [...acc, ...c.faildSendToContacts], []),
     allreadyDistributedTo: results.reduce((acc, c) => [...acc, ...c.allreadyDistributedTo], []),
     unsubscribedContacts: results.reduce((acc, c) => [...acc, ...c.unsubscribedContacts], []),
+    missingDataContacts: results.reduce((acc, c) => [...acc, ...c.missingDataContacts], []),
   }
   // return httpService.post(`${ENDPOINT}/distribute-release/${releaseId}`, distributionData);
 }
@@ -49,22 +44,6 @@ function testDistribute(organizationId, releaseId, distributionData) {
   return httpService.post(`${ENDPOINT}/${organizationId}/test/${releaseId}`, distributionData);
 }
 
-
-function getMailingList(organizationId, id) {
-  return httpService.get(`${ENDPOINT}/${organizationId}/mailing-list/${id}`);
-}
-function queryMailingLists(organizationId) {
-  return httpService.get(`${ENDPOINT}/${organizationId}/mailing-list`);
-}
-function addMailingList(organizationId, mailingListItem) {
-  return httpService.post(`${ENDPOINT}/${organizationId}/mailing-list/`, mailingListItem);
-}
-function updateMailingList(organizationId, mailingListItem) {
-  return httpService.put(`${ENDPOINT}/${organizationId}/mailing-list/${mailingListItem._id}`, mailingListItem);
-}
-function removeMailingList(organizationId, id) {
-  return httpService.delete(`${ENDPOINT}/${organizationId}/mailing-list/${id}`);
-}
 
 
 function getByReleaseId(organizationId, releaseId) {

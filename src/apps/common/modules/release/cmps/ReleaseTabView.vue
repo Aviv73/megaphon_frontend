@@ -14,7 +14,7 @@
       </template>
       <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
     </div>
-    <div class="flex column gap30">
+    <div class="flex column flex-1 gap30">
       <template v-for="(field, idx) in dataFieldsToShow">
         <div :key="field.fieldName || idx" :id="field.fieldName" v-if="!isScreenWide || !allTabNames.length || (tabView && field.uiSections?.includes(selectedTab))" :class="field.fieldName + '-display'">
           <DynamicField :dataField="field" :value="releaseData[field.fieldName]" :parentItem="releaseData" :organization="org" :release="release"/>

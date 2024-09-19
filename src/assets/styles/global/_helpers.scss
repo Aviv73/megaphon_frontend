@@ -194,3 +194,17 @@
     transform: scale(1.05);
   }
 }
+
+.grid {
+  display: grid;
+  grid-template-rows: auto;
+  grid-auto-columns: minmax(100px, 300px);
+  &.columns-1 {
+    grid-auto-columns: unset;
+    grid-template-columns: 1fr;
+  }
+  &.columns-2 {
+    grid-auto-columns: unset;
+    grid-template-columns: 1fr 1fr;
+  }
+}

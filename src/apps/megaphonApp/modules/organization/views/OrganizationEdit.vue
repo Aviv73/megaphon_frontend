@@ -94,6 +94,7 @@
             <FormInput type="checkbox" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
             <FormInput type="checkbox" labelholder="require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
             <FormInput type="checkbox" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
+            <FormInput type="checkbox" labelholder="useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
           </div>
           <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
 

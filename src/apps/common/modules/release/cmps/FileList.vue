@@ -18,10 +18,10 @@
         class="video-file-preview"
         :src="fixFileSrcToThumbnail(file, rootItem)" controls
       />
-      <video
+      <VideoTag
         v-if="cmpType === 'video'"
         class="video-file-preview"
-        :src="fixVideoSrcToThumbnail(file, rootItem, organizationId)" controls
+        :src="fixVideoSrcToThumbnail(file, rootItem, organizationId)"
       />
       <template v-else-if="cmpType === 'img'">
         <img
@@ -53,9 +53,11 @@
 <script>
 import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '../../common/services/file.service';
 import { downloadImg } from '../../common/services/util.service';
+import VideoTag from './VideoTag.vue';
 // import { extractFileSrc } from './file.service'; 
 export default {
   name: 'FileList',
+  components: {VideoTag},
   props: {
     files: {
       type: Array
@@ -85,6 +87,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .files-list {
+  width: 100%;
   .img-section {
     h5 {
       width: em(300px);
@@ -97,7 +100,8 @@ export default {
   }
   .video-file-preview {
     box-shadow: $light-shadow;
-    height: em(600px);
+    // height: em(600px);
+    height: auto;
     width: 100%;
   }
   .link-file-preview {
@@ -109,8 +113,10 @@ export default {
     position: relative;
     @media (max-width: $small-screen-breake) {
       width: 100%;
-      .img-file-preview, .video-file-preview {
+      .img-file-preview, .video-file-preview {;
         width: 100%;
+      }
+      .img-file-preview {
         height: em(250px);
       }
     }
