@@ -2,7 +2,7 @@
   <div class="file-uploader-input flex align-start gap10">
     <img v-if="viewAsImg" class="val-img" :title="valToShow?.title" :src="fileToShow" :alt="valToShow?.title || $t('clickToUploadFile')" @click="clickInput"/>
     <p class="p-like" v-else-if="!fileToShow && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
-    <p class="p-like" v-else-if="isLoading" @click="clickInput">{{loadingMsg? loadingMsg : $t('loading') + '...'}}</p>
+    <p class="p-like ltr text-end" v-else-if="isLoading" @click="clickInput">{{loadingMsg? loadingMsg : $t('loading') + '...'}}</p>
     <a class="p-like" v-else target="_blanc" :href="fileToShow" :title="valToShow.title">{{valToShow.title}}</a>
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>

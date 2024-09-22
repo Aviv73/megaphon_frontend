@@ -1,5 +1,5 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
-import { socketService } from '@/apps/common/modules/common/services/socket.service';
+// import { socketService } from '@/apps/common/modules/common/services/socket.service';
 
 const ENDPOINT = 'file';
 
@@ -50,6 +50,7 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   let res;
   let uploadedBytes = 0;
   let socketRoom = '';
+  const isEncryptionMode = false;
   const totalChunks = Math.ceil(fileSize / CHUNK_SIZE);  
   for (let i = 0; i < totalChunks; i++) {
     const start = i * CHUNK_SIZE;
@@ -71,13 +72,15 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
     onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100), msg: '' });
 
     if (i === totalChunks - 1) {
-      // res = currRes;
-      socketRoom = currRes.socketRoom;
-      socketService.emit('join-room', socketRoom);
-      onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100), msg: 'encrypting' });
-      res = await (new Promise((resolve, reject) => {
-        socketService.on('encryption-finished', data => resolve(data));
-      }));
+      res = currRes;
+      if (isEncryptionMode) {
+        socketRoom = currRes.socketRoom;
+        // socketService.emit('join-room', socketRoom);
+        onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100), msg: 'encrypting' });
+        res = await (new Promise((resolve, reject) => {
+          // socketService.on('encryption-finished', data => resolve(data));
+        }));
+      }
     } else {
     }
     // prms.push(prm);

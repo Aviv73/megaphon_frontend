@@ -21,7 +21,7 @@
 // import AppHeader from '@/apps/common/modules/common/cmps/AppHeader.vue';
 // import AppFooter from '@/apps/common/modules/common/cmps/AppFooter.vue';
 // import AppAside from '@/apps/common/modules/common/cmps/AppAside.vue';
-import { socketService } from '@/apps/common/modules/common/services/socket.service';
+// import { socketService } from '@/apps/common/modules/common/services/socket.service';
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
@@ -158,7 +158,7 @@ export default {
     async initUser(requireAuth = false) {
       if (this.$route.name === 'LoginPage') return;
       // this.isLoading = true;
-      await socketService.connect();
+      // socketService.connect();
       try {
         await Promise.all([
           // this.$store.dispatch('settings/loadSettings'),

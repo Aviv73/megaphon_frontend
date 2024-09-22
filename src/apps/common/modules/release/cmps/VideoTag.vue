@@ -32,7 +32,8 @@ export default {
       this.isPlaying = false;
     });
 
-    const isHls = this.src?.split('?')[0]?.endsWith('.m3u8');
+    // const isHls = this.src?.split('?')[0]?.endsWith('.m3u8');
+    const isHls = false;
     if (!isHls) {
       elVideo.src = this.src;
       return;
@@ -46,7 +47,7 @@ export default {
       // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
       elVideo.play();
       setTimeout(() => {
-        this.appendWatermarkStyling();
+        // this.appendWatermarkStyling();
       }, 1000);
       // elVideo.addEventListener('canplay', () => {
       //   elVideo.play();
