@@ -5,11 +5,19 @@
 </template>
 
 <script>
-import Hls from 'hls.js';
+// import Hls from 'hls.js';
 import { elementService } from '../../common/services/element.service';
 // import { getVideoEncryptionKey } from '../../common/services/file.service';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 import { getRandomId } from '../../common/services/util.service';
+
+// import cloudinary from 'cloudinary-video-player';
+// import 'cloudinary-video-player/cld-video-player.min.css';
+/*
+   < link href="https://unpkg.com/cloudinary-video-player@1.9.4/dist/cld-video-player.min.css" rel="stylesheet">
+   < script src="https://unpkg.com/cloudinary-video-player@1.9.4/dist/cld-video-player.min.js">< /script>
+*/
+
 export default {
   name: 'VideoTag',
   props: {
@@ -39,6 +47,17 @@ export default {
       return;
     }
 
+
+    // console.log('WOWO?');
+    // const player = window.cloudinary.videoPlayer(elVideo, {
+    //   cloud_name: 'djk2q5so4',
+    //   controls: true,
+    //   autoplay: false,
+    //   muted: false,
+    // });
+    // console.log('WOWO', player);
+    // player.source(this.src, { sourceTypes: ['hls'] });
+
     const hls = new Hls();
     hls.loadSource(this.src);
     // hls.loadSource('http://localhost:3000/vid-dir/ID1999192096E62588D9.m3u8');
@@ -53,6 +72,7 @@ export default {
       //   elVideo.play();
       // });
     });
+    this.hls = hls;
 
   },
   destroyed() {
@@ -234,6 +254,13 @@ export default {
     // }
 </script>
 
-<style>
-
+<style lang="scss">
+.videw-container {
+  video::-internal-media-controls-download-button {
+    display: none !important;
+  }
+  video::-webkit-media-controls-enclosure {
+    overflow: hidden !important;
+  }
+}
 </style>

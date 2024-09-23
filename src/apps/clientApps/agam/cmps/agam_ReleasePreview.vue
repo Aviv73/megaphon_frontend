@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'ReleaseDetails', params: {id: release._id} }">
+  <router-link class="release-preview-container" :to="{ name: 'ReleaseDetails', params: {id: release._id} }">
     <li class="release-preview flex column gap10">
         <p v-if="releaseData.type" class="type">{{releaseData.type}}</p>
         <img v-if="releaseData.mainImage" :src="imgToShow" :alt="releaseData.title">
@@ -58,9 +58,13 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .agam-app {
+  .release-preview-container {
+    // width: fit-content;
+    // height: fit-content;
+  }
   .release-preview {
     position: relative;
-    width: 220px;
+    // width: 220px;
     img {
       height: 160px;
       width: 100%;
@@ -83,7 +87,8 @@ export default {
       border: 1px solid $layout-red;
       border-radius: 14px;
       padding: 5px 12px;
-      font-weight: bold;;
+      font-weight: bold;
+      text-wrap: nowrap;
     }
   }
 }

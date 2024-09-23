@@ -111,14 +111,15 @@ export default {
   .release-preview {
     color: var(--clr-0);
     position: relative;
-    width: em(180px);
+    // width: em(180px);
     @media (max-width: $small-screen-breake) {
       // width: 90vw;
       width: 100%;
     }
     cursor: pointer;
     .release-img {
-      height: em(130px);
+      // height: em(130px);
+      height: em(160px);
       width: 100%;
       object-fit: cover;
       @media (max-width: $small-screen-breake) {

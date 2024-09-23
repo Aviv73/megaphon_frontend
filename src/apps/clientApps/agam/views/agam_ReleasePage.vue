@@ -94,6 +94,7 @@ export default {
       overflow: unset;
       .item-list {
         overflow-y: unset;
+        gap: 40px;
       }
     }
   }
