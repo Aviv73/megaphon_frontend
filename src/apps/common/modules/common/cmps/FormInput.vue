@@ -155,8 +155,7 @@
         </label>
       </div>
 
-      <VuePhoneNumberInput
-        default-country-code="IL"
+      <PhoneInput
         v-else-if="componentType === 'phone-number'"
         class="ltr actual-input"
         ref="elInput"
@@ -190,8 +189,7 @@
 import { getRandomId, padNum } from '../services/util.service';
 import Tooltip from './Tooltip.vue';
 
-import VuePhoneNumberInput from 'vue-phone-number-input';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import PhoneInput from './PhoneInput.vue';
 
 const inputTypes = [
   'text',
@@ -204,7 +202,7 @@ const inputTypes = [
 ];
 
 export default {
-  components: { Tooltip, VuePhoneNumberInput },
+  components: { Tooltip, PhoneInput },
   name: 'FormInput',
   props: {
     label: { required: false, default: '', type: String },

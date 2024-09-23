@@ -42,7 +42,7 @@ function getEmptyAccount() {
     bgImg: '',
     mailing: {
       unsubscribed: false,
-      whatsApp: true,
+      sms: true,
       newsletter: true,
     }
   }

@@ -2,7 +2,7 @@
   <Modal v-if="showModal" class="second-factor-auth-modal">
     <div class="flex column align-start gap20">
       <p>{{$t('auth.required2FactorAthMsg')}}</p>
-      <FormInput class="method-input" label="auth.secondFactorMethodMsg" type="radio" v-model="method" :items="['sms', 'email']"/>
+      <FormInput class="method-input" label="auth.secondFactorMethodMsg" type="radio" v-model="method" :items="comunicationMethods"/>
       <button @click="generatePass" class="btn big">{{$t('send')}}</button>
       <div v-if="didSend" class="flex align-center width-all space-between">
         <FormInput placeholder="auth.password" type="text" v-model="pass"/>
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       pass: '',
-      method: 'email',
+      method: '',
       showModal: false,
       didSend: false,
       redirectEndpoint: ''
@@ -38,6 +38,13 @@ export default {
     },
     isLoading() {
       return this.$store.getters['auth/isLoading'];
+    },
+
+    comunicationMethods() {
+      const methods = [];
+      if (this.loggedUser?.email) methods.push('email');
+      if (this.loggedUser?.mobile) methods.push('sms');
+      return methods;
     }
   },
 
@@ -79,6 +86,11 @@ export default {
       // }
     }
     evEmmiter.on('needs_2_factor_auth', on2AuthCb);
+  },
+  watch: {
+    comunicationMethods() {
+      this.method = this.comunicationMethods[0];
+    }
   }
 
 }

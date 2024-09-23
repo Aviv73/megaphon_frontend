@@ -6,13 +6,13 @@
       <FormInput type="text" labelholder="account.firstname" v-model="accountToEdit.firstName"/>
       <FormInput type="text" labelholder="account.lastname" v-model="accountToEdit.lastName"/>
       <FormInput type="text" labelholder="account.email" v-model="accountToEdit.email"/>
-      <FormInput type="phone-number" labelholder="account.mobile" v-model="accountToEdit.mobile"/>
+      <FormInput type="phone-number" labelholder="account.mobile" v-model="accountToEdit.mobileData" @change="val => accountToEdit.mobile = val.formatted"/>
       <FormInput type="text" labelholder="account.newPassword" v-model="accountToEdit.password"/>
       <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
 
       <div class="flex column gap5 mailing-section">
         <h4>{{$t('account.newsletter')}}</h4>
-        <FormInput type="checkbox" labelholder="account.mailing.whatsapp" v-model="accountToEdit.mailing.whatsApp"/>
+        <FormInput type="checkbox" labelholder="account.mailing.sms" v-model="accountToEdit.mailing.sms"/>
         <FormInput type="checkbox" labelholder="account.mailing.newsletter" v-model="accountToEdit.mailing.newsletter"/>
         <FormInput type="checkbox" labelholder="account.mailing.unsubscribeMsg" v-model="accountToEdit.mailing.unsubscribed"/>
       </div>

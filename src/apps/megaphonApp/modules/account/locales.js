@@ -18,7 +18,7 @@ const en = {
     "isPandingForApproval": "Panding for approval",
     "newsletter": "Newsletter",
     mailing: {
-      "whatsapp": "WhatsApp",
+      "sms": "Sms",
       "newsletter": "Newsletter",
       unsubscribeMsg: "No, I dont want to recive any mailing from Megaphon."
     },
@@ -49,7 +49,7 @@ const he = {
     "isPandingForApproval": "ממתין לאישור",
     "newsletter": "ניוזלטר",
     mailing: {
-      "whatsapp": "וואטסאפ",
+      "sms": "sms",
       "newsletter": "ניוזלטר",
       unsubscribeMsg: "לא, אני לא מעוניין בקבלת דיוור כלשהו מאתר מגפון"
     },

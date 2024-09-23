@@ -3,14 +3,15 @@
     <h2 v-if="itemToEdit._id">{{$t('contact.editContact')}}</h2>
     <h2 v-else>{{$t('contact.createContact')}}</h2>
     <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20 simple-form">
-      <FormInput labelholder="email" :required="true" type="text" v-model="itemToEdit.email"/>
       <FormInput labelholder="firstName" :required="true" type="text" v-model="itemToEdit.firstName"/>
       <FormInput labelholder="lastName" :required="true" type="text" v-model="itemToEdit.lastName"/>
+      <FormInput labelholder="email" :required="true" type="text" v-model="itemToEdit.email"/>
+      <!-- <FormInput labelholder="contact.phone" type="phone-number" v-model="itemToEdit.phone"/> -->
+      <FormInput labelholder="contact.mobile" type="phone-number" v-model="itemToEdit.mobileData" @change="val => itemToEdit.mobile = val.formatted"/>
       <FormInput labelholder="contact.role" type="text" v-model="itemToEdit.role"/>
       <!-- <FormInput type="text" v-model="itemToEdit.name"/> -->
       <TagPicker     :showLabel="true" v-model="itemToEdit.tags"/>
       <CompanyPicker :showLabel="true" v-model="itemToEdit.company"/>
-      <FormInput labelholder="contact.phone" type="phone-number" v-model="itemToEdit.phone"/>
       <FormInput labelholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/>
       <FormInput labelholder="contact.notes" type="text" v-model="itemToEdit.notes"/>
     </form>
