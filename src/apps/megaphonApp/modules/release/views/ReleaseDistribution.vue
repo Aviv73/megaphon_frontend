@@ -64,7 +64,7 @@
 
             </div>
           </div>
-          <FormInput class="distribution-type width-all" :items="['email', 'sms']" label="distribute.distributionType" type="radio" v-model="distributionType"/>
+          <!-- <FormInput class="distribution-type width-all" :items="['email', 'sms']" label="distribute.distributionType" type="radio" v-model="distributionType"/> -->
           <FormInput class="force-distribution width-all space-between row-reverse_" label="distribute.forceDistribute" type="checkbox" v-model="isForceDistribute"/>
           <FormInput class="width-all space-between row-reverse_" label="distribute.testMode" type="checkbox" v-model="testMode"/>
           <div class="load-distributions-section flex align-center space-between gap5">
