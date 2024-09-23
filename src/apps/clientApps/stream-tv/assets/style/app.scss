@@ -160,6 +160,7 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
     gap: em(30px);
   }
   .item-list {
+    display: flex !important;
     justify-content: space-around;
   }
 

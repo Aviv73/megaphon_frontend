@@ -222,8 +222,8 @@ export default {
 
         @include prettyScroll;
         &::-webkit-scrollbar {
-          height: 0;
-          visibility: hidden;
+          // height: 0;
+          // visibility: hidden;
         }
       }
     }
