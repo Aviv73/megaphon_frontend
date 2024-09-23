@@ -6,7 +6,7 @@
       <FormInput type="text" labelholder="account.firstname" v-model="accountToEdit.firstName"/>
       <FormInput type="text" labelholder="account.lastname" v-model="accountToEdit.lastName"/>
       <FormInput type="text" labelholder="account.email" v-model="accountToEdit.email"/>
-      <FormInput type="text" labelholder="account.mobile" v-model="accountToEdit.mobile"/>
+      <FormInput type="phone-number" labelholder="account.mobile" v-model="accountToEdit.mobile"/>
       <FormInput type="text" labelholder="account.newPassword" v-model="accountToEdit.password"/>
       <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
 

@@ -34,6 +34,7 @@
       <h1>{{releaseData.title}}</h1>
       <div v-html="releaseData.content"></div>
       <ItemList
+        layoutMode="flex"
         class="flex-1"
         :items="releaseData.childrenReleases"
         itemDetailesPageName="ReleaseDetails"

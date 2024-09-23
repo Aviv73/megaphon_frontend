@@ -24,6 +24,7 @@
       :propsToPass="{ selectedReleaseIds }"
       :isLoading="isLoading"
       :showLoader="false"
+      layoutMode="grid"
     >
       <h2 v-if="selectedFolder">{{selectedFolder.name}}</h2>
     </ItemSearchList>

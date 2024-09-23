@@ -155,6 +155,18 @@
         </label>
       </div>
 
+      <VuePhoneNumberInput
+        default-country-code="IL"
+        v-else-if="componentType === 'phone-number'"
+        class="ltr actual-input"
+        ref="elInput"
+        :disabled="disabled"
+        :id="inputId"
+        :required="required"
+        :placeholder="$t(placeholder || labelholder)"
+        v-model="val"
+      />
+
       <datalist v-if="componentType === 'autocomplete'" :id="'autocomplete-datalist-' + this.inputId">
         <option v-for="item in itemsToRender" :key="item.value" :value="item.value" :label="item.label"/>
       </datalist>
@@ -178,6 +190,9 @@
 import { getRandomId, padNum } from '../services/util.service';
 import Tooltip from './Tooltip.vue';
 
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+
 const inputTypes = [
   'text',
   'number',
@@ -189,7 +204,7 @@ const inputTypes = [
 ];
 
 export default {
-  components: { Tooltip },
+  components: { Tooltip, VuePhoneNumberInput },
   name: 'FormInput',
   props: {
     label: { required: false, default: '', type: String },

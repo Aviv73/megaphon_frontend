@@ -140,7 +140,7 @@ h4 {
 
 
 .table-like-list {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   .item-list {
     gap: 0;

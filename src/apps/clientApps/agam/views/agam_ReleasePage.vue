@@ -9,6 +9,7 @@
       :singlePreviewCmp="ReleasePreview"
       :filterByCmp="ReleaseFilter"
       :dontRoute="false"
+      layoutMode="grid"
     />
     <Loader v-if="isLoading" fullScreen/>
   </section>

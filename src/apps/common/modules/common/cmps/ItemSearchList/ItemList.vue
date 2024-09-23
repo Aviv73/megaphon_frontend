@@ -1,5 +1,5 @@
 <template>
-  <ul class="item-list grid align-start wrap gap40">
+  <ul class="item-list align-start wrap gap40" :class="{ grid: layoutMode === 'grid', flex: layoutMode=== 'flex' }">
     <component 
       :is="componentToRender"
       v-for="item in items"
@@ -24,7 +24,11 @@ export default {
     },
     singlePreviewCmp: [Object],
     itemDetailesPageName: [String],
-    propsToPass: [Object]
+    propsToPass: [Object],
+    layoutMode: {
+      type: String,
+      default: 'flex'
+    }
   },
   computed: {
     componentToRender() {

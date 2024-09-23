@@ -7,6 +7,7 @@
     <div class="width-all flex column flex-1">
       <slot/>
       <ItemList
+        :layoutMode="layoutMode"
         v-if="!isLoading && items?.length"
         class="width-all" :items="items"
         :singlePreviewCmp="singlePreviewCmp"
@@ -71,7 +72,8 @@ export default {
     dontEmitOnInit: {
       type: Boolean,
       default: false
-    }
+    },
+    layoutMode: [String],
   },
   data() {
     return {

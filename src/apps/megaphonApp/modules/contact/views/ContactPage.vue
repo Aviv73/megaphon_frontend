@@ -17,6 +17,7 @@
       :propsToPass="{
         fields: isScreenWide? undefined : ['name', 'unsubscribed']
       }"
+      layoutMode="flex"
     >
       <div class="actions">
         <FormInput

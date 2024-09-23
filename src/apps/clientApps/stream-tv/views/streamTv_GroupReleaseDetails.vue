@@ -60,6 +60,7 @@
           <h3>{{$t('release.mostWatched')}}</h3>
         </div>
         <ItemList
+          layoutMode="flex"
           class="flex-1"
           :items="mostWatchedReleases"
           itemDetailesPageName="ReleaseDetails"
@@ -73,6 +74,7 @@
           <h3>{{$t('release.newReleases')}}</h3>
         </div>
         <ItemList
+          layoutMode="flex"
           class="flex-1"
           :items="releaseData.childrenReleases"
           itemDetailesPageName="ReleaseDetails"

@@ -31,6 +31,7 @@
               contactsForDistribute,
               organizationId: loadSystemContacts? '-1' : organizationId
             }"
+            layoutMode="flex"
           >
             <div class="table-item-preview gap10 table-header">
               <p>{{$t('contact.contactName')}}</p>

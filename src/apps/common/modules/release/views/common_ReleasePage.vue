@@ -11,6 +11,7 @@
       :singlePreviewCmp="ReleasePreview"
       :filterByCmp="ReleaseFilter"
       :dontRoute="false"
+      layoutMode="flex"
     />
     <Loader v-if="isLoading" fullScreen/>
   </section>

@@ -14,6 +14,7 @@
       :dontRoute="true"
       :isLoading="isLoading"
       :showLoader="false"
+      layoutMode="flex"
     >
       <div class="flex column gap10 align-start">
         <div class="actions flex gap10 align-center justify-end width-all" v-if="isAdmin">

@@ -14,6 +14,7 @@
       :dontRoute="true"
       :isLoading="isLoading"
       :showLoader="false"
+      layoutMode="flex"
     >
       <div class="table-item-preview table-header">
         <h4>{{$t('organization.name')}}</h4>

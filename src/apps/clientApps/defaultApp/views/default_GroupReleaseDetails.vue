@@ -9,6 +9,7 @@
       <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
       <div v-html="release.content"></div>
       <ItemList
+        layoutMode="flex"
         class="flex-1"
         :items="release.childrenReleases"
         itemDetailesPageName="ReleaseDetails"
