@@ -163,9 +163,9 @@
               <p>{{$t('distribute.unsubscribedContacts')}} {{distributionReport.unsubscribedContacts.length}} {{$t('contact.contacts')}}:</p>
               <ContactList :contacts="distributionReport.unsubscribedContacts" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}, {label: 'mobile', field: 'mobile'}]"/>
             </div>
-            <div class="width-all flex justify-end">
+            <!-- <div class="width-all flex justify-end">
               <button @click="showDistributionReportModal = false" class="btn">{{$t('close')}}</button>
-            </div>
+            </div> -->
           </div>
         </div>
       </Modal>

@@ -42,8 +42,8 @@ export default {
 
     comunicationMethods() {
       const methods = [];
-      if (this.loggedUser?.email) methods.push('email');
-      if (this.loggedUser?.mobile) methods.push('sms');
+      if (true || this.loggedUser?.email) methods.push('email');
+      if (true || this.loggedUser?.mobile) methods.push('sms');
       return methods;
     }
   },
