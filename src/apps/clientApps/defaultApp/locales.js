@@ -29,9 +29,9 @@ const he = {
       "savedReleaseSuccess": "פרטי רליס נשמרו בהצלחה!",
       "reportReleaseSuccess": "רליס דווח בהצלחה!"
     },
-    "content": "מידע",
+    "content": "תקציר",
     "images": "תמונות",
-    "videos": "לצפיה",
+    "videos": "צפיה",
     "files": "קבצים",
     "links": "קישורים"
   }

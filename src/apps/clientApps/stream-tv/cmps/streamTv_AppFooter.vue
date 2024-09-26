@@ -32,7 +32,7 @@ export default {
 @import '@/assets/styles/global/index';
 .streamTv-app {
   .app-footer {
-    padding: em(20px);
+    padding: em(20px) 0;
 
   }
 }

@@ -153,7 +153,6 @@
             <div class="flex column gap10" v-if="distributionReport.missingDataContacts?.length">
               <p>{{$t('distribute.missingEmailOrMobile')}} {{distributionReport.missingDataContacts.length}} {{$t('contact.contacts')}}:</p>
               <ContactList :contacts="distributionReport.missingDataContacts" :fields="[{label: $t('contact.contactName'), field: 'name'}, {label: 'email', field: 'email'}, {label: 'mobile', field: 'mobile'}]"/>
-              <div><button class="btn big primary" @click="tryDistributeAgain">{{$t('distribute.tryAgain')}}</button></div>
             </div>
             <div class="flex column gap10" v-if="distributionReport.allreadyDistributedTo?.length">
               <p>{{$t('distribute.alreadyDistributedToContacts')}} {{distributionReport.allreadyDistributedTo.length}} {{$t('contact.contacts')}}:</p>
@@ -369,7 +368,7 @@ export default {
         },
         updatedSentToCount => this.sendingToStatus.sent = updatedSentToCount);
         // alertService.toast({ msg: `Successfully distributed release to ${res.sentToContacts.length} out of ${this.contactsForDistribute.length} contacts` });
-        alertService.toast({ msg: this.$t(`distribute.alertMsgs.successDistRelease`), type: 'safe' });
+        // alertService.toast({ msg: this.$t(`distribute.alertMsgs.successDistRelease`), type: 'safe' });
         console.log(res);
         this.distributionReport = res;
         this.showDistributionReportModal = true;

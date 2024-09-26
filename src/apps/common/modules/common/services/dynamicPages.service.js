@@ -67,15 +67,15 @@ export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
     '--header-bgc': colors[3],
     '--heading-color': colors[4],
     [`.app-main${_ig}`]: {
-      color: colors[0] || 'black',
-      backgroundColor: colors[1] || 'white'
+      color: 'var(--clr-0)' || colors[0] || 'black',
+      backgroundColor: 'var(--clr-1)' || colors[1] || 'white'
     },
     [`.app-header${_ig}, .app-footer${_ig}`]: {
-      color: colors[2] || 'white',
-      backgroundColor: colors[3] || 'black'
+      color: 'var(--clr-2)' || colors[2] || 'white',
+      backgroundColor: 'var(--clr-3)' || colors[3] || 'black'
     },
     [`h1${_ig}, h2${_ig}, h3${_ig}, h4${_ig}, h5${_ig}, h6${_ig}`]: {
-      color: colors[4] || 'black',
+      color: 'var(--clr-4)' || colors[4] || 'black',
     }
   }, stylingTheme.css);
   cssEl.classList.add(STYLE_EL_CLASSNAME);

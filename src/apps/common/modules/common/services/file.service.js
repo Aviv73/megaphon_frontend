@@ -36,7 +36,7 @@ export function uploadFileToServer(file, organizationId, parentData) {
 }
 
 export async function chunkUploadFileToServer(file, organizationId, parentData, onChunkEndCb = (uploadStats) => {}) {
-  const CHUNK_SIZE = 1024 * 1024 * 10; // 10MB;
+  const CHUNK_SIZE = 1024 * 1024 * 20; // 20MB;
 
   const fileSize = file.size;
   const originalName = file.name;
@@ -54,11 +54,11 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   const totalChunks = Math.ceil(fileSize / CHUNK_SIZE);  
   for (let i = 0; i < totalChunks; i++) {
     const start = i * CHUNK_SIZE;
-    const end = start + CHUNK_SIZE;
+    const end = Math.min(start + CHUNK_SIZE, fileSize);
     const chunk = file.slice(start, end);
     const formData = new FormData();
     formData.append('file', chunk);
-    const params = {parentData, fileSize, totalChunks, uploadId, chunkIdx: i, storeFileName, originalName};
+    const params = {parentData, fileSize, totalChunks, uploadId, chunkIdx: i, storeFileName, originalName, chunkSize: CHUNK_SIZE, range: {start, end}};
     if (!i) params.isFirst = true;
     if (i === totalChunks - 1) params.isLast = true;
     const prm = httpService.post(`${ENDPOINT}/upload/${organizationId}`, formData, params);
@@ -69,7 +69,8 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
     } 
 
     uploadedBytes += CHUNK_SIZE;
-    onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100), msg: '' });
+    // onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100), msg: '' });
+    onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min(((i+1) / (totalChunks+1))*100, 100), msg: '' });
 
     if (i === totalChunks - 1) {
       res = currRes;
@@ -97,3 +98,4 @@ export function loadStaticFile(filePath) {
 export function getVideoEncryptionKey(token) {
   return httpService.get(`${ENDPOINT}/encryption-key`, { });
 }
+

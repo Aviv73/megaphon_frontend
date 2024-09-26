@@ -35,6 +35,7 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     isSimpleReleasePage() {
+      if (this.$route.name === 'DirectReleaseDetails') return true;
       if (this.$route.name !== 'ReleaseDetails') return false;
       return !this.$store.getters['release/selectedItem']?.releaseData?.childrenReleases;
     }

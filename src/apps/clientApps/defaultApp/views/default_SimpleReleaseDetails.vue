@@ -193,8 +193,8 @@ export default {
   
     iframe, video, .media-item {
       box-shadow: $light-shadow;
-      height: 600px;
-      width: 100%;
+      // height: 600px;
+      // width: 100%;
     }
   }
 }

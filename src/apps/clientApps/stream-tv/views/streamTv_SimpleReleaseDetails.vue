@@ -2,11 +2,15 @@
   <section v-if="release" class="simple-release-details flex column gap30">
     <img class="hero-img" :src="fixFileSrcToThumbnail(release.releaseData.mainImage, release)" :alt="release.title"/>
     <div class="inner-container flex column space-between flex-1 gap30">
-      <ReleaseTabView :release="release" :tabView="true"/>
-      <!-- <div class="ph"></div> -->
-      <router-link :to="{ name: 'ReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="clr-4 underline bold align-self-end">
+      <ReleaseTabView :release="release" :tabView="true" :hideTabs="hideTabs">
+        <router-link v-if="!isDirectMode" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="tab-link align-self-end">
+          {{$t('directLink')}}
+        </router-link>
+      </ReleaseTabView>
+      <router-link v-if="!isDirectMode" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="small-screen-item clr-4 underline bold align-self-end">
         {{$t('directLink')}}
       </router-link>
+      <!-- <div class="ph"></div> -->
       <div class="ph"></div>
     </div>
     <router-link v-if="lastSeenGroupRelease" :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease._id} }">
@@ -40,6 +44,15 @@ export default {
     },
     arrowImg() {
       return getSvgs('black').arrowDown;
+    },
+
+    isDirectMode() {
+      return this.$route.name === 'DirectReleaseDetails';
+    },
+
+    hideTabs() {
+      if (this.isDirectMode) return ['videos', 'watch'];
+      return [];
     }
   },
   async created() {
@@ -56,13 +69,11 @@ export default {
 .streamTv-app {
   .simple-release-details {
 
-    .selected {
-      color: var(--clr-4);
-    }
 
     .hero-img {
       width: 100%;
-      height: em(350px);
+      // height: em(500px);
+      height: 60vh;
       object-position: center center;
     }
 
@@ -77,9 +88,19 @@ export default {
       .field-title {
         display: none;
       }
+      .tag-lest {
+        gap: 0;
+        span {
+          padding: 0 em(15px);
+          &:not(:last-child) {
+            border-inline-end: 2px solid var(--clr-4);
+          }
+        }
+      }
     }
 
     .publishedAt-display {
+      display: none;
       color: var(--heading-color);
       border-bottom: em(1px) solid var(--heading-color);
       border-top: em(1px) solid var(--heading-color);
@@ -130,6 +151,14 @@ export default {
           }
         }
       }
+    }
+
+    .broadcastTimesText-display {
+      color: var(--clr-4);
+      border-bottom: em(1px) solid var(--heading-color);
+      border-top: em(1px) solid var(--heading-color);
+      padding-bottom: em(15px);
+      padding-top: em(15px);
     }
 
     // .content-display {

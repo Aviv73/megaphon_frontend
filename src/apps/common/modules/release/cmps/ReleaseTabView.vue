@@ -1,18 +1,24 @@
 <template>
-  <div class="release-tab-view height-all flex align-start gap50" v-if="release">
-    <div class="wide-screen-item release-page-nav wide-screen-item sticky flex column gap10" v-if="allTabNames.length">
-      <!-- :style="{position: 'fixed', top: '110px'}" -->
-      <template v-for="tabName in allTabNames || ['content', 'images', 'videos', 'files', 'links']">
-        <a
-          :key="tabName"
-          :class="{bold: selectedTab === tabName, selected: selectedTab === tabName}" 
-          @click="scrollToEl($event, tabName)"
-          v-if="validateTab(tabName)"
-        >
-          {{$t(`release.tabs.${tabName}`)}}
-        </a>
-      </template>
-      <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
+  <div class="release-tab-view height-all flex align-start_ gap100" v-if="release">
+    <div class="release-page-nav sticky flex column space-between_ gap100 wide-screen-item">
+      <div class="wide-screen-item flex column gap10_" v-if="allTabNames.length">
+        <!-- :style="{position: 'fixed', top: '110px'}" -->
+        <template v-for="tabName in allTabNames || ['content', 'images', 'videos', 'files', 'links']">
+          <a
+            class="tab-link"
+            :key="tabName"
+            :class="{bold: selectedTab === tabName, selected: selectedTab === tabName}" 
+            @click="scrollToEl($event, tabName)"
+            v-if="validateTab(tabName)"
+          >
+            {{$t(`release.tabs.${tabName}`)}}
+          </a>
+        </template>
+        <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
+      </div>
+      <div>
+        <slot/>
+      </div>
     </div>
     <div class="flex column flex-1 gap30">
       <template v-for="(field, idx) in dataFieldsToShow">
@@ -39,7 +45,8 @@ export default {
   name: 'ReleaseTabView',
   props: {
     tabView: Boolean,
-    release: Object
+    release: Object,
+    hideTabs: Array,
   },
   data() {
     return  {
@@ -68,6 +75,7 @@ export default {
     },
 
     validateTab(tabName) {
+      if (this.hideTabs?.includes(tabName)) return false;
       return true;
       // const relevantTabFields = this.dataFields.filter(c => c.uiSections?.includes(tabName)).filter(c => c.fieldName);
       // console.log(tabName, relevantTabFields);
@@ -184,6 +192,20 @@ export default {
   .release-page-nav {
     height: fit-content;
     top: calc(#{em(10px)} + #{$header-height});
+    width: rem(150px);
+    .tab-link {
+      padding: em(15px) 0;
+      &:first-child {
+        padding-top: 0;
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid #595959;
+      }
+      &.selected {
+        color: var(--clr-4);
+        font-weight: bold;
+      }
+    }
   }
 }
 </style>

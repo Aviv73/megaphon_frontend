@@ -175,14 +175,27 @@ export default {
           this.cmpName = 'img';
           this.propsToPass = { ...propsToPass, src: fixFileSrcToThumbnail(this.value, this.release) };
           break;
+          
+        function tagList(tags) {
+          // return tags.join(this.dataField.props?.seperator || ', ');
+          return `
+            <div class="tag-lest flex align-center wrap gap15">
+              ${
+                tags.map(c => `<span>${c}</span>`).join('')
+              }
+            </div>
+          `;
+        }
 
         case 'MULTISELECT':
           this.cmpName = 'p';
-          this.valueToShow = this.value.join(', ');
+          this.bindContentToHtml = true;
+          this.valueToShow = tagList(this.value);
           break;
         case 'MULTISELECT_VALUE_TO_LABEL':
           this.cmpName = 'p';
-          this.valueToShow = this.value.map(val => this.dataField.options.find(c => c.value === val)?.label).filter(Boolean).join(', ');
+          this.bindContentToHtml = true;
+          this.valueToShow = tagList(this.value.map(val => this.dataField.options.find(c => c.value === val)?.label).filter(Boolean));
           break;
 
         case 'SELECT_VALUE_TO_LABEL':
@@ -301,11 +314,11 @@ export default {
       cursor: pointer;
     }
 
-    iframe, video, .media-item {
-      box-shadow: $light-shadow;
-      height: 600px;
-      width: 100%;
-    }
+    // iframe, video, .media-item {
+    //   box-shadow: $light-shadow;
+    //   height: 600px;
+    //   width: 100%;
+    // }
   }
 // }
 </style>

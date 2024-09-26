@@ -36,6 +36,15 @@ export default [
         component: ReleasePage
       },
       {
+        name: 'DirectReleaseDetails',
+        path: '1/:id/:tabName?',
+        component: ReleaseDetails,
+        meta: {
+          reportReleaseOpen: true,
+          releaseIdParamName: 'id'
+        }
+      },
+      {
         name: 'ReleaseDetails',
         path: ':id/:tabName?',
         component: ReleaseDetails,

@@ -22,10 +22,10 @@ const  en = {
 const he = {
   "release": {
     tabs: {
-      "content": "מידע",
+      "content": "תקציר",
       "images": "תמונות",
-      "videos": "לצפיה",
-      "watch": "לצפיה",
+      "videos": "צפיה",
+      "watch": "צפיה",
       "files": "קבצים",
       "links": "קישורים",
       "festivals": "פסטיבלים",
