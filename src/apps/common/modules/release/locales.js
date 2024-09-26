@@ -12,7 +12,8 @@ const  en = {
       "festivals": "Festivals",
       "special": "Special",
       "contact": "Contact",
-      "broadcastTimes": "Broadcast times"
+      "broadcastTimes": "Broadcast times",
+      "teaser": "Teaser / Promo"
     },
     newReleases: "News",
     mostWatched: "Most watched",
@@ -31,7 +32,8 @@ const he = {
       "festivals": "פסטיבלים",
       "special": "ספיישל",
       "contact": "צור קשר",
-      "broadcastTimes": "זמני שידור"
+      "broadcastTimes": "זמני שידור",
+      "teaser": "טיזר / פרומו"
     },
     alerts: {
     },

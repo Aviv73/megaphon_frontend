@@ -102,6 +102,7 @@ export default {
     initCmpData() {
       this.typeToShow = this.dataField.uiType || this.dataField.type || '';
       this.typeToShow = this.typeToShow.toUpperCase();
+      console.log('?', this.typeToShow);
       const propsToPass = {...(this.dataField.propsToPass || {})};
       this.valueToShow = this.value;
       this.cmpName = 'p';
@@ -133,23 +134,23 @@ export default {
           break;
         case 'FilesSection'.toUpperCase(): // TODO:: NO NEED?
           // if (!this.value?.length) this.hidden = true;
-          this.propsToPass = { ...propsToPass, organizationId: this.organization._id, rootItem: this.release, releaseData: { [this.dataField.fieldName]: this.value } };
+          this.propsToPass = { ...propsToPass, organizationId: this.organization._id, rootItem: this.release, showTitle: !this.dataField.hideTitleFromUi, releaseData: { [this.dataField.fieldName]: this.value } };
           this.cmpName = 'FilesSection';
           break;
         case 'VIDEOS'.toUpperCase():
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, rootItem: this.release, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
+          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: !this.dataField.hideTitleFromUi, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
             const src = c.src || c.link || c.url; 
             return {...c, src: youtubeService.isYoutubeVid(src)? youtubeService.embedUtubeUrl(src) : src};
           }) || [] };
           break;
         case 'links'.toUpperCase():
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, rootItem: this.release, sectionId: 'links', cmpType: 'link', organizationId: this.organization._id, files: this.value }
+          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: !this.dataField.hideTitleFromUi, sectionId: 'links', cmpType: 'link', organizationId: this.organization._id, files: this.value }
           break;
         case 'IMAGEGALLERY'.toUpperCase():
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, rootItem: this.release, sectionId: 'images', cmpType: 'img', organizationId: this.organization._id, files: this.value }
+          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: !this.dataField.hideTitleFromUi, sectionId: 'images', cmpType: 'img', organizationId: this.organization._id, files: this.value }
           break;
         case 'SEPARATOR':
         case 'SEPARATOR_BOLD':

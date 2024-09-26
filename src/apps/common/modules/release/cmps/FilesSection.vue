@@ -1,9 +1,9 @@
 <template>
     <div class="files-section flex column gap40">
-      <FilesSingleSection :rootItem="rootItem" :organizationId="organizationId" v-if="images.length" sectionId="images" :title="$t('images')" cmpType="img" :files="images"/>
-      <FilesSingleSection :rootItem="rootItem" :organizationId="organizationId" v-if="videos.length" sectionId="videos" :title="$t('videos')" cmpType="video" :files="videos"/>
-      <FilesSingleSection :rootItem="rootItem" :organizationId="organizationId" v-if="files.length" sectionId="files" :title="$t('files')" cmpType="file" :files="files"/>
-      <FilesSingleSection :rootItem="rootItem" :organizationId="organizationId" v-if="links.length" sectionId="links" :title="$t('links')" cmpType="link" :files="links"/>
+      <FilesSingleSection :showTitle="showTitle" :rootItem="rootItem" :organizationId="organizationId" v-if="images.length" sectionId="images" :title="$t('images')" cmpType="img" :files="images"/>
+      <FilesSingleSection :showTitle="showTitle" :rootItem="rootItem" :organizationId="organizationId" v-if="videos.length" sectionId="videos" :title="$t('videos')" cmpType="video" :files="videos"/>
+      <FilesSingleSection :showTitle="showTitle" :rootItem="rootItem" :organizationId="organizationId" v-if="files.length" sectionId="files" :title="$t('files')" cmpType="file" :files="files"/>
+      <FilesSingleSection :showTitle="showTitle" :rootItem="rootItem" :organizationId="organizationId" v-if="links.length" sectionId="links" :title="$t('links')" cmpType="link" :files="links"/>
     </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
     },
     rootItem: {
       type: Object
+    },
+    showTitle: {
+      type: Boolean
     },
     organizationId: [String]
   },

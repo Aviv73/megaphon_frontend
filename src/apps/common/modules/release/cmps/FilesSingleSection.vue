@@ -1,6 +1,6 @@
 <template>
     <div :id="sectionId" class="flex column gap20 width-all">
-      <h2 v-if="title">{{title}}</h2>
+      <h2 v-if="title && showTitle">{{title}}</h2>
       <FileList :rootItem="rootItem" :files="files" :cmpType="cmpType" :organizationId="organizationId"/>
     </div>
 </template>
@@ -28,6 +28,10 @@ export default {
     },
     rootItem: {
       type: Object
+    },
+    showTitle: {
+      type: Boolean,
+      default: true
     }
   }
 }

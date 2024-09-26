@@ -63,7 +63,7 @@
             <TableActionBtns :allowEmptyArray="true" class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
           </td>
         </tr>
-        <tr>
+        <tr v-if="!(dataFieldToRender.singleItem && (value?.length > 0))">
           <td>
             <button class="btn big width-content align-self-end" @click.prevent="$emit('input', [...(value || []), createNewItem(dataFieldToRender.fields)], basePath)">{{$t('add')}}</button>
           </td>

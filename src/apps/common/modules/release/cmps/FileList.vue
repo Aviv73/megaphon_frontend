@@ -132,5 +132,12 @@ export default {
       // height: em(25px);
     }
   }
+
+  @media (min-width: $small-screen-breake) {
+    iframe {
+      height: 380px !important;
+    }
+  }
+
 }
 </style>
