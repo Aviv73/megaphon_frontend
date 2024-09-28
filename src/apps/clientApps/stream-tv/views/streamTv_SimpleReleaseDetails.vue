@@ -3,11 +3,11 @@
     <img class="hero-img" :src="fixFileSrcToThumbnail(release.releaseData.mainImage, release)" :alt="release.title"/>
     <div class="inner-container flex column space-between flex-1 gap30">
       <ReleaseTabView :release="release" :tabView="true" :hideTabs="hideTabs">
-        <router-link v-if="!isDirectMode" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="tab-link align-self-end">
+        <!-- <router-link v-if="!isDirectMode" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="tab-link align-self-end">
           {{$t('directLink')}}
-        </router-link>
+        </router-link> -->
       </ReleaseTabView>
-      <router-link v-if="!isDirectMode" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="small-screen-item clr-4 underline bold align-self-end">
+      <router-link v-if="!isDirectMode" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="small-screen-item_ clr-4 underline bold align-self-end">
         {{$t('directLink')}}
       </router-link>
       <!-- <div class="ph"></div> -->
@@ -73,7 +73,7 @@ export default {
     .hero-img {
       width: 100%;
       // height: em(500px);
-      height: 60vh;
+      height: 70vh;
       object-position: center center;
     }
 

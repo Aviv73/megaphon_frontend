@@ -105,7 +105,7 @@ export default {
     width: 100%;
   }
   .link-file-preview {
-    color: blue;
+    // color: blue;
     text-decoration: underline !important;
     cursor: pointer;
   }

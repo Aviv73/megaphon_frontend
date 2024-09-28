@@ -113,6 +113,7 @@
                   <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
                   <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
                   <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
+                  <FormInput type="color" labelholder="organization.linkColor" v-model="theme.colors[6]"/>
                 </div>
                 <ToggleModal :fullScreen="true" class="code-edit-modal">
                   <template #toggler>

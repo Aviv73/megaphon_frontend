@@ -1,6 +1,6 @@
 <template>
   <component :is="isProducer? 'DragDiv' : 'div'" class="preview-container" :onDrag="() => toggleToSelectedReleases(true)">
-    <li class="release-preview flex column gap5" :class="{ selected: selectedReleaseIds.includes(item._id) }" @click="handleClick">
+    <li class="release-preview flex column gap5" :class="{ selected_: selectedReleaseIds.includes(item._id) }" @click="handleClick">
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p>
       <p class="release-title">{{release.title}}</p>
@@ -10,6 +10,7 @@
         <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
         <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
         <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
+        <!-- <FormInput v-if="isProducer" type="checkbox" v-model="isSelected" @click.native.stop.prevent="val => toggleToSelectedReleases(false)"/> -->
       </div>
     </li>
   </component>
@@ -25,9 +26,10 @@ import { organizationService } from '../../organization/services/organization.se
 import  { getSvgs } from '../../../assets/images/svgs.js';
 
 import config from '@/config';
+import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 
 export default {
-  components: { DragDiv },
+  components: { DragDiv, FormInput },
   name: 'ReleasePreview',
   props: {
     item: {
@@ -39,6 +41,14 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  data() {
+    return {
+      isSelected: false
+    }
+  },
+  created() {
+    this.isSelected = selectedReleaseIds.includes(item._id);
   },
   computed: {
     // isAdmin() {
@@ -88,11 +98,12 @@ export default {
       const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, 'landingPage', config);
       window.open(pageUrl);
     },
-    toggleToSelectedReleases(isDraging) {
+    toggleToSelectedReleases(isDraging = false) {
       evManager.emit('toggleRelease-from-selected', this.item._id, isDraging);
     },
 
     handleClick() {
+      return this.goToLandingPage();
       if (!this.$store.getters.isScreenWide || this.isUserOrgWatchOnly) return this.goToLandingPage();
       this.isProducer? this.toggleToSelectedReleases(false) : this.goToLandingPage();
     }
@@ -139,11 +150,11 @@ export default {
       top: em(10px);
       left: em(10px);
       color: var(--clr-4);
-      a, button {
+      a, button, .form-input-checkbox input {
         background-color: var(--clr-1);
         box-shadow: $light-shadow;
-        width: em(17px);
-        height: em(17px);
+        width: em(17px) !important;
+        height: em(17px) !important;
         @media (max-width: $small-screen-breake) {
           width: em(30px);
           height: em(30px);
