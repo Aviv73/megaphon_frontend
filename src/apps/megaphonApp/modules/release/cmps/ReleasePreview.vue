@@ -48,7 +48,7 @@ export default {
     }
   },
   created() {
-    this.isSelected = selectedReleaseIds.includes(item._id);
+    this.isSelected = this.selectedReleaseIds.includes(item._id);
   },
   computed: {
     // isAdmin() {
