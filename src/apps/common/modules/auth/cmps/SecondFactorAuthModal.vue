@@ -42,8 +42,8 @@ export default {
 
     comunicationMethods() {
       const methods = [];
-      if (true || this.loggedUser?.email) methods.push('email');
-      if (true || this.loggedUser?.mobile) methods.push('sms');
+      if (this.loggedUser?.email) methods.push('email');
+      if (this.loggedUser?.mobile) methods.push('sms');
       return methods;
     }
   },
@@ -71,7 +71,6 @@ export default {
       this.didSend = false;
       // evEmmiter.off('needs_2_factor_auth', on2AuthCb);
       // try {
-      //   console.log('WOW?');
       //   if (this.loggedUser) await this.$store.dispatch({ type: 'auth/makeSecondFactorAuthPass' });
       //   const pass = await alertService.Prompt(this.$t('auth.required2FactorAthMsg'), this.$t('auth.password'));
       //   await this.$store.dispatch({ type: 'auth/finishAuth', pass });

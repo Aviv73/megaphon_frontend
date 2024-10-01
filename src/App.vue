@@ -12,8 +12,10 @@
     <AppFooter/> -->
     <!-- <SelectedApp/> -->
     <Loader v-if="isLoading" :msg="showSleepMsg? $t('serverSleepsMsg') : ''"/>
-    <component v-else-if="selectedApp" :is="selectedApp"/>
-    <SecondFactorAuthModal/>
+    <template v-else-if="selectedApp">
+      <component :is="selectedApp"/>
+      <SecondFactorAuthModal/>
+    </template>
   </div>
 </template>
 

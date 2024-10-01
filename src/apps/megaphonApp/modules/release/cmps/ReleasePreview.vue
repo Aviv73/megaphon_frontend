@@ -48,7 +48,7 @@ export default {
     }
   },
   created() {
-    this.isSelected = this.selectedReleaseIds.includes(item._id);
+    this.isSelected = this.selectedReleaseIds.includes(this.item._id);
   },
   computed: {
     // isAdmin() {

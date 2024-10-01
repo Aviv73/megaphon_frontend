@@ -3,7 +3,7 @@
     <div class="container header-content width-all flex align-center space-between height-all">
       <router-link v-if="!isUserWatchOnly || !selectedOrgId || isSingleOrgMode" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
         <div class="logo-title height-all flex align-center">
-          <img class="actual" :src="logoImgSrc" alt="">
+          <img v-if="showLogo" class="actual" :src="logoImgSrc" alt=""/>
         </div>
       </router-link>
       <FormInput v-else class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect"/>
@@ -36,7 +36,7 @@
           <button class="nav-item logout-btn" @click="logout">{{$t('auth.logout')}}</button>
           <router-link class="nav-item edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
           <router-link class="nav-item org-header flex align-center gap10 small-screen-item" :to="{name: 'SettingsPage'}">
-            <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt="">
+            <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
           </router-link>
         </template>
         <!-- <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
@@ -47,7 +47,7 @@
         <template v-if="isUserWatchOnly">
           <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
             <!-- <p>{{$t('settings.settings')}}</p> -->
-            <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt="">
+            <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
           </router-link>
           <LoggedUserPreview class="to-the-right"/>
         </template>
@@ -74,7 +74,8 @@ export default {
   data() {
     return {
       // selecterOrgFilterId: null,
-      selectedOrgId: this.$route.params.organizationId || ''
+      selectedOrgId: this.$route.params.organizationId || '',
+      showLogo: true
     }
   },
   computed: {
@@ -89,7 +90,7 @@ export default {
     },
     logoImgSrc() {
       const megaphonLogo = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
-      return this.orgId == '-1'? megaphonLogo : fixFileSrcToThumbnail(this.organization?.logo, this.organization) || megaphonLogo;
+      return ((this.orgId == '-1')? megaphonLogo : fixFileSrcToThumbnail(this.organization?.logo, this.organization)) || megaphonLogo;
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
@@ -152,6 +153,13 @@ export default {
     }
   },
   watch: {
+    logoImgSrc() { // for some reason sometimes th logo dont change, this watch makes sure the right logo appeares;;
+      this.showLogo = false;
+      this.$forceUpdate();
+      setTimeout(() => {
+        this.showLogo = true;
+      }, 0);
+    },
     // 'organization._id'(val) {
     //   this.selectedOrgId = val;
     // },
