@@ -1,11 +1,11 @@
 <template>
   <div class="release-edit app-form-styling flex column gap20" v-if="itemToEdit && org">
-    <header class="header tab-nav">
+    <!-- <header class="header tab-nav">
       <div class="container width-all">
         <button @click="showDesign = false" :class="{selected: !showDesign}">{{$t('release.editRelease')}}</button>
         <button :disabled="!itemToEdit._id" @click="showDesign = true" :class="{selected: showDesign}">{{$t('release.designAndPreview')}}</button>
       </div>
-    </header>
+    </header> -->
     <main class="form-content container flex column gap30 width-all">
       <template v-if="!showDesign">
         <h2>{{$t(itemToEdit._id? 'release.editRelease' : 'release.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
@@ -36,6 +36,9 @@
             {{$t('save')}}
             <!-- <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/> -->
           </button>
+          <button class="btn big primary" v-if="showDesign" @click="showDesign = false">{{$t('release.editRelease')}}</button>
+          <button class="btn big primary" v-if="!showDesign" :disabled="!itemToEdit._id" @click="showDesign = true" >{{$t('release.designAndPreview')}}</button>
+          
           <button v-if="isScreenWide" class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('release.confirmAndDistribute')}}</button>
           <button v-else class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('distribute.distribute')}}</button>
         </div>
@@ -97,7 +100,7 @@ export default {
   },
   methods: {
     async loadReleaseDataFields() {
-      this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.orgId, releaseType: this.releaseType });
+      this.dataFields = (await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.orgId, releaseType: this.releaseType })).filter(c => !c.disabled);
     },
     async getOrg() {
       this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId, isToInheritData: true });
@@ -194,7 +197,19 @@ export default {
     }
     .dynamic-input:not(.input-field-SEPARATOR) h3 {
       width: em(150px);
+      font-size: em(12px);
+      font-weight: normal;
     }
+
+    .form-input {
+      &-text, &-select {
+        height: em(40px);
+        input {
+          border-radius: 0;
+        }
+      }
+    }
+
     // h2, h3 {
     //   color: #0084D4;
     // }

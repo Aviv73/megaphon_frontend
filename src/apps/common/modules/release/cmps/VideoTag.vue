@@ -48,14 +48,12 @@ export default {
     }
 
 
-    // console.log('WOWO?');
     // const player = window.cloudinary.videoPlayer(elVideo, {
     //   cloud_name: 'djk2q5so4',
     //   controls: true,
     //   autoplay: false,
     //   muted: false,
     // });
-    // console.log('WOWO', player);
     // player.source(this.src, { sourceTypes: ['hls'] });
 
     const hls = new Hls();
@@ -65,9 +63,9 @@ export default {
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
       // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
       elVideo.play();
-      setTimeout(() => {
-        // this.appendWatermarkStyling();
-      }, 1000);
+      // setTimeout(() => {
+      //   // this.appendWatermarkStyling();
+      // }, 1000);
       // elVideo.addEventListener('canplay', () => {
       //   elVideo.play();
       // });

@@ -218,7 +218,7 @@ export default {
     // }
   }
 
-  @media (max-width: $small-screen-breake) {
+  @media (max-width: $small-screen-break) {
     gap: em(5px);
     // width: 98% !important;
     .hero-main {

@@ -61,7 +61,7 @@ export default {
     }
     .inner-area {
       padding: em(20px);
-      @media (max-width: $small-screen-breake) {
+      @media (max-width: $small-screen-break) {
         background-color: yellow;
         width: 100% !important;
         flex: unset !important;

@@ -214,7 +214,7 @@ export default {
       flex: 1;
     }
 
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       flex-direction: column-reverse;
     }
   }

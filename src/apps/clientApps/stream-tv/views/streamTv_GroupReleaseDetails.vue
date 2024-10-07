@@ -185,7 +185,7 @@ export default {
   .group-release-details {
     padding-bottom: $main-pad-y;
     max-width: calc(100vw - var(--aside-width));
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       max-width: 100vw;
     }
     width: 100%;
@@ -258,7 +258,7 @@ export default {
       height: unset;
     }
     .release-summary-preview {
-      @media (max-width: $small-screen-breake) {
+      @media (max-width: $small-screen-break) {
         flex-direction: column;
         .flex-2 {
           flex: 1;
@@ -275,7 +275,7 @@ export default {
     // }
 
     
-    // @media (max-width: $small-screen-breake) {
+    // @media (max-width: $small-screen-break) {
     //   .hero {
     //     gap: em(5px);
     //     width: 98% !important;

@@ -58,7 +58,7 @@ export default {
     async loadReleaseDataFields() {
       // await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.organizationId });
       // this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.org._id, releaseType: this.releaseType });
-      this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.release.organizationId, releaseType: this.releaseType });
+      this.dataFields = (await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.release.organizationId, releaseType: this.releaseType })).filter(c => !c.disabled);
       this.selectedTab = this.allTabNames[0];
     },
     async init() {
@@ -191,7 +191,8 @@ export default {
 .release-tab-view {
   .release-page-nav {
     height: fit-content;
-    top: calc(#{em(10px)} + #{$header-height});
+    // top: calc(#{em(10px)} + #{$header-height});
+    top: em(20px);
     width: rem(150px);
     .tab-link {
       padding: em(15px) 0;

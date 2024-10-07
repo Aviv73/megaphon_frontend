@@ -151,7 +151,7 @@ export default {
         &:nth-child(3) {
           background-color: #699FBA;
         }
-        @media (max-width: $small-screen-breake) {
+        @media (max-width: $small-screen-break) {
           min-width: 300px;
           &:not(:last-child) {
             margin-bottom: 100px;

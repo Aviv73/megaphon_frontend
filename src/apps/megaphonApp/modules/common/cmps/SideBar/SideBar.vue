@@ -175,7 +175,7 @@ export default {
 //         border-bottom: em(0.5px) solid #003d5e;
 //       }
 
-//       // @media (max-width: $small-screen-breake) {
+//       // @media (max-width: $small-screen-break) {
 //       //   // .main-sidebar {
 //       //     background-color: var(--clr-2);
 //       //   // }
@@ -291,7 +291,7 @@ export default {
     .blur, .toggle-btn {
       display: none;
     }
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       position: fixed;
       padding: 0;
       .main-sidebar {

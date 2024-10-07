@@ -170,7 +170,7 @@ export default {
           font-weight: bold;
         }
       }
-      // @media (min-width: $small-screen-breake) {
+      // @media (min-width: $small-screen-break) {
       .nav-or-burger {
         &:not(.mobileView) {
           height: 100%;

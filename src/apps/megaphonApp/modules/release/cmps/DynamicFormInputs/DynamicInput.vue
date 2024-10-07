@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-input flex gap30" v-if="dataFieldToRender" :class="`input-field-${dataFieldToRender.type}`">
-    <h3 class="ignore-theme-style" v-if="!noTitle && ((dataFieldToRender.title && (dataFieldToRender.type === 'SEPARATOR') || (dataFieldToRender.type !== 'SEPARATOR')))">{{dataFieldToRender.title}}</h3>
+    <h3 class="ignore-theme-style" v-if="(!noTitle && dataFieldToRender.title) || ((dataFieldToRender.type === 'SEPARATOR') && dataFieldToRender.title)">{{dataFieldToRender.title}}</h3>
     <div class="flex-1 input-container" :class="{'table-container': dataFieldToRender.type === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{dataFieldToRender.type}}"</p>
       <component
@@ -161,9 +161,13 @@ export default {
           this.cmpName = 'FormInput';
           break;
         case 'SEPARATOR':
-        case 'SEPARATOR_BOLD':
+        // case 'SEPARATOR_BOLD':
           this.cmpName = 'hr';
-          if (type === 'SEPARATOR_BOLD') this.propsToPass = { ...propsToPass, style: 'border-width:3px' };
+          this.propsToPass = { ...propsToPass, style: `border-width:1px;border-color:var(--clr-4)` };
+          break;
+        case 'LIGHT_SEPARATOR':
+          this.cmpName = 'hr';
+          this.propsToPass = { ...propsToPass, style: 'border-width:1px;border-color:var(--clr-0);opacity:0.5' };
           break;
         case 'LONGRICHTEXT':
         case 'RICHTEXT':
@@ -321,7 +325,7 @@ export default {
         flex-direction: column !important;
         gap: em(5px);
       }
-      @media (max-width: $small-screen-breake) {
+      @media (max-width: $small-screen-break) {
         // flex-direction: column;
         flex-wrap: wrap;
       }
@@ -342,13 +346,13 @@ export default {
       }
     }
     .quillWrapper {
-      @media (max-width: $small-screen-breake) {
+      @media (max-width: $small-screen-break) {
         max-width: 90vw; // TODO: 95;
         overflow-x: auto;
         margin: 0 auto;
       }
     }
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       flex-direction: column;
       gap: em(10px);
     }

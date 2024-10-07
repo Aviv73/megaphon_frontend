@@ -32,10 +32,10 @@ export default {
   
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.release-details {
-  .release-page-nav {
-    height: fit-content;
-    top: calc(#{em(10px)} + #{$header-height});
-  }
-}
+// .release-details {
+//   .release-page-nav {
+//     height: fit-content;
+//     top: calc(#{em(10px)} + #{$header-height});
+//   }
+// }
 </style>

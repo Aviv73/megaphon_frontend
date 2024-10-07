@@ -161,7 +161,7 @@ export default {
       // }
 
       
-      @media (max-width: $small-screen-breake) {
+      @media (max-width: $small-screen-break) {
         flex-direction: column;
         .main-img {
           width: 100%;

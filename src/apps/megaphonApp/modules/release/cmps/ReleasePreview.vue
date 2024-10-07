@@ -2,15 +2,19 @@
   <component :is="isProducer? 'DragDiv' : 'div'" class="preview-container" :onDrag="() => toggleToSelectedReleases(true)">
     <li class="release-preview flex column gap5" :class="{ selected_: selectedReleaseIds.includes(item._id) }" @click="handleClick">
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
-      <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p>
       <p class="release-title">{{release.title}}</p>
-      <div class="actions flex column align-end gap5" v-if="!isUserOrgWatchOnly">
-        <button v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
-        <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
-        <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
-        <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
-        <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
-        <!-- <FormInput v-if="isProducer" type="checkbox" v-model="isSelected" @click.native.stop.prevent="val => toggleToSelectedReleases(false)"/> -->
+        <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p> -->
+      <div v-if="!isUserOrgWatchOnly" class="actions-container flex column space-between align-end">
+        <div class="actions flex column align-end gap5">
+          <button v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
+          <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
+          <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
+          <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
+          <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
+        </div>
+        <FormInput class="select-checkbox" v-if="isProducer" type="checkbox" v-model="isSelected" @click.native.stop="val => toggleToSelectedReleases(false)"/>
+        <p class="dist-title align-self-end_" v-if="item.distributedAt">{{pretyDistributionTime}}</p>
+        <!--   -->
       </div>
     </li>
   </component>
@@ -99,6 +103,7 @@ export default {
       window.open(pageUrl);
     },
     toggleToSelectedReleases(isDraging = false) {
+      // this.isSelected = !this.isSelected;
       evManager.emit('toggleRelease-from-selected', this.item._id, isDraging);
     },
 
@@ -115,7 +120,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .preview-container {
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       width: 100%;
     }
   }
@@ -123,7 +128,7 @@ export default {
     color: var(--clr-0);
     position: relative;
     // width: em(180px);
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       // width: 90vw;
       width: 100%;
     }
@@ -133,7 +138,7 @@ export default {
       height: em(160px);
       width: 100%;
       object-fit: cover;
-      @media (max-width: $small-screen-breake) {
+      @media (max-width: $small-screen-break) {
         height: em(200px);
       }
     }
@@ -145,26 +150,42 @@ export default {
       font-size: em(16px);
     }
 
-    .actions {
+    .actions-container {
       position: absolute;
-      top: em(10px);
-      left: em(10px);
-      color: var(--clr-4);
-      a, button, .form-input-checkbox input {
-        background-color: var(--clr-1);
-        box-shadow: $light-shadow;
-        width: em(17px) !important;
-        height: em(17px) !important;
-        @media (max-width: $small-screen-breake) {
-          width: em(30px);
-          height: em(30px);
-        }
-        img, .img {
-          width: 100%;
-          height: 100%;
-          color: var(--clr-4);
+      // top: em(10px);
+      // left: em(10px);
+      padding: em(10px);
+
+      top: 0;
+      left: 0;
+      height: em(160px);
+      width: 100%;
+      .actions {
+        color: var(--clr-4);
+        a, button, .form-input-checkbox_, .form-input-checkbox .input {
+          &:not(.input) {
+            background-color: var(--clr-1);
+          }
+          box-shadow: $light-shadow;
+          width: em(23px) !important;
+          height: em(23px) !important;
+          @media (max-width: $small-screen-break) {
+            width: em(30px) !important;
+            height: em(30px) !important;
+          }
+          img, .img {
+            width: 100%;
+            height: 100%;
+            color: var(--clr-4);
+          }
         }
       }
+    }
+
+    .select-checkbox {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
     }
 
     &.selected {

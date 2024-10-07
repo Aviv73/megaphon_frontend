@@ -97,12 +97,16 @@ export default {
     width: em(300px);
     height: em(200px);
     object-fit: cover;
+    max-width: 95vw;
+    @media (max-width: $small-screen-break) {
+    }
   }
   .video-file-preview {
     box-shadow: $light-shadow;
     // height: em(600px);
     height: auto;
     width: 100%;
+    max-width: 95vw;
   }
   .link-file-preview {
     // color: blue;
@@ -111,7 +115,7 @@ export default {
   }
   .file-preview {
     position: relative;
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       width: 100%;
       .img-file-preview, .video-file-preview {;
         width: 100%;
@@ -133,7 +137,7 @@ export default {
     }
   }
 
-  @media (min-width: $small-screen-breake) {
+  @media (min-width: $small-screen-break) {
     iframe {
       height: 380px !important;
     }

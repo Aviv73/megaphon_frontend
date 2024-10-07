@@ -60,7 +60,7 @@ export default {
   .nav {
     height: 100%;
   }
-  // @media (max-width: $small-screen-breake) { // $small-screen-breake
+  // @media (max-width: $small-screen-break) { // $small-screen-break
   &.mobileView {
     // $height: calc(100vh - #{$header-height});
     $height: 100vh;

@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-field flex column gap10" v-if="dataFieldToRender && !dataFieldToRender.hideFromUi && (valueToShow || (typeToShow === 'ROW')) && !hidden" :class="`field-field-${typeToShow} ${dataFieldToRender.title}`">
-    <h3 class="field-title" v-if="!noTitle && !dataFieldToRender.hideTitleFromUi && ((dataFieldToRender.title && (typeToShow === 'SEPARATOR') || (typeToShow !== 'SEPARATOR')))">{{dataFieldToRender.uiTitle || dataFieldToRender.title}}</h3>
+    <h3 class="field-title" v-if="!noTitle && !dataFieldToRender.hideTitleFromUi && (dataFieldToRender.title)">{{dataFieldToRender.uiTitle || dataFieldToRender.title}}</h3>
     <div class="flex-1 field-container" :class="{'table-container': typeToShow === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{typeToShow}}"</p>
       <component
@@ -134,25 +134,26 @@ export default {
           break;
         case 'FilesSection'.toUpperCase(): // TODO:: NO NEED?
           // if (!this.value?.length) this.hidden = true;
-          this.propsToPass = { ...propsToPass, organizationId: this.organization._id, rootItem: this.release, showTitle: !this.dataField.hideTitleFromUi, releaseData: { [this.dataField.fieldName]: this.value } };
+          this.propsToPass = { ...propsToPass, organizationId: this.organization._id, rootItem: this.release, showTitle: false, releaseData: { [this.dataField.fieldName]: this.value } };
           this.cmpName = 'FilesSection';
           break;
         case 'VIDEOS'.toUpperCase():
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: !this.dataField.hideTitleFromUi, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
+          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: false, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
             const src = c.src || c.link || c.url; 
             return {...c, src: youtubeService.isYoutubeVid(src)? youtubeService.embedUtubeUrl(src) : src};
           }) || [] };
           break;
         case 'links'.toUpperCase():
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: !this.dataField.hideTitleFromUi, sectionId: 'links', cmpType: 'link', organizationId: this.organization._id, files: this.value }
+          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: false, sectionId: 'links', cmpType: 'link', organizationId: this.organization._id, files: this.value }
           break;
         case 'IMAGEGALLERY'.toUpperCase():
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: !this.dataField.hideTitleFromUi, sectionId: 'images', cmpType: 'img', organizationId: this.organization._id, files: this.value }
+          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: false, sectionId: 'images', cmpType: 'img', organizationId: this.organization._id, files: this.value }
           break;
         case 'SEPARATOR':
+        case 'LIGHT_SEPARATOR':
         case 'SEPARATOR_BOLD':
           this.hidden = true
           this.cmpName = 'hr';
@@ -294,7 +295,7 @@ export default {
   .dynamic-field {
    
     
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       flex-direction: column;
       gap: em(10px);
     }

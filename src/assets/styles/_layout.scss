@@ -47,7 +47,7 @@
 .app-footer {
   // min-height: $footer-height;
   padding-inline-start: $app-aside-width;
-  @media (max-width: $small-screen-breake) {
+  @media (max-width: $small-screen-break) {
     padding-inline-start: 0;
   }
 }
@@ -68,7 +68,7 @@
 //   // background-color: rgba(0,0,0,0.05);
 //   // background-color: rgba(255,255,255,0.3);
 //   border-inline-end: 0.5px solid rgba(0,0,0,0.1);
-//   @media (max-width: $small-screen-breake) {
+//   @media (max-width: $small-screen-break) {
 //     display: none !important;
 //   }
 // }
@@ -132,7 +132,7 @@ html.accessability {
 //       padding: 10px 24px;
 //       max-width: unset;
 //   }
-// } @media (max-width: $small-screen-breake) {
+// } @media (max-width: $small-screen-break) {
 //   .container {
 //       padding: 10px 12px;
 //   }
@@ -147,12 +147,12 @@ html.accessability {
 
 
 
-@media (min-width: $small-screen-breake) {
+@media (min-width: $small-screen-break) {
   .small-screen-item {
     display: none !important;
   }
 }
-@media (max-width: $small-screen-breake) {
+@media (max-width: $small-screen-break) {
   .wide-screen-item {
     display: none !important;
   }

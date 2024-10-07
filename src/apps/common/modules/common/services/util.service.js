@@ -343,33 +343,9 @@ export function delay(timeMs = 2000) {
 }
 
 
-export function getCreateErrMsg(fileName) {
-  return (msg, funcName, err = '') => `${msg} | at: ${fileName} file, function: ${funcName} | err: ${err.message || err.msg || 'unknown'}`;
-}
 
-export function createFriendlyError(err = '', status = 500,  message = '') {
-  const error = err.err || err.error || err.message || err.msg || err;
-  return {
-    err: error,
-    status,
-    message: message || error,
-  }
-}
 
-export function getOriginsInAllProtocols(...origins) {
-  const protocols = ['http', 'https', 'ws', 'wss'];
-  return origins.reduce((acc, c) => {
-    return [...acc, ...protocols.reduce((_acc, protocol) => {
-        return [..._acc, `${protocol}://127.0.0.1:${c}`, `${protocol}://localhost:${c}`];
-      }, [])
-  ]}, []);
-}
 
-export function fixDeepQuery(quer) {
-  const fixed = {};
-  for (let key in quer) fixed[key] = JSON.parse(quer[key]);
-  return fixed;
-}
 
 export function noop() {}; 
   
@@ -485,8 +461,7 @@ export function scrollToEl(toSelector, diff = 0, scrollInElSelector = 'body') {
     window.scrollTo(0, pos.y + diff);
   }
 
-export function getRandomPassword(length = 10) {
-    const options = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*?';
+export function getRandomPassword(length = 10, options = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*?') { // <>~=-_
     var res = '';
     for (let i = 0; i < length; i++) res += options[getRandomInt(0, options.length-1)];
     return res;
@@ -591,6 +566,15 @@ export function commaAndListJoin(list) {
         else acc += ' and ';
         return acc;
       }, '');
+}
+
+
+async function getImgBase64(url) {
+    const res = await fetch(url, { responseType: 'arraybuffer' }).then(r => r.arrayBuffer());
+    const base46 = Buffer.from(res.data, 'binary').toString('base64');
+    const mimeType = res.headers['content-type'];
+    const base64Image = `data:${mimeType};base64,${base46}`;
+    return {base64Image, base46, mimeType, url};
 }
 
 //////////////////STORAGE_SERVICE////////////////////
@@ -705,5 +689,47 @@ export const random = {
             shuffled.push(copy.splice(this.randInt(0, copy.length-1), 1)[0]);
         }
         return shuffled;
+    }
+}
+
+
+
+// for node:::
+
+
+export function getCreateErrMsg(fileName) {
+    return (msg, funcName, err = '') => `${msg} | at: ${fileName} file, function: ${funcName} | Error:: ${err.message || err.msg || 'unknown'} \n${err?.stack?.toString?.()}`;
+}
+  
+export function createError(err = '', status = 500,  msg = '', moreData = {}) {
+    const error = err.err || err.error || err.message || err.msg || err;
+    return {
+      err: error,
+      status,
+      msg: msg || error,
+      ...moreData
+    }
+}
+  
+export function getOriginsInAllProtocols(...origins) {
+  const protocols = ['http', 'https', 'ws', 'wss'];
+  return origins.reduce((acc, c) => {
+    return [...acc, ...protocols.reduce((_acc, protocol) => {
+        return [..._acc, `${protocol}://127.0.0.1:${c}`, `${protocol}://localhost:${c}`];
+      }, [])
+  ]}, []);
+}
+
+export function fixDeepQuery(quer = {}) {
+    const fixed = {};
+    for (let key in quer) fixed[key] = isValidJsonStr(quer[key])? JSON.parse(quer[key]) : quer[key];
+    return fixed;
+}
+function isValidJsonStr(jsonStr) {
+    try {
+      JSON.parse(jsonStr);
+      return true;
+    } catch(err) {
+      return false;
     }
 }

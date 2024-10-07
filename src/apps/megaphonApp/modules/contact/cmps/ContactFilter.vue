@@ -94,7 +94,7 @@ export default {
 .megaphon-app {
   .contact-filter {
     
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       flex-direction: column;
       align-items: center;
       .pickers {

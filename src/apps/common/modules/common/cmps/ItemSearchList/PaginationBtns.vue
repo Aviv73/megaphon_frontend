@@ -253,7 +253,7 @@ export default {
         display: flex;
         align-items: center;
         gap: em(25px);
-        @media (max-width: $small-screen-breake) {
+        @media (max-width: $small-screen-break) {
           gap: em(10px);
 
         }

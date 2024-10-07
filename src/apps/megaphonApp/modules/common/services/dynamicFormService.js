@@ -69,6 +69,7 @@ export function createItemForDynamicForm(dataFields = []) {
 
       case 'SEPARATOR':
       case 'SEPARATOR_BOLD':
+      case 'LIGHT_SEPARATOR':
         break;
 
 
@@ -109,6 +110,7 @@ export function validateDataByDataField(dataField, data, rootData, fullParent) {
       return data && !!data.filter(c => fixFileSrcToThumbnail(c, fullParent)).length;
     case 'SEPARATOR':
     case 'SEPARATOR_BOLD':
+    case 'LIGHT_SEPARATOR':
       return false;
     // case 'ROW':
     case 'ROW':

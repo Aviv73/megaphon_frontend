@@ -119,15 +119,16 @@ export default {
       const orgToEdit = JSON.parse(JSON.stringify(this.organizations.find(c => c._id === orgId)));
       if (!orgToEdit.folders) orgToEdit.folders = [];
       const splitedFolderPath = newFolderPath.split('/').filter(Boolean);
-      let currFolders = orgToEdit.folders
+      let currFolders = orgToEdit.folders;
       for (let currFoldName of splitedFolderPath) {
-        let currFolder = currFolders.find(c => c.name === currFoldName);
+        let currFolder = currFolders.find(c => c?.name === currFoldName);
         if (!currFolder) {
           currFolder = { name: currFoldName, children: [], content: [] };
           currFolders.push(currFolder);
         }
         currFolders = currFolder.children;
       }
+      orgToEdit.folders = orgToEdit.folders?.filter(Boolean) || [];
       this.updateOrg(orgToEdit);
     },
     async removeOrUpdateFolder(orgId, foldPath = '', newItem = undefined) {
@@ -218,7 +219,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .main-sidebar-view {
-    @media (min-width: $small-screen-breake) {
+    @media (min-width: $small-screen-break) {
       padding-inline-start: 0;
     }
     >* {

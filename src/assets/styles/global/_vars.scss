@@ -13,8 +13,8 @@ $app-font: Segoe UI;
 
 
 // SREEN BREAK BREAK POINTS:
-// $small-screen-breake: 800px;
-$small-screen-breake: 900px; //small-screen-breake
+// $small-screen-break: 800px;
+$small-screen-break: 900px; //small-screen-breake
 $medium-screen-breake: 1200px;
 $big-screen-breake: 1500px;
 
@@ -100,7 +100,7 @@ $blure-clr: rgba(0, 0, 0, 0.1);
   fontSizeMedium: $font-size-medium;
   fontSizeBig: $font-size-big;
   appFont: $app-font;
-  smallScreenBreak: $small-screen-breake;
+  smallScreenBreak: $small-screen-break;
   mediumScreenBreak: $medium-screen-breake;
   bigScreenBreak: $big-screen-breake;
   clr1: $clr-1;

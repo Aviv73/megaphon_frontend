@@ -99,6 +99,18 @@ export default {
       }
     }
 
+    .type-display, .licenseType-display {
+      .dynamic-field {
+        .field-title {
+          color: var(--clr-0);
+        }
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: em(10px);
+      }
+    }
+
     .publishedAt-display {
       display: none;
       color: var(--heading-color);

@@ -63,8 +63,13 @@ export default {
       // if (!this.currOrgFilter) return;
       // this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: this.currOrgFilter || this.organization?.routes?.[0], folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
 
-      const routeName = this.pageNameInQuery;
-      if (!routeName) return;
+      let routeName = this.pageNameInQuery;
+      if (!routeName) {
+        this.$router.push(this.firstPageRoute);
+        routeName = this.pageNameInQuery;
+        if (!routeName) return;
+        // return;
+      }
       let filterItem = this.organization?.routes.find(c => c.name === routeName) || this.allAuthRoutes?.[0] || undefined;
       if (this.noPageMode) filterItem = { releaseFilter: { releaseTpes: templateUtils.getAllReleaseTypesForOrg(org).map(c => c.id) } }
       if (!filterItem) return;
@@ -90,7 +95,7 @@ export default {
         return;
       }
       if (!organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, this.pageNameInQuery)) {
-        this.$router.push({ query: { ...this.$route.query, page: this.allAuthRoutes[0]?.name || '' } })
+        this.$router.push(this.firstPageRoute);
       } else {
         this.getAllReleases();        
       }
@@ -99,6 +104,9 @@ export default {
     }
   },
   computed: {
+    firstPageRoute() {
+      return { query: { ...this.$route.query, page: this.allAuthRoutes[0]?.name || '' } };
+    },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
     },
@@ -187,7 +195,7 @@ export default {
       overflow: unset;
       .item-list {
         overflow-y: unset;
-        @media (max-width: $small-screen-breake) {
+        @media (max-width: $small-screen-break) {
           // justify-content: space-around !important;
           flex-direction: column;
           align-items: center;
@@ -235,7 +243,7 @@ export default {
           // }
           padding-inline-end: em(50px);
         }
-        @media (max-width: $small-screen-breake) {
+        @media (max-width: $small-screen-break) {
           padding: 0 !important;
           img {
             height: em(250px);

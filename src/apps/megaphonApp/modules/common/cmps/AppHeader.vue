@@ -191,7 +191,7 @@ export default {
     .header-content {
       width: 100%;
       position: relative;
-      @media (min-width: $small-screen-breake) {
+      @media (min-width: $small-screen-break) {
         // padding-inline-start: 0;
       }
     }
@@ -231,7 +231,7 @@ export default {
       background-color: unset;
       // color: black;
       --preview-clr: var(--clr-2) !important;
-      @media (max-width: $small-screen-breake) {
+      @media (max-width: $small-screen-break) {
         .actions-section {
           display: none;
         }
@@ -239,7 +239,7 @@ export default {
     }
     
 
-    @media (max-width: $small-screen-breake) { // $small-screen-breake
+    @media (max-width: $small-screen-break) { // $small-screen-break
       .nav {
         background-color: white;
       }

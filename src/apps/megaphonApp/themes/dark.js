@@ -106,7 +106,7 @@ export default {
           'border-bottom': `${em(0.5)} solid #003d5e`
         },
   
-        // @media (max-width: $small-screen-breake) {
+        // @media (max-width: $small-screen-break) {
         //   // .main-sidebar {
         //     background-color: var(--clr-2);
         //   // }

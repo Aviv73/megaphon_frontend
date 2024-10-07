@@ -111,7 +111,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  @media (max-width: $small-screen-breake) {
+  @media (max-width: $small-screen-break) {
     // flex-direction: column;
     flex-wrap: wrap;
     gap: em(5px) !important;

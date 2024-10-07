@@ -58,7 +58,7 @@ export default {
 
     overflow: auto;
 
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       min-width: 90vw;
     }
 

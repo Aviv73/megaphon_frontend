@@ -531,7 +531,7 @@ export default {
     padding: em(10px);
 
     .main-content {
-      @media (max-width: $small-screen-breake) {
+      @media (max-width: $small-screen-break) {
         flex-direction: column-reverse;
         gap: em(50px);
         .distribute-detailes {

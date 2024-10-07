@@ -102,7 +102,7 @@
             </template>
           </div>
         </div>
-        <div class="drop-down flex column" @click.stop="" :class="{'direction-up': listUp}">
+        <div class="drop-down flex column align-start" @click.stop="" :class="{'direction-up': listUp}">
           <template v-if="itemsToRender?.length">
             <template v-if="componentType === 'multiselect'">
               <label class="gap5" v-for="item in itemsToRender" :key="item.label" :class="{selected: val === item.value}">
@@ -365,6 +365,19 @@ export default {
       text-overflow: ellipsis;
     }
   }
+
+  &.form-input-checkbox {
+    input {
+      width: em(15px);
+      height: em(15px);
+    }
+  }
+  // &.form-input-color {
+  //   input {
+  //     width: em(70px);
+  //     height: em(40px);
+  //   }
+  // }
   .input {
     position: relative;
     height: 100%;
@@ -378,10 +391,10 @@ export default {
       margin: 0;
       resize: none;
 
-      &[type="checkbox"] {
-        width: em(15px);
-        height: em(15px);
-      }
+      // &[type="checkbox"] {
+      //   width: em(15px);
+      //   height: em(15px);
+      // }
 
       &[type="color"] {
         width: em(70px);

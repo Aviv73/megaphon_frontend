@@ -1,11 +1,11 @@
 <template>
-  <div class="folder-list-container" :style="{ paddingInlineStart: (depth+1) * 3 + 'px' }">
-    <div class="folder-list" v-for="folder in folders" :key="getFolderRelativeName(folder)">
+  <div class="folder-list-container" :style="{ paddingInlineStart: (depth+1) * 10 + 'px' }">
+    <div class="folder-list" v-for="folder in folders.filter(Boolean)" :key="getFolderRelativeName(folder)">
       <DropDiv @dragleave="selectDropable(null)" @dragenter="selectDropable(getFolderRelativeName(folder))" :onDrop="() => addReleasesToFolder(folder, getFolderRelativeName(folder))">
         <div :class="{ dropable: currentDropableFolderPath === getFolderRelativeName(folder) }" class="nav-list-item inner-list-item flex align-center gap5 space-between width-all">
           <div class="flex align-center gap5" @click="selectFolder(getFolderRelativeName(folder), folder)">
             <Avatar class="folder-avatar" :size="40" :img="require('@/apps/megaphonApp/assets/images/folder.svg')"/>
-            <p>{{folder.name}}</p>
+            <p>{{folder?.name || 'WOW'}}</p>
           </div>
           <button @click="removeFolder(getFolderRelativeName(folder))">X</button>
         </div>
@@ -18,6 +18,7 @@
       </form> -->
     </div>
     <form v-if="depth < 2" @submit.prevent="addFolder($event, parentPath)" class="add-folder-input-container nav-list-item inner-list-item flex align-center gap5">
+       <Avatar class="folder-avatar" :size="40" :img="require('@/apps/megaphonApp/assets/images/folder.svg')"/>
       <FormInput placeholder="sidebar.addFolder" value=""/>
       <button type="submit">+</button>
     </form>

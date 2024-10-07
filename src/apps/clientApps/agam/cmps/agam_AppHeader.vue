@@ -162,7 +162,7 @@ export default {
     }
   
   
-    @media (max-width: $small-screen-breake) { // $small-screen-breake
+    @media (max-width: $small-screen-break) { // $small-screen-break
       .nav-or-burger.mobileView {
         .nav-item {
           background-color: $layout-black;

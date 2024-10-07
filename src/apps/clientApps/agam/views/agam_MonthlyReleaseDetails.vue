@@ -221,7 +221,7 @@ export default {
     }
 
     
-    @media (max-width: $small-screen-breake) {
+    @media (max-width: $small-screen-break) {
       .hero {
         // gap: em(10px);
         gap: em(5px);
