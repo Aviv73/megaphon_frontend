@@ -10,7 +10,7 @@
         {value: 'tablet', img: require('@/apps/megaphonApp/assets/images/devices/tablet.jpg')},
         {value: 'mobile', img: require('@/apps/megaphonApp/assets/images/devices/mobile.png')},
       ]"/>
-      <FormInput
+      <!-- <FormInput
         :debug="true"
         type="select"
         :value="release.design[designTypeKey] || allTemplates[0]?.id || ''"
@@ -19,7 +19,7 @@
           allTemplates
             .map(c => ({ label: c.name, value: c.id }))
         "
-      />
+      /> -->
     </div>
     <iframe v-if="landingPageUrl" :style="iframeStyle" :src="landingPageUrl" frameborder="0"></iframe>
     <p v-else>{{$t('noMatchingDesign')}}</p>
