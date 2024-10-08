@@ -15,7 +15,8 @@ const  en = {
       "broadcastTimes": "Broadcast times",
       "teaser": "Teaser / Promo",
       "reviews": "Reviews",
-      "contacts": "Contacts"
+      "contacts": "Contacts",
+      "comunicat": "Comunicat"
     },
     newReleases: "News",
     mostWatched: "Most watched",
@@ -37,7 +38,8 @@ const he = {
       "broadcastTimes": "זמני שידור",
       "teaser": "טיזר / פרומו",
       "reviews": "ביקורות",
-      "contacts": "אנשי קשר"
+      "contacts": "אנשי קשר",
+      "comunicat": "קומוניקט"
     },
     alerts: {
     },

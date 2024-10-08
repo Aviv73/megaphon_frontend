@@ -3,16 +3,28 @@
     <div class="release-page-nav sticky flex column space-between_ gap100 wide-screen-item">
       <div class="wide-screen-item flex column gap10_" v-if="allTabNames.length">
         <!-- :style="{position: 'fixed', top: '110px'}" -->
-        <template v-for="tabName in allTabNames || ['content', 'images', 'videos', 'files', 'links']">
-          <a
-            class="tab-link"
-            :key="tabName"
-            :class="{bold: selectedTab === tabName, selected: selectedTab === tabName}" 
-            @click="scrollToEl($event, tabName)"
-            v-if="validateTab(tabName)"
-          >
-            {{$t(`release.tabs.${tabName}`)}}
-          </a>
+        <template v-for="tab in allTabNames || ['content', 'images', 'videos', 'files', 'links']">
+          <template v-if="validateTab(tab.name)">
+            <a
+              v-if="tab.type === 'section'"
+              class="tab-link"
+              :key="tab.name"
+              :class="{bold: selectedTab === tab.name, selected: selectedTab === tab.name}" 
+              @click="scrollToEl($event, tab.name)"
+              
+            >
+              {{$t(`release.tabs.${tab.name}`)}}
+            </a>
+            <router-link
+              v-else-if="tab.type === 'fileViewer'"
+              class="tab-link"
+              :key="tab.name"
+              :class="{bold: selectedTab === tab.name, selected: selectedTab === tab.name}" 
+              :to="{ name: 'FileViewer', query: {file: tab.url} }"
+            >
+              {{$t(`release.tabs.${tab.name}`)}}
+            </router-link>
+          </template>
         </template>
         <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
       </div>
@@ -33,6 +45,7 @@
 
 <script>
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
+import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '../../common/services/file.service';
 
 import { templateUtils } from '../../common/services/template.util.service';
 // import FilesSection from '../cmps/FilesSection.vue';
@@ -47,6 +60,7 @@ export default {
     tabView: Boolean,
     release: Object,
     hideTabs: Array,
+    mapTabs: Function,
   },
   data() {
     return  {
@@ -55,11 +69,12 @@ export default {
     }
   },
   methods: {
+    fixFileSrcToThumbnail,
     async loadReleaseDataFields() {
       // await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.organizationId });
       // this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.org._id, releaseType: this.releaseType });
       this.dataFields = (await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.release.organizationId, releaseType: this.releaseType })).filter(c => !c.disabled);
-      this.selectedTab = this.allTabNames[0];
+      this.selectedTab = this.$route.query.tab || this.allTabNames[0].name;
     },
     async init() {
       this.loadReleaseDataFields();
@@ -71,6 +86,7 @@ export default {
     scrollToEl(ev, elId) {
       ev.preventDefault();
       this.selectedTab = elId;
+      this.$router.push({query: {...(this.$route.query || {}), tab: elId}});
       return scrollToEl(`#${elId}`, -20);
     },
 
@@ -165,7 +181,11 @@ export default {
     },
 
     allTabNames() {
-      return Array.from(new Set(this.dataFieldsToShow.map(c => c.uiSections).filter(Boolean).reduce((acc, c) => [...acc, ...c], [])));
+      return Array.from(new Set(this.dataFieldsToShow.map(c => c.uiSections).filter(Boolean).reduce((acc, c) => [...acc, ...c], []))).map(c => ({
+        name: c,
+        type: 'section',
+        ...(this.mapTabs? this.mapTabs(c) : [])
+      }));
     }
   },
   created() {

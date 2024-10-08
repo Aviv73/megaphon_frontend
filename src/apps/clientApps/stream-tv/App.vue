@@ -1,7 +1,7 @@
 <template>
   <div class="app streamTv-app">
     <div class="app-content container_">
-      <AppAside class="left wide-screen-item" v-if="!(['LoginPage', 'SignupPage'].includes($route.name) || isSimpleReleasePage)"/>
+      <AppAside class="left wide-screen-item" v-if="!(['LoginPage', 'SignupPage', 'FileViewer'].includes($route.name) || isSimpleReleasePage)"/>
       <div class="right">
         <AppHeader/>
         <main class="app-main">

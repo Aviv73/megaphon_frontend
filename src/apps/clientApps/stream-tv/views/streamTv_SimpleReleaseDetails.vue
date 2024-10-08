@@ -2,7 +2,7 @@
   <section v-if="release" class="simple-release-details flex column gap30">
     <img class="hero-img" :src="fixFileSrcToThumbnail(release.releaseData.mainImage, release)" :alt="release.title"/>
     <div class="inner-container flex column space-between flex-1 gap30">
-      <ReleaseTabView :release="release" :tabView="true" :hideTabs="hideTabs">
+      <ReleaseTabView :release="release" :tabView="true" :hideTabs="hideTabs" :mapTabs="mapTabs">
         <!-- <router-link v-if="!isDirectMode" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="tab-link align-self-end">
           {{$t('directLink')}}
         </router-link> -->
@@ -36,7 +36,14 @@ export default {
     }
   },
   methods: {
-    fixFileSrcToThumbnail
+    fixFileSrcToThumbnail,
+    
+    mapTabs(tab) {
+      if (tab === 'comunicat') {
+        console.log({type: 'fileViewer', url: fixFileSrcToThumbnail(this.release.releaseData.comunicatFile, this.release)});
+        return {type: 'fileViewer', url: fixFileSrcToThumbnail(this.release.releaseData.comunicatFile, this.release)};}
+      return {};
+    }
   },
   computed: {
     lastSeenGroupRelease() {
