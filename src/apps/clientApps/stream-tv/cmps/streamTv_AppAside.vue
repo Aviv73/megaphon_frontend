@@ -55,7 +55,7 @@ export default {
       
       // width: em(150px);
       // height: $header-height;
-      height: rem(45px);
+      height: var(--header-height);
       padding: em(10px);
       .actual {
         height: 100%;

@@ -10,13 +10,13 @@
             v-for="(tabName, idx) in ['main', 'monthlySummary', 'archive', hasBroadcasts && 'broadcastTimes' ].filter(Boolean)" :key="tabName"
             class="nav-item tab-name-nav-item"
             :to="{ name: 'ReleaseDetails', params: {id: lastSeenGroupRelease?._id, tabName } }"
-            :class="{ selected: ($route.params.tabName === tabName) || (!idx && !$route.params.tabName) }"
+            :class="{ selected: ($route.params.tabName === tabName) || (!idx && !$route.params.tabName && ($route.name === 'ReleaseDetails')) }"
           >
             <span class="hover-pop">
               {{$t('release.'+tabName)}}
             </span>
           </router-link>
-          <router-link class="nav-item tab-name-nav-item" :to="{name: 'ReleasePage', query: {page: 0} }">
+          <router-link class="nav-item tab-name-nav-item" :to="{name: 'ReleasePage', query: {page: 0} }" :class="{ selected: $route.name === 'ReleasePage' }">
             <span class="hover-pop">
               {{$t('search')}}
             </span>
@@ -102,7 +102,7 @@ export default {
     position: absolute;
     top: 0;
     width: 100%;
-    height: rem(45px);
+    height: var(--header-height);
     min-height: unset;
     max-width: 100%;
     background-color: rgba(255, 255, 255, 0) !important;
@@ -115,30 +115,30 @@ export default {
     .release-title { 
       // font-size: 1.2em;
       font-size: em(18px);
-      width: em(80px);
       // height: $header-height;
-      min-height: em(40px);
       text-align: center;
       position: absolute;
       top: 0;
       left: em(20px);
       // left: 0;
       .actual {
+        width: em(100px);
+        min-height: em(80px);
         font-size: 1em;
-        color: white;
+        color: var(--clr-2);
         display: block;
         // overflow: hidden;
         // text-overflow: ellipsis;
         // word-break: break-all;
         background-color: var(--clr-4);
-        width: 100%;
-        height: 140%;
+        // width: 100%;
+        // height: 140%;
         position: relative;
         padding: em(10px);
         &::after {
           content: "";
           border-bottom: em(8px) solid transparent;
-          border-left: em(80px) solid var(--clr-4);
+          border-left: em(100px) solid var(--clr-4);
           height: 0px;
           position: absolute;
           left: 0;
@@ -158,7 +158,7 @@ export default {
       padding: 0 em(20px);
       // padding: 20% em(10px) em(20px) em(10px);
       // background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) !important;
-      background-color: rgba(0, 0, 0, 0.4) !important;
+      background-color: rgba(0, 0, 0, 0.7) !important;
       // font-weight: 600;
       position: relative;
       

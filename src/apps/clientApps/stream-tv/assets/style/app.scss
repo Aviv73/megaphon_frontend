@@ -23,6 +23,8 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
   font-family: $defaultAppFont;
   font-weight: 500;
 
+  --header-height: #{rem(80px)};
+
   
   // .app-aside {
   //   // display: block !important;
@@ -78,7 +80,7 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
         z-index: 1;
         color: white;
         width: 50%;
-        height: 65%;
+        height: 60%;
         right: em(50px);
         bottom: em(50px);
         gap: em(10px);

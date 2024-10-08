@@ -2,7 +2,7 @@
   
   <section class="group-release-details flex column gap20 height-all">
     <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(releaseData.mainImage, release))}')`, 'background-size': 'cover' }"> -->
-    <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
+    <ReleasesSlider :title="`<div class='svg-parrent img' style='width:1.5em;height:1.5em'>${getIcons('white').recomended}</div><br/><h3>${$t('release.monthlyRecommendation')}</h3>`" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
     <div class="page-like-section container flex column gap20 width-all" v-if="tabName === 'monthlySummary'">
       <h2>{{$t('release.monthlySummary')}}</h2>
       <ul class="flex column gap30">
@@ -22,7 +22,7 @@
     </div>
     <div class="page-like-section container flex column gap20 width-all" v-else-if="tabName === 'broadcastTimes'">
       <h2>{{$t('release.broadcastTimes')}}</h2>
-      <ul class="flex column gap30">
+      <ul class="flex column gap30 broadcast-times-table">
         <li class="flex column gap10" v-for="cRelease in releaseData.childrenReleases.filter(c => c.releaseData.broadcastTimes?.length)" :key="cRelease._id">
           <h4>{{cRelease.releaseData.title}}</h4>
           <div class="table-like-list gap5">
@@ -43,7 +43,7 @@
       </ul>
     </div>
     <div class="page-like-section container width-all flex column gap20 width-all" v-else-if="tabName === 'archive'">
-      <!-- <h2>{{$t('release.archive')}}</h2> -->
+      <h2>{{$t('release.archive')}}</h2>
       <ul class="archive-section flex align-center-wrap-justify-center gap20">
           <li v-for="cRelease in archiveReleases" :key="cRelease._id">
             <router-link :to="{name: 'ReleaseDetails', params: { id: cRelease._id } }">
@@ -129,7 +129,10 @@ export default {
     fixFileSrcToThumbnail,
     getChildRoute(rel) {
       return { name: 'ReleaseDetails', params: {id: rel._id}, query: { relateTo: this.release._id } };
-    }
+    },
+    getIcons(clr) {
+      return getSvgs(clr).icons; 
+    },
   },
   computed: {
     // monthPublish() {
@@ -182,6 +185,15 @@ export default {
     // padding: em(100px) em(20px);
     
   }
+
+  .broadcast-times-table {
+    max-width: rem(300px);
+  }
+
+  .hero-img {
+    height: rem(500px) !important;
+  }
+
   .group-release-details {
     padding-bottom: $main-pad-y;
     max-width: calc(100vw - var(--aside-width));
@@ -245,7 +257,7 @@ export default {
         color: white;
         border-radius: em(8px);
         font-size: $font-size-big;
-        width: em(150px);
+        // width: em(150px);
         font-weight: bold;
         display: flex;
         align-items: center;

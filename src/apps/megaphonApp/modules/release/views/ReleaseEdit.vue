@@ -197,7 +197,7 @@ export default {
     }
     .dynamic-input:not(.input-field-SEPARATOR) h3 {
       width: em(150px);
-      font-size: em(12px);
+      font-size: em(16px);
       font-weight: normal;
     }
 

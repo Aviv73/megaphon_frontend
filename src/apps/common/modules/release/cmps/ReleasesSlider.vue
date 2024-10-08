@@ -5,9 +5,9 @@
       <div class="img svg-parrent" v-html="sliderBtnImg"></div>
     </button>
     <div v-if="viewdChildData" class="hero-main flex-1 flex gap30 width-all align-center">
-      <img class="main-img" :src="imgToRender" :alt="viewdChildData.title"/>
+      <img class="main-img hero-img" :src="imgToRender" :alt="viewdChildData.title"/>
       <div class="hero-content flex column align-start gap20">
-        <h3 v-if="title" class="costume-title">{{title}}</h3>
+        <div v-if="title" class="costume-title" v-html="title"></div>
         <h2>{{viewdChildData.title}}</h2>
         <div class="content-container pretty-scroll flex column align-start gap20">
           <div v-html="viewdChildData.content || viewdChildData.desc"></div>
