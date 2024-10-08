@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-input flex gap30" v-if="dataFieldToRender" :class="`input-field-${dataFieldToRender.type}`">
-    <h3 class="ignore-theme-style" v-if="(!noTitle && dataFieldToRender.title) || ((dataFieldToRender.type === 'SEPARATOR') && dataFieldToRender.title)">{{dataFieldToRender.title}}</h3>
+    <h3 class="ignore-theme-style" v-if="(!noTitle && dataFieldToRender.title) || ((dataFieldToRender.type === 'SEPARATOR') && dataFieldToRender.title)">{{tOrTitle(dataFieldToRender.title)}}</h3>
     <div class="flex-1 input-container" :class="{'table-container': dataFieldToRender.type === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{dataFieldToRender.type}}"</p>
       <component
@@ -37,7 +37,7 @@
         <tr class="flexx align-center gap10" v-if="value && value.length">
           <td v-for="(field, idx) in dataFieldToRender.fields" :key="`${basePath}.${idx}.${field.title}`">
             <p class="flex-1">
-              {{field.title}}
+              {{tOrTitle(field.title)}}
             </p>
           </td>
           <td class="flex-1"></td>
@@ -112,6 +112,11 @@ export default {
     }
   },
   methods: {
+    tOrTitle(subKey) {
+      if (!subKey) return subKey;
+      const key = `release.dataFields.${subKey}`;
+      return this.$te(key) ? this.$t(key) : subKey;
+    },
     initCmpData() {
       let type = this.dataField.type || '';
       type = type.toUpperCase();
@@ -157,7 +162,7 @@ export default {
           this.cmpName = 'FormInput';
           break;
         case 'SELECT':
-          this.propsToPass = { ...propsToPass, type: 'select', items: this.dataField.options || [] };
+          this.propsToPass = { ...propsToPass, type: 'select', items: (this.dataField.options || []).map(c => ({ ...c, label: this.tOrTitle(c.label) })) };
           this.cmpName = 'FormInput';
           break;
         case 'SEPARATOR':

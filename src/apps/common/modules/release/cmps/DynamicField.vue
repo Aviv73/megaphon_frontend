@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-field flex column gap10" v-if="dataFieldToRender && !dataFieldToRender.hideFromUi && (valueToShow || (typeToShow === 'ROW')) && !hidden" :class="`field-field-${typeToShow} ${dataFieldToRender.title}`">
-    <h3 class="field-title" v-if="!noTitle && !dataFieldToRender.hideTitleFromUi && (dataFieldToRender.title)">{{dataFieldToRender.uiTitle || dataFieldToRender.title}}</h3>
+    <h3 class="field-title" v-if="!noTitle && !dataFieldToRender.hideTitleFromUi && (dataFieldToRender.title)">{{tOrTitle(dataFieldToRender.uiTitle || dataFieldToRender.title)}}</h3>
     <div class="flex-1 field-container" :class="{'table-container': typeToShow === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{typeToShow}}"</p>
       <component
@@ -34,7 +34,7 @@
         <tr class="flexx align-center gap10" v-if="valueToShow && valueToShow.length">
           <th v-for="(field, idx) in dataFieldToRender.fields" :key="`${basePath}.${idx}.${field.title}`">
             <p class="flex-1" v-if="!field.hideTitleFromUi">
-              {{field.uiTitle || field.title}}
+              {{tOrTitle(field.uiTitle || field.title)}}
             </p>
           </th>
           <th class="flex-1"></th>
@@ -99,6 +99,11 @@ export default {
     }
   },
   methods: {
+    tOrTitle(subKey) {
+      if (!subKey) return subKey;
+      const key = `release.dataFields.${subKey}`;
+      return this.$te(key) ? this.$t(key) : subKey;
+    },
     initCmpData() {
       this.typeToShow = this.dataField.uiType || this.dataField.type || '';
       this.typeToShow = this.typeToShow.toUpperCase();
@@ -197,12 +202,12 @@ export default {
         case 'MULTISELECT_VALUE_TO_LABEL':
           this.cmpName = 'p';
           this.bindContentToHtml = true;
-          this.valueToShow = tagList(this.value.map(val => this.dataField.options.find(c => c.value === val)?.label).filter(Boolean));
+          this.valueToShow = tagList(this.value.map(val => this.tOrTitle(this.dataField.options.find(c => c.value === val)?.label)).filter(Boolean));
           break;
 
         case 'SELECT_VALUE_TO_LABEL':
           this.cmpName = 'p';
-          this.valueToShow = this.dataField.options.find(c => c.value === this.value)?.label
+          this.valueToShow = this.tOrTitle(this.dataField.options.find(c => c.value === this.value)?.label)
           break;
 
 
@@ -305,6 +310,9 @@ export default {
         text-align: start;
       }
       padding: 0 0 em(10px) em(20px);
+      &:first-child {
+        padding-inline-start: 0;
+      }
     }
     th {
       font-weight: bold;
