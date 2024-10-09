@@ -61,6 +61,7 @@ const  en = {
       "newsLetterInfo": "News letter info",
       "newsletterImg": "Newsletter img",
       "newsletterDesc": "Newsletter Description",
+      "credit": "Credit",
     },
     newReleases: "News",
     mostWatched: "Most watched",
@@ -128,6 +129,7 @@ const he = {
       "newsLetterInfo": "פרטים לניוזלטר",
       "newsletterImg": "תמונה ראשית לניוזלטר",
       "newsletterDesc": "מידע לניוזלטר",
+      "credit": "קרדיט"
     },
     alerts: {
     },
