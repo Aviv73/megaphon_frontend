@@ -107,7 +107,6 @@ export default {
     initCmpData() {
       this.typeToShow = this.dataField.uiType || this.dataField.type || '';
       this.typeToShow = this.typeToShow.toUpperCase();
-      console.log('?', this.typeToShow);
       const propsToPass = {...(this.dataField.propsToPass || {})};
       this.valueToShow = this.value;
       this.cmpName = 'p';

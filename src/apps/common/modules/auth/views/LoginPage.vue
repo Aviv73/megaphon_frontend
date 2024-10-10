@@ -90,8 +90,12 @@ export default {
 @import '@/assets/styles/global/index';
 .auth-page {
   .simple-form {
-    max-width: em(400px);
-    gap: rem(10px);
+    // width: em(400px);
+    // max-width: 90vw;
+    gap: em(10px);
+    .label {
+      width: em(150px);
+    }
     .logo {
       width: 50%;
     }

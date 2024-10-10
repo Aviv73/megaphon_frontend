@@ -40,8 +40,9 @@ export default [
         path: '1/:id/:tabName?',
         component: ReleaseDetails,
         meta: {
-          reportReleaseOpen: true,
-          releaseIdParamName: 'id'
+          reportReleaseOpen: false,
+          releaseIdParamName: 'id',
+          noAuth: true
         }
       },
       {

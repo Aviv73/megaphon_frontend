@@ -36,6 +36,8 @@ export default {
   align-items: center !important;
 
   .inner-app-content {
+    max-width: rem(400px);
+    // margin: 0 auto;
     width: fit-content;
     height: fit-content !important;
     background-color: var(--clr-1);

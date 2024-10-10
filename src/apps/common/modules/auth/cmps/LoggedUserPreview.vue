@@ -107,6 +107,7 @@ export default {
         color: #808080;
         >* {
           text-wrap: nowrap;
+          color: #808080;
         }
         >*:not(.top-like):hover {
           transform: .3s;

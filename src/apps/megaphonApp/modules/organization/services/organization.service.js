@@ -161,6 +161,12 @@ function getEmptyOrganization() {
     defaultGalleryCredit: '',
     distributionBcc: '',
     domain: '',
+    
+    requireAuth: false, 
+    require2FactorAuth: false, 
+    isStandAlone: false, 
+    useVideoWaterMark: false, 
+
     fromEmails: [/* { email: '', title: '' } */],
     // filters: [/* { title: '', releaseTypes: [releaseTypesIds], wasDisterbuted: false } */],
     // releaseTypes: [/* { name: '', id: '', dataFieldsLocalFilePath: '', fileUrl: '', dataFieldsStr: 'NOT IN USE ___ JSON STRING FON NOW' } */],
