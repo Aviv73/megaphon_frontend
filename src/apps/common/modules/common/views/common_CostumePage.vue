@@ -9,7 +9,7 @@
 
 <script>
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
-import { loadStaticFile } from '@/apps/common/modules/common/services/file.service';
+import { loadStaticFile, loadCostumeHtml } from '@/apps/common/modules/common/services/file.service';
 import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';
 export default {
   name: 'common_CostumePage',
@@ -43,7 +43,8 @@ export default {
   methods: {
     async loadHtml() {
       this.isLoading = true;
-      this.loadedHtml = await loadStaticFile(this.htmlFilePath);
+      // this.loadedHtml = await loadStaticFile(this.htmlFilePath);
+      this.loadedHtml = await loadCostumeHtml(this.org._id, this.htmlFilePath);
       this.isLoading = false;
     }
   },

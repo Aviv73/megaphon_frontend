@@ -52,8 +52,10 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
             if (filterBy) commit({ type: 'setFilterBy', filterBy });
             // const filterToSend = JSON.parse(JSON.stringify(filterBy));
             const filterToSend = {...getters.filterBy};
-            if (!filterToSend.filter.params.type) delete filterToSend.filter.params.type;
-            if (!filterToSend.filter.params.subType) delete filterToSend.filter.params.subType;
+            if (filterToSend.filter?.params) {
+              if (!filterToSend.filter.params.type) delete filterToSend.filter.params.type;
+              if (!filterToSend.filter.params.subType) delete filterToSend.filter.params.subType;
+            }
             filterToSend.orgFilter = orgFilter;
             // filterToSend.folder = folder;
             const itemsRes = await getters.service.query(filterToSend, organizationId || getters.organizationId);

@@ -253,7 +253,8 @@
       </div>
     </form>
     <div class="flex gap10">
-      <button class="btn big primary" @click="saveOrganization" :disabled="!isOrganizationValid">{{$t('submit')}}</button>
+      <button class="btn big primary" @click="saveAndClose" :disabled="!isOrganizationValid">{{$t('submit')}}</button>
+      <button class="btn big primary" @click="saveOrganization" :disabled="!isOrganizationValid">{{$t('save')}}</button>
       <button class="btn big" @click="close">{{$t('cancel')}}</button>
     </div>
     <Loader v-if="isLoading" fullScreen/>
@@ -330,6 +331,9 @@ export default {
     async saveOrganization() {
       if (!this.isOrganizationValid) return;
       await this.$store.dispatch({ type: 'organization/saveItem', item: this.organizationToEdit });
+    },
+    async saveAndClose() {
+      await this.saveOrganization();
       this.close();
     },
     close() {

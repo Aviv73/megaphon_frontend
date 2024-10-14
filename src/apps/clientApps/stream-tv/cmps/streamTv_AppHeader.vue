@@ -16,9 +16,13 @@
               {{$t('release.'+tabName)}}
             </span>
           </router-link>
+          <CostumeNavBar class="wide-screen-item" :filterRoutes="route => route.data?.showInHeader"/>
           <router-link class="nav-item tab-name-nav-item" :to="{name: 'ReleasePage', query: {page: 0} }" :class="{ selected: $route.name === 'ReleasePage' }">
-            <span class="hover-pop">
-              {{$t('search')}}
+            <span class="hover-pop flex align-center gap10">
+              <span>
+                {{$t('search')}}
+              </span>
+              <div v-html="searchImg" class="filter-icon-img svg-parrent"></div>
             </span>
           </router-link>
           <CostumeNavBar class="small-screen-item"/>
@@ -40,6 +44,8 @@
 import LoggedUserPreview from '../../../common/modules/auth/cmps/LoggedUserPreview.vue';
 import CostumeNavBar from '../../../common/modules/common/cmps/CostumeNavBar.vue';
 import NavOrBurger from '../../../common/modules/common/cmps/NavOrBurger.vue';
+
+import  { getSvgs } from '@/assets/images/svgs.js';
 export default {
   components: { NavOrBurger, CostumeNavBar, LoggedUserPreview },
   name: 'streamTv_AppHeader',
@@ -74,6 +80,9 @@ export default {
 
     hasBroadcasts() {
       return this.lastSeenGroupRelease?.releaseData.childrenReleases.some(c => c.releaseData.broadcastTimes?.length);
+    },
+    searchImg() {
+      return getSvgs('var(--clr-0)').search;
     }
   }
 }
@@ -210,6 +219,11 @@ export default {
     a, .router-link {
       // color: var(--clr-0);
       color: white;
+    }
+
+    .filter-icon-img {
+      width: em(18px);
+      height: em(18px);
     }
     // .costume-nav-bar {
     // }

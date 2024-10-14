@@ -77,9 +77,10 @@ export default {
         &:not(:last-child) {
           border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
-        // &:hover {
-        //   transform: unse;
-        // }
+        &:hover {
+          // transform: unse;
+          color: var(--clr-4);
+        }
       }
     }
 

@@ -116,6 +116,18 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
         transform: translateX(-#{em(80px)}) rotate(180deg);
       }
     }
+    .to-details-btn {
+      color: var(--clr-1);
+      background-color: var(--clr-4);
+      padding: em(3px) em(15px);
+      border-radius: em(5px);
+      &::after {
+        content: "◀";
+        font-size: 0.6em;
+        margin-inline-start: em(5px);
+        transform: translateY(#{em(2px)});
+      }
+    }
   }
   .common-release-preview, .release-preview {
     position: relative;
@@ -136,13 +148,14 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
       left: 50%;
       transform: translateX(-50%);
       color: white !important;
+      font-size: em(30px);
       
       position: absolute;
       bottom: 0;
       width: 100%;
       color: white !important;
       text-align: center;
-      padding: 30% em(10px) em(20px) em(10px);
+      padding: 30% em(10px) em(10px) em(10px);
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
     }
   }

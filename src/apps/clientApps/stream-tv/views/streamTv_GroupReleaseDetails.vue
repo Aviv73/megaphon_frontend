@@ -193,6 +193,11 @@ export default {
   .hero-img {
     height: rem(500px) !important;
   }
+  .hero-content {
+    h2 {
+      font-size: em(35px) !important;
+    }
+  }
 
   .group-release-details {
     padding-bottom: $main-pad-y;
@@ -218,12 +223,12 @@ export default {
         gap: em(10px);
         padding: 0 0 0 em(20px);
         // padding: 0 em(10px);
-        &::after {
-          content: "";
-          flex: 1;
-          height: 0;
-          border-bottom: em(0.5px) solid var(--heading-color);
-        }
+        // &::after {
+        //   content: "";
+        //   flex: 1;
+        //   height: 0;
+        //   border-bottom: em(0.5px) solid var(--heading-color);
+        // }
       }
       .item-list {
         justify-content: flex-start;
@@ -243,7 +248,7 @@ export default {
     }
 
     .costume-title {
-      border-bottom: 1px solid white;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.8);
       padding-bottom: em(10px);
       width: 100%;
     }
@@ -254,7 +259,7 @@ export default {
         display: inline-block;
         background-color: var(--heading-color);
         padding: em(15px) em(20px);
-        color: white;
+        color: var(--clr-1);
         border-radius: em(8px);
         font-size: $font-size-big;
         // width: em(150px);

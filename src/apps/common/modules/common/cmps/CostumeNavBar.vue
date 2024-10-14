@@ -14,14 +14,20 @@
 </template>
 
 <script>
+import { organizationService } from '../../organization/organization.service';
 export default {
   name: 'CostumeNavBar',
+  props: {
+    filterRoutes: Function
+  },
   computed: {
    org () {
       return this.$store.getters['organization/selectedItem'] || {};
     },
     allRouteFilters() {
-      return this.org?.routes?.filter(c => c.showInRoles?.includes('client')) || [];
+      const routes = organizationService.getOrgRoutesByRoles(this.org, ['client']);
+      if (!this.filterRoutes) return routes;
+      return routes.filter(this.filterRoutes);
     },
   },
 }

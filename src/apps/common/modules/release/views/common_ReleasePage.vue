@@ -23,6 +23,7 @@ import ReleaseFilter from '../cmps/common_ReleaseFilter.vue'
 import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue';
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import ReleasesSlider from '../cmps/ReleasesSlider.vue';
+import { templateUtils } from '../../common/services/template.util.service';
 export default {
   name: 'common_ReleasePage',
   data() {
@@ -33,7 +34,7 @@ export default {
   },
   methods: {
     getAllReleases(filterBy) {
-      const filterToSend = !(this.noPageMode)? JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) })) : { releaseFilter: { releaseTpes: templateUtils.getAllReleaseTypesForOrg(org).map(c => c.id), wasDistributed: undefined /*true*/ } }
+      const filterToSend = !(this.noPageMode)? JSON.parse(JSON.stringify({...(filterBy || this.filterBy || {}) })) : { releaseFilter: { releaseTpes: templateUtils.getAllReleaseTypesForOrg(this.org).map(c => c.id), wasDistributed: undefined /*true*/ } }
       // filterToSend.params.page = this.page;
       this.$store.dispatch({ type: 'release/loadItems', filterBy: filterToSend, orgFilter: this.routeItem.releaseFilter });
     }
@@ -82,6 +83,7 @@ export default {
     releasePageInQuery(val, prev) {
       if (!val || !prev) return;
       const newFilter = JSON.parse(JSON.stringify(this.filterBy));
+      if (!newFilter.filter) return;
       newFilter.filter.params.type = newFilter.filter.params.subType = '';
       this.$store.commit({ type: 'release/resetFilter' });
       this.getAllReleases(newFilter);
@@ -90,8 +92,9 @@ export default {
       deep: true,
       handler(val, prev) {
         if (!prev) return;
-        if ((val?.filter.params.type != prev?.filter.params.type)) {
+        if ((val?.filter?.params.type != prev?.filter?.params.type)) {
           const newFilter = JSON.parse(JSON.stringify(this.filterBy));
+          if (!newFilter.filter) return;
           newFilter.filter.params.subType = '';
           this.getAllReleases(newFilter);
         }

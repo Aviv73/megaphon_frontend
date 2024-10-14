@@ -39,7 +39,9 @@ export const organizationService = {
   getOrgItemInAccount,
   searchOrganizations,
 
-  getOnlyOrgsToShow
+  getOnlyOrgsToShow,
+
+  getOrgRoutesByRoles
 }
 
 // function query(filterBy) {
@@ -150,6 +152,10 @@ function getAccountOrgItem(orgId = '', inviterId = '') {
     invitedAt: Date.now(),
     status: 'approved'
   }
+}
+
+function getOrgRoutesByRoles(org, roles = []) {
+  return org?.routes?.filter(c => c.showInRoles?.find(role => roles.includes(role))) || [];
 }
 
 

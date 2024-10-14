@@ -94,6 +94,9 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
 export function loadStaticFile(filePath) {
   return httpService.get(`${ENDPOINT}/static-file`, { filePath });
 }
+export function loadCostumeHtml(orgId, filePath) {
+  return httpService.get(`${ENDPOINT}/costumeHtml/${orgId}`, { filePath });
+}
 
 export function getVideoEncryptionKey(token) {
   return httpService.get(`${ENDPOINT}/encryption-key`, { });

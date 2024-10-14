@@ -14,7 +14,7 @@
         </div>
         <hr/>
         <!-- <router-link :to="routeToPage"> -->
-          <button @click="routeToPage" class="flex align-center gap5">
+          <button @click="routeToPage" class="flex align-center gap5 to-details-btn">
             <span>
               {{$t('toDetails')}} 
             </span>
