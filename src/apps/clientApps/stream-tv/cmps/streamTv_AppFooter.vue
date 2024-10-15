@@ -6,7 +6,7 @@
       </div>
       <div class="flex align-center gap20" v-if="org?.mediaLinks?.length">
         <span>{{$t('contact')}} {{org.name}}</span>
-        <OrgMediaLinks :organization="org" :color="selectedTheme?.colors?.[2]"/>
+        <OrgMediaLinks :organization="org" :color="selectedTheme?.colors?.[2]" :imgs="mediaSvgs"/>
       </div>
     </div>
   </footer>
@@ -14,6 +14,7 @@
 
 <script>
 import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks/OrgMediaLinks.vue'
+import { getSvgs } from '../assets/images/svgs';
 export default {
   components: { OrgMediaLinks },
   name: "streamTv_AppFooter",
@@ -23,6 +24,9 @@ export default {
     },
     selectedTheme() {
       return this.$store.getters['selectedTheme'];
+    },
+    mediaSvgs() {
+      return getSvgs(this.selectedTheme?.colors?.[2]).media;
     }
   }
 }

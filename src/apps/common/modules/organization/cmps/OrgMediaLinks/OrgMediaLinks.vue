@@ -15,14 +15,15 @@ export default {
   name: 'OrgMediaLinks',
   props: {
     organization: Object,
-    color: String
+    color: String,
+    imgs: Object
   },
   computed: {
     mediaLinks() {
       return this.organization?.mediaLinks?.filter(c => c.src && c.type) || [];
     },
     mediaSvgs() {
-      return getSvgs(this.color).media;
+      return this.imgs || getSvgs(this.color).media;
     }
   }
 }

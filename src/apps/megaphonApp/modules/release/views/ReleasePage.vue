@@ -104,9 +104,6 @@ export default {
     }
   },
   computed: {
-    firstPageRoute() {
-      return { query: { ...this.$route.query, page: this.allAuthRoutes[0]?.name || '' } };
-    },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
     },
@@ -138,7 +135,7 @@ export default {
       return organizationService.isUserWatchOnly(this.organization?._id, this.loggedUser);
     },
     allAuthRoutes() {
-      const allAuthRoutes = this.organization?.routes?.filter(c => organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, c.id));
+      const allAuthRoutes = this.organization?.routes?.filter(c => organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, c.id)) || [];
       return allAuthRoutes;
     },
     noPageMode() {
@@ -146,6 +143,9 @@ export default {
     },
     selectedTheme() {
       return this.$store.getters.selectedTheme;
+    },
+    firstPageRoute() {
+      return { query: { ...this.$route.query, page: this.allAuthRoutes?.[0]?.name || '' } };
     },
   },
   created() {

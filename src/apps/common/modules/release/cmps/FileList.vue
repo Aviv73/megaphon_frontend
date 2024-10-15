@@ -5,8 +5,9 @@
         <h5>
           {{file.title || ''}}
         </h5>
-        <div class="flex align-center gap5 wrap">
+        <div class="flex align-center_ column gap5_ wrap">
           <p v-if="file.info">{{file.info}}</p>
+          <p v-if="file.credit">{{$t('credit')}}: {{file.credit}}</p>
           <!-- <template v-if="cmpType === 'img'">
             <span v-if="file.info">|</span>
             <button class="btn clear underline" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)">{{$t('download')}}</button>
