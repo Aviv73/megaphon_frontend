@@ -50,7 +50,8 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   let res;
   let uploadedBytes = 0;
   let socketRoom = '';
-  const isEncryptionMode = false;
+  // const isEncryptionMode = false;
+  let doneChunksCount = 0;
   const totalChunks = Math.ceil(fileSize / CHUNK_SIZE);  
   for (let i = 0; i < totalChunks; i++) {
     const start = i * CHUNK_SIZE;
@@ -69,19 +70,20 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
     } 
 
     uploadedBytes += CHUNK_SIZE;
+    doneChunksCount++;
     // onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100), msg: '' });
-    onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min(((i+1) / (totalChunks+1))*100, 100), msg: '' });
+    onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((doneChunksCount / totalChunks)*100, 100), msg: '' });
 
     if (i === totalChunks - 1) {
       res = currRes;
-      if (isEncryptionMode) {
-        socketRoom = currRes.socketRoom;
-        // socketService.emit('join-room', socketRoom);
-        onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100), msg: 'encrypting' });
-        res = await (new Promise((resolve, reject) => {
-          // socketService.on('encryption-finished', data => resolve(data));
-        }));
-      }
+      // if (isEncryptionMode) {
+      //   socketRoom = currRes.socketRoom;
+      //   // socketService.emit('join-room', socketRoom);
+      //   onChunkEndCb?.({ uploadedBytes, totalSize: fileSize, percents: Math.min((uploadedBytes / fileSize)*100, 100), msg: 'encrypting' });
+      //   res = await (new Promise((resolve, reject) => {
+      //     // socketService.on('encryption-finished', data => resolve(data));
+      //   }));
+      // }
     } else {
     }
     // prms.push(prm);
