@@ -40,7 +40,7 @@ export default {
     },
 
     shrtenTitle() {
-      const title = this.releaseData.title;
+      const title = this.releaseData.shortTitle || this.releaseData.title;
       if (title.length <= 22) return title;
       return title.substring(0, 22) + '...';
     },

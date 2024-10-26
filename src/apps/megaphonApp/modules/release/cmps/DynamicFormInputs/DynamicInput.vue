@@ -70,7 +70,7 @@
         </tr>
       </table>
     </div>
-    <p v-if="dataFieldToRender.helpText">{{dataFieldToRender.helpText}}</p>
+    <p v-if="dataFieldToRender.helpText">{{tOrTitle(dataFieldToRender.helpText)}}</p>
     <!-- <div v-if="dataField.fields">
     </div> -->
   </div>
@@ -158,7 +158,7 @@ export default {
         case 'TEXT':
         case 'DATE':
         case 'NUMBER':
-          this.propsToPass = { ...propsToPass, type: type.toLowerCase(), placeholder: this.dataField.title };
+          this.propsToPass = { ...propsToPass, type: type.toLowerCase(), placeholder: this.tOrTitle(this.dataField.title) };
           this.cmpName = 'FormInput';
           break;
         case 'SELECT':

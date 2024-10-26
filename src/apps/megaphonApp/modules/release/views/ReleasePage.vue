@@ -1,7 +1,7 @@
 <template>
   <section class="release-page flex column height-all width-all flex gap20">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
-    <div class="width-all" v-if="isUserWatchOnly">
+    <div class="width-all" v-if="isUserWatchOnly || true">
       <ReleasesSlider
         :style="selectedTheme ? {
           '--clr-0': 'white' || selectedTheme.colors[1],
