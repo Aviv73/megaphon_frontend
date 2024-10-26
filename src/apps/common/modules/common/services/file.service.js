@@ -36,7 +36,7 @@ export function uploadFileToServer(file, organizationId, parentData) {
 }
 
 export async function chunkUploadFileToServer(file, organizationId, parentData, onChunkEndCb = (uploadStats) => {}) {
-  const CHUNK_SIZE = 1024 * 1024 * 20; // 20MB;
+  const CHUNK_SIZE = 1024 * 1024 * 10; // 10MB;
 
   const fileSize = file.size;
   const originalName = file.name;
@@ -50,7 +50,7 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   const prms = [];
   const baseParams = {parentData, fileSize, totalChunks, storeFileName, originalName, chunkSize: CHUNK_SIZE};
   let uploadId;
-  const chunkByChunkMode = false;
+  const chunkByChunkMode = true;
   if (!chunkByChunkMode) uploadId = await httpService.post(`${ENDPOINT}/openMultipartUpload/${organizationId}`, null, baseParams);
   let res;
   let uploadedBytes = 0;
@@ -100,7 +100,6 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   }
   if (!chunkByChunkMode) {
     await Promise.all(prms);
-    console.log('WOW?');
     res = await httpService.post(`${ENDPOINT}/closeMultipartUpload/${organizationId}`, null, {...baseParams, uploadId});
   }
   return res;
