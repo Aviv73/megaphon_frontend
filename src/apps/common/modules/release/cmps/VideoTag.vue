@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import Hls from 'hls.js';
+import Hls from 'hls.js';
 import { elementService } from '../../common/services/element.service';
 // import { getVideoEncryptionKey } from '../../common/services/file.service';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
@@ -47,16 +47,11 @@ export default {
       return;
     }
 
-
-    // const player = window.cloudinary.videoPlayer(elVideo, {
-    //   cloud_name: 'djk2q5so4',
-    //   controls: true,
-    //   autoplay: false,
-    //   muted: false,
-    // });
-    // player.source(this.src, { sourceTypes: ['hls'] });
-
-    const hls = new Hls();
+    const hls = new Hls({
+      xhrSetup: function (xhr, url) {
+        xhr.withCredentials = true;  // Allows cookies to be sent with each request
+      }
+    });
     hls.loadSource(this.src);
     // hls.loadSource('http://localhost:3000/vid-dir/ID1999192096E62588D9.m3u8');
     hls.attachMedia(elVideo);
@@ -71,6 +66,16 @@ export default {
       // });
     });
     this.hls = hls;
+
+
+    // const player = window.cloudinary.videoPlayer(elVideo, {
+    //   cloud_name: 'djk2q5so4',
+    //   controls: true,
+    //   autoplay: false,
+    //   muted: false,
+    // });
+    // player.source(this.src, { sourceTypes: ['hls'] });
+
 
   },
   destroyed() {
