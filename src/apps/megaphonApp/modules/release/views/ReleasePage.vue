@@ -4,8 +4,8 @@
     <div class="width-all" v-if="isUserWatchOnly">
       <ReleasesSlider
         :style="selectedTheme ? {
-          '--clr-0': selectedTheme.colors[1],
-          '--clr-1': selectedTheme.colors[0]
+          '--clr-0': selectedTheme.colors[0],
+          '--clr-1': selectedTheme.colors[1]
         } : {}"
         :localNav="false"
         :releases="allReleasesData.items"
