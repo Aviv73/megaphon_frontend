@@ -156,8 +156,8 @@ export default {
       word-break: break-word;
       line-height: 1.2em;
       * {
-        // background-color: unset !important;
-        // background: unset !important;
+        background-color: unset !important;
+        background: unset !important;
         // color: var(--clr-1);
         // color: var(--clr-1);
       }
