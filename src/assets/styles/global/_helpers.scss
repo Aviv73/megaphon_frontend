@@ -205,7 +205,7 @@
   display: grid;
   // grid-template-rows: auto;
   // grid-template-columns: repeat(5, minmax(100px, 300px));
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(#{rem(180px)}, 1fr));
   // justify-content: space-between;
   @media (max-width: $small-screen-break) {
     grid-template-columns: 1fr;

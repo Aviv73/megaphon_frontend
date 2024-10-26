@@ -159,6 +159,29 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
     }
   }
+
+  .common-release-page {
+    .item-list {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, #{rem(250px)});
+      gap: rem(10px);
+      justify-content: unset;
+      @media (max-width: $small-screen-break) {
+        grid-template-columns: 1fr;
+        >* {
+          margin: 0 auto;
+        }
+      }
+      &.columns-1 {
+        grid-auto-columns: unset;
+        grid-template-columns: 1fr;
+      }
+      &.columns-2 {
+        grid-auto-columns: unset;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
   
   .item-page {
     // .common-release-filter{
