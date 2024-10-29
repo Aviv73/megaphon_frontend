@@ -17,6 +17,12 @@ export const fileUtilsService = {};
 appendScript('/fileUtils-service', 'fileUtilsModule', fileUtilsService);
 
 
+export function getFileError(file = {}, rootData) {
+  return fileUtilsService.getFileError(file, rootData);
+}
+export function getFileItemFromRootItem(file = {}, rootData) {
+  return fileUtilsService.getFileItemFromRootItem(file, rootData);
+}
 export function fixFileSrcToThumbnail(file = {}, rootData) {
   return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
   // return fileUtilsService.getFileThumbUrl(file, config);

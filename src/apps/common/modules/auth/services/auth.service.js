@@ -27,8 +27,8 @@ function signup(cred) {
 function sendNewPasswordEmail(email) {
   return httpService.post(`${ENDPOINT}/sendNewPasswordEmail`, {email});
 }
-function finish2FactorAuth(pass) {
-  return httpService.post(`${ENDPOINT}/finish2FactorAuth`, {pass});
+function finish2FactorAuth(pass, method) {
+  return httpService.post(`${ENDPOINT}/finish2FactorAuth`, {pass, method});
 }
 function makeSecondFactorAuthPass(method) {
   return httpService.post(`${ENDPOINT}/makeSecondFactorAuthPass`, null, { method });

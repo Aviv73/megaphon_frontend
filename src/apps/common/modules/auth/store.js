@@ -99,10 +99,10 @@ export const _authStore = {
         }
       });
     },
-    async finish2FactorAuth({ commit, dispatch }, { pass }) {
+    async finish2FactorAuth({ commit, dispatch }, { pass, method }) {
       return dispatch({
         type: '_Ajax',
-        do: async () => authService.finish2FactorAuth(pass),
+        do: async () => authService.finish2FactorAuth(pass, method),
         onSuccess: (res) => {
           if (res.user) {
             commit({ type: 'setLoggedUser', user: res.user });

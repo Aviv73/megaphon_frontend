@@ -7,9 +7,10 @@
     <div class="width-all flex column flex-1 gap30">
       <slot/>
       <ItemList
+        :items="items"
         :layoutMode="layoutMode"
         v-if="!isLoading && items?.length"
-        class="width-all" :items="items"
+        class="width-all"
         :singlePreviewCmp="singlePreviewCmp"
         :itemDetailesPageName="itemDetailesPageName"
         @edit="item => $emit('edit', item)"
@@ -23,7 +24,7 @@
         </router-link>
       </div>
     </div>
-    <PaginationBtns v-if="(filterBy && (totalItems > items.length) || true)" :total="totalItems" :perPage="filterBy.pagination?.limit || 0" :initFilter="filterBy" @filtered="setFilter" v-model="filterBy.pagination.page" :showAllPages="showAllPages" :btnsAsLinks="btnsAsLinks"/>
+    <PaginationBtns v-if="(filterBy && (totalItems > items.length) || true)" :total="totalItems" @filtered="setFilter" v-model="filterBy.pagination" :showAllPages="showAllPages" :btnsAsLinks="btnsAsLinks"/>
     <!-- <div v-else-if="!isLoading" class="flex column space-between align-center no-results-preview"> -->
     
     <Loader v-if="showLoader && isLoading"/>

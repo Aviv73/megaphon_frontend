@@ -1,5 +1,6 @@
 <template>
   <section class="container main-sidebar-view flex-1 flex align-stretch gap10">
+    <Loader v-if="isLoading"/>
     <SideBar v-if="!isUserWatchOnly" :currentDropableFolderPath="currentDropableFolderPath" :organizations="organizationsToShow" :loggedUser="loggedUser"/>
     <router-view :selectedReleaseIds="selectedReleaseIds" class="flex-1"/>
   </section>
@@ -13,13 +14,15 @@ import appConfig from '../../../../../appConfig';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';
 // import { setDynamicStylingThemeEl } from '@/apps/common/modules/common/services/dynamicPages.service';
 import allThemes from '../../../themes/index';
+import Loader from '../../../../common/modules/common/cmps/Loader.vue';
 export default {
-  components: { SideBar },
+  components: { SideBar, Loader },
   name: 'MainSidebarView',
   data() {
     return  {
       selectedReleaseIds: [],
-      currentDropableFolderPath: null
+      currentDropableFolderPath: null,
+      isLoading: false
     }
   },
   computed: {
@@ -54,7 +57,9 @@ export default {
     }
   },
   async created() {
+    this.isLoading = true;
     await this.$store.dispatch({ type: 'organization/loadItems' });
+    this.isLoading = false;
     this.initNavigation();
     this.loadSelectedOrg();
     

@@ -166,6 +166,11 @@ export default {
       this.itemToEdit.__newFiles__.push(file);
     }
   },
+  mounted() {
+    setTimeout(() => {
+      window.scroll(0, 0);
+    }, 300);
+  },
   async created() {
     await this.getOrg();
     // await this.loadReleaseDataFields();

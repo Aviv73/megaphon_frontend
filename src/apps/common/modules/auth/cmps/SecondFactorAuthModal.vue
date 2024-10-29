@@ -6,7 +6,7 @@
       <button @click="generatePass" class="btn big">{{$t('send')}}</button>
       <div v-if="didSend" class="flex align-center width-all space-between">
         <FormInput placeholder="auth.password" type="text" v-model="pass"/>
-        <button @click="finishAuth" class="btn big">{{$t('login')}}</button>
+        <button @click="finishAuth" :disabled="!method" class="btn big">{{$t('login')}}</button>
       </div>
       <MiniLoader v-if="isLoading"/>
     </div>
@@ -28,7 +28,8 @@ export default {
       method: '',
       showModal: false,
       didSend: false,
-      redirectEndpoint: ''
+      redirectEndpoint: '',
+      requiredComunicationMethods: []
     }
   },
 
@@ -41,6 +42,7 @@ export default {
     },
 
     comunicationMethods() {
+      if (this.requiredComunicationMethods?.length) return this.requiredComunicationMethods;
       const methods = [];
       if (this.loggedUser?.email) methods.push('email');
       if (this.loggedUser?.mobile) methods.push('sms');
@@ -55,18 +57,21 @@ export default {
       this.didSend = true;
     },
     async finishAuth() {
-      await this.$store.dispatch({ type: 'auth/finish2FactorAuth', pass: this.pass });
+      await this.$store.dispatch({ type: 'auth/finish2FactorAuth', pass: this.pass, method: this.method });
       if (this.redirectEndpoint) this.$router.push(this.redirectEndpoint);
       else window.location.reload();
       this.showModal = false;
+      this.redirectEndpoint = '';
+      this.requiredComunicationMethods = [];
     }
   },
 
   created() {
-    const on2AuthCb = async (endpoint) => {
+    const on2AuthCb = async (endpoint, requiredComunicationMethods) => {
       if (this.showModal) return;
       this.showModal = true;
       if (endpoint) this.redirectEndpoint = endpoint;
+      if (requiredComunicationMethods) this.requiredComunicationMethods = requiredComunicationMethods;
       this.pass = '';
       this.didSend = false;
       // evEmmiter.off('needs_2_factor_auth', on2AuthCb);

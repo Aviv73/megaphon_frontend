@@ -22,6 +22,7 @@ export default {
   name: 'VideoTag',
   props: {
     src: String,
+    format: String,
     // type: String
   },
   data() {
@@ -31,52 +32,14 @@ export default {
       isPlaying: false
     }
   },
-  mounted() {
-    const { elVideo } = this.$refs;
-    elVideo.addEventListener('play', () => {
-      this.isPlaying = true;
-    });
-    elVideo.addEventListener('pause', () => {
-      this.isPlaying = false;
-    });
-
-    // const isHls = this.src?.split('?')[0]?.endsWith('.m3u8');
-    const isHls = false;
-    if (!isHls) {
-      elVideo.src = this.src;
-      return;
+  watch: {
+    src() {
+      this.destroy();
+      this.init();
     }
-
-    const hls = new Hls({
-      xhrSetup: function (xhr, url) {
-        xhr.withCredentials = true;  // Allows cookies to be sent with each request
-      }
-    });
-    hls.loadSource(this.src);
-    // hls.loadSource('http://localhost:3000/vid-dir/ID1999192096E62588D9.m3u8');
-    hls.attachMedia(elVideo);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
-      elVideo.play();
-      // setTimeout(() => {
-      //   // this.appendWatermarkStyling();
-      // }, 1000);
-      // elVideo.addEventListener('canplay', () => {
-      //   elVideo.play();
-      // });
-    });
-    this.hls = hls;
-
-
-    // const player = window.cloudinary.videoPlayer(elVideo, {
-    //   cloud_name: 'djk2q5so4',
-    //   controls: true,
-    //   autoplay: false,
-    //   muted: false,
-    // });
-    // player.source(this.src, { sourceTypes: ['hls'] });
-
-
+  },
+  mounted() {
+    this.init();
   },
   destroyed() {
     if (this.styleEl) document.head.removeChild(this.styleEl);
@@ -99,6 +62,56 @@ export default {
     }
   },
   methods: {
+    init() {
+      const { elVideo } = this.$refs;
+      elVideo.addEventListener('play', () => {
+        this.isPlaying = true;
+      });
+      elVideo.addEventListener('pause', () => {
+        this.isPlaying = false;
+      });
+
+      console.log('format', this.format);
+      const isHls = (this.format === 'm3u8') || this.src?.split('?')[0]?.endsWith('.m3u8');
+      if (!isHls) {
+        elVideo.src = this.src;
+        return;
+      }
+
+      const hls = new Hls({
+        xhrSetup: function (xhr, url) {
+          xhr.withCredentials = true;  // Allows cookies to be sent with each request
+        }
+      });
+      hls.loadSource(this.src);
+      // hls.loadSource('http://localhost:3000/vid-dir/ID1999192096E62588D9.m3u8');
+      hls.attachMedia(elVideo);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
+        elVideo.play();
+        // setTimeout(() => {
+        //   // this.appendWatermarkStyling();
+        // }, 1000);
+        // elVideo.addEventListener('canplay', () => {
+        //   elVideo.play();
+        // });
+      });
+      this.hls = hls;
+
+
+      // const player = window.cloudinary.videoPlayer(elVideo, {
+      //   cloud_name: 'djk2q5so4',
+      //   controls: true,
+      //   autoplay: false,
+      //   muted: false,
+      // });
+      // player.source(this.src, { sourceTypes: ['hls'] });
+
+
+    },
+    destroy() {
+      this.hls?.destroy();
+    },
     appendWatermarkStyling() {
       const { elVideo } = this.$refs;
       const width = elVideo.offsetWidth;

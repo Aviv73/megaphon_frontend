@@ -51,7 +51,8 @@ async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, o
     // setTimeout(() => {
     if (loading) commit({ type: 'setLoading', val: false });
     // }, 3000);
-    if (err.needs2FactorAuth) evEmmiter.emit('needs_2_factor_auth');
+    console.log(err);
+    if (err.needs2FactorAuth) evEmmiter.emit('needs_2_factor_auth', undefined, err.comunicationMethods);
     throw err;
   }
 }

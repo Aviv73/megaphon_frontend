@@ -64,6 +64,7 @@ const  en = {
       "credit": "Credit",
       "shortTitle": "Short title",
       "shortTitleDescription": "Short title for display in list",
+      "description": "Description"
     },
     newReleases: "News",
     mostWatched: "Most watched",
@@ -134,6 +135,7 @@ const he = {
       "credit": "קרדיט",
       "shortTitle": "כותרת קצרה",
       "shortTitleDescription": "כותרת קצרה לתצוגה ברשימה",
+      "description": "תאור"
     },
     alerts: {
     },

@@ -33,7 +33,7 @@
               <p class="flex-1 wide-screen-item">{{vOrX(contact.activity?.unsubscribedAt)}}</p>
             </router-link>
           </div>
-          <PaginationBtns :perPage="15" :total="report.recipients.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination.page" />
+          <PaginationBtns :perPage="15" :total="report.recipients.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination" />
         </div>
         <div class="flex column gap30">
           <ReleaseDistributionLinkCoppier :release="release" :organization="organization"/>

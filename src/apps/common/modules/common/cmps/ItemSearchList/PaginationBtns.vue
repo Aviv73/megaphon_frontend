@@ -1,8 +1,8 @@
 <template>
-    <div class="pagination-btns flex column align-center gap20" v-if="filterBy">
+    <div class="pagination-btns flex column align-center gap20" v-if="paginationData">
       <div class="navigator">
-        <div class="flex align-center gap5 ltr">
-          <FormInput type="select" labell="Per page:" v-model="filterBy.pagination.limit" @change="updateLimit" :items="[15,30,50,100,150,200,500,1000]" class="align-center gap15" :listUp="true"/>
+        <div class="flex align-center gap5 ltr" v-if="!noLimitSelection">
+          <FormInput type="select" labell="Per page:" v-model="paginationData.limit" @change="updateLimit" :items="[15,30,50,100,150,200,500,1000]" class="align-center gap15" :listUp="true"/>
           <span class="out-of-span">/</span>
           <span class="total-span">{{total}}</span>
         </div>
@@ -81,13 +81,13 @@ import FormInput from '../FormInput.vue';
 export default {
   name: 'PaginationBtns',
   props: {
-    perPage: [Number],
+    value: [Object],
     total: [Number],
-    value: [Number],
-    initFilter: {
-      type: Object,
-      // required: true
-    },
+    // perPage: [Number],
+    // initFilter: {
+    //   type: Object,
+    //   // required: true
+    // },
     showAllPages: {
       type: Boolean,
       default: false
@@ -95,17 +95,22 @@ export default {
     btnsAsLinks: {
       type: Boolean,
       default: false
+    },
+    noLimitSelection: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       renderPagesLimit: 7,
-      filterBy: null,
-      btnIcos: ['<', '>']
+      paginationData: null,
+      btnIcos: ['‹', '›'] || ['<', '>']
     }
   },
   created() {
-    this.filterBy = JSON.parse(JSON.stringify(this.initFilter || { pagination: { limit: this.perPage, page: this.value } }));
+    // this.filterBy = JSON.parse(JSON.stringify(this.initFilter || { pagination: { limit: this.perPage, page: this.value } }));
+    this.paginationData = JSON.parse(JSON.stringify(this.value || { limit: 15, page: 0 }));
   },
   computed: {
     btnCmp() {
@@ -116,11 +121,12 @@ export default {
       return this.$store.getters.isScreenWide;
     },
     page() {
-      return this.value;
+      return this.paginationData.page;
     },
     totalPages() {
       // return Math.ceil(this.total/this.perPage);
-      return Math.ceil(this.total/this.filterBy.pagination.limit);
+      // return Math.ceil(this.total/this.filterBy.pagination.limit);
+      return Math.ceil(this.total/this.paginationData.limit);
     },
     isLotsOfPages() {
       return this.totalPages > this.renderPagesLimit;
@@ -154,18 +160,18 @@ export default {
       return pageNum + 1;
     },
     emitFilter() {
-      this.$emit('filtered', this.filterBy);
-      this.$emit('input', this.filterBy.pagination.page);
+      this.$emit('filtered', this.paginationData);
+      this.$emit('input', this.paginationData);
     },
     routeToNewPage(pageNum) {
       // pageNum -= 1;
       if (pageNum < 0 || pageNum >= this.totalPages) return;
-      this.filterBy.pagination.page = pageNum;
+      this.paginationData.page = pageNum;
       this.emitFilter();
     },
     updateLimit(val) {
-      this.filterBy.pagination.limit = val || 50;
-      this.filterBy.pagination.page = 0;
+      this.paginationData.limit = val || 50;
+      this.paginationData.page = 0;
       this.emitFilter();
     }
   },
@@ -224,7 +230,7 @@ export default {
         align-items: center;
         justify-content: center;
         // border: em(1px) solid black;
-        color: black; // black // var(--clr-0)
+        color: var(--clr-0); // black // var(--clr-0)
         border-radius: em(5px);
         padding: 0 em(5px);
     }
@@ -241,13 +247,13 @@ export default {
 
     .button {
         &.selected {
-            color: #0075FF;
+            color: var(--clr-4); // #0075FF
         }
     }
 
     .page-num-btns {
         // flex: 1;
-        color: black; // black // var(--clr-0)
+        color: var(--clr-0); // black // var(--clr-0)
         font-weight: 700;
 
         display: flex;

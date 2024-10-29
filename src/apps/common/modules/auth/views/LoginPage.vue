@@ -69,7 +69,7 @@ export default {
       const res = await this.$store.dispatch({ type: 'auth/login', cred: this.userCred, organizationId: appConfig.appOrganizationId /*sometimes undefined*/ });
       if (res.needs2FactorAuth) {
         // this.showFinishAuthModal = true;
-        evEmmiter.emit('needs_2_factor_auth', '/');
+        evEmmiter.emit('needs_2_factor_auth', '/', res.comunicationMethods);
       }
       else this.$router.push('/');
     },

@@ -1,64 +1,72 @@
 <template>
-  <div class="files-list flex wrap gap20 width-all width-all">
-    <div v-for="(file, idx) in files" :key="idx" class="flex column gap5 file-preview space-between" :class="{'width-all': ['video', 'iframe'].includes(cmpType), [`${cmpType}-section`]: true}">
-      <template v-if="['video', 'img'].includes(cmpType)">
-        <h5>
-          {{file.title || ''}}
-        </h5>
-        <div class="flex align-center_ column gap5_ wrap">
-          <p v-if="file.info">{{file.info}}</p>
-          <p v-if="file.credit">{{$t('credit')}}: {{file.credit}}</p>
-          <!-- <template v-if="cmpType === 'img'">
-            <span v-if="file.info">|</span>
-            <button class="btn clear underline" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)">{{$t('download')}}</button>
-          </template> -->
-        </div>
-      </template>
-      <iframe
-        v-if="cmpType === 'iframe'"
-        class="video-file-preview"
-        :src="fixFileSrcToThumbnail(file, rootItem)" controls
-      />
-      <VideoTag
-        v-if="cmpType === 'video'"
-        class="video-file-preview"
-        :src="fixVideoSrcToThumbnail(file, rootItem, organizationId)"
-      />
-      <template v-else-if="cmpType === 'img'">
-        <img
-          class="img-file-preview"
-          :src="fixFileSrcToThumbnail(file, rootItem)" :alt="file.title"
+  <div class="flex column gap30">
+    <div class="files-list flex wrap gap20 width-all width-all">
+      <div v-for="(file, idx) in filesToShow" :key="idx" class="flex column gap5 file-preview space-between" :class="{'width-all': ['video', 'iframe'].includes(cmpType), [`${cmpType}-section`]: true}">
+        <template v-if="['video', 'img'].includes(cmpType)">
+          <h5>
+            {{file.title || ''}}
+          </h5>
+          <div class="flex align-center_ column gap5_ wrap">
+            <p v-if="file.info">{{file.info}}</p>
+            <p v-if="file.credit">{{$t('credit')}}: {{file.credit}}</p>
+            <!-- <template v-if="cmpType === 'img'">
+              <span v-if="file.info">|</span>
+              <button class="btn clear underline" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)">{{$t('download')}}</button>
+            </template> -->
+          </div>
+        </template>
+        <iframe
+          v-if="cmpType === 'iframe'"
+          class="video-file-preview"
+          :src="fixFileSrcToThumbnail(file, rootItem)" controls
         />
-        <div class="img-actions flex align-center gap10">
-          <button class="btn download-btn" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)"><span>{{$t('download')}}</span></button>
-        </div>
-      </template>
-      <a
-        v-else-if="cmpType === 'link'"
-        class="link-file-preview"
-        target="_blank" 
-        :href="extractFileSrc(file)"
-      >{{file.title}}</a>
-      
-      <router-link
-        v-else-if="cmpType === 'file'"
-        class="link-file-preview"
-        target="_blank" 
-        :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(file, rootItem) } }"
-      >{{file.title}}</router-link>
+        <p v-if="getFileError(file, rootItem)">{{getFileError(file, rootItem)}}</p>
+        <template v-else-if="cmpType === 'video'">
+          <VideoTag
+            :format="getFileItemFromRootItem(file, rootItem)?.format"
+            class="video-file-preview"
+            :src="fixVideoSrcToThumbnail(file, rootItem, organizationId)"
+          />
+          <p v-if="file.description" v-html="file.description"></p>
+        </template>
+        <template v-else-if="cmpType === 'img'">
+          <img
+            class="img-file-preview"
+            :src="fixFileSrcToThumbnail(file, rootItem)" :alt="file.title"
+          />
+          <div class="img-actions flex align-center gap10">
+            <button class="btn download-btn" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)"><span>{{$t('download')}}</span></button>
+          </div>
+        </template>
+        <a
+          v-else-if="cmpType === 'link'"
+          class="link-file-preview"
+          target="_blank" 
+          :href="extractFileSrc(file)"
+        >{{file.title}}</a>
+        
+        <router-link
+          v-else-if="cmpType === 'file'"
+          class="link-file-preview"
+          target="_blank" 
+          :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(file, rootItem) } }"
+        >{{file.title}}</router-link>
 
+      </div>
     </div>
+    <PaginationBtns v-if="usePage && (files.length > 1)" v-model="paginationData" :total="files.length" :noLimitSelection="true"/>
   </div>
 </template>
 
 <script>
-import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '../../common/services/file.service';
+import PaginationBtns from '../../common/cmps/ItemSearchList/PaginationBtns.vue';
+import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail, getFileError, getFileItemFromRootItem } from '../../common/services/file.service';
 import { downloadImg } from '../../common/services/util.service';
 import VideoTag from './VideoTag.vue';
 // import { extractFileSrc } from './file.service'; 
 export default {
   name: 'FileList',
-  components: {VideoTag},
+  components: {VideoTag, PaginationBtns},
   props: {
     files: {
       type: Array
@@ -75,13 +83,32 @@ export default {
     },
   },
   methods: {
-    fixFileSrcToThumbnail,
+    fixFileSrcToThumbnail, getFileError, getFileItemFromRootItem,
     fixVideoSrcToThumbnail,
     downloadImg,
     extractFileSrc(fileItem) {
       return fileItem.src || fileItem.link || fileItem.url;
     }
   },
+  data() {
+    return {
+      paginationData: {
+        page: 0,
+        limit: 1,
+      }
+    }
+  },
+  computed: {
+    usePage() {
+      return this.cmpType === 'video';
+    },
+    filesToShow() {
+      if (!this.usePage) return this.files;
+      const startIdx = this.paginationData.limit * this.paginationData.page;
+      const endIdx = startIdx + this.paginationData.limit;
+      return this.files.slice(startIdx, endIdx);
+    }
+  }
 }
 </script>
 

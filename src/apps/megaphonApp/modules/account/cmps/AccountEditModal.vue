@@ -1,5 +1,5 @@
 <template>
-  <Modal class="account-edit-modal" :showCloseBtn="true" :fullScreen="true" @close="$router.back()"> 
+  <Modal class="account-edit-modal" :showCloseBtn="true" :fullScreen="true" @close="close"> 
     <AccountEdit :isNested="true"/>
   </Modal>
 </template>
@@ -12,6 +12,12 @@ export default {
   components: {
     Modal,
     AccountEdit
+  },
+  methods: {
+    close() {
+      // $router.back()
+      this.$router.push({ name: this.$route.matched[this.$route.matched.length-2]?.name, params: { organizationId: this.$route.params.organizationId } })
+    }
   }
 }
 </script>
