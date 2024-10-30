@@ -13,7 +13,7 @@
               @click="scrollToEl($event, tab.name)"
               
             >
-              {{$t(`release.tabs.${tab.name}`)}}
+              <div class="hover-pop">{{$t(`release.tabs.${tab.name}`)}}</div>
             </a>
             <router-link
               v-else-if="tab.type === 'fileViewer'"
@@ -22,7 +22,7 @@
               :class="{bold: selectedTab === tab.name, selected: selectedTab === tab.name}" 
               :to="{ name: 'FileViewer', query: {file: tab.url} }"
             >
-              {{$t(`release.tabs.${tab.name}`)}}
+              <div class="hover-pop">{{$t(`release.tabs.${tab.name}`)}}</div>
             </router-link>
           </template>
         </template>

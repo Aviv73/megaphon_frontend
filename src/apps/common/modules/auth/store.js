@@ -7,7 +7,8 @@ import { organizationService } from '../../../megaphonApp/modules/organization/s
 
 const initState = () => ({
   loggedUser: null,
-  isLoading: false
+  isLoading: false,
+  redirectPage: ''
 });
 
 export const _authStore = {
@@ -41,6 +42,9 @@ export const _authStore = {
       const { _id, name, status = 'approved', roles = ['creator', 'admin'], approverId = state.loggedUser._id } = organization
       const itemToPush = {organizationId: _id, name, status, roles, approverId};
       state.loggedUser.organizations.push(itemToPush);
+    },
+    redirectPage(state, { endpoint }) {
+      state.redirectPage = endpoint;
     }
   },
   actions: {
@@ -85,8 +89,12 @@ export const _authStore = {
         type: '_Ajax',
         do: async () => authService.signup(cred),
         onSuccess: (res) => {
-          commit({ type: 'setLoggedUser', user: res.user });
-          alertService.toast({type: 'safe', msg: `${$t(`auth.alerts.welcome`)}, ${res.user.firstName} ${res.user.lastName}!`});
+          console.log(res);
+          if (res.user) {
+            commit({ type: 'setLoggedUser', user: res.user });
+            alertService.toast({type: 'safe', msg: `${$t(`auth.alerts.welcome`)}, ${res.user.firstName} ${res.user.lastName}!`});
+          }
+          return res;
         }
       });
     },

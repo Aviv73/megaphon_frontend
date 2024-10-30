@@ -7,7 +7,7 @@
       <FormInput type="text" labelholder="account.lastname" v-model="accountToEdit.lastName"/>
       <FormInput type="text" labelholder="account.email" v-model="accountToEdit.email"/>
       <FormInput type="phone-number" labelholder="account.mobile" v-model="accountToEdit.mobileData" @change="val => accountToEdit.mobile = val.formatted"/>
-      <FormInput type="text" labelholder="account.newPassword" v-model="accountToEdit.password"/>
+      <FormInput type="text" labelholder="account.newPassword" v-model="accountToEdit.password" :error="isPassValid ? '' : $t('auth.passValidationExplenation')" :tooltipMsg="$t('auth.passValidationExplenation')"/>
       <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
 
       <div class="flex column gap5 mailing-section">
@@ -41,6 +41,7 @@
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';
 import { organizationService } from '../../organization/services/organization.service';
+import { validatePassword } from '@/apps/common/modules/common/services/util.service';
 export default {
   name: 'AccountEdit',
   props: {
@@ -63,7 +64,7 @@ export default {
             (
               user._id?
                 (user.password? this.confirmPassword === user.password : true) :
-                (user.password && (this.confirmPassword === user.password))
+                (user.password && (this.confirmPassword === user.password) && this.isPassValid)
             )
     },
     loggedUser() {
@@ -84,6 +85,10 @@ export default {
     isLoggedUser() {
       if (!this.loggedUser) return false;
       return this.accountToEdit?._id === this.loggedUser._id;
+    },
+    
+    isPassValid() {
+      return validatePassword(this.accountToEdit.password);
     }
   },
   methods: {

@@ -170,7 +170,10 @@ export default {
         ]);
       } catch(e) {};
       // this.isLoading = false;
-      if (requireAuth && !this.loggedUser) this.$router.push({name: 'LoginPage'});
+      if (requireAuth && !this.loggedUser) {
+        this.$store.commit({ type: 'auth/redirectPage', endpoint: window?.location?.hash || '' });
+        this.$router.push({name: 'LoginPage'});
+      }
       // else {
       //   if (this.$route.params.organizationId) return;
       //   const firstOrg = this.loggedUser.organizations.filter(c => c.organizationId != '-1')[0];

@@ -6,7 +6,7 @@
       <slot v-else name="preview"/>
     </span>
     <div v-show="show || hoverShow" ref="elMsg" class="tooltip-msg">
-      <button v-if="show" class="btn small close-btn" @click="toggleShow(false)">X</button>
+      <button v-if="show" class="btn_ small close-btn" @click="toggleShow(false)">✖</button>
       <p v-if="!$slots.content">{{ msg? $t(msg) : 'No tooltip message...' }}</p>
       <slot v-else name="content"/>
     </div>
@@ -120,6 +120,7 @@ export default {
   // z-index: 1000;
   position: relative;
   display: inline-block;
+  z-index: 1000;
   // widows: em(15px);
   // height: em(15px);
   .tooltip-preview {
@@ -140,7 +141,7 @@ export default {
     position: absolute;
     z-index: 1000;
     width: em(270px);
-    padding: em(15px);
+    padding: em(20px);
     line-height: 1.3;
     background-color: #5a5a5a;
     color: #ffffff;

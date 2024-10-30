@@ -344,9 +344,6 @@ export function delay(timeMs = 2000) {
 
 
 
-
-
-
 export function noop() {}; 
   
 export function htmlStrToText(htmlStr = '') {
@@ -569,12 +566,28 @@ export function commaAndListJoin(list) {
 }
 
 
-async function getImgBase64(url) {
+export async function getImgBase64(url) {
     const res = await fetch(url, { responseType: 'arraybuffer' }).then(r => r.arrayBuffer());
     const base46 = Buffer.from(res.data, 'binary').toString('base64');
     const mimeType = res.headers['content-type'];
     const base64Image = `data:${mimeType};base64,${base46}`;
     return {base64Image, base46, mimeType, url};
+}
+
+
+export function validatePassword(pass = '') {
+    if (!pass) return false;
+    if (pass.length <= 10) return false;
+    const abcStr = 'abcdefghijklmnopqrstuvwxyz';
+    const abc = abcStr.split('');
+    const ABC = abcStr.toUpperCase().split('');
+    const nums = '1234567890'.split('');
+    const chars = '!@#$%^&*()-_=+?><":[]{}`~,.'.split('');
+    if (!abc.find(c => pass.includes(c))) return false;
+    // if (!ABC.find(c => pass.includes(c))) return false;
+    if (!nums.find(c => pass.includes(c))) return false;
+    if (!chars.find(c => pass.includes(c))) return false;
+    return true;
 }
 
 //////////////////STORAGE_SERVICE////////////////////

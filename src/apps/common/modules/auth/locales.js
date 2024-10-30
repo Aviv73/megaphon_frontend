@@ -27,7 +27,8 @@ const  en = {
     "required2FactorAthMsg_": "Required 2 factor authentication. To finish authentication, please open your mobile and enter the password we sent to you",
     "required2FactorAthMsg": "Required 2 factor authentication",
   
-    "secondFactorMethodMsg": "Method"
+    "secondFactorMethodMsg": "Method",
+    "passValidationExplenation": "The password needs to be in 10 characters length and needs to include a number, an endlish character and a special character"
   },
 }
 const he = {
@@ -60,7 +61,8 @@ const he = {
     "required2FactorAthMsg_": "נדרשת הזדהות נוספת. כדי לסיים את הליך ההתחברות, אנא הזן את הסיסמה שנשלחה אליך לנייד.",
     "required2FactorAthMsg": "נדרשת הזדהות נוספת כדי לסיים את הליך ההתחברות על ידי סיסמה חד פעמית שתשלח אליך",
     
-    "secondFactorMethodMsg": "בחר כיצד אתה מעוניין לקבל את הסיסמה"
+    "secondFactorMethodMsg": "בחר כיצד אתה מעוניין לקבל את הסיסמה",
+    "passValidationExplenation": "הסיסמה צריכה להיות באורך של 10 תוים לפחות וצריכה לכלול: מספר, אות באנגלית, ותו מיוחד"
   },
 }
 const heF = {

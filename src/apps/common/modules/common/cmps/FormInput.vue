@@ -175,8 +175,8 @@
         <div class="icon-container" @click="$refs.elInput.focus()" v-if="$slots.default || showError">
           <slot v-if="$slots.default"/>
         </div>
-        <Tooltip class="icon-container" v-if="error" :msg="error">
-          <template v-slot:preview>
+        <Tooltip class="icon-container" v-if="error || tooltipMsg" :msg="error || tooltipMsg">
+          <template v-slot:preview v-if="error">
             <img class="icon-img" :src="require('@/assets/images/icons/red_exclamation_mark.png')" alt="">
           </template>
         </Tooltip>
@@ -227,6 +227,7 @@ export default {
     listUp: { required: false, type: Boolean, default: false },
 
     error: { required: false, type: String, default: '' },
+    tooltipMsg: { required: false, type: String, default: '' },
 
     debug: { required: false, type: Boolean, default: false },
     reactive: { required: false, type: Boolean, default: false },
