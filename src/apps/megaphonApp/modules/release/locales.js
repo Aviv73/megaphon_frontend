@@ -89,7 +89,9 @@ const  en = {
       email: 'Email',
       distribution: 'Distribution',
       site: 'Site',
-      undefined: 'Unknown'
+      undefined: 'Unknown',
+      "distribution-email": 'Distribution email',
+      "distribution-sms": 'sms',
     },
     allowReply: 'Allow response',
     forceDistribute: 'Allow redistribute if distributed in the past',
@@ -212,7 +214,9 @@ const he = {
       email: 'אימייל',
       distribution: 'הפצה',
       site: 'אתר',
-      undefined: '-'
+      undefined: '-',
+      "distribution-email": 'מייל הפצה',
+      "distribution-sms": 'sms',
     },
     allowReply: 'אפשר תגובה',
     forceDistribute: 'אפשר להפיץ בשנית אם כבר הופץ בעבר',

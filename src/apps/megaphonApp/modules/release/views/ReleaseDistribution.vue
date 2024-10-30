@@ -355,18 +355,18 @@ export default {
       const isToSend = await alertService.Confirm(this.$t('distribute.distributeReleaseConfirmMsg'));
       if (!isToSend) return;
       try {
-        this.sendingToStatus.total = (contacts || this.contactsForDistribute).length;
+        const actualContacts = contacts || this.contactsForDistribute;
+        this.sendingToStatus.total = actualContacts.length;
         this.sendingToStatus.sent = 0;
         this.isLoadingLocal = true;
         this.isLoadingForDist = true;
         const res = await distributionService.distribute(this.organizationId, this.release._id, { 
           from: this.fromEmail,
-          contacts: (contacts || this.contactsForDistribute).map(minimizeContact),
+          contacts: actualContacts.map(minimizeContact),
           forceDistribute: this.isForceDistribute,
           distributionType: this.distributionType,
           testMode: this.testMode,
-        },
-        updatedSentToCount => this.sendingToStatus.sent = updatedSentToCount);
+        }, updatedSentToCount => this.sendingToStatus.sent = updatedSentToCount);
         // alertService.toast({ msg: `Successfully distributed release to ${res.sentToContacts.length} out of ${this.contactsForDistribute.length} contacts` });
         // alertService.toast({ msg: this.$t(`distribute.alertMsgs.successDistRelease`), type: 'safe' });
         console.log(res);
