@@ -72,6 +72,7 @@ export default {
         if (uploadedRes.previewSrc) this.previewSrc = uploadedRes.previewSrc;
         this.loadingMsg = '';
         const newVal = { name: originalName, title: originalName, type, src: uploadedRes.src, fileId: uploadedRes.fileId };
+        if (['mp4'].includes(type)) alertService.toast({type: 'safe', msg: this.$t(`videoUploadedAlert`), timeout: null});
         return newVal;
       } catch(err) {
         alertService.toast({type: 'danger', msg: `cantUploadFileError`});

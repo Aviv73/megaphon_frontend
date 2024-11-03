@@ -16,6 +16,7 @@ function setConfig(newConf = {}) {
 }
 
 function toast({type = 'danger', msg = '', html = '', timeout = 7000} = {}, olCloseCb) {
+  msg = msg.split('\n').join('</br>');
   const styleStr =`<style>
     ${elementService.dataToCss('.toast-alert', {
       ...config,
@@ -24,7 +25,7 @@ function toast({type = 'danger', msg = '', html = '', timeout = 7000} = {}, olCl
       top: '40px',
       right: '50%',
       transform: 'translateX(50%)',
-      padding: '10px',
+      padding: '15px',
       borderRadius: '4px',
       fontStyle: 'italic',
       width: '370px',
@@ -64,14 +65,24 @@ function toast({type = 'danger', msg = '', html = '', timeout = 7000} = {}, olCl
         animationDuration: '1s'
       },
       '.close-btn': {
+        fontStyle: 'normal',
         position: 'absolute',
         top: '3px',
         right: '3px',
         // backgroundImage: `url(${closeImg})`,
-        backgroundSize: `10px 10px`,
-        width: '10px',
-        height: '10px',
-        content: '"X"'
+        // backgroundSize: `10px 10px`,
+        width: '15px',
+        height: '15px',
+        '&:after': {
+          // content: '"X"',
+          fontSize: '12px',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          content: '"✖"',
+          width: '100%',
+          height: '100%'
+        }
       },
       '@media (max-width: 420px)': {
         width: '90vw',

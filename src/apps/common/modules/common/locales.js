@@ -105,7 +105,9 @@ const en = {
 
   "day": "Day",
   "hour": "Hour",
-  "channel": "Channel"
+  "channel": "Channel",
+
+  "videoUploadedAlert": "Vide uploaded successfully. Note: it will take a while for the server to process the file and to make it watchable. please be pationt if you get a process error when trying to view it."
 
   // "cantUploadFileError": "Cant upload file"
 
@@ -214,7 +216,9 @@ const he = {
   
   "day": "יום",
   "hour": "שעה",
-  "channel": "ערוץ"
+  "channel": "ערוץ",
+
+  "videoUploadedAlert": "קובץ הוידאו עלה בהצלחה!\nשימו לב: פעולת ההצפנה של הוידאו עשויה לקחת מעט זמן. אנא העזרו בסבלנות במקרה בו אתם מקבלים שגיאת 'process' כשאתם מנסים לצפות בוידאו."
 
   // "cantUploadFileError": "המערכת נכשלה לשמור את הקובץ"
 }
