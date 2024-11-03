@@ -29,15 +29,15 @@
           />
           <p v-if="file.description" v-html="file.description"></p>
         </template>
-        <template v-else-if="cmpType === 'img'">
+        <FullScreenToggler v-else-if="cmpType === 'img'">
           <img
-            class="img-file-preview"
+            class="img-file-preview content"
             :src="fixFileSrcToThumbnail(file, rootItem)" :alt="file.title"
           />
           <div class="img-actions flex align-center gap10">
-            <button class="btn download-btn" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)"><span>{{$t('download')}}</span></button>
+            <button class="btn download-btn hover-pop" @click="downloadImg(fixFileSrcToThumbnail(file, rootItem), file.title)"><span>{{$t('download')}}</span></button>
           </div>
-        </template>
+        </FullScreenToggler>
         <a
           v-else-if="cmpType === 'link'"
           class="link-file-preview"
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
 import PaginationBtns from '../../common/cmps/ItemSearchList/PaginationBtns.vue';
 import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail, getFileError, getFileItemFromRootItem } from '../../common/services/file.service';
 import { downloadImg } from '../../common/services/util.service';
@@ -66,7 +67,7 @@ import VideoTag from './VideoTag.vue';
 // import { extractFileSrc } from './file.service'; 
 export default {
   name: 'FileList',
-  components: {VideoTag, PaginationBtns},
+  components: {VideoTag, PaginationBtns, FullScreenToggler},
   props: {
     files: {
       type: Array
@@ -119,6 +120,7 @@ export default {
   .img-section {
     h5 {
       width: em(300px);
+      line-height: normal;
     }
   }
   .img-file-preview {
@@ -155,9 +157,11 @@ export default {
   }
   .img-actions {
     position: absolute;
-    left: em(10px);
-    bottom: em(10px);
+    left: em(40px);
+    top: em(10px);
     .btn {
+      width: em(20px);
+      height: em(20px);
       border-radius: 0;
       border: 1px solid var(--clr-0); // black
       // width: em(50px);

@@ -8,6 +8,7 @@
       <FormInput type="text" labelholder="auth.firstname" v-model="user.firstName"/>
       <FormInput type="text" labelholder="auth.lastname" v-model="user.lastName"/>
       <FormInput type="text" labelholder="auth.email" v-model="user.email"/>
+      <FormInput type="phone-number" labelholder="account.mobile" v-model="user.mobileData" @change="val => user.mobile = val.formatted"/>
       <FormInput type="text" labelholder="auth.password" v-model="user.password" :error="isPassValid ? '' : $t('auth.passValidationExplenation')" :tooltipMsg="$t('auth.passValidationExplenation')"/>
       <FormInput type="text" labelholder="auth.confirmPassword" v-model="confirmPassword"/>
       <!-- <FormInput type="select" labelholder="auth.gender" v-model="user.gender" :itemsMap="userGenders"/> -->

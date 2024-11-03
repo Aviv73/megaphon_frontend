@@ -50,7 +50,7 @@ export default {
     }
   },
   created() {
-    this.setTheme();
+    // this.setTheme();
     evEmmiter.on('app_config_update', this.setTheme);
   },
 

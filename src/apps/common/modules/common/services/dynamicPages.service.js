@@ -37,8 +37,10 @@ export function getSelectedTheme() {
 // var lastCssEl = null;\
 const STYLE_EL_CLASSNAME = 'theme-styling-element';
 export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
+  console.log('WOWO', stylingTheme, selector);
   SelectedhTeme = stylingTheme;
-  const lastCssEl = document.head.querySelector('.'+STYLE_EL_CLASSNAME)
+  const lastCssEl = document.head.querySelector('.'+STYLE_EL_CLASSNAME);
+  console.log(lastCssEl);
   if (lastCssEl) document.head.removeChild(lastCssEl);
   if (stylingTheme.title) document.title = stylingTheme.title;
   const colors = stylingTheme?.colors || [];
@@ -84,6 +86,7 @@ export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
     }
   }, stylingTheme.css);
   cssEl.classList.add(STYLE_EL_CLASSNAME);
+  console.log(cssEl.classList)
   document.head.appendChild(cssEl);
   // lastCssEl = cssEl;
   return cssEl;

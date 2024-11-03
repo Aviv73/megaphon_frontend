@@ -408,7 +408,7 @@ export async function downloadImg(url, fileName) {
     const elLink = document.createElement('a');
     const dataUrl = await imgSrcToDataUrl(url);
     elLink.href = dataUrl;
-    if (fileName.includes('.jpg')) fileName += '.jpg';
+    // if (fileName.includes('.jpg')) fileName += '.jpg';
     elLink.download = fileName;
     elLink.target = "_blank";
     document.body.appendChild(elLink);
@@ -583,8 +583,9 @@ export function validatePassword(pass = '') {
     const ABC = abcStr.toUpperCase().split('');
     const nums = '1234567890'.split('');
     const chars = '!@#$%^&*()-_=+?><":[]{}`~,.'.split('');
-    if (!abc.find(c => pass.includes(c))) return false;
+    // if (!abc.find(c => pass.includes(c))) return false;
     // if (!ABC.find(c => pass.includes(c))) return false;
+    if (!abc.find(c => pass.includes(c)) && !ABC.find(c => pass.includes(c))) return false;
     if (!nums.find(c => pass.includes(c))) return false;
     if (!chars.find(c => pass.includes(c))) return false;
     return true;

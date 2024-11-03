@@ -1,9 +1,9 @@
 <template>
   <div class="toggle-modal">
-    <div @click="showContent = true" class="modal-toggle-btn">
+    <div @click="open" class="modal-toggle-btn">
       <slot name="toggler"/>
     </div>
-    <Modal :showCloseBtn="true" :fullScreen="fullScreen" @close="showContent = false" v-if="showContent">
+    <Modal :showCloseBtn="true" :fullScreen="fullScreen" @close="close" v-if="showContent">
       <slot v-if="$slots.content" name="content"/>
       <slot v-else />
     </Modal>
@@ -22,6 +22,14 @@ export default {
     return {
       showContent: false
     }
+  },
+  methods: {
+    open() {
+      this.showContent = true;
+    },
+    close() {
+      this.showContent = false;
+    },
   }
 }
 </script>

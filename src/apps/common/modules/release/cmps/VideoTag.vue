@@ -1,7 +1,9 @@
 <template>
-  <div :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all">
-    <video class=" width-all" ref="elVideo" controls></video>
-  </div>
+  <FullScreenToggler class="width-all">
+    <div :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all">
+      <video class=" width-all content" ref="elVideo" controls></video>
+    </div>
+  </FullScreenToggler>
 </template>
 
 <script>
@@ -10,6 +12,7 @@ import { elementService } from '../../common/services/element.service';
 // import { getVideoEncryptionKey } from '../../common/services/file.service';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 import { getRandomId } from '../../common/services/util.service';
+import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
 
 // import cloudinary from 'cloudinary-video-player';
 // import 'cloudinary-video-player/cld-video-player.min.css';
@@ -20,6 +23,7 @@ import { getRandomId } from '../../common/services/util.service';
 
 export default {
   name: 'VideoTag',
+  components: { FullScreenToggler },
   props: {
     src: String,
     format: String,
@@ -29,7 +33,8 @@ export default {
     return {
       videoId: getRandomId(''),
       styleEl: null,
-      isPlaying: false
+      isPlaying: false,
+      fullScreenMode: false
     }
   },
   watch: {
@@ -55,7 +60,7 @@ export default {
       return this.organization.useVideoWaterMark;
     },
     watermarkMsg() {
-      return `${this.organization.name} - ${this.loggedUser.firstName} ${this.loggedUser.lastName} | ${this.loggedUser.email}`
+      return `${this.organization.name} - ${this.loggedUser.firstName} ${this.loggedUser.lastName} | ${this.loggedUser.email} | ${this.loggedUser.mobile}`
     },
     logoUrl() {
       return fixFileSrcToThumbnail(this.organization.logo);
@@ -88,14 +93,26 @@ export default {
       hls.attachMedia(elVideo);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
-        elVideo.play();
+        // elVideo.play();
         // setTimeout(() => {
-        //   // this.appendWatermarkStyling();
-        // }, 1000);
-        // elVideo.addEventListener('canplay', () => {
-        //   elVideo.play();
-        // });
+        //   }, 1000);
+        elVideo.addEventListener('canplay', () => {
+          this.appendWatermarkStyling();
+          elVideo.play();
+        });
       });
+      // elVideo.addEventListener('fullscreenchange', (ev) => {
+      //   if (elVideo.fullscreenElement) {
+      //     elVideo.exitFullscreen();
+      //   }
+      //   // ev.stopPropagation();
+      //   // ev.preventDefault();
+      // })
+      // elVideo.requestFullscreen = () => {
+      //   this.fullScreenMode = !this.fullScreenMode;
+      //   console.log('WOW?');
+      // }
+      elVideo.controlsList = "nofullscreen"
       this.hls = hls;
 
 
@@ -109,7 +126,7 @@ export default {
 
 
     },
-    destroy() {
+    destroyed() {
       this.hls?.destroy();
     },
     appendWatermarkStyling() {
@@ -119,20 +136,19 @@ export default {
       // const getEm = size => `${(size / fontSize)}em`;
       if (!this.useWterMark) return;
       const styleEl = elementService.StyleEl(`#${this.videoId}`, {
-        position: 'relative',
-        overflow: 'hidden',
         fontSize: `${fontSize}px`,
         '&:after': {
+          width: 'fit-content',
           content: `"${this.watermarkMsg}"`,
           position: 'absolute',
           top: '50%',
           transform: 'translateY(-50%)',
           left: '0',
-          fontSize: elementService._.em(30),
+          fontSize: elementService._.em(15),
           fontWeight: 'bold',
-          animation: '30s moving-watermark-animation infinite',
+          animation: '25s linear moving-watermark-animation infinite',
           'text-wrap': 'nowrap',
-          opacity: '0.6'
+          opacity: '0.4'
         },
         '&.paused': {
           '&:after': {
@@ -144,6 +160,7 @@ export default {
           '100%': {left: '100%'}
         },
         '&:before': {
+          display: 'none',
           content: `""`,
           position: 'absolute',
           top: elementService._.em(20),
@@ -271,7 +288,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/styles/global/index';
 .videw-container {
+  position: relative;
+  overflow: hidden;
   video::-internal-media-controls-download-button {
     display: none !important;
   }
