@@ -1,5 +1,5 @@
 <template>
-  <div class="fullScreenToggler" :class="{fullScreen: fullScreenMode}">
+  <div class="fullScreenToggler" :class="{fullScreen: fullScreenMode, thin: thinClass}">
     <slot/>
     <div class="full-screen-btn hover-pop" @click="toggle" :class="{toggled: fullScreenMode}"></div>
   </div>
@@ -16,6 +16,16 @@ export default {
   methods: {
     toggle() {
       this.fullScreenMode = !this.fullScreenMode;
+    }
+  },
+  computed: {
+    thinClass() {
+      return false;
+      const windowSize = { w, h };
+      const contentSize = { w, h };
+      const contentAspectRatio = contentSize.x / contentSize.h;
+      const windowAspectRatio = windowSize.x / windowSize.h;
+      if (contentAspectRatio > windowAspectRatio) return true;
     }
   }
 }
@@ -76,11 +86,19 @@ export default {
     bottom: 0;
     right: 0;
     .content {
-      width: 100%;
       height: 100%;
+        width: 100%;
       max-width: unset !important;
       max-height: unset !important;
+      margin: auto 0;
     }
+    // &.thin {
+    //   .content {
+    //     height: unset;
+    //     width: 100%;
+    //     margin: 0 auto;
+    //   }
+    // }
   }
 }
 </style>

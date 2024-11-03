@@ -29,7 +29,8 @@ function toast({type = 'danger', msg = '', html = '', timeout = 7000} = {}, olCl
       borderRadius: '4px',
       fontStyle: 'italic',
       width: '370px',
-      boxShadow: scssVars.lightShadow,
+      // boxShadow: scssVars.lightShadow,
+      boxShadow: `0 0 10px 1px rgba(0,0,0,0.2)`,
       '&.safe': {
         backgroundColor: '#95f495',
         '.prime-msg': {

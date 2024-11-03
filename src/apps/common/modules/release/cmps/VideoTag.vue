@@ -1,6 +1,6 @@
 <template>
   <FullScreenToggler class="width-all">
-    <div :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all">
+    <div :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all content">
       <video class=" width-all content" ref="elVideo" controls></video>
     </div>
   </FullScreenToggler>
