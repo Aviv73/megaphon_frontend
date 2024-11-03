@@ -89,7 +89,7 @@ export default {
     try {
       await loadScripts();
     } catch(err) {
-      alertService.toast({type: 'danger', msg: err?.msg || err?.message || err});
+      // alertService.toast({type: 'danger', msg: err?.msg || err?.message || err});
     }
     this.initCommonStore();
 
@@ -158,7 +158,7 @@ export default {
   },
   methods: {
     async initUser(requireAuth = false) {
-      if (this.$route.name === 'LoginPage') return;
+      if (['LoginPage', 'SignupPage'].includes(this.$route.name)) return;
       if (this.$route.meta.noAuth) return;
       // this.isLoading = true;
       // socketService.connect();
