@@ -84,7 +84,7 @@ export default {
 
       const hls = new Hls({
         xhrSetup: function (xhr, url) {
-          xhr.withCredentials = true;  // Allows cookies to be sent with each request
+          // xhr.withCredentials = true;  // Allows cookies to be sent with each request
         }
       });
       hls.loadSource(this.src);
