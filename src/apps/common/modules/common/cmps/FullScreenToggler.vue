@@ -87,7 +87,8 @@ export default {
     right: 0;
     .content {
       height: 100%;
-        width: 100%;
+      width: 100%;
+      object-fit: cover;
       max-width: unset !important;
       max-height: unset !important;
       margin: auto 0;
