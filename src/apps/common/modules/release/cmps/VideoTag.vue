@@ -82,11 +82,11 @@ export default {
         return;
       }
 
-      const hls = new Hls({
-        xhrSetup: function (xhr, url) {
-          // xhr.withCredentials = true;  // Allows cookies to be sent with each request
-        }
-      });
+      // const hls = new Hls({
+      //   xhrSetup: function (xhr, url) {
+      //     xhr.withCredentials = true;  // Allows cookies to be sent with each request
+      //   }
+      // });
       hls.loadSource(this.src);
       // hls.loadSource('http://localhost:3000/vid-dir/ID1999192096E62588D9.m3u8');
       hls.attachMedia(elVideo);
