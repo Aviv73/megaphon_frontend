@@ -48,7 +48,6 @@ export default {
   },
   destroyed() {
     this.destroy();
-    if (this.styleEl) document.head.removeChild(this.styleEl);
   },
   computed: {
     organization() {
@@ -129,6 +128,10 @@ export default {
     },
     destroy() {
       this.hls?.destroy();
+      if (this.styleEl) {
+        document.head.removeChild(this.styleEl);
+        this.styleEl = null;
+      }
     },
     appendWatermarkStyling() {
       const { elVideo } = this.$refs;
