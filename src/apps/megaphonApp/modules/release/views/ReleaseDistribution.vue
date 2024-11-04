@@ -420,12 +420,13 @@ export default {
       // this.isLoadingLocal = false;
     },
     selectMailingList(list) {
-      this.contactsForDistribute = [
-        ...this.contactsForDistribute,
-        ...list.contacts
-          // .filter(c => !c.unsubscribed)
-          .filter(c => !this.contactsForDistribute.find(_ => _.email === c.email))
-      ];
+      // this.contactsForDistribute = [
+      //   ...this.contactsForDistribute,
+      //   ...list.contacts
+      //     // .filter(c => !c.unsubscribed)
+      //     .filter(c => !this.contactsForDistribute.find(_ => _.email === c.email))
+      // ];
+      list.contacts.forEach(this.addContact);
       this.showMailingListSelectionModal = false;
     },
 
