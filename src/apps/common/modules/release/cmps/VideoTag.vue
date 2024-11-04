@@ -47,6 +47,7 @@ export default {
     this.init();
   },
   destroyed() {
+    this.destroy();
     if (this.styleEl) document.head.removeChild(this.styleEl);
   },
   computed: {
@@ -126,7 +127,7 @@ export default {
 
 
     },
-    destroyed() {
+    destroy() {
       this.hls?.destroy();
     },
     appendWatermarkStyling() {
