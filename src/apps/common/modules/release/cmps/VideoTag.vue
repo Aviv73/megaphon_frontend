@@ -76,7 +76,6 @@ export default {
         this.isPlaying = false;
       });
 
-      console.log('format', this.format);
       const isHls = (this.format === 'm3u8') || this.src?.split('?')[0]?.endsWith('.m3u8');
       if (!isHls) {
         elVideo.src = this.src;
