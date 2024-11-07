@@ -44,6 +44,14 @@ function getEmptyAccount() {
       unsubscribed: false,
       sms: true,
       newsletter: true,
-    }
+    },
+    "mobile" : "",
+    "mobileData" : {
+        "number" : "",
+        "formatted" : "",
+        "countryCallingCode" : "",
+        "countryCode" : ""
+    },
+    "emailVerified" : false
   }
 }
