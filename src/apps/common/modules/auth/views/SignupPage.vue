@@ -35,7 +35,7 @@ export default {
     isUserValid() {
       const { user } = this;
       
-      return user.password && this.isPassValid && (user.password === this.confirmPassword) && user.firstName && user.lastName && user.email;
+      return user.password && this.isPassValid && (user.password === this.confirmPassword) && user.firstName && user.lastName && user.email && user.mobile;
     },
     rootOrg() {
       return this.$store.getters.rootOrg;
