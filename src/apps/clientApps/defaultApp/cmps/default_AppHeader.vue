@@ -11,9 +11,11 @@
         </div>
       </div>
 
+
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
       <NavOrBurger :showBurger="!!allRouteFilters.length">
         <CostumeNavBar class="nav-items"/>
+        <LoggedUserPreview :class="{'no-auth': !org?.requireAuth}"/>
       </NavOrBurger>
     </div>
   </header>
@@ -23,8 +25,9 @@
 import CostumeNavBar from '../../../common/modules/common/cmps/CostumeNavBar.vue';
 import NavOrBurger from '../../../common/modules/common/cmps/NavOrBurger.vue';
 import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
+import LoggedUserPreview from '../../../common/modules/auth/cmps/LoggedUserPreview.vue';
 export default {
-  components: { NavOrBurger, CostumeNavBar },
+  components: { NavOrBurger, CostumeNavBar, LoggedUserPreview },
   name: 'default_AppHeader',
   computed: {
     // initReleaseId() {

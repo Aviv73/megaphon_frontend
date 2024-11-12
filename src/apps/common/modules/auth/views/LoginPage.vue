@@ -63,6 +63,7 @@ export default {
   },
   methods: {
     async login() {
+      console.log(this.$route.query.endpoint);
       if (!this.isUserValid) return;
       if (this.userCred.username) delete this.userCred.username;
       localStorage.userCred = JSON.stringify(this.userCred);
@@ -71,7 +72,7 @@ export default {
         // this.showFinishAuthModal = true;
         evEmmiter.emit('needs_2_factor_auth', '/', res.comunicationMethods);
       }
-      else this.$router.push(this.$store.getters['auth/redirectPage'] || '/');
+      else this.$router.push(this.$route.query.endpoint || this.$store.getters['auth/redirectPage'] || '/');
     },
     async sendNewPasswordEmail() {
       await this.$store.dispatch({ type: 'auth/sendNewPasswordEmail', email: this.forgotEmailEmail });

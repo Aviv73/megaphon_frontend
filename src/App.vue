@@ -171,8 +171,8 @@ export default {
       } catch(e) {};
       // this.isLoading = false;
       if (requireAuth && !this.loggedUser) {
-        this.$store.commit({ type: 'auth/redirectPage', endpoint: window?.location?.hash || '' });
-        this.$router.push({name: 'LoginPage'});
+        this.$store.commit({ type: 'auth/redirectPage', endpoint: window?.location?.hash?.split('#')[1] || '' });
+        this.$router.push({name: 'LoginPage', query: { endpoint: window?.location?.hash?.split('#')[1] || '' } });
       }
       // else {
       //   if (this.$route.params.organizationId) return;

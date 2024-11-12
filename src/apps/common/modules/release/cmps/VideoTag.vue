@@ -1,6 +1,6 @@
 <template>
   <FullScreenToggler class="width-all">
-    <div :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all content">
+    <div :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all content" ref="elContainer">
       <video class=" width-all content" ref="elVideo" controls></video>
     </div>
   </FullScreenToggler>
@@ -21,6 +21,23 @@ import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
    < script src="https://unpkg.com/cloudinary-video-player@1.9.4/dist/cld-video-player.min.js">< /script>
 */
 
+// 2000 ms;
+// 
+const getWatermarkPosByMs = (() => {
+  const poss = [
+    {x: 0, y: 0},
+    {x: '100%', y: 0, style: {transform: `translateX(-100%)`}},
+    {x: '100%', y: '100%', style: {transform: `translateX(-100%) translateY(-100%)`}},
+    {x: 0, y: '100%', style: {transform: `translateY(-100%)`}},
+    {x: '50%', y: '50%', style: {transform: `translateX(-50%) translateY(-50%)`}}
+  ];
+  const msPerPos = 10000;
+  return (ms) => {
+    const posIdx = parseInt(parseInt(ms / msPerPos) % poss.length);
+    return poss[posIdx];
+  }
+})();
+
 export default {
   name: 'VideoTag',
   components: { FullScreenToggler },
@@ -34,7 +51,7 @@ export default {
       videoId: getRandomId(''),
       styleEl: null,
       isPlaying: false,
-      fullScreenMode: false
+      watermarkInterval: null
     }
   },
   watch: {
@@ -60,7 +77,8 @@ export default {
       return this.organization.useVideoWaterMark;
     },
     watermarkMsg() {
-      return `${this.organization.name} - ${this.loggedUser.firstName} ${this.loggedUser.lastName} | ${this.loggedUser.email} | ${this.loggedUser.mobile}`
+      // return `${this.organization.name} - ${this.loggedUser.firstName} ${this.loggedUser.lastName} | ${this.loggedUser.email} | ${this.loggedUser.mobile}`
+      return `${this.loggedUser.firstName} ${this.loggedUser.lastName} | ${this.loggedUser.email} | ${this.loggedUser.mobile}`
     },
     logoUrl() {
       return fixFileSrcToThumbnail(this.organization.logo);
@@ -70,10 +88,10 @@ export default {
     init() {
       const { elVideo } = this.$refs;
       elVideo.addEventListener('play', () => {
-        this.isPlaying = true;
+        this.play();
       });
       elVideo.addEventListener('pause', () => {
-        this.isPlaying = false;
+        this.pause();
       });
 
       const isHls = (this.format === 'm3u8') || this.src?.split('?')[0]?.endsWith('.m3u8');
@@ -96,7 +114,8 @@ export default {
         // setTimeout(() => {
         //   }, 1000);
         elVideo.addEventListener('canplay', () => {
-          this.appendWatermarkStyling();
+          // this.appendWatermarkStyling();
+          // this.play();
           elVideo.play();
         });
       });
@@ -131,7 +150,51 @@ export default {
         document.head.removeChild(this.styleEl);
         this.styleEl = null;
       }
+      this.pause();
     },
+
+    play() {
+      this.isPlaying = true;
+      this.watermarkInterval = setInterval(() => {
+        this.applyWatermark();
+      }, 10);
+    },
+    pause() {
+      this.isPlaying = false;
+      if (this.watermarkInterval) clearInterval(this.watermarkInterval);
+    },
+    
+    applyWatermark() {
+      const { elContainer, elVideo } = this.$refs;
+      const existWatermarkItem = elContainer.querySelector('.watermark');
+      if (existWatermarkItem) elContainer.removeChild(existWatermarkItem);
+      
+      const width = elVideo.offsetWidth;
+      const fontSize = width / 50;
+      const watermarkEl = elementService.El(`<div class="watermark">
+        ${elementService.dataToCssElStr(`.watermark`, {
+          fontSize: fontSize*1 + 'px',
+          position: 'absolute',
+          padding: `${elementService._.em(55)} ${elementService._.em(30)}`,
+          textAlign: 'end',
+          opacity: '0.5',
+          // fontWeight: 'bold',
+          cursor: 'normal',
+          'user-select': 'none',
+
+          color: 'gray',
+          fontFamily: 'fantasy'
+        })}
+        <p>${this.loggedUser.email || this.watermarkMsg.split('|').join('</p><p>')}</p>
+      </div>`);
+      const watermarkPos = getWatermarkPosByMs(elVideo.currentTime * 1000);
+      const style = { left: watermarkPos.x, top: watermarkPos.y, ...(watermarkPos.style || {}) };
+      // watermarkEl.style = style;
+      for (let key in style) watermarkEl.style[key] = style[key];
+      elContainer.appendChild(watermarkEl);
+    },
+    
+    
     appendWatermarkStyling() {
       const { elVideo } = this.$refs;
       const width = elVideo.offsetWidth;
@@ -300,6 +363,9 @@ export default {
   }
   video::-webkit-media-controls-enclosure {
     overflow: hidden !important;
+  }
+  video::-webkit-media-controls-fullscreen-button {
+    display: none
   }
 }
 </style>

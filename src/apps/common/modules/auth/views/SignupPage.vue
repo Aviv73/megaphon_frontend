@@ -55,7 +55,7 @@ export default {
         // this.showFinishAuthModal = true;
         evEmmiter.emit('needs_2_factor_auth', '/', res.comunicationMethods);
       }
-      else this.$router.push(this.$store.getters['auth/redirectPage'] || '/');
+      else this.$router.push(this.$route.query.endpoint || this.$store.getters['auth/redirectPage'] || '/');
     }
   },
   components: {
