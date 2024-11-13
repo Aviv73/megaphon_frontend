@@ -50,13 +50,13 @@ export default {
     border-radius: em(2px);
     // box-shadow: $light-shadow;
     // overflow: hidden;
-    background-image: url('~@/assets/images/icons/full-screen.png');
     // background-size: cover;
     background-size: 90%;
     background-repeat: no-repeat;
     background-position: center;
+
+    background-image: url('~@/assets/images/icons/full-screen.png');
     &.toggled {
-      // background-color: green;
       background-image: url('~@/assets/images/icons/exit-full-screen.png');
     }
     // &:after {

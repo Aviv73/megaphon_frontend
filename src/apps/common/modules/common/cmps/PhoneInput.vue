@@ -29,9 +29,6 @@ export default {
       val: typeof this.value === 'object'? this.value : { number: '' }
     };
   },
-  created() {
-    console.log('WOWO', this.val, this.value);
-  },
   methods: {
     onPhoneInput(data) {
       const res = {

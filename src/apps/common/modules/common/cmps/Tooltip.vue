@@ -120,7 +120,7 @@ export default {
   // z-index: 1000;
   position: relative;
   display: inline-block;
-  z-index: 1000;
+  z-index: 1;
   // widows: em(15px);
   // height: em(15px);
   .tooltip-preview {

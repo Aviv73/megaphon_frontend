@@ -12,7 +12,7 @@
       <!-- <FormInput type="text" v-model="itemToEdit.name"/> -->
       <TagPicker     :showLabel="true" v-model="itemToEdit.tags"/>
       <CompanyPicker :showLabel="true" v-model="itemToEdit.company"/>
-      <FormInput labelholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/>
+      <!-- <FormInput labelholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/> -->
       <FormInput labelholder="contact.notes" type="text" v-model="itemToEdit.notes"/>
     </form>
     <div>

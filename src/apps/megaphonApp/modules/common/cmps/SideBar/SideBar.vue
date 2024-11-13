@@ -297,7 +297,7 @@ export default {
       .main-sidebar {
         height: calc(100vh - #{$header-height});
         max-height: calc(100vh - #{$header-height});
-        background-color: #fff;
+        background-color: var(--clr-1);
         position: fixed;
         top: $header-height;
         right: 0;

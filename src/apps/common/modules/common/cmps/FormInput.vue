@@ -105,7 +105,7 @@
         <div class="drop-down flex column align-start" @click.stop="" :class="{'direction-up': listUp}">
           <template v-if="itemsToRender?.length">
             <template v-if="componentType === 'multiselect'">
-              <label class="gap5" v-for="item in itemsToRender" :key="item.label" :class="{selected: val === item.value}">
+              <label class="flex align-center gap5" v-for="item in itemsToRender" :key="item.label" :class="{selected: val === item.value}">
                 <input
                   v-if="componentType === 'multiselect'"
                   type="checkbox"

@@ -1,6 +1,6 @@
 <template>
   <div class="auth-page login-page flex column gap20 align-center justify-center width-all">
-    <router-link class="btn width-content" :to="{name: 'SignupPage'}">{{$t('signup')}}</router-link>
+    <router-link class="btn width-content" :to="{ name: 'SignupPage', query: { endpoint: $route.query.endpoint } }">{{$t('signup')}}</router-link>
     <form @submit.prevent="login" class="simple-form">
       <img v-if="!rootOrg" class="logo" :src="appLogo" :alt="org?.name || 'Megaphon'">
       <h4>{{$t('login')}}</h4>

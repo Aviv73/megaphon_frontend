@@ -31,8 +31,11 @@
       </template>
     </form>
     <div class="flex align-center space-between gap20">
-      <button class="btn big primary" @click="saveAccount" :disabled="!isAccountValid">{{$t('submit')}}</button>
-      <button class="btn big" @click="close" v-if="!isNested">{{$t('close')}}</button>
+      <div class="flex gap20">
+        <button class="btn big primary" @click="saveAccount" :disabled="!isAccountValid">{{$t('submit')}}</button>
+        <button class="btn big" @click="close" v-if="!isNested">{{$t('close')}}</button>
+      </div>
+      <button class="btn big" @click="deleteAccount" v-if="accountToEdit._id">{{$t('delete')}}</button>
     </div>
   </div>
 </template>
@@ -124,6 +127,11 @@ export default {
       const org = this.accountToEdit.organizations.find(c => c._id === orgId);
       if (!org) return;
       org.roles = roles;
+    },
+    async deleteAccount() {
+      const orgId = this.$route.params.organizationId == '-1' ? '' : this.$route.params.organizationId;
+      await this.$store.dispatch({ type: 'account/removeItem', id: this.$route.params.id, organizationId: orgId });
+      this.close();
     }
     // async getAllOrgs() {
       // this.allOrgs = await this.$store.dispatch({ type: 'organization/getAllItems' });

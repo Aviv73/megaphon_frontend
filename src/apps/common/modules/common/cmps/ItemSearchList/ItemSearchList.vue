@@ -4,7 +4,7 @@
       <component :is="filterByCmp || 'ItemFilter'" :initFilter="filterBy" @filtered="setFilter" v-bind="propsToPass"/>
       <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
     </div>
-    <div class="width-all flex column flex-1 gap30">
+    <div class="width-all flex column flex-1 gap30 item-list-container">
       <slot/>
       <ItemList
         :items="items"

@@ -58,7 +58,8 @@ export default {
     },
     async finishAuth() {
       await this.$store.dispatch({ type: 'auth/finish2FactorAuth', pass: this.pass, method: this.method });
-      if (this.redirectEndpoint) this.$router.push(this.redirectEndpoint);
+      if (this.$route.query.endpoint) this.$router.push(this.$route.query.endpoint);
+      else if (this.redirectEndpoint) this.$router.push(this.redirectEndpoint);
       else window.location.reload();
       this.showModal = false;
       this.redirectEndpoint = '';
@@ -71,6 +72,7 @@ export default {
       if (this.showModal) return;
       this.showModal = true;
       if (endpoint) this.redirectEndpoint = endpoint;
+      // else this.redirectEndpoint = this.$route.query.endpoint;
       if (requiredComunicationMethods) this.requiredComunicationMethods = requiredComunicationMethods;
       this.pass = '';
       this.didSend = false;

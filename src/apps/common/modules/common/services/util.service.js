@@ -577,7 +577,7 @@ export async function getImgBase64(url) {
 
 export function validatePassword(pass = '') {
     if (!pass) return false;
-    if (pass.length <= 10) return false;
+    if (pass.length < 10) return false;
     const abcStr = 'abcdefghijklmnopqrstuvwxyz';
     const abc = abcStr.split('');
     const ABC = abcStr.toUpperCase().split('');

@@ -364,6 +364,14 @@ export default {
   video::-webkit-media-controls-enclosure {
     overflow: hidden !important;
   }
+
+
+  video {
+    height: auto;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
   video::-webkit-media-controls-fullscreen-button {
     display: none
   }
