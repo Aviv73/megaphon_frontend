@@ -12,6 +12,7 @@ const  en = {
     "password": "Password",
     "newPassword": "New password",
     "confirmPassword": "Confirm password",
+    "mobile": "Mobile",
     "alerts": {
       "welcomeBack": "Welcome back",
       "goodby": "Goodby",
@@ -45,6 +46,7 @@ const he = {
     "password": "סיסמה",
     "newPassword": "סיסמה חדשה",
     "confirmPassword": "הזן שוב סיסמה",
+    "mobile": "נייד",
     "alerts": {
       "welcomeBack": "ברוך שובך",
       "goodby": "להתראות",
