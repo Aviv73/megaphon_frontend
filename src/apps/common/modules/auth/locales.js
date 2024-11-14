@@ -57,6 +57,7 @@ const he = {
     "invalidEmailOrPasswordError": "מייל או סיסמה שגויים",
     "cantFindAccountWithEmailError": "לא נמצא משתמש עם כתובת המייל הזאת",
     "unAuthorizedError": "לא מורשה",
+    "needsLoginError": "יש להתחבר למערכת",
 
     "required2FactorAthMsg_": "נדרשת הזדהות נוספת. כדי לסיים את הליך ההתחברות, אנא הזן את הסיסמה שנשלחה אליך לנייד.",
     "required2FactorAthMsg": "נדרשת הזדהות נוספת כדי לסיים את הליך ההתחברות על ידי סיסמה חד פעמית שתשלח אליך",

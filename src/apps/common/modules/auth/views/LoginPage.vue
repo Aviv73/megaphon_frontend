@@ -2,7 +2,7 @@
   <div class="auth-page login-page flex column gap20 align-center justify-center width-all">
     <router-link class="btn width-content" :to="{ name: 'SignupPage', query: { endpoint: $route.query.endpoint } }">{{$t('signup')}}</router-link>
     <form @submit.prevent="login" class="simple-form">
-      <img v-if="!rootOrg" class="logo" :src="appLogo" :alt="org?.name || 'Megaphon'">
+      <!-- <img v-if="!rootOrg" class="logo" :src="appLogo" :alt="org?.name || 'Megaphon'"> -->
       <h4>{{$t('login')}}</h4>
       <FormInput type="text" labelholder="auth.email" v-model="userCred.email"/>
       <FormInput type="password" labelholder="auth.password" v-model="userCred.password"/>
@@ -89,17 +89,4 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/global/index';
-.auth-page {
-  .simple-form {
-    // width: em(400px);
-    // max-width: 90vw;
-    gap: em(10px);
-    .label {
-      width: em(150px);
-    }
-    .logo {
-      width: 50%;
-    }
-  }
-}
 </style>

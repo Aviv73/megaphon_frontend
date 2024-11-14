@@ -2,7 +2,7 @@
   <div class="auth-page signup-page flex column gap20 align-center justify-center width-all">
     <router-link class="btn width-content" :to="{ name: 'LoginPage', query: { endpoint: $route.query.endpoint } }">{{$t('login')}}</router-link>
     <form @submit.prevent="signup" class="simple-form">
-      <img v-if="!rootOrg" class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
+      <!-- <img v-if="!rootOrg" class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon"> -->
       <h4>{{$t('signup')}}</h4>
       <!-- <FormInput type="text" labelholder="auth.username" v-model="user.username"/> -->
       <FormInput type="text" labelholder="auth.firstname" v-model="user.firstName"/>
