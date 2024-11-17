@@ -11,7 +11,7 @@ import Hls from 'hls.js';
 import { elementService } from '../../common/services/element.service';
 // import { getVideoEncryptionKey } from '../../common/services/file.service';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
-import { getRandomId } from '../../common/services/util.service';
+import { delay, getRandomId } from '../../common/services/util.service';
 import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
 
 // import cloudinary from 'cloudinary-video-player';
@@ -44,6 +44,7 @@ export default {
   props: {
     src: String,
     format: String,
+    fileItem: Object
     // type: String
   },
   data() {
@@ -51,7 +52,13 @@ export default {
       videoId: getRandomId(''),
       styleEl: null,
       isPlaying: false,
-      watermarkInterval: null
+      watermarkInterval: null,
+
+      watchSession: null,
+      currWatchSection: null,
+      sessionUpdateIntervalId: null,
+
+      isSeeking: false
     }
   },
   watch: {
@@ -87,12 +94,26 @@ export default {
   methods: {
     init() {
       const { elVideo } = this.$refs;
-      elVideo.addEventListener('play', () => {
+      elVideo.addEventListener('play', async() => {
+        await delay(10);
+        if (this.isSeeking) {
+          this.isSeeking = false;
+          return;
+        }
         this.play();
       });
-      elVideo.addEventListener('pause', () => {
+      elVideo.addEventListener('pause', async () => {
+        await delay(10);
+        if (this.isSeeking) return;
         this.pause();
       });
+      elVideo.addEventListener('seeking', () => {
+        this.isSeeking = true;
+        this.setNewWatchSection();
+      });
+      // elVideo.addEventListener('seeked', () => {
+      //   this.isSeeking = false;
+      // });
 
       const isHls = (this.format === 'm3u8') || this.src?.split('?')[0]?.endsWith('.m3u8');
       if (!isHls) {
@@ -128,10 +149,12 @@ export default {
       // })
       // elVideo.requestFullscreen = () => {
       //   this.fullScreenMode = !this.fullScreenMode;
-      //   console.log('WOW?');
       // }
       elVideo.controlsList = "nofullscreen"
       this.hls = hls;
+
+
+      this.initWatchSession();
 
 
       // const player = window.cloudinary.videoPlayer(elVideo, {
@@ -141,7 +164,6 @@ export default {
       //   muted: false,
       // });
       // player.source(this.src, { sourceTypes: ['hls'] });
-
 
     },
     destroy() {
@@ -153,8 +175,39 @@ export default {
       this.pause();
     },
 
+    async initWatchSession() {
+      this.watchSession = await this.$store.dispatch({ type: 'videoWatchLog/loadItem', silent: true });
+      this.watchSession.organizationId = this.organization._id;
+      this.watchSession.accountId = this.loggedUser._id;
+      this.watchSession.fileId = this.fileItem.fileId;
+      this.setNewWatchSection();
+      this.updateWatchSession();
+    },
+    setSessionUpdateInterval() {
+      this.stopSessionUpdateIterval();
+      this.sessionUpdateIntervalId = setInterval(() => {
+        this.updateWatchSession();
+      }, 5000);
+    },
+    stopSessionUpdateIterval() {
+      clearInterval(this.sessionUpdateIntervalId);
+      this.updateWatchSession();
+    },
+    async setNewWatchSection() {
+      this.currWatchSection = { id: getRandomId(''), start: this.$refs.elVideo.currentTime * 1000, end: this.$refs.elVideo.currentTime * 1000 }
+      this.watchSession.sections.push(this.currWatchSection);
+    },
+    async updateWatchSession() {
+      this.currWatchSection.end = this.$refs.elVideo.currentTime * 1000;
+      this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
+      this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);
+    },
+
+
+
     play() {
       this.isPlaying = true;
+      this.setSessionUpdateInterval();
       this.watermarkInterval = setInterval(() => {
         this.applyWatermark();
       }, 10);
@@ -162,6 +215,7 @@ export default {
     pause() {
       this.isPlaying = false;
       if (this.watermarkInterval) clearInterval(this.watermarkInterval);
+      this.stopSessionUpdateIterval();
     },
     
     applyWatermark() {
@@ -263,11 +317,9 @@ export default {
 
   //     load(context, config, callbacks) {
   //         if (context.type === 'key') {
-  //             console.log('Custom key loader triggered for:', context.url);
 
   //             // Fetch your custom key (e.g., from a secure API or function)
   //             getVideoEncryptionKey().then(key => {
-  //                 console.log('GOOD KEY:', key);
 
   //                 // Simulate a successful key load with the custom key
   //                 const keyBuffer = new Uint8Array(Buffer.from(key, 'hex'));
@@ -280,7 +332,6 @@ export default {
   //                     null
   //                 );
   //             }).catch(error => {
-  //                 console.error('Failed to load the key:', error);
   //                 callbacks.onError({
   //                     code: 500,
   //                     text: 'Custom key load error',
@@ -294,18 +345,14 @@ export default {
   // }
   // Hls.DefaultConfig.loader = CustomKeyLoader;
 
-    // console.log('HLS??', isHls, this.src?.split('?')[0], hls);
     // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
     // const hls = new Hls({
     //   keyLoader: () => Promise.resolve()
     // });
     // hls.on(Hls.Events.KEY_LOADING, async (event, data) => {
-    //   console.log('LOADING', data);
     //   data.frag._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
     //   const key = await getVideoEncryptionKey();
     //   // const keyUri = data.frag.decryptdata.uri;
-    //   // console.log('ABOUT TO FETCH KEY, BAD URI:', keyUri);
-    //   // console.log('GOOD KEY', key);
     //   // data.frag.decryptdata.key = new Uint8Array(Buffer.from(key, 'hex'));
     //   hls.trigger(Hls.Events.KEY_LOADED, {
     //     key: new Uint8Array(Buffer.from(key, 'hex')),
@@ -319,13 +366,10 @@ export default {
       
   //     // Access the _decryptdata and change the URI
   //     if (fragment._decryptdata) {
-  //         console.log('Current Key URI:', fragment._decryptdata.uri);
 
   //         // Change the URI to something else (for example, from a custom key-fetching logic)
   //         fragment._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
-  //         console.log('Modified Key URI:', fragment._decryptdata.uri);
   //     } else {
-  //         console.log('No decryptdata found on fragment.');
   //     }
   // });
     // hls.config.xhrSetup = async (xhr, url) => {
@@ -337,7 +381,6 @@ export default {
     //     // keyId: data.frag.keyId
     //   });
       
-    //   // console.log('WOWOWOW', url);
     //   // xhr.setRequestHeader('Authorization', `Bearer ${'OPTIONAL_TOKEN'}`)
     // }
     // hls.config.loader = {
