@@ -1,7 +1,8 @@
 <template>
   <div class="fullScreenToggler" :class="{fullScreen: fullScreenMode, thin: thinClass}">
     <slot/>
-    <div class="full-screen-btn hover-pop svg-parrent" @click="toggle" :class="{toggled: fullScreenMode}" v-html="btnSvg"></div>
+    <div class="full-screen-btn hover-pop svg-parrent fullScreenSvg" @click="toggle" :class="{toggled: fullScreenMode}" v-html="fullScreenSvg"></div>
+    <div class="full-screen-btn hover-pop svg-parrent exitFullScreenSvg" @click="toggle" :class="{toggled: fullScreenMode}" v-html="exitFullScreenSvg"></div>
   </div>
 </template>
 
@@ -32,6 +33,17 @@ export default {
       const contentAspectRatio = contentSize.x / contentSize.h;
       const windowAspectRatio = windowSize.x / windowSize.h;
       if (contentAspectRatio > windowAspectRatio) return true;
+    },
+
+    svgs() {
+      return getSvgs('white');
+    },
+
+    fullScreenSvg() {
+      return this.svgs['fullScreen'];
+    },
+    exitFullScreenSvg() {
+      return this.svgs['fullScreen'];
     },
 
     btnSvg() {
@@ -81,11 +93,20 @@ export default {
     // &:after {
     // }
   }
+  .exitFullScreenSvg {
+    display: none;
+  }
 
 }
 @media (display-mode: fullscreen) {
   * {
     overflow: hidden;
+  }
+  .exitFullScreenSvg {
+    display: block !important;
+  }
+  .fullScreenSvg {
+    display: none !important;
   }
   .fullScreenToggler {
     // &.fullScreen {
