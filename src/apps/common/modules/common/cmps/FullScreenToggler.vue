@@ -43,7 +43,7 @@ export default {
       return this.svgs['fullScreen'];
     },
     exitFullScreenSvg() {
-      return this.svgs['fullScreen'];
+      return this.svgs['closeFullScreen'];
     },
 
     btnSvg() {
