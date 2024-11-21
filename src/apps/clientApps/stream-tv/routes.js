@@ -23,7 +23,10 @@ export default [
   {
     name: 'CostumePage',
     path: '/nav',
-    component: CostumePage
+    component: CostumePage,
+    meta: {
+      routesRoles: ['client']
+    }
   },
   {
     name: 'ReleaseApp',
@@ -33,7 +36,10 @@ export default [
       {
         name: 'ReleasePage',
         path: '/',
-        component: ReleasePage
+        component: ReleasePage,
+        meta: {
+          routesRoles: ['client']
+        }
       },
       {
         name: 'DirectReleaseDetails',

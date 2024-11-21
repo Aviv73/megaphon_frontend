@@ -25,7 +25,7 @@ export default {
       return this.$store.getters['organization/selectedItem'] || {};
     },
     allRouteFilters() {
-      const routes = organizationService.getOrgRoutesByRoles(this.org, ['client']);
+      const routes = organizationService.getOrgRoutesByRoles(this.org, ['client']).filter(c => !c.hideFromUi);
       if (!this.filterRoutes) return routes;
       return routes.filter(this.filterRoutes);
     },

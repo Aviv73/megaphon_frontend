@@ -1,11 +1,12 @@
 <template>
   <div class="fullScreenToggler" :class="{fullScreen: fullScreenMode, thin: thinClass}">
     <slot/>
-    <div class="full-screen-btn hover-pop" @click="toggle" :class="{toggled: fullScreenMode}"></div>
+    <div class="full-screen-btn hover-pop svg-parrent" @click="toggle" :class="{toggled: fullScreenMode}" v-html="btnSvg"></div>
   </div>
 </template>
 
 <script>
+import  { getSvgs } from '@/assets/images/svgs.js';
 export default {
   name: 'FullScreenToggler',
   data() {
@@ -16,6 +17,11 @@ export default {
   methods: {
     toggle() {
       this.fullScreenMode = !this.fullScreenMode;
+      if (this.fullScreenMode) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
     }
   },
   computed: {
@@ -26,6 +32,10 @@ export default {
       const contentAspectRatio = contentSize.x / contentSize.h;
       const windowAspectRatio = windowSize.x / windowSize.h;
       if (contentAspectRatio > windowAspectRatio) return true;
+    },
+
+    btnSvg() {
+      return getSvgs('white')[this.fullScreenMode? 'closeFullScreen' : 'fullScreen'];
     }
   }
 }
@@ -55,10 +65,10 @@ export default {
     background-repeat: no-repeat;
     background-position: center;
 
-    background-image: url('~@/assets/images/icons/full-screen.png');
-    &.toggled {
-      background-image: url('~@/assets/images/icons/exit-full-screen.png');
-    }
+    // background-image: url('~@/assets/images/icons/full-screen.png');
+    // &.toggled {
+    //   background-image: url('~@/assets/images/icons/exit-full-screen.png');
+    // }
     // &:after {
     //   position: absolute;
     //   top: 0;
@@ -72,7 +82,13 @@ export default {
     // }
   }
 
-  &.fullScreen {
+}
+@media (display-mode: fullscreen) {
+  * {
+    overflow: hidden;
+  }
+  .fullScreenToggler {
+    // &.fullScreen {
     position: fixed !important;
     // background-color: var(--clr-1);
     background-color: black;

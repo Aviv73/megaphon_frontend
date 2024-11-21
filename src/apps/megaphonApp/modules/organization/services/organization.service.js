@@ -31,6 +31,7 @@ export const organizationService = {
   isUserRoleInOrg,
   isAccountAuthorizedToRoute,
   isUserWatchOnly,
+  isUserAdmin,
   isOrgPending,
 
   getAccountOrgItem,
@@ -112,7 +113,11 @@ function isUserRoleInOrg(orgId, role, user, isOnlyRole) {
 }
 function isUserWatchOnly(orgId, user) {
   // return false;
-  return isUserRoleInOrg(orgId, 'client', user, true);
+  // return isUserRoleInOrg(orgId, 'client', user, true);
+  return isUserRoleInOrg(orgId, consts.organizationRoles.client, user, true);
+}
+function isUserAdmin(orgId, user) {
+  return isUserRoleInOrg(orgId, consts.organizationRoles.admin, user, false);
 }
 function isOrgPending(orgId, user) {
   return getOrgItemInAccount(user, orgId)?.status === consts.organizationStatuses.pending;
@@ -150,7 +155,8 @@ function getAccountOrgItem(orgId = '', inviterId = '') {
     approverId: inviterId,
     roles: [consts.organizationRoles.client],
     invitedAt: Date.now(),
-    status: 'approved'
+    // status: 'approved'
+    status: consts.organizationStatuses.approved
   }
 }
 

@@ -17,9 +17,10 @@
         <FormInput type="checkbox" labelholder="account.mailing.unsubscribeMsg" v-model="accountToEdit.mailing.unsubscribed"/>
       </div>
 
-      <template v-if="isUserAdmin && !isNested">
-        <FormInput type="multiselect" labelholder="roles" v-model="accountToEdit.roles" :items="systemRoles"/>
-        <div class="organizations flex column gap5">
+      <!-- <template v-if="isUserAdmin && !isNested"> -->
+      <template v-if="!isNested">
+        <FormInput v-if="isUserAdmin" type="multiselect" labelholder="roles" v-model="accountToEdit.roles" :items="systemRoles"/>
+        <div v-if="isUserCurrOrgAdmin || isUserAdmin" class="organizations flex column gap5">
           <div v-for="org in orgsToShow" :key="org._id" class="flex align-center space-between gap5">
             <div class="flex align-center gap5">
               <FormInput type="checkbox" :value="isInOrg(org._id)" @change="toggleOrg(org._id)"/>
@@ -84,6 +85,12 @@ export default {
     isUserAdmin() {
       return this.$store.getters['auth/isAdmin'];
     },
+    isUserCurrOrgAdmin() {
+      return organizationService.isUserAdmin(this.organizationId, this.loggedUser);
+    },
+    isWatchOnly() {
+      return this.$store.getters['auth/isWatchOnly'];
+    },
 
     isLoggedUser() {
       if (!this.loggedUser) return false;
@@ -92,15 +99,23 @@ export default {
     
     isPassValid() {
       return validatePassword(this.accountToEdit.password);
+    },
+
+    organizationId() {
+      const orgId = this.$route.params.organizationId;
+      return (orgId == '-1') ? '' : orgId;
     }
   },
   methods: {
     async getAccount() {
       this.accountToEdit = await this.$store.dispatch({ type: 'account/loadItem', id: this.$route.params.id });
+      if (this.organizationId && !this.accountToEdit._id) {
+        this.toggleOrg(this.organizationId);
+      }
     },
     async saveAccount() {
       if (!this.isAccountValid) return;
-      await this.$store.dispatch({ type: 'account/saveItem', item: this.accountToEdit });
+      await this.$store.dispatch({ type: 'account/saveItem', item: this.accountToEdit, organizationId: this.organizationId || undefined });
       if (this.isLoggedUser) this.$store.dispatch('auth/getUserInfo');
       this.close();
     },

@@ -11,6 +11,7 @@
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import { loadStaticFile, loadCostumeHtml } from '@/apps/common/modules/common/services/file.service';
 import ReleasePage from '@/apps/common/modules/release/views/common_ReleasePage.vue';
+import { organizationService } from '../../../../megaphonApp/modules/organization/services/organization.service';
 export default {
   name: 'common_CostumePage',
   components: { ReleasePage, Loader },
@@ -27,8 +28,19 @@ export default {
     org () {
       return this.$store.getters['organization/selectedItem'];
     },
+    requiresRoutesRoles() {
+
+    },
+    
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
+    },
+    requiresRoutesRoles() {
+      return this.$route.meta.routesRoles;
+    },
     allRouteFilters() {
-      return this.org?.routes?.filter(c => c.showInRoles?.includes('client')) || [];
+      return organizationService.getOrgRoutesByRoles(this.org, this.requiresRoutesRoles || organizationService.getOrgItemInAccount(this.loggedUser, this.org._id).roles);
+      // return this.org?.routes?.filter(c => c.showInRoles?.includes('client')) || [];
     },
     routeItem() {
       return this.allRouteFilters.find(c => c.name === this.pageNameInRoute) || {};

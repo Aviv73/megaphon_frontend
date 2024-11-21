@@ -1,0 +1,11 @@
+megaphonApp:
+- update to new ui
+- re add dark theme and toggling between
+- create Admin zonde, needs to be definged by Chen Li
+
+Yes:
+- No email verification
+- limit views per contact
+- video view dashboarding
+- email ui update
+- long video encryption

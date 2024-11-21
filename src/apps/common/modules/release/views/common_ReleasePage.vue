@@ -1,6 +1,7 @@
 <template>
   <section class="common-release-page inner-container main-pad-y_ flex-1 flex column gap30 height-all width-all flex column">
     <!-- <h2>{{$t('release.releases')}}</h2> -->
+    <div class="" v-if="!allReleasesData.items.length" style="height: 3em"></div>
     <ReleasesSlider :releases="allReleasesData.items"/>
     <ItemSearchList
       class="flex-1 height-all container"
@@ -24,6 +25,7 @@ import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/Ite
 import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import ReleasesSlider from '../cmps/ReleasesSlider.vue';
 import { templateUtils } from '../../common/services/template.util.service';
+import { organizationService } from '../../../../megaphonApp/modules/organization/services/organization.service';
 export default {
   name: 'common_ReleasePage',
   data() {
@@ -52,17 +54,25 @@ export default {
     releasePageInQuery() {
       return this.$route.query.page;
     },
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
+    },
 
+    requiresRoutesRoles() {
+      return this.$route.meta.routesRoles;
+    },
     
     org () {
       return this.$store.getters['organization/selectedItem'];
     },
     allRouteFilters() {
-      return this.org?.routes || [];
+      // return this.org?.routes || [];
+      return organizationService.getOrgRoutesByRoles(this.org, this.requiresRoutesRoles || organizationService.getOrgItemInAccount(this.loggedUser, this.org._id).roles);
     },
     routeItem() {
       const typeName = this.releasePageInQuery;
-      const routeItem = this.allRouteFilters.find(c => c.name === typeName) || {};
+      const defaultRoute = this.allRouteFilters.find(c => c.default);
+      const routeItem = this.allRouteFilters.find(c => c.name === typeName) || defaultRoute || {};
       return routeItem;
     },
     noPageMode() {

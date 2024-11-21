@@ -1,9 +1,10 @@
 <template>
   <header class="app-header flex align-center">
-    <div class="container_ header-content height-all width-all flex align-center space-between" v-if="lastSeenGroupRelease || !isScreenWide">
+    <div class="container_ header-content height-all width-all flex align-center space-between" v-if="lastSeenGroupRelease || !isScreenWide || (loggedUser && ($route.name === 'ReleaseDetails'))">
       <NavOrBurger :showBurger="!!allRouteFilters.length" side="right">
         <template v-slot:header v-if="org?.requireAuth">
-          <LoggedUserPreview class="small-screen-item to-the-right_" :viewAsModal="false"/>
+          <!-- <LoggedUserPreview class="small-screen-item to-the-right_" :viewAsModal="false"/> -->
+          <LoggedUserPreview :class="{'height-all': isScreenWide}" v-if="!(lastSeenGroupRelease || !isScreenWide) || !isScreenWide" :viewAsModal="false"/>
         </template>
         <template  v-if="lastSeenGroupRelease">
           <router-link
@@ -83,6 +84,10 @@ export default {
     },
     searchImg() {
       return getSvgs('var(--clr-0)').search;
+    },
+
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
     }
   }
 }
