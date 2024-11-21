@@ -123,12 +123,12 @@ export default {
     bottom: 0;
     right: 0;
     .content {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
+      height: 100% !important;
+      width: 100% !important;
+      object-fit: cover !important;
       max-width: unset !important;
       max-height: unset !important;
-      margin: auto 0;
+      margin: auto 0 !important;
     }
     // &.thin {
     //   .content {
