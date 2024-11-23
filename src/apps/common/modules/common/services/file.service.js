@@ -12,6 +12,7 @@ export const fileService = {
 
 import { appendScript } from "./loadScript.service";
 import { getRandomId } from './util.service';
+import { TaskManager } from './TaskManager';
 export const fileUtilsService = {};
 // loading the script file from the server so it is writen only once;
 appendScript('/fileUtils-service', 'fileUtilsModule', fileUtilsService);
@@ -42,6 +43,7 @@ export function uploadFileToServer(file, organizationId, parentData) {
 }
 
 export async function chunkUploadFileToServer(file, organizationId, parentData, onChunkEndCb = (uploadStats) => {}) {
+  console.time('UPLOAD TIME');
   const CHUNK_SIZE = 1024 * 1024 * 10; // 10MB;
 
   const fileSize = file.size;
@@ -63,8 +65,11 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   let socketRoom = '';
   // const isEncryptionMode = false;
   let doneChunksCount = 0;
+  const tasker = new TaskManager(undefined, 1, 1);
   for (let i = 0; i < totalChunks; i++) {
     const doIt = async () => {
+      console.log('ABOUT TO UPLOAD CHUNK', i + ' / ' + totalChunks);
+      console.time('TIME CHUNK ' + i);
       const start = i * CHUNK_SIZE;
       const end = Math.min(start + CHUNK_SIZE, fileSize);
       const chunk = file.slice(start, end);
@@ -98,8 +103,11 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
         // }
       } else {
       }
+      console.log('UPLOADED CHUNK', i);
+      console.timeEnd('TIME CHUNK ' + i);
     }
-    const prm = doIt();
+    // const prm = doIt();
+    const prm = tasker.appendTask(doIt);
     if (chunkByChunkMode) await prm;
     else prms.push(prm);
     // uploadedBytes += CHUNK_SIZE;
@@ -108,6 +116,7 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
     await Promise.all(prms);
     res = await httpService.post(`${ENDPOINT}/closeMultipartUpload/${organizationId}`, null, {...baseParams, uploadId});
   }
+  console.time('UPLOAD TIME');
   return res;
 }
 

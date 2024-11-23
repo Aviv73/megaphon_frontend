@@ -79,6 +79,7 @@ export default {
         throw err;
       } finally {
         this.isLoading = false;
+        this.loadingMsg = '';
       }
     },
     async uploadFile() {

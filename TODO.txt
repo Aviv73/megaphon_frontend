@@ -2,6 +2,7 @@ megaphonApp:
 - update to new ui
 - re add dark theme and toggling between
 - create Admin zonde, needs to be definged by Chen Li
+- Fix fullScreenToggler, listen to onFullScreen event, enlarge only requested full screen
 
 Yes:
 - No email verification
