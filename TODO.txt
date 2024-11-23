@@ -7,6 +7,6 @@ megaphonApp:
 Yes:
 - No email verification
 - limit views per contact
+- long video encryption VVVVVVV
 - video view dashboarding
 - email ui update
-- long video encryption
