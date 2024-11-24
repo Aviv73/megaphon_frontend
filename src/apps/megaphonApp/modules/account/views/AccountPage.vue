@@ -17,7 +17,7 @@
       layoutMode="flex"
     >
       <div class="flex column gap10 align-start">
-        <div class="actions flex gap10 align-center justify-end width-all" v-if="isAdmin">
+        <div class="actions flex gap10 align-center justify-end width-all" v-if="isUserCurrOrgAdmin">
           <template v-if="organizationId === '-1'">
             <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
             <button class="btn big" @click="getAllAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('account.viewAllAccounts')}}</button>
@@ -44,6 +44,7 @@ import AccountFilter from '../cmps/AccountFilter.vue';
 import InviteAccountModal from '../../organization/cmps/InviteAccountModal.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service'
+import { organizationService } from '../../organization/services/organization.service';
 
 export default {
   name: 'AccountPage',
@@ -65,11 +66,17 @@ export default {
     }
   },
   computed: {
+    loggedUser() {
+      return this.$store.getters['auth/loggedUser'];
+    },
     isAdmin() {
       return this.$store.getters['auth/isAdmin'];
     },
     organizationId() {
       return this.$route.params.organizationId;
+    },
+    isUserCurrOrgAdmin() {
+      return organizationService.isUserAdmin(this.organizationId, this.loggedUser);
     },
     allAccountData() {
       return this.$store.getters['account/data'];
