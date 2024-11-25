@@ -27,9 +27,9 @@
               <p class="flex-1 wide-screen-item">{{release.activity?.distributedAt? pretyDate(release.activity?.distributedAt) : '-'}}</p>
               <p class="flex-2">{{release.subject}}</p>
               <p class="flex-1 wide-screen-item">{{$t(`distribute.origins.${release.origin}`)}}</p>
-              <p class="flex-1">{{vOrX(release.activity?.openedNewsAt)}}</p>
-              <p class="flex-1">{{vOrX(release.activity?.openedLandingPageAt)}}</p>
-              <p class="flex-1 wide-screen-item">{{release.activity?.openLandingPageCount || (release.activity?.openedLandingPageAt? 1 : '-')}}</p>
+              <p class="flex-1">{{vOrX(release.activity?.emailViews?.length)}}</p>
+              <p class="flex-1">{{vOrX(release.activity?.landingPageViews?.length)}}</p>
+              <p class="flex-1 wide-screen-item">{{release.activity?.landingPageViews?.length || '-'}}</p>
               <p class="flex-1 wide-screen-item">{{vOrX(release.activity?.unsubscribedAt)}}</p>
             </div>
           </div>
