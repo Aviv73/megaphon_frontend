@@ -84,10 +84,10 @@ export const _authStore = {
         }
       });
     },
-    async signup({ commit, dispatch }, { cred }) {
+    async signup({ commit, dispatch }, { cred, organizationId }) {
       return dispatch({
         type: '_Ajax',
-        do: async () => authService.signup(cred),
+        do: async () => authService.signup(cred, organizationId),
         onSuccess: (res) => {
           console.log(res);
           if (res.user) {

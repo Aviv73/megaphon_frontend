@@ -31,7 +31,8 @@ const en = {
       "admin": "Admin",
       "producer": "Producer",
       "user": "User",
-      "client": "Watch only"
+      "client": "Watch only",
+      "developer": "Developer"
     },
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this organization?",
@@ -80,7 +81,8 @@ const he = {
       "admin": "אדמין",
       "producer": "מפיץ",
       "user": "משתמש",
-      "client": "צפיה בלבד"
+      "client": "צפיה",
+      "developer": "מפתח"
     },
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הארגון?",
@@ -90,7 +92,7 @@ const he = {
       "requestSentSuccess": "בקשה נשלחה בהצלחה",
       "confirmAccountApproval": "האם אתה בטוח שאתה מעוניין לאשר את הצטרפות המשתמש לארגון?"
     },
-    "approveJoin": "אשר הצרפות",
+    "approveJoin": "אשר הצטרפות",
     "saveOrgToUploadFilesMsg": "שמור את הארגון על מנת להעלות קבצים"
   }
 }

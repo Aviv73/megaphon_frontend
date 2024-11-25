@@ -21,8 +21,8 @@ function logout() {
 function getUserInfo() {
   return httpService.get(`${ENDPOINT}/info`);
 }
-function signup(cred) {
-  return httpService.post(`${ENDPOINT}/signup`, cred);
+function signup(cred, orgId = '') {
+  return httpService.post(`${ENDPOINT}/signup/${orgId}`, cred);
 }
 function sendNewPasswordEmail(email) {
   return httpService.post(`${ENDPOINT}/sendNewPasswordEmail`, {email});

@@ -1,5 +1,5 @@
 <template>
-  <div class="fullScreenToggler" :class="{fullScreen: fullScreenMode, thin: thinClass}">
+  <div class="fullScreenToggler" :class="{fullScreen: fullScreenMode, thin: thinClass && false}">
     <slot/>
     <div class="full-screen-btn hover-pop svg-parrent fullScreenSvg" @click="toggle" :class="{toggled: fullScreenMode}" v-html="fullScreenSvg"></div>
     <div class="full-screen-btn hover-pop svg-parrent exitFullScreenSvg" @click="toggle" :class="{toggled: fullScreenMode}" v-html="exitFullScreenSvg"></div>
@@ -23,7 +23,21 @@ export default {
       } else {
         document.exitFullscreen();
       }
+    },
+
+    onFullScreenChange() {
+      if (document.fullscreenElement) {
+
+      } else {
+        this.fullScreenMode = false;
+      }
     }
+  },
+  created() {
+    document.addEventListener('fullscreenchange', this.onFullScreenChange);
+  },
+  destroyed() {
+    document.removeEventListener('fullscreenchange', this.onFullScreenChange);
   },
   computed: {
     thinClass() {
@@ -102,14 +116,15 @@ export default {
   * {
     overflow: hidden;
   }
-  .exitFullScreenSvg {
-    display: block !important;
-  }
-  .fullScreenSvg {
-    display: none !important;
-  }
-  .fullScreenToggler {
-    // &.fullScreen {
+}
+.fullScreenToggler {
+  &.fullScreen {
+    .exitFullScreenSvg {
+      display: block !important;
+    }
+    .fullScreenSvg {
+      display: none !important;
+    }
     position: fixed !important;
     // background-color: var(--clr-1);
     background-color: black;

@@ -36,7 +36,7 @@ function getEmptyAccount() {
     firstName: '',
     lastName: '',
     email: '',
-    roles: ['user'],
+    roles: ['client'],
     organizations: [],
     password: '',
     bgImg: '',

@@ -60,6 +60,12 @@ export default {
   .nav {
     height: 100%;
   }
+  // .nav-items {
+  //   display: flex;
+  //   flex-direction: row;
+  //   // align-items: center;
+  //   gap: em(10px);
+  // }
   // @media (max-width: $small-screen-break) { // $small-screen-break
   &.mobileView {
     // $height: calc(100vh - #{$header-height});

@@ -1,6 +1,6 @@
 <template>
   <header class="app-header flex align-center">
-    <div class="container header-content width-all flex align-center space-between">
+    <div class="container header-content width-all flex space-between height-all">
       <div>
         <div class="org-logo">
           <!-- <div class="actual flex column align-center gap10">
@@ -13,9 +13,13 @@
 
 
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
-      <NavOrBurger :showBurger="!!allRouteFilters.length">
-        <CostumeNavBar class="nav-items"/>
-        <LoggedUserPreview :class="{'no-auth': !org?.requireAuth}"/>
+      <NavOrBurger :showBurger="!!allRouteFilters.length" class="height-all">
+        <div class="nav flex gap20">
+          <CostumeNavBar class="height-all"/>
+          <LoggedUserPreview class="nav-item" :class="{'no-auth': !org?.requireAuth}"/>
+        </div>
+        <!-- <nav class="nav-items height-all">
+        </nav> -->
       </NavOrBurger>
     </div>
   </header>
@@ -105,6 +109,36 @@ export default {
         height: 100%;
       }
     }
+
+    .logged-user-preview {
+      // height: 100%;
+    }
+
+    // .costume-nav-bar {
+    //   flex-wrap: nowrap;
+    // }
+
+    @media (min-width: $small-screen-break) {
+      .nav-or-burger {
+        height: 100%;
+        .nav-items {
+          height: 100%;
+
+        }
+        .costume-nav-bar {
+          flex-wrap: nowrap;
+          height: 100%;
+          align-items: center;
+        }
+        .logged-user-preview {
+          height: 100%;
+        }
+        .nav-container, .nav {
+          height: 100%;
+        }
+      }
+    }
+
     
   }
 }

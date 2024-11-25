@@ -50,7 +50,7 @@ export default {
   methods: {
     async signup() {
       if (!this.isUserValid) return;
-      const res = await this.$store.dispatch({ type: 'auth/signup', cred: this.user });
+      const res = await this.$store.dispatch({ type: 'auth/signup', cred: this.user, organizationId: this.rootOrg?._id });
       if (res.needs2FactorAuth) {
         // this.showFinishAuthModal = true;
         evEmmiter.emit('needs_2_factor_auth', '/', res.comunicationMethods);

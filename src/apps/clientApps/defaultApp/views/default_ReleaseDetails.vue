@@ -61,6 +61,28 @@ export default {
 @import '@/assets/styles/global/index';
 .defaultApp {
   .release-details {
+    .download-btn {
+      // height: em(20px);
+      // width: em(20px);
+      background-color: unset !important;
+      border: unset;
+      position: relative;
+      span {
+        display: none;
+      }
+      &::after {
+        content: "";
+        background: url("~@/assets/images/icons/download-button-white.svg") no-repeat center center;
+        background-size: contain;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: 1;
+      }
+    }
   }
 }
 </style>
