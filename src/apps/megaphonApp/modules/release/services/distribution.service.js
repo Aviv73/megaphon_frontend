@@ -63,7 +63,7 @@ function updateSubscriptionValue(contactId, organizationId, subscriptionValue) {
 }
 
 
-function reportReleaseOpened(releaseId, queryParams) {
+async function reportReleaseOpened(releaseId, queryParams) {
   // const urlParams = new URLSearchParams(window.location.search);
   // const origin = urlParams.get('origin');
   // const token = urlParams.get('token');
@@ -72,14 +72,17 @@ function reportReleaseOpened(releaseId, queryParams) {
   // });
   // let origin = params.origin; 
   // let token = params.token; 
+  if (sessionStorage.reportedReleaseOpen) return;
   const origin = queryParams.origin;
   const token = queryParams.token;
   if (!token) return;
-  return httpService.get(`${ENDPOINT}/release-opened/`, { origin, token, releaseId, isLandingPage: true });
+  await httpService.get(`${ENDPOINT}/release-opened/`, { origin, token, releaseId, isLandingPage: true });
+  sessionStorage.reportedReleaseOpen = true;
 }
 
 
-function reportReleaseOpenedForOutsourceSite(releaseId = '') {
+async function reportReleaseOpenedForOutsourceSite(releaseId = '') {
+  if (sessionStorage.reportedReleaseOpen) return;
   function getQueryParam(param) {
     const queryParams = new URLSearchParams(window.location.search);
     return queryParams.get(param);
@@ -88,11 +91,12 @@ function reportReleaseOpenedForOutsourceSite(releaseId = '') {
   const token = getQueryParam('token');
   const releaseIdInQuery = getQueryParam('releaseId');
   if (!token) return;
-  return fetch(
+  await fetch(
     `${BASE_API_URL}/distribution/release-opened/`
       + `?token=${token}`
       + `&origin=${origin}`
       + `&releaseId=${releaseIdInQuery || releaseId}`
       + `&isLandingPage=${true}`
   );
+  sessionStorage.reportedReleaseOpen = true;
 }
