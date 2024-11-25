@@ -76,7 +76,7 @@ async function reportReleaseOpened(releaseId, queryParams) {
   const origin = queryParams.origin;
   const token = queryParams.token;
   if (!token) return;
-  await httpService.get(`${ENDPOINT}/release-opened/`, { origin, token, releaseId, isLandingPage: true });
+  await httpService.get(`${ENDPOINT}/release-opened/`, { origin, token, releaseId, isLandingPage: true, platform: 'landingPage' });
   sessionStorage.reportedReleaseOpen = true;
 }
 
@@ -97,6 +97,7 @@ async function reportReleaseOpenedForOutsourceSite(releaseId = '') {
       + `&origin=${origin}`
       + `&releaseId=${releaseIdInQuery || releaseId}`
       + `&isLandingPage=${true}`
+      + `&platform=${'landingPage'}`
   );
   sessionStorage.reportedReleaseOpen = true;
 }

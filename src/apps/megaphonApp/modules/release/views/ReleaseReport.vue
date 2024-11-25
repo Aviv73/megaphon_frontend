@@ -27,9 +27,9 @@
               <p class="flex-2" :title="getContactName(contact)">{{getContactName(contact)}}</p>
               <p class="flex-1 wide-screen-item">{{$t(`distribute.origins.${contact.origin}`)}}</p>
               <!-- <p>{{contact.email}}</p> -->
-              <p class="flex-1">{{vOrX(contact.activity?.emailViews?.length)}}</p>
-              <p class="flex-1">{{vOrX(contact.activity?.landingPageViews?.length)}}</p>
-              <p class="flex-1 wide-screen-item">{{contact.activity?.landingPageViews?.length || '-'}}</p>
+              <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'email')?.length)}}</p>
+              <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length)}}</p>
+              <p class="flex-1 wide-screen-item">{{contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}</p>
               <p class="flex-1 wide-screen-item">{{vOrX(contact.activity?.unsubscribedAt)}}</p>
             </router-link>
           </div>
