@@ -5,7 +5,8 @@
     <p v-if="isPanding">
       <button class="btn primary" @click.stop.prevent="emitApproval">{{$t('organization.approveJoin')}}</button>
     </p>
-    <p v-else>{{account.roles.map(c => $t(`organization.orgRoles.${c}`)).join(', ')}}</p>
+    <p v-else-if="orgId === '-1'">{{account.roles.map(c => $t(`organization.orgRoles.${c}`)).join(', ')}}</p>
+    <p v-else>{{accountOrgData.roles.map(c => $t(`organization.orgRoles.${c}`)).join(', ')}}</p>
     <!-- <p>
       <button class="btn primary" v-if="isPanding" @click.stop.prevent="emitApproval">{{$t('approve')}}</button>
       <span v-else>
