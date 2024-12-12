@@ -31,6 +31,7 @@ export default {
 .loader {
   &:hover {
     pointer-events: none;
+    cursor: wait;
   }
   .preview {
     text-align: center;

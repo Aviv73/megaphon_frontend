@@ -1,5 +1,5 @@
 <template>
-  <div class="toggle-modal">
+  <div class="toggle-modal" :class="{disabled}">
     <div @click="open" class="modal-toggle-btn">
       <slot name="toggler"/>
     </div>
@@ -16,7 +16,8 @@ export default {
   name: 'ToggleModal',
   components: { Modal },
   props: {
-    fullScreen: null
+    fullScreen: null,
+    disabled: Boolean
   },
   data() {
     return {
@@ -25,6 +26,7 @@ export default {
   },
   methods: {
     open() {
+      if (this.disabled) return;
       this.showContent = true;
     },
     close() {
@@ -34,6 +36,15 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.toggle-modal {
+  .modal-toggle-btn {
+    &:hover { cursor: pointer; }
+  }
+  &.disabled {
+    .modal-toggle-btn {
+      &:hover { cursor: not-allowed; }
+    }
+  }
+}
 </style>
