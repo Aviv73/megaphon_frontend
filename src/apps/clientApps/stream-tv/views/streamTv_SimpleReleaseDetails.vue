@@ -7,7 +7,7 @@
           {{$t('directLink')}}
         </router-link> -->
       </ReleaseTabView>
-      <router-link v-if="!isDirectMode" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="small-screen-item_ clr-4 underline bold align-self-end">
+      <router-link v-if="!isDirectMode && org.useDirectLink" :to="{ name: 'DirectReleaseDetails', params: {id: $route.params.id} }" target="_blank" class="small-screen-item_ clr-4 underline bold align-self-end">
         {{$t('directLink')}}
       </router-link>
       <!-- <div class="ph"></div> -->
@@ -60,6 +60,9 @@ export default {
     hideTabs() {
       if (this.isDirectMode) return ['videos', 'watch'];
       return [];
+    },
+    org() {
+      return this.$store.getters['organization/selectedItem'];
     }
   },
   async created() {

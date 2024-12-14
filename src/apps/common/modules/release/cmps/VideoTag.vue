@@ -177,7 +177,7 @@ export default {
 
 
     async initWatchSession() {
-      return;
+      // return;
       this.watchSession = await this.$store.dispatch({ type: 'videoWatchLog/loadItem', silent: true });
       this.watchSession.organizationId = this.organization._id;
       this.watchSession.accountId = this.loggedUser._id;
@@ -186,24 +186,24 @@ export default {
       this.updateWatchSession();
     },
     setSessionUpdateInterval() {
-      return;
+      // return;
       this.stopSessionUpdateIterval();
       this.sessionUpdateIntervalId = setInterval(() => {
         this.updateWatchSession();
       }, 5000);
     },
     stopSessionUpdateIterval() {
-      return;
+      // return;
       clearInterval(this.sessionUpdateIntervalId);
       this.updateWatchSession();
     },
     async setNewWatchSection() {
-      return;
+      // return;
       this.currWatchSection = { id: getRandomId(''), start: this.$refs.elVideo.currentTime * 1000, end: this.$refs.elVideo.currentTime * 1000 }
       this.watchSession.sections.push(this.currWatchSection);
     },
     async updateWatchSession() {
-      return;
+      // return;
       this.currWatchSection.end = this.$refs.elVideo.currentTime * 1000;
       this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
       this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);

@@ -177,7 +177,9 @@ function getEmptyOrganization() {
     requireAuth: false, 
     require2FactorAuth: false, 
     isStandAlone: false, 
-    useVideoWaterMark: false, 
+    useVideoWaterMark: false,
+    onlyKnownRegistrations: false,
+    useDirectLink: false,
 
     fromEmails: [/* { email: '', title: '' } */],
     // filters: [/* { title: '', releaseTypes: [releaseTypesIds], wasDisterbuted: false } */],

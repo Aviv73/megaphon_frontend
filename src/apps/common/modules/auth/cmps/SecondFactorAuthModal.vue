@@ -3,12 +3,13 @@
     <div class="flex column align-start gap20">
       <p>{{$t('auth.required2FactorAthMsg')}}</p>
       <FormInput class="method-input" label="auth.secondFactorMethodMsg" type="radio" v-model="method" :items="comunicationMethods"/>
-      <button @click="generatePass" class="btn big">{{$t('send')}}</button>
+      <button @click="generatePass" class="btn big">{{$t(didSend ? 'sendAgain' : 'send')}}</button>
       <div v-if="didSend" class="flex align-center width-all space-between">
         <FormInput placeholder="auth.password" type="text" v-model="pass"/>
         <button @click="finishAuth" :disabled="!method" class="btn big">{{$t('login')}}</button>
       </div>
       <MiniLoader v-if="isLoading"/>
+      <p v-else>{{$t('auth.secFactorPassExpirationMsg')}}</p>
     </div>
   </Modal>
 </template>
@@ -44,7 +45,7 @@ export default {
     comunicationMethods() {
       if (this.requiredComunicationMethods?.length) return this.requiredComunicationMethods;
       const methods = [];
-      if (this.loggedUser?.email) methods.push('email');
+      // if (this.loggedUser?.email) methods.push('email');
       if (this.loggedUser?.mobile) methods.push('sms');
       return methods;
     }

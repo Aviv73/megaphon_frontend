@@ -52,25 +52,8 @@ function getEmptyItem() {
     cellular: null,
     notes: null,
     organizationId: '-1',
+    settings: {
+      maxTimesAllowdToWatchVideo: 10
+    }
   }
 }
-
-/**
- * 
- * {
-    "_id" : ObjectId("60c1eef9f6199ca68dd749dc"),
-    "name" : "טלי בן עובדיה",
-    "firstName" : "טלי",
-    "lastName" : "בן עובדיה",
-    "email" : "talibenovadia1@gmail.com",
-    "tags" : [],
-    "company" : [ 
-        "60c1eef9fa436e0757342e44"
-    ],
-    "phone" : null,
-    "cellular" : null,
-    "notes" : null,
-    "address" : null,
-    "organizationId" : "-1"
-}
- */

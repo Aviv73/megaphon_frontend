@@ -14,6 +14,10 @@
       <CompanyPicker :showLabel="true" v-model="itemToEdit.company"/>
       <!-- <FormInput labelholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/> -->
       <FormInput labelholder="contact.notes" type="text" v-model="itemToEdit.notes"/>
+      <div class="flex column gap20">
+        <p>{{$t('settings.settings')}}</p>
+        <FormInput labelholder="contact.maxTimesAllowdToWatchVideo" type="number" :min="0" v-model="itemToEdit.settings.maxTimesAllowdToWatchVideo"/>
+      </div>
     </form>
     <div>
       <button @click="toggleSubscribtionValue" class="btn big primary">
@@ -63,6 +67,7 @@ export default {
       this.itemToEdit.organizationId = this.orgId;
       this.unsubscribed = this.itemToEdit.unsubscribed || false;
       delete this.itemToEdit.unsubscribed;
+      if (!this.itemToEdit.settings) this.itemToEdit.settings = { maxTimesAllowdToWatchVideo: 10 }
     },
     async saveItem() {
       if (!this.isItemValid) return;

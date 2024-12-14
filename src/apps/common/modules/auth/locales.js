@@ -29,7 +29,10 @@ const  en = {
     "required2FactorAthMsg": "Required 2 factor authentication",
   
     "secondFactorMethodMsg": "Method",
-    "passValidationExplenation": "The password needs to be in 10 characters length and needs to include a number, an endlish character and a special character"
+    "passValidationExplenation": "The password needs to be in 10 characters length and needs to include a number, an endlish character and a special character",
+    
+    "unknownEmailError": "Uunknown Email",
+    "secFactorPassExpirationMsg": "The second factor auth password is valid fot 5 minutes"
   },
 }
 const he = {
@@ -65,7 +68,10 @@ const he = {
     "required2FactorAthMsg": "נדרשת הזדהות נוספת כדי לסיים את הליך ההתחברות על ידי סיסמה חד פעמית שתשלח אליך",
     
     "secondFactorMethodMsg": "בחר כיצד אתה מעוניין לקבל את הסיסמה",
-    "passValidationExplenation": "הסיסמה צריכה להיות באורך של 10 תוים לפחות וצריכה לכלול: מספר, אות באנגלית, ותו מיוחד"
+    "passValidationExplenation": "הסיסמה צריכה להיות באורך של 10 תוים לפחות וצריכה לכלול: מספר, אות באנגלית, ותו מיוחד",
+    
+    "unknownEmailError": "כתובת מייל לא מוכרת",
+    "secFactorPassExpirationMsg": "הקוד החד פעמי תקף ל5 דקות"
   },
 }
 const heF = {
