@@ -1,4 +1,5 @@
 
+import defaultThemes from '../../../../megaphonApp/themes/index.js';
 import { elementService } from './element.service.js';
 
 
@@ -16,18 +17,20 @@ export function setStylingForOrgTheme(org, selector, isClient = false) {
   return setDynamicStylingThemeEl({...theme, title: org.name}, selector);
 }
 
-export function getRelevantThemeForOrg(org, isClient, selector) {
-  let themeItem = isClient ? org?.designPreferences?.clientApp?.[0] : org?.designPreferences?.producerApp?.[0];
+export function getRelevantThemeForOrg(org, isClient, uiConfig, selectedAppData) {
+  const selectedThemeName = uiConfig.themesByOrg?.[org?._id || 'default']?.[selectedAppData?.name]; // || uiConfig?.theme;
+  let themesToSelect = defaultThemes;
+  if (org) themesToSelect = [...(isClient ? org?.designPreferences?.clientApp : org?.designPreferences?.producerApp || []), ...defaultThemes];
+  let themeItem = themesToSelect.find(c => c.name === selectedThemeName) || themesToSelect[0];
   if (themeItem) {
     themeItem = {
       ...themeItem,
-      title: `Megaphon - ${org?.name}`,
+      title: [`Megaphon`, `${org?.name}`].filter(Boolean).join(' - '),
       // css: `${selector} {}`
     };
   }
   return themeItem;
 }
-
 
 var SelectedhTeme = null;
 export function getSelectedTheme() {

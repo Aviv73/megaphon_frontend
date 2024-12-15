@@ -9,7 +9,7 @@
         </main>
       </div>
     </div>
-    <!-- <AppFooter/> -->
+    <AppFooter/>
     <!-- <Loader v-if="isLoading"/> -->
   </div>
 </template>
@@ -18,7 +18,7 @@
 import './assets/style/index.scss';
 
 import AppHeader from './modules/common/cmps/AppHeader.vue';
-// import AppFooter from './modules/common/cmps/AppFooter.vue';
+import AppFooter from './modules/common/cmps/AppFooter.vue';
 // import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 
@@ -29,7 +29,7 @@ export default {
   name: 'MegaphonApp',
   components: {
     AppHeader,
-    // AppFooter,
+    AppFooter,
     // AppAside
     // Loader
   },
@@ -42,16 +42,16 @@ export default {
     },
   },
   methods: {
-    setTheme() {
-      const themeName = this.uiConfig.theme;
-      const themeItem = allThemes.find(c => c.name === themeName) || allThemes[0];
-      // setDynamicStylingThemeEl({...themeItem, title: 'Megaphon'}, '.app');
-      this.$store.commit({ type: 'setSelectedTheme', theme: themeItem, selector:  '.app' });
-    }
+    // setTheme() {
+    //   const themeName = this.uiConfig.theme;
+    //   const themeItem = allThemes.find(c => c.name === themeName) || allThemes[0];
+    //   // setDynamicStylingThemeEl({...themeItem, title: 'Megaphon'}, '.app');
+    //   this.$store.commit({ type: 'setSelectedTheme', theme: themeItem, selector:  '.app' });
+    // }
   },
   created() {
     // this.setTheme();
-    evEmmiter.on('app_config_update', this.setTheme);
+    // evEmmiter.on('app_config_update', this.setTheme);
   },
 
   // data() {

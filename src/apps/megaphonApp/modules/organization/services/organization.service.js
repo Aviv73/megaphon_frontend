@@ -42,7 +42,8 @@ export const organizationService = {
 
   getOnlyOrgsToShow,
 
-  getOrgRoutesByRoles
+  getOrgRoutesByRoles,
+  getEmptyThemeItem
 }
 
 // function query(filterBy) {
@@ -165,6 +166,16 @@ function getOrgRoutesByRoles(org, roles = []) {
 }
 
 
+function getEmptyThemeItem() {
+  return {
+    id: getRandomId(),
+    name: allThemes[0].name,
+    colors: [...allThemes[0].colors],
+    fonts: [...allThemes[0].fonts],
+    css: ''
+  }
+}
+
 // TODO:: MAKE SURE NOT MISSING ANY FIELD;
 function getEmptyOrganization() {
   const org = {
@@ -199,21 +210,9 @@ function getEmptyOrganization() {
     folders: [/* { name: '', children: [folders], content: [] } */],
     logos: [/* {src: '', id: '', title: ''} */],
     designPreferences: {
-      clientApp: [{
-        id: getRandomId(),
-        colors: [...allThemes[0].colors],
-        css: ''
-      }],
-      producerApp: [{
-        id: getRandomId(),
-        colors: [...allThemes[0].colors],
-        css: ''
-      }],
-      newsletter: [{
-        id: getRandomId(),
-        colors: [...allThemes[0].colors],
-        css: ''
-      }],
+      clientApp:   [getEmptyThemeItem()],
+      producerApp: [getEmptyThemeItem()],
+      newsletter:  [getEmptyThemeItem()],
       loginPage: [{
         id: getRandomId(),
         bgImg: {src:''},

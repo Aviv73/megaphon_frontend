@@ -4,9 +4,13 @@ import { basicStoreService } from '@/apps/common/modules/common/services/basic-s
 
 const defaultUiConfig = {
   locale: 'he',
-  theme: 'default',
+  theme: 'light',
   accessabilityMode: false,
-  remSize: 15
+  remSize: 15,
+  themesByOrg: {
+    // [orgId]: { [appName]: [themeName] }
+    default: {}
+  }
 }
 
 const initState = () => ({

@@ -8,7 +8,7 @@ const  en = {
 const he = {
   sidebar: {
     folders: 'תיקיות',
-    megaphonGeneral: 'מגפון כללי',
+    megaphonGeneral: 'מערכת',
     addFolder: 'צור תיקייה'
   }
 }

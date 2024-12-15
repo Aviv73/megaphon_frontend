@@ -82,6 +82,9 @@ export default {
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
+    },
+    org() {
+      return this.$store.getters['organization/selectedItem'];
     }
   },
   async created() {
@@ -98,7 +101,7 @@ export default {
     this.$store.commit('setIsScreenWide');
     window.addEventListener('resize', () => this.$store.commit('setIsScreenWide'));
 
-    this.displayUiConfig();
+    // this.displayUiConfig();
     
     evEmmiter.on('app_config_update', this.displayUiConfig);
     evEmmiter.on('set_locale', this.setLocale);
@@ -127,11 +130,13 @@ export default {
       if (appConfig.singleOrgMode) {
         appConfig.appOrganization = await this.$store.dispatch({type: 'organization/loadItem', id: appConfig.appOrganizationId, dontSet: true, isToInheritData: true })
         this.$store.commit({ type: 'setRootOrg', org: appConfig.appOrganization, isClient: false });
-        this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, false, '.megaphon-app'), selector:  '.megaphon-app' });
+        // this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, false, this.uiConfig, this.$store.getters.selectedAppData, '.megaphon-app'), selector:  '.megaphon-app' });
         // setStylingForOrgTheme(appConfig.appOrganization, '.megaphon-app');
       }
+      // this.setTheme(false);
       await this.initUser(true);
       this.isLoading = false;
+      this.displayUiConfig();
       return;
     }
     const org = await this.$store.dispatch({type: 'organization/loadItem'});
@@ -140,7 +145,8 @@ export default {
     appConfig.appOrganizationId = org?._id;
     await this.initSelectedApp(org);
     // setStylingForOrgTheme(org, '.'+this.selectedAppData.name, true);
-    this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, true, '.'+this.selectedAppData.name), selector:  '.'+this.selectedAppData.name });
+    // this.setTheme(true);
+    // this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, true, this.uiConfig, this.$store.getters.selectedAppData, '.'+this.selectedAppData.name), selector:  '.'+this.selectedAppData.name });
     // document.title = org.name;
     // if (this.selectedAppData?.params?.title) document.title = this.selectedAppData.params.title;
     // this.setOrgStyling(org);
@@ -154,9 +160,16 @@ export default {
       // const origin = this.$route.query.token;
       distributionService.reportReleaseOpened(releaseId, this.$route.query);
     }
+    this.displayUiConfig();
 
   },
   methods: {
+    setTheme() {
+      const isClient = appConfig.client;
+      const selector = isClient ? '.'+this.selectedAppData.name : '.megaphon-app';
+      this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization || this.org, isClient, this.uiConfig, this.$store.getters.selectedAppData, selector), selector });
+    },
+
     async initUser(requireAuth = false) {
       if (['LoginPage', 'SignupPage'].includes(this.$route.name)) return;
       if (this.$route.meta.noAuth) return;
@@ -202,6 +215,7 @@ export default {
       });
       if (config?.accessabilityMode) document.querySelector('html').classList.add('accessability');
       else document.querySelector('html').classList.remove('accessability');
+      this.setTheme();
     },
 
     initCommonStore() {

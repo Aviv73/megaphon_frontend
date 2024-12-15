@@ -28,7 +28,7 @@ const  en = {
 const he = {
   "contact": {
     "contact": "איש קשר",
-    "contacts": "אנשי קשר",
+    "contacts": "אנשי מדיה",
     "contactName": "שם איש מדיה",
     "role": "תפקיד",
     "companyName": "שם גוף",

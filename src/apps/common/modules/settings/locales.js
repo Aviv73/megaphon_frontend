@@ -6,7 +6,7 @@ const  en = {
     "accessability": "Accessability",
     "theme": "Theme",
     "themes": {
-      "default": "Light",
+      "light": "Light",
       "dark": "Dark",
     },
     "textSize": "Text size",
@@ -25,7 +25,7 @@ const he = {
     "accessability": "נגישות",
     "theme": "נושא",
     "themes": {
-      "default": "בהיר",
+      "light": "בהיר",
       "dark": "חשוך"
     },
     "textSize": "גודל טקסט",

@@ -1,6 +1,6 @@
 
 
-export const getSvgs = (color) => ({
+export const getSvgs = (color = 'currentColor') => ({
   media: {
     web: `
       <svg id="Website" xmlns="http://www.w3.org/2000/svg" width="54.562" height="54.561" viewBox="0 0 54.562 54.561">

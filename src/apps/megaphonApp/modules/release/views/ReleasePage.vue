@@ -189,7 +189,7 @@ export default {
     height: auto;
     .item-list {
       // justify-content: space-between !important;
-      gap: em(10px);
+      gap: em(20px);
     }
     .item-page {
       overflow: unset;

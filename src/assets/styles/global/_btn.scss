@@ -3,30 +3,30 @@
 //   color: white;
 // }
 
-.dark-theme {
-  .btn {
-    &:not(.clear) {
-      // background-color: black;
-      // color: white;
-      &.primary {
-        // background-color: $clr-light-green;
-        background-color: var(--clr-4);
-        color: var(--clr-1);
-      }
-      &:active {
-        color: var(--clr-0);
-        border-color: var(--clr-0);
-      }
-    }
-  }
+// .dark-theme {
+//   .btn {
+//     &:not(.clear) {
+//       // background-color: black;
+//       // color: white;
+//       &.primary {
+//         // background-color: $clr-light-green;
+//         background-color: var(--clr-4);
+//         color: var(--clr-1);
+//       }
+//       &:active {
+//         color: var(--clr-0);
+//         border-color: var(--clr-0);
+//       }
+//     }
+//   }
   
-  .toggle-btns {
-    background-color: var(--clr-0);
-    button {
-      color: var(--clr-1);
-    }
-  }
-}
+//   .toggle-btns {
+//     background-color: var(--clr-0);
+//     button {
+//       color: var(--clr-1);
+//     }
+//   }
+// }
 
 .icon {
   height: em(20px);

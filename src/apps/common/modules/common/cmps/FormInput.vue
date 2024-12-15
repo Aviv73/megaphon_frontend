@@ -230,7 +230,7 @@ export default {
     tooltipMsg: { required: false, type: String, default: '' },
 
     debug: { required: false, type: Boolean, default: false },
-    reactive: { required: false, type: Boolean, default: false },
+    reactive: { required: false, type: Boolean, default: true },
   },
   data() {
     return {

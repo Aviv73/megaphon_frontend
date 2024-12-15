@@ -1,5 +1,5 @@
 <template>
-  <div v-if="contact" class="table-item-preview contact-preview" :class="{unsubscribed: contact.unsubscribed}">
+  <div v-if="contact" class="table-item-preview contact-preview gap10" :class="{unsubscribed: contact.unsubscribed}">
     <!-- <p v-if="contact.firstName">{{contact.firstName}} {{contact.lastName}}</p>
     <p v-else>{{contact.email}}</p> -->
     <p>{{contactPreviewName}}</p>

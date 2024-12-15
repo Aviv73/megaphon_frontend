@@ -1,20 +1,20 @@
 <template>
   <header class="app-header flex align-center ignore-theme-style_">
     <div class="container header-content width-all flex align-center space-between height-all">
-      <router-link v-if="!isUserWatchOnly || !selectedOrgId || isSingleOrgMode" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height=all">
-        <div class="logo-title height-all flex align-center">
+      <router-link v-if="!isUserWatchOnly || !selectedOrgId || isSingleOrgMode" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height-all">
+        <div class="logo-title height-all flex_ align-center">
           <img v-if="showLogo" class="actual" :src="logoImgSrc" alt=""/>
         </div>
       </router-link>
       <FormInput v-else class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect"/>
 
 
-      <NavOrBurger class="release-actions align-center_ flex gap50 height-all" v-if="showNavContent">
+      <NavOrBurger class="release-actions align-center_ space-between flex gap50 height-all" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
         <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
         <div class="links nav-items flex align-center gap10 height-all" v-if="isOrgProducer">
-          <router-link class="nav-item" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
-            <button class="btn big primary">
-              {{$t('create')}} {{type.name}}
+          <router-link class="nav-item create-nav gap15" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
+            <button class="btn_ big primary">
+              <span class="hover-pop">{{$t('create')}} {{type.name}}</span>
             </button>
           </router-link>
         </div>
@@ -29,7 +29,7 @@
             class="nav-item flex align-center height-all"
             :class="{selected: $route.query.page === filterItem.name}"
           >
-            {{filterItem.name}}
+            <span class="hover-pop">{{filterItem.name}}</span>
           </router-link>
         </div>
         <template v-if="isUserWatchOnly">
@@ -43,8 +43,8 @@
         </div> -->
       </NavOrBurger>
 
-      <div class="flex align-center gap20 height-all ph wide-screen-item">
-        <template v-if="isUserWatchOnly">
+      <div class="flex align-center gap20 height-all wide-screen-item" v-if="isUserWatchOnly">
+        <template>
           <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
             <!-- <p>{{$t('settings.settings')}}</p> -->
             <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
@@ -57,6 +57,7 @@
           </div>
         </div> -->
       </div>
+      <!-- <div v-else class="ph wide-screen-item"></div> -->
     </div>
   </header>
 </template>
@@ -79,6 +80,9 @@ export default {
     }
   },
   computed: {
+    isScreenWide() {
+      return this.$store.getters.isScreenWide;
+    },
     isSingleOrgMode() {
       return appConfig.singleOrgMode;
     },
@@ -183,6 +187,7 @@ export default {
 
 .megaphon-app {
   .app-header {
+    z-index: 6;
     // padding: 0 em(10px);
     // background-color: #F2F2F2;
     // color: black;
@@ -192,15 +197,39 @@ export default {
       width: 100%;
       position: relative;
       @media (min-width: $small-screen-break) {
-        // padding-inline-start: 0;
+        padding-inline-start: 0;
       }
     }
     
   
     .logo-title { // .logo-title, 
-      height: em(50px);
+      // height: em(50px);
+      height: 100%;
+      width: rem(140px);
+      margin-inline-end: em(15px);
+      // background-color: #666666;
       .actual {
         height: 100%;
+        width: unset;
+        max-width: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .create-nav {
+      button {
+        // background-color: unset !important;
+        // box-shadow: unset !important;
+        // padding: unset !important;
+        // width: unset !important;
+        // height: unset !important;
+        display: flex;
+        align-items: center;
+        gap: em(5px);
+        &::before {
+          content: '+';
+          font-weight: bold;
+        }
       }
     }
     

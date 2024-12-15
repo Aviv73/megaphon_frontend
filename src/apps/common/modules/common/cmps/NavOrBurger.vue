@@ -5,7 +5,7 @@
       <span class="actual">☰</span>
     </button>
     <div class="blure" v-if="mobileShow" @click="mobileShow = false"></div>
-    <div class="nav-container" :class="{show: mobileShow}">
+    <div class="nav-container flex-1" :class="{show: mobileShow}">
       <slot name="header"/>
       <nav class="nav flex align-center space-between wrap gap30">
         <slot/> <!-- <div class="nav-item">About</div> -->

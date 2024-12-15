@@ -5,7 +5,7 @@ const em = elementService._.em;
 export default {
   name: 'dark',
   // class: 'dark-theme',
-  colors: ['#cbcbcb', '#000000', 'white', '#505050', '#2090D4', 'rgba(147,214,254,.3)', 'blue'],
+  colors: ['#cbcbcb', '#000000', 'white', '#505050', '#2090D4', 'rgba(147,214,254,.3)', '#ffffff'],
   fonts: [],
   css: elementService.dataToCss('.megaphon-app', {
     'input, select, textarea': {

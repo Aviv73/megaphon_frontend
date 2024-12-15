@@ -107,6 +107,7 @@
             <div class="flex column gap20" v-for="designAppKey in ['producerApp', 'clientApp', 'newsletter']" :key="designAppKey">
               <p>{{designAppKey}}</p>
               <div v-for="theme in organizationToEdit.designPreferences[designAppKey]" :key="theme.id" class="flex column gap10">
+                <FormInput type="text" labelholder="name" v-model="theme.name"/>
                 <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
                 <div class="input-container flex gap20">
                   <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
@@ -128,6 +129,7 @@
                   </template>
                 </ToggleModal>
               </div>
+              <button @click="addTheme(organizationToEdit.designPreferences[designAppKey])">Add theme</button>
             </div>
 
             <div class="flex column gap20 align-start">
@@ -376,14 +378,20 @@ export default {
       if (!this.organizationToEdit.mediaLinks) this.organizationToEdit.mediaLinks = [];
       this.organizationToEdit.mediaLinks.push({src: '', id: getRandomId(), type: '', title: ''});
     },
+    addTheme(themesArr) {
+      themesArr.push(organizationService.getEmptyThemeItem());
+    },
 
     inheritTheme(theme, themeToInherit) {
+      console.log('WOWO??', theme, themeToInherit);
       // for (let key in theme) {
       //   theme[key] = inheritTheme[key]
       // }
+      if (themeToInherit.name) theme.name = themeToInherit.name;
       if (themeToInherit.css) theme.css = themeToInherit.css;
       if (themeToInherit.colors) theme.colors = [...themeToInherit.colors];
       if (themeToInherit.fonts) theme.fonts = [...themeToInherit.fonts];
+      this.$forceUpdate();
     }
   },
   created() {

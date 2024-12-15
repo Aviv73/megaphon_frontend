@@ -61,7 +61,7 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
           }
         });
       },
-      loadItem({ commit, dispatch, getters }, { id, isToInheritData = true, dontSet = false, isToAddMembersData = false }) {
+      loadItem({ commit, dispatch, getters, rootGetters }, { id, isToInheritData = true, dontSet = false, isToAddMembersData = false }) {
         return dispatch({
           type: '_Ajax',
           do: async () => getters.service.get(id, undefined, {isToInheritData, isToAddMembersData}),
@@ -71,7 +71,7 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
               commit({ type: 'setProp', key: 'organizationId', val: item._id });
               if (item._id) {
                 // setStylingForOrgTheme(item, '.megaphon-app');
-                commit('setSelectedTheme', {theme: getRelevantThemeForOrg(item, false, '.megaphon-app'), selector: '.megaphon-app' }, { root: true });
+                commit('setSelectedTheme', {theme: getRelevantThemeForOrg(item, false, rootGetters['settings/uiConfig'], rootGetters.selectedAppData, '.megaphon-app'), selector: '.megaphon-app' }, { root: true });
               }
               else {
                 // setDynamicStylingThemeEl({...allThemes[0], title: 'Megaphon'}, '.megaphon-app');

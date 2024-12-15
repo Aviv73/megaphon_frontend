@@ -3,6 +3,11 @@
 // @import '../../../../assets/styles/global/index';
 
 
+@font-face {
+  font-family: "Rubik-local";
+  src: url("~@/apps/megaphonApp/assets/fonts/Rubik/Rubik-VariableFont_wght.ttf");
+}
+
 
 html {
 }
@@ -12,7 +17,7 @@ html {
   .app-header {
     background-color: #F2F2F2;
   }
-  font-family: Rubik,sans-serif;
+  font-family: Rubik-local,Rubik,sans-serif;
 }
 
 

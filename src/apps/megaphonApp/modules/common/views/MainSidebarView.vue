@@ -113,7 +113,7 @@ export default {
       const id = this.selectedOrgId;
       if (!id || (id == '-1')) {
         // setDynamicStylingThemeEl({...allThemes[0], title: 'Megaphon'}, '.megaphon-app');
-        this.$store.commit({ type: 'setSelectedTheme', theme: allThemes[0], selector: '.megaphon-app' });  
+        // this.$store.commit({ type: 'setSelectedTheme', theme: allThemes[0], selector: '.megaphon-app' });  
         return;
       }
       // if (!id) return;
