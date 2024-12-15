@@ -223,8 +223,7 @@ export default {
       // padding: em(10px);
       // height: auto;
   
-      width: rem(140px);
-      font-size: em(14px);
+      width: rem(150px);
   
       .app-avatar {
        color: var(--clr-1);
@@ -250,6 +249,7 @@ export default {
 
       .logged-user-preview {
           padding: em(10px);
+          font-size: em(12px);
       }
 
       .svg-parrent {
@@ -259,13 +259,14 @@ export default {
 
       // .nav-item-msg {}
   
-      .nav-item-preview {
-        .nav-list-item, .nav-item {
-          &:hover {
-            background-color: var(--clr-5) !important;
-            color: var(--clr-1);
-          }
+      .nav-list-item, .nav-item {
+        font-size: em(12px);
+        &:hover {
+          background-color: var(--clr-5) !important;
+          color: var(--clr-1);
         }
+      }
+      .nav-item-preview {
   
         .toggle-arrow {
           transition: 0.3s;

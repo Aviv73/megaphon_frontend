@@ -383,7 +383,6 @@ export default {
     },
 
     inheritTheme(theme, themeToInherit) {
-      console.log('WOWO??', theme, themeToInherit);
       // for (let key in theme) {
       //   theme[key] = inheritTheme[key]
       // }
@@ -391,7 +390,7 @@ export default {
       if (themeToInherit.css) theme.css = themeToInherit.css;
       if (themeToInherit.colors) theme.colors = [...themeToInherit.colors];
       if (themeToInherit.fonts) theme.fonts = [...themeToInherit.fonts];
-      this.$forceUpdate();
+      // this.$forceUpdate();
     }
   },
   created() {
