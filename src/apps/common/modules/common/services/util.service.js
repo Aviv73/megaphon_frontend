@@ -591,6 +591,25 @@ export function validatePassword(pass = '') {
     return true;
 }
 
+
+export function printHtmlElement(htmlElement) {
+    const htmlStr = (typeof htmlElement === 'string') ? htmlElement : htmlElement.outerHTML;
+    const printWindow = window.open('', '_blank');
+    const printHtml = `
+        <html lang="en">
+            <head>${document.head.innerHTML}</head>
+            <body>${htmlStr}</body>
+        </html>
+    `;
+    printWindow.document.write(printHtml);
+    printWindow.document.close();
+    printWindow.document.addEventListener('DOMContentLoaded', () => {
+    // printWindow.document.onload(() => {
+        printWindow.print();
+        printWindow.close();
+    });
+}
+
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////
 //////////////////STORAGE_SERVICE////////////////////
