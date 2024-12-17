@@ -166,12 +166,12 @@ function getOrgRoutesByRoles(org, roles = []) {
 }
 
 
-function getEmptyThemeItem() {
+function getEmptyThemeItem(idx = 0) {
   return {
     id: getRandomId(),
-    name: allThemes[0].name,
-    colors: [...allThemes[0].colors],
-    fonts: [...allThemes[0].fonts],
+    name: allThemes[idx].name,
+    colors: [...allThemes[idx].colors],
+    fonts: [...allThemes[idx].fonts],
     css: ''
   }
 }
@@ -211,7 +211,7 @@ function getEmptyOrganization() {
     logos: [/* {src: '', id: '', title: ''} */],
     designPreferences: {
       clientApp:   [getEmptyThemeItem()],
-      producerApp: [getEmptyThemeItem()],
+      producerApp: [getEmptyThemeItem(0), getEmptyThemeItem(1)],
       newsletter:  [getEmptyThemeItem()],
       loginPage: [{
         id: getRandomId(),
