@@ -11,6 +11,7 @@
         <h2>{{$t(itemToEdit._id? 'release.editRelease' : 'release.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
         <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
           <FormInput class="gap30 locale-select" type="select" labelholder="locale" :itemsMap="{'english': 'en', 'עברית': 'he'}" v-model="itemToEdit.design.locale"/>
+          <FormInput class="gap30 expiration-date" type="date" labelholder="release.expirationDate" v-model="itemToEdit.expirationDate" format_="timeMS"/>
           <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :release="itemToEdit" :parentItem="itemToEdit.releaseData" :organization="org"/>
         </form>
       </template>
@@ -115,6 +116,7 @@ export default {
         if (this.itemToEdit.releaseData[key] === undefined) this.itemToEdit.releaseData[key] = emptyDataItem[key];
       }
       this.initialItem = JSON.parse(JSON.stringify(this.itemToEdit));
+      console.log('EDIT!', this.itemToEdit);
     },
     async saveItem() {
       if (!this.isItemValid) return;
@@ -216,8 +218,9 @@ export default {
       }
     }
 
-    .locale-select {
+    .locale-select, .expiration-date {
       p {
+        width: em(100px);
         color: var(--clr-0);
       }
     }

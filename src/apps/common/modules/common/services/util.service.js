@@ -270,7 +270,7 @@ export function getElPosOnScreen(el) {
     }
     return pos;
 }
-export function getElPosInParent(el, parentSelector = 'body') {
+export function getElPosInParent(el, parentSelector = 'html', fitToScrollView = false) {
     const pos = {y: 0, x: 0};
     if (!el) return pos;
 
@@ -278,8 +278,15 @@ export function getElPosInParent(el, parentSelector = 'body') {
     const clientRect = el.getBoundingClientRect();
     const parentClientRect = parent.getBoundingClientRect();
 
-    pos.y = clientRect.top - parentClientRect.top;
-    pos.x = clientRect.left - parentClientRect.left;
+    pos.y = clientRect.y - parentClientRect.y;
+    pos.x = clientRect.x - parentClientRect.x;
+    // pos.viewY = clientRect.y - parentClientRect.top;
+    // pos.viewX = clientRect.x - parentClientRect.left;
+
+    if (fitToScrollView) {
+        pos.x -= parent.scrollLeft;
+        pos.y -= parent.scrollTop;
+    }
 
     return pos;
 }
@@ -545,6 +552,7 @@ export function concatItems(item1, item2) {
 }
 
 export function isDateValid(dateLike) {
+    if (!dateLike && (dateLike !== 0)) return false;
     try {
         const time = new Date(dateLike);
         if (isNaN(time.getTime())) return false;
@@ -597,7 +605,18 @@ export function printHtmlElement(htmlElement) {
     const printWindow = window.open('', '_blank');
     const printHtml = `
         <html lang="en">
-            <head>${document.head.innerHTML}</head>
+            <head>
+                ${document.head.innerHTML}
+                <style>
+                    * {
+                        -webkit-print-color-adjust: exact;
+                        break-inside: avoid;
+                    }
+                    *:not(.allow-print-break) { break-inside: avoid; }
+                    .noprint { display: none; }
+                    .onlyprint { display: initial; }
+                </style>
+            </head>
             <body>${htmlStr}</body>
         </html>
     `;

@@ -143,7 +143,7 @@ export default {
           break;
         case 'VIDEOS'.toUpperCase():
           this.cmpName = 'FilesSingleSection';
-          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: false, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
+          this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: false, sectionId: 'videos', cmpType: 'iframe_', organizationId: this.organization._id, files: this.value?.map(c => {
             const src = c.src || c.link || c.url; 
             return {...c, src: youtubeService.isYoutubeVid(src)? youtubeService.embedUtubeUrl(src) : src};
           }) || [] };

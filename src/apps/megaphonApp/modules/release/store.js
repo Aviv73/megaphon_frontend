@@ -26,14 +26,14 @@ export const releaseStore = basicStoreService.createSimpleCrudStore(
       }
     },
     actions: {
-      async loadItems({ commit, dispatch, getters }, { filterBy, organizationId, orgFilter, folder, dontSet }) {
+      async loadItems({ commit, dispatch, getters }, { filterBy, includeExpiredReleases, organizationId, orgFilter, folder, dontSet }) {
         if (!dontSet) commit({ type: 'setData', data: {items:[], total: 0} });
         return dispatch({
           type: '_Ajax',
           do: async () => {
             if (filterBy) commit({ type: 'setFilterBy', filterBy });
             // const filterToSend = JSON.parse(JSON.stringify(filterBy));
-            const filterToSend = {...getters.filterBy};
+            const filterToSend = {...getters.filterBy, includeExpiredReleases};
             filterToSend.orgFilter = orgFilter;
             filterToSend.folder = folder;
             const itemsRes = await getters.service.query(filterToSend, organizationId || getters.organizationId);

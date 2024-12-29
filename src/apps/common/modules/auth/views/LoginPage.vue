@@ -67,7 +67,7 @@ export default {
       if (!this.isUserValid) return;
       if (this.userCred.username) delete this.userCred.username;
       localStorage.userCred = JSON.stringify(this.userCred);
-      const res = await this.$store.dispatch({ type: 'auth/login', cred: this.userCred, organizationId: appConfig.appOrganizationId /*sometimes undefined*/ });
+      const res = await this.$store.dispatch({ type: 'auth/login', cred: this.userCred, organizationId: appConfig.appOrganization?._id || appConfig.appOrganizationId /*sometimes undefined*/ });
       if (res.needs2FactorAuth) {
         // this.showFinishAuthModal = true;
         evEmmiter.emit('needs_2_factor_auth', '/', res.comunicationMethods);

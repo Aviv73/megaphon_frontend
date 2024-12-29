@@ -29,6 +29,7 @@ const  en = {
     "releases": "Releases",
     "monthPublish": "Month of publish",
     "main": "Main",
+    "expirationDate": "Expiration date"
 
     // tabs: {
     //   "content": "Content",
@@ -155,6 +156,7 @@ const he = {
     "releases": "רליסים",
     "monthPublish": "חודש הוצאה לאור",
     "main": "כללי",
+    "expirationDate": "תאריך תפוגה"
     // tabs: {
     //   "content": "תקציר",
     //   "images": "תמונות",

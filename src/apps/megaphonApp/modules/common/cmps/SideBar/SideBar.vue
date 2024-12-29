@@ -204,6 +204,7 @@ export default {
   .sidebar-container {
     position: relative;
     z-index: 5;
+    font-size: em(14px);
     .main-sidebar {
       height: calc(100vh - #{$header-height} - 22px);
       max-height: calc(100vh - #{$header-height} - 22px);
@@ -249,7 +250,7 @@ export default {
 
       .logged-user-preview {
           padding: em(10px);
-          font-size: em(12px);
+          // font-size: em(12px);
       }
 
       .svg-parrent {
@@ -260,7 +261,7 @@ export default {
       // .nav-item-msg {}
   
       .nav-list-item, .nav-item {
-        font-size: em(12px);
+        // font-size: em(12px);
         &:hover {
           background-color: var(--clr-5) !important;
           color: var(--clr-1);

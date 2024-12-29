@@ -186,7 +186,7 @@
 </template>
 
 <script>
-import { getRandomId, padNum } from '../services/util.service';
+import { getRandomId, isDateValid, padNum } from '../services/util.service';
 import Tooltip from './Tooltip.vue';
 
 import PhoneInput from './PhoneInput.vue';
@@ -231,6 +231,8 @@ export default {
 
     debug: { required: false, type: Boolean, default: false },
     reactive: { required: false, type: Boolean, default: true },
+
+    format: { required: false, type: String, default: '' }
   },
   data() {
     return {
@@ -256,7 +258,7 @@ export default {
       // else 
       this.val = this.val?.value || this.val;
     }
-    if (this.type === 'date') {
+    if ((this.type === 'date') && isDateValid(this.val)) {
       const date = new Date(this.val || undefined);
       this.val = `${date.getFullYear()}-${padNum(date.getMonth()+1)}-${padNum(date.getDate())}`;
     }

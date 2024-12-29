@@ -74,7 +74,7 @@ export default {
       if (this.noPageMode) filterItem = { releaseFilter: { releaseTpes: templateUtils.getAllReleaseTypesForOrg(org).map(c => c.id) } }
       if (!filterItem) return;
       if (!organizationService.isAccountAuthorizedToRoute(this.loggedUser, this.organization, filterItem.id)) return;
-      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterItem.releaseFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
+      this.$store.dispatch({ type: 'release/loadItems', filterBy, includeExpiredReleases: true, orgFilter: filterItem.releaseFilter, folder: this.selectedFolder, organizationId: this.$route.params.organizationId });
     },
     // handleOrgReleaseFilter(orgFilter) {
     //   this.$store.commit({ type: 'release/resetFilter' });

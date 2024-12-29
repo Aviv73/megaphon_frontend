@@ -15,12 +15,12 @@
             </template> -->
           </div>
         </template>
+        <p v-if="getFileError(file, rootItem)">{{getFileError(file, rootItem)}}</p>
         <iframe
-          v-if="cmpType === 'iframe'"
+          v-else-if="cmpType === 'iframe'"
           class="video-file-preview"
           :src="fixFileSrcToThumbnail(file, rootItem)" controls
         />
-        <p v-if="getFileError(file, rootItem)">{{getFileError(file, rootItem)}}</p>
         <template v-else-if="cmpType === 'video'">
           <VideoTag
             :format="getFileItemFromRootItem(file, rootItem)?.format"
