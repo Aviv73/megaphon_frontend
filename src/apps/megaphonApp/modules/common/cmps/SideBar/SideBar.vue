@@ -206,8 +206,8 @@ export default {
     z-index: 5;
     font-size: rem(12px);
     .main-sidebar {
-      height: calc(100vh - #{$header-height} - 22px);
-      max-height: calc(100vh - #{$header-height} - 22px);
+      height: calc(100vh - #{$header-height}); //  - 22px
+      max-height: calc(100vh - #{$header-height}); //  - 22px
       .side-bar-content {
         max-height: calc(100% - #{em(40px)});
         height: calc(100% - #{em(40px)});
