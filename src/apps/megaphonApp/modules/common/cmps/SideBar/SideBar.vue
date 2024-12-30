@@ -6,7 +6,7 @@
       <LoggedUserPreview/>
       <div class="flex column space-between side-bar-content flex-1 pretty-scroll">
         <ul class="organization-list flex-1">
-          <li :class="{selected: selectedOrgId === org._id}" class="nav-item-preview organization-preview" v-for="org in organizations" :key="org._id">
+          <li :class="{selected: selectedOrgId === org._id, opened: selectedOrgId === org._id}" class="nav-item-preview organization-preview" v-for="org in organizations" :key="org._id">
             <div class="nav-list-item item-header flex align-center gap10" @click="selectOrg(org)">
               <!-- <Avatar :size="25">{{org?.name?.slice(0,2) || ''}}</Avatar> -->
               <p class="flex-1 flex space-between">
@@ -36,11 +36,11 @@
             <p>{{$t('organization.addOrganization')}}</p>
           </router-link>
         </div>
-        <div class="nav-item-preview system-nav" v-if="isAdmin" :class="{selected_: showAdminNav}">
+        <div class="nav-item-preview system-nav" v-if="isAdmin" :class="{opened: showAdminNav}">
           <div class="nav-list-item item-header flex align-center space-between gap10" @click="showAdminNav = !showAdminNav">
             <!-- <Avatar :size="25">{{'מגפון'.slice(0,2)}}</Avatar> -->
             <p><span class="hover-pop flex align-center gap10"><div v-html="svgs.system" class="svg-parrent"></div>{{$t('sidebar.megaphonGeneral')}}</span></p>
-            <div v-if="organizations.length > 1" class="svg-parrent toggle-arrow" v-html="svgs.toggleArrow"></div>
+            <div class="svg-parrent toggle-arrow" v-html="svgs.toggleArrow"></div>
           </div>
           <div class="flex column" v-if="showAdminNav">
             <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('contact.contacts')}}</span></router-link>
@@ -204,7 +204,7 @@ export default {
   .sidebar-container {
     position: relative;
     z-index: 5;
-    font-size: em(14px);
+    font-size: rem(12px);
     .main-sidebar {
       height: calc(100vh - #{$header-height} - 22px);
       max-height: calc(100vh - #{$header-height} - 22px);
@@ -284,6 +284,8 @@ export default {
             background-color: var(--clr-5);
             color: var(--clr-1);
           }
+        }
+        &.opened {
           .toggle-arrow {
             transform: rotate(180deg); 
           }
