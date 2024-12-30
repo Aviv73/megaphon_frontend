@@ -11,7 +11,7 @@
 
       <NavOrBurger class="release-actions align-center_ space-between flex gap50 height-all" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
         <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
-        <div class="links nav-items flex align-center gap10 height-all" v-if="isOrgProducer">
+        <div class="links nav-items flex align-center gap15 height-all" v-if="isOrgProducer">
           <router-link class="nav-item create-nav gap15" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn_ big primary">
               <span class="hover-pop">{{$t('create')}} {{type.name}}</span>
