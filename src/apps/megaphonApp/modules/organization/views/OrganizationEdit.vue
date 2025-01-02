@@ -91,12 +91,12 @@
           <div class="flex column gap20">
             <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
             <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
-            <FormInput type="checkbox" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
-            <FormInput type="checkbox" labelholder="require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
-            <FormInput type="checkbox" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
-            <FormInput type="checkbox" labelholder="useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
-            <FormInput type="checkbox" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
-            <FormInput type="checkbox" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
+            <FormInput type="checkbox" title="requireAuth" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
+            <FormInput type="checkbox" title="require2FactorAuth" labelholder="require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
+            <FormInput type="checkbox" title="isStandAlone" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
+            <FormInput type="checkbox" title="useVideoWaterMark" labelholder="useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
+            <FormInput type="checkbox" title="onlyKnownRegistrations" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
+            <FormInput type="checkbox" title="useDirectLink" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
           </div>
           <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
 
