@@ -39,7 +39,7 @@ export default {
       return this.$route.meta.routesRoles;
     },
     allRouteFilters() {
-      return organizationService.getOrgRoutesByRoles(this.org, this.requiresRoutesRoles || organizationService.getOrgItemInAccount(this.loggedUser, this.org._id).roles);
+      return organizationService.getOrgRoutesByRoles(this.org, this.requiresRoutesRoles || organizationService.getOrgItemInAccount(this.loggedUser, this.org._id)?.roles);
       // return this.org?.routes?.filter(c => c.showInRoles?.includes('client')) || [];
     },
     routeItem() {

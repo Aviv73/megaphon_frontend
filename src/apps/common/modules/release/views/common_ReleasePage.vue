@@ -67,7 +67,7 @@ export default {
     },
     allRouteFilters() {
       // return this.org?.routes || [];
-      return organizationService.getOrgRoutesByRoles(this.org, this.requiresRoutesRoles || organizationService.getOrgItemInAccount(this.loggedUser, this.org._id).roles);
+      return organizationService.getOrgRoutesByRoles(this.org, this.requiresRoutesRoles || organizationService.getOrgItemInAccount(this.loggedUser, this.org._id)?.roles);
     },
     routeItem() {
       const typeName = this.releasePageInQuery;

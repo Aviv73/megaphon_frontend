@@ -124,8 +124,9 @@ export default {
           label: c.name + (this.isOrgPending(c._id)? ` (${this.$t('pending')})` : ''),
           value: c._id,
           disabled: this.isOrgPending(c._id)
-        })) || []),
-        { label: 'new', value: 'new' }
+        })) || [])
+        // ,
+        // { label: 'new', value: 'new' }
       ];
     }
   },
