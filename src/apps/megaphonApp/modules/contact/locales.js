@@ -22,7 +22,8 @@ const  en = {
       "savedSuccess": "Contact saved successfully",
     },
     "emailIsTakenError": "Contact with that email already exists",
-    "maxTimesAllowdToWatchVideo": "Max times allowd to watch video"
+    "maxTimesAllowdToWatchVideo": "Max times allowd to watch video",
+    "uploadFileTooltipMsg": "uploadFileTooltipMsg"
   },
 }
 const he = {
@@ -49,7 +50,8 @@ const he = {
       "savedSuccess": "פרטי איש קשר נשמרו בהצלחה",
     },
     "emailIsTakenError": "איש קשר עם המייל הזה כבר קיים במערכת",
-    "maxTimesAllowdToWatchVideo": "כמות צפיות מקסימלית בוידאו"
+    "maxTimesAllowdToWatchVideo": "כמות צפיות מקסימלית בוידאו",
+    "uploadFileTooltipMsg": "קובץ מסוג csv או xl.\nשמות העמודות:\nfirstName, lastName, email, mobile, tags (מופרד עם ,), company"
   },
 }
 const heF = {

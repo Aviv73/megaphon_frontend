@@ -20,13 +20,20 @@
       layoutMode="flex"
     >
       <div class="actions">
-        <FormInput
-          type="file"
-          accept=".xlsx, .xls, .xl, .csv"
-          @change="uploadContactsFromFile"
-          v-model="contactsFiles"
-          placeholder="contact.uploadFromFile"
-        />
+        <div class="flex align-center gap10 justify-end">
+          <Tooltip :msg_="$t('contact.uploadFileTooltipMsg')">
+            <template v-slot:content>
+              <p v-html="$t('contact.uploadFileTooltipMsg').split('\n').join('<br/>')"></p>
+            </template>
+          </Tooltip>
+          <FormInput
+            type="file"
+            accept=".xlsx, .xls, .xl, .csv"
+            @change="uploadContactsFromFile"
+            v-model="contactsFiles"
+            placeholder="contact.uploadFromFile"
+          />
+        </div>
       </div>
 
       <div class="table-item-preview table-header">
@@ -49,6 +56,7 @@ import ContactFilter from '../cmps/ContactFilter.vue';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 
 import { httpService } from '@/apps/common/modules/common/services/http.service';
+import Tooltip from '../../../../common/modules/common/cmps/Tooltip.vue';
 
 export default {
   name: 'ContactPage',
@@ -96,7 +104,7 @@ export default {
       this.getAllRContacts();
     }
   },
-  components: { ItemSearchList, Loader, ContactPreview, ContactFilter, FormInput }
+  components: { ItemSearchList, Loader, ContactPreview, ContactFilter, FormInput, Tooltip }
 }
 </script>
 
@@ -107,7 +115,7 @@ export default {
     padding: em(10px) 0;
     height: auto;
     .actions {
-      text-align: end;
+      // text-align: end;
       margin-bottom: em(20px);
     }
     // background-color: #E0E0E0;
