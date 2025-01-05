@@ -23,7 +23,7 @@ const  en = {
     },
     "emailIsTakenError": "Contact with that email already exists",
     "maxTimesAllowdToWatchVideo": "Max times allowd to watch video",
-    "uploadFileTooltipMsg": "uploadFileTooltipMsg"
+    "uploadFileTooltipMsg": "csv or xl file.\nvalid columns:\nnfirstName, lastName, email, mobile, tags (sepparated by ,), company"
   },
 }
 const he = {
