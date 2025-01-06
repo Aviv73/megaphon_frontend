@@ -46,7 +46,7 @@ export default {
     },
 
     imgToShow() {
-      return fixFileSrcToThumbnail(this.releaseData.previewImage || this.releaseData.mainImage, this.release);
+      return fixFileSrcToThumbnail(this.releaseData.previewImage, this.release) || fixFileSrcToThumbnail(this.releaseData.mainImage, this.release);
     }
   }
 }

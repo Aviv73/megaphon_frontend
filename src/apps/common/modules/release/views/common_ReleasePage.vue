@@ -49,7 +49,7 @@ export default {
       return this.$store.getters['release/filterBy'];
     },
     isLoading() {
-      return this.$store.getters['release/isLoading'];
+      return this.$store.getters['release/isLoading'] || this.$store.getters['organization/isLoading'];
     },
     releasePageInQuery() {
       return this.$route.query.page;

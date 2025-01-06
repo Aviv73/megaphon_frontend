@@ -61,6 +61,7 @@ const en = {
 
   "internalServerError": "Internal server error",
   "internalError": "Internal error",
+  "notFoundError": "Error: not found",
 
   "serverSleepsMsg": "Seems like the server fell asleep..\nHang in there,\nFew more seconds and we'r Waking it up!",
   
@@ -174,6 +175,7 @@ const he = {
 
   "internalServerError": "תקלת שרת",
   "internalError": "תקלה כללית",
+  "notFoundError": "לא נמצא",
   
   "serverSleepsMsg": "נראה שהשרת הלך לישון..\nהחזיקו מעמד,\n כמה רגעים והוא מתעורר!",
 

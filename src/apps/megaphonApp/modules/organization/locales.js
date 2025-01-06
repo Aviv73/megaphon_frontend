@@ -28,6 +28,7 @@ const en = {
     "addOrganization": 'Add organization',
     "mediaLinks": "Media",
     "orgRoles": {
+      "creator": "Creator",
       "admin": "Admin",
       "producer": "Producer",
       "user": "User",
@@ -78,6 +79,7 @@ const he = {
     "addOrganization": 'הצטרף לארגון',
     "mediaLinks": "מדיה",
     "orgRoles": {
+      "creator": "יוצר",
       "admin": "אדמין",
       "producer": "מפיץ",
       "user": "משתמש",

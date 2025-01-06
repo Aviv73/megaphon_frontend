@@ -55,7 +55,7 @@ export default {
       const orgFilter = this.org.routes.find(c => c.type === 'archive')?.releaseFilter || {
         "releaseTypes" : templateUtils.getAllReleaseTypesForOrg(this.org).filter(c => c.isGroup).map(c => c.id)
       }
-      const archiveReleases = await this.$store.dispatch({ type: 'release/loadItems', filterBy_: {}, organizationId: this.org._id, orgFilter });
+      const archiveReleases = await this.$store.dispatch({ type: 'release/loadItems', filterBy_: {}, organizationId: this.org._id, orgFilter, dontSet: true });
       this.$store.commit({ type: 'release/setArchiveReleases', releases: archiveReleases });
     }
   },

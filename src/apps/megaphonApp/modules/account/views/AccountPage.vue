@@ -17,7 +17,7 @@
       layoutMode="flex"
     >
       <div class="flex column gap10 align-start">
-        <div class="actions flex gap10 align-center justify-end width-all" v-if="isUserCurrOrgAdmin">
+        <div class="actions flex gap10 align-center justify-end width-all" v-if="isUserCurrOrgAdmin || isAdmin">
           <template v-if="organizationId === '-1'">
             <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
             <button class="btn big" @click="getAllAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('account.viewAllAccounts')}}</button>
@@ -45,6 +45,7 @@ import InviteAccountModal from '../../organization/cmps/InviteAccountModal.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service'
 import { organizationService } from '../../organization/services/organization.service';
+import { setDeepVal } from '../../../../common/modules/common/services/util.service';
 
 export default {
   name: 'AccountPage',
@@ -56,7 +57,14 @@ export default {
   },
   methods: {
     getAllAccounts(filterBy, orgId) {
+      filterBy = {...filterBy};
       filterBy.organizationId = typeof orgId === 'string'? orgId : this.$route.params.organizationId;
+      if (filterBy.organizationId == '-1') {
+        filterBy.organizationId = undefined;
+        setDeepVal(filterBy, 'filter.params.roles', 'admin');
+      } else {
+        if (filterBy?.filter?.params?.roles) delete filterBy.filter.params.roles;
+      }
       this.$store.dispatch({ type: 'account/loadItems', filterBy });
     },
     async approveAccount(account, orgId) {

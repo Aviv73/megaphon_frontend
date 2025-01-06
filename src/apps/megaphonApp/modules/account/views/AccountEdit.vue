@@ -26,7 +26,7 @@
               <FormInput type="checkbox" :value="isInOrg(org._id)" @change="toggleOrg(org._id)"/>
               <p>{{getOrgName(org._id)}}</p>
             </div>
-            <FormInput type="multiselect" placeholder="role" :value="org.roles || []" @change="val => updateOrgRoles(org._id, val)" :items="orgRoles"/>
+            <FormInput type="multiselect" placeholder="role" :value="org?.roles || []" @change="val => updateOrgRoles(org._id, val)" :items="orgRoles"/>
           </div>
         </div>
       </template>
