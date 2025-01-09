@@ -54,9 +54,28 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   const lastDotIdx = file.name.lastIndexOf('.');
   const type = lastDotIdx > -1 ? file.name.substring(lastDotIdx+1) : file.mimetype?.split('/').pop();
   const storeFileName = `file-${getRandomId()}.${type}`;
+
+  
+  const isVideo = ['mp4'].includes(type);
+  let videoSecondsDuration = 0;
+  if (isVideo) {
+    videoSecondsDuration = await new Promise((resolve, reject) => {
+      const videoUrl = URL.createObjectURL(file);
+      const videoEl = document.createElement('video');
+      videoEl.preload = 'metadata';
+      videoEl.onloadedmetadata = () => {
+        URL.revokeObjectURL(videoUrl);
+        resolve(videoEl.duration)
+      }
+      videoEl.onerror = () => {
+        console.error('Cant load video length');
+        resolve(0)
+      }
+    });
+  }
   
   const prms = [];
-  const baseParams = {parentData, fileSize, totalChunks, storeFileName, originalName, chunkSize: CHUNK_SIZE};
+  const baseParams = {parentData, fileSize, videoSecondsDuration, totalChunks, storeFileName, originalName, chunkSize: CHUNK_SIZE};
   let uploadId;
   const chunkByChunkMode = true;
   if (!chunkByChunkMode) uploadId = await httpService.post(`${ENDPOINT}/openMultipartUpload/${organizationId}`, null, baseParams);
