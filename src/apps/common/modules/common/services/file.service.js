@@ -58,7 +58,7 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   
   const isVideo = ['mp4'].includes(type);
   let videoSecondsDuration = 0;
-  if (isVideo) {
+  if (isVideo && false) {
     videoSecondsDuration = await new Promise((resolve, reject) => {
       const videoUrl = URL.createObjectURL(file);
       const videoEl = document.createElement('video');
