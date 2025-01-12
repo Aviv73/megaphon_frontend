@@ -3,6 +3,7 @@
     <!-- <p v-if="contact.firstName">{{contact.firstName}} {{contact.lastName}}</p>
     <p v-else>{{contact.email}}</p> -->
     <p>{{contactPreviewName}}</p>
+    <p class="wide-screen-item">{{contact.email}}</p>
     <p class="wide-screen-item">{{contact.role}}</p>
     <p class="wide-screen-item">{{companiesToShow.join(', ')}}</p>
     <template v-if="!contact.unsubscribed">

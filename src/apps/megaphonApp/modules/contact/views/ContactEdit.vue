@@ -27,7 +27,7 @@
     </div>
     <div class="flex align-center gap30">
       <button class="btn big danger" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
-      <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('submit')}}</button>
+      <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('save')}}</button>
       <button class="btn big" @click="close">{{$t('cancel')}}</button>
     </div>
     <Loader v-if="isLoading" fullScreen/>

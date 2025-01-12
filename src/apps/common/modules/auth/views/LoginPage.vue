@@ -7,7 +7,7 @@
       <FormInput type="text" labelholder="auth.email" v-model="userCred.email"/>
       <FormInput type="password" labelholder="auth.password" v-model="userCred.password"/>
       <div class="flex align-center space-between">
-        <button class="btn big primary flex align-center justify-center" :disabled="!isUserValid"><span>{{$t('submit')}}</span></button>
+        <button class="btn big primary flex align-center justify-center" :disabled="!isUserValid"><span>{{$t('login')}}</span></button>
       </div>
     </form>
     <ToggleModal>

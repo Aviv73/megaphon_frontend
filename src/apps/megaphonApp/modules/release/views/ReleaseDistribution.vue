@@ -35,6 +35,7 @@
           >
             <div class="table-item-preview gap10 table-header">
               <p>{{$t('contact.contactName')}}</p>
+              <p class="wide-screen-item">{{$t('email')}}</p>
               <p class="wide-screen-item">{{$t('contact.role')}}</p>
               <p class="wide-screen-item">{{$t('contact.companyName')}}</p>
               <div>

@@ -33,7 +33,7 @@
     </form>
     <div class="flex align-center space-between gap20">
       <div class="flex gap20">
-        <button class="btn big primary" @click="saveAccount" :disabled="!isAccountValid">{{$t('submit')}}</button>
+        <button class="btn big primary" @click="saveAccount" :disabled="!isAccountValid">{{$t('save')}}</button>
         <button class="btn big" @click="close" v-if="!isNested">{{$t('close')}}</button>
       </div>
       <button class="btn big" @click="deleteAccount" v-if="accountToEdit._id">{{$t('delete')}}</button>

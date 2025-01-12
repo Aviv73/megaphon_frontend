@@ -30,7 +30,7 @@
         <div class="flex align-center gap30 height-all">
           <button class="btn big" @click="close">{{$t('close')}}</button>
           <template v-if="isScreenWide">
-            <button class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">{{$t('release.saveAndClose')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
+            <button class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">{{$t('saveAndClose')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
             <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('save')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
           </template>
           <button v-else class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">
