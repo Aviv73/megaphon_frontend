@@ -154,12 +154,7 @@ export default {
     await this.initUser(org.requireAuth);
     this.isLoading = false;
 
-    if (this.$route.meta.reportReleaseOpen) {
-      const releaseId = this.$route.params[this.$route.meta.releaseIdParamName];
-      // const token = this.$route.query.token;
-      // const origin = this.$route.query.token;
-      distributionService.reportReleaseOpened(releaseId, this.$route.query);
-    }
+    
     this.displayUiConfig();
 
   },
@@ -186,6 +181,13 @@ export default {
       if (requireAuth && !this.loggedUser) {
         this.$store.commit({ type: 'auth/redirectPage', endpoint: window?.location?.hash?.split('#')[1] || '' });
         this.$router.push({name: 'LoginPage', query: { endpoint: window?.location?.hash?.split('#')[1] || '' } });
+      } else {
+        if (this.$route.meta.reportReleaseOpen) {
+          const releaseId = this.$route.params[this.$route.meta.releaseIdParamName];
+          // const token = this.$route.query.token;
+          // const origin = this.$route.query.token;
+          distributionService.reportReleaseOpened(releaseId, this.$route.query);
+        }
       }
       // else {
       //   if (this.$route.params.organizationId) return;
