@@ -65,10 +65,16 @@ export default {
       this.showModal = false;
       this.redirectEndpoint = '';
       this.requiredComunicationMethods = [];
+    },
+
+    
+    initComunicationMethod() {
+      this.method = this.comunicationMethods[0];
     }
   },
 
   created() {
+    this.initComunicationMethod();
     const on2AuthCb = async (endpoint, requiredComunicationMethods) => {
       if (this.showModal) return;
       this.showModal = true;
@@ -96,7 +102,7 @@ export default {
   },
   watch: {
     comunicationMethods() {
-      this.method = this.comunicationMethods[0];
+      this.initComunicationMethod();
     }
   }
 

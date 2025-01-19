@@ -46,13 +46,17 @@ async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, o
     return res;
   } catch(err) {
     console.log(err);
+    if (err?.needs2FactorAuth) {
+      evEmmiter.emit('needs_2_factor_auth', undefined, err.comunicationMethods);
+      throw err;
+      return;
+    }
     if (err.err && onError) onError(err);
     else if (!silent) alertService.toast({type: 'danger', msg: /*`Error ${err.status || 500}: + `*/ `${$t(err.err) || err.err || err.message || err.msg || err.error || 'internal error'}`});
     // setTimeout(() => {
     if (loading) commit({ type: 'setLoading', val: false });
     // }, 3000);
     console.log(err);
-    if (err.needs2FactorAuth) evEmmiter.emit('needs_2_factor_auth', undefined, err.comunicationMethods);
     throw err;
   }
 }

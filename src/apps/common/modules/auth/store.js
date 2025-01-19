@@ -124,7 +124,10 @@ export const _authStore = {
     async makeSecondFactorAuthPass({ commit, dispatch }, { method }) {
       return dispatch({
         type: '_Ajax',
-        do: async () => authService.makeSecondFactorAuthPass(method)
+        do: async () => authService.makeSecondFactorAuthPass(method),
+        onError: () => {
+          alertService.toast({type: 'danger', msg: $t('auth.cantSendSecondFactorAuthError')});
+        }
       });
     }
   }

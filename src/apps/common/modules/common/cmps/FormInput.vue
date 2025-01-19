@@ -1,7 +1,7 @@
 <template>
   <section class="form-input" :class="{ 'show-error': showError, ['form-input-' + type]: true }">
     <label class="label" :for="inputId" v-if="label || labelholder">
-      <p>{{ $t(label || labelholder) }}</p>
+      <p :title="$t(label || labelholder)">{{ $t(label || labelholder) }}</p>
       <span class="require-span" v-if="required" :style="{ opacity: isEmpty ? 1 : 0 }">*</span>
     </label>
     <div

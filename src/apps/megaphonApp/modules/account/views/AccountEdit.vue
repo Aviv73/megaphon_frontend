@@ -26,7 +26,10 @@
               <FormInput type="checkbox" :value="isInOrg(org._id)" @change="toggleOrg(org._id)"/>
               <p>{{getOrgName(org._id)}}</p>
             </div>
-            <FormInput type="multiselect" placeholder="role" :value="org?.roles || []" @change="val => updateOrgRoles(org._id, val)" :items="orgRoles"/>
+            <div class="flex align-center gap10">
+              <FormInput type="checkbox" :label="$t('account.skipSecondFactorAuth')" :value="org?.skipSecondFactorAuth || false" @change="val => updateOrgProp(org._id, 'skipSecondFactorAuth', val)"/>
+              <FormInput type="multiselect" placeholder="role" :value="org?.roles || []" @change="val => updateOrgProp(org._id, 'roles', val)" :items="orgRoles"/>
+            </div>
           </div>
         </div>
       </template>
@@ -138,10 +141,10 @@ export default {
         this.accountToEdit.organizations.push(orgItem);
       }
     },
-    updateOrgRoles(orgId, roles) {
+    updateOrgProp(orgId, propName, roles) {
       const org = this.accountToEdit.organizations.find(c => c._id === orgId);
       if (!org) return;
-      org.roles = roles;
+      org[propName] = roles;
     },
     async deleteAccount() {
       const orgId = this.$route.params.organizationId == '-1' ? '' : this.$route.params.organizationId;
@@ -172,9 +175,12 @@ export default {
 .megaphon-app {
   .account-edit {
     padding: em(10px) 0;
+    .form-input-checkbox {
+      flex-direction: row-reverse;
+    }
     .mailing-section {
       .form-input-checkbox {
-        flex-direction: row-reverse;
+        // flex-direction: row-reverse;
         justify-content: flex-end;
         align-items: flex-start;
         .label {

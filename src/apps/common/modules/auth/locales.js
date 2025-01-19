@@ -16,7 +16,7 @@ const  en = {
     "alerts": {
       "welcomeBack": "Welcome back",
       "goodby": "Goodby",
-      "welcome": "Welcome"
+      "welcome": "Welcome",
     },
     "emailIsTakenError": "User with that email already exists",
     "notLoggedInError": "Unauthorized, please login",
@@ -32,7 +32,9 @@ const  en = {
     "passValidationExplenation": "The password needs to be in 10 characters length and needs to include a number, an endlish character and a special character",
     
     "unknownEmailError": "Uunknown Email",
-    "secFactorPassExpirationMsg": "The second factor auth password is valid fot 5 minutes"
+    "secFactorPassExpirationMsg": "The second factor auth password is valid fot 5 minutes",
+    
+    "cantSendSecondFactorAuthError": "Something went wrong, cant send second factor authentication password"
   },
 }
 const he = {
@@ -71,7 +73,9 @@ const he = {
     "passValidationExplenation": "הסיסמה צריכה להיות באורך של 10 תוים לפחות וצריכה לכלול: מספר, אות באנגלית, ותו מיוחד",
     
     "unknownEmailError": "כתובת מייל לא מוכרת",
-    "secFactorPassExpirationMsg": "הקוד החד פעמי תקף ל5 דקות"
+    "secFactorPassExpirationMsg": "הקוד החד פעמי תקף ל5 דקות",
+    
+    "cantSendSecondFactorAuthError": "משהו השתבש, המערכת לא הצליחה לשלוח את קוד האימות"
   },
 }
 const heF = {
