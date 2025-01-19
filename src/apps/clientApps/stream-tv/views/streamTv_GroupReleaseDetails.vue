@@ -102,7 +102,6 @@
 
 <script>
 import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.vue';
-import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue';
 // import ReleasePreview from '../cmps/streamTv_ReleasePreview.vue';
 import ReleasePreview from '@/apps/common/modules/release/cmps/common_ReleasePreview.vue';
 import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
@@ -113,7 +112,7 @@ import  { getSvgs } from '../assets/images/svgs.js';
 
 export default {
   name: 'streamTv_GroupReleaseDetails',
-  components: { ItemList, ReleasePreview, ItemSearchList, ReleasesSlider },
+  components: { ItemList, ReleasePreview, ReleasesSlider },
   props: {
     release: {
       type: Object,

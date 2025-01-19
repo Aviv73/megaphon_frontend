@@ -19,13 +19,9 @@
       }"
       layoutMode="flex"
     >
-      <div class="actions">
+
+      <template v-slot:filterActions>
         <div class="flex align-center gap10 justify-end">
-          <Tooltip :msg_="$t('contactLocales.uploadFileTooltipMsg')">
-            <template v-slot:content>
-              <p v-html="$t('contactLocales.uploadFileTooltipMsg').split('\n').join('<br/>')"></p>
-            </template>
-          </Tooltip>
           <FormInput
             type="file"
             accept=".xlsx, .xls, .xl, .csv"
@@ -33,16 +29,26 @@
             v-model="contactsFiles"
             placeholder="contactLocales.uploadFromFile"
           />
+          <Tooltip :msg_="$t('contactLocales.uploadFileTooltipMsg')">
+            <template v-slot:content>
+              <p v-html="$t('contactLocales.uploadFileTooltipMsg').split('\n').join('<br/>')"></p>
+            </template>
+          </Tooltip>
         </div>
-      </div>
+      </template>
+      <template v-slot:listHeader>
+        <!-- <div class="actions">
+          
+        </div> -->
 
-      <div class="table-item-preview table-header">
-        <p class="wide-screen-item">{{$t('email')}}</p>
-        <p>{{$t('contactLocales.contactName')}}</p>
-        <p class="wide-screen-item">{{$t('contactLocales.role')}}</p>
-        <p class="wide-screen-item">{{$t('contactLocales.companyName')}}</p>
-        <p>{{$t('contactLocales.unsubscribed')}}</p>
-      </div>
+        <div class="table-item-preview table-header">
+          <p class="wide-screen-item">{{$t('email')}}</p>
+          <p>{{$t('contactLocales.contactName')}}</p>
+          <p class="wide-screen-item">{{$t('contactLocales.role')}}</p>
+          <p class="wide-screen-item">{{$t('contactLocales.companyName')}}</p>
+          <p>{{$t('contactLocales.unsubscribed')}}</p>
+        </div>
+      </template>
     </ItemSearchList>
     <Loader v-if="isLoading" fullScreen/>
   </section>

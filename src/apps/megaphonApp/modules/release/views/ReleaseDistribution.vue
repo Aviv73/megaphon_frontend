@@ -33,19 +33,21 @@
             }"
             layoutMode="flex"
           >
-            <div class="table-item-preview gap10 table-header">
-              <p>{{$t('contactLocales.contactName')}}</p>
-              <p class="wide-screen-item">{{$t('email')}}</p>
-              <p class="wide-screen-item">{{$t('contactLocales.role')}}</p>
-              <p class="wide-screen-item">{{$t('contactLocales.companyName')}}</p>
-              <div>
-                <button class="toggle-btn" @click="addAllSearchContacts()">
-                  <img class="add-all-btn-img reg" :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>
-                  <img class="add-all-btn-img dark" :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>
-                  {{$t('distributeLocales.addAll')}}
-                </button>
+            <template v-slot:listHeader>
+              <div class="table-item-preview gap10 table-header">
+                <p>{{$t('contactLocales.contactName')}}</p>
+                <p class="wide-screen-item">{{$t('email')}}</p>
+                <p class="wide-screen-item">{{$t('contactLocales.role')}}</p>
+                <p class="wide-screen-item">{{$t('contactLocales.companyName')}}</p>
+                <div>
+                  <button class="toggle-btn" @click="addAllSearchContacts()">
+                    <img class="add-all-btn-img reg" :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>
+                    <img class="add-all-btn-img dark" :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>
+                    {{$t('distributeLocales.addAll')}}
+                  </button>
+                </div>
               </div>
-            </div>
+            </template>
           </ItemSearchList>
         </div>
 

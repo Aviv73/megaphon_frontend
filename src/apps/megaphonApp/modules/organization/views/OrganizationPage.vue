@@ -16,9 +16,11 @@
       :showLoader="false"
       layoutMode="flex"
     >
-      <div class="table-item-preview table-header">
-        <h4>{{$t('organizationLocales.name')}}</h4>
-      </div>
+      <template v-slot:listHeader>
+        <div class="table-item-preview table-header">
+          <h4>{{$t('organizationLocales.name')}}</h4>
+        </div>
+      </template>>
     </ItemSearchList>
     <Loader v-if="isLoading" fullScreen/>
   </section>

@@ -26,7 +26,9 @@
       :showLoader="false"
       layoutMode="grid"
     >
-      <h2 v-if="selectedFolder">{{selectedFolder.name}}</h2>
+      <template v-slot:listHeader>
+        <h2 v-if="selectedFolder">{{selectedFolder.name}}</h2>
+      </template>
     </ItemSearchList>
     <Loader v-if="isLoading" fullScreen/>
     <router-view/>

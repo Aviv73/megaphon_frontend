@@ -22,14 +22,13 @@
 
 <script>
 import ItemList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemList.vue'
-import ItemSearchList from '@/apps/common/modules/common/cmps/ItemSearchList/ItemSearchList.vue'
 import ReleasePreview from '../cmps/default_ReleasePreview.vue'
 import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue'
 import ReleasesSlider from '../../../common/modules/release/cmps/ReleasesSlider.vue'
 
 export default {
   name: 'default_GroupReleaseDetails',
-  components: { ItemList, ReleasePreview, ItemSearchList, FilesSection, ReleasesSlider },
+  components: { ItemList, ReleasePreview, FilesSection, ReleasesSlider },
   props: {
     release: {
       type: Object,

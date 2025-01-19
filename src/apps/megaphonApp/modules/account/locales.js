@@ -18,6 +18,7 @@ const en = {
     "isPandingForApproval": "Panding for approval",
     "newsletter": "Newsletter",
     "skipSecondFactorAuth": "Skip second actor auth",
+    "mediaAccounts": "Media accounts",
     mailing: {
       "sms": "Sms",
       "newsletter": "Newsletter",
@@ -50,6 +51,7 @@ const he = {
     "isPandingForApproval": "ממתין לאישור",
     "newsletter": "ניוזלטר",
     "skipSecondFactorAuth": "בטל אימות שני",
+    "mediaAccounts": "אנשי מדיה",
     mailing: {
       "sms": "sms",
       "newsletter": "ניוזלטר",

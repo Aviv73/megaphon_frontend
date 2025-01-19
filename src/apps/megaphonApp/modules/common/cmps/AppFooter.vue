@@ -1,7 +1,18 @@
 <template>
   <footer class="app-footer flex">
     <div class="container flex align-center space-between height-all width-all">
-      <div class="flex align-center">
+      <div class="powered-by flex align-end_ align-center gap10" v-if="true">
+        <!-- Powered by Megaphon -->
+        <p>Powered by</p> <img :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
+      </div>
+      <div class="flex align-center gap10" v-if="false">
+        <p>Design: greissdesign</p>
+        <span>|</span>
+        <p>Developing: misterbit</p>
+        <span>|</span>
+        <p>Powered by: Megaphon</p>
+      </div>
+      <div class="flex align-center" v-if="false">
         <div class="flex align-center gap20" v-if="org?.mediaLinks?.length">
           <span>{{$t('contact')}} {{org.name}}</span>
           <OrgMediaLinks :organization="org" :color="selectedTheme?.colors?.[2]" :imgs="mediaSvgs"/>
@@ -9,10 +20,6 @@
         <div>
           {{org?.designPreferences?.contactMsg || ''}}
         </div>
-      </div>
-      <div class="powered-by flex align-end gap10">
-        <!-- Powered by Megaphon -->
-        <p>Powered by</p> <img :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
       </div>
     </div>
   </footer>

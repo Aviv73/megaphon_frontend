@@ -29,8 +29,8 @@ const  en = {
 const he = {
   "contactLocales": {
     "contact": "איש קשר",
-    "contacts": "אנשי מדיה",
-    "contactName": "שם איש מדיה",
+    "contacts": "אנשי קשר",
+    "contactName": "שם איש קשר",
     "role": "תפקיד",
     "companyName": "שם גוף",
     "editContact": "עריכת איש קשר",

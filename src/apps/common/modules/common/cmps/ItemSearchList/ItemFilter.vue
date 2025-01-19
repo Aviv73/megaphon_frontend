@@ -1,7 +1,9 @@
 <template>
   <form @submit.prevent="emitFilter" class="item-filter">
-    <FormInput placeholder="search" v-model="filterBy.filter.search"/>
-    <!-- <button @click="emitFilter">{{$t('filter')}}</button> -->
+    <div class="flex align-center gap5">
+      <FormInput placeholder="search" v-model="filterBy.filter.search"/>
+      <button class="btn" @click="emitFilter">{{$t('search')}}</button>
+    </div>
   </form>
 </template>
 

@@ -1,36 +1,38 @@
 <template>
   <section class="account-page flex column gap10 width-all">
-    <h2>{{$t('accountLocales.accounts')}}</h2>
+    <h2>{{$t(queryRoleType === 'watchOnly' ? 'accountLocales.mediaAccounts' : 'accountLocales.accounts')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allAccountData"
       :initFilterBy="filterBy"
       @filter="getAllAccounts"
       itemDetailesPageName="AccountDetails"
-      newItemPageName=""
+      newItemPageName="AccountEdit"
       :singlePreviewCmp="AccountPreview"
       :filterByCmp="AccountFilter"
-      :showActions="true"
+      :showActions="false"
       :dontRoute="true"
       :isLoading="isLoading"
       :showLoader="false"
       layoutMode="flex"
     >
-      <div class="flex column gap10 align-start">
-        <div class="actions flex gap10 align-center justify-end width-all" v-if="isUserCurrOrgAdmin || isAdmin">
-          <template v-if="organizationId === '-1'">
-            <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
-            <button class="btn big" @click="getAllAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('accountLocales.viewAllAccounts')}}</button>
-          </template>
-          <InviteAccountModal v-else/>
+      <template v-slot:listHeader>
+        <div class="flex column gap10 align-start">
+          <!-- <div class="actions flex gap10 align-center justify-end width-all" v-if="isUserCurrOrgAdmin || isAdmin">
+            <template v-if="organizationId === '-1'">
+              <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
+              <button class="btn big" @click="getAllAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('accountLocales.viewAllAccounts')}}</button>
+            </template>
+            <InviteAccountModal v-else/>
+          </div> -->
+          <div class="table-item-preview table-header">
+            <p>{{$t('name')}}</p>
+            <p class="wide-screen-item">{{$t('email')}}</p>
+            <p>{{$t('accountLocales.role')}}</p>
+            <!-- <p>{{$t('accountLocales.isPandingForApproval')}}</p> -->
+          </div>
         </div>
-        <div class="table-item-preview table-header">
-          <p>{{$t('name')}}</p>
-          <p class="wide-screen-item">{{$t('email')}}</p>
-          <p>{{$t('accountLocales.role')}}</p>
-          <!-- <p>{{$t('accountLocales.isPandingForApproval')}}</p> -->
-        </div>
-      </div>
+      </template>
     </ItemSearchList>
     <Loader v-if="isLoading" fullScreen/>
   </section>
@@ -65,6 +67,10 @@ export default {
       } else {
         if (filterBy?.filter?.params?.roles) delete filterBy.filter.params.roles;
       }
+      if (this.queryRoleType) {
+        // roleType = producerAndAdmin | watchOnly
+        filterBy.roleType = this.queryRoleType;
+      }
       this.$store.dispatch({ type: 'account/loadItems', filterBy });
     },
     async approveAccount(account, orgId) {
@@ -94,11 +100,18 @@ export default {
     },
     isLoading() {
       return this.$store.getters['account/isLoading'];
+    },
+    queryRoleType() {
+      return this.$route.query.roleType;
     }
   },
   watch: {
     organizationId() {
+      this.$store.commit('account/resetFilter');
       this.getAllAccounts();
+    },
+    queryRoleType() {
+      this.$store.commit('account/resetFilter');
     }
   },
   created() {

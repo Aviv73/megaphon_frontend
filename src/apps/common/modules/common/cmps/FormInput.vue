@@ -529,6 +529,7 @@ export default {
         box-shadow: 0px 0px em(5px) em(3px) rgba(0, 0, 0, 0.2);
         border-radius: em(4px);
         > * {
+          width: 100%;
           // height: em(32px);
           // line-height: em(34px);
           &:not(:last-child) {
@@ -543,7 +544,9 @@ export default {
             background-color: #f5f7fa;
           }
         }
-
+        input {
+          width: fit-content;
+        }
       }
       &.open {
         .toggle-btn,
@@ -604,6 +607,10 @@ export default {
     flex-wrap: wrap;
     gap: em(5px);
 
+    // input {
+    //   width: fit-content;
+    // }
+
     li {
       // width: em(50px);
       height: em(20px);
@@ -617,6 +624,9 @@ export default {
       justify-content: space-between;
       gap: em(5px)
     }
+  }
+  .drop-down {
+
   }
 }
 </style>

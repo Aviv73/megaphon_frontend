@@ -2,10 +2,14 @@
   <div class="item-page flex align-center space-between gap15 column flex-1 height-all">
     <div class="width-all flex align-start space-between wrap gap50 filter-container">
       <component :is="filterByCmp || 'ItemFilter'" :initFilter="filterBy" @filtered="setFilter" v-bind="propsToPass"/>
-      <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
+      <div class="flex gap20" v-if="showActions && newItemPageName">
+        <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
+        <slot name="filterActions"/>
+      </div>
+      <slot v-else name="filterActions"/>
     </div>
     <div class="width-all flex column flex-1 gap30 item-list-container">
-      <slot/>
+      <slot name="listHeader"/>
       <ItemList
         :items="items"
         :layoutMode="layoutMode"

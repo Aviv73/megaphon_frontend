@@ -1,7 +1,7 @@
 <template>
   <ToggleModal :showCloseBtn="true" :fullScreen="true" class="invite-account-modal">
     <template #toggler>
-        <div class="btn big">
+        <div class="btn primary big ">
           {{$t('accountLocales.inviteAccounts')}}
         </div>
       </template>
