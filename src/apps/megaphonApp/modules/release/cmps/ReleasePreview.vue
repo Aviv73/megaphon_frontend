@@ -3,7 +3,7 @@
     <li class="release-preview flex column gap5" :class="{ selected_: selectedReleaseIds.includes(item._id) }" @click="handleClick">
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="release-title">{{release.title}}</p>
-        <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('release.distributedAt')}}: {{pretyDistributionTime}}</p> -->
+        <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('releaseLocales.distributedAt')}}: {{pretyDistributionTime}}</p> -->
       <div v-if="!isUserOrgWatchOnly" class="actions-container flex column space-between align-end">
         <div class="actions flex column align-end gap5">
           <button v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>

@@ -7,10 +7,10 @@
     <p class="wide-screen-item">{{contact.role}}</p>
     <p class="wide-screen-item">{{companiesToShow.join(', ')}}</p>
     <template v-if="!contact.unsubscribed">
-      <button class="toggle-btn" v-if="isAdded" @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distribute.remove')}}</button>
+      <button class="toggle-btn" v-if="isAdded" @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.remove')}}</button>
       <button class="toggle-btn" v-else @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>{{$t('add')}}</button>
     </template>
-    <p v-else>{{$t('contact.unsubscribed')}}</p>
+    <p v-else>{{$t('contactLocales.unsubscribed')}}</p>
   </div>
 </template>
 

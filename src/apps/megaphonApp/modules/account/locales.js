@@ -1,5 +1,5 @@
 const en = {
-  "account": {
+  "accountLocales": {
     "createAccount": "Create Account",
     "account": "Account",
     "accounts": "Accounts",
@@ -31,7 +31,7 @@ const en = {
   }
 }
 const he = {
-  "account": {
+  "accountLocales": {
     "createAccount": "צור משתמש",
     "account": "משתמש",
     "accounts": "משתמשים",
@@ -64,15 +64,15 @@ const he = {
 }
 const heF = {
   ...he,
-  account: {
-    ...he.account,
+  accountLocales: {
+    ...he.accountLocales,
     "createAccount": "צרי משתמש",
     "editAccount": "ערכי פרטי משתמש",
     "confirmPassword": "הזיני שוב סיסמה",
     "block": "חסמי",
     "unBlock": "בטלי חסימה",
     alerts: {
-      ...he.account.alerts,
+      ...he.accountLocales.alerts,
       "confirmRemove": "האם את בטוחה שאת רוצה למחוק את המשתמש?",
     }
   }

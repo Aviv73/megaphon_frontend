@@ -19,13 +19,13 @@
               <!-- <router-link class="nav-list-item inner-list-item" :to="{ name: 'ReleasePage', params: { organizationId: org._id } }">
                 <DropDiv :onDrop="() => addReleasesToFolder(null, null)">
                   <div class="height-all width-all flex align-center" @click="clearFolderSelecion">
-                    {{$t('release.releases')}}
+                    {{$t('releaseLocales.releases')}}
                   </div>
                 </DropDiv>
               </router-link> -->
               <CostumeNavBar :baseRoute="{ name: 'ReleasePage', params: { organizationId: org._id } }" :routeRoles="['producer', 'admin']" :beforeSvg="svgs.tv"/>
-              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('contact.contacts')}}</span></router-link>
-              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('account.accounts')}}</span></router-link>
+              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
+              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
               <FoldersNav v-if="isRoleInOrg('producer') && false" :currentDropableFolderPath="currentDropableFolderPath" :folders="org.folders || []" :parentItem="org"/>
             </div>
           </li>
@@ -33,7 +33,7 @@
         <div class="nav-list-preview" v-if="false">
           <router-link v-if="!isSingleOrgMode" class="nav-list-item item-header flex align-center gap10" :to="{name: 'JoinOrgPage'}">
             <!-- <Avatar :size="25">{{''.slice(0,2)}}</Avatar> -->
-            <p>{{$t('organization.addOrganization')}}</p>
+            <p>{{$t('organizationLocales.addOrganization')}}</p>
           </router-link>
         </div>
         <div class="nav-item-preview system-nav" v-if="isAdmin" :class="{opened: showAdminNav}">
@@ -43,9 +43,9 @@
             <div class="svg-parrent toggle-arrow" v-html="svgs.toggleArrow"></div>
           </div>
           <div class="flex column" v-if="showAdminNav">
-            <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('contact.contacts')}}</span></router-link>
-            <router-link class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('account.accounts')}}</span></router-link>
-            <router-link class="nav-list-item inner-list-item" :to="{ name: 'OrganizationPage' }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.organizations" class="svg-parrent"></div>{{$t('organization.organizations')}}</span></router-link>
+            <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
+            <router-link class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
+            <router-link class="nav-list-item inner-list-item" :to="{ name: 'OrganizationPage' }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.organizations" class="svg-parrent"></div>{{$t('organizationLocales.organizations')}}</span></router-link>
           </div>
         </div>
         

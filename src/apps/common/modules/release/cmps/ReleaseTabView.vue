@@ -13,7 +13,7 @@
               @click="scrollToEl($event, tab.name)"
               
             >
-              <div class="hover-pop">{{$t(`release.tabs.${tab.name}`)}}</div>
+              <div class="hover-pop">{{$t(`releaseLocales.tabs.${tab.name}`)}}</div>
             </a>
             <router-link
               v-else-if="tab.type === 'fileViewer'"
@@ -22,11 +22,11 @@
               :class="{bold: selectedTab === tab.name, selected: selectedTab === tab.name}" 
               :to="{ name: 'FileViewer', query: {file: tab.url} }"
             >
-              <div class="hover-pop">{{$t(`release.tabs.${tab.name}`)}}</div>
+              <div class="hover-pop">{{$t(`releaseLocales.tabs.${tab.name}`)}}</div>
             </router-link>
           </template>
         </template>
-        <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
+        <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('releaseLocales.links')}}</a> -->
       </div>
       <div>
         <slot/>

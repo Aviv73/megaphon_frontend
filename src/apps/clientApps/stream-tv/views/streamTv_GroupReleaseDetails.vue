@@ -2,9 +2,9 @@
   
   <section class="group-release-details flex column gap20 height-all">
     <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(releaseData.mainImage, release))}')`, 'background-size': 'cover' }"> -->
-    <ReleasesSlider :title="`<div class='svg-parrent img' style='width:1.5em;height:1.5em'>${getIcons('white').recomended}</div><br/><h3>${$t('release.monthlyRecommendation')}</h3>`" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
+    <ReleasesSlider :title="`<div class='svg-parrent img' style='width:1.5em;height:1.5em'>${getIcons('white').recomended}</div><br/><h3>${$t('releaseModuleModule.monthlyRecommendation')}</h3>`" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
     <div class="page-like-section container flex column gap20 width-all" v-if="tabName === 'monthlySummary'">
-      <h2>{{$t('release.monthlySummary')}}</h2>
+      <h2>{{$t('releaseLocales.monthlySummary')}}</h2>
       <ul class="flex column gap30">
         <li class="release-summary-preview flex gap10" v-for="cRelease in releaseData.childrenReleases" :key="cRelease._id">
           <div class="flex-1 summery-image_">
@@ -21,7 +21,7 @@
       </ul>
     </div>
     <div class="page-like-section container flex column gap20 width-all" v-else-if="tabName === 'broadcastTimes'">
-      <h2>{{$t('release.broadcastTimes')}}</h2>
+      <h2>{{$t('releaseLocales.broadcastTimes')}}</h2>
       <ul class="flex column gap30 broadcast-times-table">
         <li class="flex column gap10" v-for="cRelease in releaseData.childrenReleases.filter(c => c.releaseData.broadcastTimes?.length)" :key="cRelease._id">
           <h4>{{cRelease.releaseData.title}}</h4>
@@ -43,7 +43,7 @@
       </ul>
     </div>
     <div class="page-like-section container width-all flex column gap20 width-all" v-else-if="tabName === 'archive'">
-      <h2>{{$t('release.archive')}}</h2>
+      <h2>{{$t('releaseLocales.archive')}}</h2>
       <ul class="archive-section flex align-center-wrap-justify-center gap20">
           <li v-for="cRelease in archiveReleases" :key="cRelease._id">
             <router-link :to="{name: 'ReleaseDetails', params: { id: cRelease._id } }">
@@ -53,11 +53,11 @@
         </ul>
     </div>
     <div v-else class="inner-container_ flex column gap10 width-all">
-      <!-- <ReleasesSlider :title="$t('release.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases"/> -->
+      <!-- <ReleasesSlider :title="$t('releaseLocales.monthlyRecommendation')" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases"/> -->
       <div class="items-section" v-if="mostWatchedReleases?.length">
         <div class="headline">
           <div class="img svg-parrent" v-html="icons.eye"></div>
-          <h3>{{$t('release.mostWatched')}}</h3>
+          <h3>{{$t('releaseLocales.mostWatched')}}</h3>
         </div>
         <ItemList
           layoutMode="flex"
@@ -71,7 +71,7 @@
       <div class="items-section">
         <div class="headline">
           <div class="img svg-parrent" v-html="icons.new"></div>
-          <h3>{{$t('release.newReleases')}}</h3>
+          <h3>{{$t('releaseLocales.newReleases')}}</h3>
         </div>
         <ItemList
           layoutMode="flex"

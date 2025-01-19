@@ -2,13 +2,13 @@
   <ToggleModal :showCloseBtn="true" :fullScreen="true" class="invite-account-modal">
     <template #toggler>
         <div class="btn big">
-          {{$t('account.inviteAccounts')}}
+          {{$t('accountLocales.inviteAccounts')}}
         </div>
       </template>
       <template #content>
         <div class="flex column gap10">
           <div class="flex align-center space-between gap10">
-            <h3>{{$t('organization.inviteMembers')}}</h3>
+            <h3>{{$t('organizationLocales.inviteMembers')}}</h3>
             <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
           </div>
           <SearchInput class="width-content" v-model="searchAccountStr" @change="getAccounts"/>

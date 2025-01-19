@@ -2,30 +2,30 @@
   <div class="release-report container flex column gap20 width-all" v-if="release">
     <template v-if="report">
       <div class="flex align-center space-between gap10 width-all">
-        <h2>{{$t('distribute.report')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
-        <button @click="onRemoveDistributionData" class="btn big secondary">{{$t('distribute.deleteDistributionData')}}</button>
+        <h2>{{$t('distributeLocales.report')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
+        <button @click="onRemoveDistributionData" class="btn big secondary">{{$t('distributeLocales.deleteDistributionData')}}</button>
       </div>
       <div class="main-section flex gap30 width-all">
         <div class="flex column gap10">
           <div class="table-like-list flex-1">
             <div class="table-item-preview gap10 table-header flex space-between">
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.distributedAt'}" @click="setContactsSorter('activity.distributedAt')">{{$t('date')}}</p>
-              <p class="flex-2" :class="{selected: sortContactsKeys[0] === 'name'}" @click="setContactsSorter('name', 'firstName', 'email', 'token')">{{$t('contact.contactName')}} / {{$t('distribute.token')}}</p>
-              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'origin'}" @click="setContactsSorter('origin')">{{$t('distribute.origin')}}</p>
+              <p class="flex-2" :class="{selected: sortContactsKeys[0] === 'name'}" @click="setContactsSorter('name', 'firstName', 'email', 'token')">{{$t('contactLocales.contactName')}} / {{$t('distributeLocales.token')}}</p>
+              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'origin'}" @click="setContactsSorter('origin')">{{$t('distributeLocales.origin')}}</p>
               <!-- <p>{{$t('email')}}</p> -->
-              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedNewsAt'}" @click="setContactsSorter('activity.openedNewsAt')">{{$t('distribute.newsletter')}}</p>
-              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedLandingPageAt'}" @click="setContactsSorter('activity.openedLandingPageAt')">{{$t('distribute.wached')}}</p>
-              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distribute.wachedCount')}}</p>
-              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')">{{$t('distribute.unsubscribed')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedNewsAt'}" @click="setContactsSorter('activity.openedNewsAt')">{{$t('distributeLocales.newsletter')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedLandingPageAt'}" @click="setContactsSorter('activity.openedLandingPageAt')">{{$t('distributeLocales.wached')}}</p>
+              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distributeLocales.wachedCount')}}</p>
+              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')">{{$t('distributeLocales.unsubscribed')}}</p>
             </div>
             <router-link
-              v-for="contact in contactsToShow" :key="contact._id"
+              v-for="(contact, idx) in contactsToShow" :key="idx"
               class="table-item-preview gap10 flex align-center space-between"
               :to="{ name: 'ContactReportPage', params: {id: contact._id || 'unknown'}, query: {email: contact.email} }"
             >
               <p class="flex-1 wide-screen-item">{{contact.activity?.distributedAt? pretyDate(contact.activity?.distributedAt) : '-'}}</p>
               <p class="flex-2" :title="getContactName(contact)">{{getContactName(contact)}}</p>
-              <p class="flex-1 wide-screen-item">{{$t(`distribute.origins.${contact.origin}`)}}</p>
+              <p class="flex-1 wide-screen-item">{{$t(`distributeLocales.origins.${contact.origin}`)}}</p>
               <!-- <p>{{contact.email}}</p> -->
               <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'email')?.length)}}</p>
               <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length)}}</p>
@@ -37,7 +37,7 @@
         </div>
         <div class="flex column gap30">
           <ReleaseDistributionLinkCoppier :release="release" :organization="organization"/>
-          <h2>{{$t('distribute.enterenceOrigins')}}</h2>
+          <h2>{{$t('distributeLocales.enterenceOrigins')}}</h2>
           <PieChart
             chart-id="report-chart"
             dataset-id-key="datasetIdKey"
@@ -52,7 +52,7 @@
               }
             }"
             :chart-data="{
-              labels: Object.keys(originsMap).map(key => $t(`distribute.origins.${key}`)),
+              labels: Object.keys(originsMap).map(key => $t(`distributeLocales.origins.${key}`)),
               datasets: [
                 {
                   backgroundColor: chartClrs,
@@ -63,13 +63,13 @@
           />
           <div class="data-info flex column gap5">
             <div v-for="(key, idx) in Object.keys(originsMap)" :key="key">
-              <span :style="{backgroundColor: chartClrs[idx]}"></span> {{$t(`distribute.origins.${key}`)}} - {{originsMap[key]}}
+              <span :style="{backgroundColor: chartClrs[idx]}"></span> {{$t(`distributeLocales.origins.${key}`)}} - {{originsMap[key]}}
             </div>
           </div>
           <hr/>
           <div class="data-info flex column gap5">
-              <p>{{$t('distribute.wached')}}: {{activityMap.landing}}</p>
-              <p>{{$t('distribute.newsOpened')}}: {{activityMap.news}}</p>
+              <p>{{$t('distributeLocales.wached')}}: {{activityMap.landing}}</p>
+              <p>{{$t('distributeLocales.newsOpened')}}: {{activityMap.news}}</p>
           </div>
           <hr/>
           <!-- <pre>{{activityMap}}</pre> -->
@@ -77,7 +77,7 @@
       </div>
     </template>
     <div class="flex wrap gap30" v-else>
-      <h2>{{$t('distribute.noDistributionDataForRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
+      <h2>{{$t('distributeLocales.noDistributionDataForRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
       <ReleaseDistributionLinkCoppier :release="release" :organization="organization"/>
     </div>
 
@@ -135,7 +135,7 @@ export default {
     },
 
     async onRemoveDistributionData() {
-      if (!await alertService.Confirm(this.$t('distribute.alertMsgs.confirmRemoveDistData'))) return;
+      if (!await alertService.Confirm(this.$t('distributeLocales.alertMsgs.confirmRemoveDistData'))) return;
       await this.$store.dispatch({ type: 'release/removeDistData', releaseId: this.releaseId, organizationId: this.$route.params.organizationId });
       this.$router.push({name: 'ReleasePage', params: {organizationId: this.$route.params.organizationId}});
     }
@@ -184,9 +184,10 @@ export default {
     activityMap() {
       return this.report.recipients.reduce((acc, c) => {
         const activities = c.activity;
-        if (activities.openedNewsAt) acc.news += 1;
-        if (activities.openedLandingPageAt) acc.landing += 1;
+        if (activities.views?.filter(c => c.platform === 'email')?.length) acc.news += 1;
+        if (activities.views?.filter(c => c.platform === 'landingPage')?.length) acc.landing += 1;
         if (activities.unsubscribedAt) acc.unsubscribe += 1;
+        
         return acc;
       }, { news: 0, landing: 0, unsubscribe: 0 });
     },

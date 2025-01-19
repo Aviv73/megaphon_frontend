@@ -33,8 +33,8 @@
           </router-link>
         </div>
         <template v-if="isUserWatchOnly">
-          <button class="nav-item logout-btn" @click="logout">{{$t('auth.logout')}}</button>
-          <router-link class="nav-item edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
+          <button class="nav-item logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>
+          <router-link class="nav-item edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('authLocales.editUserDetails')}}</router-link>
           <router-link class="nav-item org-header flex align-center gap10 small-screen-item" :to="{name: 'SettingsPage'}">
             <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
           </router-link>

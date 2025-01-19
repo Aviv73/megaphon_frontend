@@ -10,7 +10,7 @@
       <!-- <template v-if="field === 'toggleBtn'">
         <button v-if="" class="toggle-btn" @click="toggleContact(contact)">
           <img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>
-          {{$t('distribute.remove')}}
+          {{$t('distributeLocales.remove')}}
         </button>
       </template>
       <template v-else>

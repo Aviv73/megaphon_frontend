@@ -1,6 +1,6 @@
 <template>
   <div class="flex column align-start gap40 align-center_ main-pad-y">
-    <h2>{{$t('organization.searchOrganizations')}}</h2>
+    <h2>{{$t('organizationLocales.searchOrganizations')}}</h2>
     <div class="join-org-page flex column gap50">
       <SearchInput class="width-content" v-model="searchOrgStr" @change="getOrgs"/>
       <ul v-if="searchedOrgs.length" class="flex column gap20">

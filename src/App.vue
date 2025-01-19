@@ -110,7 +110,7 @@ export default {
     //   // evEmmiter.off('needs_2_factor_auth', on2AuthCb);
     //   try {
     //     if (this.loggedUser) await this.$store.dispatch({ type: 'auth/makeSecondFactorAuthPass' });
-    //     const pass = await alertService.Prompt(this.$t('auth.required2FactorAthMsg'), this.$t('auth.password'));
+    //     const pass = await alertService.Prompt(this.$t('authLocales.required2FactorAthMsg'), this.$t('authLocales.password'));
     //     await this.$store.dispatch({ type: 'auth/finish2FactorAuth', pass });
     //     if (endPoint) this.$router.push(endPoint);
     //     evEmmiter.on('needs_2_factor_auth', on2AuthCb);

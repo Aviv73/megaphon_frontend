@@ -5,7 +5,7 @@
     <p>{{account.email}}</p>
     <p>{{$t('systemRoles')}}: {{account.roles.map(c => $t(c)).join(', ')}}</p>
     <div class="flex column gap5">
-      <p>{{$t('organization.organizations')}}:</p>
+      <p>{{$t('organizationLocales.organizations')}}:</p>
       <ul class="flex column gap5">
         <li v-for="org in account.organizations" :key="org._id">
           <router-link :to="{ name: 'OrganizationDetails', params: { id: org._id } }">

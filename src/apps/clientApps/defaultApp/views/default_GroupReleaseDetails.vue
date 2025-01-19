@@ -6,7 +6,7 @@
     <div class="inner-container flex column gap30">
       <h1>{{release.title}}</h1>
       <h5>{{release.subTitle}}</h5>
-      <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
+      <p v-if="monthPublish">{{$t('releaseLocales.monthPublish')}}: {{monthPublish}}</p>
       <div v-html="release.content"></div>
       <ItemList
         layoutMode="flex"

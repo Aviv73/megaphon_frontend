@@ -1,20 +1,20 @@
 <template>
   <div v-if="accountToEdit" class="account-edit app-form-styling simple-form flex column gap40">
-    <h2 v-if="accountToEdit._id">{{$t('account.editAccount')}}</h2>
-    <h2 v-else>{{$t('account.createAccount')}}</h2>
+    <h2 v-if="accountToEdit._id">{{$t('accountLocales.editAccount')}}</h2>
+    <h2 v-else>{{$t('accountLocales.createAccount')}}</h2>
     <form v-if="accountToEdit" @submit.prevent="saveAccount" class="flex column gap20">
-      <FormInput type="text" labelholder="account.firstname" v-model="accountToEdit.firstName"/>
-      <FormInput type="text" labelholder="account.lastname" v-model="accountToEdit.lastName"/>
-      <FormInput type="text" labelholder="account.email" v-model="accountToEdit.email"/>
-      <FormInput type="phone-number" labelholder="account.mobile" v-model="accountToEdit.mobileData" @change="val => accountToEdit.mobile = val.formatted"/>
-      <FormInput type="text" labelholder="account.newPassword" v-model="accountToEdit.password" :error="isPassValid ? '' : $t('auth.passValidationExplenation')" :tooltipMsg="$t('auth.passValidationExplenation')"/>
-      <FormInput type="text" labelholder="account.confirmPassword" v-model="confirmPassword"/>
+      <FormInput type="text" labelholder="accountLocales.firstname" v-model="accountToEdit.firstName"/>
+      <FormInput type="text" labelholder="accountLocales.lastname" v-model="accountToEdit.lastName"/>
+      <FormInput type="text" labelholder="accountLocales.email" v-model="accountToEdit.email"/>
+      <FormInput type="phone-number" labelholder="accountLocales.mobile" v-model="accountToEdit.mobileData" @change="val => accountToEdit.mobile = val.formatted"/>
+      <FormInput type="text" labelholder="accountLocales.newPassword" v-model="accountToEdit.password" :error="isPassValid ? '' : $t('authLocales.passValidationExplenation')" :tooltipMsg="$t('authLocales.passValidationExplenation')"/>
+      <FormInput type="text" labelholder="accountLocales.confirmPassword" v-model="confirmPassword"/>
 
       <div class="flex column gap5 mailing-section">
-        <h4>{{$t('account.newsletter')}}</h4>
-        <FormInput type="checkbox" labelholder="account.mailing.sms" v-model="accountToEdit.mailing.sms"/>
-        <FormInput type="checkbox" labelholder="account.mailing.newsletter" v-model="accountToEdit.mailing.newsletter"/>
-        <FormInput type="checkbox" labelholder="account.mailing.unsubscribeMsg" v-model="accountToEdit.mailing.unsubscribed"/>
+        <h4>{{$t('accountLocales.newsletter')}}</h4>
+        <FormInput type="checkbox" labelholder="accountLocales.mailing.sms" v-model="accountToEdit.mailing.sms"/>
+        <FormInput type="checkbox" labelholder="accountLocales.mailing.newsletter" v-model="accountToEdit.mailing.newsletter"/>
+        <FormInput type="checkbox" labelholder="accountLocales.mailing.unsubscribeMsg" v-model="accountToEdit.mailing.unsubscribed"/>
       </div>
 
       <!-- <template v-if="isUserAdmin && !isNested"> -->
@@ -27,7 +27,7 @@
               <p>{{getOrgName(org._id)}}</p>
             </div>
             <div class="flex align-center gap10">
-              <FormInput type="checkbox" :label="$t('account.skipSecondFactorAuth')" :value="org?.skipSecondFactorAuth || false" @change="val => updateOrgProp(org._id, 'skipSecondFactorAuth', val)"/>
+              <FormInput type="checkbox" :label="$t('accountLocales.skipSecondFactorAuth')" :value="org?.skipSecondFactorAuth || false" @change="val => updateOrgProp(org._id, 'skipSecondFactorAuth', val)"/>
               <FormInput type="multiselect" placeholder="role" :value="org?.roles || []" @change="val => updateOrgProp(org._id, 'roles', val)" :items="orgRoles"/>
             </div>
           </div>
@@ -63,8 +63,8 @@ export default {
     }
   },
   computed: {
-    systemRoles: () => [...Object.values(consts.userRoles)].map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
-    orgRoles: () => [...Object.values(consts.organizationRoles)].slice(1).map(c => ({ value: c, label: `organization.orgRoles.${c}` })),
+    systemRoles: () => [...Object.values(consts.userRoles)].map(c => ({ value: c, label: `organizationLocales.orgRoles.${c}` })),
+    orgRoles: () => [...Object.values(consts.organizationRoles)].slice(1).map(c => ({ value: c, label: `organizationLocales.orgRoles.${c}` })),
     isAccountValid() {
       const user = this.accountToEdit;
       return user && user.firstName && user.lastName && user.email &&

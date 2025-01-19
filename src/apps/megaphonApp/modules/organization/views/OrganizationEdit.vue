@@ -1,25 +1,25 @@
 <template>
   <div v-if="organizationToEdit" class="organization-edit app-form-styling simple-form flex column gap40 width-all">
-    <h2 v-if="organizationToEdit._id">{{$t('organization.editOrganization')}}</h2>
-    <h2 v-else>{{$t('organization.createOrganization')}}</h2>
+    <h2 v-if="organizationToEdit._id">{{$t('organizationLocales.editOrganization')}}</h2>
+    <h2 v-else>{{$t('organizationLocales.createOrganization')}}</h2>
     <form v-if="organizationToEdit" @submit.prevent="" class="flex column width-all gap50 align-start">
       <div class="input-container">
-        <p>{{$t('organization.name')}}</p>
-        <FormInput type="text" placeholder="organization.name" v-model="organizationToEdit.name"/>
+        <p>{{$t('organizationLocales.name')}}</p>
+        <FormInput type="text" placeholder="organizationLocales.name" v-model="organizationToEdit.name"/>
       </div>
       <div class="flex column gap20">
-        <p>{{$t('organization.logo')}}</p>
+        <p>{{$t('organizationLocales.logo')}}</p>
         <FileUploader v-if="organizationToEdit._id" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="organizationToEdit.logo" @input="val => imgUploaded(val, 'logo')" :rootItem="organizationToEdit"/>
-        <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
+        <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
       </div>
 
       <div class="from-emails-section flex column gap20 align-start">
-        <p>{{$t('organization.fromEmails')}}</p>
+        <p>{{$t('organizationLocales.fromEmails')}}</p>
         <ul class="emails flex column gap10 table-like">
           <li>
             <p>{{$t('email')}}</p>
             <p>{{$t('name')}}</p>
-            <p>{{$t('distribute.allowReply')}}</p>
+            <p>{{$t('distributeLocales.allowReply')}}</p>
             <p></p>
           </li>
           <li v-for="(curr, idx) in organizationToEdit.fromEmails || []" :key="idx">
@@ -34,18 +34,18 @@
 
       <div class="flex column gap20">
         <div class="input-container">
-          <p>{{$t('organization.defaultGalleryCredit')}}</p>
-          <FormInput type="text" placeholder="organization.defaultGalleryCredit" v-model="organizationToEdit.defaultGalleryCredit"/>
+          <p>{{$t('organizationLocales.defaultGalleryCredit')}}</p>
+          <FormInput type="text" placeholder="organizationLocales.defaultGalleryCredit" v-model="organizationToEdit.defaultGalleryCredit"/>
         </div>
         <div class="input-container">
-          <p>{{$t('organization.distributionBcc')}}</p>
-          <FormInput type="text" placeholder="organization.distributionBcc" v-model="organizationToEdit.distributionBcc"/>
+          <p>{{$t('organizationLocales.distributionBcc')}}</p>
+          <FormInput type="text" placeholder="organizationLocales.distributionBcc" v-model="organizationToEdit.distributionBcc"/>
         </div>
       </div>
 
       
       <div class="logos-section flex column gap20 align-start">
-        <p>{{$t('organization.logos')}}</p>
+        <p>{{$t('organizationLocales.logos')}}</p>
         <ul  v-if="organizationToEdit._id" class="flex column gap10 table-like">
           <li>
             <p>{{$t('name')}}</p>
@@ -59,12 +59,12 @@
             <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
           </li>
         </ul>
-        <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
+        <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
         <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
       </div>
 
       <div class="media-links-section flex column gap20 align-start">
-        <p>{{$t('organization.mediaLinks')}}</p>
+        <p>{{$t('organizationLocales.mediaLinks')}}</p>
         <ul class="flex column gap10 table-like">
           <li>
             <p>{{$t('type')}}</p>
@@ -89,8 +89,8 @@
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
           
           <div class="flex column gap20">
-            <FormInput :error="isDomainExistsError && $t('organization.domainTakenError') || ''" type="text" labelholder="organization.domain" v-model="organizationToEdit.domain"/>
-            <FormInput type="select" labelholder="organization.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
+            <FormInput :error="isDomainExistsError && $t('organizationLocales.domainTakenError') || ''" type="text" labelholder="organizationLocales.domain" v-model="organizationToEdit.domain"/>
+            <FormInput type="select" labelholder="organizationLocales.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
             <FormInput type="checkbox" title="requireAuth" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
             <FormInput type="checkbox" title="require2FactorAuth" labelholder="require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
             <FormInput type="checkbox" title="isStandAlone" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
@@ -98,11 +98,11 @@
             <FormInput type="checkbox" title="onlyKnownRegistrations" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
             <FormInput type="checkbox" title="useDirectLink" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
           </div>
-          <FormInput type="textarea" labelholder="organization.searchKeys" v-model="organizationToEdit.searchKeys"/>
+          <FormInput type="textarea" labelholder="organizationLocales.searchKeys" v-model="organizationToEdit.searchKeys"/>
 
           
           <div class="flex column gap40 align-start">
-            <p>{{$t('organization.designPreferences')}}</p>
+            <p>{{$t('organizationLocales.designPreferences')}}</p>
 
             <div class="flex column gap20" v-for="designAppKey in ['producerApp', 'clientApp', 'newsletter']" :key="designAppKey">
               <p>{{designAppKey}}</p>
@@ -110,13 +110,13 @@
                 <FormInput type="text" labelholder="name" v-model="theme.name"/>
                 <FormInput type="select" class="gap10" labelholder="inheritTheme" :value="null" :items="allDefaultThemes" @change="val => inheritTheme(theme, val)"/>
                 <div class="input-container flex gap20">
-                  <FormInput type="color" labelholder="organization.bodyColor" v-model="theme.colors[0]"/>
-                  <FormInput type="color" labelholder="organization.bodyBg" v-model="theme.colors[1]"/>
-                  <FormInput type="color" labelholder="organization.headerColor" v-model="theme.colors[2]"/>
-                  <FormInput type="color" labelholder="organization.headerBg" v-model="theme.colors[3]"/>
-                  <FormInput type="color" labelholder="organization.headersColor" v-model="theme.colors[4]"/>
-                  <FormInput type="color" labelholder="organization.headersBgColor" v-model="theme.colors[5]"/>
-                  <FormInput type="color" labelholder="organization.linkColor" v-model="theme.colors[6]"/>
+                  <FormInput type="color" labelholder="organizationLocales.bodyColor" v-model="theme.colors[0]"/>
+                  <FormInput type="color" labelholder="organizationLocales.bodyBg" v-model="theme.colors[1]"/>
+                  <FormInput type="color" labelholder="organizationLocales.headerColor" v-model="theme.colors[2]"/>
+                  <FormInput type="color" labelholder="organizationLocales.headerBg" v-model="theme.colors[3]"/>
+                  <FormInput type="color" labelholder="organizationLocales.headersColor" v-model="theme.colors[4]"/>
+                  <FormInput type="color" labelholder="organizationLocales.headersBgColor" v-model="theme.colors[5]"/>
+                  <FormInput type="color" labelholder="organizationLocales.linkColor" v-model="theme.colors[6]"/>
                 </div>
                 <ToggleModal :fullScreen="true" class="code-edit-modal">
                   <template #toggler>
@@ -133,20 +133,20 @@
             </div>
 
             <div class="flex column gap20 align-start">
-              <p>{{$t('organization.loginPagePreferences')}}</p>
+              <p>{{$t('organizationLocales.loginPagePreferences')}}</p>
               <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
               <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
-              <p v-else>{{$t('organization.saveOrgToUploadFilesMsg')}}</p>
-              <FormInput type="textarea" labelholder="organization.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
+              <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
+              <FormInput type="textarea" labelholder="organizationLocales.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
             </div>
             <div class="flex column gap20 align-start">
-              <p>{{$t('organization.contactMsg')}}</p>
-              <FormInput type="text" labelholder="organization.contactMsg" v-model="organizationToEdit.designPreferences.contactMsg"/>
+              <p>{{$t('organizationLocales.contactMsg')}}</p>
+              <FormInput type="text" labelholder="organizationLocales.contactMsg" v-model="organizationToEdit.designPreferences.contactMsg"/>
             </div>
           </div>
 
           <div class="route-filters-section flex column gap20 align-start">
-            <p>{{$t('organization.routes')}}</p>
+            <p>{{$t('organizationLocales.routes')}}</p>
             <ul class="flex column gap10 table-like">
               <li>
                 <p>{{$t('title')}}</p>
@@ -180,7 +180,7 @@
           </div>
 
           <div class="inner-filters-section flex column gap20 align-start">
-            <p>{{$t('organization.innerFilters')}}</p>
+            <p>{{$t('organizationLocales.innerFilters')}}</p>
             <ul class="flex column gap10 table-like">
               <li>
                 <p>{{$t('field')}}</p>
@@ -199,7 +199,7 @@
           </div>
 
           <div class="release-types-section flex column gap20 align-start">
-            <p>{{$t('organization.releaseTypes')}}</p>
+            <p>{{$t('organizationLocales.releaseTypes')}}</p>
             <ul class="flex column gap10 table-like">
               <li>
                 <!-- <p>{{$t('id')}}</p> -->
@@ -224,7 +224,7 @@
           </div>
           
           <div class="templates-section flex column gap20 align-start">
-            <p>{{$t('organization.templates')}}</p>
+            <p>{{$t('organizationLocales.templates')}}</p>
             <ul class="flex column gap10 table-like">
               <li>
                 <p>{{$t('name')}}</p>

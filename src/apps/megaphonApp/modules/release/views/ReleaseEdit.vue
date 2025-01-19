@@ -2,16 +2,16 @@
   <div class="release-edit app-form-styling flex column gap20" v-if="itemToEdit && org">
     <!-- <header class="header tab-nav">
       <div class="container width-all">
-        <button @click="showDesign = false" :class="{selected: !showDesign}">{{$t('release.editRelease')}}</button>
-        <button :disabled="!itemToEdit._id" @click="showDesign = true" :class="{selected: showDesign}">{{$t('release.designAndPreview')}}</button>
+        <button @click="showDesign = false" :class="{selected: !showDesign}">{{$t('releaseLocales.editRelease')}}</button>
+        <button :disabled="!itemToEdit._id" @click="showDesign = true" :class="{selected: showDesign}">{{$t('releaseLocales.designAndPreview')}}</button>
       </div>
     </header> -->
     <main class="form-content container flex column gap30 width-all">
       <template v-if="!showDesign">
-        <h2>{{$t(itemToEdit._id? 'release.editRelease' : 'release.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
+        <h2>{{$t(itemToEdit._id? 'releaseLocales.editRelease' : 'releaseLocales.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
         <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
           <FormInput class="gap30 locale-select" type="select" labelholder="locale" :itemsMap="{'english': 'en', 'עברית': 'he'}" v-model="itemToEdit.design.locale"/>
-          <FormInput class="gap30 expiration-date" type="date" labelholder="release.expirationDate" v-model="itemToEdit.expirationDate" format_="timeMS"/>
+          <FormInput class="gap30 expiration-date" type="date" labelholder="releaseLocales.expirationDate" v-model="itemToEdit.expirationDate" format_="timeMS"/>
           <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :release="itemToEdit" :parentItem="itemToEdit.releaseData" :organization="org"/>
         </form>
       </template>
@@ -37,11 +37,11 @@
             {{$t('save')}}
             <!-- <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/> -->
           </button>
-          <button class="btn big primary" v-if="showDesign" @click="showDesign = false">{{$t('release.editRelease')}}</button>
-          <button class="btn big primary" v-if="!showDesign" :disabled="!itemToEdit._id" @click="showDesign = true" >{{$t('release.designAndPreview')}}</button>
+          <button class="btn big primary" v-if="showDesign" @click="showDesign = false">{{$t('releaseLocales.editRelease')}}</button>
+          <button class="btn big primary" v-if="!showDesign" :disabled="!itemToEdit._id" @click="showDesign = true" >{{$t('releaseLocales.designAndPreview')}}</button>
           
-          <button v-if="isScreenWide" class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('release.confirmAndDistribute')}}</button>
-          <button v-else class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('distribute.distribute')}}</button>
+          <button v-if="isScreenWide" class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('releaseLocales.confirmAndDistribute')}}</button>
+          <button v-else class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('distributeLocales.distribute')}}</button>
         </div>
       </div>
     </footer>
@@ -142,7 +142,7 @@ export default {
     async close() {
       if (
         this.didChange && 
-        !await alertService.Confirm(this.$t('release.alerts.leaveConfirm'))
+        !await alertService.Confirm(this.$t('releaseLocales.alerts.leaveConfirm'))
       ) return;
       this.navigateOut();
     },

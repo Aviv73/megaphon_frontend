@@ -1,5 +1,5 @@
 const  en = {
-  "auth": {
+  "authLocales": {
     "logout": "Logout",
     "editUserDetails": "Edit user details",
     "forgotPassword": "Forgot password?",
@@ -38,7 +38,7 @@ const  en = {
   },
 }
 const he = {
-  "auth": {
+  "authLocales": {
     "logout": "התנתק",
     "editUserDetails": "ערוך פרטי משתמש",
     "forgotPassword": "שכחת סיסמה?",
@@ -80,10 +80,10 @@ const he = {
 }
 const heF = {
   ...he,
-  auth: {
-    ...he.auth,
+  authLocales: {
+    ...he.authLocales,
     alerts: {
-      ...he.auth.alerts
+      ...he.authLocales.alerts
     }
   }
 }

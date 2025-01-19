@@ -56,7 +56,7 @@ export const _authStore = {
         onSuccess: (res) => {
           if (res.user) {
             commit({ type: 'setLoggedUser', user: res.user });
-            alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
+            alertService.toast({type: 'safe', msg: `${$t('authLocales.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
           }
           return res;
         }
@@ -114,7 +114,7 @@ export const _authStore = {
         onSuccess: (res) => {
           if (res.user) {
             commit({ type: 'setLoggedUser', user: res.user });
-            alertService.toast({type: 'safe', msg: `${$t('auth.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
+            alertService.toast({type: 'safe', msg: `${$t('authLocales.alerts.welcomeBack')}, ${res.user.firstName} ${res.user.lastName}!`});
           }
           console.log(res);
           return res;
@@ -126,7 +126,7 @@ export const _authStore = {
         type: '_Ajax',
         do: async () => authService.makeSecondFactorAuthPass(method),
         onError: () => {
-          alertService.toast({type: 'danger', msg: $t('auth.cantSendSecondFactorAuthError')});
+          alertService.toast({type: 'danger', msg: $t('authLocales.cantSendSecondFactorAuthError')});
         }
       });
     }

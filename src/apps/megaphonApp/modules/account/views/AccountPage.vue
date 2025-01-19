@@ -1,6 +1,6 @@
 <template>
   <section class="account-page flex column gap10 width-all">
-    <h2>{{$t('account.accounts')}}</h2>
+    <h2>{{$t('accountLocales.accounts')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allAccountData"
@@ -20,15 +20,15 @@
         <div class="actions flex gap10 align-center justify-end width-all" v-if="isUserCurrOrgAdmin || isAdmin">
           <template v-if="organizationId === '-1'">
             <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
-            <button class="btn big" @click="getAllAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('account.viewAllAccounts')}}</button>
+            <button class="btn big" @click="getAllAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('accountLocales.viewAllAccounts')}}</button>
           </template>
           <InviteAccountModal v-else/>
         </div>
         <div class="table-item-preview table-header">
           <p>{{$t('name')}}</p>
           <p class="wide-screen-item">{{$t('email')}}</p>
-          <p>{{$t('account.role')}}</p>
-          <!-- <p>{{$t('account.isPandingForApproval')}}</p> -->
+          <p>{{$t('accountLocales.role')}}</p>
+          <!-- <p>{{$t('accountLocales.isPandingForApproval')}}</p> -->
         </div>
       </div>
     </ItemSearchList>
@@ -68,7 +68,7 @@ export default {
       this.$store.dispatch({ type: 'account/loadItems', filterBy });
     },
     async approveAccount(account, orgId) {
-      if (!await alertService.Confirm(this.$t(`organization.alerts.confirmAccountApproval`))) return;
+      if (!await alertService.Confirm(this.$t(`organizationLocales.alerts.confirmAccountApproval`))) return;
       await this.$store.dispatch({ type: 'organization/updateAccountStatus', organizationId: orgId, accountId: account._id, newStatus: 'approved' });
       this.getAllAccounts(this.filterBy, this.organizationId);
     }

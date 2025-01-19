@@ -9,10 +9,10 @@
           @click="scrollToEl(tabName)"
           v-if="typeof release[tabName] === 'string'? true : release[tabName]?.filter(c => c.src).length"
         >
-          {{$t(`release.${tabName}`)}}
+          {{$t(`releaseLocales.${tabName}`)}}
         </a>
       </template>
-      <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('release.links')}}</a> -->
+      <!-- <a :class="{selected: selectedTab === ''}" @click="scrollToEl('links')" v-if="release.links.filter(c => c.src).length">{{$t('releaseLocales.links')}}</a> -->
     </div>
     <div class="content-section flex column gap30">
       <h1>{{release.title}}</h1>
@@ -21,7 +21,7 @@
         <img class="main-img" :src="fixFileSrcToThumbnail(release.mainImage, release)" :alt="release.title"/>
         <div id="content" class="hero-content flex column align-start gap15">
           <div class="description-container" v-if="release.content" v-html="release.content"></div>
-          <p v-if="monthPublish">{{$t('release.monthPublish')}}: {{monthPublish}}</p>
+          <p v-if="monthPublish">{{$t('releaseLocales.monthPublish')}}: {{monthPublish}}</p>
         </div>
       </div>
 

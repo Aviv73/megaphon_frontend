@@ -1,8 +1,8 @@
 <template>
   <div class="release-design-viewer flex column align-center gap10">
     <div class="tab-nav light width-all flex gap10 align-end">
-      <button @click="selectedDesignTypeToShow = 'landingPage'" :class="{selected: selectedDesignTypeToShow === 'landingPage'}" :disabled="!release._id">{{$t('release.landingPageDesign')}}</button>
-      <button @click="selectedDesignTypeToShow = 'email'" :class="{selected: selectedDesignTypeToShow === 'email'}">{{$t('release.newsletterDesign')}}</button>
+      <button @click="selectedDesignTypeToShow = 'landingPage'" :class="{selected: selectedDesignTypeToShow === 'landingPage'}" :disabled="!release._id">{{$t('releaseLocales.landingPageDesign')}}</button>
+      <button @click="selectedDesignTypeToShow = 'email'" :class="{selected: selectedDesignTypeToShow === 'email'}">{{$t('releaseLocales.newsletterDesign')}}</button>
     </div>
     <div class="flex align-center justify-center gap50">
       <ToggleBtns v-model="previewPlatform" :options="[

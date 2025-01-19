@@ -1,5 +1,5 @@
 const  en = {
-  "release": {
+  "releaseLocales": {
     "release": "Release",
     "releases": "Releases",
     "editRelease": "Edit release",
@@ -38,7 +38,7 @@ const  en = {
     //   "links": "Links"
     // }
   },
-  "distribute": {
+  "distributeLocales": {
     "distribute": "Distribute",
     "distributions": "Distributions",
     "distributeRelease": "Distribute release",
@@ -127,7 +127,7 @@ const  en = {
   }
 }
 const he = {
-  "release": {
+  "releaseLocales": {
     "release": "רליס",
     "releases": "רליסים",
     "editRelease": "עריכת רליס",
@@ -163,7 +163,7 @@ const he = {
     //   "links": "קישורים"
     // }
   },
-  "distribute": {
+  "distributeLocales": {
     "distribute": "הפצה",
     "distributions": "הפצות",
     "distributeRelease": "הפצת רליס",
@@ -255,10 +255,10 @@ const he = {
 }
 const heF = {
   ...he,
-  release: {
-    ...he.release,
+  releaseLocales: {
+    ...he.releaseLocales,
     alerts: {
-      ...he.release.alerts,
+      ...he.releaseLocales.alerts,
       "confirmRemove": "האם את בטוחה שאת רוצה למחוק את הרליס?",
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <section class="common-release-page inner-container main-pad-y_ flex-1 flex column gap30 height-all width-all flex column">
-    <!-- <h2>{{$t('release.releases')}}</h2> -->
+    <!-- <h2>{{$t('releaseLocales.releases')}}</h2> -->
     <div class="" v-if="!allReleasesData.items.length" style="height: 3em"></div>
     <ReleasesSlider :releases="allReleasesData.items"/>
     <ItemSearchList

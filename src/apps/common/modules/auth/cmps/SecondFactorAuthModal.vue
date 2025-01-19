@@ -1,15 +1,15 @@
 <template>
   <Modal v-if="showModal" class="second-factor-auth-modal">
     <div class="flex column align-start gap20">
-      <p>{{$t('auth.required2FactorAthMsg')}}</p>
+      <p>{{$t('authLocales.required2FactorAthMsg')}}</p>
       <FormInput class="method-input" label="auth.secondFactorMethodMsg" type="radio" v-model="method" :items="comunicationMethods"/>
       <button @click="generatePass" class="btn big">{{$t(didSend ? 'sendAgain' : 'send')}}</button>
       <div v-if="didSend" class="flex align-center width-all space-between">
-        <FormInput placeholder="auth.password" type="text" v-model="pass"/>
+        <FormInput placeholder="authLocales.password" type="text" v-model="pass"/>
         <button @click="finishAuth" :disabled="!method" class="btn big">{{$t('login')}}</button>
       </div>
       <MiniLoader v-if="isLoading"/>
-      <p v-else>{{$t('auth.secFactorPassExpirationMsg')}}</p>
+      <p v-else>{{$t('authLocales.secFactorPassExpirationMsg')}}</p>
     </div>
   </Modal>
 </template>
@@ -86,7 +86,7 @@ export default {
       // evEmmiter.off('needs_2_factor_auth', on2AuthCb);
       // try {
       //   if (this.loggedUser) await this.$store.dispatch({ type: 'auth/makeSecondFactorAuthPass' });
-      //   const pass = await alertService.Prompt(this.$t('auth.required2FactorAthMsg'), this.$t('auth.password'));
+      //   const pass = await alertService.Prompt(this.$t('authLocales.required2FactorAthMsg'), this.$t('authLocales.password'));
       //   await this.$store.dispatch({ type: 'auth/finishAuth', pass });
       //   if (endpoint) this.$router.push(endpoint);
       //   evEmmiter.on('needs_2_factor_auth', on2AuthCb);

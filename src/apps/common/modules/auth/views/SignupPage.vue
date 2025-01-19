@@ -4,14 +4,14 @@
     <form @submit.prevent="signup" class="simple-form">
       <!-- <img v-if="!rootOrg" class="logo" :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon"> -->
       <h4>{{$t('signup')}}</h4>
-      <!-- <FormInput type="text" labelholder="auth.username" v-model="user.username"/> -->
-      <FormInput type="text" labelholder="auth.firstname" v-model="user.firstName"/>
-      <FormInput type="text" labelholder="auth.lastname" v-model="user.lastName"/>
-      <FormInput type="text" labelholder="auth.email" v-model="user.email"/>
-      <FormInput type="phone-number" labelholder="auth.mobile" v-model="user.mobileData" @change="val => user.mobile = val.formatted"/>
-      <FormInput type="text" labelholder="auth.password" v-model="user.password" :error="isPassValid ? '' : $t('auth.passValidationExplenation')" :tooltipMsg="$t('auth.passValidationExplenation')"/>
-      <FormInput type="text" labelholder="auth.confirmPassword" v-model="confirmPassword"/>
-      <!-- <FormInput type="select" labelholder="auth.gender" v-model="user.gender" :itemsMap="userGenders"/> -->
+      <!-- <FormInput type="text" labelholder="authLocales.username" v-model="user.username"/> -->
+      <FormInput type="text" labelholder="authLocales.firstname" v-model="user.firstName"/>
+      <FormInput type="text" labelholder="authLocales.lastname" v-model="user.lastName"/>
+      <FormInput type="text" labelholder="authLocales.email" v-model="user.email"/>
+      <FormInput type="phone-number" labelholder="authLocales.mobile" v-model="user.mobileData" @change="val => user.mobile = val.formatted"/>
+      <FormInput type="text" labelholder="authLocales.password" v-model="user.password" :error="isPassValid ? '' : $t('authLocales.passValidationExplenation')" :tooltipMsg="$t('authLocales.passValidationExplenation')"/>
+      <FormInput type="text" labelholder="authLocales.confirmPassword" v-model="confirmPassword"/>
+      <!-- <FormInput type="select" labelholder="authLocales.gender" v-model="user.gender" :itemsMap="userGenders"/> -->
       <button class="btn big primary" :disabled="!isUserValid">{{$t('submit')}}</button>
     </form>
   </div>

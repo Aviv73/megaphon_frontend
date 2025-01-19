@@ -3,21 +3,21 @@
     <ToggleModal :fullScreen="true">
       <template #toggler>
         <button class="btn">
-          {{$t('distribute.copyReleaseDistributionUrl')}}
+          {{$t('distributeLocales.copyReleaseDistributionUrl')}}
           <img class="ico-img" :src="require('@/assets/images/icons/url.png')" alt="">
         </button>
       </template>
       <template #content>
         <div class="simple-form">
-          <h3>{{$t('distribute.copyReleaseDistributionUrl')}}</h3>
+          <h3>{{$t('distributeLocales.copyReleaseDistributionUrl')}}</h3>
           <FormInput type="select" v-model="origin" labelholder="origin" :items="originOpts"/>
           <FormInput type="select" v-model="tokenType" labelholder="distribute.tokenType" :items="tokenOpts.map(c => ({value: c, label: `distribute.tokenTypes.${c}`}))"/>
           <FormInput v-if="tokenType === 'insert'" type="text" v-model="token" labelholder="distribute.token"/>
-          <p class="note-p">{{$t('distribute.uniqueTokenNote')}}</p>
-          <p class="note-p">{{$t('distribute.urlDistributionNote')}}</p>
+          <p class="note-p">{{$t('distributeLocales.uniqueTokenNote')}}</p>
+          <p class="note-p">{{$t('distributeLocales.urlDistributionNote')}}</p>
           <p class="url-p">{{sendInEmailUrl}}</p>
           <button v-if="tokenType === 'unique'" class="btn" @click="regenerate">
-            {{$t('distribute.regenerateToken')}}
+            {{$t('distributeLocales.regenerateToken')}}
           </button>
           <button class="btn" @click="copyUrlToClipboard">
             {{$t('copy')}}

@@ -1,6 +1,6 @@
 <template>
   <section class="release-page inner-container main-pad-y flex column height-all width-all flex column">
-    <!-- <h2>{{$t('release.releases')}}</h2> -->
+    <!-- <h2>{{$t('releaseLocales.releases')}}</h2> -->
     <ItemSearchList
       :itemsData="allReleasesData"
       :initFilterBy="filterBy"

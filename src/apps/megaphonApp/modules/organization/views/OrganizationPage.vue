@@ -1,6 +1,6 @@
 <template>
   <section class="organization-page flex column gap10 width-all">
-    <h2>{{$t('organization.organizations')}}</h2>
+    <h2>{{$t('organizationLocales.organizations')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allOrganizationData"
@@ -17,7 +17,7 @@
       layoutMode="flex"
     >
       <div class="table-item-preview table-header">
-        <h4>{{$t('organization.name')}}</h4>
+        <h4>{{$t('organizationLocales.name')}}</h4>
       </div>
     </ItemSearchList>
     <Loader v-if="isLoading" fullScreen/>

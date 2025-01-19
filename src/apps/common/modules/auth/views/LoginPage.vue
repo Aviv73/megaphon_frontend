@@ -4,21 +4,21 @@
     <form @submit.prevent="login" class="simple-form">
       <!-- <img v-if="!rootOrg" class="logo" :src="appLogo" :alt="org?.name || 'Megaphon'"> -->
       <h4>{{$t('login')}}</h4>
-      <FormInput type="text" labelholder="auth.email" v-model="userCred.email"/>
-      <FormInput type="password" labelholder="auth.password" v-model="userCred.password"/>
+      <FormInput type="text" labelholder="authLocales.email" v-model="userCred.email"/>
+      <FormInput type="password" labelholder="authLocales.password" v-model="userCred.password"/>
       <div class="flex align-center space-between">
         <button class="btn big primary flex align-center justify-center" :disabled="!isUserValid"><span>{{$t('login')}}</span></button>
       </div>
     </form>
     <ToggleModal>
       <template v-slot:toggler>
-        <button class="btn" @click="forgotEmailEmail = userCred.email">{{$t('auth.forgotPassword')}}</button>
+        <button class="btn" @click="forgotEmailEmail = userCred.email">{{$t('authLocales.forgotPassword')}}</button>
       </template>
       <template v-slot:content>
         <form @submit.prevent="sendNewPasswordEmail" class="simple-form align-center gap30">
-          <h3>{{$t('auth.forgotPassword')}}</h3>
-          <FormInput labelholder="auth.email" v-model="forgotEmailEmail"/>
-          <button class="btn big primary">{{$t('auth.sendMeNewPassword')}}</button>
+          <h3>{{$t('authLocales.forgotPassword')}}</h3>
+          <FormInput labelholder="authLocales.email" v-model="forgotEmailEmail"/>
+          <button class="btn big primary">{{$t('authLocales.sendMeNewPassword')}}</button>
         </form>
       </template>
     </ToggleModal>

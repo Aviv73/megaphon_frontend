@@ -1,28 +1,28 @@
 <template>
   <div class="contact-edit app-form-styling flex column align-start gap30" v-if="itemToEdit">
-    <h2 v-if="itemToEdit._id">{{$t('contact.editContact')}}</h2>
-    <h2 v-else>{{$t('contact.createContact')}}</h2>
+    <h2 v-if="itemToEdit._id">{{$t('contactLocales.editContact')}}</h2>
+    <h2 v-else>{{$t('contactLocales.createContact')}}</h2>
     <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20 simple-form">
       <FormInput labelholder="firstName" :required="true" type="text" v-model="itemToEdit.firstName"/>
       <FormInput labelholder="lastName" :required="true" type="text" v-model="itemToEdit.lastName"/>
       <FormInput labelholder="email" :required="true" type="text" v-model="itemToEdit.email"/>
-      <!-- <FormInput labelholder="contact.phone" type="phone-number" v-model="itemToEdit.phone"/> -->
-      <FormInput labelholder="contact.mobile" type="phone-number" v-model="itemToEdit.mobileData" @change="val => itemToEdit.mobile = val.formatted"/>
-      <FormInput labelholder="contact.role" type="text" v-model="itemToEdit.role"/>
+      <!-- <FormInput labelholder="contactLocales.phone" type="phone-number" v-model="itemToEdit.phone"/> -->
+      <FormInput labelholder="contactLocales.mobile" type="phone-number" v-model="itemToEdit.mobileData" @change="val => itemToEdit.mobile = val.formatted"/>
+      <FormInput labelholder="contactLocales.role" type="text" v-model="itemToEdit.role"/>
       <!-- <FormInput type="text" v-model="itemToEdit.name"/> -->
       <TagPicker     :showLabel="true" v-model="itemToEdit.tags"/>
       <CompanyPicker :showLabel="true" v-model="itemToEdit.company"/>
-      <!-- <FormInput labelholder="contact.cellular" type="text" v-model="itemToEdit.cellular"/> -->
-      <FormInput labelholder="contact.notes" type="text" v-model="itemToEdit.notes"/>
+      <!-- <FormInput labelholder="contactLocales.cellular" type="text" v-model="itemToEdit.cellular"/> -->
+      <FormInput labelholder="contactLocales.notes" type="text" v-model="itemToEdit.notes"/>
       <div class="flex column gap20">
         <p>{{$t('settings.settings')}}</p>
-        <FormInput labelholder="contact.maxTimesAllowdToWatchVideo" type="number" :min="0" v-model="itemToEdit.settings.maxTimesAllowdToWatchVideo"/>
+        <FormInput labelholder="contactLocales.maxTimesAllowdToWatchVideo" type="number" :min="0" v-model="itemToEdit.settings.maxTimesAllowdToWatchVideo"/>
       </div>
     </form>
     <div>
       <button @click="toggleSubscribtionValue" class="btn big primary">
-        <p v-if="unsubscribed">{{$t('contact.reSubscribe')}}</p>
-        <p v-else>{{$t('contact.unsubscribe')}}</p>
+        <p v-if="unsubscribed">{{$t('contactLocales.reSubscribe')}}</p>
+        <p v-else>{{$t('contactLocales.unsubscribe')}}</p>
       </button>
     </div>
     <div class="flex align-center gap30">
@@ -83,7 +83,7 @@ export default {
       this.$router.push({ name: 'ContactPage', params: { organizationId: this.orgId } })
     },
     async toggleSubscribtionValue() {
-      if (!await alertService.Confirm(this.$t('contact.confirmToggleSubscriptionValueMsg'))) return;
+      if (!await alertService.Confirm(this.$t('contactLocales.confirmToggleSubscriptionValueMsg'))) return;
       this.$store.commit({ type: 'contact/setLoading', val: true });
       const newVal = await distributionService.updateSubscriptionValue(this.itemToEdit._id, this.orgId, !this.unsubscribed);
       this.unsubscribed = newVal.value;

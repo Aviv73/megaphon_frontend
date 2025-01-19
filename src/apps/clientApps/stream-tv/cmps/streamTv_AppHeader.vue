@@ -14,7 +14,7 @@
             :class="{ selected: ($route.params.tabName === tabName) || (!idx && !$route.params.tabName && ($route.name === 'ReleaseDetails')) }"
           >
             <span class="hover-pop">
-              {{$t('release.'+tabName)}}
+              {{$t('releaseLocales.'+tabName)}}
             </span>
           </router-link>
           <CostumeNavBar class="wide-screen-item" :filterRoutes="route => route.data?.showInHeader"/>

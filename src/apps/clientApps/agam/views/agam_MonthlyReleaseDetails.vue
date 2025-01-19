@@ -10,7 +10,7 @@
             <img class="main-img" :src="fixFileSrcToThumbnail(viewdChildData.mainImage, viewdChild)" :alt="viewdChildData.title"/>
             <div class="hero-content flex column align-start gap20">
               <h2>{{viewdChildData.title}}</h2>
-              <p>{{$t('release.by')}}: {{viewdChildData.author}}</p>
+              <p>{{$t('releaseLocales.by')}}: {{viewdChildData.author}}</p>
               <div v-html="viewdChildData.content"></div>
               <hr/>
               <router-link :to="{ params: {id: viewdChildData._id} }">
@@ -34,7 +34,7 @@
       <h1>{{releaseData.title}}</h1>
       <div v-html="releaseData.content"></div>
       <ItemList
-        layoutMode="flex"
+        layoutMode="grid"
         class="flex-1"
         :items="releaseData.childrenReleases"
         itemDetailesPageName="ReleaseDetails"

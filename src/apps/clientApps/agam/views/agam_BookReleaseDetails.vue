@@ -12,20 +12,20 @@
       <div class="hero-content flex column align-start gap15">
         <div class="description-container" v-if="releaseData.content" v-html="releaseData.content"></div>
         <div class="flex gap60 links">
-          <h3>{{$t('release.main')}}<hr/></h3>
+          <h3>{{$t('releaseLocales.main')}}<hr/></h3>
           
-          <router-link target="_blank" v-if="fixFileSrcToThumbnail(releaseData.firstChapterLink, release)" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.firstChapterLink, release) } }"><h3>{{$t('release.firstChapter')}}</h3></router-link>
-          <router-link target="_blank" v-if="fixFileSrcToThumbnail(releaseData.comunicatLink, release)" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.comunicatLink, release) } }"><h3>{{$t('release.comunicat')}}</h3></router-link>
+          <router-link target="_blank" v-if="fixFileSrcToThumbnail(releaseData.firstChapterLink, release)" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.firstChapterLink, release) } }"><h3>{{$t('releaseLocales.firstChapter')}}</h3></router-link>
+          <router-link target="_blank" v-if="fixFileSrcToThumbnail(releaseData.comunicatLink, release)" :to="{name: 'FileViewer', query: {file: fixFileSrcToThumbnail(releaseData.comunicatLink, release) } }"><h3>{{$t('releaseLocales.comunicat')}}</h3></router-link>
 
         </div>
         <div class="table-like">
-          <div class="row" v-if="releaseData.author"><p>{{$t('release.by')}}</p><p>{{releaseData.author}}</p></div>
-          <div class="row" v-if="releaseData.painter"><p>{{$t('release.paint')}}</p><p>{{releaseData.painter}}</p></div>
-          <div class="row" v-if="releaseData.translator"><p>{{$t('release.translator')}}</p><p>{{releaseData.translator}}</p></div>
-          <div class="row" v-if="releaseData.pageCount"><p>{{$t('release.pageCount')}}</p><p>{{releaseData.pageCount}}</p></div>
-          <div class="row" v-if="releaseData.forAgeMax || releaseData.forAgeMin"><p>{{$t('release.forAge')}}</p><p>{{releaseData.forAgeMax || 99}} - {{releaseData.forAgeMin || 0}}</p></div>
-          <div class="row" v-if="monthPublish"><p>{{$t('release.monthPublish')}}</p><p>{{monthPublish}}</p></div>
-          <div class="row" v-if="releaseData.price"><p>{{$t('release.price')}}</p><p>{{releaseData.price}}</p></div>
+          <div class="row" v-if="releaseData.author"><p>{{$t('releaseLocales.by')}}</p><p>{{releaseData.author}}</p></div>
+          <div class="row" v-if="releaseData.painter"><p>{{$t('releaseLocales.paint')}}</p><p>{{releaseData.painter}}</p></div>
+          <div class="row" v-if="releaseData.translator"><p>{{$t('releaseLocales.translator')}}</p><p>{{releaseData.translator}}</p></div>
+          <div class="row" v-if="releaseData.pageCount"><p>{{$t('releaseLocales.pageCount')}}</p><p>{{releaseData.pageCount}}</p></div>
+          <div class="row" v-if="releaseData.forAgeMax || releaseData.forAgeMin"><p>{{$t('releaseLocales.forAge')}}</p><p>{{releaseData.forAgeMax || 99}} - {{releaseData.forAgeMin || 0}}</p></div>
+          <div class="row" v-if="monthPublish"><p>{{$t('releaseLocales.monthPublish')}}</p><p>{{monthPublish}}</p></div>
+          <div class="row" v-if="releaseData.price"><p>{{$t('releaseLocales.price')}}</p><p>{{releaseData.price}}</p></div>
         </div>
       </div>
     </div>

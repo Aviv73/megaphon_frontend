@@ -114,7 +114,7 @@ export default {
   methods: {
     tOrTitle(subKey) {
       if (!subKey) return subKey;
-      const key = `release.dataFields.${subKey}`;
+      const key = `releaseLocales.dataFields.${subKey}`;
       return this.$te(key) ? this.$t(key) : subKey;
     },
     initCmpData() {

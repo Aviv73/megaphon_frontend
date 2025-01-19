@@ -8,9 +8,9 @@
       <div class="blure" v-if="showActionsModal && !viewAsModal" @click.stop="showActionsModal = false"></div>
       <component :is="viewAsModal? 'Modal' : 'div'" class="actions-modal" @close="showActionsModal = false" v-if="showActionsModal" :fullScreen="true">
         <div class="top-like" v-if="!viewAsModal"></div>
-        <button class="logout-btn" @click="logout">{{$t('auth.logout')}}</button>
+        <button class="logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>
         <span class="sep-span"> | </span>
-        <router-link class="edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('auth.editUserDetails')}}</router-link>
+        <router-link class="edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('authLocales.editUserDetails')}}</router-link>
       </component>
     </div>
   </div>

@@ -11,9 +11,9 @@
     <button class="btn big primary_" @click="showSearchModal = true">{{$t('add')}}</button>
     <Modal class="search-modal" v-if="showSearchModal" @close="showSearchModal = false" :fullScreen="true">
       <div class="search-modal-content flex column gap10">
-        <p>{{$t('release.searchReleases')}}</p>
+        <p>{{$t('releaseLocales.searchReleases')}}</p>
         <form @submit.prevent="getReleases" class="flex space-between gap5">
-          <FormInput placeholder="release.searchReleases" v-model="releasesFilterBy.filter.search"/>
+          <FormInput placeholder="releaseLocales.searchReleases" v-model="releasesFilterBy.filter.search"/>
           <button :disabled="releasesFilterBy.filter.search.length < 2 && false" class="btn">{{$t('search')}}</button>
         </form>
         <ul class="release-select-list flex column gap20 flex-1" v-if="releases?.length">

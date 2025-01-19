@@ -1,6 +1,6 @@
 <template>
   <section class="release-page flex column height-all width-all flex gap20">
-    <!-- <h2>{{$t('release.releases')}}</h2> -->
+    <!-- <h2>{{$t('releaseLocales.releases')}}</h2> -->
     <div class="width-all" v-if="isUserWatchOnly">
       <ReleasesSlider
         :style="selectedTheme ? {

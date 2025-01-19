@@ -1,5 +1,5 @@
 const  en = {
-  "release": {
+  "releaseLocales": {
     alerts: {
     },
     tabs: {
@@ -72,7 +72,7 @@ const  en = {
   }
 }
 const he = {
-  "release": {
+  "releaseLocales": {
     tabs: {
       "content": "תקציר",
       "images": "תמונות",
@@ -146,10 +146,10 @@ const he = {
 }
 const heF = {
   ...he,
-  release: {
-    ...he.release,
+  releaseLocales: {
+    ...he.releaseLocales,
     alerts: {
-      ...he.release.alerts,
+      ...he.releaseLocales.alerts,
     }
   }
 }

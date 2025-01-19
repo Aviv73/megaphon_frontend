@@ -1,5 +1,5 @@
 const  en = {
-  "contact": {
+  "contactLocales": {
     "contact": "Contact",
     "contacts": "Contacts",
     "contactName": "Contact name",
@@ -27,7 +27,7 @@ const  en = {
   },
 }
 const he = {
-  "contact": {
+  "contactLocales": {
     "contact": "איש קשר",
     "contacts": "אנשי מדיה",
     "contactName": "שם איש מדיה",
@@ -56,10 +56,10 @@ const he = {
 }
 const heF = {
   ...he,
-  contact: {
-    ...he.contact,
+  contactLocales: {
+    ...he.contactLocales,
     alerts: {
-      ...he.contact.alerts,
+      ...he.contactLocales.alerts,
       "confirmRemove": "האם את בטוחה שאת רוצה למחוק את איש הקשר?",
     }
   }

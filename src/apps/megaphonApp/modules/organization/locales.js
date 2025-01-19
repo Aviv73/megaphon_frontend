@@ -1,5 +1,5 @@
 const en = {
-  "organization": {
+  "organizationLocales": {
     "organization": "Organization",
     "organizations": "Organizations",
     "editOrganization": "Edit organization",
@@ -48,7 +48,7 @@ const en = {
   }
 }
 const he = {
-  "organization": {
+  "organizationLocales": {
     "organization": "ארגון",
     "organizations": "ארגונים",
     "editOrganization": "ערוך פרטי ארגון",
@@ -100,13 +100,13 @@ const he = {
 }
 const heF = {
   ...he,
-  organization: {
-    ...he.organization,
+  organizationLocales: {
+    ...he.organizationLocales,
     "editOrganization": "ערכי פרטי ארגון",
     "createOrganization": "צרי ארגון חדש",
     "inviteMembers": "הזמיני משתמשים",
     alerts: {
-      ...he.organization.alerts,
+      ...he.organizationLocales.alerts,
       "confirmRemove": "האם את בטוחה שאת רוצה למחוק את הארגון?",
     }
   }
