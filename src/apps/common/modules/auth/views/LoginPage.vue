@@ -76,7 +76,7 @@ export default {
     },
     async sendNewPasswordEmail() {
       await this.$store.dispatch({ type: 'auth/sendNewPasswordEmail', email: this.forgotEmailEmail });
-      alertService.toast({type: 'safe', msg: `${this.$t(`auth.newPasswordSentTo`)} ${this.forgotEmailEmail}!`});
+      alertService.toast({type: 'safe', msg: `${this.$t(`authLocales.newPasswordSentTo`)} ${this.forgotEmailEmail}!`});
     }
   },
   components: {

@@ -4,6 +4,7 @@
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="chooseFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
+      <button v-if="imgToShow" @click.prevent.stop="clear" class="btn big width-content">{{$t('clear')}}</button>
     </template>
     <MiniLoader v-else/>
 
@@ -24,7 +25,7 @@
 
         <div class="flex width-all align-center space-around">
           <button class="btn big primary" @click="uploadFile">{{$t('send')}}</button>
-          <button class="btn big" @click="clear">{{$t('cancel')}}</button>
+          <button class="btn big" @click="clearBase64">{{$t('cancel')}}</button>
         </div>
       </div>
     </Modal>
@@ -115,7 +116,7 @@ export default {
       return dataURLtoFile(base64, this.fileName);
     },
 
-    clear() {
+    clearBase64() {
       this.imgBase64ToCrop = '';
     },
 

@@ -7,6 +7,7 @@
     <template v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
+      <button v-if="fileToShow" @click.prevent.stop="clear" class="btn big width-content">{{$t('clear')}}</button>
     </template>
     <MiniLoader v-else/>
   </div>
@@ -57,6 +58,7 @@ export default {
     },
     async doUploadFile(file, uploadFolderName, parentData) {
       this.isLoading = true;
+      this.loadingMsg = '';
       try {
         let lastDotIdx = file.name.lastIndexOf('.');
         if (lastDotIdx === -1) lastDotIdx = file.name.length;
@@ -88,6 +90,11 @@ export default {
       const newVal = await this.doUploadFile(file, this.uploadFolderName, this.parentData);
       if (this.onupload) this.onupload(this.onlySrc? newVal.src : newVal);
       this.$emit('input', this.onlySrc? newVal.src : newVal);
+    },
+
+    clear() {
+      this.previewSrc = '';
+      this.$emit('input', this.onlySrc? '' : {});
     }
   }
 }

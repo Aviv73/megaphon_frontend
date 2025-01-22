@@ -154,14 +154,14 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
         });
       },
       async removeItem({ commit, dispatch, getters }, { id, organizationId, reload = false, dontSet = false, silent = false }) {
-        if (!await alertService.Confirm($t(`${moduleName}.alerts.confirmRemove`))) throw new Error('Dont want to remove!');
+        if (!await alertService.Confirm($t(`${moduleName}Locales.alerts.confirmRemove`))) throw new Error('Dont want to remove!');
         return dispatch({
           type: '_Ajax',
           do: async () => service.remove(id, organizationId),
           onSuccess: () => {
             if (!dontSet) commit({ type: 'removeItem', id });
-            // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.removeSuccess`)}! id: ${id}`});
-            if (!silent) alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.removeSuccess`)}!`});
+            // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}Locales.alerts.removeSuccess`)}! id: ${id}`});
+            if (!silent) alertService.toast({type: 'safe', msg: `${$t(`${moduleName}Locales.alerts.removeSuccess`)}!`});
             if (reload) dispatch({ type: 'loadItems', organizationId, filterBy: getters.filterBy });
           },
           dontSet,
@@ -174,8 +174,8 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
           loading,
           do: async () => service.save(item, organizationId),
           onSuccess: (item) => {
-            // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}! id: ${item._id}`})
-            if (!silent) alertService.toast({type: 'safe', msg: `${$t(`${moduleName}.alerts.savedSuccess`)}!`})
+            // alertService.toast({type: 'safe', msg: `${$t(`${moduleName}Locales.alerts.savedSuccess`)}! id: ${item._id}`})
+            if (!silent) alertService.toast({type: 'safe', msg: `${$t(`${moduleName}Locales.alerts.savedSuccess`)}!`})
             if (!dontSet) commit({ type: 'saveItem', item });
             return item;
           },

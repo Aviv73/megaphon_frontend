@@ -2,7 +2,7 @@
   <Modal v-if="showModal" class="second-factor-auth-modal">
     <div class="flex column align-start gap20">
       <p>{{$t('authLocales.required2FactorAthMsg')}}</p>
-      <FormInput class="method-input" label="auth.secondFactorMethodMsg" type="radio" v-model="method" :items="comunicationMethods"/>
+      <FormInput class="method-input" label="authLocales.secondFactorMethodMsg" type="radio" v-model="method" :items="comunicationMethods"/>
       <button @click="generatePass" class="btn big">{{$t(didSend ? 'sendAgain' : 'send')}}</button>
       <div v-if="didSend" class="flex align-center width-all space-between">
         <FormInput placeholder="authLocales.password" type="text" v-model="pass"/>

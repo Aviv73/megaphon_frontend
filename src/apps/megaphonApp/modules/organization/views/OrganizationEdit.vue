@@ -25,7 +25,7 @@
           <li v-for="(curr, idx) in organizationToEdit.fromEmails || []" :key="idx">
             <FormInput type="text" placeholder="name" v-model="curr.email"/>
             <FormInput type="text" placeholder="name" v-model="curr.title"/>
-            <FormInput type="checkbox" placeholder="distribute.allowReply" v-model="curr.allowReply"/>
+            <FormInput type="checkbox" placeholder="distributeLocales.allowReply" v-model="curr.allowReply"/>
             <TableActionBtns v-model="organizationToEdit.fromEmails" :idx="idx"/>
           </li>
         </ul>

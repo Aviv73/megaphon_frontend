@@ -11,8 +11,8 @@
         <div class="simple-form">
           <h3>{{$t('distributeLocales.copyReleaseDistributionUrl')}}</h3>
           <FormInput type="select" v-model="origin" labelholder="origin" :items="originOpts"/>
-          <FormInput type="select" v-model="tokenType" labelholder="distribute.tokenType" :items="tokenOpts.map(c => ({value: c, label: `distribute.tokenTypes.${c}`}))"/>
-          <FormInput v-if="tokenType === 'insert'" type="text" v-model="token" labelholder="distribute.token"/>
+          <FormInput type="select" v-model="tokenType" labelholder="distributeLocales.tokenType" :items="tokenOpts.map(c => ({value: c, label: `distributeLocales.tokenTypes.${c}`}))"/>
+          <FormInput v-if="tokenType === 'insert'" type="text" v-model="token" labelholder="distributeLocales.token"/>
           <p class="note-p">{{$t('distributeLocales.uniqueTokenNote')}}</p>
           <p class="note-p">{{$t('distributeLocales.urlDistributionNote')}}</p>
           <p class="url-p">{{sendInEmailUrl}}</p>
@@ -97,6 +97,9 @@ export default {
     padding: em(5px);
     border-radius: em(3px);
     border: 1px solid gray;
+  }
+  .blur {
+    display: none;
   }
 }
 </style>

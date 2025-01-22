@@ -78,7 +78,7 @@ export const _authStore = {
         do: async () => authService.logout(),
         onSuccess: (res) => {
           commit({ type: 'setLoggedUser', user: null });
-          alertService.toast({type: 'safe', msg: $t(`auth.alerts.goodby`)});
+          alertService.toast({type: 'safe', msg: $t(`authLocales.alerts.goodby`)});
           localStorage.logged_organization_id = '';
           dispatch('resetState', {}, { root: true });
         }
@@ -92,7 +92,7 @@ export const _authStore = {
           console.log(res);
           if (res.user) {
             commit({ type: 'setLoggedUser', user: res.user });
-            alertService.toast({type: 'safe', msg: `${$t(`auth.alerts.welcome`)}, ${res.user.firstName} ${res.user.lastName}!`});
+            alertService.toast({type: 'safe', msg: `${$t(`authLocales.alerts.welcome`)}, ${res.user.firstName} ${res.user.lastName}!`});
           }
           return res;
         }
@@ -103,7 +103,7 @@ export const _authStore = {
         type: '_Ajax',
         do: async () => authService.sendNewPasswordEmail(email),
         onSuccess: (res) => {
-          alertService.toast({type: 'safe', msg: `${$t(`auth.newPasswordSentTo`)}: ${email}!`});
+          alertService.toast({type: 'safe', msg: `${$t(`authLocales.newPasswordSentTo`)}: ${email}!`});
         }
       });
     },
