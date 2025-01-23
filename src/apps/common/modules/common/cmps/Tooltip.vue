@@ -120,13 +120,14 @@ export default {
   // z-index: 1000;
   position: relative;
   display: inline-block;
-  z-index: 1;
+  // z-index: 1;
   // widows: em(15px);
   // height: em(15px);
   .tooltip-preview {
     display: inline-block;
     width: fit-content;
     height: fit-content;
+    cursor: pointer;
     .tooltip-img {
       width: em(17px);
       height: em(17px);

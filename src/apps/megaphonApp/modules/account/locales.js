@@ -27,7 +27,9 @@ const en = {
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this account?",
       "removeSuccess": "Account removed successfully",
-      "savedSuccess": "Account saved successfully"
+      "savedSuccess": "Account saved successfully",
+      "cantUploadContactsError": "Something went wrong, cant upload contacts file",
+      "uploadedContactsSuccessfully": "Uploaded contacts file successfully"
     }
   }
 }
@@ -60,7 +62,9 @@ const he = {
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את המשתמש?",
       "removeSuccess": "משתמש נמחק בהצלחה",
-      "savedSuccess": "פרטי משתמש נשמרו בהצלחה"
+      "savedSuccess": "פרטי משתמש נשמרו בהצלחה",
+      "cantUploadContactsError": "משהו השתבש, המערכת לא הצליחה להעלות את הקובץ",
+      "uploadedContactsSuccessfully": "אנשי קשר הועלו בהצלחה"
     }
   }
 }

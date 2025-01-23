@@ -5,7 +5,7 @@
       class="height-all table-like-list"
       :itemsData="allContactData"
       :initFilterBy="filterBy"
-      @filter="getAllRContacts"
+      @filter="getAllContacts"
       itemDetailesPageName="ContactDetails"
       newItemPageName="ContactEdit"
       :singlePreviewCmp="ContactPreview"
@@ -31,7 +31,10 @@
           />
           <Tooltip :msg_="$t('contactLocales.uploadFileTooltipMsg')">
             <template v-slot:content>
-              <p v-html="$t('contactLocales.uploadFileTooltipMsg').split('\n').join('<br/>')"></p>
+              <div class="flex gap10 column">
+                <p v-html="$t('contactLocales.uploadFileTooltipMsg').split('\n').join('<br/>')"></p>
+                <a class="clr-4" href="/emptyContactsFileToFill.xlsx" download="contacts for megaphon.xlsx">{{$t('contactLocales.downloadEmtyFileToFill')}}</a>
+              </div>
             </template>
           </Tooltip>
         </div>
@@ -63,6 +66,7 @@ import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 import Tooltip from '../../../../common/modules/common/cmps/Tooltip.vue';
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
 
 export default {
   name: 'ContactPage',
@@ -74,7 +78,7 @@ export default {
     }
   },
   methods: {
-    getAllRContacts(filterBy) {
+    getAllContacts(filterBy) {
       this.$store.dispatch({ type: 'contact/loadItems', filterBy: {...filterBy, includeUnsubscribed: true}, organizationId: this.$route.params.organizationId });
     },
     async uploadContactsFromFile(files) {
@@ -82,10 +86,15 @@ export default {
       this.$store.commit({type: 'contact/setProp', key: 'isLoading', value: true});
       const data = new FormData();
       data.append('file', files[0]);
-      await httpService.post(`file/uploadContacts/${this.organizationId}`, data);
+      try {
+        await httpService.post(`file/uploadContacts/${this.organizationId}`, data);
+        alertService.toast({type: 'safe', msg: this.$t('accountLocales.alerts.uploadedContactsSuccessfully')});
+      } catch(err) {
+        alertService.toast({type: 'danger', msg: this.$t('accountLocales.alerts.cantUploadContactsError')});
+      }
       this.contactsFiles = null;
       this.$store.commit({type: 'contact/setProp', key: 'isLoading', value: false});
-      this.getAllRContacts();
+      this.getAllContacts();
     }
   },
   computed: {
@@ -107,7 +116,7 @@ export default {
   },
   watch: {
     organizationId() {
-      this.getAllRContacts();
+      this.getAllContacts();
     }
   },
   components: { ItemSearchList, Loader, ContactPreview, ContactFilter, FormInput, Tooltip }

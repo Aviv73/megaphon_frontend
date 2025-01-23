@@ -23,7 +23,8 @@ const  en = {
     },
     "emailIsTakenError": "Contact with that email already exists",
     "maxTimesAllowdToWatchVideo": "Max times allowd to watch video",
-    "uploadFileTooltipMsg": "csv or xl file.\nvalid columns:\nnfirstName, lastName, email, mobile, tags (sepparated by ,), company"
+    "uploadFileTooltipMsg": "csv or xl file.\nvalid columns:\nnfirstName, lastName, email, mobile, tags (sepparated by ,), company",
+    "downloadEmtyFileToFill": "Doanload empty file to fill"
   },
 }
 const he = {
@@ -51,7 +52,8 @@ const he = {
     },
     "emailIsTakenError": "איש קשר עם המייל הזה כבר קיים במערכת",
     "maxTimesAllowdToWatchVideo": "כמות צפיות מקסימלית בוידאו",
-    "uploadFileTooltipMsg": "קובץ מסוג csv או xl.\nשמות העמודות:\nfirstName, lastName, email, mobile, tags (מופרד עם ,), company"
+    "uploadFileTooltipMsg": "קובץ מסוג csv או xl.\nשמות העמודות:\nfirstName, lastName, email, mobile,\ntags (מופרד עם ,),\ncompany\n\nשמות העמודות צריכות להיות במדוייק כדי שהמידע ייקלט בצורה תקינה.",
+    "downloadEmtyFileToFill": "הורד קובץ ריק למילוי"
   },
 }
 const heF = {
