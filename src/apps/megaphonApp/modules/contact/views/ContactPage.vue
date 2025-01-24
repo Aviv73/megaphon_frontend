@@ -33,7 +33,7 @@
             <template v-slot:content>
               <div class="flex gap10 column">
                 <p v-html="$t('contactLocales.uploadFileTooltipMsg').split('\n').join('<br/>')"></p>
-                <a class="clr-4" href="/emptyContactsFileToFill.xlsx" download="contacts for megaphon.xlsx">{{$t('contactLocales.downloadEmtyFileToFill')}}</a>
+                <a class="clr-4" href="/files/emptyContactsFileToFill.xlsx" download="contacts for megaphon.xlsx">{{$t('contactLocales.downloadEmtyFileToFill')}}</a>
               </div>
             </template>
           </Tooltip>
