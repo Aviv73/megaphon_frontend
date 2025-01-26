@@ -24,6 +24,7 @@ export default {
 @import '@/assets/styles/global/index';
 .AppCreditsSection {
   direction: ltr;
+  color: #9D9D9D;
   @media (max-width: $small-screen-break) {
     width: 100%;
     text-align: center;  

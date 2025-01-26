@@ -41,14 +41,14 @@ export default {
 .megaphon-app {
   .app-footer {
     height: rem(60px);
-    font-size: 0.6rem;
+    font-size: rem(14px);
     .powered-by {
         direction: ltr;
         img {
           height: em(25px);
           width: unset;
         }
-      }
+    }
   }
 }
 </style>
