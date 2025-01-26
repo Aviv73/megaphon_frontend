@@ -23,7 +23,7 @@ const  en = {
     },
     "emailIsTakenError": "Contact with that email already exists",
     "maxTimesAllowdToWatchVideo": "Max times allowd to watch video",
-    "uploadFileTooltipMsg": "csv or xl file.\nvalid columns:\nnfirstName, lastName, email, mobile, tags (sepparated by ,), company",
+    "uploadFileTooltipMsg": "xl file.\nvalid columns:\nemail, firstName, lastName,\nmobile (format: +972500000000),\ntags (sepparated by ,),\ncompany",
     "downloadEmtyFileToFill": "Doanload empty file to fill"
   },
 }
@@ -52,7 +52,7 @@ const he = {
     },
     "emailIsTakenError": "איש קשר עם המייל הזה כבר קיים במערכת",
     "maxTimesAllowdToWatchVideo": "כמות צפיות מקסימלית בוידאו",
-    "uploadFileTooltipMsg": "קובץ מסוג csv או xl.\nשמות העמודות:\nfirstName, lastName, email, mobile,\ntags (מופרד עם ,),\ncompany\n\nשמות העמודות צריכות להיות במדוייק כדי שהמידע ייקלט בצורה תקינה.",
+    "uploadFileTooltipMsg": "קובץ מסוג xl.\nשמות העמודות:\nfirstName, lastName, email,\nmobile (format: +972500000000),\ntags (מופרד עם ,),\ncompany\n\nשמות העמודות צריכות להיות במדוייק כדי שהמידע ייקלט בצורה תקינה.",
     "downloadEmtyFileToFill": "הורד קובץ ריק למילוי"
   },
 }

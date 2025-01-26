@@ -97,6 +97,7 @@
             <FormInput type="checkbox" title="useVideoWaterMark" labelholder="useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
             <FormInput type="checkbox" title="onlyKnownRegistrations" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
             <FormInput type="checkbox" title="useDirectLink" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
+            <FormInput type="checkbox" title="dontUseGlobalDbData" labelholder="dontUseGlobalDbData" v-model="organizationToEdit.dontUseGlobalDbData"/>
           </div>
           <FormInput type="textarea" labelholder="organizationLocales.searchKeys" v-model="organizationToEdit.searchKeys"/>
 

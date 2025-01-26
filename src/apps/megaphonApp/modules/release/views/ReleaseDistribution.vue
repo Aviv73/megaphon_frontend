@@ -12,7 +12,7 @@
       <div class="flex gap30 width-all flex-1 main-content">
         <div style="flex:3" class="flex column gap10">
           <div class="tab-nav light">
-            <button @click="loadSystemContacts = true" :class="{selected: loadSystemContacts}">{{$t('distributeLocales.contactsToDistribute')}}</button>
+            <button @click="loadSystemContacts = true" v-if="!org.dontUseGlobalDbData" :class="{selected: loadSystemContacts}">{{$t('distributeLocales.contactsToDistribute')}}</button>
             <button @click="loadSystemContacts = false" :class="{selected: !loadSystemContacts}">{{$t('distributeLocales.selfContacts')}}</button>
           </div>
           <ItemSearchList
@@ -305,6 +305,7 @@ export default {
     },
     async getOrg() {
       this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.organizationId });
+      if (this.org?.dontUseGlobalDbData) this.loadSystemContacts = false;
       const defaultItem = this.org.fromEmails?.find(c => c.isDefault) || this.org.fromEmails?.[0];
       if (defaultItem) this.fromEmail = {...defaultItem};
     },

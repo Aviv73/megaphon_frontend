@@ -2,14 +2,16 @@ const  en = {
   sidebar: {
     folders: 'Folders',
     megaphonGeneral: 'Megaphon general',
-    addFolder: 'Add folder'
+    addFolder: 'Add folder',
+    system: "System"
   }
 }
 const he = {
   sidebar: {
     folders: 'תיקיות',
-    megaphonGeneral: 'מערכת',
-    addFolder: 'צור תיקייה'
+    megaphonGeneral: 'מגפון כללי',
+    addFolder: 'צור תיקייה',
+    system: "מערכת"
   }
 }
 const heF = {

@@ -13,7 +13,7 @@
                 <span :class="{'hover-pop': !isOrgPending(org)}">{{org.name}}</span>
                 <span v-if="isOrgPending(org)">({{$t('pending')}})</span>
               </p>
-              <div v-if="organizations.length > 1" class="svg-parrent toggle-arrow" v-html="svgs.toggleArrow"></div>
+              <div v-if="organizations.length > 1" class="svg-parrent toggle-arrow" :class="{toggled: selectedOrgId === org._id}" v-html="svgs.toggleArrow"></div>
             </div>
             <div class="flex column" v-if="selectedOrgId === org._id && isRoleInOrg('producer')">
               <!-- <router-link class="nav-list-item inner-list-item" :to="{ name: 'ReleasePage', params: { organizationId: org._id } }">
@@ -26,9 +26,17 @@
               <CostumeNavBar :baseRoute="{ name: 'ReleasePage', params: { organizationId: org._id } }" :routeRoles="['producer', 'admin']" :beforeSvg="svgs.tv"/>
               <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('accountLocales.mediaAccounts')}}</span></router-link>
               <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
-              <!-- <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
-              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id }, query: { roleType: 'watchOnly' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('accountLocales.mediaAccounts')}}</span></router-link>
-              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id }, query: { roleType: 'producerAndAdmin' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.key" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link> -->
+              <!-- <div class="nav-item-preview system-nav" v-if="isRoleInOrg('producer')" :class="{opened_: showOrgSystemNav}">
+                <div class="nav-list-item flex align-center space-between gap10" @click="showOrgSystemNav = !showOrgSystemNav">
+                  <p><span class="hover-pop flex align-center gap10"><div v-html="svgs.system" class="svg-parrent"></div>{{$t('sidebar.system')}}</span></p>
+                  <div class="svg-parrent toggle-arrow" :class="{toggled: showOrgSystemNav}" v-html="svgs.toggleArrow"></div>
+                </div>
+                <div class="flex column" v-if="showOrgSystemNav">
+                  <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
+                  <router-link v-if="isRoleInOrg('producer') && org.requireAuth" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id }, query: { roleType: 'watchOnly' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('accountLocales.mediaAccounts')}}</span></router-link>
+                  <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id }, query: { roleType: 'producerAndAdmin' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.key" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
+                </div>
+              </div> -->
               <FoldersNav v-if="isRoleInOrg('producer') && false" :currentDropableFolderPath="currentDropableFolderPath" :folders="org.folders || []" :parentItem="org"/>
             </div>
           </li>
@@ -43,7 +51,7 @@
           <div class="nav-list-item item-header flex align-center space-between gap10" @click="showAdminNav = !showAdminNav">
             <!-- <Avatar :size="25">{{'מגפון'.slice(0,2)}}</Avatar> -->
             <p><span class="hover-pop flex align-center gap10"><div v-html="svgs.system" class="svg-parrent"></div>{{$t('sidebar.megaphonGeneral')}}</span></p>
-            <div class="svg-parrent toggle-arrow" v-html="svgs.toggleArrow"></div>
+            <div class="svg-parrent toggle-arrow" :class="{toggled: showAdminNav}" v-html="svgs.toggleArrow"></div>
           </div>
           <div class="flex column" v-if="showAdminNav">
             <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
@@ -95,7 +103,8 @@ export default {
       showAdminNav: false,
       showFolders: false,
       showActionsModal: false,
-      mobileToggled: false
+      mobileToggled: false,
+      showOrgSystemNav: false
     }
   },
   props: {
@@ -153,6 +162,7 @@ export default {
   },
   watch: {
     selectedOrgId() {
+      this.showOrgSystemNav = false;
       this.clearFolderSelecion();
     },
     '$route.query'() {
@@ -276,6 +286,9 @@ export default {
           transition: 0.3s;
           width: 0.7em;
           transform: rotate(0deg);
+          &.toggled {
+            transform: rotate(180deg); 
+          }
         }
         &.selected {
           .item-header {
@@ -288,11 +301,11 @@ export default {
             color: var(--clr-1);
           }
         }
-        &.opened {
-          .toggle-arrow {
-            transform: rotate(180deg); 
-          }
-        }
+        // &.opened {
+        //   .toggle-arrow {
+        //     transform: rotate(180deg); 
+        //   }
+        // }
         
         &:not(.selected):not(.system-nav) {
           background-color: rgba(0, 0, 0, 0.075);

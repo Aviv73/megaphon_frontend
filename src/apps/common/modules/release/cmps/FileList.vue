@@ -1,5 +1,5 @@
 <template>
-  <div class="flex column gap30">
+  <div class="files-list-container flex column gap30">
     <div class="files-list flex wrap gap20 width-all width-all">
       <div v-for="(file, idx) in filesToShow" :key="idx" class="flex column gap5 file-preview space-between" :class="{'width-all': ['video', 'iframe'].includes(cmpType), [`${cmpType}-section`]: true}">
         <template v-if="['video', 'img'].includes(cmpType)">
@@ -102,6 +102,7 @@ export default {
   },
   computed: {
     usePage() {
+      return false;
       return this.cmpType === 'video';
     },
     filesToShow() {

@@ -1,5 +1,5 @@
 <template>
-    <div :id="sectionId" class="flex column gap20 width-all">
+    <div :id="sectionId" class="files-single-section flex column gap20 width-all">
       <h2 v-if="title && showTitle">{{title}}</h2>
       <FileList :rootItem="rootItem" :files="files" :cmpType="cmpType" :organizationId="organizationId"/>
     </div>

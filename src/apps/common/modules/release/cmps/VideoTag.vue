@@ -135,9 +135,8 @@ export default {
         // setTimeout(() => {
         //   }, 1000);
         elVideo.addEventListener('canplay', () => {
-          // this.appendWatermarkStyling();
-          // this.play();
-          elVideo.play();
+          // // this.appendWatermarkStyling();
+          // elVideo.play();
         });
       });
       // elVideo.addEventListener('fullscreenchange', (ev) => {
@@ -199,12 +198,12 @@ export default {
     },
     async setNewWatchSection() {
       // return;
-      this.currWatchSection = { id: getRandomId(''), start: this.$refs.elVideo.currentTime * 1000, end: this.$refs.elVideo.currentTime * 1000 }
+      this.currWatchSection = { id: getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 }
       this.watchSession.sections.push(this.currWatchSection);
     },
     async updateWatchSession() {
       // return;
-      this.currWatchSection.end = this.$refs.elVideo.currentTime * 1000;
+      this.currWatchSection.end = (this.$refs.elVideo?.currentTime || 0) * 1000;
       this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
       this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);
     },

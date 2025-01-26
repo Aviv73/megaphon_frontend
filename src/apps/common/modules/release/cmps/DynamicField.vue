@@ -136,6 +136,7 @@ export default {
           this.bindContentToHtml = true;
           this.cmpName = 'p';
           break;
+        case 'FilesSection':
         case 'FilesSection'.toUpperCase(): // TODO:: NO NEED?
           // if (!this.value?.length) this.hidden = true;
           this.propsToPass = { ...propsToPass, organizationId: this.organization._id, rootItem: this.release, showTitle: false, releaseData: { [this.dataField.fieldName]: this.value } };
