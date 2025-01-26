@@ -1,17 +1,7 @@
 <template>
   <footer class="app-footer flex">
     <div class="container flex align-center space-between height-all width-all">
-      <div class="powered-by flex align-end_ align-center gap10" v-if="true">
-        <!-- Powered by Megaphon -->
-        <p>Powered by</p> <img :src="require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png')" alt="Megaphon">
-      </div>
-      <div class="flex align-center gap10" v-if="false">
-        <p>Design: greissdesign</p>
-        <span>|</span>
-        <p>Developing: misterbit</p>
-        <span>|</span>
-        <p>Powered by: Megaphon</p>
-      </div>
+      <AppCreditsSection/>
       <div class="flex align-center" v-if="false">
         <div class="flex align-center gap20" v-if="org?.mediaLinks?.length">
           <span>{{$t('contact')}} {{org.name}}</span>
@@ -28,9 +18,10 @@
 <script>
 import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks/OrgMediaLinks.vue'
 import { getSvgs } from '@/apps/clientApps/stream-tv/assets/images/svgs';
+import AppCreditsSection from '../../../../common/modules/common/cmps/AppCreditsSection.vue';
 export default {
   name: "AppFooter",
-  components: { OrgMediaLinks },
+  components: { OrgMediaLinks, AppCreditsSection },
   computed: {
     org () {
       return this.$store.getters['organization/selectedItem'] || {};

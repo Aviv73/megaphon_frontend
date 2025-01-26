@@ -25,7 +25,7 @@ export function getRelevantThemeForOrg(org, isClient, uiConfig, selectedAppData)
   if (themeItem) {
     themeItem = {
       ...themeItem,
-      title: [`Megaphon`, `${org?.name}`].filter(Boolean).join(' - '),
+      title: [`Megaphon`, org?.name].filter(Boolean).join(' - '),
       // css: `${selector} {}`
     };
   }

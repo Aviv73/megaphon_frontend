@@ -19,7 +19,7 @@
         <iframe
           v-else-if="cmpType === 'iframe'"
           class="video-file-preview"
-          :src="fixFileSrcToThumbnail(file, rootItem)" controls
+          :src="extractFileSrc({src: fixFileSrcToThumbnail(file, rootItem) || file?.src})" controls
         />
         <template v-else-if="cmpType === 'video'">
           <VideoTag
@@ -63,7 +63,7 @@
 import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
 import PaginationBtns from '../../common/cmps/ItemSearchList/PaginationBtns.vue';
 import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail, getFileError, getFileItemFromRootItem } from '../../common/services/file.service';
-import { downloadImg } from '../../common/services/util.service';
+import { downloadImg, youtubeService } from '../../common/services/util.service';
 import VideoTag from './VideoTag.vue';
 // import { extractFileSrc } from './file.service'; 
 export default {
@@ -89,7 +89,10 @@ export default {
     fixVideoSrcToThumbnail,
     downloadImg,
     extractFileSrc(fileItem) {
-      return fileItem.src || fileItem.link || fileItem.url;
+      let src = fileItem.src || fileItem.link || fileItem.url;
+      if (!/^https?:\/\//i.test(this.url)) src = `https://${src}`;
+      if (youtubeService.isYoutubeVid(src)) src = youtubeService.embedUtubeUrl(src);
+      return src;
     }
   },
   data() {

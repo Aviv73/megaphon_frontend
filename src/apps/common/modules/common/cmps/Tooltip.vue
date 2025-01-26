@@ -65,7 +65,7 @@ export default {
       const style = {};
       style.left = style.right = style.bottom = style.top = style.width = style.transform = '';
       
-      let width = 270;
+      let width = 280;
       const height = msgHeight || 100;
 
       // style.left = 0;
@@ -141,7 +141,7 @@ export default {
   .tooltip-msg {
     position: absolute;
     z-index: 1000;
-    width: em(270px);
+    width: em(280px);
     padding: em(20px);
     line-height: 1.3;
     background-color: #5a5a5a;
