@@ -87,6 +87,7 @@
         <button class="btn big secondary align-self-start"><span @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</span></button>
         <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
+          <FormInput type="text" labelholder="redirectUrl" v-model="organizationToEdit.redirectUrl"/>
           
           <div class="flex column gap20">
             <FormInput :error="isDomainExistsError && $t('organizationLocales.domainTakenError') || ''" type="text" labelholder="organizationLocales.domain" v-model="organizationToEdit.domain"/>

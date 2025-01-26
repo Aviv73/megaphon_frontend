@@ -109,7 +109,7 @@ export default {
         this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg._id}});
       }
     },
-    loadSelectedOrg() {
+    async loadSelectedOrg() {
       const id = this.selectedOrgId;
       if (!id || (id == '-1')) {
         // setDynamicStylingThemeEl({...allThemes[0], title: 'Megaphon'}, '.megaphon-app');
@@ -117,7 +117,8 @@ export default {
         return;
       }
       // if (!id) return;
-      this.$store.dispatch({ type: 'organization/loadItem', id, isToInheritData: true });
+      const org = await this.$store.dispatch({ type: 'organization/loadItem', id, isToInheritData: true });
+      if (org.redirectUrl) return window.open(org.redirectUrl, '_self');
     },
     
     createNewFolder(orgId, newFolderPath) {

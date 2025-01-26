@@ -90,7 +90,9 @@ export default {
     downloadImg,
     extractFileSrc(fileItem) {
       let src = fileItem.src || fileItem.link || fileItem.url;
-      if (!/^https?:\/\//i.test(this.url)) src = `https://${src}`;
+      if (this.cmpType === 'iframe') {
+        if (!/^https?:\/\//i.test(this.url)) src = `https://${src}`;
+      }
       if (youtubeService.isYoutubeVid(src)) src = youtubeService.embedUtubeUrl(src);
       return src;
     }

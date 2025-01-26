@@ -24,9 +24,9 @@
                 </DropDiv>
               </router-link> -->
               <CostumeNavBar :baseRoute="{ name: 'ReleasePage', params: { organizationId: org._id } }" :routeRoles="['producer', 'admin']" :beforeSvg="svgs.tv"/>
-              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('accountLocales.mediaAccounts')}}</span></router-link>
-              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
-              <!-- <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
+              <!-- <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('accountLocales.mediaAccounts')}}</span></router-link>
+              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link> -->
+              <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
               <div class="system-nav" v-if="isRoleInOrg('producer')" :class="{opened_: showOrgSystemNav}">
                 <div class="nav-list-item flex align-center space-between gap10 clr-6" @click="showOrgSystemNav = !showOrgSystemNav">
                   <p><span class="hover-pop flex align-center gap10"><div v-html="svgs.system" class="svg-parrent"></div>{{$t('sidebar.system')}}</span></p>
@@ -36,7 +36,7 @@
                   <router-link v-if="isRoleInOrg('producer') && org.requireAuth" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id }, query: { roleType: 'watchOnly' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('accountLocales.mediaAccounts')}}</span></router-link>
                   <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id }, query: { roleType: 'producerAndAdmin' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.key" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
                 </div>
-              </div> -->
+              </div>
               <FoldersNav v-if="isRoleInOrg('producer') && false" :currentDropableFolderPath="currentDropableFolderPath" :folders="org.folders || []" :parentItem="org"/>
             </div>
           </li>
@@ -50,12 +50,12 @@
         <div class="nav-item-preview system-nav" v-if="isAdmin" :class="{opened: showAdminNav}">
           <div class="nav-list-item item-header flex align-center space-between gap10" @click="showAdminNav = !showAdminNav">
             <!-- <Avatar :size="25">{{'מגפון'.slice(0,2)}}</Avatar> -->
-            <p><span class="hover-pop flex align-center gap10"><div v-html="svgs.system" class="svg-parrent"></div>{{$t('sidebar.megaphonGeneral')}}</span></p>
+            <p><span class="hover-pop flex align-center gap10"><div v-html="svgs.management" class="svg-parrent"></div>{{$t('sidebar.megaphonGeneral')}}</span></p>
             <div class="svg-parrent toggle-arrow" :class="{toggled: showAdminNav}" v-html="svgs.toggleArrow"></div>
           </div>
           <div class="flex column" v-if="showAdminNav">
-            <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
-            <router-link class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
+            <router-link class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
+            <router-link class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: '-1' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.accounts" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
             <router-link class="nav-list-item inner-list-item" :to="{ name: 'OrganizationPage' }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.organizations" class="svg-parrent"></div>{{$t('organizationLocales.organizations')}}</span></router-link>
           </div>
         </div>
@@ -146,6 +146,7 @@ export default {
     },
     selectOrg(org) {
       if (this.isOrgPending(org)) return;
+      if (org.redirectUrl) return window.open(org.redirectUrl, '_blank');
       const orgId = org._id;
       this.$router.push({ name: 'ReleasePage', params: { organizationId: orgId } });
       this.showFolders = false;

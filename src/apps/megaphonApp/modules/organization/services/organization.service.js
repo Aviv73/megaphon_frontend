@@ -191,6 +191,8 @@ function getEmptyOrganization() {
     useVideoWaterMark: false,
     onlyKnownRegistrations: false,
     useDirectLink: false,
+    dontUseGlobalDbData: false,
+    redirectUrl: '',
 
     fromEmails: [/* { email: '', title: '' } */],
     // filters: [/* { title: '', releaseTypes: [releaseTypesIds], wasDisterbuted: false } */],
