@@ -1,6 +1,6 @@
 <template>
   <div class="tag-picker">
-    <FormInput :label="showLabel? 'tag.tags': ''" placeholder="tag.tags" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange"/>
+    <FormInput :label="showLabel? 'tag.tags': ''" placeholder="tag.tags" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange" :allowAddValsToMultiSelect="allowAddValsToMultiSelect"/>
   </div>
 </template>
 
@@ -29,6 +29,10 @@ export default {
     },
     organizationId: {
       type: String,
+      required: false
+    },
+    allowAddValsToMultiSelect: {
+      type: Boolean,
       required: false
     }
   },

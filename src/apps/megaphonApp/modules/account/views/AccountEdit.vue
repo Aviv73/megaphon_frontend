@@ -1,5 +1,5 @@
 <template>
-  <div v-if="accountToEdit" class="account-edit app-form-styling simple-form flex column gap40">
+  <fieldset v-if="accountToEdit" class="account-edit app-form-styling simple-form flex column gap40" :disabled="isDisabled">
     <h2 v-if="accountToEdit._id">{{$t('accountLocales.editAccount')}}</h2>
     <h2 v-else>{{$t('accountLocales.createAccount')}}</h2>
     <form v-if="accountToEdit" @submit.prevent="saveAccount" class="flex column gap20">
@@ -41,7 +41,7 @@
       </div>
       <button class="btn big" @click="deleteAccount" v-if="accountToEdit._id">{{$t('delete')}}</button>
     </div>
-  </div>
+  </fieldset>
 </template>
 
 <script>
@@ -107,7 +107,11 @@ export default {
     organizationId() {
       const orgId = this.$route.params.organizationId;
       return (orgId == '-1') ? '' : orgId;
-    }
+    },
+    isDisabled() {
+      if (!this.isUserAdmin && this.accountToEdit?.roles?.includes(consts.userRoles.admin)) return true;
+      return false;
+    },
   },
   methods: {
     async getAccount() {

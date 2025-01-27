@@ -4,6 +4,7 @@ import { basicStoreService } from '@/apps/common/modules/common/services/basic-s
 
 import { $t } from '@/plugins/i18n';
 import { organizationService } from '../../../megaphonApp/modules/organization/services/organization.service';
+import { consts } from '@/apps/common/modules/common/services/const.service.js';
 
 const initState = () => ({
   loggedUser: null,
@@ -17,7 +18,7 @@ export const _authStore = {
   getters: {
     isLoading: (state) => state.isLoading,
     loggedUser: (state) => state.loggedUser,
-    isAdmin: (state) => state.loggedUser?.role === 'admin' || state.loggedUser?.roles?.includes?.('admin'),
+    isAdmin: (state) => state.loggedUser?.role === consts.userRoles.admin || state.loggedUser?.roles?.includes?.(consts.userRoles.admin),
     // isWatchOnly: (state) => state.loggedUser?.role === 'client' || (state.loggedUser?.roles?.includes?.('client') && (state.loggedUser.roles.length === 1)),
     // isWatchOnly: (state) => true || state.loggedUser?.organizations.every(org => (org.roles?.length === 1) && (org.roles[0] === 'client')),
     isWatchOnly: (state) => state.loggedUser?.organizations.every(org => organizationService.isUserWatchOnly(org._id, state.loggedUser)),

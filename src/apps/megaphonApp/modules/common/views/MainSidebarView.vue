@@ -30,7 +30,7 @@ export default {
       return this.$store.getters['auth/loggedUser'];
     },
     organizations() {
-      return this.$store.getters['organization/items'].reverse();
+      return [...this.$store.getters['organization/items']].reverse();
     },
     isSingleOrgMode() {
       return appConfig.singleOrgMode;

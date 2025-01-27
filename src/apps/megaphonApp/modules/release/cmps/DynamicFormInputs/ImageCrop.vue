@@ -1,11 +1,11 @@
 <template>
   <div class="file-uploader-input img-crop-input flex align-start gap10">
     <img class="val-img" :title="value?.[0]?.title" :src="imgToShow" :alt="value?.[0]?.title || $t('clickToUploadFile')" @click="clickInput"/>
-    <template v-if="!isLoading">
+    <div class="flex column gap10" v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="chooseFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
-      <button v-if="imgToShow" @click.prevent.stop="clear" class="btn big width-content">{{$t('clear')}}</button>
-    </template>
+      <button v-if="imgToShow" @click.prevent.stop="clear" class="btn width-content">{{$t('clear')}}</button>
+    </div>
     <MiniLoader v-else/>
 
     <Modal :fullScreen="true" v-if="imgBase64ToCrop" @close="clear">

@@ -1,6 +1,6 @@
 <template>
   <div class="company-picker">
-    <FormInput :label="showLabel? 'company.companies' : ''" placeholder="company.companies" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange"/>
+    <FormInput :label="showLabel? 'company.companies' : ''" placeholder="company.companies" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange" :allowAddValsToMultiSelect="allowAddValsToMultiSelect"/>
   </div>
 </template>
 
@@ -28,6 +28,10 @@ export default {
     },
     organizationId: {
       type: String,
+      required: false
+    },
+    allowAddValsToMultiSelect: {
+      type: Boolean,
       required: false
     }
   },

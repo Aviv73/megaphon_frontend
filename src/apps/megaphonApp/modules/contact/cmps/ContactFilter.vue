@@ -5,15 +5,15 @@
         {{$t('filter')}}
       </div>
     </template>
-    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-end space-between gap20">
+    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20">
       <div class="pickers flex align-start gap10 flex-1">
         <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="false" :organizationId="organizationId"/>
         <TagPicker class="flex-1" v-model="tags" :onlyRelevants="false" :organizationId="organizationId"/>
       </div>
       <div class="flex align-center gap20">
-        <div class="serach flex align-start">
+        <div class="serach flex align-start_">
           <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left">
-            <button>
+            <button class="flex align-center justify-center">
               <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
             </button>
           </FormInput>
@@ -107,10 +107,10 @@ export default {
       height: em(15px);
     }
 
-    $item-height: em(30px);
-    .form-input {
-      min-height: $item-height;
-    }
+    // $item-height: em(30px);
+    // .form-input {
+    //   // width: rem(200px);
+    // }
   
     .sorters {
       box-shadow: unset;
@@ -125,15 +125,19 @@ export default {
     }
   
     .serach {
-      border-bottom: em(1px) solid $light-gray;
-      width: em(180px);
-      .form-input {
-        width: 100%;
-        input {
-          border: 0;
-          background: unset;
-          // border-radius: 0;
-        }
+      // border-bottom: em(1px) solid $light-gray;
+      // .form-input {
+      //   width: 100%;
+      // }
+    }
+    .form-input {
+      width: em(200px);
+      // min-height: $item-height;
+      min-height: em(30px);
+      input {
+        // border: 0;
+        background: unset;
+        // border-radius: 0;
       }
     }
   }

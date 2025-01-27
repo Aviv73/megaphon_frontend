@@ -328,7 +328,7 @@ export default {
   },
   methods: {
     async getOrganization() {
-      this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id, isToInheritData: false });
+      this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id, isToInheritData: true });
       this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));
     },
     async getAllDomains() {

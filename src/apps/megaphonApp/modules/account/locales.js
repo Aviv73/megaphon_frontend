@@ -19,6 +19,7 @@ const en = {
     "newsletter": "Newsletter",
     "skipSecondFactorAuth": "Skip second actor auth",
     "mediaAccounts": "Media accounts",
+    "roles": "Roles",
     mailing: {
       "sms": "Sms",
       "newsletter": "Newsletter",
@@ -54,6 +55,7 @@ const he = {
     "newsletter": "ניוזלטר",
     "skipSecondFactorAuth": "בטל אימות שני",
     "mediaAccounts": "אנשי מדיה",
+    "roles": "הרשאות",
     mailing: {
       "sms": "sms",
       "newsletter": "ניוזלטר",

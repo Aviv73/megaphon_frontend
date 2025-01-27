@@ -57,6 +57,7 @@ import ReleaseDesignViewer from '../cmps/ReleaseDesignViewer.vue';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import { elementService } from '../../../../common/modules/common/services/element.service';
 export default {
   name: 'ReleaseEdit',
   data() {
@@ -140,10 +141,10 @@ export default {
       this.navigateOut();
     },
     async close() {
-      if (
-        this.didChange && 
-        !await alertService.Confirm(this.$t('releaseLocales.alerts.leaveConfirm'))
-      ) return;
+      // if (
+      //   this.didChange && 
+      //   !await alertService.Confirm(this.$t('releaseLocales.alerts.leaveConfirm'))
+      // ) return;
       this.navigateOut();
     },
     navigateOut() {
@@ -186,6 +187,12 @@ export default {
     '$route.params.id'() {
       this.getItem();
     }
+  },
+  async beforeRouteLeave (to, from, next) {
+    if (!this.didChange) return next();
+    const doesWantToLeave = await alertService.Confirm(this.$t('releaseLocales.alerts.leaveConfirm'), undefined, '<style>.A-Alert .alert-modal .a-alert-confirm-btn {border: none !important; box-shadow: none !important;}</style>');
+    if (!doesWantToLeave) return next(false);
+    else return next(true);
   },
   components: {
     DynamicInput,

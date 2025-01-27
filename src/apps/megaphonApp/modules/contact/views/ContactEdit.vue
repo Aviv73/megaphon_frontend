@@ -10,8 +10,8 @@
       <FormInput labelholder="contactLocales.mobile" type="phone-number" v-model="itemToEdit.mobileData" @change="val => itemToEdit.mobile = val.formatted"/>
       <FormInput labelholder="contactLocales.role" type="text" v-model="itemToEdit.role"/>
       <!-- <FormInput type="text" v-model="itemToEdit.name"/> -->
-      <TagPicker     :showLabel="true" v-model="itemToEdit.tags"/>
-      <CompanyPicker :showLabel="true" v-model="itemToEdit.company"/>
+      <TagPicker     :showLabel="true" v-model="itemToEdit.tags"    :allowAddValsToMultiSelect="true"/>
+      <CompanyPicker :showLabel="true" v-model="itemToEdit.company" :allowAddValsToMultiSelect="true"/>
       <!-- <FormInput labelholder="contactLocales.cellular" type="text" v-model="itemToEdit.cellular"/> -->
       <FormInput labelholder="contactLocales.notes" type="text" v-model="itemToEdit.notes"/>
       <div class="flex column gap20">

@@ -40,8 +40,9 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .app-footer {
-    height: rem(60px);
+    min-height: rem(60px);
     font-size: rem(14px);
+    padding: rem(20px);
     .powered-by {
         direction: ltr;
         img {

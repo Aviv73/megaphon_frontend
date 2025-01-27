@@ -93,7 +93,7 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
           state.data.items.splice(idx, 1);
           state.data.total--;
         }
-        if (state.selectedItem?._id === id) this.selectedItem = null;
+        if (state.selectedItem?._id === id) state.selectedItem = null;
       },
       setFilterBy(state, { filterBy }) {
         state.filterBy = JSON.parse(JSON.stringify(filterBy));
@@ -109,7 +109,7 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
         const idx = state.data.items.findIndex(c => c._id === item._id);
         if (idx === -1) state.data.items.unshift(item);
         else state.data.items.splice(idx, 1, item);
-        if (state.selectedItem?._id === item._id) this.selectedItem = item;
+        if (state.selectedItem?._id === item._id) state.selectedItem = item;
       },
       resetFilter(state) {
         const newFilter = _initState().filterBy;

@@ -75,32 +75,36 @@
         class="select actual-input"
       >
         <div v-if="isOpen" @click="autoCloseSelect" class="blur"></div>
-        <div @click="isOpen = !isOpen" style="height:100%;display:flex;align-items:center;gap:10px" class="head" >
-          <div class="toggle-btn"></div>
-          <div class="head-content">
-            <template v-if="componentType === 'multiselect'">
-              <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @click.stop="isOpen = true"/>
-              <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
-              <ul class="multiselect-vals-list" v-if="showVals && val?.length">
-                <li v-for="curr in val.filter(Boolean)" :key="curr">
-                  <span :title="curr">{{subValName(gatValToShowForMultiSelect(curr))}}</span>
-                  <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
-                </li>
-                <li class="clear-li">
-                  <button class="clear-btn" @click.stop="val = []">x</button>
-                </li>
-              </ul>
-              <!-- <div class="inner-square"></div> -->
-              <!-- {{ $t(val) }} -->
-            </template>
-            <template v-else>
-              <div class="selected-preview" v-if="!itemsToRender.find(c => c.value === val)"><span>{{ $t(placeholder || labelholder) }}</span></div>
-              <div class="selected-preview flex align-center gap20" v-else>
-                <span>{{$t(itemsToRender.find(c => c.value === val)?.label || val)}}</span>
-                <img v-if="itemsToRender.find(c => c.value === val)?.img" :src="itemsToRender.find(c => c.value === val)?.img"/>
-              </div>
-            </template>
+        <div @click="isOpen = !isOpen" style="height:100%;display:flex;flex-direction:column;align-items_:center;gap:10px" class="head" >
+          <div class="flex align-center gap10">
+            <div class="toggle-btn"></div>
+            <div class="head-content">
+              <template v-if="componentType === 'multiselect'">
+                <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @keydown.enter="addNewValToMultiSelect" @click.stop="isOpen = true"/>
+                <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
+
+                <!-- <div class="inner-square"></div> -->
+                <!-- {{ $t(val) }} -->
+              </template>
+              <template v-else>
+                <div class="selected-preview" v-if="!itemsToRender.find(c => c.value === val)"><span>{{ $t(placeholder || labelholder) }}</span></div>
+                <div class="selected-preview flex align-center gap20" v-else>
+                  <span>{{$t(itemsToRender.find(c => c.value === val)?.label || val)}}</span>
+                  <img v-if="itemsToRender.find(c => c.value === val)?.img" :src="itemsToRender.find(c => c.value === val)?.img"/>
+                </div>
+              </template>
+            </div>
+            <button v-if="allowAddValsToMultiSelect && valsFilterStr" @click.prevent.stop="addNewValToMultiSelect">+</button>
           </div>
+          <ul class="multiselect-vals-list" v-if="(componentType === 'multiselect') && showVals && val?.length">
+            <li v-for="curr in val.filter(Boolean)" :key="curr">
+              <span :title="curr">{{subValName(gatValToShowForMultiSelect(curr))}}</span>
+              <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
+            </li>
+            <li class="clear-li">
+              <button class="clear-btn" @click.stop="val = []">x</button>
+            </li>
+          </ul>
         </div>
         <div class="drop-down flex column align-start" @click.stop="" :class="{'direction-up': listUp}">
           <template v-if="itemsToRender?.length">
@@ -232,7 +236,8 @@ export default {
     debug: { required: false, type: Boolean, default: false },
     reactive: { required: false, type: Boolean, default: true },
 
-    format: { required: false, type: String, default: '' }
+    format: { required: false, type: String, default: '' },
+    allowAddValsToMultiSelect: { required: false, type: Boolean, default: false },
   },
   data() {
     return {
@@ -310,7 +315,7 @@ export default {
     },
 
     gatValToShowForMultiSelect(val) {
-      return this.itemsToRender.find(c => c.value === val)?.label;
+      return this.itemsToRender.find(c => c.value === val)?.label || val;
       // if (!this.showActualValues) return val;
       // return this.itemsToRender.find(c => c.value === val)?.label;
     },
@@ -318,6 +323,11 @@ export default {
       let sub = name.slice(0, 8);
       if (sub.length < name.length) sub += '..';
       return sub
+    },
+
+    addNewValToMultiSelect() {
+      this.val.push(this.valsFilterStr);
+      this.valsFilterStr = '';
     }
   },
   watch: {
@@ -430,6 +440,60 @@ export default {
   }
 }
 
+.form-input-select {
+  .head {
+    padding: em(5px);
+  }
+}
+.form-input-multiselect {
+  .input {
+    .head {
+      padding: 0 em(5px);
+      
+      .multiselect-vals-list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: em(5px);
+        width: 100%;
+
+        // input {
+        //   width: fit-content;
+        // }
+
+        li {
+          // width: em(50px);
+          height: em(20px);
+          border-radius: em(5px);
+          padding: em(5px);
+          color: white;
+          background-color: #2090D4;
+          font-size: em(12px);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: em(5px)
+        }
+        
+        .clear-li {
+          background-color: rgb(255, 109, 109);
+          border-radius: 50%;
+          width: em(20px);
+          height: em(20px);
+          padding: 0;
+          button {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+    input {
+      border: 0;
+      background: unset;
+    }
+  }
+}
 .form-input-multiselect, .form-input-select {
   // width: em(220px);
   color: #606266;
@@ -572,7 +636,7 @@ export default {
   }
 
   .head {
-    padding: em(5px);
+    // padding: em(5px);
     display: flex;
     // flex-direction: column;
     gap: em(2px);
@@ -586,45 +650,10 @@ export default {
       flex-direction: column;
       gap: em(5px);
 
-      .clear-li {
-        background-color: rgb(255, 109, 109);
-        border-radius: 50%;
-        width: em(20px);
-        height: em(20px);
-        padding: 0;
-        button {
-          width: 100%;
-          height: 100%;
-        }
-      }
       
     }
   }
 
-  .multiselect-vals-list {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: em(5px);
-
-    // input {
-    //   width: fit-content;
-    // }
-
-    li {
-      // width: em(50px);
-      height: em(20px);
-      border-radius: em(5px);
-      padding: em(5px);
-      color: white;
-      background-color: #2090D4;
-      font-size: em(12px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: em(5px)
-    }
-  }
   .drop-down {
 
   }

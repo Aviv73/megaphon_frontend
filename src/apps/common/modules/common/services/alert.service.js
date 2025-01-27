@@ -175,25 +175,26 @@ class A_Alert {
         resolve: undefined,
     }
 
-    Confirm = (msg = '', btnMsgs) => {
+    Confirm = (msg = '', btnMsgs, moreCss) => {
         this.setBtnMsgs(btnMsgs)
-        return this._seStatePromise('confirm', msg, '');
+        return this._seStatePromise('confirm', msg, '', undefined, moreCss);
     }
-    Alert = (msg = '', btnMsgs) => {
+    Alert = (msg = '', btnMsgs, moreCss) => {
         this.setBtnMsgs(btnMsgs)
-        return this._seStatePromise('alert', msg, '');
+        return this._seStatePromise('alert', msg, '', undefined, moreCss);
     }
-    Prompt = (msg = '', placeHolder = '', initVal, btnMsgs) => {
+    Prompt = (msg = '', placeHolder = '', initVal, btnMsgs, moreCss) => {
         this.setBtnMsgs(btnMsgs)
-        return this._seStatePromise('prompt', msg, placeHolder, initVal);
+        return this._seStatePromise('prompt', msg, placeHolder, initVal, moreCss);
     }
 
-    _render() {
+    _render(moreCss) {
         var {msg, type, placeHolder, initVal} = this.state;
         return `
             ${this.styleTemplateStr}
+            ${moreCss}
             <div class="alert-screen"></div>
-            <section class="alert-modal">
+            <section class="alert-modal ${type}">
                 <p class="msg">${msg}</p>
                 ${type === 'prompt' && `
                     <form class="a-alert-prompt-form">
@@ -204,8 +205,8 @@ class A_Alert {
                 ` || `
                     <div class="a-alert-buttons-container">
                         ${type === 'confirm' && `
-                            <button class="a-alert-confirm-btn">${this.btnMsgs.confirm}</button>
                             <button class="a-alert-reject-btn">${this.btnMsgs.cancel}</button>
+                            <button class="a-alert-confirm-btn">${this.btnMsgs.confirm}</button>
                         ` || `
                             <button class="a-alert-reject-btn">${this.btnMsgs.close}</button>
                         `}
@@ -215,8 +216,8 @@ class A_Alert {
             `
     }
 
-    _show = () => {
-        const alertHtmlStr = this._render();
+    _show = (moreCss) => {
+        const alertHtmlStr = this._render(moreCss);
         var elAlert = document.querySelector('.' + this.idClass);
         if (!elAlert) {
             elAlert = document.createElement('div');
@@ -282,14 +283,14 @@ class A_Alert {
         return this.state.resolve(value);
     }
 
-    _seStatePromise = (type, msg = '', placeHolder = '', initVal = '') => {
+    _seStatePromise = (type, msg = '', placeHolder = '', initVal = '', moreCss = '') => {
         if (this.state.isPending) return Promise.reject(`NOTE: can not set new alert becouse another alert is already in pending state.`);
         this.state.isPending = true;
         this.state.type = type;
         this.state.msg = msg;
         this.state.placeHolder = placeHolder;
         this.state.initVal = initVal;
-        this._show();
+        this._show(moreCss);
         return new Promise((resolve, reject) => {
             this.state.resolve = (val) => this._hide(val => resolve(val), val);
             this.state.reject = () => this._hide(reject);

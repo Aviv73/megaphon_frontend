@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="emitFilter" class="account-filter flex gap10 align-center space-between width-all">
     <div>
-      <div class="flex align-center gap5">
+      <div class="flex align-center_ gap10">
         <FormInput placeholder="search" v-model="filterBy.filter.search" :reactive="true"/>
         <button class="btn" @click="emitFilter">{{$t('search')}}</button>
       </div>

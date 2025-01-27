@@ -9,7 +9,7 @@
 // @import "./app.scss";
 
 html {
-  font-family: sans-serif;
+  font-family: Rubik-local,Rubik,sans-serif;;
 }
 
 
@@ -23,6 +23,7 @@ h1, h2, h3, h4, h5, h6 {
 .A-Alert {
   direction: rtl;
   .alert-modal {
+    font-family: Rubik-local,Rubik,sans-serif !important;
     border: unset !important;
     border-radius: em(8px) !important;
     box-shadow: $light-shadow;
@@ -39,6 +40,15 @@ h1, h2, h3, h4, h5, h6 {
     p {
       font-size: 1em;
       line-height: 1.5em;
+    }
+
+    &.confirm {
+      .a-alert-reject-btn {
+        // background-color: var(--clr-4) !important;
+        // background-color: green !important;
+      }
+      .a-alert-confirm-btn {
+      }
     }
   }
 }
