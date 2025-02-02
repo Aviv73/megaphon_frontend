@@ -13,14 +13,14 @@
               <p class="flex-2" :class="{selected: sortContactsKeys[0] === 'name'}" @click="setContactsSorter('name', 'firstName', 'email', 'token')">{{$t('contactLocales.contactName')}} / {{$t('distributeLocales.token')}}</p>
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'origin'}" @click="setContactsSorter('origin')">{{$t('distributeLocales.origin')}}</p>
               <!-- <p>{{$t('email')}}</p> -->
-              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedNewsAt'}" @click="setContactsSorter('activity.openedNewsAt')">{{$t('distributeLocales.newsOpened')}}</p>
-              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedLandingPageAt'}" @click="setContactsSorter('activity.openedLandingPageAt')">{{$t('distributeLocales.wached')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'openedNews'}" @click="setContactsSorter('openedNews')">{{$t('distributeLocales.newsOpened')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'openedLandingPage'}" @click="setContactsSorter('openedLandingPage')">{{$t('distributeLocales.wached')}}</p>
               <!-- <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distributeLocales.wachedCount')}}</p> -->
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'watchCount'}" @click="setContactsSorter('watchCount')">{{$t('distributeLocales.wachedCount')}}</p>
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')">{{$t('distributeLocales.unsubscribed')}}</p>
             </div>
             <router-link
-              v-for="(contact, idx) in contactsToShow" :key="idx"
+              v-for="(contact, idx) in currPageToShow" :key="idx"
               class="table-item-preview gap10 flex align-center space-between"
               :to="{ name: 'ContactReportPage', params: {id: contact._id || 'unknown'}, query: {email: contact.email} }"
             >
@@ -35,7 +35,7 @@
               <p class="flex-1 wide-screen-item">{{vOrX(contact.activity?.unsubscribedAt)}}</p>
             </router-link>
           </div>
-          <PaginationBtns :perPage="15" :total="report.recipients.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination" />
+          <PaginationBtns :perPage="15" :total="contactsToShow.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination" />
         </div>
         <div class="flex column gap30">
           <ReleaseDistributionLinkCoppier :release="release" :organization="organization"/>
@@ -170,26 +170,44 @@ export default {
       return this.$store.getters['release/selectedReleaseReport'];
     },
     contactsToShow() {
-      const filter = this.contactFilter.pagination;
-      const startIdx = filter.page * filter.limit;
       let res = [...(this.report.recipients || [])];
+      res = res.reduce((acc, curr) => {
+        if (!acc.find(c => (c.email || this.getContactName(c)) === (curr.email || this.getContactName(curr)))) acc.push(curr);
+        return acc;
+      }, []);
       res = res.sort((a, b) => {
         // const aKey = this.sortContactsKeys.find(key => getDeepVal(a, key));
         // const bKey = this.sortContactsKeys.find(key => getDeepVal(b, key));
         // if (!aKey && !bKey) return 0;
-        const [aKey, bKey] = [this.sortContactsKeys[0], this.sortContactsKeys[0]];
-        let aVal = getDeepVal(a, aKey);
-        let bVal = getDeepVal(b, bKey);
-        if (this.sortContactsKeys[0] === 'watchCount') {
+        const sortKey = this.sortContactsKeys[0];
+        // const [aKey, bKey] = [this.sortContactsKeys[0], this.sortContactsKeys[0]];
+        let aVal = getDeepVal(a, sortKey);
+        let bVal = getDeepVal(b, sortKey);
+        if (sortKey === 'watchCount') {
           aVal = this.getVideoWatchCountByContact(a);
           bVal = this.getVideoWatchCountByContact(b);
         }
+        if (sortKey === 'openedLandingPage') {
+          aVal = a.activity.views?.filter(c => c.platform === 'landingPage')?.length || 0;
+          bVal = b.activity.views?.filter(c => c.platform === 'landingPage')?.length || 0;
+        }
+        if (sortKey === 'openedNews') {
+          aVal = a.activity.views?.filter(c => c.platform === 'email')?.length || 0;
+          bVal = b.activity.views?.filter(c => c.platform === 'email')?.length || 0;
+        }
         if (aVal === bVal) return 0;
-        if (!aKey || !aVal) return 1;
-        if (!bKey || !bVal) return -1;
+        if (!aVal) return 1;
+        if (!bVal) return -1;
+        // if (!aKey || !aVal) return 1;
+        // if (!bKey || !bVal) return -1;
         return aVal > bVal? -1 : 1;
       });
-      return res.slice(startIdx, startIdx+filter.limit);
+      return res;
+    },
+    currPageToShow() {
+      const filter = this.contactFilter.pagination;
+      const startIdx = filter.page * filter.limit;
+      return this.contactsToShow.slice(startIdx, startIdx+filter.limit);
     },
     originsMap() {
       return this.report.recipients.reduce((acc, c) => {

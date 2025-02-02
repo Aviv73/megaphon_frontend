@@ -17,7 +17,7 @@
               <p class="flex-1 wide-screen-item">{{$t('distributeLocales.origin')}}</p>
               <p class="flex-1">{{$t('distributeLocales.newsletter')}}</p>
               <p class="flex-1">{{$t('distributeLocales.wached')}}</p>
-              <p class="flex-1 wide-screen-item">{{$t('distributeLocales.wachedCount')}}</p>
+              <!-- <p class="flex-1 wide-screen-item">{{$t('distributeLocales.wachedCount')}}</p> -->
               <p class="flex-1 wide-screen-item">{{$t('distributeLocales.unsubscribed')}}</p>
             </div>
             <div
@@ -29,7 +29,7 @@
               <p class="flex-1 wide-screen-item">{{$t(`distributeLocales.origins.${release.origin}`)}}</p>
               <p class="flex-1">{{vOrX(release.activity?.views?.filter(c => c.platform === 'email')?.length)}}</p>
               <p class="flex-1">{{vOrX(release.activity?.views?.filter(c => c.platform === 'landingPage')?.length)}}</p>
-              <p class="flex-1 wide-screen-item">{{release.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}</p>
+              <!-- <p class="flex-1 wide-screen-item">{{release.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}</p> -->
               <p class="flex-1 wide-screen-item">{{vOrX(release.activity?.unsubscribedAt)}}</p>
             </div>
           </div>
