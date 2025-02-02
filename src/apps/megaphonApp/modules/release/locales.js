@@ -10,6 +10,7 @@ const  en = {
     "newsletterDesign": "Newsletter design",
     "searchReleases": "Search releases",
     "filterByYear": "Filter by year",
+    "allYears": "All years",
     "addToFolder": "Add to folder",
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this release?",
@@ -137,7 +138,8 @@ const he = {
     "landingPageDesign": "עיצוב דף נחיתה",
     "newsletterDesign": "עיצוב מייל הפצה",
     "searchReleases": "חפש רליסים",
-    "filterByYear": "פלטר לפי שנה",
+    "filterByYear": "בחר שנה",
+    "allYears": "כל השנים",
     "addToFolder": "הוסף לתיקייה",
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הרליס?",
@@ -202,14 +204,14 @@ const he = {
     "contactReport": "דוח הפצות איש קשר",
 
     "loadingMsg": "מפיץ את הרליס, זה עשוי לקחת רגע..",
-    wached: 'צפייה',
+    wached: 'צפייה בתוכן',
     newsOpened: 'ניוזלטר נפתח',
     newsletter: 'ניוזלטר',
     "enterenceOrigins": 'מקורות כניסה',
     copyReleaseDistributionUrl: 'העתק קישור להפצת רליס',
     origin: 'מקור',
     'unsubscribed': 'ביטל מנוי',
-    wachedCount: 'מספר צפיות',
+    wachedCount: 'צפיות בוידאו',
     origins: {
       email: 'אימייל',
       distribution: 'הפצה',
@@ -233,6 +235,7 @@ const he = {
     urlDistributionNote: 'לאחר פתיחת הקישור ובמידה ולא הופץ לפני - הרליס ייחשב במערכת כרליס שהופץ.',
     regenerateToken: 'צור מזהה ייחודי חדש',
     noDistributionDataForRelease: 'לא נמצא תקציר הפצה לרליס',
+    "onlyRegularDistributionValidMsg": "שימו לב! בארגון זה יש צורך באימות לפני צפיה בתכנים, לכן הקישור יעבוד אך ורק לנמענים אשר הרליס כבר הופץ להם בעבר באופן רגיל ולא דרך קישור הפצה.",
 
     "unsubscribedContacts": "אנשי קשר שבטלו הרשמה",
     "deleteDistributionData": "מחק תקציר הפצה",

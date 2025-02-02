@@ -5,6 +5,7 @@
       @click.prevent.stop="emitVal(opt.value)"
     >
       <img v-if="opt.img" :src="opt.img"/>
+      <span v-else-if="opt.html" v-html="opt.html"/>
       <span v-if="opt.label">{{opt.label}}</span>
     </button>
   </div>

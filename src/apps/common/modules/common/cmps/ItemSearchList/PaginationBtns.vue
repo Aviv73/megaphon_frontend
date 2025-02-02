@@ -191,9 +191,13 @@ export default {
 .pagination-btns {
     .form-input.form-input-select {
       border-bottom: em(1px) solid black;
-      .input {
-        width: em(80px);
-        min-width: em(80px);
+      width: fit-content;
+      min-width: unset;
+      border: 0;
+      .input, .actual-input {
+        border: 0;
+        // width: em(80px);
+        // min-width: em(80px);
       }
     }
 

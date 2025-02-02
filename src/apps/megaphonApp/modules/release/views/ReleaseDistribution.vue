@@ -16,7 +16,7 @@
             <button @click="loadSystemContacts = false" :class="{selected: !loadSystemContacts}">{{$t('distributeLocales.selfContacts')}}</button>
           </div>
           <ItemSearchList
-            class="table-like-list"
+            class="table-like-list contacts-selection-list"
             :itemsData="allContactData"
             :initFilterBy="filterBy"
             @filter="getContacts"
@@ -37,8 +37,8 @@
               <div class="table-item-preview gap10 table-header">
                 <p>{{$t('contactLocales.contactName')}}</p>
                 <p class="wide-screen-item">{{$t('email')}}</p>
-                <p class="wide-screen-item">{{$t('contactLocales.role')}}</p>
                 <p class="wide-screen-item">{{$t('contactLocales.companyName')}}</p>
+                <p class="wide-screen-item">{{$t('contactLocales.tags')}}</p>
                 <div>
                   <button class="toggle-btn" @click="addAllSearchContacts()">
                     <img class="add-all-btn-img reg" :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>
@@ -81,7 +81,7 @@
               <button class="btn">{{$t('distributeLocales.add')}}</button>
             </form>
           </div>
-          <div class="table-like-list flex-1 selected-table">
+          <div class="table-like-list contacts-list flex-1 selected-table">
             <div class="table-item-preview selected-input gap10 table-header flex space-between">
               <!-- <p>{{$t('contactLocales.contactName')}}</p> -->
               <FormInput :placeholder="$t('contactLocales.contactName')" v-model="searchSelectedTerm"/>
@@ -105,7 +105,7 @@
         <div class="flex column gap10 mailing-lists-modal mailing-list-list">
           <template v-if="emailLists?.length">
             <p>{{$t('distributeLocales.loadDistributionList')}}</p>
-            <div class="table-like-list flex-1 selected-table">
+            <div class="table-like-list contacts-list flex-1 selected-table">
               <div class="table-item-preview gap10 table-header flex space-between">
                 <p>{{$t('distributeLocales.mailingList')}}</p>
               </div>
@@ -129,7 +129,7 @@
               <FormInput v-model="newMailingListName" placeholder="name"/>
               <button class="btn">{{$t('create')}}</button>
             </form>
-            <div class="table-like-list flex-1 selected-table mailing-list-list">
+            <div class="table-like-list contacts-list flex-1 selected-table mailing-list-list">
               <div v-for="list in emailLists" :key="list._id" class="table-item-preview gap10 list-item flex align-center space-between" @click="updateMailingList(list)">
                 <p>{{list.title}}</p>
               </div>
@@ -619,6 +619,16 @@ export default {
     .distribution-type {
       .options-container {
         flex-direction: row;
+      }
+    }
+
+    .contacts-selection-list {
+      .table-item-preview {
+        >* {
+          &:last-child {
+            max-width: em(100px);
+          }
+        }
       }
     }
   }

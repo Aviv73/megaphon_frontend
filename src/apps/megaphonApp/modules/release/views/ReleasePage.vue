@@ -194,6 +194,7 @@ export default {
       gap: em(20px);
     }
     .item-page {
+      gap: 0;
       overflow: unset;
       .item-list {
         overflow-y: unset;

@@ -13,9 +13,10 @@
               <p class="flex-2" :class="{selected: sortContactsKeys[0] === 'name'}" @click="setContactsSorter('name', 'firstName', 'email', 'token')">{{$t('contactLocales.contactName')}} / {{$t('distributeLocales.token')}}</p>
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'origin'}" @click="setContactsSorter('origin')">{{$t('distributeLocales.origin')}}</p>
               <!-- <p>{{$t('email')}}</p> -->
-              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedNewsAt'}" @click="setContactsSorter('activity.openedNewsAt')">{{$t('distributeLocales.newsletter')}}</p>
+              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedNewsAt'}" @click="setContactsSorter('activity.openedNewsAt')">{{$t('distributeLocales.newsOpened')}}</p>
               <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'activity.openedLandingPageAt'}" @click="setContactsSorter('activity.openedLandingPageAt')">{{$t('distributeLocales.wached')}}</p>
-              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distributeLocales.wachedCount')}}</p>
+              <!-- <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distributeLocales.wachedCount')}}</p> -->
+              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'watchCount'}" @click="setContactsSorter('watchCount')">{{$t('distributeLocales.wachedCount')}}</p>
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')">{{$t('distributeLocales.unsubscribed')}}</p>
             </div>
             <router-link
@@ -29,7 +30,8 @@
               <!-- <p>{{contact.email}}</p> -->
               <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'email')?.length)}}</p>
               <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length)}}</p>
-              <p class="flex-1 wide-screen-item">{{contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}</p>
+              <!-- <p class="flex-1 wide-screen-item">{{contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}</p> -->
+              <p class="flex-1 wide-screen-item">{{getVideoWatchCountByContact(contact) || '-'}}</p>
               <p class="flex-1 wide-screen-item">{{vOrX(contact.activity?.unsubscribedAt)}}</p>
             </router-link>
           </div>
@@ -138,6 +140,17 @@ export default {
       if (!await alertService.Confirm(this.$t('distributeLocales.alertMsgs.confirmRemoveDistData'))) return;
       await this.$store.dispatch({ type: 'release/removeDistData', releaseId: this.releaseId, organizationId: this.$route.params.organizationId });
       this.$router.push({name: 'ReleasePage', params: {organizationId: this.$route.params.organizationId}});
+    },
+
+    getVideoWatchCountByContact(contact) {
+      // return 7;
+      const relevantAccount = this.report.relevantAccounts.find(c => c.email === contact.email);
+      if (!relevantAccount) return 0;
+      const relevantViews = this.report.releaseFiles.reduce((acc, c) => {
+        acc.push(...c.videoWatchLogs.filter(log => log.accountId === relevantAccount._id));
+        return acc;
+      }, []);
+      return relevantViews.length;
     }
   },
   computed: {
@@ -159,13 +172,18 @@ export default {
     contactsToShow() {
       const filter = this.contactFilter.pagination;
       const startIdx = filter.page * filter.limit;
-      let res = [...this.report.recipients];
+      let res = [...(this.report.recipients || [])];
       res = res.sort((a, b) => {
-        const aKey = this.sortContactsKeys.find(key => getDeepVal(a, key));
-        const bKey = this.sortContactsKeys.find(key => getDeepVal(b, key));
-        if (!aKey && !bKey) return 0;
-        const aVal = getDeepVal(a, aKey);
-        const bVal = getDeepVal(b, bKey);
+        // const aKey = this.sortContactsKeys.find(key => getDeepVal(a, key));
+        // const bKey = this.sortContactsKeys.find(key => getDeepVal(b, key));
+        // if (!aKey && !bKey) return 0;
+        const [aKey, bKey] = [this.sortContactsKeys[0], this.sortContactsKeys[0]];
+        let aVal = getDeepVal(a, aKey);
+        let bVal = getDeepVal(b, bKey);
+        if (this.sortContactsKeys[0] === 'watchCount') {
+          aVal = this.getVideoWatchCountByContact(a);
+          bVal = this.getVideoWatchCountByContact(b);
+        }
         if (aVal === bVal) return 0;
         if (!aKey || !aVal) return 1;
         if (!bKey || !bVal) return -1;

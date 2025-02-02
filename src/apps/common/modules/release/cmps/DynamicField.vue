@@ -71,7 +71,7 @@ import FilesSection from './FilesSection.vue';
 // import FileList from './FileList.vue';
 import FilesSingleSection from './FilesSingleSection.vue';
 import ReleasesSlider from './ReleasesSlider.vue'
-import { time, youtubeService } from '../../common/services/util.service';
+import { Time, youtubeService } from '../../common/services/util.service';
 import { validateDataByDataField } from '../../../../megaphonApp/modules/common/services/dynamicFormService';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 
@@ -127,7 +127,7 @@ export default {
           this.cmpName = this.dataField.uiCmp || 'p';
           break;
         case 'DATE':
-          this.valueToShow = time.getTimeStrAs(this.value, 'day/month/year');
+          this.valueToShow = Time.getTimeStrAs(this.value, 'date/month/year');
           break;
         case 'LONGRICHTEXT':
         case 'RICHTEXT':

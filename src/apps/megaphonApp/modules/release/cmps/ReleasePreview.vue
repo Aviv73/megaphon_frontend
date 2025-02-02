@@ -4,7 +4,7 @@
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="release-title">{{release.title}}</p>
         <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('releaseLocales.distributedAt')}}: {{pretyDistributionTime}}</p> -->
-      <div v-if="!isUserOrgWatchOnly" class="actions-container flex column space-between align-end">
+      <div v-if="!isUserOrgWatchOnly" class="actions-container flex column space-between align-end gap10 height-all">
         <div class="actions flex column align-end gap5">
           <button v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
           <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
@@ -31,6 +31,7 @@ import  { getSvgs } from '../../../assets/images/svgs.js';
 
 import config from '@/config';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
+import { Time } from '../../../../common/modules/common/services/util.service';
 
 export default {
   components: { DragDiv, FormInput },
@@ -74,8 +75,9 @@ export default {
 
     pretyDistributionTime() {
       if (!this.item.distributedAt) return '';
-      const time = new Date(this.item.distributedAt);
-      return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
+      return Time.getTimeStrAs(this.item.distributedAt, 'date/month/year');
+      // const time = new Date(this.item.distributedAt);
+      // return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
@@ -159,7 +161,16 @@ export default {
       top: 0;
       left: 0;
       height: em(160px);
+      @media (max-width: $small-screen-break) {
+        height: em(200px);
+      }
       width: 100%;
+      .dist-title {
+        padding: em(3px);
+        color: white;
+        background-color: rgba(0, 0, 0, 0.3);
+        // background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+      }
       .actions {
         color: var(--clr-4);
         a, button, .form-input-checkbox_, .form-input-checkbox .input {

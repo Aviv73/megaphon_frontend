@@ -179,6 +179,7 @@ export default {
       // return;
       this.watchSession = await this.$store.dispatch({ type: 'videoWatchLog/loadItem', silent: true });
       this.watchSession.organizationId = this.organization._id;
+      // this.watchSession.parentId = this.fileItem.parent?._id;
       this.watchSession.accountId = this.loggedUser._id;
       this.watchSession.fileId = this.fileItem.fileId;
       this.setNewWatchSection();

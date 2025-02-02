@@ -38,6 +38,7 @@ export default {
       return this.$store.getters['settings/uiConfig'] || {};
     },
     appThemeClassName() {
+      return '';
       return (this.uiConfig?.theme || 'none') + '-theme';
     },
   },

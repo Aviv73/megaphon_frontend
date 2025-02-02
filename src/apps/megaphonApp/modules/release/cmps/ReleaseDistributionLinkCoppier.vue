@@ -13,6 +13,7 @@
           <FormInput type="select" v-model="origin" labelholder="origin" :items="originOpts"/>
           <FormInput type="select" v-model="tokenType" labelholder="distributeLocales.tokenType" :items="tokenOpts.map(c => ({value: c, label: `distributeLocales.tokenTypes.${c}`}))"/>
           <FormInput v-if="tokenType === 'insert'" type="text" v-model="token" labelholder="distributeLocales.token"/>
+          <p v-if="organization.requireAuth" class="bold">{{$t('distributeLocales.onlyRegularDistributionValidMsg')}}</p>
           <p class="note-p">{{$t('distributeLocales.uniqueTokenNote')}}</p>
           <p class="note-p">{{$t('distributeLocales.urlDistributionNote')}}</p>
           <p class="url-p">{{sendInEmailUrl}}</p>

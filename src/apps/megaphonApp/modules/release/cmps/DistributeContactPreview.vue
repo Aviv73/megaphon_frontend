@@ -2,10 +2,10 @@
   <div v-if="contact" class="table-item-preview contact-preview gap10" :class="{unsubscribed: contact.unsubscribed}">
     <!-- <p v-if="contact.firstName">{{contact.firstName}} {{contact.lastName}}</p>
     <p v-else>{{contact.email}}</p> -->
-    <p>{{contactPreviewName}}</p>
-    <p class="wide-screen-item">{{contact.email}}</p>
-    <p class="wide-screen-item">{{contact.role}}</p>
-    <p class="wide-screen-item">{{companiesToShow.join(', ')}}</p>
+    <p :title="contactPreviewName">{{contactPreviewName}}</p>
+    <p class="wide-screen-item" :title="contact.email">{{contact.email}}</p>
+    <p class="wide-screen-item" :title="companiesToShow.join(', ')">{{companiesToShow.join(', ')}}</p>
+    <p class="wide-screen-item" :title="tagsToShow.join(', ')">{{tagsToShow.join(', ')}}</p>
     <template v-if="!contact.unsubscribed">
       <button class="toggle-btn" v-if="isAdded" @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.remove')}}</button>
       <button class="toggle-btn" v-else @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>{{$t('add')}}</button>
@@ -34,8 +34,14 @@ export default {
     allCompanies() {
       return this.$store.getters['company/items'];
     },
+    allTags() {
+      return this.$store.getters['tag/items'];
+    },
     companiesToShow() {
       return this.contact?.company.map(c => this.allCompanies.find(comp => comp._id === c)?.name) || [];
+    },
+    tagsToShow() {
+      return this.contact?.tags.map(c => this.allTags.find(tag => tag._id === c)?.name) || [];
     },
 
     isAdded() {

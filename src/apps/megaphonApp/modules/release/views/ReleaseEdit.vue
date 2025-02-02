@@ -76,9 +76,12 @@ export default {
     },
     isItemValid() {
       return !!this.itemToEdit;
-    },  
+    },
+    queryReleaseType() {
+      return this.$route.query.releaseType;
+    },
     releaseType() {
-      return this.itemToEdit?.releaseType || this.$route.query.releaseType || '';
+      return this.itemToEdit?.releaseType || this.queryReleaseType || '';
     },
 
     selectedReleaseTypeItem() {
@@ -108,6 +111,8 @@ export default {
       this.org = await this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId, isToInheritData: true });
     },
     async getItem() {
+      this.dataFields = [];
+      this.itemToEdit = null;
       this.itemToEdit = await this.$store.dispatch({ type: 'release/loadItem', id: this.$route.params.id, organizationId: this.orgId });
       await this.loadReleaseDataFields();
       if (!this.itemToEdit.organizationId) this.itemToEdit.organizationId = this.orgId;
@@ -117,7 +122,6 @@ export default {
         if (this.itemToEdit.releaseData[key] === undefined) this.itemToEdit.releaseData[key] = emptyDataItem[key];
       }
       this.initialItem = JSON.parse(JSON.stringify(this.itemToEdit));
-      console.log('EDIT!', this.itemToEdit);
     },
     async saveItem() {
       if (!this.isItemValid) return;
@@ -186,9 +190,12 @@ export default {
   watch: {
     '$route.params.id'() {
       this.getItem();
+    },
+    queryReleaseType() {
+      this.getItem();
     }
   },
-  async beforeRouteLeave (to, from, next) {
+  async beforeRouteLeave(to, from, next) {
     if (!this.didChange) return next();
     const doesWantToLeave = await alertService.Confirm(this.$t('releaseLocales.alerts.leaveConfirm'), undefined, '<style>.A-Alert .alert-modal .a-alert-confirm-btn {border: none !important; box-shadow: none !important;}</style>');
     if (!doesWantToLeave) return next(false);

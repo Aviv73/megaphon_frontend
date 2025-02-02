@@ -18,19 +18,29 @@
             </button>
           </router-link>
         </div>
-        <div class="filters nav-items flex align-center_ height-all">
-          <!-- <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.routes" :key="filter._id" @click="emitFilter(filter)">
-            {{filter.title}}
-          </button> -->
-          
-          <router-link
-            v-for="filterItem in filteredRoutesByRoles" :key="filterItem.id"
-            :to="{ name: 'ReleasePage', query: { page: filterItem.name  } }"
-            class="nav-item flex align-center height-all"
-            :class="{selected: $route.query.page === filterItem.name}"
-          >
-            <span class="hover-pop">{{filterItem.name}}</span>
-          </router-link>
+
+        <div class="nav-items flex align-center gap10 height-all" v-if="isScreenWide && ($route.name === 'ReleasePage')">
+          <form @submit.prevent="evManager.emit('searchReleases', searchTerm)">
+            <FormInput class="search" placeholder="search" iconPos="left" v-model="searchTerm" @change_="val => evManager.emit('search', val)">
+              <button>
+                <div v-html="searchImg" class="filter-icon-img svg-parrent"></div>
+                <!-- <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/> -->
+              </button>
+            </FormInput>
+          </form>
+          <div class="filters nav-items flex align-center_ height-all">
+            <!-- <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.routes" :key="filter._id" @click="emitFilter(filter)">
+              {{filter.title}}
+            </button> -->
+            <router-link
+              v-for="filterItem in filteredRoutesByRoles" :key="filterItem.id"
+              :to="{ name: 'ReleasePage', query: { page: filterItem.name  } }"
+              class="nav-item flex align-center height-all"
+              :class="{selected: $route.query.page === filterItem.name}"
+            >
+              <span class="hover-pop">{{filterItem.name}}</span>
+            </router-link>
+          </div>
         </div>
         <template v-if="isUserWatchOnly">
           <button class="nav-item logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>
@@ -70,13 +80,18 @@ import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import NavOrBurger from '../../../../common/modules/common/cmps/NavOrBurger.vue';
 import appConfig from '@/appConfig';
 import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
+import  { getSvgs as getGlobalSvgs } from '@/assets/images/svgs.js';
+import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 export default {
   name: 'AppHeader',
   data() {
     return {
       // selecterOrgFilterId: null,
       selectedOrgId: this.$route.params.organizationId || '',
-      showLogo: true
+      showLogo: true,
+      searchTerm: '',
+
+      evManager
     }
   },
   computed: {
@@ -128,6 +143,10 @@ export default {
         // ,
         // { label: 'new', value: 'new' }
       ];
+    },
+
+    searchImg() {
+      return getGlobalSvgs('var(--clr-0)').search;
     }
   },
   methods: {
@@ -201,6 +220,20 @@ export default {
         padding-inline-start: 0;
       }
     }
+
+    .search {
+      overflow: unset;
+      // border-bottom: em(1px) solid $light-gray;
+      input {
+        // border: 0;
+        // border: unset;
+        border-radius: 0;
+      }
+      .filter-icon-img {
+        width: em(15px);
+        height: em(15px);
+      }
+    }
     
   
     .logo-title { // .logo-title, 
@@ -230,7 +263,8 @@ export default {
           gap: em(5px);
           &::before {
             content: '+';
-            font-weight: bold;
+            font-size: em(20px);
+            font-weight: 1000;
           }
         }
       }

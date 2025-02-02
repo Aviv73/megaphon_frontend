@@ -141,7 +141,7 @@ const he = {
   "name": "שם",
   "invite": "הזמן",
   "createdBy": "נוצר על ידי",
-  "search": "חפש",
+  "search": "חיפוש",
   "noMatches": "אין התאמות",
   "noItemsFound": "לא נמצאו תוצאות",
   "createYourFirstOne": "צור את הראשון",

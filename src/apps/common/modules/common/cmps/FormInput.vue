@@ -77,7 +77,6 @@
         <div v-if="isOpen" @click="autoCloseSelect" class="blur"></div>
         <div @click="isOpen = !isOpen" style="height:100%;display:flex;flex-direction:column;align-items_:center;gap:10px" class="head" >
           <div class="flex align-center gap10">
-            <div class="toggle-btn"></div>
             <div class="head-content">
               <template v-if="componentType === 'multiselect'">
                 <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @keydown.enter="addNewValToMultiSelect" @click.stop="isOpen = true"/>
@@ -94,6 +93,7 @@
                 </div>
               </template>
             </div>
+            <div class="toggle-btn"></div>
             <button v-if="allowAddValsToMultiSelect && valsFilterStr" @click.prevent.stop="addNewValToMultiSelect">+</button>
           </div>
           <ul class="multiselect-vals-list" v-if="(componentType === 'multiselect') && showVals && val?.length">
@@ -456,6 +456,7 @@ export default {
         flex-wrap: wrap;
         gap: em(5px);
         width: 100%;
+        padding-bottom: em(5px);
 
         // input {
         //   width: fit-content;
@@ -512,8 +513,8 @@ export default {
   box-sizing: border-box;
   .input {
     
-    min-width: em(180px);
-    min-height: em(25px);
+    // min-width: em(180px);
+    // min-height: em(25px);
     // width: 100%;
     flex: 1;
     // height: 100%;
