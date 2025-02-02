@@ -203,6 +203,7 @@ export default {
           flex-direction: column;
           align-items: center;
         }
+        margin-bottom: em(20px);
       }
     }
     

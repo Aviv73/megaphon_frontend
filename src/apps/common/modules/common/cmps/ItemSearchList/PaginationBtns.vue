@@ -199,6 +199,14 @@ export default {
         // width: em(80px);
         // min-width: em(80px);
       }
+      min-width: unset;
+      .input {
+        .select {
+          .head {
+            background-color: unset !important;
+          }
+        }
+      }
     }
 
     .navigator {

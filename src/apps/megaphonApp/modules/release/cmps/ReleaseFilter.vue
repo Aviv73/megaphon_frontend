@@ -219,6 +219,13 @@ export default {
     }
     .form-input-select {
       min-width: unset;
+      .input {
+        .select {
+          .head {
+            background-color: unset !important;
+          }
+        }
+      }
       .actual-input {
         border: 0;
       }
