@@ -224,7 +224,7 @@ export default {
     }
 
     .form-input {
-      &-text, &-select {
+      &-text, &-select, &-date {
         height: em(40px);
         input {
           border-radius: 0;
