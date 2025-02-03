@@ -207,7 +207,7 @@ export default {
 
 .megaphon-app {
   .app-header {
-    // z-index: 6;
+    z-index: 6;
     // padding: 0 em(10px);
     // background-color: #F2F2F2;
     // color: black;
