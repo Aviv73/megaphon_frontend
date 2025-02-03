@@ -1,12 +1,25 @@
 megaphonApp:
 - update to new ui
-- re add dark theme and toggling between
 - create Admin zonde, needs to be definged by Chen Li
-- Fix fullScreenToggler, listen to onFullScreen event, enlarge only requested full screen
+- fix image crop
+- video encryption, add encryption params to media converter
+
 
 Yes:
-- No email verification
-- limit views per contact
-- long video encryption VVVVVVV
+- video encryption
 - video view dashboarding
 - email ui update
+- add logs for what device and geo location
+- add organization edit for producers;
+- sms spam?
+
+
+dashbording yes requirments::
+אפשרות לראות כמה אנשים צפו בכל תוכן
+אפשרות לראות על כל משתמש באיזה תוכן הוא צפה, *כמה פעמים הוא צפה בו, וכמה זמן הוא צפה בכל תוכן
+*הבנתי שהאינדיקציה של כמות הצפיות מתואמת עם כמות הכניסות לרליס ולאו דווקא כמות הצפיות בסרטון, נשמח אם זה יתואם לכמות הצפיות בסרטון עצמו (ושהנגינה לא תהיה אוטומטית)
+אפשרות לראות כמה פעמים כל משתמש נכנס לפלטפורמה ומתי פעם אחרונה שהוא נכנס אליה
+אפשרות לעשת גרף המראה מה התוכן הכי נצפה ומה התוכן שהכי פחות נצפה(חלוקה לפי חודשים/שבועות)
+אפשרות לראות בגרף, לפי חודשים, כמה צפיות היו סך הכל, כמה זמן צפיות היו סך הכל במצטבר,  (תקף לכל התכנים הנמצאים בפלטפורמה פר חודש)
+אפשרות לראות מאיזה מכשיר המשתמשים צפו (פלאפון, טאבלט או מחשב), ומה האמצעי הכי פופולרי
+אפשרות לראות את מיקומו הפיזי של אותו צופה (ארץ או חו"ל)
