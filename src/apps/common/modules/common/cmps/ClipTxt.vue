@@ -1,21 +1,26 @@
 <template>
   <div class="txt-cliper">
-    <p class="txt">
+    <p class="txt" :title="title">
+      <span v-if="titleTxt" class="txt-title">{{titleTxt}}</span>
       {{txtToShow}}
       <button v-if="needsToggle" @click="toggle()" class="read-more-btn">
         {{!toggled? 'Read more' : 'Read less'}}
       </button>
     </p>
-    <p class="full-txt">{{txt}}</p>
+    <p class="full-txt" :title="title">
+      <span v-if="titleTxt" class="txt-title">{{titleTxt}}</span>
+      {{txt}}
+    </p>
   </div>
 </template>
 
 <script>
-import { cropText } from '@/cms/services/util.service';
+import { cropText } from '@/apps/common/modules/common/services/util.service';
 export default {
   name: 'ClipTxt',
   props: {
     txt: String,
+    titleTxt: String,
     maxLength: {
       type: Number,
       default: () => 100
@@ -28,11 +33,14 @@ export default {
   },
   computed: {
     needsToggle() {
-      return this.txt.length > this.maxLength;
+      return (this.txt.length + (this.titleTxt?.length || 0)) > this.maxLength;
     },
     txtToShow() {
       if (this.toggled) return this.txt;
-      return cropText(this.txt, this.maxLength);
+      return cropText(this.txt, this.maxLength - (this.titleTxt?.length || 0));
+    },
+    title() {
+      return [this.titleTxt, this.txt].filter(Boolean).join(' ');
     }
   },
   methods: {
@@ -45,9 +53,12 @@ export default {
 </script>
 
 <style lang="scss">
-.clip-txt {
+.txt-cliper {
   .full-txt {
     display: none;
+  }
+  .txt-title {
+    text-decoration: underline;
   }
 }
 </style>

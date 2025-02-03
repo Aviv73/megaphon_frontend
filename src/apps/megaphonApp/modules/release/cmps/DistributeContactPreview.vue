@@ -4,8 +4,8 @@
     <p v-else>{{contact.email}}</p> -->
     <p :title="contactPreviewName">{{contactPreviewName}}</p>
     <p class="wide-screen-item" :title="contact.email">{{contact.email}}</p>
-    <p class="wide-screen-item" :title="companiesToShow.join(', ')">{{companiesToShow.join(', ')}}</p>
-    <p class="wide-screen-item" :title="tagsToShow.join(', ')">{{tagsToShow.join(', ')}}</p>
+    <ClipTxt class="wide-screen-item" :maxLength="40" :txt="companiesToShow.join(', ')"/>
+    <ClipTxt class="wide-screen-item" :maxLength="40" :txt="tagsToShow.join(', ')"/>
     <template v-if="!contact.unsubscribed">
       <button class="toggle-btn" v-if="isAdded" @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.remove')}}</button>
       <button class="toggle-btn" v-else @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>{{$t('add')}}</button>
@@ -17,7 +17,9 @@
 <script>
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { contactService } from '../../contact/contact.service';
+import ClipTxt from '../../../../common/modules/common/cmps/ClipTxt.vue';
 export default {
+  components: { ClipTxt },
   name: 'DistributeContactPreview',
   props: {
     item: {
@@ -65,6 +67,11 @@ export default {
   .contact-preview {
     position: relative;
     width: 100%;
+    .txt-cliper {
+      button {
+        display: none;
+      }
+    }
   }
 }
 </style>
