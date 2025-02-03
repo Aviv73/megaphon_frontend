@@ -32,17 +32,24 @@
     <div v-if="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)" class="video-section flex column gap30">
       <h2>{{releaseData.videos[0].title}}</h2>
       <!-- <iframe :src="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)"></iframe> -->
-      <video controls :src="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)"></video>
+      <!-- <video controls :src="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)"></video> -->
+      <VideoTag
+        :format="getFileItemFromRootItem(releaseData.videos[0], release)?.format"
+        :src="fixVideoSrcToThumbnail(releaseData.videos[0], release, release.organizationId)"
+        :fileItem="releaseData.videos[0]"
+        :compiledFileItem="getFileItemFromRootItem(releaseData.videos[0], release)"
+      />
     </div>
   </section>
 </template>
 
 <script>
-import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
+import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail, getFileItemFromRootItem } from '@/apps/common/modules/common/services/file.service';
 import RoutesLocator from '../cmps/agam_RoutesLocator.vue';
+import VideoTag from '../../../common/modules/release/cmps/VideoTag.vue';
 
 export default {
-  components: { RoutesLocator },
+  components: { RoutesLocator, VideoTag },
   name: 'agam_BookReleaseDetails',
   props: {
     release: {
@@ -51,7 +58,7 @@ export default {
     }
   },
   methods: {
-    fixFileSrcToThumbnail, fixVideoSrcToThumbnail
+    fixFileSrcToThumbnail, fixVideoSrcToThumbnail, getFileItemFromRootItem
   },
   computed: {
     monthPublish() {

@@ -27,6 +27,7 @@
             class="video-file-preview"
             :src="fixVideoSrcToThumbnail(file, rootItem, organizationId)"
             :fileItem="file"
+            :compiledFileItem="getFileItemFromRootItem(file, rootItem)"
           />
           <p v-if="file.description" v-html="file.description"></p>
         </template>

@@ -99,6 +99,7 @@
             <FormInput type="checkbox" title="onlyKnownRegistrations" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
             <FormInput type="checkbox" title="useDirectLink" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
             <FormInput type="checkbox" title="dontUseGlobalDbData" labelholder="dontUseGlobalDbData" v-model="organizationToEdit.dontUseGlobalDbData"/>
+            <FormInput type="checkbox" title="restrictVideos" labelholder="restrictVideos" v-model="organizationToEdit.restrictVideos"/>
           </div>
           <FormInput type="textarea" labelholder="organizationLocales.searchKeys" v-model="organizationToEdit.searchKeys"/>
 
@@ -131,7 +132,7 @@
                   </template>
                 </ToggleModal>
               </div>
-              <button @click="addTheme(organizationToEdit.designPreferences[designAppKey])">Add theme</button>
+              <button class="btn width-content" @click="addTheme(organizationToEdit.designPreferences[designAppKey])">Add theme</button>
             </div>
 
             <div class="flex column gap20 align-start">
@@ -193,7 +194,17 @@
               <li v-for="(curr, idx) in organizationToEdit.innerFilters || []" :key="idx">
                 <FormInput type="text" placeholder="field" v-model="curr.field"/>
                 <FormInput type="text" placeholder="title" v-model="curr.title"/>
-                <FormInput type="text" placeholder="options" v-model="curr.options"/>
+                <!-- <FormInput type="text" placeholder="options" v-model="curr.options"/> -->
+                <ToggleModal :fullScreen="true" class="code-edit-modal">
+                  <template #toggler>
+                    <div class="btn">
+                      {{$t('edit JSON')}}
+                    </div>
+                  </template>
+                  <template #content>
+                    <FormInput type="textarea" class="ltr" placeholder="edit JSON" :value="JSON.stringify(curr.options, null, 2)" @input="val => curr.options = JSON.parse(val)"/>
+                  </template>
+                </ToggleModal>
                 <TableActionBtns v-model="organizationToEdit.innerFilters" :idx="idx"/>
               </li>
             </ul>

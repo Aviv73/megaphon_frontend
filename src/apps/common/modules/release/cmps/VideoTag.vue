@@ -1,6 +1,7 @@
 <template>
   <FullScreenToggler class="width-all">
-    <div :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all content" ref="elContainer">
+    <p v-if="compiledFileItem.error">{{compiledFileItem.error}}</p>
+    <div v-else :id="videoId" :class="{paused: !isPlaying}" class="videw-container width-all content" ref="elContainer">
       <video class=" width-all content" ref="elVideo" controls></video>
     </div>
   </FullScreenToggler>
@@ -44,7 +45,8 @@ export default {
   props: {
     src: String,
     format: String,
-    fileItem: Object
+    fileItem: Object,
+    compiledFileItem: Object,
     // type: String
   },
   data() {
@@ -89,6 +91,10 @@ export default {
     },
     logoUrl() {
       return fixFileSrcToThumbnail(this.organization.logo);
+    },
+
+    logSessions() {
+      return this.organization.restrictVideos;
     }
   },
   methods: {
@@ -114,6 +120,8 @@ export default {
       // elVideo.addEventListener('seeked', () => {
       //   this.isSeeking = false;
       // });
+
+      this.initWatchSession();
 
       const isHls = (this.format === 'm3u8') || this.src?.split('?')[0]?.endsWith('.m3u8');
       if (!isHls) {
@@ -153,7 +161,6 @@ export default {
       this.hls = hls;
 
 
-      this.initWatchSession();
 
 
       // const player = window.cloudinary.videoPlayer(elVideo, {
@@ -176,6 +183,7 @@ export default {
 
 
     async initWatchSession() {
+      if (!this.logSessions) return;
       // return;
       this.watchSession = await this.$store.dispatch({ type: 'videoWatchLog/loadItem', silent: true });
       this.watchSession.organizationId = this.organization._id;
@@ -186,6 +194,7 @@ export default {
       this.updateWatchSession();
     },
     setSessionUpdateInterval() {
+      if (!this.logSessions) return;
       // return;
       this.stopSessionUpdateIterval();
       this.sessionUpdateIntervalId = setInterval(() => {
@@ -193,16 +202,19 @@ export default {
       }, 5000);
     },
     stopSessionUpdateIterval() {
+      if (!this.logSessions) return;
       // return;
       clearInterval(this.sessionUpdateIntervalId);
-      this.updateWatchSession();
+      if (this.currWatchSection && this.watchSession) this.updateWatchSession();
     },
     async setNewWatchSection() {
+      if (!this.logSessions) return;
       // return;
       this.currWatchSection = { id: getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 }
       this.watchSession.sections.push(this.currWatchSection);
     },
     async updateWatchSession() {
+      if (!this.logSessions) return;
       // return;
       this.currWatchSection.end = (this.$refs.elVideo?.currentTime || 0) * 1000;
       this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
@@ -214,6 +226,8 @@ export default {
     play() {
       this.isPlaying = true;
       this.setSessionUpdateInterval();
+      // if (!this.organization.useVideoWaterMark) return;
+      if (!this.useWterMark) return;
       this.watermarkInterval = setInterval(() => {
         this.applyWatermark();
       }, 10);
