@@ -598,6 +598,7 @@ export default {
         overflow: hidden;
         // overflow: auto;
         max-height: em(500px);
+        color: #606266;
         background-color: #fff;
         min-width: calc(100% + em(2px));
         width: fit-content;
