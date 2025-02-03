@@ -192,6 +192,7 @@ function getEmptyOrganization() {
     onlyKnownRegistrations: false,
     useDirectLink: false,
     dontUseGlobalDbData: false,
+    restrictVideos: false,
     redirectUrl: '',
 
     fromEmails: [/* { email: '', title: '' } */],
