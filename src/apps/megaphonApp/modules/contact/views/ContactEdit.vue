@@ -15,11 +15,11 @@
       <!-- <FormInput labelholder="contactLocales.cellular" type="text" v-model="itemToEdit.cellular"/> -->
       <FormInput labelholder="contactLocales.notes" type="text" v-model="itemToEdit.notes"/>
       <div class="flex column gap20">
-        <p>{{$t('settings.settings')}}</p>
+        <p>{{$t('settings.settings')}}:</p>
         <FormInput labelholder="contactLocales.maxTimesAllowdToWatchVideo" type="number" :min="0" v-model="itemToEdit.settings.maxTimesAllowdToWatchVideo"/>
       </div>
     </form>
-    <div>
+    <div v-if="itemToEdit._id">
       <button @click="toggleSubscribtionValue" class="btn big primary">
         <p v-if="unsubscribed">{{$t('contactLocales.reSubscribe')}}</p>
         <p v-else>{{$t('contactLocales.unsubscribe')}}</p>

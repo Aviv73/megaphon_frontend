@@ -200,10 +200,14 @@ export default {
         // min-width: em(80px);
       }
       min-width: unset;
+      .actual-input, .head {
+        // $borderColor: rgba(128, 128, 128, 0.5);
+        background-color: unset !important;
+      }
       .input {
         .select {
           .head {
-            background-color: unset !important;
+            // background-color: unset !important;
           }
         }
       }

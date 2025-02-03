@@ -185,8 +185,8 @@ export default {
     .mailing-section {
       .form-input-checkbox {
         // flex-direction: row-reverse;
-        justify-content: flex-end;
-        align-items: flex-start;
+        // justify-content: flex-end;
+        // align-items: flex-start;
         .label {
           flex: 1;
         }

@@ -1,29 +1,42 @@
 
 
 input, select, textarea {
-  padding: em(5px);
-  padding-left: none;
-  border: unset;
-  background: unset;
-  outline: none;
+  // padding: em(5px);
+  // padding-left: none;
+  // border: unset;
+  // background: unset;
+  // outline: none;
 
-  border-radius: em(5px);
-  border: em(0.5px) solid rgba(114, 114, 114, 0.5);
   // background-color: var(--clr-1); // rgba(0, 0, 0, 0.01)
   // color: var(--clr-0);
 }
-.actual-input {
-  background-color: var(--clr-1) !important; // rgba(0, 0, 0, 0.01)
+.form-input {
+  &:not(.form-input-checkbox) {
+    // min-height: em(25px);
+  }
+  // min-height: em(25px);
+  .actual-input {
+    &:not(.phone-input) {
+      $borderColor: rgba(128, 128, 128, 0.5);
+      // background-color: var(--clr-1); // rgba(0, 0, 0, 0.01)
+      // color: var(--clr-0);
+      border: em(1px) solid $borderColor;
+      border-radius: em(3px);
+      overflow: hidden;
+    }
+  }
 }
-input, select, textarea, .form-input .head, .form-input .drop-down_ {
-  background-color: var(--clr-1) !important; // rgba(0, 0, 0, 0.01)
-  color: var(--clr-0) !important;
-}
+// input, select, textarea, .form-input .head, .form-input .drop-down_ {
+//   background-color: var(--clr-1) !important; // rgba(0, 0, 0, 0.01)
+//   color: var(--clr-0) !important;
+// }
 
-.form-input-multiselect, .form-input-select {
-  min-width: em(180px);
-  min-height: em(25px);
-}
+// .form-input-multiselect, .form-input-select {
+// .form-input {
+//   // width: em(180px);
+//   // border-radius: em(5px);
+//   // border: em(0.5px) solid rgba(114, 114, 114, 0.5);
+// }
 
 // .dark-theme.megaphon-app { // MOVED TO
 //   input, select, textarea {

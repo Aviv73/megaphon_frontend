@@ -38,7 +38,7 @@ export default {
     itemDetailesPageName: [String],
     fields: {
       type: Array,
-      default: () => ['email', 'name', 'role', 'company', 'unsubscribed']
+      default: () => ['email', 'name', 'tags', 'company', 'unsubscribed']
     },
     asLink: {
       type: Boolean,
@@ -58,6 +58,8 @@ export default {
           return contactService.getContactPreviewName(contact);
         case 'company':
           return (contact.company?.map(c => this.allCompanies.find(comp => comp._id === c)?.name) || []).join(', ');
+        case 'tags':
+          return (contact.tags?.map(c => this.allTags.find(tag => tag._id === c)?.name) || []).join(', ');
         case 'unsubscribed':
           return contact.unsubscribed? '✔' : '-'
         default:
@@ -72,6 +74,9 @@ export default {
     },
     allCompanies() {
       return this.$store.getters['company/items'];
+    },
+    allTags() {
+      return this.$store.getters['tag/items'];
     },
     // companiesToShow() {
     //   return this.contact?.company.map(c => this.allCompanies.find(comp => comp._id === c)?.name) || [];

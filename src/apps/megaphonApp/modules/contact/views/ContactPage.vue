@@ -47,7 +47,7 @@
         <div class="table-item-preview table-header">
           <p class="wide-screen-item">{{$t('email')}}</p>
           <p>{{$t('contactLocales.contactName')}}</p>
-          <p class="wide-screen-item">{{$t('contactLocales.role')}}</p>
+          <p class="wide-screen-item">{{$t('contactLocales.tags')}}</p>
           <p class="wide-screen-item">{{$t('contactLocales.companyName')}}</p>
           <p>{{$t('contactLocales.unsubscribed')}}</p>
         </div>

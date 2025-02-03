@@ -9,7 +9,7 @@
       <FormInput v-else class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect"/>
 
 
-      <NavOrBurger class="release-actions align-center_ space-between flex gap50 height-all" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
+      <NavOrBurger class="release-actions align-center_ space-between flex gap10 height-all" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
         <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
         <div class="links nav-items flex align-center gap15 height-all" v-if="isOrgProducer">
           <router-link class="nav-item create-nav gap15" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
@@ -19,8 +19,8 @@
           </router-link>
         </div>
 
-        <div class="nav-items flex align-center gap10 height-all" v-if="isScreenWide && ($route.name === 'ReleasePage')">
-          <form @submit.prevent="evManager.emit('searchReleases', searchTerm)">
+        <div class="nav-items flex align-center gap10 height-all">
+          <form @submit.prevent="evManager.emit('searchReleases', searchTerm)" v-if="isScreenWide && ($route.name === 'ReleasePage')">
             <FormInput class="search" placeholder="search" iconPos="left" v-model="searchTerm" @change_="val => evManager.emit('search', val)">
               <button>
                 <div v-html="searchImg" class="filter-icon-img svg-parrent"></div>
@@ -207,7 +207,7 @@ export default {
 
 .megaphon-app {
   .app-header {
-    z-index: 6;
+    // z-index: 6;
     // padding: 0 em(10px);
     // background-color: #F2F2F2;
     // color: black;

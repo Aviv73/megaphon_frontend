@@ -162,7 +162,7 @@ export default {
           this.cmpName = 'FormInput';
           break;
         case 'SELECT':
-          this.propsToPass = { ...propsToPass, type: 'select', items: (this.dataField.options || []).map(c => ({ ...c, label: this.tOrTitle(c.label) })) };
+          this.propsToPass = { ...propsToPass, type: 'select', placeholder: this.tOrTitle(this.dataField.title), items: (this.dataField.options || []).map(c => ({ ...c, label: this.tOrTitle(c.label) })) };
           this.cmpName = 'FormInput';
           break;
         case 'SEPARATOR':

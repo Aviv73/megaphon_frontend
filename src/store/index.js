@@ -32,7 +32,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setIsScreenWide(state) {
-      state.isScreenWide = window.innerWidth > 900; // small-screen-breake
+      state.isScreenWide = window.innerWidth > 1100; // small-screen-breake
     },
     setSelectedAppData(state, { selectedAppData }) {
       state.selectedAppData = selectedAppData;

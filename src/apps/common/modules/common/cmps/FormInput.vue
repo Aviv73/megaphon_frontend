@@ -1,8 +1,8 @@
 <template>
   <section class="form-input" :class="{ 'show-error': showError, ['form-input-' + type]: true }">
-    <label class="label" :for="inputId" v-if="label || labelholder">
+    <label class="label flex align-center gap5" :for="inputId" v-if="label || labelholder">
+      <span class="require-span" v-if="required && isEmpty" :style="{ opacity: isEmpty ? 1 : 0 }">*</span>
       <p :title="$t(label || labelholder)">{{ $t(label || labelholder) }}</p>
-      <span class="require-span" v-if="required" :style="{ opacity: isEmpty ? 1 : 0 }">*</span>
     </label>
     <div
       ref="elInputContainer"
@@ -72,14 +72,14 @@
         :id="inputId"
         :class="{ open: isOpen }"
         @blur="closeDropDown"
-        class="select actual-input"
+        class="select"
       >
         <div v-if="isOpen" @click="autoCloseSelect" class="blur"></div>
-        <div @click="isOpen = !isOpen" style="height:100%;display:flex;flex-direction:column;align-items_:center;gap:10px" class="head" >
-          <div class="flex align-center gap10">
+        <div @click="isOpen = !isOpen" class="head" >
+          <div class="flex align-center gap10 actual-input">
             <div class="head-content">
               <template v-if="componentType === 'multiselect'">
-                <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @keydown.enter="addNewValToMultiSelect" @click.stop="isOpen = true"/>
+                <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @keydown.enter.stop.prevent="addNewValToMultiSelect" @click.stop="isOpen = true"/>
                 <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
 
                 <!-- <div class="inner-square"></div> -->
@@ -94,12 +94,12 @@
               </template>
             </div>
             <div class="toggle-btn"></div>
-            <button v-if="allowAddValsToMultiSelect && valsFilterStr" @click.prevent.stop="addNewValToMultiSelect">+</button>
+            <button class="btn" v-if="allowAddValsToMultiSelect && valsFilterStr" @click.prevent.stop="addNewValToMultiSelect">+</button>
           </div>
           <ul class="multiselect-vals-list" v-if="(componentType === 'multiselect') && showVals && val?.length">
             <li v-for="curr in val.filter(Boolean)" :key="curr">
-              <span :title="curr">{{subValName(gatValToShowForMultiSelect(curr))}}</span>
-              <button @click.stop="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
+              <span :title="gatValToShowForMultiSelect(curr)">{{subValName(gatValToShowForMultiSelect(curr))}}</span>
+              <button @click.stop.prevent="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
             </li>
             <li class="clear-li">
               <button class="clear-btn" @click.stop="val = []">x</button>
@@ -161,7 +161,7 @@
 
       <PhoneInput
         v-else-if="componentType === 'phone-number'"
-        class="ltr actual-input"
+        class="ltr actual-input phone-input no-pad"
         ref="elInput"
         :disabled="disabled"
         :id="inputId"
@@ -367,12 +367,16 @@ export default {
   // height: em(40px);
   // min-width: em(150px);
   display: flex;
-  align-items: flex-end;
+  // align-items: flex-end;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
   gap: em(5px);
   // border-bottom: em(1px) solid gray;
   label {
+    .require-span {
+      color: red;
+    }
     p {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -384,6 +388,9 @@ export default {
       width: em(15px);
       height: em(15px);
     }
+    .input {
+      border: none;
+    }
   }
   // &.form-input-color {
   //   input {
@@ -394,6 +401,16 @@ export default {
   .input {
     position: relative;
     height: 100%;
+    // $borderColor: rgba(128, 128, 128, 0.5);
+    .actual-input {
+      height: 100%;
+      // border: em(1px) solid $borderColor;
+      // border-radius: em(3px);
+      // overflow: hidden;
+      &:not(.no-pad) {
+        padding: em(5px);
+      }
+    }
     &:not(.checkbox):not(.radio) {
       flex: 1;
     }
@@ -433,30 +450,34 @@ export default {
     top: 50%;
     left: em(5px);
     transform: translateY(-50%);
+    width: em(18px);
+    height: em(18px);
     .icon-img, .tooltip-preview, .tooltip {
-      width: em(18px);
-      height: em(18px);
+      width: 100%;
+      height: 100%;
     }
   }
 }
 
 .form-input-select {
   .head {
-    padding: em(5px);
+    // padding: em(5px);
   }
 }
 .form-input-multiselect {
   .input {
     .head {
-      padding: 0 em(5px);
+      // padding: 0 em(5px);
       
       .multiselect-vals-list {
+        border: 1px solid rgba(128, 128, 128, 0.5);
+        border-radius: em(3px);
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         gap: em(5px);
         width: 100%;
-        padding-bottom: em(5px);
+        padding: em(5px);
 
         // input {
         //   width: fit-content;
@@ -492,13 +513,14 @@ export default {
     input {
       border: 0;
       background: unset;
+      border: unset;
     }
   }
 }
 .form-input-multiselect, .form-input-select {
   // width: em(220px);
-  color: #606266;
-  height: 100%;
+  // color: #606266;
+  // height: 100%;
   display: flex;
   align-items: center;
   .selected-preview {
@@ -509,7 +531,6 @@ export default {
     padding-left: em(8px);
     height: 100%;
   }
-  $borderColor: rgba(128, 128, 128, 0.5);
   box-sizing: border-box;
   .input {
     
@@ -538,17 +559,18 @@ export default {
         cursor: pointer !important;
       }
     }
+    
     > div {
       user-select: none;
-      background-color: #fff;
+      // background-color: #fff;
       font-weight: 400;
       display: flex;
       align-items: center;
       // padding: 0 em(5px);
       width: 100%;
       // height: 100%;
-      border: em(1px) solid $borderColor;
-      border-radius: em(3px);
+      // border: em(1px) solid $borderColor;
+      // border-radius: em(3px);
       position: relative;
       .toggle-btn,
       .inner-square {
@@ -640,8 +662,12 @@ export default {
     // padding: em(5px);
     display: flex;
     // flex-direction: column;
-    gap: em(2px);
+    // gap: em(2px);
     width: 100%;
+    height: 100%;
+    flex-direction:column;
+    // align-items:center;
+    // gap:5px
     .head-content {
       width: 100%;
       input {
@@ -658,5 +684,16 @@ export default {
   .drop-down {
 
   }
+}
+.phone-input {
+  padding: 0 !important;
+
+}
+input {
+  // padding: em(5px);
+  padding-left: none;
+  border: unset;
+  background: unset;
+  outline: none;
 }
 </style>

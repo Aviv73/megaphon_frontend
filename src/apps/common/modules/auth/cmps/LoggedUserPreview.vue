@@ -5,7 +5,7 @@
       <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
       <div class="avatar img" v-html="avatarIco"></div>
       <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
-      <div class="blure" v-if="showActionsModal && !viewAsModal" @click.stop="showActionsModal = false"></div>
+      <div class="blure" v-if="showActionsModal && !viewAsModal" @click.stop.prevent="showActionsModal = false"></div>
       <component :is="viewAsModal? 'Modal' : 'div'" class="actions-modal" @close="showActionsModal = false" v-if="showActionsModal" :fullScreen="true">
         <div class="top-like" v-if="!viewAsModal"></div>
         <button class="logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>

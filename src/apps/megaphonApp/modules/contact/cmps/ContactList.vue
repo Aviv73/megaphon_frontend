@@ -25,7 +25,7 @@ export default {
     },
     fields: {
       type: Array,
-      default: () => ['email', 'name', 'role', 'company', 'unsubscribed'].map(c => ({ field: c, label: c }))
+      default: () => ['email', 'name', 'tags', 'company', 'unsubscribed'].map(c => ({ field: c, label: c }))
     },
     asLink: {
       type: Boolean,
