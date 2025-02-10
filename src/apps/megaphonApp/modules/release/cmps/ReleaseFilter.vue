@@ -70,11 +70,11 @@ export default {
   data() {
     return {
       filterBy: null,
-      filterTypes: { // licenseType
-        all: undefined,
-        'release.bought': '1',
-        'release.original': '2',
-      },
+      // filterTypes: { // licenseType
+      //   all: undefined,
+      //   'release.bought': '1',
+      //   'release.original': '2',
+      // },
       // didInit: false
       folderVal: '',
       dateSelectVal: '',

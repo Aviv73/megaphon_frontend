@@ -56,7 +56,7 @@
       <div class="flex align-center gap20 height-all wide-screen-item" v-if="isUserWatchOnly">
         <template>
           <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
-            <!-- <p>{{$t('settings.settings')}}</p> -->
+            <!-- <p>{{$t('settingsLocales.settings')}}</p> -->
             <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
           </router-link>
           <LoggedUserPreview class="to-the-right"/>

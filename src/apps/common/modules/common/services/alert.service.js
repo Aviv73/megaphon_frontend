@@ -25,12 +25,13 @@ function toast({type = 'danger', msg = '', html = '', timeout = 7000} = {}, olCl
       top: '40px',
       right: '50%',
       transform: 'translateX(50%)',
-      padding: '15px',
+      padding: '15px 25px',
       borderRadius: '4px',
       fontStyle: 'italic',
       width: '370px',
       // boxShadow: scssVars.lightShadow,
       boxShadow: `0 0 10px 1px rgba(0,0,0,0.2)`,
+      // color: 'white',
       '&.safe': {
         backgroundColor: '#95f495',
         '.prime-msg': {

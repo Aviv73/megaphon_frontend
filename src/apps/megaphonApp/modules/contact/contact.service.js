@@ -48,12 +48,19 @@ function getEmptyItem() {
     role: '',
     tags: [],
     company: [],
-    phone: null,
-    cellular: null,
+    // phone: null,
+    // cellular: null,
     notes: null,
     organizationId: '-1',
     settings: {
       maxTimesAllowdToWatchVideo: 10
-    }
+    },
+    "mobile" : "",
+    "mobileData" : {
+        "number" : "",
+        "formatted" : "",
+        "countryCallingCode" : "",
+        "countryCode" : ""
+    },
   }
 }

@@ -29,8 +29,8 @@
               <p class="flex-1 wide-screen-item">{{$t(`distributeLocales.origins.${contact.origin}`)}}</p>
               <!-- <p>{{contact.email}}</p> -->
               <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'email')?.length)}}</p>
-              <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length)}}</p>
-              <!-- <p class="flex-1 wide-screen-item">{{contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}</p> -->
+              <!-- <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length)}}</p> -->
+              <p class="flex-1 wide-screen-item" :title="contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length ? pretyDate([...contact.activity?.views?.filter(c => c.platform === 'landingPage')]?.pop().at) : ''">{{contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}</p>
               <p class="flex-1 wide-screen-item">{{getVideoWatchCountByContact(contact) || '-'}}</p>
               <p class="flex-1 wide-screen-item">{{vOrX(contact.activity?.unsubscribedAt)}}</p>
             </router-link>
@@ -150,7 +150,17 @@ export default {
         acc.push(...c.videoWatchLogs.filter(log => log.accountId === relevantAccount._id));
         return acc;
       }, []);
-      return relevantViews.length;
+      const actualRelevantWatchLogs = relevantViews.filter(vidLog => {
+        const vidLength = vidLog.videoSecondsDuration;
+        if (!vidLength) return true;
+        if (!vidLog.sections?.length) return false;
+        const cLogTotalWatchTimeMS = vidLog.sections.reduce((acc, c) => acc + (c.end - c.start), 0);
+        const cLogTotalWatchTimeSeconds = cLogTotalWatchTimeMS / 1000;
+        const percentage = cLogTotalWatchTimeSeconds / vidLength;
+        const minPercentage = 0.1; // means it needs to be at least minPercentage of the video length to count;
+        return percentage > minPercentage;
+      });
+      return actualRelevantWatchLogs.length;
     }
   },
   computed: {

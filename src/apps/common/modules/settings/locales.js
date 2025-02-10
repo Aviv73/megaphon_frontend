@@ -1,5 +1,5 @@
 const  en = {
-  "settings": {
+  "settingsLocales": {
     "settings": "Settings",
     "darkMode": "Dark mode",
     "locale": "Locale",
@@ -18,7 +18,7 @@ const  en = {
   }
 }
 const he = {
-  "settings": {
+  "settingsLocales": {
     "settings": "הגדרות",
     "darkMode": "מצב חשוך",
     "locale": "שפה",
@@ -39,9 +39,9 @@ const he = {
 const heF = {
   ...he,
   settings: {
-    ...he.settings,
+    ...he.settingsLocales,
     alerts: {
-      ...he.settings.alerts,
+      ...he.settingsLocales.alerts,
     }
   }
 }

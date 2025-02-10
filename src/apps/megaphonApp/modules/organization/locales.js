@@ -27,6 +27,10 @@ const en = {
     "searchOrganizations": "Search organization",
     "addOrganization": 'Add organization',
     "mediaLinks": "Media",
+    "requireAuth": "Require authentication",
+    "require2FactorAuth": "Require 2nd factor authentication",
+    "useVideoWaterMark": "Use video watermark",
+    "organizationSettings": "Organization settings",
     "orgRoles": {
       "creator": "Creator",
       "admin": "Admin",
@@ -78,6 +82,10 @@ const he = {
     "searchOrganizations": "חפש ארגון",
     "addOrganization": 'הצטרף לארגון',
     "mediaLinks": "מדיה",
+    "requireAuth": "דרושה הזדהות",
+    "require2FactorAuth": "דרושה הזדהות נוספת",
+    "useVideoWaterMark": "ווטרמארק על וידאו",
+    "organizationSettings": "הגדרות ארגון",
     "orgRoles": {
       "creator": "יוצר",
       "admin": "אדמין",

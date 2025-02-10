@@ -473,8 +473,9 @@ export function getRandomPassword(length = 10, options = '0123456789ABCDEFGHIJKL
 
 
 export function pretyDate(timeMs) {
-    const time = new Date(timeMs);
-    return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
+    // const time = new Date(timeMs);
+    // return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
+    return Time.getTimeStrAs(timeMs, 'date/month/year');
 }
 export function vOrX(val) {
     return val? '✔' : '-'; // ✓ ✔

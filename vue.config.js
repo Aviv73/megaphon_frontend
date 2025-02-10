@@ -19,5 +19,12 @@ module.exports = {
       //   minRatio: 0.8
       // })
     ]
-  }
+  },
+  // css: {
+  //   loaderOptions: {
+  //     sass: {
+  //       additionalData: `@import "@/assets/styles/global/index.scss";`
+  //     }
+  //   }
+  // }
 }

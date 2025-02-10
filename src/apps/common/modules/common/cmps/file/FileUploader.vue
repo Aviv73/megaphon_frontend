@@ -4,10 +4,10 @@
     <p class="p-like" v-else-if="!fileToShow && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
     <p class="p-like ltr text-end" v-else-if="isLoading" @click="clickInput">{{loadingMsg? loadingMsg : $t('loading') + '...'}}</p>
     <a class="p-like" v-else target="_blanc" :href="fileToShow" :title="valToShow.name || valToShow.title">{{valToShow.name || valToShow.title}}</a>
-    <div class="flex column gap10" v-if="!isLoading">
+    <div class="flex column space-between height-all gap10" v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
-      <button v-if="fileToShow" @click.prevent.stop="clear" class="btn width-content">{{$t('clear')}}</button>
+      <button v-if="fileToShow" @click.prevent.stop="clear" :title="$t('clear')" class="btn width-content danger round">✖</button>
     </div>
     <MiniLoader v-else/>
   </div>

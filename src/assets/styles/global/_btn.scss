@@ -73,6 +73,10 @@
       // width: em(15px);
     }
 
+    &.round {
+      border-radius: 50%;
+    }
+
     &.small {
       height: (em13px);
       width: (em13px);

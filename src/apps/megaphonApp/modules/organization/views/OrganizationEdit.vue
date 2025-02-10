@@ -1,6 +1,7 @@
 <template>
   <div v-if="organizationToEdit" class="organization-edit app-form-styling simple-form flex column gap40 width-all">
-    <h2 v-if="organizationToEdit._id">{{$t('organizationLocales.editOrganization')}}</h2>
+    <!-- <h2 v-if="organizationToEdit._id">{{$t('organizationLocales.editOrganization')}}</h2> -->
+    <h2 v-if="organizationToEdit._id">{{$t('organizationLocales.organizationSettings')}}</h2>
     <h2 v-else>{{$t('organizationLocales.createOrganization')}}</h2>
     <form v-if="organizationToEdit" @submit.prevent="" class="flex column width-all gap50 align-start">
       <div class="input-container">
@@ -25,42 +26,11 @@
           <li v-for="(curr, idx) in organizationToEdit.fromEmails || []" :key="idx">
             <FormInput type="text" placeholder="name" v-model="curr.email"/>
             <FormInput type="text" placeholder="name" v-model="curr.title"/>
-            <FormInput type="checkbox" placeholder="distributeLocales.allowReply" v-model="curr.allowReply"/>
-            <TableActionBtns v-model="organizationToEdit.fromEmails" :idx="idx"/>
+            <FormInput type="checkbox" placeholder="distributeLocales.allowReply" class="width-content" v-model="curr.allowReply"/>
+            <TableActionBtns v-model="organizationToEdit.fromEmails" :idx="idx" :allowEmptyArray="true"/>
           </li>
         </ul>
         <button @click="addFromEmailItem" class="btn big">{{$t('add')}}</button>
-      </div>
-
-      <div class="flex column gap20">
-        <div class="input-container">
-          <p>{{$t('organizationLocales.defaultGalleryCredit')}}</p>
-          <FormInput type="text" placeholder="organizationLocales.defaultGalleryCredit" v-model="organizationToEdit.defaultGalleryCredit"/>
-        </div>
-        <div class="input-container">
-          <p>{{$t('organizationLocales.distributionBcc')}}</p>
-          <FormInput type="text" placeholder="organizationLocales.distributionBcc" v-model="organizationToEdit.distributionBcc"/>
-        </div>
-      </div>
-
-      
-      <div class="logos-section flex column gap20 align-start">
-        <p>{{$t('organizationLocales.logos')}}</p>
-        <ul  v-if="organizationToEdit._id" class="flex column gap10 table-like">
-          <li>
-            <p>{{$t('name')}}</p>
-            <p>{{$t('file')}}</p>
-            <p></p>
-          </li>
-          <li v-for="(curr, idx) in organizationToEdit.logos || []" :key="idx">
-            <FormInput type="text" placeholder="name" v-model="curr.title"/>
-            <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :onlySrc="true" :viewAsImg="true" :value="curr.url" @input="val => imgUploaded(val, `logos.${idx}.url`)"/> -->
-            <FileUploader :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="curr" @input="val => imgUploaded(val, `logos.${idx}`)" :rootItem="organizationToEdit"/>
-            <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
-          </li>
-        </ul>
-        <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
-        <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
       </div>
 
       <div class="media-links-section flex column gap20 align-start">
@@ -76,11 +46,60 @@
             <FormInput type="select" placeholder="type" v-model="curr.type" :items="['web', 'youtube', 'facebook', 'twitter', 'instegram', 'tiktok']"/>
             <FormInput type="text" placeholder="title" v-model="curr.title"/>
             <FormInput type="text" placeholder="url" v-model="curr.src"/>
-            <TableActionBtns v-model="organizationToEdit.mediaLinks" :idx="idx"/>
+            <TableActionBtns v-model="organizationToEdit.mediaLinks" :idx="idx" :allowEmptyArray="true"/>
           </li>
         </ul>
         <button @click="AddMediaLinkItem" class="btn big">{{$t('add')}}</button>
       </div>
+
+      <div class="flex column gap20 align-start">
+        <p>{{$t('settingsLocales.settings')}}</p>
+        <FormInput type="checkbox" class="ltr" labelholder="organizationLocales.requireAuth" v-model="organizationToEdit.requireAuth"/>
+        <FormInput type="checkbox" class="ltr" labelholder="organizationLocales.require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
+        <FormInput type="checkbox" class="ltr" labelholder="organizationLocales.useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
+      </div>
+      
+      <div class="flex column gap20 align-start" v-if="organizationToEdit.requireAuth">
+        <p>{{$t('organizationLocales.loginPagePreferences')}}</p>
+        <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
+        <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
+        <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
+        <FormInput type="textarea" labelholder="organizationLocales.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
+      </div>
+
+      <template v-if="loggedUser?.roles.includes('admin')">
+        <div class="flex column gap20">
+          <div class="input-container">
+            <p>{{$t('organizationLocales.defaultGalleryCredit')}}</p>
+            <FormInput type="text" placeholder="organizationLocales.defaultGalleryCredit" v-model="organizationToEdit.defaultGalleryCredit"/>
+          </div>
+          <div class="input-container">
+            <p>{{$t('organizationLocales.distributionBcc')}}</p>
+            <FormInput type="text" placeholder="organizationLocales.distributionBcc" v-model="organizationToEdit.distributionBcc"/>
+          </div>
+        </div>
+
+        
+        <div class="logos-section flex column gap20 align-start">
+          <p>{{$t('organizationLocales.logos')}}</p>
+          <ul  v-if="organizationToEdit._id" class="flex column gap10 table-like">
+            <li>
+              <p>{{$t('name')}}</p>
+              <p>{{$t('file')}}</p>
+              <p></p>
+            </li>
+            <li v-for="(curr, idx) in organizationToEdit.logos || []" :key="idx">
+              <FormInput type="text" placeholder="name" v-model="curr.title"/>
+              <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :onlySrc="true" :viewAsImg="true" :value="curr.url" @input="val => imgUploaded(val, `logos.${idx}.url`)"/> -->
+              <FileUploader :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="curr" @input="val => imgUploaded(val, `logos.${idx}`)" :rootItem="organizationToEdit"/>
+              <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
+            </li>
+          </ul>
+          <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
+          <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
+        </div>
+      </template>
+
 
 
       <div class="flex column gap50" v-if="loggedUser?.roles.includes('developer')">
@@ -89,17 +108,15 @@
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
           <FormInput type="text" labelholder="redirectUrl" v-model="organizationToEdit.redirectUrl"/>
           
-          <div class="flex column gap20">
+          <div class="flex column align-start gap20">
             <FormInput :error="isDomainExistsError && $t('organizationLocales.domainTakenError') || ''" type="text" labelholder="organizationLocales.domain" v-model="organizationToEdit.domain"/>
             <FormInput type="select" labelholder="organizationLocales.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
-            <FormInput type="checkbox" title="requireAuth" labelholder="requireAuth" v-model="organizationToEdit.requireAuth"/>
-            <FormInput type="checkbox" title="require2FactorAuth" labelholder="require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
-            <FormInput type="checkbox" title="isStandAlone" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
-            <FormInput type="checkbox" title="useVideoWaterMark" labelholder="useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
-            <FormInput type="checkbox" title="onlyKnownRegistrations" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
-            <FormInput type="checkbox" title="useDirectLink" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
-            <FormInput type="checkbox" title="dontUseGlobalDbData" labelholder="dontUseGlobalDbData" v-model="organizationToEdit.dontUseGlobalDbData"/>
-            <FormInput type="checkbox" title="restrictVideos" labelholder="restrictVideos" v-model="organizationToEdit.restrictVideos"/>
+            
+            <FormInput type="checkbox" class="ltr" title="isStandAlone" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
+            <FormInput type="checkbox" class="ltr" title="onlyKnownRegistrations" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
+            <FormInput type="checkbox" class="ltr" title="useDirectLink" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
+            <FormInput type="checkbox" class="ltr" title="dontUseGlobalDbData" labelholder="dontUseGlobalDbData" v-model="organizationToEdit.dontUseGlobalDbData"/>
+            <FormInput type="checkbox" class="ltr" title="restrictVideos" labelholder="restrictVideos" v-model="organizationToEdit.restrictVideos"/>
           </div>
           <FormInput type="textarea" labelholder="organizationLocales.searchKeys" v-model="organizationToEdit.searchKeys"/>
 
@@ -135,13 +152,7 @@
               <button class="btn width-content" @click="addTheme(organizationToEdit.designPreferences[designAppKey])">Add theme</button>
             </div>
 
-            <div class="flex column gap20 align-start">
-              <p>{{$t('organizationLocales.loginPagePreferences')}}</p>
-              <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
-              <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
-              <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
-              <FormInput type="textarea" labelholder="organizationLocales.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
-            </div>
+            <!-- LOGIN PAGE PREFERENCES WAS HERE -->
             <div class="flex column gap20 align-start">
               <p>{{$t('organizationLocales.contactMsg')}}</p>
               <FormInput type="text" labelholder="organizationLocales.contactMsg" v-model="organizationToEdit.designPreferences.contactMsg"/>
@@ -269,7 +280,7 @@
         </div>
       </div>
     </form>
-    <div class="flex gap10">
+    <div class="flex gap10 form-footer">
       <button class="btn big primary" @click="saveAndClose" :disabled="!isOrganizationValid">{{$t('saveAndClose')}}</button>
       <button class="btn big primary" @click="saveOrganization" :disabled="!isOrganizationValid">{{$t('save')}}</button>
       <button class="btn big" @click="close">{{$t('cancel')}}</button>
@@ -291,6 +302,7 @@ import Loader from '@/apps/common/modules/common/cmps/Loader.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 import { ClientApps } from '../../../..';
 import ImageCrop from '../../release/cmps/DynamicFormInputs/ImageCrop.vue';
+import { alertService } from '@/apps/common/modules/common/services/alert.service';
 
 
 import allDefaultThemes from '../../../themes/index';
@@ -335,7 +347,11 @@ export default {
 
     allClientAppsNames() {
       return [...ClientApps.map(c => c.name), {label: '- None -', value: ''}];
-    }
+    },
+    
+    didChange() {
+      return JSON.stringify(this.organizationToEdit) !== JSON.stringify(this.itemBeforeEdit);
+    },
   },
   methods: {
     async getOrganization() {
@@ -347,7 +363,8 @@ export default {
     },
     async saveOrganization() {
       if (!this.isOrganizationValid) return;
-      await this.$store.dispatch({ type: 'organization/saveItem', item: this.organizationToEdit });
+      this.organizationToEdit = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'organization/saveItem', item: this.organizationToEdit })));
+      this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));
     },
     async saveAndClose() {
       await this.saveOrganization();
@@ -409,6 +426,12 @@ export default {
   created() {
     this.getOrganization();
     this.getAllDomains();
+  },
+  async beforeRouteLeave(to, from, next) {
+    if (!this.didChange) return next();
+    const doesWantToLeave = await alertService.Confirm(this.$t('releaseLocales.alerts.leaveConfirm'), undefined, '<style>.A-Alert .alert-modal .a-alert-confirm-btn {border: none !important; box-shadow: none !important;}</style>');
+    if (!doesWantToLeave) return next(false);
+    else return next(true);
   },
   watch: {
     '$route.params.id'() {

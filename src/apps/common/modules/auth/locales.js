@@ -60,7 +60,7 @@ const he = {
     "emailIsTakenError": "משתמש עם המייל הזה כבר קיים במערכת",
     // "notLoggedInError": "לא מורשה, יש להתחבר למערכת",
     "notLoggedInError": "יש להתחבר למערכת",
-    "userNotAllowedError": "אין הרשאה למשתמש",
+    "userNotAllowedError": "אין הרשאה לביצוע פעולה",
     "invalidEmailOrPasswordError": "מייל או סיסמה שגויים",
     "cantFindAccountWithEmailError": "לא נמצא משתמש עם כתובת המייל הזאת",
     "unAuthorizedError": "לא מורשה",

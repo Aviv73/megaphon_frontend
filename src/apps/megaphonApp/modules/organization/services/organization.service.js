@@ -102,7 +102,7 @@ function createEmptyInnerFilterItem() {
   return { field: '', title: '', options: [], id: getRandomId() };
 }
 function createEmptyTemplateItem() {
-  return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', previewUrl: '', id: getRandomId(), handlebarsLocalFilePath: '', appName: '' };
+  return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', id: getRandomId(), handlebarsLocalFilePath: '', appName: '' };
 }
 
 function isUserRoleInOrg(orgId, role, user, isOnlyRole) {

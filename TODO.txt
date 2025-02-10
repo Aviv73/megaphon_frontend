@@ -1,7 +1,6 @@
 megaphonApp:
 - update to new ui
 - create Admin zonde, needs to be definged by Chen Li
-- fix image crop
 - video encryption, add encryption params to media converter
 - distribution bug - sometimes not all recepients apear in the distribution data. maybe they open the email before a butch is over, and it fucks the update
 
@@ -10,14 +9,15 @@ Yes:
 - video view dashboarding
 - email ui update
 - add logs for what device and geo location
-- add organization edit for producers;
+- add organization edit for producers;   VVVVV
 - sms spam?
+- video logs should calculate percent of watch;  VVVV
 
 
 dashbording yes requirments::
-אפשרות לראות כמה אנשים צפו בכל תוכן
+אפשרות לראות כמה אנשים צפו בכל תוכן V
 אפשרות לראות על כל משתמש באיזה תוכן הוא צפה, *כמה פעמים הוא צפה בו, וכמה זמן הוא צפה בכל תוכן
-*הבנתי שהאינדיקציה של כמות הצפיות מתואמת עם כמות הכניסות לרליס ולאו דווקא כמות הצפיות בסרטון, נשמח אם זה יתואם לכמות הצפיות בסרטון עצמו (ושהנגינה לא תהיה אוטומטית)
+*הבנתי שהאינדיקציה של כמות הצפיות מתואמת עם כמות הכניסות לרליס ולאו דווקא כמות הצפיות בסרטון, נשמח אם זה יתואם לכמות הצפיות בסרטון עצמו (ושהנגינה לא תהיה אוטומטית) V
 אפשרות לראות כמה פעמים כל משתמש נכנס לפלטפורמה ומתי פעם אחרונה שהוא נכנס אליה
 אפשרות לעשת גרף המראה מה התוכן הכי נצפה ומה התוכן שהכי פחות נצפה(חלוקה לפי חודשים/שבועות)
 אפשרות לראות בגרף, לפי חודשים, כמה צפיות היו סך הכל, כמה זמן צפיות היו סך הכל במצטבר,  (תקף לכל התכנים הנמצאים בפלטפורמה פר חודש)

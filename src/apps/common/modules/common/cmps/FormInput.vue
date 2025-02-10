@@ -392,6 +392,11 @@ export default {
       border: none;
     }
   }
+  &.form-input-checkbox, &.form-input-radio {
+    // label {
+    //   flex: 1;
+    // }
+  }
   // &.form-input-color {
   //   input {
   //     width: em(70px);

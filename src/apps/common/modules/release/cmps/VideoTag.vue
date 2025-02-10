@@ -186,6 +186,7 @@ export default {
       if (!this.logSessions) return;
       // return;
       this.watchSession = await this.$store.dispatch({ type: 'videoWatchLog/loadItem', silent: true });
+      this.watchSession.videoSecondsDuration = this.$refs.elVideo?.duration || undefined;
       this.watchSession.organizationId = this.organization._id;
       // this.watchSession.parentId = this.fileItem.parent?._id;
       this.watchSession.accountId = this.loggedUser._id;
@@ -210,13 +211,15 @@ export default {
     async setNewWatchSection() {
       if (!this.logSessions) return;
       // return;
-      this.currWatchSection = { id: getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 }
+      this.currWatchSection = { id: getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 };
+      // this.watchSession.videoSecondsDuration = this.$refs.elVideo?.duration || undefined;
       this.watchSession.sections.push(this.currWatchSection);
     },
     async updateWatchSession() {
       if (!this.logSessions) return;
       // return;
       this.currWatchSection.end = (this.$refs.elVideo?.currentTime || 0) * 1000;
+      this.watchSession.videoSecondsDuration = this.$refs.elVideo?.duration || undefined;
       this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
       this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);
     },
