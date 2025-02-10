@@ -72,7 +72,7 @@ export default {
       filterBy: null,
       // filterTypes: { // licenseType
       //   all: undefined,
-      //   'release.bought': '1',
+      //   'release.purchase': '1',
       //   'release.original': '2',
       // },
       // didInit: false

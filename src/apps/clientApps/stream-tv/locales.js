@@ -1,5 +1,5 @@
 const  en = {
-  "release": {
+  "releaseLocales": {
     "release": "Release",
     "releases": "Releases",
     "main": "Main",
@@ -22,7 +22,7 @@ const  en = {
   archive: "Archive"
 }
 const he = {
-  "release": {
+  "releaseLocales": {
     "release": "רליס",
     "releases": "רליסים",
     "main": "ראשי",
@@ -46,10 +46,10 @@ const he = {
 }
 const heF = {
   ...he,
-  release: {
-    ...he.release,
+  releaseLocales: {
+    ...he.releaseLocales,
     // alerts: {
-    //   ...he.release.alerts,
+    //   ...he.releaseLocales.alerts,
     //   "confirmRemove": "האם את בטוחה שאת רוצה למחוק את הרליס?",
     // }
   }

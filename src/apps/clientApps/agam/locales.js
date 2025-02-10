@@ -19,8 +19,8 @@ const  en = {
       "reportReleaseSuccess": "Release reported successfully!"
     },
 
-    bought: 'bought',
-    original: 'original'
+    purchase: 'Purchase',
+    original: 'Original'
   },
   "about": "About Agam",
   "allBooks": "All books",
@@ -46,7 +46,7 @@ const he = {
       "savedReleaseSuccess": "פרטי רליס נשמרו בהצלחה!",
       "reportReleaseSuccess": "רליס דווח בהצלחה!"
     },
-    bought: 'רכש',
+    purchase: 'רכש',
     original: 'מקור'
   },
   "about": "אודות אגם",

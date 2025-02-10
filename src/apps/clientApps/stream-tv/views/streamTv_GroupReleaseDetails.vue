@@ -2,7 +2,7 @@
   
   <section class="group-release-details flex column gap20 height-all">
     <!-- <section class="release-hero-view flex align-center justify-center gap10" :style="{background: `url('${(fixFileSrcToThumbnail(releaseData.mainImage, release))}')`, 'background-size': 'cover' }"> -->
-    <ReleasesSlider :title="`<div class='svg-parrent img' style='width:1.5em;height:1.5em'>${getIcons('white').recomended}</div><br/><h3>${$t('releaseModuleModule.monthlyRecommendation')}</h3>`" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
+    <ReleasesSlider :title="`<div class='svg-parrent img' style='width:1.5em;height:1.5em'>${getIcons('white').recomended}</div><br/><h3>${$t('releaseLocales.monthlyRecommendation')}</h3>`" :releases="recommendedReleases?.length ? recommendedReleases : releaseData.childrenReleases" :getReleasePageRoute="getChildRoute"/>
     <div class="page-like-section container flex column gap20 width-all" v-if="tabName === 'monthlySummary'">
       <h2>{{$t('releaseLocales.monthlySummary')}}</h2>
       <ul class="flex column gap30">

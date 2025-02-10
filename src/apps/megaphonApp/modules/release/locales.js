@@ -19,8 +19,9 @@ const  en = {
       "leaveConfirm": "Leave without saving?"
     },
 
-    bought: 'bought',
-    original: 'original',
+    purchase: 'Purchase',
+    israeliPurchase: 'israeli purchase',
+    original: 'Original',
 
     distributedAt: "Distributed at",
 
@@ -147,7 +148,8 @@ const he = {
       "savedSuccess": "פרטי רליס נשמרו בהצלחה",
       "leaveConfirm": "האם אתה בטוח שאתה מעוניין לעזוב מבלי לשמור את השינויים?"
     },
-    bought: 'רכש',
+    purchase: 'רכש',
+    israeliPurchase: 'רכש ישראלי',
     original: 'מקור',
 
     distributedAt: "הופץ",
