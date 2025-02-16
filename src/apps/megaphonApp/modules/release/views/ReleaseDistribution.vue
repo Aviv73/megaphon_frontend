@@ -13,8 +13,8 @@
         <div style="flex:3" class="flex column gap10_ main-content-side">
           <div class="side-pre-header-item flex align-center gap20 space-between wrap">
             <div class="tab-nav_ light flex align-center gap10" v-if="!org.dontUseGlobalDbData">
-              <button class="underline" @click="loadSystemContacts = true" v-if="!org.dontUseGlobalDbData" :class="{bold: loadSystemContacts}">{{$t('distributeLocales.contactsToDistribute')}}</button>
-              <button class="underline" @click="loadSystemContacts = false" :class="{bold: !loadSystemContacts}">{{$t('distributeLocales.selfContacts')}}</button>
+              <button class="underline hover-pop" @click="loadSystemContacts = true" v-if="!org.dontUseGlobalDbData" :class="{bold: loadSystemContacts}">{{$t('distributeLocales.contactsToDistribute')}}</button>
+              <button class="underline hover-pop" @click="loadSystemContacts = false" :class="{bold: !loadSystemContacts}">{{$t('distributeLocales.selfContacts')}}</button>
             </div>
             <div v-else></div>
             <div class="flex wrap align-center gap20">
@@ -24,7 +24,7 @@
           </div>
           <div class="flex align-center space-between gap10 side-header-item">
             <!-- <FormInput type="select" :items="fromEmails.map(c => ({value: c.email, label: c.title}))" :value="fromEmail"/> -->
-            <FormInput class="flex-1" labelholder="distributeLocales.fromEmail" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => onFromEmailChanged(val)"/>
+            <FormInput class="flex-1" label="distributeLocales.fromEmail" placeholder="email" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => onFromEmailChanged(val)"/>
             <FormInput class="flex-1" labelholder="distributeLocales.fromName" type="text" v-model="fromEmail.title"/>
             <FormInput class="flex-1_" label="distributeLocales.allowReply" type="checkbox" v-model="fromEmail.allowReply"/>
           </div>
@@ -68,8 +68,8 @@
 
         <div style="flex:1.5" class="distribute-detailes flex column gap20_ main-content-side">
           <div class="load-distributions-section flex align-center justify-end gap30 side-pre-header-item">
-            <button @click="showMailingListSelectionModal = true" class="flex align-center gap5"><div v-html="svgs.loadCloud" class="svg-parrent"></div>{{$t('distributeLocales.loadDistributionList')}}</button>
-            <button @click="showAddMailingListItemModal = true" class="flex align-center gap5"><div v-html="svgs.save" class="svg-parrent"></div>{{$t('distributeLocales.saveDistributionList')}}</button>
+            <button @click="showMailingListSelectionModal = true" class="hover-pop flex align-center gap5"><div v-html="svgs.loadCloud" class="svg-parrent"></div>{{$t('distributeLocales.loadDistributionList')}}</button>
+            <button @click="showAddMailingListItemModal = true" class="hover-pop flex align-center gap5"><div v-html="svgs.save" class="svg-parrent"></div>{{$t('distributeLocales.saveDistributionList')}}</button>
           </div>
           <form @submit.prevent="addCustomContact" class="width-all flex space-between align-center gap10 side-header-item">
             <p class="align-self-center">{{$t('distributeLocales.addCustomContact')}}</p>
