@@ -24,7 +24,7 @@
           </div>
           <div class="flex align-center space-between gap10 side-header-item">
             <!-- <FormInput type="select" :items="fromEmails.map(c => ({value: c.email, label: c.title}))" :value="fromEmail"/> -->
-            <FormInput class="flex-1" label="distributeLocales.fromEmail" placeholder="email" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => onFromEmailChanged(val)"/>
+            <FormInput class="flex-1" :label="$t('distributeLocales.fromEmail') + ':'" placeholder="email" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => onFromEmailChanged(val)"/>
             <FormInput class="flex-1" labelholder="distributeLocales.fromName" type="text" v-model="fromEmail.title"/>
             <FormInput class="flex-1_" label="distributeLocales.allowReply" type="checkbox" v-model="fromEmail.allowReply"/>
           </div>
