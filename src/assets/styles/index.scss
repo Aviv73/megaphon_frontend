@@ -26,7 +26,8 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Rubik-local,Rubik,sans-serif !important;
     border: unset !important;
     border-radius: em(8px) !important;
-    box-shadow: $light-shadow;
+    // box-shadow: $light-shadow;
+    box-shadow: 0 0 em(10px) em(1px) rgba(0,0,0,0.2);
     padding: em(10px) !important;
     
     button {
@@ -34,7 +35,8 @@ h1, h2, h3, h4, h5, h6 {
       padding: em(5px);
       border-radius: em(3px) !important;
       color: black !important;
-      box-shadow: $light-shadow;
+      // box-shadow: $light-shadow;
+      box-shadow: 0 0 em(10px) em(1px) rgba(0,0,0,0.2);
     }
 
     p {

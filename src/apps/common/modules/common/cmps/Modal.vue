@@ -31,6 +31,8 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/global/index';
 .modal-container {
+  --clr-0: black;
+  --clr-1: white;
   position: absolute;
   z-index: 30;
   height: 100%;
@@ -75,17 +77,17 @@ export default {
       padding: em(20px);
       border-radius: em(5px);
       box-shadow: $light-shadow;
-      background-color: #fff;
-      color: black;
-      // background-color: var(--clr-1);
-      // color: var(--clr-0);
+      // background-color: #fff;
+      // color: black;
+      background-color: var(--clr-1);
+      color: var(--clr-0);
       .input, input, select {
-        background-color: #fff !important;
-        color: black !important;
+        background-color: var(--clr-1) !important;
+        color: var(--clr-0) !important;
       }
-      .btn {
-        box-shadow: 0 0 em(10px) em(1px) rgba(0,0,0,0.2);
-      }
+      // .btn {
+      //   box-shadow: 0 0 em(10px) em(1px) rgba(0,0,0,0.2);
+      // }
     }
   }
 
