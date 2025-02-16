@@ -601,6 +601,12 @@ export default {
           // background-color: var(--clr-1);
           color: var(--headingClr) !important;
           background-color: var(--mainBg) !important;
+          &.multiselect {
+            background-color: unset !important;
+            .head {
+              background-color: unset !important;
+            }
+          }
         }
       }
       // .filter-container {

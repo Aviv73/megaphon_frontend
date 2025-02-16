@@ -51,9 +51,9 @@
         v-model="val"
         @change="$emit('change', val)"
       >
-        <template v-if="itemsToRender.length">
+        <template v-if="itemsToRenderToShow.length">
           <option
-            v-for="item in itemsToRender"
+            v-for="item in itemsToRenderToShow"
             :key="item.label"
             :value="item.value"
             :labellll="$t(item.label)"
@@ -86,10 +86,10 @@
                 <!-- {{ $t(val) }} -->
               </template>
               <template v-else>
-                <div class="selected-preview" v-if="!itemsToRender.find(c => c.value === val)"><span>{{ $t(placeholder || labelholder) }}</span></div>
+                <div class="selected-preview" v-if="!itemsToRenderToShow.find(c => c.value === val)"><span>{{ $t(placeholder || labelholder) }}</span></div>
                 <div class="selected-preview flex align-center gap20" v-else>
-                  <span>{{$t(itemsToRender.find(c => c.value === val)?.label || val)}}</span>
-                  <img v-if="itemsToRender.find(c => c.value === val)?.img" :src="itemsToRender.find(c => c.value === val)?.img"/>
+                  <span>{{$t(itemsToRenderToShow.find(c => c.value === val)?.label || val)}}</span>
+                  <img v-if="itemsToRenderToShow.find(c => c.value === val)?.img" :src="itemsToRenderToShow.find(c => c.value === val)?.img"/>
                 </div>
               </template>
             </div>
@@ -99,17 +99,17 @@
           <ul class="multiselect-vals-list" v-if="(componentType === 'multiselect') && showVals && val?.length">
             <li v-for="curr in val.filter(Boolean)" :key="curr">
               <span :title="gatValToShowForMultiSelect(curr)">{{subValName(gatValToShowForMultiSelect(curr))}}</span>
-              <button @click.stop.prevent="val.splice(val.findIndex(c => c === curr) ,1)">x</button>
+              <button @click.stop.prevent="val.splice(val.findIndex(c => c === curr) ,1)">✖</button>
             </li>
             <li class="clear-li">
-              <button class="clear-btn" @click.stop="val = []">x</button>
+              <button class="clear-btn" @click.stop="val = []">✖</button>
             </li>
           </ul>
         </div>
         <div class="drop-down flex column align-start" @click.stop="" :class="{'direction-up': listUp}">
-          <template v-if="itemsToRender?.length">
+          <template v-if="itemsToRenderToShow?.length">
             <template v-if="componentType === 'multiselect'">
-              <label class="flex align-center gap5" v-for="item in itemsToRender" :key="item.label" :class="{selected: val === item.value}">
+              <label class="flex align-center gap5" v-for="item in itemsToRenderToShow" :key="item.label" :class="{selected: val === item.value}">
                 <input
                   v-if="componentType === 'multiselect'"
                   type="checkbox"
@@ -122,7 +122,7 @@
               </label>
             </template>
             <template v-else>
-              <div class="flex align-center space-between gap30 drop-down-item" v-for="item in itemsToRender" :key="item.label" @click="item.disabled? () => {} : (val = item.value, autoCloseSelect())"  :class="{selected: val === item.value}">
+              <div class="flex align-center space-between gap30 drop-down-item" v-for="item in itemsToRenderToShow" :key="item.label" @click="item.disabled? () => {} : (val = item.value, autoCloseSelect())"  :class="{selected: val === item.value}">
                 <span>{{ $t(item.label) }}</span>
                 <img v-if="item.img" :src="item.img"/>
               </div>
@@ -153,7 +153,7 @@
       </template>
 
       <div v-else-if="['radio'].includes(componentType)" class="flex column gap10 align-start options-container">
-        <label v-for="item in itemsToRender" :key="item.label" class="flex align-center gap5">
+        <label v-for="item in itemsToRenderToShow" :key="item.label" class="flex align-center gap5">
           <input type="radio" :value="item.value" v-model="val">
           <span>{{item.label}}</span>
         </label>
@@ -171,7 +171,7 @@
       />
 
       <datalist v-if="componentType === 'autocomplete'" :id="'autocomplete-datalist-' + this.inputId">
-        <option v-for="item in itemsToRender" :key="item.value" :value="item.value" :label="item.label"/>
+        <option v-for="item in itemsToRenderToShow" :key="item.value" :value="item.value" :label="item.label"/>
       </datalist>
 
       <template>
@@ -278,19 +278,22 @@ export default {
       return type;
     },
     itemsToRender() {
-      const filterItems = c => this.type === 'multiselect'? c.label?.toLowerCase?.().includes(this.valsFilterStr.toLowerCase()) : true;
       if (this.itemsMap) {
         const res = [];
         // for (let key in this.itemsMap) res.push({ label: this.itemsMap[key], value: key });
         for (let key in this.itemsMap) res.push({ label: key, value: this.itemsMap[key] });
-        return res.filter(filterItems);
+        return res
       }
       return this.items.map((item) => {
         if (typeof item !== 'object') {
           return { value: item, label: item };
         }
         return item;
-      }).filter(filterItems);
+      })
+    },
+    itemsToRenderToShow() {
+      const filterItems = c => this.type === 'multiselect'? c.label?.toLowerCase?.().includes(this.valsFilterStr.toLowerCase()) : true;
+      return this.itemsToRender.filter(filterItems);
     },
     isEmpty() {
       if (
@@ -512,8 +515,8 @@ export default {
         .clear-li {
           background-color: rgb(255, 109, 109);
           border-radius: 50%;
-          width: em(20px);
-          height: em(20px);
+          width: em(25px);
+          height: em(25px);
           padding: 0;
           button {
             width: 100%;
