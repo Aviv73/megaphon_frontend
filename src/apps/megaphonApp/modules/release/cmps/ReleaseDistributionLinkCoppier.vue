@@ -89,6 +89,9 @@ export default {
   // label {
   //   width: em(100px);
   // }
+  .modal {
+    max-width: em(500px);
+  }
   .note-p, .url-p {
     max-width: em(500px);
   }

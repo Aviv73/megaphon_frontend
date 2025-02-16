@@ -17,6 +17,7 @@
               <button class="underline hover-pop" @click="loadSystemContacts = false" :class="{bold: !loadSystemContacts}">{{$t('distributeLocales.selfContacts')}}</button>
             </div>
             <div v-else></div>
+            <!-- <ReleaseDistributionLinkCoppier :release="this.release" :organization="this.org"/> -->
             <div class="flex wrap align-center gap20">
               <FormInput class="force-distribution " label="distributeLocales.forceDistribute" type="checkbox" v-model="isForceDistribute"/>
               <FormInput class="" label="distributeLocales.testMode" type="checkbox" v-model="testMode"/>      
@@ -79,7 +80,7 @@
           </form>
           
           <div class="flex align-center space-between side-header-item">
-            <h3>{{contactsForDistribute.length}} {{$t('distributeLocales.contactsWasSelected')}}</h3>
+            <p class="bold">{{contactsForDistribute.length}} {{$t('distributeLocales.contactsWasSelected')}}</p>
             <!-- <button class="btn" @click="copyUrlToClipboard">{{$t('distributeLocales.copyReleaseDistributionUrl')}} <img class="ico-img" :src="require('@/assets/images/icons/url.png')" alt=""></button> -->
             <ReleaseDistributionLinkCoppier :release="this.release" :organization="this.org"/>
           </div>
