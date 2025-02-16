@@ -31,7 +31,7 @@
           />
           <p v-if="file.description" v-html="file.description"></p>
         </template>
-        <FullScreenToggler v-else-if="cmpType === 'img'">
+        <FullScreenToggler v-else-if="cmpType === 'img'" class="width-content height-content">
           <img
             class="img-file-preview content"
             :src="fixFileSrcToThumbnail(file, rootItem)" :alt="file.title"
@@ -127,6 +127,7 @@ export default {
 .files-list {
   width: 100%;
   .img-section {
+    width: em(300px);
     h5 {
       width: em(300px);
       line-height: normal;
