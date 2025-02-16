@@ -131,6 +131,7 @@ export default {
     z-index: 100;
     width: 100vw !important;
     height: 100vh !important;
+    overflow: auto;
     max-width: unset !important;
     max-height: unset !important;
     top: 0;

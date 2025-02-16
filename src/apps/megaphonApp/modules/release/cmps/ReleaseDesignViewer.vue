@@ -21,7 +21,9 @@
         "
       /> -->
     </div>
-    <iframe v-if="landingPageUrl" :style="iframeStyle" :src="landingPageUrl" frameborder="0"></iframe>
+    <FullScreenToggler class="width-all flex-1" v-if="landingPageUrl">
+      <iframe :style="iframeStyle" :src="landingPageUrl" frameborder="0"></iframe>
+    </FullScreenToggler>
     <p v-else>{{$t('noMatchingDesign')}}</p>
   </div>
 </template>
@@ -32,10 +34,11 @@ import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 
 import config from '@/config';
+import FullScreenToggler from '../../../../common/modules/common/cmps/FullScreenToggler.vue';
 
 export default {
   name: 'ReleaseDesignViewer',
-  components: { ToggleBtns, FormInput },
+  components: { ToggleBtns, FormInput, FullScreenToggler },
   props: {
     release: {
       type: Object
@@ -67,6 +70,7 @@ export default {
       switch ( this.previewPlatform) {
         case 'desktop': 
           return { width: '100%', height: '700px' }
+          // return { width: '100%', height: '100%' }
         case 'tablet': 
           return { width: '50%', height: '700px' }
         case 'mobile': 

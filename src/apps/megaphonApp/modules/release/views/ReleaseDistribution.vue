@@ -1,19 +1,32 @@
 <template>
-  <div class="release-distribute flex column gap20 container" v-if="release && org">
-    <div class="flex align-center space-between gap10 width-all wrap-reverse">
+  <div class="release-distribute flex column gap20" v-if="release && org">
+    <div class="flex align-center space-between gap10 width-all wrap-reverse container">
+      <h2>{{$t('distributeLocales.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
       <div class="flex align-center gap20">
         <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distributeLocales.backToEditRelease')}}</button></router-link>
         <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distributeLocales.report')}}</button></router-link>
       </div>
-      <h2>{{$t('distributeLocales.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
     </div>
     <p v-if="!isLoading && !distributionTemplate && false">{{$t('distributeLocales.noMatchingDesignTemplateFound')}}</p>
     <template v-else>
-      <div class="flex gap30 width-all flex-1 main-content">
-        <div style="flex:3" class="flex column gap10">
-          <div class="tab-nav light">
-            <button @click="loadSystemContacts = true" v-if="!org.dontUseGlobalDbData" :class="{selected: loadSystemContacts}">{{$t('distributeLocales.contactsToDistribute')}}</button>
-            <button @click="loadSystemContacts = false" :class="{selected: !loadSystemContacts}">{{$t('distributeLocales.selfContacts')}}</button>
+      <div class="flex gap30 width-all flex-1 main-content container">
+        <div style="flex:3" class="flex column gap10_ main-content-side">
+          <div class="side-pre-header-item flex align-center gap20 space-between wrap">
+            <div class="tab-nav_ light flex align-center gap10" v-if="!org.dontUseGlobalDbData">
+              <button class="underline" @click="loadSystemContacts = true" v-if="!org.dontUseGlobalDbData" :class="{bold: loadSystemContacts}">{{$t('distributeLocales.contactsToDistribute')}}</button>
+              <button class="underline" @click="loadSystemContacts = false" :class="{bold: !loadSystemContacts}">{{$t('distributeLocales.selfContacts')}}</button>
+            </div>
+            <div v-else></div>
+            <div class="flex wrap align-center gap20">
+              <FormInput class="force-distribution " label="distributeLocales.forceDistribute" type="checkbox" v-model="isForceDistribute"/>
+              <FormInput class="" label="distributeLocales.testMode" type="checkbox" v-model="testMode"/>      
+            </div>
+          </div>
+          <div class="flex align-center space-between gap10 side-header-item">
+            <!-- <FormInput type="select" :items="fromEmails.map(c => ({value: c.email, label: c.title}))" :value="fromEmail"/> -->
+            <FormInput class="flex-1" labelholder="distributeLocales.fromEmail" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => onFromEmailChanged(val)"/>
+            <FormInput class="flex-1" labelholder="distributeLocales.fromName" type="text" v-model="fromEmail.title"/>
+            <FormInput class="flex-1_" label="distributeLocales.allowReply" type="checkbox" v-model="fromEmail.allowReply"/>
           </div>
           <ItemSearchList
             class="table-like-list contacts-selection-list"
@@ -35,15 +48,17 @@
           >
             <template v-slot:listHeader>
               <div class="table-item-preview gap10 table-header">
-                <p>{{$t('contactLocales.contactName')}}</p>
-                <p class="wide-screen-item">{{$t('email')}}</p>
-                <p class="wide-screen-item">{{$t('contactLocales.companyName')}}</p>
-                <p class="wide-screen-item">{{$t('contactLocales.tags')}}</p>
-                <div>
-                  <button class="toggle-btn" @click="addAllSearchContacts()">
-                    <img class="add-all-btn-img reg" :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>
-                    <img class="add-all-btn-img dark" :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>
-                    {{$t('distributeLocales.addAll')}}
+                <p class="flex-2">{{$t('contactLocales.contactName')}}</p>
+                <p class="wide-screen-item flex-2">{{$t('email')}}</p>
+                <p class="wide-screen-item flex-1">{{$t('contactLocales.companyName')}}</p>
+                <p class="wide-screen-item flex-1">{{$t('contactLocales.tags')}}</p>
+                <div class="flex">
+                  <button class="toggle-btn bold" @click="addAllSearchContacts()">
+                    <!-- <img class="add-all-btn-img reg" :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>
+                    <img class="add-all-btn-img dark" :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/> -->
+                    <!-- <img class="add-all-btn-img" :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/> -->
+                    +<div v-html="svgs.person" class="svg-parrent"></div>
+                    <!-- {{$t('distributeLocales.addAll')}} -->
                   </button>
                 </div>
               </div>
@@ -51,54 +66,52 @@
           </ItemSearchList>
         </div>
 
-        <div style="flex:1.5" class="distribute-detailes flex column gap20">
-          <div class="flex align-center space-between">
+        <div style="flex:1.5" class="distribute-detailes flex column gap20_ main-content-side">
+          <div class="load-distributions-section flex align-center justify-end gap30 side-pre-header-item">
+            <button @click="showMailingListSelectionModal = true" class="flex align-center gap5"><div v-html="svgs.loadCloud" class="svg-parrent"></div>{{$t('distributeLocales.loadDistributionList')}}</button>
+            <button @click="showAddMailingListItemModal = true" class="flex align-center gap5"><div v-html="svgs.save" class="svg-parrent"></div>{{$t('distributeLocales.saveDistributionList')}}</button>
+          </div>
+          <form @submit.prevent="addCustomContact" class="width-all flex space-between align-center gap10 side-header-item">
+            <p class="align-self-center">{{$t('distributeLocales.addCustomContact')}}</p>
+            <FormInput class="flex-1" placeholder="distributeLocales.customEmailToAdd" v-model="customEmailToAdd"/>
+            <!-- <button class="btn">{{$t('distributeLocales.add')}}</button> -->
+            <button class="bold flex gap5">+<div v-html="svgs.person" class="svg-parrent"></div></button>
+          </form>
+          
+          <div class="flex align-center space-between side-header-item">
             <h3>{{contactsForDistribute.length}} {{$t('distributeLocales.contactsWasSelected')}}</h3>
             <!-- <button class="btn" @click="copyUrlToClipboard">{{$t('distributeLocales.copyReleaseDistributionUrl')}} <img class="ico-img" :src="require('@/assets/images/icons/url.png')" alt=""></button> -->
             <ReleaseDistributionLinkCoppier :release="this.release" :organization="this.org"/>
           </div>
-          <div class="width-all flex column gap5">
-            <p>{{$t('distributeLocales.fromEmail')}}</p>
-            <div class="flex align-center space-between gap10">
-              <!-- <FormInput type="select" :items="fromEmails.map(c => ({value: c.email, label: c.title}))" :value="fromEmail"/> -->
-              <FormInput class="flex-1" placeholder="email" type="autocomplete" :items="fromEmails.map(c => ({value: c.email, label: c.email}))" v-model="fromEmail.email" @change="val => onFromEmailChanged(val)"/>
-              <FormInput class="flex-1" placeholder="name" type="text" v-model="fromEmail.title"/>
-              <FormInput class="flex-1" label="distributeLocales.allowReply" type="checkbox" v-model="fromEmail.allowReply"/>
-
-            </div>
-          </div>
           <!-- <FormInput class="distribution-type width-all" :items="['email', 'sms']" label="distributeLocales.distributionType" type="radio" v-model="distributionType"/> -->
-          <FormInput class="force-distribution width-all space-between row-reverse_" label="distributeLocales.forceDistribute" type="checkbox" v-model="isForceDistribute"/>
-          <FormInput class="width-all space-between row-reverse_" label="distributeLocales.testMode" type="checkbox" v-model="testMode"/>
-          <div class="load-distributions-section flex align-center space-between gap5">
-            <button @click="showMailingListSelectionModal = true" class="btn">{{$t('distributeLocales.loadDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/load_cloud.svg')"/></button>
-            <button @click="showAddMailingListItemModal = true" class="btn">{{$t('distributeLocales.saveDistributionList')}} <img class="ico-img" :src="require('@/apps/megaphonApp/assets/images/save_black.svg')"/></button>
-          </div>
-          <div class="width-all flex column gap5">
-            <p>{{$t('distributeLocales.addCustomContact')}}</p>
-            <form @submit.prevent="addCustomContact" class="width-all flex space-between gap10">
-              <FormInput class="flex-1" placeholder="distributeLocales.customEmailToAdd" v-model="customEmailToAdd"/>
-              <button class="btn">{{$t('distributeLocales.add')}}</button>
-            </form>
-          </div>
+          
           <div class="table-like-list contacts-list flex-1 selected-table">
-            <div class="table-item-preview selected-input gap10 table-header flex space-between">
+            <div class="table-item-preview selected-input gap10 table-header flex space-between align-center side-header-item">
               <!-- <p>{{$t('contactLocales.contactName')}}</p> -->
               <FormInput :placeholder="$t('contactLocales.contactName')" v-model="searchSelectedTerm"/>
-              <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.removeAll')}}</button>
-          </div>
-            <div v-for="contact in contactsForDistributeToShow" :key="contact._id || contact.email || contact.mobile" class="table-item-preview gap10 flex align-center space-between" :class="{unsubscribed: contact.unsubscribed}">
-              <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + (contact.lastName || ''))) || contact.email || contact.mobile || ''}}</p>
-              <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.remove')}}</button>
+              <!-- <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.removeAll')}}</button> -->
+              <button class="toggle-btn_ flex gap10" @click="contactsForDistribute = []"><span>{{$t('distributeLocales.removeAll')}}</span><div class="toggle-btn bold">-<div v-html="svgs.person" class="svg-parrent"></div></div></button>
+            </div>
+            <template v-if="contactsForDistributeToShow?.length">
+              <div v-for="contact in contactsForDistributeToShow" :key="contact._id || contact.email || contact.mobile" class="table-item-preview gap10 flex align-center space-between" :class="{unsubscribed: contact.unsubscribed}">
+                <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + (contact.lastName || ''))) || contact.email || contact.mobile || ''}}</p>
+                <!-- <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.remove')}}</button> -->
+                <button class="toggle-btn bold" @click="toggleContact(contact)">-<div v-html="svgs.person" class="svg-parrent"></div></button>
+              </div>
+            </template>
+            <div v-else class="flex-1 flex justify-center align-center">
+              <h3 class="clr-0">{{$t('distributeLocales.selectContacts')}}</h3>
             </div>
             <!-- <div class="item-list">
             </div> -->
           </div>
         </div>
       </div>
-      <footer class="flex align-center justify-end gap10 width-all">
-        <button @click="sendTestEmail" class="btn big">{{$t('distributeLocales.sendTestMail')}}</button>
-        <button @click="distribute()" class="btn big">{{$t('distributeLocales.confirmAndDistribute')}}</button>
+      <footer class="width-all">
+        <div class="flex align-center justify-end gap10 container height-all">
+          <button @click="sendTestEmail" class="btn big">{{$t('distributeLocales.sendTestMail')}}</button>
+          <button @click="distribute()" class="btn big primary">{{$t('distributeLocales.confirmAndDistribute')}}</button>
+        </div>
       </footer>
 
       <Modal :fullScreen="true" v-if="showMailingListSelectionModal" @close="showMailingListSelectionModal = false">
@@ -201,6 +214,7 @@ import ContactList from '../../contact/cmps/ContactList.vue';
 import { organizationService } from '../../organization/services/organization.service';
 
 import config from '@/config';
+import { getSvgs } from '../../../assets/images/svgs';
 
 const minimizeContact = ({_id, email, unsubscribed, name, mobile}) => ({_id, email, unsubscribed, name, mobile});
 
@@ -284,6 +298,11 @@ export default {
     
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
+    },
+
+
+    svgs() {
+      return getSvgs();
     }
   },
 
@@ -535,7 +554,15 @@ export default {
 // }
 .megaphon-app {
   .release-distribute {
-    padding: em(10px);
+    // --headingBg: var(--clr-3);
+    // --headingClr: var(--clr-0);
+    // --mainBgForBorder: var(--clr-1);
+    // --mainBg: var(--clr-1);
+    --headingBg: #E0E0E0;
+    --headingClr: black;
+    --mainBgForBorder: black;
+    --mainBg: white;
+    padding-top: em(10px);
 
     .main-content {
       @media (max-width: $small-screen-break) {
@@ -546,6 +573,73 @@ export default {
           padding-bottom: em(50px);
         }
       }
+
+      .side-pre-header-item {
+        min-height: rem(18px);
+        padding: 0;
+        margin-bottom: rem(10px);
+      }
+      // .filter-container {
+      //   .ToggleModalOnlyForSmallScreen {
+      //     width: 100%;
+      //   }
+      // }
+      .side-header-item, .filter-container, .table-header {
+        color: var(--headingClr);
+        background-color: var(--headingBg);
+        // color: black;
+        // background-color: #E0E0E0;
+        // border-bottom: rem(1.5px) solid rgba(0, 0, 0, 0.2);
+        // $clr: var(--headingClr);
+        border-bottom: rem(1.5px) solid color-mix(in srgb, var(--mainBgForBorder) 30%, transparent);
+        min-height: rem(40px);
+        padding: rem(5px) rem(5px);
+        padding-inline-end: rem(10px);
+        padding-inline-start: rem(10px);
+        align-items: center;
+        .input, input, .actual-input {
+          // background-color: var(--clr-1);
+          color: var(--headingClr) !important;
+          background-color: var(--mainBg) !important;
+        }
+      }
+      // .filter-container {
+      //   height: fit-content !important;
+      // }
+      // .filter-container form {
+      //   border-bottom: unset !important;
+      //   padding: 0 !important;
+      // }
+      .item-list {
+        box-shadow: unset;
+      }
+      .pagination-btns {
+        margin-top: rem(10px);
+      }
+
+      .item-page {
+        gap: 0 !important;
+        .filter-container {
+          // padding: 0;
+          // form {
+          //   align-items: center;
+          // }
+        }
+        .table-header {
+          >*:not(:last-child) {
+            border-inline-end: em(2px) solid color-mix(in srgb, var(--mainBgForBorder) 30%, transparent);
+          }
+        }
+      }
+    }
+
+    footer {
+      // position: fixed; 
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      height: em(70px);
+      background-color: var(--headingBg);
     }
 
     .selected-input {
@@ -591,7 +685,7 @@ export default {
     }
 
     .load-distributions-section {
-      font-size: em(15px);
+      // font-size: em(15px);
       button {
         // box-shadow: none;
         // img {
@@ -626,7 +720,8 @@ export default {
       .table-item-preview {
         >* {
           &:last-child {
-            max-width: em(100px);
+            // max-width: em(100px);
+            justify-content: flex-end;
           }
         }
       }

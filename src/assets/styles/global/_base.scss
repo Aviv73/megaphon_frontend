@@ -167,7 +167,7 @@ h4 {
     gap: 0;
     flex-direction: column;
     justify-content: flex-start;
-    box-shadow: $light-shadow;
+    // box-shadow: $light-shadow;
   }
   .table-item-preview {
     display: flex;
@@ -186,6 +186,8 @@ h4 {
 
 
 .svg-parrent {
+  width: 1em;
+  height: 1em;
   svg {
     width: 100%;
     height: 100%;

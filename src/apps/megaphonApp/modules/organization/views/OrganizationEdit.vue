@@ -62,8 +62,11 @@
       <div class="flex column gap20 align-start" v-if="organizationToEdit.requireAuth">
         <p>{{$t('organizationLocales.loginPagePreferences')}}</p>
         <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
-        <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
-        <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
+        <div class="flex column gap20">
+          <p>{{$t('organizationLocales.loginPageBgImage')}}</p>
+          <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
+          <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
+        </div>
         <FormInput type="textarea" labelholder="organizationLocales.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
       </div>
 
@@ -112,11 +115,11 @@
             <FormInput :error="isDomainExistsError && $t('organizationLocales.domainTakenError') || ''" type="text" labelholder="organizationLocales.domain" v-model="organizationToEdit.domain"/>
             <FormInput type="select" labelholder="organizationLocales.clientApp" v-model="organizationToEdit.clientApp" :items="allClientAppsNames"/>
             
-            <FormInput type="checkbox" class="ltr" title="isStandAlone" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
-            <FormInput type="checkbox" class="ltr" title="onlyKnownRegistrations" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
-            <FormInput type="checkbox" class="ltr" title="useDirectLink" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
-            <FormInput type="checkbox" class="ltr" title="dontUseGlobalDbData" labelholder="dontUseGlobalDbData" v-model="organizationToEdit.dontUseGlobalDbData"/>
-            <FormInput type="checkbox" class="ltr" title="restrictVideos" labelholder="restrictVideos" v-model="organizationToEdit.restrictVideos"/>
+            <FormInput type="checkbox" title="isStandAlone" labelholder="isStandAlone" v-model="organizationToEdit.isStandAlone"/>
+            <FormInput type="checkbox" title="onlyKnownRegistrations" labelholder="onlyKnownRegistrations" v-model="organizationToEdit.onlyKnownRegistrations"/>
+            <FormInput type="checkbox" title="useDirectLink" labelholder="useDirectLink" v-model="organizationToEdit.useDirectLink"/>
+            <FormInput type="checkbox" title="dontUseGlobalDbData" labelholder="dontUseGlobalDbData" v-model="organizationToEdit.dontUseGlobalDbData"/>
+            <FormInput type="checkbox" title="restrictVideos" labelholder="restrictVideos" v-model="organizationToEdit.restrictVideos"/>
           </div>
           <FormInput type="textarea" labelholder="organizationLocales.searchKeys" v-model="organizationToEdit.searchKeys"/>
 
@@ -365,6 +368,7 @@ export default {
       if (!this.isOrganizationValid) return;
       this.organizationToEdit = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'organization/saveItem', item: this.organizationToEdit })));
       this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));
+      console.log('SAVED ORGANIZATION', this.organizationToEdit);
     },
     async saveAndClose() {
       await this.saveOrganization();

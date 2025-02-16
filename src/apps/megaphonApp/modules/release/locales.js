@@ -48,6 +48,7 @@ const  en = {
     "selfContacts": "Self contacts",
     "contactsWasSelected": "contacts was selected",
     "fromEmail": "From email",
+    "fromName": "From name",
     "addCustomContact": "Add contact email",
     "customEmailToAdd": "Contact email / mobile to add",
     "sendTestMail": "Send test mail",
@@ -114,6 +115,8 @@ const  en = {
     "distributionType": "Distribution type",
     "testMode": "Test mode",
 
+    "selectContacts": "Select contacts",
+
     "alertMsgs": {
       "cantAddContacts": "Somethind went wrong, cant add contacts",
       "successDistRelease": "Successfully distributed release",
@@ -175,6 +178,7 @@ const he = {
     "selfContacts": "ספר כתובות אישי",
     "contactsWasSelected": "אנשי קשר נבחרו",
     "fromEmail": "אימייל שליחה",
+    "fromName": "שם שולח",
     "addCustomContact": "הוספת מייל איש קשר",
     "customEmailToAdd": "אימייל / נייד",
     "sendTestMail": "שלח מייל בדיקה",
@@ -243,6 +247,8 @@ const he = {
     "deleteDistributionData": "מחק תקציר הפצה",
     "distributionType": "סוג הפצה",
     "testMode": "מצב בדיקה",
+
+    "selectContacts": "בחר אנשי קשר להפצה",
 
     "alertMsgs": {
       "cantAddContacts": "משהו השתבש, לא יכול להוסיף איש קשר",

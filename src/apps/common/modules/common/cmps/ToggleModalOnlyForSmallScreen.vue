@@ -1,5 +1,5 @@
 <template>
-  <component :is="isScreenWide? 'div' : ToggleModal" :fullScreen="true">
+  <component :is="isScreenWide? 'div' : ToggleModal" :fullScreen="true" class="ToggleModalOnlyForSmallScreen">
       <template v-if="!isScreenWide" #toggler>
         <slot name="toggler"/>
       </template>

@@ -2,13 +2,13 @@
   <div v-if="contact" class="table-item-preview contact-preview gap10" :class="{unsubscribed: contact.unsubscribed}">
     <!-- <p v-if="contact.firstName">{{contact.firstName}} {{contact.lastName}}</p>
     <p v-else>{{contact.email}}</p> -->
-    <p :title="contactPreviewName">{{contactPreviewName}}</p>
-    <p class="wide-screen-item" :title="contact.email">{{contact.email}}</p>
-    <ClipTxt class="wide-screen-item" :maxLength="40" :txt="companiesToShow.join(', ')"/>
-    <ClipTxt class="wide-screen-item" :maxLength="40" :txt="tagsToShow.join(', ')"/>
+    <p class="flex-2" :title="contactPreviewName">{{contactPreviewName}}</p>
+    <p class="wide-screen-item flex-2" :title="contact.email">{{contact.email}}</p>
+    <ClipTxt class="wide-screen-item flex-1" :maxLength="40" :txt="companiesToShow.join(', ') || '-'"/>
+    <ClipTxt class="wide-screen-item flex-1" :maxLength="40" :txt="tagsToShow.join(', ') || '-'"/>
     <template v-if="!contact.unsubscribed">
-      <button class="toggle-btn" v-if="isAdded" @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.remove')}}</button>
-      <button class="toggle-btn" v-else @click="toggleContact"><img :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/>{{$t('add')}}</button>
+      <button class="toggle-btn bold" v-if="isAdded" @click="toggleContact">-<div v-html="svgs.person" class="svg-parrent"></div></button>
+      <button class="toggle-btn bold" v-else @click="toggleContact">+<div v-html="svgs.person" class="svg-parrent"></div></button>
     </template>
     <p v-else>{{$t('contactLocales.unsubscribed')}}</p>
   </div>
@@ -18,6 +18,7 @@
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { contactService } from '../../contact/contact.service';
 import ClipTxt from '../../../../common/modules/common/cmps/ClipTxt.vue';
+import { getSvgs } from '../../../assets/images/svgs';
 export default {
   components: { ClipTxt },
   name: 'DistributeContactPreview',
@@ -52,6 +53,9 @@ export default {
 
     contactPreviewName() {
       return contactService.getContactPreviewName(this.contact);
+    },
+    svgs() {
+      return getSvgs();
     }
   },
   methods: {

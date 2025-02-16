@@ -29,6 +29,9 @@
         </div>
         <div class="flex align-center gap30 height-all">
           <button class="btn big" @click="close">{{$t('close')}}</button>
+          <button class="btn big" v-if="showDesign" @click="showDesign = false">{{$t('releaseLocales.editRelease')}}</button>
+          <button class="btn big" v-if="!showDesign" :disabled="!itemToEdit._id" @click="showDesign = true" >{{$t('releaseLocales.designAndPreview')}}</button>
+          
           <template v-if="isScreenWide">
             <button class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">{{$t('saveAndClose')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
             <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('save')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
@@ -37,9 +40,6 @@
             {{$t('save')}}
             <!-- <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/> -->
           </button>
-          <button class="btn big primary" v-if="showDesign" @click="showDesign = false">{{$t('releaseLocales.editRelease')}}</button>
-          <button class="btn big primary" v-if="!showDesign" :disabled="!itemToEdit._id" @click="showDesign = true" >{{$t('releaseLocales.designAndPreview')}}</button>
-          
           <button v-if="isScreenWide" class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('releaseLocales.confirmAndDistribute')}}</button>
           <button v-else class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('distributeLocales.distribute')}}</button>
         </div>

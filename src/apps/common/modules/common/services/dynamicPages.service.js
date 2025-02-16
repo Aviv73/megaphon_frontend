@@ -53,15 +53,15 @@ export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
     }), {}),
     ...colors.reduce((acc, c, idx) => ({
       ...acc,
-      [`--clr-${idx}`]: c,
+      [`--clr-${idx}`]: `${c} !important`,
       [`.clr-${idx}`]: {
-        color: c
+        color: `${c} !important`
       },
       [`.bg-${idx}`]: {
-        backgroundColor: c
+        backgroundColor: `${c} !important`
       },
       [`.border-clr-${idx}`]: {
-        'border-color': c
+        'border-color': `${c} !important`
       },
     }), {}),
     '--main-color': colors[0],

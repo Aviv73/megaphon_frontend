@@ -384,19 +384,20 @@ export default {
   }
 
   &.form-input-checkbox {
+    flex-direction: row-reverse;
     input {
-      width: em(15px);
-      height: em(15px);
+      // width: em(15px);
+      // height: em(15px);
     }
     .input {
       border: none;
     }
   }
-  &.form-input-checkbox, &.form-input-radio {
-    // label {
-    //   flex: 1;
-    // }
-  }
+  // &.form-input-checkbox, &.form-input-radio {
+  //   // label {
+  //   //   flex: 1;
+  //   // }
+  // }
   // &.form-input-color {
   //   input {
   //     width: em(70px);
@@ -418,6 +419,12 @@ export default {
     }
     &:not(.checkbox):not(.radio) {
       flex: 1;
+    }
+    &.checkbox, .radio {
+      // height: fit-content;
+      // width: fit-content;
+      width: em(15px);
+      height: em(15px);
     }
     input, select, textarea {
       // border: unset;

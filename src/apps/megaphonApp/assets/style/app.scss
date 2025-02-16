@@ -31,16 +31,21 @@ html {
     width: 100%;
     min-height: em(40px);
     padding: 0 em(10px);
+
+    &:not(:last-child):not(.table-header) {
+      border-bottom: rem(1.5px) solid color-mix(in srgb, var(--clr-0) 20%, transparent);
+      
+    }
     
     &:nth-child(odd) {
-      background-color: #EFEFEF;
+      // background-color: #EFEFEF;
     }
     &:nth-child(even) {
-      background-color: var(--clr-1);
+      // background-color: var(--clr-1);
     }
     &.table-header {
-      background-color: var(--clr-0);
-      color: var(--clr-1);
+      background-color: var(--clr-3);
+      color: var(--clr-2);
     }
   }
   

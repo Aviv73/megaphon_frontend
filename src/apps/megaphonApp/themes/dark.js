@@ -36,19 +36,19 @@ export default {
         color: 'white'
       }
     },
-    '.table-item-preview': {
-      color: 'white',
-      '&:nth-child(odd)': {
-        'background-color': '#6c6c6c'
-      },
-      '&:nth-child(even)': {
-        'background-color': 'rgb(37, 37, 37)'
-      },
-      '&.table-header': {
-        'background-color': 'white',
-        color: 'black'
-      }
-    },
+    // '.table-item-preview': {
+    //   color: 'white',
+    //   '&:nth-child(odd)': {
+    //     'background-color': '#6c6c6c'
+    //   },
+    //   '&:nth-child(even)': {
+    //     'background-color': 'rgb(37, 37, 37)'
+    //   },
+    //   '&.table-header': {
+    //     'background-color': 'white',
+    //     color: 'black'
+    //   }
+    // },
     // '.app-form-styling': {
     //   'input, textarea': {
     //     'background-color': '#4d4d4d',
@@ -122,9 +122,9 @@ export default {
         '&.dark': { display: 'unset' }
       }
     },
-    '.modal': {
-      'color': 'black !important'
-    }
+    // '.modal': {
+    //   'color': 'black !important'
+    // }
   }, true)
 }
 

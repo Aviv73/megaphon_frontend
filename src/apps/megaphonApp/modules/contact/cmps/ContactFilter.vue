@@ -1,18 +1,18 @@
 <template>
-  <ToggleModalOnlyForSmallScreen>
+  <ToggleModalOnlyForSmallScreen class="contact-filter-container flex-1">
     <template #toggler>
       <div class="btn">
         {{$t('filter')}}
       </div>
     </template>
-    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20">
+    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20 flex-1">
       <div class="pickers flex align-start gap10 flex-1">
         <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="false" :organizationId="organizationId"/>
         <TagPicker class="flex-1" v-model="tags" :onlyRelevants="false" :organizationId="organizationId"/>
       </div>
-      <div class="flex align-center gap20">
-        <div class="serach flex align-start_">
-          <FormInput placeholder="search" v-model="filterBy.filter.search" iconPos="left">
+      <div class="flex flex-1 align-center gap20">
+        <div class="serach flex flex-1 align-start_">
+          <FormInput class="flex-1" placeholder="search" v-model="filterBy.filter.search" iconPos="left">
             <button class="flex align-center justify-center">
               <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/>
             </button>

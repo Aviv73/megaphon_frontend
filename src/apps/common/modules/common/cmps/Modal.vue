@@ -76,9 +76,15 @@ export default {
       border-radius: em(5px);
       box-shadow: $light-shadow;
       background-color: #fff;
-      color: var(--clr-0);
-      input, select {
-        color: var(--clr-0);
+      color: black;
+      // background-color: var(--clr-1);
+      // color: var(--clr-0);
+      .input, input, select {
+        background-color: #fff !important;
+        color: black !important;
+      }
+      .btn {
+        box-shadow: 0 0 em(10px) em(1px) rgba(0,0,0,0.2);
       }
     }
   }

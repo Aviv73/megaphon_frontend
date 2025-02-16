@@ -1,5 +1,6 @@
 megaphonApp:
 - update to new ui
+- setup design viewer;
 - create Admin zonde, needs to be definged by Chen Li
 - video encryption, add encryption params to media converter
 - distribution bug - sometimes not all recepients apear in the distribution data. maybe they open the email before a butch is over, and it fucks the update
@@ -7,7 +8,7 @@ megaphonApp:
 Yes:
 - video encryption
 - video view dashboarding
-- email ui update
+- email ui update  VVVVV
 - add logs for what device and geo location
 - add organization edit for producers;   VVVVV
 - sms spam?

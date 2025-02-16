@@ -57,9 +57,9 @@ export default {
           // return contact.name || (contact.firstName && (contact.firstName + ' ' + (contact.lastName || ''))) || '';
           return contactService.getContactPreviewName(contact);
         case 'company':
-          return (contact.company?.map(c => this.allCompanies.find(comp => comp._id === c)?.name) || []).join(', ');
+          return (contact.company?.map(c => this.allCompanies.find(comp => comp._id === c)?.name) || []).join(', ') || '-';
         case 'tags':
-          return (contact.tags?.map(c => this.allTags.find(tag => tag._id === c)?.name) || []).join(', ');
+          return (contact.tags?.map(c => this.allTags.find(tag => tag._id === c)?.name) || []).join(', ') || '-';
         case 'unsubscribed':
           return contact.unsubscribed? '✔' : '-'
         default:

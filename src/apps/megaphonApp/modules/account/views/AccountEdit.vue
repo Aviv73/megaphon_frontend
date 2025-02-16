@@ -180,7 +180,7 @@ export default {
   .account-edit {
     padding: em(10px) 0;
     .form-input-checkbox {
-      flex-direction: row-reverse;
+      // flex-direction: row-reverse;
     }
     .mailing-section {
       .form-input-checkbox {
