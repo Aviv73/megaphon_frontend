@@ -7,8 +7,8 @@
     <ClipTxt class="wide-screen-item flex-1" :maxLength="40" :txt="companiesToShow.join(', ') || '-'"/>
     <ClipTxt class="wide-screen-item flex-1" :maxLength="40" :txt="tagsToShow.join(', ') || '-'"/>
     <template v-if="!contact.unsubscribed">
-      <button class="toggle-btn bold hover-pop" v-if="isAdded" @click="toggleContact">-<div v-html="svgs.person" class="svg-parrent"></div></button>
-      <button class="toggle-btn bold hover-pop" v-else @click="toggleContact">+<div v-html="svgs.person" class="svg-parrent"></div></button>
+      <button class="toggle-btn bold hover-pop_" v-if="isAdded" @click="toggleContact">-<div v-html="svgs.person" class="svg-parrent"></div></button>
+      <button class="toggle-btn bold hover-pop_" v-else @click="toggleContact">+<div v-html="svgs.person" class="svg-parrent"></div></button>
     </template>
     <p v-else>{{$t('contactLocales.unsubscribed')}}</p>
   </div>
