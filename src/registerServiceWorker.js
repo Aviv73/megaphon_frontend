@@ -21,6 +21,14 @@ if ((process.env.NODE_ENV === 'production')) {
     },
     updated () {
       console.log('New content is available; please refresh.')
+      
+      // from gpt::
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      
+      // Reload page to apply the new version
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     },
     offline () {
       console.log('No internet connection found. App is running in offline mode.')
