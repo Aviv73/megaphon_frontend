@@ -103,7 +103,7 @@ export default {
           .filter(c => c._id != '-1')
           [0];
         if (!firstOrg) {
-          this.$router.push({ name: 'JoinOrgPage' });
+          // this.$router.push({ name: 'JoinOrgPage' });
           return;
         }
         this.$router.push({name: 'ReleasePage', params: {organizationId: firstOrg._id}});

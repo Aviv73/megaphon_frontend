@@ -2,7 +2,7 @@ import OrganizationApp from './OrganizationApp';
 import OrganizationPage from './views/OrganizationPage';
 // import OrganizationDetails from './views/OrganizationDetails';
 import OrganizationEdit from './views/OrganizationEdit';
-import JoinOrgPage from './views/JoinOrgPage.vue';
+// import JoinOrgPage from './views/JoinOrgPage.vue';
 
 export const organizationRoutes = [
   {
@@ -20,11 +20,11 @@ export const organizationRoutes = [
         path: 'edit/:id?',
         component: OrganizationEdit
       },
-      {
-        name: 'JoinOrgPage',
-        path: 'join-organization',
-        component: JoinOrgPage
-      },
+      // {
+      //   name: 'JoinOrgPage',
+      //   path: 'join-organization',
+      //   component: JoinOrgPage
+      // },
       // {
       //   name: 'OrganizationDetails',
       //   path: ':id',
