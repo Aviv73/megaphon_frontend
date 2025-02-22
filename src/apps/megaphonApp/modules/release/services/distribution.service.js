@@ -75,8 +75,9 @@ async function reportReleaseOpened(releaseId, queryParams) {
   if (sessionStorage.reportedReleaseOpen) return;
   const origin = queryParams.origin;
   const token = queryParams.token;
+  const releaseIdInQuery = queryParams.releaseId;
   if (!token) return;
-  await httpService.get(`${ENDPOINT}/release-opened/`, { origin, token, releaseId, isLandingPage: true, platform: 'landingPage' });
+  await httpService.get(`${ENDPOINT}/release-opened/`, { origin, token, releaseId: releaseIdInQuery || releaseId, isLandingPage: true, platform: 'landingPage' });
   sessionStorage.reportedReleaseOpen = true;
 }
 
