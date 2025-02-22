@@ -23,8 +23,8 @@ self.addEventListener('activate', async (event) => {
           console.log('All caches cleared');
 
           // // Force all clients to reload
-          // const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
-          // clients.forEach(client => client.navigate(client.url));
+          const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+          clients.forEach(client => client.navigate(client.url));
       })()
   );
 });
