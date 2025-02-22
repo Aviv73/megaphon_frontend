@@ -171,9 +171,12 @@ h4 {
   }
   .table-item-preview {
     display: flex;
-    // align-items: center;
-    align-items: flex-start;
+    align-items: center;
+    // align-items: flex-start;
     >* {
+      // display: flex;
+      // align-items: center;
+      // min-height: ;
       flex: 1;
       // max-width: rem(200px);
       overflow: hidden;

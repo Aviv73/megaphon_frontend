@@ -47,6 +47,13 @@ html {
       background-color: var(--clr-3);
       color: var(--clr-2);
     }
+
+    align-items: flex-start;
+    >* {
+      display: flex;
+      align-items: center;
+      min-height: em(40px);
+    }
   }
   
   
