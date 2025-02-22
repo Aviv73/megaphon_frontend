@@ -171,7 +171,8 @@ h4 {
   }
   .table-item-preview {
     display: flex;
-    align-items: center;
+    // align-items: center;
+    align-items: flex-start;
     >* {
       flex: 1;
       // max-width: rem(200px);

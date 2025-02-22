@@ -54,7 +54,7 @@
                 <p class="wide-screen-item flex-1">{{$t('contactLocales.companyName')}}</p>
                 <p class="wide-screen-item flex-1">{{$t('contactLocales.tags')}}</p>
                 <div class="flex">
-                  <button class="toggle-btn bold" @click="addAllSearchContacts()">
+                  <button class="toggle-btn bold hover-pop" @click="addAllSearchContacts()">
                     <!-- <img class="add-all-btn-img reg" :src="require('@/apps/megaphonApp/assets/images/add_contact_white.svg')"/>
                     <img class="add-all-btn-img dark" :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/> -->
                     <!-- <img class="add-all-btn-img" :src="require('@/apps/megaphonApp/assets/images/add_contact.svg')"/> -->
@@ -76,7 +76,7 @@
             <p class="align-self-center">{{$t('distributeLocales.addCustomContact')}}</p>
             <FormInput class="flex-1" placeholder="distributeLocales.customEmailToAdd" v-model="customEmailToAdd"/>
             <!-- <button class="btn">{{$t('distributeLocales.add')}}</button> -->
-            <button class="bold flex gap5">+<div v-html="svgs.person" class="svg-parrent"></div></button>
+            <button class="bold flex gap5 hover-pop">+<div v-html="svgs.person" class="svg-parrent"></div></button>
           </form>
           
           <div class="flex align-center space-between side-header-item">
@@ -89,15 +89,15 @@
           <div class="table-like-list contacts-list flex-1 selected-table">
             <div class="table-item-preview selected-input gap10 table-header flex space-between align-center side-header-item">
               <!-- <p>{{$t('contactLocales.contactName')}}</p> -->
-              <FormInput :placeholder="$t('contactLocales.contactName')" v-model="searchSelectedTerm"/>
+              <FormInput :placeholder="$t('search')" v-model="searchSelectedTerm"/>
               <!-- <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.removeAll')}}</button> -->
-              <button class="toggle-btn_ flex gap10" @click="contactsForDistribute = []"><span>{{$t('distributeLocales.removeAll')}}</span><div class="toggle-btn bold">-<div v-html="svgs.person" class="svg-parrent"></div></div></button>
+              <button class="toggle-btn_ flex gap10" @click="contactsForDistribute = []"><span>{{$t('distributeLocales.removeAll')}}</span><div class="toggle-btn bold hover-pop">-<div v-html="svgs.person" class="svg-parrent"></div></div></button>
             </div>
             <template v-if="contactsForDistributeToShow?.length">
               <div v-for="contact in contactsForDistributeToShow" :key="contact._id || contact.email || contact.mobile" class="table-item-preview gap10 flex align-center space-between" :class="{unsubscribed: contact.unsubscribed}">
                 <p>{{contact.name || (contact.firstName && (contact.firstName + ' ' + (contact.lastName || ''))) || contact.email || contact.mobile || ''}}</p>
                 <!-- <button class="toggle-btn" @click="toggleContact(contact)"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.remove')}}</button> -->
-                <button class="toggle-btn bold" @click="toggleContact(contact)">-<div v-html="svgs.person" class="svg-parrent"></div></button>
+                <button class="toggle-btn bold hover-pop" @click="toggleContact(contact)">-<div v-html="svgs.person" class="svg-parrent"></div></button>
               </div>
             </template>
             <div v-else class="flex-1 flex justify-center align-center">
@@ -125,7 +125,7 @@
               </div>
               <div v-for="list in emailLists" :key="list._id" class="table-item-preview gap10 list-item flex align-center space-between " @click="selectMailingList(list)">
                 <p>{{list.title}}</p>
-                <button @click.stop="onRemoveMailingList(list)">X</button>
+                <button @click.stop="onRemoveMailingList(list)">✖</button>
               </div>
             </div>
           </template>

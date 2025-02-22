@@ -633,6 +633,76 @@ export function printHtmlElement(htmlElement) {
     });
 }
 
+
+/*
+    // gets matrix, array of objects, or map object when key is tab name and value is the table data
+*/
+export function convertJsonToXl(jsonData = {key: [[]]}, fileName = 'data', download = false) {
+    // if (jsonData[0] && !Array.isArray(jsonData[0])) jsonData[0] = [jsonData[0]]; // todo check for stupid object input;
+    if (Array.isArray(jsonData)) jsonData = { [fileName]: jsonData };
+    const tab = (depth = 0) => '\n' + (' '.repeat(depth*4));
+    const escapeSpecialChars = (special = '') => {
+        return special.replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/'/g, '&apos;')
+                      .replace(/"/g, '&quot;')
+    }
+    let tableHtmlStr = `<?xml version="1.0" encoding="UTF-8"?>\n<?mso-application progid="Excel.Sheet"?>`
+    tableHtmlStr += `<Workbook 
+        xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:x="urn:schemas-microsoft-com:office:excel"
+        xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:html="http://www.w3.org/TR/REC-html40"
+    >`;
+    for (let key in jsonData) {
+        tableHtmlStr += `${tab(1)}<Worksheet ss:Name="${key}">`;
+        tableHtmlStr += `${tab(2)}<Table>`;
+        let jsonDataTable = jsonData[key];
+        if (!Array.isArray(jsonDataTable[0]) && (typeof jsonDataTable[0] === 'object')) {
+            const keys = Object.keys(jsonDataTable[0]);
+            jsonDataTable = [
+                keys,
+                ...jsonDataTable.map(c => keys.map(k => c[k]))
+            ];
+        } else if (!Array.isArray(jsonDataTable) && (typeof jsonDataTable === 'object')) {
+            jsonDataTable = [
+                Object.keys(jsonDataTable),
+                Object.values(jsonDataTable)
+            ];
+        }
+        jsonDataTable.forEach(row => {
+            if (!Array.isArray(row) && (typeof row === 'object')) row = Object.values(row);
+            tableHtmlStr += `${tab(3)}<Row>`;
+            row.forEach(col => {
+                if (Array.isArray(col)) col = col.join(', ');
+                else if (!col) col = '';
+                else col = col + '';
+                tableHtmlStr += `${tab(4)}<Cell><Data ss:Type="String">${escapeSpecialChars(col)}</Data></Cell>`;
+            });
+            tableHtmlStr += `${tab(3)}</Row>`;
+        });
+        tableHtmlStr += `${tab(2)}</Table>`;
+        tableHtmlStr += `${tab(1)}</Worksheet>`;
+    }
+    tableHtmlStr += `${tab(0)}</Workbook>`;
+
+    if (download) {
+        const blob = new Blob([tableHtmlStr], { type: 'application/vnd.ms-excel' });
+        const url = URL.createObjectURL(blob);
+        const aEl = document.createElement('a');
+        aEl.href = url;
+        aEl.download = `${fileName}.xls`;
+        document.body.appendChild(aEl);
+        aEl.click();
+        document.body.removeChild(aEl);
+        URL.revokeObjectURL(url);
+    }
+
+    return tableHtmlStr;
+}
+
 export function camelCaseToReadable(str = '', seperator = ' ') {
     const CAPS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let res = '';
