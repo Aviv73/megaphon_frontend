@@ -54,9 +54,9 @@
 
       <div class="flex column gap20 align-start">
         <p>{{$t('settingsLocales.settings')}}</p>
-        <FormInput type="checkbox" class="ltr" labelholder="organizationLocales.requireAuth" v-model="organizationToEdit.requireAuth"/>
-        <FormInput type="checkbox" class="ltr" labelholder="organizationLocales.require2FactorAuth" v-model="organizationToEdit.require2FactorAuth"/>
-        <FormInput type="checkbox" class="ltr" labelholder="organizationLocales.useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
+        <FormInput type="checkbox" labelholder="organizationLocales.requireAuth" v-model="organizationToEdit.requireAuth"/>
+        <FormInput type="checkbox" labelholder="organizationLocales.require2FactorAuth" v-if="organizationToEdit.requireAuth" v-model="organizationToEdit.require2FactorAuth"/>
+        <FormInput type="checkbox" labelholder="organizationLocales.useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
       </div>
       
       <div class="flex column gap20 align-start" v-if="organizationToEdit.requireAuth">

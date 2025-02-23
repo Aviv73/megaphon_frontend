@@ -1,18 +1,24 @@
 <template>
-  <div v-if="loggedUser" :style="{'--preview-clr': theme?.colors?.[1] || 'black'}" class="logged-user-preview flex align-center space-between gap5">
-    <span class="wellcome-msg">{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
-    <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">
-      <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
-      <div class="avatar img" v-html="avatarIco"></div>
-      <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
-      <div class="blure" v-if="showActionsModal && !viewAsModal" @click.stop.prevent="showActionsModal = false"></div>
-      <component :is="viewAsModal? 'Modal' : 'div'" class="actions-modal" @close="showActionsModal = false" v-if="showActionsModal" :fullScreen="true">
-        <div class="top-like" v-if="!viewAsModal"></div>
-        <button class="logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>
-        <span class="sep-span"> | </span>
-        <router-link class="edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('authLocales.editUserDetails')}}</router-link>
-      </component>
+  <div v-if="loggedUser" :style="{'--preview-clr': theme?.colors?.[1] || 'black'}" class="logged-user-preview flex column gap5">
+    <div class="flex align-center space-between gap5">
+      <span class="wellcome-msg">{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
+      <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">
+        <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
+        <div class="avatar img" v-html="avatarIco"></div>
+        <!-- <img class="avatar" :src="require('@/apps/megaphonApp/assets/images/avatar_black.svg')" alt=""> -->
+        <div class="blure" v-if="showActionsModal && !viewAsModal" @click.stop.prevent="showActionsModal = false"></div>
+        <component :is="viewAsModal? 'Modal' : 'div'" class="actions-modal" @close="showActionsModal = false" v-if="showActionsModal" :fullScreen="true">
+          <div class="top-like" v-if="!viewAsModal"></div>
+          <button class="logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>
+          <span class="sep-span"> | </span>
+          <router-link class="edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('authLocales.editUserDetails')}}</router-link>
+        </component>
+      </div>
     </div>
+    <p class="roles" v-if="bestOrgRole && accountOrgData?.roles?.length">
+      <!-- [{{accountOrgData.roles.map(c => $t(`organizationLocales.orgRoles.${c}`)).join(', ')}}] -->
+      [{{$t(`organizationLocales.orgRoles.${bestOrgRole}`)}}]
+    </p>
   </div>
 </template>
 
@@ -20,11 +26,14 @@
 import  { getSvgs } from '@/assets/images/svgs.js';
 import { getSelectedTheme } from '../../common/services/dynamicPages.service';
 import Modal from '../../common/cmps/Modal.vue';
+import { organizationService } from '../../organization/organization.service';
+import { consts } from '@/apps/common/modules/common/services/const.service.js';
 export default {
   components: { Modal },
   name: 'LoggedUserPreview',
   props: {
-    viewAsModal: [Boolean]
+    viewAsModal: [Boolean],
+    organizationId: [String]
   },
   data() {
     return {
@@ -42,6 +51,16 @@ export default {
       // const clr = theme?.colors?.[1] || 'black';
       const clr = 'var(--preview-clr)';
       return getSvgs(clr).icons.avatar; 
+    },
+    accountOrgData() {
+      if (!this.organizationId) return null;
+      return organizationService.getOrgItemInAccount(this.loggedUser, this.organizationId);
+    },
+    bestOrgRole() {
+      if (!this.accountOrgData) return '';
+      return this.accountOrgData.roles?.sort((a, b) => {
+        return (consts.organizationRolesMap[a] || 1000) - (consts.organizationRolesMap[b] || 1000);
+      })[0] || '';
     }
   },
   methods: {

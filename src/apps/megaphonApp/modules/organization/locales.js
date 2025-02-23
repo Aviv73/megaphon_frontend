@@ -32,14 +32,14 @@ const en = {
     "require2FactorAuth": "Require 2nd factor authentication",
     "useVideoWaterMark": "Use video watermark",
     "organizationSettings": "Organization settings",
-    "orgRoles": {
-      "creator": "Creator",
-      "admin": "Admin",
-      "producer": "Producer",
-      "user": "User",
-      "client": "Watch only",
-      "developer": "Developer"
-    },
+    // "orgRoles": {
+    //   "creator": "Creator",
+    //   "admin": "Admin",
+    //   "producer": "Producer",
+    //   "user": "User",
+    //   "client": "Watch only",
+    //   "developer": "Developer"
+    // },
     "alerts": {
       "confirmRemove": "Are you sure you want to remove this organization?",
       "removeSuccess": "Organization removed successfully",
@@ -88,14 +88,14 @@ const he = {
     "require2FactorAuth": "דרושה הזדהות נוספת",
     "useVideoWaterMark": "ווטרמארק על וידאו",
     "organizationSettings": "הגדרות ארגון",
-    "orgRoles": {
-      "creator": "יוצר",
-      "admin": "אדמין",
-      "producer": "מפיץ",
-      "user": "משתמש",
-      "client": "צפיה",
-      "developer": "מפתח"
-    },
+    // "orgRoles": {
+    //   "creator": "יוצר",
+    //   "admin": "אדמין",
+    //   "producer": "מפיץ",
+    //   "user": "משתמש",
+    //   "client": "צפיה",
+    //   "developer": "מפתח"
+    // },
     "alerts": {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את הארגון?",
       "removeSuccess": "ארגון נמחק בהצלחה",

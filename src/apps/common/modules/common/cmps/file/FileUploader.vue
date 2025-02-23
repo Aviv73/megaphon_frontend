@@ -1,5 +1,5 @@
 <template>
-  <div class="file-uploader-input flex align-start gap10">
+  <div class="file-uploader-input flex align-start_ gap10">
     <img v-if="viewAsImg" class="val-img" :title="valToShow?.name || valToShow?.title" :src="fileToShow" :alt="valToShow?.name || valToShow?.title || $t('clickToUploadFile')" @click="clickInput"/>
     <p class="p-like" v-else-if="!fileToShow && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
     <p class="p-like ltr text-end" v-else-if="isLoading" @click="clickInput">{{loadingMsg? loadingMsg : $t('loading') + '...'}}</p>
@@ -7,7 +7,10 @@
     <div class="flex column space-between height-all gap10" v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
-      <button v-if="fileToShow" @click.prevent.stop="clear" :title="$t('clear')" class="btn width-content danger round">✖</button>
+      <button v-if="fileToShow" @click.prevent.stop="clear" :title="$t('clear')" class="btn clear underline width-content danger_ round_">
+        <!-- <div v-html="svgs.x" class="svg-parrent"></div> -->
+        {{$t('clear')}}
+      </button>
     </div>
     <MiniLoader v-else/>
   </div>
@@ -18,6 +21,7 @@ import { fixFileSrcToThumbnail, uploadFileToServer, chunkUploadFileToServer } fr
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import MiniLoader from '../MiniLoader.vue';
 import { cropText } from '../../services/util.service';
+import { getSvgs } from '@/assets/images/svgs';
 export default {
   components: { MiniLoader },
   name: 'FileUploader',
@@ -44,6 +48,9 @@ export default {
     },
     valToShow() {
       return this.onlySrc ? { src: this.value, title: cropText(this.value, 30) } : this.value;
+    },
+    svgs() {
+      return getSvgs();
     }
   },
   methods: {

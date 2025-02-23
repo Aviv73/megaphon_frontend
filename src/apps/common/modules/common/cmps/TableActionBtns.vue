@@ -1,14 +1,15 @@
 <template>
   <div class="table-action-btns flex gap10 align-center">
-    <button class="btn clear" :disabled="!allowEmptyArray && (value.length <= 1)" @click.stop.prevent="spliceFromVal"><img class="delete-mini-btn" :src="require('@/assets/images/icons/delete_red.svg')"/></button>
-    <button class="btn clear" :disabled="!idx" @click.stop.prevent="updateIdx(-1)"><img class="delete-mini-btn" :src="require('@/assets/images/icons/arrow-up.png')"/></button>
-    <button class="btn clear" :disabled="idx >= value.length-1" @click.stop.prevent="updateIdx(1)"><img class="delete-mini-btn" :src="require('@/assets/images/icons/arrow-down.png')"/></button>
+    <button class="btn clear delete-btn" :disabled="!allowEmptyArray && (value.length <= 1)" @click.stop.prevent="spliceFromVal"><div v-html="svgs.x" class="svg-parrent"></div></button>
+    <button class="btn clear" :disabled="!idx" @click.stop.prevent="updateIdx(-1)"><div v-html="svgs.triangleUp" class="svg-parrent"></div></button>
+    <button class="btn clear" :disabled="idx >= value.length-1" @click.stop.prevent="updateIdx(1)"><div v-html="svgs.triangleUp" class="svg-parrent down-arrow"></div></button>
     <!-- <button class="btn clear" :disabled="!idx" @click.stop.prevent="updateIdx(-1)"><span class="delete-mini-btn ↑">↑</span></button>
     <button class="btn clear" :disabled="idx >= value.length-1" @click.stop.prevent="updateIdx(1)"><span class="delete-mini-btn ↓">↓</span></button> -->
   </div>
 </template>
 
 <script>
+import { getSvgs } from '@/assets/images/svgs';
 export default {
   name: 'TableActionBtns',
   props: {
@@ -34,6 +35,11 @@ export default {
       newVal.splice(newIdx, 0, item);
       this.$emit('input', newVal);
     }
+  },
+  computed: {
+    svgs() {
+      return getSvgs();
+    }
   }
 }
 </script>
@@ -50,14 +56,21 @@ export default {
 //   }
 // }
 .table-action-btns {
-  .delete-mini-btn {
-    color: var(--clr-0);
-    font-size: em(16px);
-    font-weight: bold;
-    display: inline-block;
-    width: em(15px);
-    height: em(15px);
-    object-fit: unset;
+  // .delete-mini-btn {
+  //   color: var(--clr-0);
+  //   font-size: em(16px);
+  //   font-weight: bold;
+  //   display: inline-block;
+  //   width: em(15px);
+  //   height: em(15px);
+  //   object-fit: unset;
+  // }
+  .down-arrow {
+    transform: rotate(180deg);
+  }
+  color: var(--clr-0);
+  .delete-btn {
+    color: #D03161;
   }
 }
 </style>

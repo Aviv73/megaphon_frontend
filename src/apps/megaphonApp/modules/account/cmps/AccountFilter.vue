@@ -8,7 +8,7 @@
     </div>
     <div v-if="(organizationId === '-1') && (isUserCurrOrgAdmin || isAdmin)" class="flex gap10 align-center justify-end width-all">
       <router-link :to="{ name: 'AccountEdit', params: { organizationId: organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
-      <button class="btn big" @click="getAllAccounts(filterBy, '')" :to="{name: 'AccountPage'}">{{$t('accountLocales.viewAllAccounts')}}</button>
+      <button class="btn big" @click.stop.prevent="getAllAccounts()" :to="{name: 'AccountPage'}">{{$t('accountLocales.viewAllAccounts')}}</button>
     </div>
     <div class="flex gap20" v-else>
       <InviteAccountModal/>
@@ -21,6 +21,7 @@
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import InviteAccountModal from '../../organization/cmps/InviteAccountModal.vue';
 import { organizationService } from '../../organization/services/organization.service';
+import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 export default {
   name: 'AccountFilter',
   props: {
@@ -32,6 +33,9 @@ export default {
   methods: {
     emitFilter() {
       this.$emit('filtered', this.filterBy);
+    },
+    getAllAccounts() {
+      evManager.emit('get-all-accounts', this.filterBy);
     }
   },
   data() {

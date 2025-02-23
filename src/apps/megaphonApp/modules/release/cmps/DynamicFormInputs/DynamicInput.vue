@@ -34,14 +34,14 @@
         </template>
       </div>
       <table v-if="dataFieldToRender.type === 'TABLE'" colspacing="5px" class="flexx column gap10 width-content">
-        <tr class="flexx align-center gap10" v-if="value && value.length">
+        <!-- <tr class="flexx align-center gap10" v-if="value && value.length">
           <td v-for="(field, idx) in dataFieldToRender.fields" :key="`${basePath}.${idx}.${field.title}`">
             <p class="flex-1">
               {{tOrTitle(field.title)}}
             </p>
           </td>
           <td class="flex-1"></td>
-        </tr>
+        </tr> -->
         <tr v-for="(currVal, idx) in value" :key="idx" class="flexx align-center gap10">
           <td
             v-for="field in dataFieldToRender.fields.filter(c => !c.hidden)"
@@ -65,7 +65,7 @@
         </tr>
         <tr v-if="!(dataFieldToRender.singleItem && (value?.length > 0))">
           <td>
-            <button class="btn big width-content align-self-end" @click.prevent="$emit('input', [...(value || []), createNewItem(dataFieldToRender.fields)], basePath)">{{$t('add')}}</button>
+            <button class="btn big square width-content_ align-self-end" @click.prevent="$emit('input', [...(value || []), createNewItem(dataFieldToRender.fields)], basePath)"><div v-html="svgs.plus" class="svg-parrent"></div></button>
           </td>
         </tr>
       </table>
@@ -89,6 +89,7 @@ import MultipleFilePicker from './MultipleFilePicker.vue';
 import ImageCrop from './ImageCrop.vue';
 import TableActionBtns from '@/apps/common/modules/common/cmps/TableActionBtns.vue';
 import { range } from '@/apps/common/modules/common/services/util.service';
+import { getSvgs } from '@/assets/images/svgs';
 
 
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
@@ -108,7 +109,8 @@ export default {
     return {
       propsToPass: {},
       cmpName: '',
-      dataFieldToRender: {...this.dataField}
+      dataFieldToRender: {...this.dataField},
+      svgs: getSvgs()
     }
   },
   methods: {
@@ -346,7 +348,8 @@ export default {
         // overflow-x: auto;
         td {
           padding: em(5px);
-          vertical-align: top;
+          // vertical-align: top;
+          vertical-align: middle;
         }
       }
     }

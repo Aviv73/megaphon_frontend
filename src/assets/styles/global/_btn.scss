@@ -50,6 +50,7 @@
   
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: em(5px);
     
     img {
@@ -78,15 +79,23 @@
     }
 
     &.small {
-      height: (em13px);
-      width: (em13px);
+      height: em(13px);
+      width: em(13px);
       padding: 0;
       border-radius: 2px;
       font-size: 11px;
     }
   
     &.big {
-      padding: em(10px) em(20px);
+      height: em(35px);
+      // padding: em(10px) em(20px);
+      padding: 0 em(20px);
+      &.square {
+        padding: 0;
+        // padding: em(10px);
+        width: em(35px);
+
+      }
     }
     &.mid {
       padding: em(7px) em(15px);

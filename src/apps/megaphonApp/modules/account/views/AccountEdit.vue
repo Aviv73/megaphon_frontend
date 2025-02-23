@@ -3,19 +3,19 @@
     <h2 v-if="accountToEdit._id">{{$t('accountLocales.editAccount')}}</h2>
     <h2 v-else>{{$t('accountLocales.createAccount')}}</h2>
     <form v-if="accountToEdit" @submit.prevent="saveAccount" class="flex column gap20">
-      <FormInput type="text" labelholder="accountLocales.firstname" v-model="accountToEdit.firstName"/>
-      <FormInput type="text" labelholder="accountLocales.lastname" v-model="accountToEdit.lastName"/>
-      <FormInput type="text" labelholder="accountLocales.email" v-model="accountToEdit.email"/>
-      <FormInput type="phone-number" labelholder="accountLocales.mobile" v-model="accountToEdit.mobileData" @change="val => accountToEdit.mobile = val.formatted"/>
-      <FormInput type="text" labelholder="accountLocales.newPassword" v-model="accountToEdit.password" :error="isPassValid ? '' : $t('authLocales.passValidationExplenation')" :tooltipMsg="$t('authLocales.passValidationExplenation')"/>
-      <FormInput type="text" labelholder="accountLocales.confirmPassword" v-model="confirmPassword"/>
+      <FormInput :required="true" type="text" labelholder="accountLocales.firstname" v-model="accountToEdit.firstName"/>
+      <FormInput :required="true" type="text" labelholder="accountLocales.lastname" v-model="accountToEdit.lastName"/>
+      <FormInput :required="true" type="text" labelholder="accountLocales.email" v-model="accountToEdit.email"/>
+      <FormInput :required="true" type="phone-number" labelholder="accountLocales.mobile" v-model="accountToEdit.mobileData" @change="val => accountToEdit.mobile = val.formatted"/>
+      <FormInput :required="true" type="text" labelholder="accountLocales.newPassword" v-model="accountToEdit.password" :error="isPassValid ? '' : $t('authLocales.passValidationExplenation')" :tooltipMsg="$t('authLocales.passValidationExplenation')"/>
+      <FormInput :required="true" type="text" labelholder="accountLocales.confirmPassword" v-model="confirmPassword"/>
 
-      <div class="flex column gap5 mailing-section">
+      <!-- <div class="flex column gap5 mailing-section">
         <h4>{{$t('accountLocales.newsletter')}}</h4>
         <FormInput type="checkbox" labelholder="accountLocales.mailing.sms" v-model="accountToEdit.mailing.sms"/>
         <FormInput type="checkbox" labelholder="accountLocales.mailing.newsletter" v-model="accountToEdit.mailing.newsletter"/>
         <FormInput type="checkbox" labelholder="accountLocales.mailing.unsubscribeMsg" v-model="accountToEdit.mailing.unsubscribed"/>
-      </div>
+      </div> -->
 
       <!-- <template v-if="isUserAdmin && !isNested"> -->
       <template v-if="!isNested">

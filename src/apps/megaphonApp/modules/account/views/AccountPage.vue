@@ -77,6 +77,9 @@ export default {
       if (!await alertService.Confirm(this.$t(`organizationLocales.alerts.confirmAccountApproval`))) return;
       await this.$store.dispatch({ type: 'organization/updateAccountStatus', organizationId: orgId, accountId: account._id, newStatus: 'approved' });
       this.getAllAccounts(this.filterBy, this.organizationId);
+    },
+    onGetAllAccounts(filterBy) {
+      this.getAllAccounts(filterBy, '');
     }
   },
   computed: {
@@ -115,9 +118,11 @@ export default {
     }
   },
   created() {
+    evManager.on('get-all-accounts', this.onGetAllAccounts);
     evManager.on('approveAccount', this.approveAccount);
   },
   destroyed() {
+    evManager.off('get-all-accounts', this.onGetAllAccounts);
     evManager.off('approveAccount', this.approveAccount);
   },
   components: { ItemSearchList, Loader, AccountPreview, AccountFilter, InviteAccountModal }

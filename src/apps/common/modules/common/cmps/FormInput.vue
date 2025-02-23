@@ -1,5 +1,5 @@
 <template>
-  <section class="form-input" :class="{ 'show-error': showError, ['form-input-' + type]: true }">
+  <section class="form-input" :class="{ 'show-error': showError, ['form-input-' + type]: true, 'has-label': label || labelholder }">
     <label class="label flex align-center gap5" :for="inputId" v-if="label || labelholder">
       <span class="require-span" v-if="required && isEmpty" :style="{ opacity: isEmpty ? 1 : 0 }">*</span>
       <p :title="$t(label || labelholder)">{{ $t(label || labelholder) }}</p>
@@ -387,7 +387,9 @@ export default {
   }
 
   &.form-input-checkbox {
-    flex-direction: row-reverse;
+    &.has-label {
+      flex-direction: row-reverse;
+    }
     input {
       // width: em(15px);
       // height: em(15px);

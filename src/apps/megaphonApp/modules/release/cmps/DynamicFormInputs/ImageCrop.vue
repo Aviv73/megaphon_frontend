@@ -1,12 +1,15 @@
 <template>
-  <div class="file-uploader-input img-crop-input flex align-start gap10">
-    <img class="val-img" :title="value?.[0]?.title" :src="imgToShow" :alt="value?.[0]?.title || $t('clickToUploadFile')" @click="clickInput"/>
+  <div class="file-uploader-input img-crop-input flex align-center gap10">
     <div class="flex column space-between height-all gap10" v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="chooseFile" :accept="accept"/>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
-      <button v-if="imgToShow" @click.prevent.stop="clear" :title="$t('clear')" class="btn width-content danger round">✖</button>
+      <button v-if="imgToShow" @click.prevent.stop="clear" :title="$t('clear')" class="btn clear underline width-content danger_ round_">
+        <!-- <div v-html="svgs.x" class="svg-parrent"></div> -->
+        {{$t('clear')}}
+      </button>
     </div>
     <MiniLoader v-else/>
+    <img class="val-img" :title="value?.[0]?.title" :src="imgToShow" :alt="value?.[0]?.title || $t('clickToUploadFile')" @click="clickInput"/>
 
     <Modal :fullScreen="true" v-if="imgBase64ToCrop" @close="clear">
       <div class="crop-modal flex column gap15">
@@ -135,6 +138,9 @@ export default {
 .megaphon-app {
   .img-crop-input {
     .crop-modal {
+      .cropper-container {
+        margin: 0 auto;
+      }
       .cropper-container, img {
         width: 70vw;
         height: 70vh;

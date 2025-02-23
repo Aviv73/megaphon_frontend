@@ -5,10 +5,11 @@
         <img class="release-img" :src="fixFileSrcToThumbnail(release.releaseData?.mainImage, release) || ''" :alt="release.releaseData?.title" />
         <p>{{release.releaseData?.title}}</p>
         
-        <TableActionBtns :value="value" @input="val => $emit('input', val)" :idx="idx"/>
+        <TableActionBtns :allowEmptyArray="true" :value="value" @input="val => $emit('input', val)" :idx="idx"/>
       </li>
     </ul>
-    <button class="btn big primary_" @click="showSearchModal = true">{{$t('add')}}</button>
+    <!-- <button class="btn big primary_" @click="showSearchModal = true">{{$t('add')}}</button> -->
+    <button class="btn big square" @click.prevent="showSearchModal = true"><div v-html="svgs.plus" class="svg-parrent"></div></button>
     <Modal class="search-modal" v-if="showSearchModal" @close="showSearchModal = false" :fullScreen="true">
       <div class="search-modal-content flex column gap10">
         <p>{{$t('releaseLocales.searchReleases')}}</p>
@@ -39,6 +40,7 @@ import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import { releaseService } from '@/apps/megaphonApp/modules/release/services/release.service.js'
 import TableActionBtns from '../../../../../common/modules/common/cmps/TableActionBtns.vue';
 import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
+import { getSvgs } from '@/assets/images/svgs';
 export default {
   components: { Modal, FormInput, TableActionBtns },
   name: 'ReleasePicker',
@@ -63,7 +65,8 @@ export default {
       },
       releases: [],
       showMsg: false,
-      releasesToAdd: []
+      releasesToAdd: [],
+      svgs: getSvgs()
     }
   },
   methods: {

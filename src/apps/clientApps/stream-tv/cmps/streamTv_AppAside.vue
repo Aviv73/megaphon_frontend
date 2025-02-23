@@ -4,7 +4,7 @@
       <img class="actual" :src="fixFileSrcToThumbnail(org.logo, org)" :alt="org.name">
     </div>
     <div class="account-preview" v-if="loggedUser" :style="{'background-color': headerBg, color: headerColor}">
-      <LoggedUserPreview :class="{'no-auth': !org?.requireAuth}"/>
+      <LoggedUserPreview :organizationId="org._id" :class="{'no-auth': !org?.requireAuth}"/>
     </div>
     <CostumeNavBar/>
   </aside>
@@ -109,8 +109,8 @@ export default {
           width: em(25px);
           height: em(25px);
         }
-        .wellcome-msg {
-          font-size: em(13px);
+        .wellcome-msg, .roles {
+          font-size: em(14px);
         }
       }
     }

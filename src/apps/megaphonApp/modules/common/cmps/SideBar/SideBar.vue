@@ -3,7 +3,7 @@
     <div class="blur" @click="mobileToggled = !mobileToggled"></div>
     <div class="toggle-btn" @click="mobileToggled = !mobileToggled">☰</div>
     <aside class="main-sidebar height-all flex column space-between_ gap5">
-      <LoggedUserPreview/>
+      <LoggedUserPreview :organizationId="selectedOrgId"/>
       <div class="flex column space-between side-bar-content flex-1 pretty-scroll">
         <ul class="organization-list flex-1">
           <li :class="{selected: selectedOrgId === org._id, opened: selectedOrgId === org._id}" class="nav-item-preview organization-preview" v-for="org in organizations" :key="org._id">

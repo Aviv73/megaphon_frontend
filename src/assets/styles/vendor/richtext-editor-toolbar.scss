@@ -7,17 +7,12 @@
   }
   &.ql-active {
     font-weight: bold;
-    // background-color: rgb(181, 181, 255) !important;
   }
 }
 
 .quillWrapper {
-  // display: flex;
-  // align-items: center;
-  // flex-wrap: wrap;
-  // gap: 0.625rem; /* 10p.x */
 
-  em {
+  em, i {
     font-style: italic
   }
 
@@ -25,13 +20,8 @@
     font-weight: bold;
   }
 
-  // all: unset;
-
   display: flex;
   flex-direction: column;
-
-  
-  // width: 750px;
   flex: 1;
   .ql-toolbar {
     background-color: rgb(233, 233, 233) !important;
@@ -40,14 +30,9 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 0.625rem; /* 10p.x */
-    // justify-content: space-between;
     .ql-formats {
-      // background-color: white !important;
-      // border-radius: 3px;
-      // padding: 2px;
       display: flex;
       align-items: center;
-      // gap: 0.3rem;
       margin: 0 !important;
       .ql-picker {
         font-size: 0.8rem;
@@ -55,15 +40,11 @@
           margin-top: 0.188rem; /* 3p.x */
         }
         span {
-          // width: 2.813rem;
           svg {
             background-color: #fff;
           }
           overflow: hidden;
         }
-        // display: flex;
-        // align-items: center;
-        // justify-content: center;
         direction: ltr !important;
         height: 1.563rem !important; /* 25p.x */
         &:not(.ql-color-picker) {
@@ -94,34 +75,6 @@
     width: 100%;
   }
 
-  // .ql-bold {
-  //   @include editorItemStyling {
-  //     content: 'B';
-  //   }
-  // }
-  // .ql-italic {
-  //   @include editorItemStyling {
-  //     content: 'I';
-  //     font-style: italic;
-  //   }
-  // }
-  // .ql-underline {
-  //   @include editorItemStyling {
-  //     content: 'U';
-  //     text-decoration: underline;
-  //   }
-  // }
-  // .ql-undo {
-  //   @include editorItemStyling {
-  //     content: '⤺';
-  //   }
-  // }
-  // .ql-redo {
-  //   @include editorItemStyling {
-  //     content: '⤺';
-  //   }
-  //   transform: scaleX(-1);
-  // }
   .custom-btn {
     height: 1.563rem !important; /* 25p.x */
     width: 1.563rem !important; /* 25p.x */
@@ -130,12 +83,6 @@
       width: 100%;
     }
   }
-  // .ql-color {
-  //   @include editorItemStyling {
-  //     content: 'A';
-  //     text-decoration: underline;
-  //   }
-  // }
 }
 
 
