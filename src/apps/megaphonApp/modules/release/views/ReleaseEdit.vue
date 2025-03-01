@@ -254,7 +254,7 @@ export default {
     }
     main {
       margin-bottom: em(50px);
-      padding: em(10px) 0;
+      padding: em(20px) 0;
     }
   }
 }

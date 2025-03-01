@@ -111,7 +111,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .contact-edit {
-    padding: em(10px) 0;
+    padding: em(20px) 0;
   //   .input {
   //     flex: 1;
   //   }

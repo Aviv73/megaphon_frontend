@@ -457,7 +457,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .organization-edit {
-    padding: em(10px) 0;
+    padding: em(20px) 0;
     form, .developer-zone {
       width: 100%;
       >* {

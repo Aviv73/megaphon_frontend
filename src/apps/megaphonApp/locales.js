@@ -6,6 +6,7 @@ import { companyLocales } from './modules/company/locales';
 import { accountLocales } from './modules/account/locales';
 // import { authLocales } from './modules/auth/locales';
 import { organizationLocales } from './modules/organization/locales';
+import { statsLocales } from './modules/stats/locales';
 
 export default {
   en: {
@@ -17,6 +18,7 @@ export default {
     ...accountLocales.en,
     // ...authLocales.en,
     ...organizationLocales.en,
+    ...statsLocales.en,
   },
   he: {
     ...commonLocales.he,
@@ -27,6 +29,7 @@ export default {
     ...accountLocales.he,
     // ...authLocales.he,
     ...organizationLocales.he,
+    ...statsLocales.he,
   },
   heF: {
     ...commonLocales.heF,
@@ -37,5 +40,6 @@ export default {
     ...accountLocales.heF,
     // ...authLocales.heF,
     ...organizationLocales.heF,
+    ...statsLocales.heF,
   },
 }

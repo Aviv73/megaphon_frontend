@@ -72,7 +72,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .organization-page {
-    padding: em(10px) 0;
+    padding: em(20px) 0;
     height: auto;
 
     // background-color: #E0E0E0;

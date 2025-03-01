@@ -4,7 +4,7 @@
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="release-title">{{release.title}}</p>
         <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('releaseLocales.distributedAt')}}: {{pretyDistributionTime}}</p> -->
-      <div v-if="!isUserOrgWatchOnly" class="actions-container flex column space-between align-end gap10 height-all">
+      <div v-if="!isUserOrgWatchOnly && !reportMode" class="actions-container flex column space-between align-end gap10 height-all">
         <div class="actions flex column align-end gap5">
           <button v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
           <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
@@ -45,7 +45,11 @@ export default {
     selectedReleaseIds: {
       type: Array,
       default: () => []
-    }
+    },
+    reportMode: {
+      type: Boolean,
+      required: false
+    },
   },
   data() {
     return {
@@ -101,6 +105,10 @@ export default {
       return organizationService.isUserRoleInOrg(this.organization?._id, role, this.loggedUser);
     },
     goToLandingPage() {
+      if (this.reportMode) {
+        this.$router.push({ name: 'ReleaseReport', params: { organizationId: this.item.organizationId, id: this.item._id } })
+        return;
+      }
       const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, 'landingPage', config);
       window.open(pageUrl);
     },

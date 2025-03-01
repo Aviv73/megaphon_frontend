@@ -2,7 +2,7 @@
     <div class="pagination-btns flex column align-center gap20 ltr_" v-if="paginationData">
       <div class="navigator">
         <div class="flex align-center gap5 ltr" v-if="!noLimitSelection">
-          <FormInput type="select" labell="Per page:" v-model="paginationData.limit" @change="updateLimit" :items="[15,30,50,100,150,200,500,1000]" class="align-center gap15" :listUp="true"/>
+          <FormInput type="select" labell="Per page:" v-model="paginationData.limit" @change="updateLimit" :items="[15,30,50,100,150,200,500]" class="align-center gap15" :listUp="true"/>
           <span class="out-of-span">/</span>
           <span class="total-span">{{total}}</span>
         </div>

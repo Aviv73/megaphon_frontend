@@ -223,6 +223,17 @@ export function mapArrBy(arr, byField = 'id') {
 }
 
 
+
+function mapItemsBy(items = [], byField = 'id') {
+    const res = {};
+    items.forEach(item => {
+      const key = getDeepVal(item, byField);
+      if (!res[key]) res[key] = [];
+      res[key].push(item);
+    });
+    return res;
+}
+
 //input: ({adress: {city: Jerusalem}}, 'adress.city') || output: 'jerusalem';
 /**@param {Object} obj * @param {String} field */
 export function getDeepVal(obj, field = '') {

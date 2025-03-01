@@ -178,7 +178,7 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .account-edit {
-    padding: em(10px) 0;
+    padding: em(20px) 0;
     .form-input-checkbox {
       // flex-direction: row-reverse;
     }

@@ -77,6 +77,7 @@ const  en = {
     "saveDistributionList": "Save distribution list",
 
     "report": "Report",
+    "reports": "Reports",
     "contactReport": "Contact report",
 
     "loadingMsg": "Distributing release, it might take a while",
@@ -207,6 +208,7 @@ const he = {
     "saveDistributionList": "שמור רשימת תפוצה",
 
     "report": "דוח רליס",
+    "reports": "דוחות הפצה",
     "contactReport": "דוח הפצות איש קשר",
 
     "loadingMsg": "מפיץ את הרליס, זה עשוי לקחת רגע..",
