@@ -158,7 +158,7 @@ export default {
 
     setDateRange(val) {
       if (!val) {
-        this.filterBy.dateRange = undefined;
+        this.filterBy.filter.datesRange = undefined;
         this.dateSelectVal = '';
       }
       else {
@@ -167,7 +167,7 @@ export default {
           from: yearTime.getTime(),
           to: yearTime.setFullYear(val+1)
         }
-        this.filterBy.dateRange = dateRange;
+        this.filterBy.filter.datesRange = dateRange;
       }
       this.emitFilter();
     },

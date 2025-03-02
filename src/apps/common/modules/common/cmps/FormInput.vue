@@ -263,10 +263,7 @@ export default {
       // else 
       this.val = this.val?.value || this.val;
     }
-    if ((this.type === 'date') && isDateValid(this.val)) {
-      const date = new Date(this.val || undefined);
-      this.val = `${date.getFullYear()}-${padNum(date.getMonth()+1)}-${padNum(date.getDate())}`;
-    }
+    this.fixDateValIfNeeded()
   },
   computed: {
     componentType() {
@@ -331,6 +328,13 @@ export default {
     addNewValToMultiSelect() {
       this.val.push(this.valsFilterStr);
       this.valsFilterStr = '';
+    },
+
+    fixDateValIfNeeded() {
+      if ((this.type === 'date') && isDateValid(this.val)) {
+        const date = new Date(this.val || undefined);
+        this.val = `${date.getFullYear()}-${padNum(date.getMonth()+1)}-${padNum(date.getDate())}`;
+      }
     }
   },
   watch: {
@@ -357,6 +361,7 @@ export default {
       this.val = val;
       this.dontEmit = false;
       this.didInit = true;
+      this.fixDateValIfNeeded();
     },
   },
 };

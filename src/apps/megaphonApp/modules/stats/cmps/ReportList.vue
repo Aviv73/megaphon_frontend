@@ -40,7 +40,7 @@ export default {
   methods: {
     getAllReleases(filterBy) {
       const filterToSend = { releaseFilter: { releaseTypes: [], wasDistributed: true } }
-      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterToSend.releaseFilter,includeExpiredReleases: true, organizationId: this.organizationId });
+      this.$store.dispatch({ type: 'release/loadItems', filterBy, orgFilter: filterToSend.releaseFilter, includeExpiredReleases: true, organizationId: this.organizationId });
     }
   },
   computed: {
@@ -51,7 +51,7 @@ export default {
       return this.$store.getters['stats/filterBy'];
     },
     isLoading() {
-      return this.$store.getters['stats/isLoading'] || this.$store.getters['release/isLoading'] || this.$store.getters['organization/isLoading'];
+      return this.$store.getters['release/isLoading'] || this.$store.getters['organization/isLoading'];
     },
     isScreenWide() {
       return this.$store.getters.isScreenWide;

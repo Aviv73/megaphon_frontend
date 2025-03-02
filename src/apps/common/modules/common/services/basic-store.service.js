@@ -10,11 +10,16 @@ const initFilterBy = (filterParams = [], sortParams = []) => ({
     search: '',
     // params: {}
     // params: filterParams.reduce((acc, c) => ({...acc, [c]: undefined}), {})
-    params: filterParams.reduce((acc, c) => ({...acc, [c]: ''}), {})
+    params: filterParams.reduce((acc, c) => ({...acc, [c]: ''}), {}),
+    dateRange: {
+      from: 0,
+      to: Date.now()
+    }
   },
   pagination: {
     page: 0,
     limit: 50,
+    // noLimit: false
   },
   // sort: {},
   sort: sortParams.reduce((acc, c) => ({...acc, [c]: undefined}), {}),

@@ -1,19 +1,20 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 // import { socketService } from '@/apps/common/modules/common/services/socket.service';
+import { appendScript } from "./loadScript.service";
+import { getRandomId } from './util.service';
+import { TaskManager } from './TaskManager';
 
 const ENDPOINT = 'file';
 
 import config from '@/config';
 const BASE_URL = config.baseApiUrl
 
+export const fileUtilsService = {};
 export const fileService = {
-  uploadFileToServer
+  uploadFileToServer,
+  fileUtilsService
 }
 
-import { appendScript } from "./loadScript.service";
-import { getRandomId } from './util.service';
-import { TaskManager } from './TaskManager';
-export const fileUtilsService = {};
 // loading the script file from the server so it is writen only once;
 appendScript('/fileUtils-service', 'fileUtilsModule', fileUtilsService);
 
@@ -31,6 +32,10 @@ export function fixFileSrcToThumbnail(file = {}, rootData) {
 
 export function fixVideoSrcToThumbnail(file = {}, rootData, organizationId = '') {
   return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
+  // return fileUtilsService.getVideoThumbUrl(file, organizationId, config);
+}
+export function getTotalTimeWatchedPerVideoWatchLog(vidLog) {
+  return fileUtilsService.getTotalTimeWatchedPerVideoWatchLog(vidLog);
   // return fileUtilsService.getVideoThumbUrl(file, organizationId, config);
 }
 

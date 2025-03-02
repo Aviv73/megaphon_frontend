@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks/OrgMediaLinks.vue'
+import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks.vue'
 import { getSvgs } from '../assets/images/svgs';
 import AppCreditsSection from '../../../common/modules/common/cmps/AppCreditsSection.vue';
 export default {

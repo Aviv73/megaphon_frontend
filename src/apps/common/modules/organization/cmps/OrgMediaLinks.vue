@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import  { getSvgs } from '../../../../../../assets/images/svgs.js';
+import  { getSvgs } from '../../../../../assets/images/svgs.js';
 export default {
   name: 'OrgMediaLinks',
   props: {

@@ -54,10 +54,12 @@ export const getSvgs = (color = 'currentColor') => ({
         </g>
       </svg>`,
     twitter: `
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="16" cy="16" r="15" stroke="${color}" stroke-width="1.2"/>
-        <path d="M20.4312 8H23.037L17.3156 14.3653L24 23H18.7544L14.6475 17.7528L9.94568 23H7.33989L13.4012 16.1919L7 8H12.3759L16.0863 12.7934L20.4312 8ZM19.5192 21.5055H20.9637L11.6168 9.43911H10.0646L19.5192 21.5055Z" fill="${color}"/>
-      </svg>`,
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 640 480" enable-background="new 0 0 640 480" xml:space="preserve">
+      <g>
+      <path fill="${color}" d="M432.8,413.8h41l-264.7-350h-44L432.8,413.8z M458.8,21.9h74L371.1,206.7l190.2,251.5H412.4L295.7,305.6   L162.3,458.1H88.2l172.9-197.7L78.7,21.9h152.7l105.4,139.4L458.8,21.9z"/>
+      </g>
+      <rect x="56.3" y="2.5" fill="none" width="527.4" height="475"/>
+    </svg>`,
   },
   download: `<?xml version="1.0" encoding="iso-8859-1"?>
     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->

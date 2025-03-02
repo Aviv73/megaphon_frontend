@@ -2,7 +2,7 @@
   <footer class="app-footer flex">
     <div class="container flex align-center space-between height-all width-all">
       <AppCreditsSection/>
-      <div class="flex align-center" v-if="false">
+      <div class="flex align-center" v-if="false || true">
         <div class="flex align-center gap20" v-if="org?.mediaLinks?.length">
           <span>{{$t('contact')}} {{org.name}}</span>
           <OrgMediaLinks :organization="org" :color="selectedTheme?.colors?.[2]" :imgs="mediaSvgs"/>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks/OrgMediaLinks.vue'
+import OrgMediaLinks from '@/apps/common/modules/organization/cmps/OrgMediaLinks.vue'
 import { getSvgs } from '@/apps/clientApps/stream-tv/assets/images/svgs';
 import AppCreditsSection from '../../../../common/modules/common/cmps/AppCreditsSection.vue';
 export default {

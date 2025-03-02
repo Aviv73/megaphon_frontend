@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loggedUser" :style="{'--preview-clr': theme?.colors?.[1] || 'black'}" class="logged-user-preview flex column gap5 space-between">
+  <div v-if="loggedUser" :style="{'--preview-clr': theme?.colors?.[1] || 'black'}" class="logged-user-preview flex column gap5 space-around">
     <div class="flex align-center space-between gap5">
       <span class="wellcome-msg">{{$t('hello')}}, {{`${loggedUser.firstName} ${loggedUser.lastName}`}}</span>
       <div class="actions-section" @click="showActionsModal = !showActionsModal" @mouseoverr="showActionsModal = true" @mouseleavee="showActionsModal = false">

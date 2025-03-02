@@ -224,7 +224,7 @@ export function mapArrBy(arr, byField = 'id') {
 
 
 
-function mapItemsBy(items = [], byField = 'id') {
+export function mapItemsBy(items = [], byField = 'id') {
     const res = {};
     items.forEach(item => {
       const key = getDeepVal(item, byField);
