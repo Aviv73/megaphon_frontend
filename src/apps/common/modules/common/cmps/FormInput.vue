@@ -51,6 +51,7 @@
         v-model="val"
         @change="$emit('change', val)"
       >
+        <!-- <option value="" disabled selected>{{$t(placeholder || labelholder)}}</option> -->
         <template v-if="itemsToRenderToShow.length">
           <option
             v-for="item in itemsToRenderToShow"
