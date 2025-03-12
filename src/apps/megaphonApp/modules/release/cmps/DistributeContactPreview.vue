@@ -41,10 +41,10 @@ export default {
       return this.$store.getters['tag/items'];
     },
     companiesToShow() {
-      return this.contact?.company.map(c => this.allCompanies.find(comp => comp._id === c)?.name) || [];
+      return this.contact?.company.map(c => this.allCompanies.find(comp => comp._id === c)?.name || '').map(c => c.trim()).filter(Boolean) || [];
     },
     tagsToShow() {
-      return this.contact?.tags.map(c => this.allTags.find(tag => tag._id === c)?.name) || [];
+      return this.contact?.tags.map(c => this.allTags.find(tag => tag._id === c)?.name || '').map(c => c.trim()).filter(Boolean) || [];
     },
 
     isAdded() {

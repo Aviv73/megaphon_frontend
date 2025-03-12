@@ -35,7 +35,7 @@ const he = {
     "watchesPerRelease": "צפיות לפי רליס",
     "watchesPerMonth": "צפיות לפי חודש",
     "totalWatchsCount": "כמות צפיות מצטברת",
-    "totalWatchTime": "זמן צפיות מצטבר",
+    "totalWatchTime": "זמן צפיה מצטבר",
     "alerts": {
     }
   },

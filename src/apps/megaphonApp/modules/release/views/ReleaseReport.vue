@@ -18,8 +18,9 @@
               <!-- <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distributeLocales.wachedCount')}}</p> -->
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'watchCount'}" @click="setContactsSorter('watchCount')">{{$t('distributeLocales.wachedCount')}}</p>
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')">{{$t('distributeLocales.unsubscribed')}}</p>
+              <div class="flex-1 wide-screen-item">{{$t('distributeLocales.contactReport')}}</div>
             </div>
-            <router-link
+            <div
               v-for="(contact, idx) in currPageToShow" :key="idx"
               class="table-item-preview gap10 flex align-center space-between"
               :to="{ name: 'ContactReportPage', params: {id: contact._id || 'unknown'}, query: {email: contact.email} }"
@@ -30,10 +31,41 @@
               <!-- <p>{{contact.email}}</p> -->
               <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'email')?.length)}}</p>
               <!-- <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length)}}</p> -->
-              <p class="flex-1 wide-screen-item" :title="contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length ? pretyDate([...contact.activity?.views?.filter(c => c.platform === 'landingPage')]?.pop().at) : ''">{{contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}</p>
-              <p class="flex-1 wide-screen-item">{{getVideoWatchCountByContact(contact) || '-'}}</p>
+              <p class="flex-1 wide-screen-item tooltip-container">
+                <Tooltip class="ltr" v-if="contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length">
+                  <template v-slot:preview>
+                    {{contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}
+                  </template>
+                  <template v-slot:content>
+                    <p v-for="(view, idx) in contact.activity?.views?.filter(c => c.platform === 'landingPage')" :key="view.id">
+                      {{idx+1}} - {{pretyDate(view.at)}}
+                    </p>
+                  </template>
+                </Tooltip>
+                <template v-else>
+                  -
+                </template>
+              </p>
+              <p class="flex-1 wide-screen-item tooltip-container">
+                <Tooltip class="ltr" v-if="getVideoWatchLogsByContact(contact).length">
+                  <template v-slot:preview>
+                    {{getVideoWatchLogsByContact(contact).length || '-'}}
+                  </template>
+                  <template v-slot:content>
+                    <p v-for="(vidLog, idx) in getVideoWatchLogsByContact(contact)" :key="vidLog._id">
+                      {{idx+1}} - {{pretyDate(vidLog._createdAt)}} - {{MsToPretyWatchTime(vidLog.totalWatchTime || 0)}}
+                    </p>
+                  </template>
+                </Tooltip>
+                <template v-else>
+                  -
+                </template>
+              </p>
               <p class="flex-1 wide-screen-item">{{vOrX(contact.activity?.unsubscribedAt)}}</p>
-            </router-link>
+              <router-link :to="{ name: 'ContactReportPage', params: {id: contact._id || 'unknown'}, query: {email: contact.email} }">
+                <div class="img svg-parrent hover-pop" v-html="statsImg"></div>
+              </router-link>
+            </div>
           </div>
           <PaginationBtns :perPage="15" :total="contactsToShow.length" @filtered="val => contactFilter = JSON.parse(JSON.stringify(val))" v-model="contactFilter.pagination" />
         </div>
@@ -92,13 +124,19 @@ import PaginationBtns from '../../../../common/modules/common/cmps/ItemSearchLis
 
 import { Pie as PieChart } from 'vue-chartjs';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
-import { getDeepVal, Utils } from '../../../../common/modules/common/services/util.service';
+import { getDeepVal, Utils, Time } from '../../../../common/modules/common/services/util.service';
 import { contactService } from '../../contact/contact.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
+import Tooltip from '../../../../common/modules/common/cmps/Tooltip.vue';
+// import { checkIfLogCounts } from '../../../../common/modules/common/services/file.service';
+
+import  { getSvgs } from '@/apps/megaphonApp/assets/images/svgs.js';
+
 
 export default {
-  components: { PaginationBtns, PieChart, ReleaseDistributionLinkCoppier },
+  components: { PaginationBtns, PieChart, ReleaseDistributionLinkCoppier, Tooltip },
   name: 'ReleaseReport',
+  // Time,
   data() {
     return {
       contactFilter: {
@@ -120,6 +158,7 @@ export default {
       this.sortContactsKeys = [...sortKeys];
     },
     pretyDate: Utils.pretyDate,
+    MsToPretyWatchTime: Time.MsToPretyWatchTime,
     vOrX: Utils.vOrX,
     getOrg() {
       this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId });
@@ -142,7 +181,7 @@ export default {
       this.$router.push({name: 'ReleasePage', params: {organizationId: this.$route.params.organizationId}});
     },
 
-    getVideoWatchCountByContact(contact) {
+    getVideoWatchLogsByContact(contact) {
       // return 7;
       const relevantAccount = this.report.relevantAccounts.find(c => c.email === contact.email);
       if (!relevantAccount) return 0;
@@ -150,20 +189,25 @@ export default {
         acc.push(...c.videoWatchLogs.filter(log => log.accountId === relevantAccount._id));
         return acc;
       }, []);
-      const actualRelevantWatchLogs = relevantViews.filter(vidLog => {
-        const vidLength = vidLog.videoSecondsDuration;
-        if (!vidLength) return true;
-        if (!vidLog.sections?.length) return false;
-        const cLogTotalWatchTimeMS = vidLog.sections.reduce((acc, c) => acc + (c.end - c.start), 0);
-        const cLogTotalWatchTimeSeconds = cLogTotalWatchTimeMS / 1000;
-        const percentage = cLogTotalWatchTimeSeconds / vidLength;
-        const minPercentage = 0.1; // means it needs to be at least minPercentage of the video length to count;
-        return percentage > minPercentage;
-      });
-      return actualRelevantWatchLogs.length;
+      return relevantViews;
+      // const actualRelevantWatchLogs = relevantViews.filter(checkIfLogCounts);
+      // const actualRelevantWatchLogs = relevantViews.filter(vidLog => {
+      //   const vidLength = vidLog.videoSecondsDuration;
+      //   if (!vidLength) return true;
+      //   if (!vidLog.sections?.length) return false;
+      //   const cLogTotalWatchTimeMS = vidLog.sections.reduce((acc, c) => acc + (c.end - c.start), 0);
+      //   const cLogTotalWatchTimeSeconds = cLogTotalWatchTimeMS / 1000;
+      //   const percentage = cLogTotalWatchTimeSeconds / vidLength;
+      //   const minPercentage = 0.1; // means it needs to be at least minPercentage of the video length to count;
+      //   return percentage > minPercentage;
+      // });
+      // return actualRelevantWatchLogs.length;
     }
   },
   computed: {
+    statsImg() {
+      return getSvgs().navActions.stats;
+    },
     releaseId() {
       return this.$route.params.id;
     },
@@ -194,8 +238,8 @@ export default {
         let aVal = getDeepVal(a, sortKey);
         let bVal = getDeepVal(b, sortKey);
         if (sortKey === 'watchCount') {
-          aVal = this.getVideoWatchCountByContact(a);
-          bVal = this.getVideoWatchCountByContact(b);
+          aVal = this.getVideoWatchLogsByContact(a).length;
+          bVal = this.getVideoWatchLogsByContact(b).length;
         }
         if (sortKey === 'openedLandingPage') {
           aVal = a.activity.views?.filter(c => c.platform === 'landingPage')?.length || 0;
@@ -271,6 +315,9 @@ export default {
     // padding-bottom: em(20px);
     width: 90%;
     // height: 2px;
+  }
+  .tooltip-container {
+    overflow: unset !important;
   }
   .data-info {
     font-size: em(30px);

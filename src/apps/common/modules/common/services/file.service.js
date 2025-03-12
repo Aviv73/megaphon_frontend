@@ -34,10 +34,14 @@ export function fixVideoSrcToThumbnail(file = {}, rootData, organizationId = '')
   return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
   // return fileUtilsService.getVideoThumbUrl(file, organizationId, config);
 }
-export function getTotalTimeWatchedPerVideoWatchLog(vidLog) {
-  return fileUtilsService.getTotalTimeWatchedPerVideoWatchLog(vidLog);
-  // return fileUtilsService.getVideoThumbUrl(file, organizationId, config);
-}
+// export function getTotalTimeWatchedPerVideoWatchLog(vidLog) {
+//   return fileUtilsService.getTotalTimeWatchedPerVideoWatchLog(vidLog);
+//   // return fileUtilsService.getVideoThumbUrl(file, organizationId, config);
+// }
+// export function checkIfLogCounts(vidLog) {
+//   return fileUtilsService.checkIfLogCounts(vidLog);
+//   // return fileUtilsService.getVideoThumbUrl(file, organizationId, config);
+// }
 
 
 export function uploadFileToServer(file, organizationId, parentData) {

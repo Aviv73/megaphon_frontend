@@ -206,7 +206,7 @@ export function createBoard(height = 30, width = 30, createCell = (pos) => `${po
     return board;
 }
 
-export function padNum(num, length = 2) {
+export function padNum(num = 0, length = 2) {
     var numStr = num.toString();
     if (numStr.length >= length) return numStr;
     return '0'.repeat(length-numStr.length) + numStr;
@@ -545,6 +545,19 @@ export const Time = {
             case 'years': return years;
             default: return years;
         }
+    },
+    formatMsToReadableTime(timeMS) {
+        const mil = parseInt((timeMS / 100) % 1000 ); /* sec / 1000 */
+        const hos = parseInt((timeMS / 10) % 100 ); /* sec / 100 */
+        const sec = parseInt((timeMS / 1000) % 60);
+        const min = parseInt((timeMS / 1000 / 60) % 60);
+        const hr = parseInt((timeMS / 1000 / 60 / 60) % 60);
+        return { mil, hos, sec, min, hr }
+    },
+    MsToPretyWatchTime(timeMS) {
+        const data = Time.formatMsToReadableTime(timeMS);
+        // const padNum = this.padNum;
+        return `${padNum(data.hr)}:${padNum(data.min)}:${padNum(data.sec)}`;
     }
 }
 

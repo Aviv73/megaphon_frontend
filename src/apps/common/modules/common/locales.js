@@ -112,7 +112,8 @@ const en = {
   "videoUploadedAlert": "Vide uploaded successfully. Note: it will take a while for the server to process the file and to make it watchable. please be pationt if you get a process error when trying to view it.",
 
   "saveAndClose": "Save and close",
-  "url": "Url"
+  "url": "Url",
+  "details": "Details"
 
   // "cantUploadFileError": "Cant upload file"
 
@@ -228,7 +229,8 @@ const he = {
   "videoUploadedAlert": "קובץ הוידאו עלה בהצלחה!\nשימו לב: פעולת ההצפנה של הוידאו עשויה לקחת מעט זמן. אנא העזרו בסבלנות במקרה בו אתם מקבלים שגיאת 'process' כשאתם מנסים לצפות בוידאו.",
 
   "saveAndClose": "שמירה ויציאה",
-  "url": "קישור"
+  "url": "קישור",
+  "details": "פרטים"
   // "cantUploadFileError": "המערכת נכשלה לשמור את הקובץ"
 }
 const heF = {

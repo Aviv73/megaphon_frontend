@@ -89,6 +89,7 @@ const  en = {
     'origin': 'Origin',
     'unsubscribed': 'Unsubscribed',
     'wachedCount': 'Wached count',
+    'contactReport': 'Contact report',
     origins: {
       email: 'Email',
       distribution: 'Distribution',
@@ -220,6 +221,7 @@ const he = {
     origin: 'מקור',
     'unsubscribed': 'ביטל מנוי',
     wachedCount: 'צפיות בוידאו',
+    'contactReport': 'דוח איש קשר',
     origins: {
       email: 'אימייל',
       distribution: 'הפצה',
