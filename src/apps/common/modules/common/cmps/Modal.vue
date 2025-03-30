@@ -71,6 +71,7 @@ export default {
       top: em(5px);
       right: em(5px);
       font-size: rem(15px);
+      line-height: 1em;
     }
 
     &.modal-style {

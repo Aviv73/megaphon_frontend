@@ -630,7 +630,6 @@ export function validatePassword(pass = '') {
 
 export function printHtmlElement(htmlElement) {
     const htmlStr = (typeof htmlElement === 'string') ? htmlElement : htmlElement.outerHTML;
-    const printWindow = window.open('', '_blank');
     const printHtml = `
         <html lang="en">
             <head>
@@ -648,13 +647,30 @@ export function printHtmlElement(htmlElement) {
             <body>${htmlStr}</body>
         </html>
     `;
-    printWindow.document.write(printHtml);
-    printWindow.document.close();
-    printWindow.document.addEventListener('DOMContentLoaded', () => {
-    // printWindow.document.onload(() => {
-        printWindow.print();
-        printWindow.close();
-    });
+    const inNewTab = false;
+    if (inNewTab) {
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(printHtml);
+        printWindow.document.close();
+        printWindow.document.addEventListener('DOMContentLoaded', async () => {
+        // printWindow.document.onload(() => {
+            await delay(250); // make sure everything is rendered;
+            printWindow.print();
+            printWindow.close();
+        });
+    } else {
+        const iframe = document.createElement('iframe');
+        document.body.appendChild(iframe);
+        const printDoc = iframe.contentDocument || iframe.contentWindow.document;
+        printDoc.open();
+        printDoc.write(printHtml);
+        printDoc.close();
+        iframe.onload = async () => {
+            await delay(250);
+            iframe.contentWindow.print();
+            document.body.removeChild(iframe);
+        };
+    }
 }
 
 

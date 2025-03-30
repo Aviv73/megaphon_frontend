@@ -75,6 +75,7 @@ function toast({type = 'danger', msg = '', html = '', timeout = 7000} = {}, olCl
         // backgroundSize: `10px 10px`,
         width: '15px',
         height: '15px',
+        'line-height': '1em',
         '&:after': {
           // content: '"X"',
           fontSize: '12px',

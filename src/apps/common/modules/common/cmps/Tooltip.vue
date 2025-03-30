@@ -128,7 +128,8 @@ export default {
     display: inline-block;
     width: fit-content;
     height: fit-content;
-    cursor: pointer;
+    // cursor: pointer;
+    cursor: help;
     .tooltip-img {
       width: em(17px);
       height: em(17px);
@@ -154,6 +155,7 @@ export default {
       position: absolute;
       top: em(5px);
       right: em(5px);
+      line-height: 1em;
     }
   }
 }

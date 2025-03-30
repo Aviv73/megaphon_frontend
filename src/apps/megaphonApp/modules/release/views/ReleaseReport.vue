@@ -13,12 +13,12 @@
               <p class="flex-2" :class="{selected: sortContactsKeys[0] === 'name'}" @click="setContactsSorter('name', 'firstName', 'email', 'token')">{{$t('contactLocales.contactName')}} / {{$t('distributeLocales.token')}}</p>
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'origin'}" @click="setContactsSorter('origin')">{{$t('distributeLocales.origin')}}</p>
               <!-- <p>{{$t('email')}}</p> -->
-              <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'openedNews'}" @click="setContactsSorter('openedNews')">{{$t('distributeLocales.newsOpened')}}</p>
+              <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'openedNews'}" @click="setContactsSorter('openedNews')">{{$t('distributeLocales.newsOpened')}}</p>
               <p class="flex-1" :class="{selected: sortContactsKeys[0] === 'openedLandingPage'}" @click="setContactsSorter('openedLandingPage')">{{$t('distributeLocales.wached')}}</p>
               <!-- <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.openLandingPageCount'}" @click="setContactsSorter('activity.openLandingPageCount')">{{$t('distributeLocales.wachedCount')}}</p> -->
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'watchCount'}" @click="setContactsSorter('watchCount')">{{$t('distributeLocales.wachedCount')}}</p>
               <p class="flex-1 wide-screen-item" :class="{selected: sortContactsKeys[0] === 'activity.unsubscribedAt'}" @click="setContactsSorter('activity.unsubscribedAt')">{{$t('distributeLocales.unsubscribed')}}</p>
-              <div class="flex-1 wide-screen-item">{{$t('distributeLocales.contactReport')}}</div>
+              <div class="flex-1">{{$t('distributeLocales.contactReport')}}</div>
             </div>
             <div
               v-for="(contact, idx) in currPageToShow" :key="idx"
@@ -29,9 +29,9 @@
               <p class="flex-2" :title="getContactName(contact)">{{getContactName(contact)}}</p>
               <p class="flex-1 wide-screen-item">{{$t(`distributeLocales.origins.${contact.origin}`)}}</p>
               <!-- <p>{{contact.email}}</p> -->
-              <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'email')?.length)}}</p>
+              <p class="flex-1 wide-screen-item">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'email')?.length)}}</p>
               <!-- <p class="flex-1">{{vOrX(contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length)}}</p> -->
-              <p class="flex-1 wide-screen-item tooltip-container">
+              <p class="flex-1 tooltip-container">
                 <Tooltip class="ltr" v-if="contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length">
                   <template v-slot:preview>
                     {{contact.activity?.views?.filter(c => c.platform === 'landingPage')?.length || '-'}}

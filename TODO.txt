@@ -8,8 +8,8 @@ megaphonApp:
 Yes:
 - video encryption
 - video view dashboarding
-- email ui update  VVVVV
 - add logs for what device and geo location
+- email ui update  VVVVV
 - add organization edit for producers;   VVVVV
 - sms spam?
 - video logs should calculate percent of watch;  VVVV
