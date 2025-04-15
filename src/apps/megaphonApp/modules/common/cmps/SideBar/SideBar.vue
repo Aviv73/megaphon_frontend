@@ -228,6 +228,7 @@ export default {
         max-height: calc(100% - #{em(40px)});
         height: calc(100% - #{em(40px)});
         overflow-y: auto;
+        overflow-x: unset;
         flex: 1;
         // height: 0px;
         // flex-grow: 1;

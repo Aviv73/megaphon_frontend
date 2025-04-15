@@ -15,6 +15,9 @@ const  en = {
     "watchesPerMonth": "Watches per month",
     "totalWatchsCount": "Total watchs count",
     "totalWatchTime": "Total watch time",
+    "deviceReport": "Device report",
+    "countryReport": "Country report",
+    "activity": "Activity",
     "alerts": {
     }
   },
@@ -36,6 +39,9 @@ const he = {
     "watchesPerMonth": "צפיות לפי חודש",
     "totalWatchsCount": "כמות צפיות מצטברת",
     "totalWatchTime": "זמן צפיה מצטבר",
+    "deviceReport": "דוח מכשירים",
+    "countryReport": "דוח מדינות",
+    "activity": "פעילות",
     "alerts": {
     }
   },

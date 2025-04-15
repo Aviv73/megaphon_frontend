@@ -4,16 +4,16 @@
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
       <p class="release-title">{{release.title}}</p>
         <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('releaseLocales.distributedAt')}}: {{pretyDistributionTime}}</p> -->
-      <div v-if="!isUserOrgWatchOnly && !reportMode" class="actions-container flex column space-between align-end gap10 height-all">
-        <div class="actions flex column align-end gap5">
-          <button v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
-          <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
+      <div v-if="!isUserOrgWatchOnly && !reportMode" class="actions-container flex column space-between align-end gap7 height-all">
+        <div class="actions flex column align-end gap5 space-between flex-1">
+          <button class="hover-pop" v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
+          <router-link class="hover-pop" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
           <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
-          <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
-          <router-link v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
+          <router-link class="hover-pop" v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
+          <router-link class="hover-pop" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
+          <p class="dist-title align-self-end_" v-if="item.distributedAt || true">{{pretyDistributionTime}}</p>
         </div>
         <!-- <FormInput class="select-checkbox" v-if="isProducer" type="checkbox" v-model="isSelected" @click.native.stop="val => toggleToSelectedReleases(false)"/> -->
-        <p class="dist-title align-self-end_" v-if="item.distributedAt">{{pretyDistributionTime}}</p>
         <!--   -->
       </div>
     </li>
@@ -142,15 +142,18 @@ export default {
       // width: 90vw;
       width: 100%;
     }
+    --height: #{em(160px)};
+    --btn-size: #{em(30px)};
     cursor: pointer;
     .release-img {
       // height: em(130px);
-      height: em(160px);
+      height: var(--height);
       width: 100%;
       object-fit: cover;
-      @media (max-width: $small-screen-break) {
-        height: em(200px);
-      }
+    }
+    @media (max-width: $small-screen-break) {
+      // height: em(200px);
+      --height: #{em(200px)} !important;
     }
     .dist-title {
       font-size: em(12px);
@@ -164,33 +167,43 @@ export default {
       position: absolute;
       // top: em(10px);
       // left: em(10px);
-      padding: em(10px);
+      padding: em(6px);
 
       top: 0;
       left: 0;
-      height: em(160px);
-      @media (max-width: $small-screen-break) {
-        height: em(200px);
-      }
+      height: var(--height);
+      // @media (max-width: $small-screen-break) {
+      //   height: em(200px);
+      // }
       width: 100%;
       .dist-title {
+        position: relative;
+        z-index: 1;
         padding: em(3px);
         color: white;
-        background-color: rgba(0, 0, 0, 0.3);
+        font-size: em(14px);
+        height: var(--btn-size) !important;
+        display: flex;
+        align-items: flex-end;
+        // background-color: rgba(0, 0, 0, 0.3);
         // background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
       }
       .actions {
+        position: relative;
+        z-index: 1;
         color: var(--clr-4);
         a, button, .form-input-checkbox_, .form-input-checkbox .input {
           &:not(.input) {
             background-color: var(--clr-1);
           }
           box-shadow: $light-shadow;
-          width: em(23px) !important;
-          height: em(23px) !important;
+          // width: var(--btn-size) !important;
+          aspect-ratio: 1 / 1;
+          height: var(--btn-size) !important;
           @media (max-width: $small-screen-break) {
-            width: em(30px) !important;
-            height: em(30px) !important;
+            // width: em(30px) !important;
+            // height: em(30px) !important;
+            // --btn-size: #{em(30px)} !important;
           }
           img, .img {
             width: 100%;
@@ -198,6 +211,17 @@ export default {
             color: var(--clr-4);
           }
         }
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        bottom: 0;
+        width: 100%;
+        height: 30%;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
       }
     }
 
@@ -210,6 +234,8 @@ export default {
     &.selected {
       outline: em(3px) solid #2771A4;
     }
+
+    
   }
 }
 </style>

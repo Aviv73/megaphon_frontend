@@ -4,6 +4,7 @@ import { organizationStore } from './modules/organization/store'
 // import { settingsStore } from './modules/settings/store'
 import { authStore } from './modules/auth/store'
 import { videoWatchLogStore } from './modules/videoWatchLog/store'
+import { activityStore } from './modules/activity/store'
 
 export default {
   // ...settingsStore,
@@ -11,5 +12,6 @@ export default {
   ...releaseStore,
   ...organizationStore,
   ...authStore,
-  ...videoWatchLogStore
+  ...videoWatchLogStore,
+  ...activityStore
 }

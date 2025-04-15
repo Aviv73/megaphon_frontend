@@ -40,12 +40,15 @@ export default new Vuex.Store({
     setRootOrg(state, { org }) {
       state.rootOrg = org;
     },
-    setSelectedTheme(state, { theme, selector }) {
+    setTheme(state, { theme, selector }) {
       state.selectedTheme = theme;
-      setDynamicStylingThemeEl(theme, selector);
     }
   },
   actions: {
+    setSelectedTheme({commit, rootGetters}, { theme, selector }) {
+      commit({type: 'setTheme', theme})
+      setDynamicStylingThemeEl(theme, selector, rootGetters['settings/uiConfig']?.remSize);
+    }
   },
   modules: {
     // initializing common store on App.vue so it can be removed;

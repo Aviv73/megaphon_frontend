@@ -1,5 +1,5 @@
 <template>
-  <div class="app" id="app" :class="{ rtl: isRtl, [appThemeClassName]: true, accessability: isAccessabilityMode }" :style="{'font-size': remSize}">
+  <div class="app" id="app" :class="{ rtl: isRtl, [appThemeClassName]: true, accessability: isAccessabilityMode }" :style="{'font-size_': remSize}">
     <!-- <div class="app-content">
       <AppAside/>
       <div class="right">
@@ -162,7 +162,7 @@ export default {
     setTheme() {
       const isClient = appConfig.client;
       const selector = isClient ? '.'+this.selectedAppData.name : '.megaphon-app';
-      this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization || this.org, isClient, this.uiConfig, this.$store.getters.selectedAppData, selector), selector });
+      this.$store.dispatch({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization || this.org, isClient, this.uiConfig, this.$store.getters.selectedAppData, selector), selector });
     },
 
     async initUser(requireAuth = false) {

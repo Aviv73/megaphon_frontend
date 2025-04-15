@@ -1,5 +1,5 @@
 <template>
-  <section class="container main-sidebar-view flex-1 flex align-stretch gap10">
+  <section class="full-screen-container main-sidebar-view flex-1 flex align-stretch gap10">
     <Loader v-if="isLoading"/>
     <SideBar v-if="!isUserWatchOnly" :currentDropableFolderPath="currentDropableFolderPath" :organizations="organizationsToShow" :loggedUser="loggedUser"/>
     <router-view :selectedReleaseIds="selectedReleaseIds" class="flex-1"/>
@@ -91,6 +91,7 @@ export default {
     //   return organizationService.getOnlyOrgsToShow(orgs, appConfig);
     // },
     initNavigation() {
+      console.log(this.$route);
       if (!this.loggedUser) return;
       if (this.$route.name === 'MainSidebarView') {
         const firstOrg = 

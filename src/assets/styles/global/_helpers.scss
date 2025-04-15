@@ -86,6 +86,8 @@
 
 .gap3 { gap: em(3px); }
 .gap5 { gap: em(5px); }
+.gap7 { gap: em(7px); }
+.gap8 { gap: em(8px); }
 .gap10 { gap: em(10px); }
 .gap15 { gap: em(15px); }
 .gap20 { gap: em(20px); }
@@ -211,6 +213,10 @@
   &:hover {
     transform: scale(1.05);
   }
+}
+
+.blured-content {
+  filter: blur(1px);
 }
 
 .grid {

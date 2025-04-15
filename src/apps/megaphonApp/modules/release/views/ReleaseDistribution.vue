@@ -1,6 +1,6 @@
 <template>
   <div class="release-distribute flex column gap20" v-if="release && org">
-    <div class="flex align-center space-between gap10 width-all wrap-reverse container">
+    <div class="flex align-center space-between gap10 width-all wrap-reverse full-screen-container">
       <h2>{{$t('distributeLocales.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
       <div class="flex align-center gap20">
         <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distributeLocales.backToEditRelease')}}</button></router-link>
@@ -9,7 +9,7 @@
     </div>
     <p v-if="!isLoading && !distributionTemplate && false">{{$t('distributeLocales.noMatchingDesignTemplateFound')}}</p>
     <template v-else>
-      <div class="flex gap30 width-all flex-1 main-content container">
+      <div class="flex gap30 width-all flex-1 main-content full-screen-container">
         <div style="flex:3" class="flex column gap10_ main-content-side">
           <div class="side-pre-header-item flex align-center gap20 space-between wrap">
             <div class="tab-nav_ light flex align-center gap10" v-if="!org.dontUseGlobalDbData">
@@ -109,7 +109,7 @@
         </div>
       </div>
       <footer class="width-all">
-        <div class="flex align-center justify-end gap10 container height-all">
+        <div class="flex align-center justify-end gap10 full-screen-container height-all">
           <button @click="sendTestEmail" class="btn big">{{$t('distributeLocales.sendTestMail')}}</button>
           <button @click="distribute()" class="btn big primary">{{$t('distributeLocales.confirmAndDistribute')}}</button>
         </div>

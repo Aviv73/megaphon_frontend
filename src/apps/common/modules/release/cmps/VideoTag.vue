@@ -220,6 +220,7 @@ export default {
       // return;
       this.currWatchSection.end = (this.$refs.elVideo?.currentTime || 0) * 1000;
       this.watchSession.videoSecondsDuration = this.$refs.elVideo?.duration || undefined;
+      if (!this.watchSession.sections.reduce((acc, c) => acc + Math.abs(c.end - c.start), 0)) return;
       this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
       this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);
     },

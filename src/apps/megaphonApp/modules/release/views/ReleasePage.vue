@@ -198,7 +198,41 @@ export default {
       overflow: unset;
       .item-list {
         overflow-y: unset;
+        
+        .preview-container {
+          // --btn-size: #{em(35px)};
+          .release-preview {
+            --btn-size: 18% !important;
+          }
+        }
+        @media (min-width: 1500px) {
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+          .preview-container {
+            // --btn-size: #{em(35px)};
+            // .release-preview {
+            //   --btn-size: 18% !important;
+            // }
+            img, .actions-container {
+              width: 100%;
+              height: unset;
+              flex: 1;
+              aspect-ratio: 3 / 2;
+            }
+          }
+        }
+        .release-preview {
+          // --height: #{em(200px)} !important;
+          // --height: 80% !important;
+          // @media (max-width: 1500px) {
+          //   --height: #{em(160px)} !important;
+          //   --btn-size: #{em(28px)};
+          // }
+        }
+        @media (max-width: 1500px) {
+          grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
+        }
         @media (max-width: $small-screen-break) {
+          grid-template-columns: 1fr;
           // justify-content: space-around !important;
           flex-direction: column;
           align-items: center;

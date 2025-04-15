@@ -98,6 +98,72 @@
       />
     </div>
     <hr/>
+    <div class="flex column gap10">
+      <h3>{{$t('statsLocales.activity')}}</h3>
+      <!-- <div class="statistics-filter flex column_ align-center gap30">
+        <div class="flex column_ align-center_ gap10">
+          <FormInput type="date" label="statsLocales.fromDate" v-model="datesRange.from"/>
+          <FormInput type="date" label="statsLocales.toDate" v-model="datesRange.to"/>
+        </div>
+        <div class="flex align-center gap10 wrap">
+          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*1  )">{{$t('statsLocales.last24Hr')}}</button>
+          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*7  )">{{$t('statsLocales.last7Days')}}</button>
+          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*30 )">{{$t('statsLocales.lastMonth')}}</button>
+          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*365)">{{$t('statsLocales.lastYear')}}</button>
+        </div>
+      </div> -->
+      <h4>{{$t('statsLocales.deviceReport')}}</h4>
+      <BarChart
+        :style="{ height: '500px' }"
+        chart-id="stats-chart"
+        dataset-id-key="datasetIdKey"
+        :chart-options="{
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }"
+        :chart-data="{
+          labels: Object.keys(deviceLogsMap),
+          datasets: [
+            {
+              label: '',
+              backgroundColor: [selectedTheme.colors?.[4] || '#00D8FF'],
+              data: Object.values(deviceLogsMap).map(c => c.length)
+            }
+          ]
+        }"
+      />
+      <h4>{{$t('statsLocales.countryReport')}}</h4>
+      <BarChart
+        :style="{ height: '500px' }"
+        chart-id="stats-chart"
+        dataset-id-key="datasetIdKey"
+        :chart-options="{
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }"
+        :chart-data="{
+          labels: Object.keys(countryLogsMap),
+          datasets: [
+            {
+              label: '',
+              backgroundColor: [selectedTheme.colors?.[4] || '#00D8FF'],
+              data: Object.values(countryLogsMap).map(c => c.length)
+            }
+          ]
+        }"
+      />
+    </div>
+    <hr/>
     <ReportList/>
     <Loader v-if="isLoading" fullScreen/>
   </section>
@@ -170,6 +236,20 @@ export default {
       };
       this.chart2Data = await this.$store.dispatch({ type: 'videoWatchLog/loadItems', filterBy, dontSet: true });
     },
+    async fetchActivityLogs() {
+      const filterBy = { 
+        addAditionalData: true,
+        pagination: { noLimit: true },
+        filter: {
+          datesRange: this.datesRange,
+          params: {
+            organizationId: this.organizationId
+          }
+        }
+      };
+      this.chart1Data = await this.$store.dispatch({ type: 'activity/loadReport', filterBy, dontSet: true, organizationId: this.organizationId });
+    },
+    
     setTimeToNow(time) {
       this.datesRange = { to: this.now, from: time } 
     }
@@ -229,6 +309,13 @@ export default {
 
     logsMapedByMonths() {
       return Time.mapByTime(this.chart2Data.items, '_createdAt', 'month/year');
+    },
+
+    deviceLogsMap() {
+      return {};
+    },
+    countryLogsMap() {
+      return {};
     }
 
   },
@@ -239,6 +326,7 @@ export default {
       deep: true,
       handler() {
         this.fetchVideoWatchLogsForChart1();
+        this.fetchActivityLogs();
       }
     }
   },

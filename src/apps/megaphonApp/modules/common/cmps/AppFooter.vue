@@ -1,6 +1,6 @@
 <template>
   <footer class="app-footer flex">
-    <div class="container flex align-center space-between height-all width-all">
+    <div class="full-screen-container flex align-center space-between height-all width-all">
       <AppCreditsSection/>
       <div class="flex align-center" v-if="false || true">
         <div class="flex align-center gap20" v-if="org?.mediaLinks?.length">

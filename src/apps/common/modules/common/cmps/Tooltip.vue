@@ -4,6 +4,9 @@
       <img class="tooltip-img" v-if="!$slots.preview" :src="require('@/assets/images/icons/tooltip.png')" alt="" />
       <!-- <span v-if="!$slots.preview">(?)</span> -->
       <slot v-else name="preview"/>
+
+      <!-- <span v-if="!$slots.preview" class="default-preview flex align-center justify-center">?</span>
+      <slot v-else name="preview"/> -->
     </span>
     <div v-show="show || hoverShow" ref="elMsg" class="tooltip-msg">
       <button v-if="show" class="btn_ small close-btn" @click="toggleShow(false)">✖</button>
@@ -158,5 +161,11 @@ export default {
       line-height: 1em;
     }
   }
+
+  // .default-preview {
+  //     height: 1em;
+  //     width: 1em;
+  //     font-size: 0.8em;
+  // }
 }
 </style>

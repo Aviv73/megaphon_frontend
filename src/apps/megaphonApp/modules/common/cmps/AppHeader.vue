@@ -1,6 +1,6 @@
 <template>
   <header class="app-header flex align-center ignore-theme-style_">
-    <div class="container header-content width-all flex align-center space-between height-all">
+    <div class="container header-content width-all flex align-center space-between height-all" :class="{[$route.matched.find(c => c.name === 'MainSidebarView') || true ? 'full-screen-container' : 'container'] : true}">
       <router-link v-if="!isUserWatchOnly || !selectedOrgId || isSingleOrgMode" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height-all">
         <div class="logo-title height-all flex_ align-center">
           <img v-if="showLogo" class="actual" :src="logoImgSrc" alt=""/>

@@ -12,9 +12,9 @@ import { elementService } from './element.service.js';
 // }
 
 
-export function setStylingForOrgTheme(org, selector, isClient = false) {
+export function setStylingForOrgTheme(org, selector, remSize = 16, isClient = false) {
   const theme = getRelevantThemeForOrg(org, isClient);
-  return setDynamicStylingThemeEl({...theme, title: org.name}, selector);
+  return setDynamicStylingThemeEl({...theme, title: org.name}, selector, remSize);
 }
 
 export function getRelevantThemeForOrg(org, isClient, uiConfig, selectedAppData) {
@@ -39,7 +39,10 @@ export function getSelectedTheme() {
 
 // var lastCssEl = null;\
 const STYLE_EL_CLASSNAME = 'theme-styling-element';
-export function setDynamicStylingThemeEl(stylingTheme = {}, selector) {
+export function setDynamicStylingThemeEl(stylingTheme = {}, selector, remSize = 16) {
+  if (remSize) {
+    document.documentElement.style['font-size'] = remSize + 'px';
+  }
   SelectedhTeme = stylingTheme;
   const lastCssEl = document.head.querySelector('.'+STYLE_EL_CLASSNAME);
   if (lastCssEl) document.head.removeChild(lastCssEl);

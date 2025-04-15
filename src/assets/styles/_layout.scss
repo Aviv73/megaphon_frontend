@@ -123,6 +123,12 @@ html.accessability {
   max-width: 1500px;
   padding: 0 10px;
 } 
+.full-screen-container {
+  margin: 0 auto;
+  // padding: 10px 20px;
+  max-width: 100vw;
+  padding: 0 10px;
+} 
 // @media (max-width: $big-screen-breake) {
 //   .container {
 //       max-width: 1200px;
