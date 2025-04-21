@@ -35,7 +35,7 @@
                 <div class="flex column" v-if="showOrgSystemNav">
                   <router-link v-if="isRoleInOrg('producer') && org.requireAuth" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id }, query: { roleType: 'watchOnly' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.envelope" class="svg-parrent"></div>{{$t('accountLocales.mediaAccounts')}}</span></router-link>
                   <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id }, query: { roleType: 'producerAndAdmin' } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.key" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link>
-                  <!-- <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'StatsPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.stats" class="svg-parrent"></div>{{$t('statsLocales.stats')}}</span></router-link> -->
+                  <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'StatsPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.stats" class="svg-parrent"></div>{{$t('statsLocales.stats')}}</span></router-link>
                   <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'OrganizationEdit', params: { id: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.organization" class="svg-parrent"></div>{{$t('organizationLocales.organizationSettings')}}</span></router-link>
                 </div>
               </div>
@@ -220,7 +220,7 @@ export default {
   .sidebar-container {
     position: relative;
     z-index: 5;
-    font-size: rem(12px);
+    font-size: rem(16px);
     .main-sidebar {
       height: calc(100vh - #{$header-height}); //  - 22px
       max-height: calc(100vh - #{$header-height}); //  - 22px
@@ -241,7 +241,9 @@ export default {
       // padding: em(10px);
       // height: auto;
   
-      width: rem(150px);
+      // width: em(225px);
+      // width: em(200px);
+      width: rem(200px);
   
       .app-avatar {
        color: var(--clr-1);

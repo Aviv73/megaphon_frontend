@@ -239,7 +239,7 @@ export default {
     .logo-title { // .logo-title, 
       // height: em(50px);
       height: 100%;
-      width: rem(150px);
+      width: rem(200px);
       margin-inline-end: em(15px);
       // background-color: #666666;
       .actual {

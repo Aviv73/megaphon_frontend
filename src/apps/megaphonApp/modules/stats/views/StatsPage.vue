@@ -1,27 +1,29 @@
 <template>
   <section class="stats-page flex column gap10 width-all">
-    <h2>{{$t('statsLocales.stats')}}</h2>
+    <div class="flex space-between gap20 wrap">
+      <h2>{{$t('statsLocales.stats')}}</h2>
+      <div class="statistics-filter flex column_ align-center gap30">
+        <div class="flex column_ align-center_ gap10">
+          <FormInput type="date" label="statsLocales.fromDate" v-model="datesRange.from"/>
+          <FormInput type="date" label="statsLocales.toDate" v-model="datesRange.to"/>
+        </div>
+        <div class="flex align-center gap10 wrap">
+          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*1  )">{{$t('statsLocales.last24Hr')}}</button>
+          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*7  )">{{$t('statsLocales.last7Days')}}</button>
+          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*30 )">{{$t('statsLocales.lastMonth')}}</button>
+          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*365)">{{$t('statsLocales.lastYear')}}</button>
+        </div>
+      </div>
+    </div>
     <hr/>
     <div class="flex column gap10">
       <div class="flex align-center space-between gap10">
         <h3>{{$t('statsLocales.watchesPerRelease')}}</h3>
-        <div class="statistics-filter flex column_ align-center gap30">
-          <div class="flex column_ align-center_ gap10">
-            <FormInput type="date" label="statsLocales.fromDate" v-model="datesRange.from"/>
-            <FormInput type="date" label="statsLocales.toDate" v-model="datesRange.to"/>
-          </div>
-          <div class="flex align-center gap10 wrap">
-            <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*1  )">{{$t('statsLocales.last24Hr')}}</button>
-            <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*7  )">{{$t('statsLocales.last7Days')}}</button>
-            <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*30 )">{{$t('statsLocales.lastMonth')}}</button>
-            <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*365)">{{$t('statsLocales.lastYear')}}</button>
-          </div>
-        </div>
       </div>
       <ToggleBtns v-model="watchBarChartMode" :options="[{ label: $t('statsLocales.numberOfAccountsWatched'), value: 'byAccount' }, { label: $t('statsLocales.byTotalWatchTimes'), value: 'byTotalWatchTimes' }, { label: $t('statsLocales.totalWatchTime'), value: 'byTotalWatchTime' }]"/>
       <BarChart
         :style="{ height: '500px' }"
-        chart-id="stats-chart"
+        chart-id="watchesPerRelease-chart"
         dataset-id-key="datasetIdKey"
         :chart-options="{
           responsive: true,
@@ -63,7 +65,7 @@
       
       <BarChart
         :style="{ height: '500px' }"
-        chart-id="stats-chart"
+        chart-id="watchesPerMonth-chart"
         dataset-id-key="datasetIdKey"
         :chart-options="{
           responsive: true,
@@ -98,70 +100,63 @@
       />
     </div>
     <hr/>
-    <div class="flex column gap10">
+    <div class="flex column gap20">
       <h3>{{$t('statsLocales.activity')}}</h3>
-      <!-- <div class="statistics-filter flex column_ align-center gap30">
-        <div class="flex column_ align-center_ gap10">
-          <FormInput type="date" label="statsLocales.fromDate" v-model="datesRange.from"/>
-          <FormInput type="date" label="statsLocales.toDate" v-model="datesRange.to"/>
+      <div class="flex gap10 wrap">
+        <div class="flex column gap10 flex-1">
+          <h4>{{$t('statsLocales.deviceReport')}}</h4>
+          <PieChart
+            :style="{ height: '200px' }"
+            chart-id="device-chart"
+            dataset-id-key="datasetIdKey"
+            :chart-options="{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              }
+            }"
+            :chart-data="{
+              labels: Object.keys(deviceLogsMap),
+              datasets: [
+                {
+                  backgroundColor: [selectedTheme.colors?.[4] || '#00D8FF'],
+                  data: Object.values(deviceLogsMap).map(c => c.length)
+                }
+              ]
+            }"
+          />
         </div>
-        <div class="flex align-center gap10 wrap">
-          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*1  )">{{$t('statsLocales.last24Hr')}}</button>
-          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*7  )">{{$t('statsLocales.last7Days')}}</button>
-          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*30 )">{{$t('statsLocales.lastMonth')}}</button>
-          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*365)">{{$t('statsLocales.lastYear')}}</button>
+        <div class="flex column gap10 flex-1">
+          <h4>{{$t('statsLocales.countryReport')}}</h4>
+          <PieChart
+            :style="{ height: '200px' }"
+            chart-id="country-chart"
+            dataset-id-key="datasetIdKey"
+            :chart-options="{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              }
+            }"
+            :chart-data="{
+              labels: Object.keys(countryLogsMap),
+              datasets: [
+                {
+                  label: '',
+                  backgroundColor: [selectedTheme.colors?.[4] || '#00D8FF'],
+                  data: Object.values(countryLogsMap).map(c => c.length)
+                }
+              ]
+            }"
+          />
         </div>
-      </div> -->
-      <h4>{{$t('statsLocales.deviceReport')}}</h4>
-      <BarChart
-        :style="{ height: '500px' }"
-        chart-id="stats-chart"
-        dataset-id-key="datasetIdKey"
-        :chart-options="{
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          }
-        }"
-        :chart-data="{
-          labels: Object.keys(deviceLogsMap),
-          datasets: [
-            {
-              label: '',
-              backgroundColor: [selectedTheme.colors?.[4] || '#00D8FF'],
-              data: Object.values(deviceLogsMap).map(c => c.length)
-            }
-          ]
-        }"
-      />
-      <h4>{{$t('statsLocales.countryReport')}}</h4>
-      <BarChart
-        :style="{ height: '500px' }"
-        chart-id="stats-chart"
-        dataset-id-key="datasetIdKey"
-        :chart-options="{
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          }
-        }"
-        :chart-data="{
-          labels: Object.keys(countryLogsMap),
-          datasets: [
-            {
-              label: '',
-              backgroundColor: [selectedTheme.colors?.[4] || '#00D8FF'],
-              data: Object.values(countryLogsMap).map(c => c.length)
-            }
-          ]
-        }"
-      />
+      </div>
     </div>
     <hr/>
     <ReportList/>
@@ -195,6 +190,7 @@ export default {
       monthBarMode: 'amount',
       chart1Data: { items: [], total: 0 },
       chart2Data: { items: [], total: 0 },
+      activityChartData: { items: [], total: 0 },
 
       Time
     }
@@ -247,7 +243,7 @@ export default {
           }
         }
       };
-      this.chart1Data = await this.$store.dispatch({ type: 'activity/loadReport', filterBy, dontSet: true, organizationId: this.organizationId });
+      this.activityChartData = await this.$store.dispatch({ type: 'activity/loadReport', filterBy, dontSet: true, organizationId: this.organizationId });
     },
     
     setTimeToNow(time) {
@@ -312,10 +308,10 @@ export default {
     },
 
     deviceLogsMap() {
-      return {};
+      return mapItemsBy(this.activityChartData.items.filter(c => c.deviceType), 'deviceType');
     },
     countryLogsMap() {
-      return {};
+      return mapItemsBy(this.activityChartData.items.filter(c => c.country), 'country');;
     }
 
   },

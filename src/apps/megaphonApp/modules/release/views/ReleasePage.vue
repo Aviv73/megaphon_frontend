@@ -205,8 +205,9 @@ export default {
             --btn-size: 18% !important;
           }
         }
-        @media (min-width: 1500px) {
-          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        // @media (min-width: 1500px) {
+        @media (min-width: 1175px) {
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
           .preview-container {
             // --btn-size: #{em(35px)};
             // .release-preview {
