@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     async login() {
-      console.log(this.$route.query.endpoint);
       if (!this.isUserValid) return;
       if (this.userCred.username) delete this.userCred.username;
       localStorage.userCred = JSON.stringify(this.userCred);

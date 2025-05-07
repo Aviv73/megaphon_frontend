@@ -91,7 +91,6 @@ export default {
     //   return organizationService.getOnlyOrgsToShow(orgs, appConfig);
     // },
     initNavigation() {
-      console.log(this.$route);
       if (!this.loggedUser) return;
       if (this.$route.name === 'MainSidebarView') {
         const firstOrg = 

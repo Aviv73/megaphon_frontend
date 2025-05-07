@@ -12,24 +12,49 @@ export const authService = {
   makeSecondFactorAuthPass
 }
 
-function login(cred, orgId = '') {
-  return httpService.post(`${ENDPOINT}/login/${orgId || ''}`, cred);
+const ACCOUNT_SESSION_STORAGE_KEY = 'accountSessionOngoing';
+
+async function login(cred, orgId = '') {
+  const res = await httpService.post(`${ENDPOINT}/login/${orgId || ''}`, cred);
+  reportSessionStart(res.user);
+  return res;
 }
-function logout() {
-  return httpService.post(`${ENDPOINT}/logout`);
+async function logout() {
+  const res = httpService.post(`${ENDPOINT}/logout`);
+  sessionStorage.removeItem(ACCOUNT_SESSION_STORAGE_KEY);
+  return res;
 }
-function getUserInfo() {
-  return httpService.get(`${ENDPOINT}/info`);
+async function getUserInfo() {
+  const res = await httpService.get(`${ENDPOINT}/info`);
+  reportSessionStart(res);
+  return res;
 }
-function signup(cred, orgId = '') {
-  return httpService.post(`${ENDPOINT}/signup/${orgId}`, cred);
+async function signup(cred, orgId = '') {
+  const res = await httpService.post(`${ENDPOINT}/signup/${orgId}`, cred);
+  reportSessionStart(res.user);
+  return res;
 }
-function sendNewPasswordEmail(email) {
+async function sendNewPasswordEmail(email) {
   return httpService.post(`${ENDPOINT}/sendNewPasswordEmail`, {email});
 }
-function finish2FactorAuth(pass, method) {
-  return httpService.post(`${ENDPOINT}/finish2FactorAuth`, {pass, method});
+async function finish2FactorAuth(pass, method) {
+  const res = await httpService.post(`${ENDPOINT}/finish2FactorAuth`, {pass, method});
+  reportSessionStart(res.user);
+  return res;
 }
-function makeSecondFactorAuthPass(method) {
+async function makeSecondFactorAuthPass(method) {
   return httpService.post(`${ENDPOINT}/makeSecondFactorAuthPass`, null, { method });
+}
+
+async function reportSessionStart(account) {
+  if (!account) return;
+  if (sessionStorage[ACCOUNT_SESSION_STORAGE_KEY]) return;
+  await httpService.post(`activity`, { 
+    at: new Date(),
+    title: 'clientSessionStart',
+    category: 'clientSession',
+    data: {},
+    accountId: account._id,
+  });
+  sessionStorage[ACCOUNT_SESSION_STORAGE_KEY] = true;
 }

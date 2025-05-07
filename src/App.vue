@@ -96,8 +96,6 @@ export default {
     }
     this.initCommonStore();
 
-    // console.log(this.uiConfig);
-
     this.$store.commit('setIsScreenWide');
     window.addEventListener('resize', () => this.$store.commit('setIsScreenWide'));
 

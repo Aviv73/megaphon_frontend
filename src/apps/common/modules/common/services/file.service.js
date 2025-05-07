@@ -26,12 +26,12 @@ export function getFileItemFromRootItem(file = {}, rootData) {
   return fileUtilsService.getFileItemFromRootItem(file, rootData);
 }
 export function fixFileSrcToThumbnail(file = {}, rootData) {
-  return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
+  return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData, config);
   // return fileUtilsService.getFileThumbUrl(file, config);
 }
 
 export function fixVideoSrcToThumbnail(file = {}, rootData, organizationId = '') {
-  return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData);
+  return fileUtilsService.getFileThumbnailUrlFromRootData(file, rootData, config);
   // return fileUtilsService.getVideoThumbUrl(file, organizationId, config);
 }
 // export function getTotalTimeWatchedPerVideoWatchLog(vidLog) {
