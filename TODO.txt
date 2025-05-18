@@ -1,36 +1,7 @@
 megaphonApp:
-- update to new ui
+- patiphon
 - setup design viewer;
-- create Admin zonde, needs to be definged by Chen Li
-- video encryption, add encryption params to media converter
-- distribution bug - sometimes not all recepients apear in the distribution data. maybe they open the email before a butch is over, and it fucks the update
-
-Yes:
-- video encryption
-- video view dashboarding
-- add logs for what device and geo location
-- email ui update  VVVVV
-- add organization edit for producers;   VVVVV
-- sms spam?
-- video logs should calculate percent of watch;  VVVV
-
-
-dashbording yes requirments::
-אפשרות לראות כמה אנשים צפו בכל תוכן V
-*הבנתי שהאינדיקציה של כמות הצפיות מתואמת עם כמות הכניסות לרליס ולאו דווקא כמות הצפיות בסרטון, נשמח אם זה יתואם לכמות הצפיות בסרטון עצמו (ושהנגינה לא תהיה אוטומטית) V
-
-אפשרות לראות על כל משתמש באיזה תוכן הוא צפה, *כמה פעמים הוא צפה בו, וכמה זמן הוא צפה בכל תוכן
-אפשרות לראות כמה פעמים כל משתמש נכנס לפלטפורמה ומתי פעם אחרונה שהוא נכנס אליה
-
-אפשרות לעשת גרף המראה מה התוכן הכי נצפה ומה התוכן שהכי פחות נצפה(חלוקה לפי חודשים/שבועות) VV
-אפשרות לראות בגרף, לפי חודשים, כמה צפיות היו סך הכל, כמה זמן צפיות היו סך הכל במצטבר,  (תקף לכל התכנים הנמצאים בפלטפורמה פר חודש) VV
-
-
-
-אפשרות לראות מאיזה מכשיר המשתמשים צפו (פלאפון, טאבלט או מחשב), ומה האמצעי הכי פופולרי
-אפשרות לראות את מיקומו הפיזי של אותו צופה (ארץ או חו"ל)
-
-
+- create Admin zonde, needs to be definged by Chen Li;
 
 future:
 - update to latest node version;
