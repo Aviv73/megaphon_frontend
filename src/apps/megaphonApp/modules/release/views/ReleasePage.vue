@@ -219,6 +219,11 @@ export default {
               flex: 1;
               aspect-ratio: 3 / 2;
             }
+            .release-title {
+              
+              // font-size: 0.2% !important;
+              
+            }
           }
         }
         .release-preview {

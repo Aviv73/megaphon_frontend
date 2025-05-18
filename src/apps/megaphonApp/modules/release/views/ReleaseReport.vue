@@ -166,8 +166,9 @@ export default {
     getRelease() {
       this.$store.dispatch({ type: 'release/loadItem', id: this.releaseId, organizationId: this.$route.params.organizationId });
     },
-    getReport() {
-      this.$store.dispatch({ type: 'release/loadReport', releaseId: this.releaseId, organizationId: this.$route.params.organizationId });
+    async getReport() {
+      await this.$store.dispatch({ type: 'release/loadReport', releaseId: this.releaseId, organizationId: this.$route.params.organizationId });
+      console.log('REPORT DATA::', this.report);
     },
     init() {
       this.getOrg();

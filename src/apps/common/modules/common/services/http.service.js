@@ -21,7 +21,8 @@ async function ajax(endpoint = '', method = 'get', data = {}, params = {}, heade
       params,
       headers: {
         ...headers,
-        'client-location': window.location.href
+        'client-location': window.location.href,
+        'client-subdomain': window.location.pathname?.split('/').filter(Boolean).join('/') || ''
       },
       withCredentials: true
     });

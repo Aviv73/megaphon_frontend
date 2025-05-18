@@ -215,6 +215,8 @@ export default {
         }
       };
       this.chart1Data = await this.$store.dispatch({ type: 'videoWatchLog/loadItems', filterBy, dontSet: true });
+      console.log('CHART 1 DATA', this.chart1Data);
+      // watch session:: 681b62589bd5400015a2bcda; accountId: 63550626c703d07728c0200e;
     },
     async fetchVideoWatchLogsForChart2() {
       const filterBy = { 
@@ -234,12 +236,14 @@ export default {
     },
     async fetchActivityLogs() {
       const filterBy = { 
-        addAditionalData: true,
+        // addAditionalData: true,
         pagination: { noLimit: true },
         filter: {
           datesRange: this.datesRange,
           params: {
-            organizationId: this.organizationId
+            organizationId: this.organizationId,
+            "category" : "distribution",
+            "title" : "view"
           }
         }
       };
