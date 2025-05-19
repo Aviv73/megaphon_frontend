@@ -1,6 +1,6 @@
 <template>
   <section class="organization-page flex column gap10 width-all">
-    <h2>{{$t('organizationLocales.organizations')}}</h2>
+    <h2 class="inner-page-sub-header">{{$t('organizationLocales.organizations')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allOrganizationData"

@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="emitFilter" class="release-filter width-all flex align-center space-between gap20 wrap">
+  <form @submit.prevent="emitFilter" class="release-filter inner-page-header width-all flex align-center space-between gap20 wrap">
     <!-- <FormInput @change="emitFilter" type="select" placeholder="type" :itemsMap="filterTypes" v-model="filterBy.filter.params['licenseType']" /> -->
     
     <FormInput class="search" placeholder="search" v-model="filterBy.filter.search" iconPos="left" v-if="!isScreenWide || inludeSearchInput">

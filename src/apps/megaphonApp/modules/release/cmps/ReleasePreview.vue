@@ -6,11 +6,11 @@
         <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('releaseLocales.distributedAt')}}: {{pretyDistributionTime}}</p> -->
       <div v-if="!isUserOrgWatchOnly && !reportMode" class="actions-container flex column space-between align-end gap7 height-all">
         <div class="actions flex column align-end gap5 space-between flex-1">
-          <button class="hover-pop" v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
-          <router-link class="hover-pop" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
+          <button :title="$t('watch')" class="hover-pop" v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
+          <router-link :title="$t('edit')" class="hover-pop" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
           <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
-          <router-link class="hover-pop" v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
-          <router-link class="hover-pop" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
+          <router-link :title="$t('statsLocales.stat')" class="hover-pop" v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
+          <router-link :title="$t('distributeLocales.distributeRelease')" class="hover-pop" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
           <p class="dist-title align-self-end_" v-if="item.distributedAt || true">{{pretyDistributionTime}}</p>
         </div>
         <!-- <FormInput class="select-checkbox" v-if="isProducer" type="checkbox" v-model="isSelected" @click.native.stop="val => toggleToSelectedReleases(false)"/> -->
@@ -143,12 +143,13 @@ export default {
       width: 100%;
     }
     --height: #{em(160px)};
-    --btn-size: #{em(30px)};
+    --btn-size: #{em(33px)};
     cursor: pointer;
     .release-img {
       // height: em(130px);
       height: var(--height);
       width: 100%;
+      // aspect-ratio: 3 / 2;
       object-fit: cover;
     }
     @media (max-width: $small-screen-break) {

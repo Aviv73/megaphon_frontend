@@ -11,7 +11,7 @@
 
       <NavOrBurger class="release-actions align-center_ space-between flex gap10 height-all" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
         <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
-        <div class="links nav-items flex align-center gap15 height-all" v-if="isOrgProducer">
+        <div class="links create-links nav-items flex align-center gap15 height-all" v-if="isOrgProducer">
           <router-link class="nav-item create-nav gap15" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
             <button class="btn_ big primary">
               <span class="hover-pop">{{$t('create')}} {{type.name}}</span>
@@ -19,8 +19,8 @@
           </router-link>
         </div>
 
-        <div class="nav-items flex align-center gap10 height-all">
-          <form @submit.prevent="evManager.emit('searchReleases', searchTerm)" v-if="isScreenWide && ($route.name === 'ReleasePage')">
+        <div class="nav-items flex align-center gap30 wrap height-all flex-1 justify-end">
+          <form class="flex-1 flex justify-end" @submit.prevent="evManager.emit('searchReleases', searchTerm)" v-if="isScreenWide && ($route.name === 'ReleasePage')">
             <FormInput class="search" placeholder="search" iconPos="left" v-model="searchTerm" @change_="val => evManager.emit('search', val)">
               <button>
                 <div v-html="searchImg" class="filter-icon-img svg-parrent"></div>
@@ -223,6 +223,11 @@ export default {
 
     .search {
       overflow: unset;
+      // width: rem(310px);
+      // width: rem(280px);
+      flex: 1;
+      max-width: rem(310px);
+      height: 35px;
       // border-bottom: em(1px) solid $light-gray;
       input {
         // border: 0;
@@ -240,7 +245,7 @@ export default {
       // height: em(50px);
       height: 100%;
       width: rem(200px);
-      margin-inline-end: em(15px);
+      margin-inline-end: rem(15px);
       // background-color: #666666;
       .actual {
         height: 100%;
@@ -271,7 +276,11 @@ export default {
     }
     
     .release-actions {
+      .create-links {
+        font-size: em(18px);
+      }
       .filters {
+        font-size: em(16px);
         >*, .nav-item {
           // height: 100%;
           padding: em(10px);
@@ -281,7 +290,8 @@ export default {
             background-color: var(--clr-5) !important;
           }
           &.selected {
-            border-top: em(3px) solid var(--clr-4);
+            border-top: em(6px) solid var(--clr-4);
+            padding-top: em(4px);
             font-weight: bold
           }
         }

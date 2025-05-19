@@ -1,6 +1,6 @@
 <template>
   <section class="contact-page flex column gap10 width-all">
-    <h2>{{$t('contactLocales.contacts')}}</h2>
+    <h2 class="inner-page-sub-header">{{$t('contactLocales.contacts')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allContactData"

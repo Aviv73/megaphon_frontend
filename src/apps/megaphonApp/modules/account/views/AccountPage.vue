@@ -1,6 +1,6 @@
 <template>
   <section class="account-page flex column gap10 width-all">
-    <h2>{{$t(queryRoleType === 'watchOnly' ? 'accountLocales.mediaAccounts' : 'accountLocales.accounts')}}</h2>
+    <h2 class="inner-page-sub-header">{{$t(queryRoleType === 'watchOnly' ? 'accountLocales.mediaAccounts' : 'accountLocales.accounts')}}</h2>
     <ItemSearchList
       class="height-all table-like-list"
       :itemsData="allAccountData"

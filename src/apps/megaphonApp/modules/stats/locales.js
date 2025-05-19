@@ -1,6 +1,7 @@
 const  en = {
   "statsLocales": {
     "stats": "Statistics",
+    "stat": "Statistics",
 
     "last24Hr": "Last 24 hours",
     "last7Days": "Last 7 days",
@@ -25,6 +26,7 @@ const  en = {
 const he = {
   "statsLocales": {
     "stats": "סטטיסטיקות",
+    "stat": "סטטיסטיקה",
 
     "last24Hr": "24 שעות אחרונות",
     "last7Days": "שבוע אחרון",

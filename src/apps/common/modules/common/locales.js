@@ -113,7 +113,11 @@ const en = {
 
   "saveAndClose": "Save and close",
   "url": "Url",
-  "details": "Details"
+  "details": "Details",
+
+  "next": "Next",
+  "prev": "Prev",
+  "watch": "Watch",
 
   // "cantUploadFileError": "Cant upload file"
 
@@ -230,7 +234,11 @@ const he = {
 
   "saveAndClose": "שמירה ויציאה",
   "url": "קישור",
-  "details": "פרטים"
+  "details": "פרטים",
+
+  "next": "הבא",
+  "prev": "הקודם",
+  "watch": "צפיה",
   // "cantUploadFileError": "המערכת נכשלה לשמור את הקובץ"
 }
 const heF = {

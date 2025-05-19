@@ -1,5 +1,5 @@
 <template>
-  <section class="full-screen-container main-sidebar-view flex-1 flex align-stretch gap10">
+  <section class="full-screen-container main-sidebar-view flex-1 flex align-stretch gap15">
     <Loader v-if="isLoading"/>
     <SideBar v-if="!isUserWatchOnly" :currentDropableFolderPath="currentDropableFolderPath" :organizations="organizationsToShow" :loggedUser="loggedUser"/>
     <router-view :selectedReleaseIds="selectedReleaseIds" class="flex-1"/>
@@ -230,6 +230,13 @@ export default {
     }
     >* {
       // padding: em(10px);
+    }
+
+    .inner-page-header {
+      height: rem(50px);
+    }
+    .inner-page-sub-header {
+      height: rem(30px);
     }
   }
 }

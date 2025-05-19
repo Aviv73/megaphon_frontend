@@ -1,66 +1,70 @@
 <template>
-    <div class="pagination-btns flex column align-center gap20 ltr_" v-if="paginationData">
-      <div class="navigator">
+    <div class="pagination-btns flex column align-center gap20 ltr_ width-all" v-if="paginationData">
+      <div class="navigator-container row-reverse flex align-center space-between gap40 width-all">
         <div class="flex align-center gap5 ltr" v-if="!noLimitSelection">
-          <FormInput type="select" labell="Per page:" v-model="paginationData.limit" @change="updateLimit" :items="[15,30,50,100,150,200,500]" class="align-center gap15" :listUp="true"/>
+          <FormInput type="select" labell="Per page:" v-model="paginationData.limit" @change="updateLimit" :items="[15,30,50,100,150,200,500]" class="align-center gap15 count-select" :listUp="true"/>
           <span class="out-of-span">/</span>
           <span class="total-span">{{total}}</span>
         </div>
-        <div class="page-buttons" :class="{ disable: (page <= 1) }">
-          <component :is="btnCmp" class="button" 
-            :to="getTo(+page - 1)"
-            @click="routeToNewPage(+page - 1)"
-          >
-            {{btnIcos[0]}}
-          </component>
-        </div>
-        <div class="page-num-btns">
-          <template v-if="isLotsOfPages && !pagesToRender.includes(0)">
-            <component :is="btnCmp" class="button"
-              :to="getTo(0)"
-              @click="routeToNewPage(0)"
+        <div class="navigator">
+          <div class="page-buttons" :class="{ disable: (page <= 0) }">
+            <component :is="btnCmp" class="button prev-btn flex align-center_ gap5 bold" 
+              :to="getTo(+page - 1)"
+              @click="routeToNewPage(+page - 1)"
             >
-              1
+              <div style="font-size:1.1em">{{btnIcos[0]}}</div>
+              <div>{{$t('prev')}}</div>
             </component>
-            <span class="dots" v-if="(page > 3) && isScreenWide">...</span>
-          </template>
+          </div>
+          <div class="page-num-btns">
+            <template v-if="isLotsOfPages && !pagesToRender.includes(0)">
+              <component :is="btnCmp" class="button"
+                :to="getTo(0)"
+                @click="routeToNewPage(0)"
+              >
+                1
+              </component>
+              <span class="dots" v-if="(page > 3) && isScreenWide">...</span>
+            </template>
 
-          <template v-if="isScreenWide">
-            <component :is="btnCmp" class="button"
-              :to="getTo(pageNum)" 
-              v-for="pageNum in pagesToRender" :key="pageNum"
-              @click="routeToNewPage(pageNum)" 
-              :class="{selected: page == pageNum}" 
+            <template v-if="isScreenWide">
+              <component :is="btnCmp" class="button"
+                :to="getTo(pageNum)" 
+                v-for="pageNum in pagesToRender" :key="pageNum"
+                @click="routeToNewPage(pageNum)" 
+                :class="{selected: page == pageNum}" 
+              >
+                {{pageToDisplay(pageNum)}}
+              </component>
+            </template>
+            <template v-else>
+              <component :is="btnCmp" class="button" 
+                :to="getTo(page)"
+                :class="{selected: true}" 
+              >
+                {{pageToDisplay(page)}}
+              </component>
+            </template>
+              
+            <template v-if="isLotsOfPages && !pagesToRender.includes(totalPages-1)">
+              <span class="dots" v-if="(page < (totalPages-1)-2) && isScreenWide">...</span>
+              <component :is="btnCmp" class="button"
+                :to="getTo(totalPages-1)"
+                @click="routeToNewPage(totalPages-1)"
+              >
+                {{pageToDisplay(totalPages-1)}}
+              </component>
+            </template>
+          </div>
+          <div class="page-buttons" :class="{ disable: (totalPages <= (page+1)) }">
+            <component :is="btnCmp" class="button next-btn flex align-center_ gap5 bold"
+              :to="getTo(+page + 1)"
+              @click="routeToNewPage(+page + 1)"
             >
-              {{pageToDisplay(pageNum)}}
+              <div>{{$t('next')}}</div>
+              <div style="font-size:1.1em">{{btnIcos[1]}}</div>
             </component>
-          </template>
-          <template v-else>
-            <component :is="btnCmp" class="button" 
-              :to="getTo(page)"
-              :class="{selected: true}" 
-            >
-              {{pageToDisplay(page)}}
-            </component>
-          </template>
-            
-          <template v-if="isLotsOfPages && !pagesToRender.includes(totalPages-1)">
-            <span class="dots" v-if="(page < (totalPages-1)-2) && isScreenWide">...</span>
-            <component :is="btnCmp" class="button"
-              :to="getTo(totalPages-1)"
-              @click="routeToNewPage(totalPages-1)"
-            >
-              {{pageToDisplay(totalPages-1)}}
-            </component>
-          </template>
-        </div>
-        <div class="page-buttons" :class="{ disable: (totalPages <= page) }">
-          <component :is="btnCmp" class="button"
-            :to="getTo(+page + 1)"
-            @click="routeToNewPage(+page + 1)"
-          >
-            {{btnIcos[1]}}
-          </component>
+          </div>
         </div>
       </div>
       <div v-if="showAllPages" class="flex align-center space-between wrap gap10">
@@ -189,8 +193,9 @@ export default {
 //   }
 // }
 .pagination-btns {
-    .form-input.form-input-select {
-      border-bottom: em(1px) solid black;
+
+  .form-input.form-input-select {
+      border-bottom: em(1px) solid var(--clr-0) !important;
       width: fit-content;
       min-width: unset;
       border: 0;
