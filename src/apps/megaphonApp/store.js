@@ -7,6 +7,7 @@ import { accountStore } from './modules/account/store'
 // import { authStore } from './modules/auth/store'
 import { organizationStore } from './modules/organization/store'
 import { releaseStore } from './modules/release/store'
+import { selectItemStore } from './modules/selectItem/store'
 
 export default {
   // ...commonStore,
@@ -16,5 +17,6 @@ export default {
   ...accountStore,
   // ...authStore,
   ...organizationStore,
-  ...releaseStore
+  ...releaseStore,
+  ...selectItemStore,
 }

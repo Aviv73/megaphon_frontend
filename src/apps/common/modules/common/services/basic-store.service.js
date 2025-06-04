@@ -133,8 +133,8 @@ const createSimpleCrudStore = (moduleName = 'item', _initState = initState, stor
             //   if (filterBy) filterBy.organizationId = organizationId;
             //   else filterBy = { organizationId };
             // }
-            if (filterBy) commit({ type: 'setFilterBy', filterBy });
-            const itemsRes = await service.query(getters.filterBy, organizationId);
+            if (filterBy && !dontSet) commit({ type: 'setFilterBy', filterBy });
+            const itemsRes = await service.query(filterBy, organizationId);
             return itemsRes;
           },
           onSuccess: (data) => {

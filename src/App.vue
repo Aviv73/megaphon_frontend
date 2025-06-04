@@ -201,12 +201,13 @@ export default {
       this.$i18n.locale = locale;
     },
     displayUiConfig() {
+      const config = this.uiConfig;
       if (appConfig.client) this.setLocale('he');
-      else this.setLocale('he');
+      // else this.setLocale('he');
+      else this.setLocale(config.locale || 'he');
       // else this.setLocale();
       alertService.setConfig({ direction: this.isRtl? 'rtl' : 'ltr' });
       // if (appConfig.client) return;
-      const config = this.uiConfig;
       alertService.instance.setBtnMsgs({
         confirm: this.$t('confirm'),
         cancel: this.$t('cancel'),

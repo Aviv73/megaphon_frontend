@@ -1,8 +1,9 @@
 <template>
   <div class="dynamic-input flex gap30" v-if="dataFieldToRender" :class="`input-field-${dataFieldToRender.type}`">
     <h3 class="ignore-theme-style" v-if="(!noTitle && dataFieldToRender.title) || ((dataFieldToRender.type === 'SEPARATOR') && dataFieldToRender.title)">{{tOrTitle(dataFieldToRender.title)}}</h3>
-    <div class="flex-1 input-container" :class="{'table-container': dataFieldToRender.type === 'TABLE'}">
+    <div class="input-container" :class="{'flex-1': dataField.type?.toUpperCase() !== 'CHECKBOX', [dataField.type] : true, 'table-container': dataFieldToRender.type === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{dataFieldToRender.type}}"</p>
+      <p v-else-if="cmpName === 'MESSAGE'">{{dataFieldToRender.message}}</p>
       <component
         v-else
         class="flex-1 dynamic-section"
@@ -69,6 +70,34 @@
           </td>
         </tr>
       </table>
+      <div v-if="dataFieldToRender.type === 'LIST'" class="flex column gap20 width-content">
+        <div v-for="(currVal, idx) in value" :key="idx" class="flex align-start gap30">
+          <div class="flex column gap5">
+            <div
+              v-for="field in dataFieldToRender.fields.filter(c => !c.hidden)"
+              :key="`${basePath}.${idx}.${field.fieldName}`"
+            >
+              <DynamicInput
+                class="flex-1"
+                :dataField="field"
+                :basePath="[basePath, idx+'', field.fieldName].filter(Boolean).join('.')"
+                :value="getVal(currVal, field.fieldName) || ''"
+                :organization="organization"
+                :parentItem="parentItem"
+                :release="release"
+                @input="(val, path) => $emit('input', val, path || [basePath, idx+'', field.fieldName].filter(Boolean).join('.'))"
+                :noTitle="false"
+              />
+            </div>
+          </div>
+          <div>
+            <TableActionBtns :allowEmptyArray="true" class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
+          </div>
+        </div>
+        <div v-if="!(dataFieldToRender.singleItem && (value?.length > 0))">
+          <button class="btn big square width-content_ align-self-end" @click.prevent="$emit('input', [...(value || []), createNewItem(dataFieldToRender.fields)], basePath)"><div v-html="svgs.plus" class="svg-parrent"></div></button>
+        </div>
+      </div>
     </div>
     <p v-if="dataFieldToRender.helpText">{{tOrTitle(dataFieldToRender.helpText)}}</p>
     <!-- <div v-if="dataField.fields">
@@ -93,6 +122,7 @@ import { getSvgs } from '@/assets/images/svgs';
 
 
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
+import DbSelect from '../../../../../common/modules/common/cmps/DbSelect.vue';
 
 export default {
   name: 'DynamicInput',
@@ -160,6 +190,8 @@ export default {
         case 'TEXT':
         case 'DATE':
         case 'NUMBER':
+        case 'TEXTAREA':
+        case 'CHECKBOX':
           this.propsToPass = { ...propsToPass, type: type.toLowerCase(), placeholder: this.tOrTitle(this.dataField.title) };
           this.cmpName = 'FormInput';
           break;
@@ -182,14 +214,17 @@ export default {
           // this.propsToPass = { ...propsToPass, style: 'direction: ltr' };
           setTimeout(() => {
             try {
-              this.$refs.input.quill.format('align', 'right');
-              window.scroll(0, 0);
+              // this.$refs.input.quill.format('align', 'right');
+              const quill = this.$refs.input.quill;
+              quill.formatLine(quill.getSelection().index, quill.getSelection().length, { align: 'right' }, 'silent');
+              // window.scroll(0, 0);
             } catch(e) {}
           }, 10);
           this.cmpName = 'VueEditor';
           break;
         case 'TABLE':
         case 'ROW':
+        case 'LIST':
           this.propsToPass = { ...propsToPass, hidden: true };
           this.cmpName = 'div';
           break;
@@ -271,6 +306,19 @@ export default {
             })
           };
           break;
+        
+        
+        case 'MESSAGE':
+          this.cmpName = 'MESSAGE';
+          break;
+        case 'DB_SELECTION_SELECT':
+          this.cmpName = 'DbSelect';
+          this.propsToPass = { ...propsToPass, isMultiSelect: false, placeholder: this.tOrTitle(this.dataField.title) };
+          break;
+        case 'DB_SELECTION_MULTISELECT':
+          this.cmpName = 'DbSelect';
+          this.propsToPass = { ...propsToPass, isMultiSelect: true, placeholder: this.tOrTitle(this.dataField.title) };
+          break;
 
         default: 
           this.cmpName = 'UNKNOWN';
@@ -299,7 +347,8 @@ export default {
     FileUploader,
     MultipleFilePicker,
     TableActionBtns,
-    ImageCrop
+    ImageCrop,
+    DbSelect
     // FileInput
   },
 }

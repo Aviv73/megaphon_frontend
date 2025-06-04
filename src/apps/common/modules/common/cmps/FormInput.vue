@@ -80,14 +80,14 @@
           <div class="flex align-center gap10 actual-input">
             <div class="head-content">
               <template v-if="componentType === 'multiselect'">
-                <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder)" @keydown.enter.stop.prevent="addNewValToMultiSelect" @click.stop="isOpen = true"/>
-                <span class="placeholder" v-else-if="!showVals || (showVals & !val?.length)">{{ $t(placeholder || labelholder) }}</span>
+                <input type="text" v-if="showVals" v-model="valsFilterStr" :placeholder="$t(placeholder || labelholder || 'search')" @keydown.enter.stop.prevent="addNewValToMultiSelect" @click.stop="isOpen = true"/>
+                <span class="placeholder" v-else-if="!showVals || (showVals && !val?.length)">{{ $t(placeholder || labelholder) }}</span>
 
                 <!-- <div class="inner-square"></div> -->
                 <!-- {{ $t(val) }} -->
               </template>
               <template v-else>
-                <div class="selected-preview" v-if="!itemsToRenderToShow.find(c => c.value === val)"><span>{{ $t(placeholder || labelholder) }}</span></div>
+                <div class="selected-preview" v-if="!itemsToRenderToShow.find(c => c.value === val)"><span class="placeholder">{{ $t(placeholder || labelholder) }}</span></div>
                 <div class="selected-preview flex align-center gap20" v-else>
                   <span>{{$t(itemsToRenderToShow.find(c => c.value === val)?.label || val)}}</span>
                   <img v-if="itemsToRenderToShow.find(c => c.value === val)?.img" :src="itemsToRenderToShow.find(c => c.value === val)?.img"/>
@@ -119,6 +119,7 @@
                   :value="item.value"
                   :disabled="disabled"
                 />
+                <img v-if="item.img" :src="item.img"/>
                 <span>{{ $t(item.label) }}</span>
               </label>
             </template>
@@ -419,6 +420,10 @@ export default {
     position: relative;
     height: 100%;
     // $borderColor: rgba(128, 128, 128, 0.5);
+
+    .placeholder, ::placeholder {
+      color: gray;
+    }
     .actual-input {
       height: 100%;
       // border: em(1px) solid $borderColor;

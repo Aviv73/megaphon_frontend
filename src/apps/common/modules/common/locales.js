@@ -52,8 +52,8 @@ const en = {
   "type": "Type",
   "clear": "Clear",
 
-  "hebrew": "Hebrew",
-  "english": "English",
+  // "hebrew": "Hebrew",
+  // "english": "English",
   "email": "email",
   "mobile": "Mobile",
   "firstName": "First name",
@@ -174,8 +174,8 @@ const he = {
   "type": "סוג",
   "clear": "נקה",
 
-  "hebrew": "עברית",
-  "english": "אנגלית",
+  // "hebrew": "עברית",
+  // "english": "אנגלית",
   "email": "אימייל",
   "mobile": "נייד",
   "firstName": "שם פרטי",
