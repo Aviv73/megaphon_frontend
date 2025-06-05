@@ -43,7 +43,7 @@
             <p></p>
           </li>
           <li v-for="(curr, idx) in organizationToEdit.mediaLinks || []" :key="idx">
-            <FormInput type="select" placeholder="type" v-model="curr.type" :items="['web', 'youtube', 'facebook', 'twitter', 'instegram', 'tiktok']"/>
+            <FormInput type="select" placeholder="type" v-model="curr.type" :items="['web', 'youtube', 'facebook', 'twitter', 'instegram', 'tiktok', 'spotify', 'appleMusic']"/>
             <FormInput type="text" placeholder="title" v-model="curr.title"/>
             <FormInput type="text" placeholder="url" v-model="curr.src"/>
             <TableActionBtns v-model="organizationToEdit.mediaLinks" :idx="idx" :allowEmptyArray="true"/>
