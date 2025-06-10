@@ -108,7 +108,7 @@ export default {
       return this.$store.getters['organization/selectedItem'];
     },
     logoImgSrc() {
-      const megaphonLogo = require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
+      const megaphonLogo = this.$store.getters.envManagement?.logo || require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
       return ((this.orgId == '-1')? megaphonLogo : fixFileSrcToThumbnail(this.organization?.logo, this.organization)) || megaphonLogo;
     },
     loggedUser() {

@@ -43,6 +43,7 @@ export default {
     min-height: rem(60px);
     font-size: rem(14px);
     padding: rem(20px);
+    // color: #9D9D9D;
     .powered-by {
         direction: ltr;
         img {

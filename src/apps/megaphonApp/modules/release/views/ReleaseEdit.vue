@@ -230,6 +230,9 @@ export default {
           border-radius: 0;
         }
       }
+      &-textarea {
+        height: em(300px);
+      }
     }
 
     .locale-select, .expiration-date {

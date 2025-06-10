@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { settingsStore } from '../apps/common/modules/settings/store';
 import { setDynamicStylingThemeEl } from '../apps/common/modules/common/services/dynamicPages.service';
+import { httpService } from '@/apps/common/modules/common/services/http.service';
 
 // import commonStore from '../apps/common/store'
 // import selectedAppData from '../apps/index.js';
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     isScreenWide: false,
     selectedAppData: null,
     rootOrg: null,
-    selectedTheme: null
+    selectedTheme: null,
+    envManagement: {}
   },
   getters: {
     isScreenWide(state) {
@@ -28,6 +30,9 @@ export default new Vuex.Store({
     },
     selectedTheme(state) {
       return state.selectedTheme;
+    },
+    envManagement(state) {
+      return state.envManagement;
     }
   },
   mutations: {
@@ -42,13 +47,23 @@ export default new Vuex.Store({
     },
     setTheme(state, { theme, selector }) {
       state.selectedTheme = theme;
+    },
+    setTheme(state, { theme, selector }) {
+      state.selectedTheme = theme;
+    },
+    setEnvManagement(state, { envManagement }) {
+      state.envManagement = envManagement;
     }
   },
   actions: {
     setSelectedTheme({commit, rootGetters}, { theme, selector }) {
       commit({type: 'setTheme', theme})
       setDynamicStylingThemeEl(theme, selector, rootGetters['settings/uiConfig']?.remSize);
-    }
+    },
+    async loadEnvManagment({commit}) {
+      const envManagement = await httpService.get('management/envManagement');
+      commit({type: 'setEnvManagement', envManagement});
+    },
   },
   modules: {
     // initializing common store on App.vue so it can be removed;

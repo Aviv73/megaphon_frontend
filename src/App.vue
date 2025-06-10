@@ -172,6 +172,7 @@ export default {
         await Promise.all([
           // this.$store.dispatch('settings/loadSettings'),
           // this.$store.dispatch('settings/loadConfig'),
+          this.$store.dispatch('loadEnvManagment'),
           this.$store.dispatch('auth/getUserInfo')
         ]);
       } catch(e) {};

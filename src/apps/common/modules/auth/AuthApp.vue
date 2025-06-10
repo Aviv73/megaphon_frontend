@@ -25,7 +25,7 @@ export default {
     },
     appLogo() {
       // return this.org?.logo? fixFileSrcToThumbnail(this.org?.logo, this.org) : require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
-      return this.rootOrg?.logo? fixFileSrcToThumbnail(this.rootOrg?.logo, this.rootOrg) : require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
+      return this.rootOrg?.logo? fixFileSrcToThumbnail(this.rootOrg?.logo, this.rootOrg) : this.$store.getters.envManagement?.logo || require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
     },
     org() {
       return appConfig.appOrganization || this.$store.getters['organization/selectedItem'];
