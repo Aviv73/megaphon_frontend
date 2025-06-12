@@ -90,7 +90,8 @@ const  en = {
       "wavFile": "WAV file",
       "trackIndex": "Track index",
       "performerName": "Performer name",
-      "recordCompanyies": "Record companyies"
+      "recordCompanyies": "Record companyies",
+      "freeSticker": "Free sticker"
 
 
     },
@@ -182,14 +183,15 @@ const he = {
       "credits": "קרדיטים",
       "logos": "לוגואים נוספים",
       "promoText": "כיתוב פרומו",
-      "comunicatImage": "טאב קומוניקט\nתמונת קומוניקט",
+      "comunicatImage": "תמונת קומוניקט",
       "comunicatText": "טקסט לטאב קומוניקט",
       "songs": "שירים",
       "songName": "שם השיר",
       "wavFile": "קובץ WAV",
       "trackIndex": "מספר הרצועה",
       "performerName": "שם מבצע",
-      "recordCompanyies": "חברת תקליטים"
+      "recordCompanyies": "חברת תקליטים",
+      "freeSticker": "מדבקה חופשית"
     },
     alerts: {
     },
