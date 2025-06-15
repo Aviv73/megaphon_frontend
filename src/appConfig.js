@@ -9,8 +9,8 @@ else client = true;
 var appOrganizationId = null;
 var singleOrgMode = false;
 if (allParts.length === 1) {
-  appOrganizationId = root;
-  singleOrgMode = true;
+  // appOrganizationId = root;
+  // singleOrgMode = true;
 }
 
 console.log('INITIALIZING APP', subDomain);

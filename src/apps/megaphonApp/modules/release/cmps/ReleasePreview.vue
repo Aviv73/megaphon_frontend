@@ -109,7 +109,7 @@ export default {
         this.$router.push({ name: 'ReleaseReport', params: { organizationId: this.item.organizationId, id: this.item._id } })
         return;
       }
-      const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, 'landingPage', config);
+      const pageUrl = templateUtils.getReleaseLandingPageUrl(this.item, this.organization, 'landingPage', config, window.location.pathname);
       window.open(pageUrl);
     },
     toggleToSelectedReleases(isDraging = false) {

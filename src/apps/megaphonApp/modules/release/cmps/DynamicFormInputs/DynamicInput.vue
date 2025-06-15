@@ -236,11 +236,11 @@ export default {
         case 'FILE':
         case 'VIDEO':
           this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter || (type === 'VIDEO' ? 'video/*' : ''), uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
           break;
         case 'IMAGE':
           this.cmpName = 'ImageCrop';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
+          this.propsToPass = { ...propsToPass, accept: this.dataField.filter || 'image/*', uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
           break;
 
         // case 'FILE_SRC':

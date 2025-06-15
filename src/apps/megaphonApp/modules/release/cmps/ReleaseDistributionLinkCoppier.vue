@@ -66,7 +66,7 @@ export default {
       // this.token === 'random'? getRandomId('') : this.token
       // &token=${getRandomId('')}
       const _token = this.tokenType === 'unique'? this.randomToken : this.tokenType === 'none'? '' : this.token;
-      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, 'landingPage', config) + 
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, 'landingPage', config, window.location.pathname) + 
           `?releaseId=${this.release?._id}&origin=${this.origin}&token=${_token}`;
     }
   },

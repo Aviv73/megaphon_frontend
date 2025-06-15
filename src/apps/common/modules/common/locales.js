@@ -109,7 +109,8 @@ const en = {
   "hour": "Hour",
   "channel": "Channel",
 
-  "videoUploadedAlert": "Vide uploaded successfully. Note: it will take a while for the server to process the file and to make it watchable. please be pationt if you get a process error when trying to view it.",
+  "videoUploadedAlert": "Video uploaded successfully. Note: it will take a while for the server to process the file and to make it watchable. please be pationt if you get a process error when trying to view it.",
+  "mediaUploadedAlert": "Media uploaded successfully. Note: it will take a while for the server to process the file and to make it watchable. please be pationt if you get a process error when trying to view it.",
 
   "saveAndClose": "Save and close",
   "url": "Url",
@@ -231,6 +232,7 @@ const he = {
   "channel": "ערוץ",
 
   "videoUploadedAlert": "קובץ הוידאו עלה בהצלחה!\nשימו לב: פעולת ההצפנה של הוידאו עשויה לקחת מעט זמן. אנא העזרו בסבלנות במקרה בו אתם מקבלים שגיאת 'process' כשאתם מנסים לצפות בוידאו.",
+  "mediaUploadedAlert": "קובץ המדיה עלה בהצלחה!\nשימו לב: פעולת ההצפנה של המדיה עשויה לקחת מעט זמן. אנא העזרו בסבלנות במקרה בו אתם מקבלים שגיאת 'process' כשאתם מנסים לצפות בוידאו.",
 
   "saveAndClose": "שמירה ויציאה",
   "url": "קישור",

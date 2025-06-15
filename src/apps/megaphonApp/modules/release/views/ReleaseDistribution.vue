@@ -293,7 +293,7 @@ export default {
 
     sendInEmailUrl() {
       // &token=${getRandomId('')}
-      return templateUtils.getReleaseLandingPageUrl(this.release, this.org, 'landingPage', config) + `?releaseId=${this.release?._id}&origin=email&token=`;
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.org, 'landingPage', config, window.location.pathname) + `?releaseId=${this.release?._id}&origin=email&token=`;
     },
 
     

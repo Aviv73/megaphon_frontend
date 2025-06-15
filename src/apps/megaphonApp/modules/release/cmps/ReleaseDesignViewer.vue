@@ -58,7 +58,7 @@ export default {
       return this.selectedDesignTypeToShow;
     },
     landingPageUrl() {
-      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow, config) + '?selectedDesignID=' + this.release.design[this.designTypeKey];
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow, config, window.location.pathname) + '?selectedDesignID=' + this.release.design[this.designTypeKey];
     },
     allTemplates() {
       return templateUtils.getAllRelevantTemplatesForReleaseType(this.release.releaseType, this.organization, this.selectedDesignTypeToShow, true);
