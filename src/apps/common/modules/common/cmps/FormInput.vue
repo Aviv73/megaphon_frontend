@@ -192,7 +192,7 @@
 </template>
 
 <script>
-import { getRandomId, isDateValid, padNum } from '../services/util.service';
+import { Utils } from '../services/util.service';
 import Tooltip from './Tooltip.vue';
 
 import PhoneInput from './PhoneInput.vue';
@@ -244,7 +244,7 @@ export default {
   data() {
     return {
       val: this.value,
-      inputId: this.id || getRandomId(),
+      inputId: this.id || Utils.getRandomId(),
       isOpen: false,
 
       valsFilterStr: '',
@@ -333,9 +333,9 @@ export default {
     },
 
     fixDateValIfNeeded() {
-      if ((this.type === 'date') && isDateValid(this.val)) {
+      if ((this.type === 'date') && Utils.isDateValid(this.val)) {
         const date = new Date(this.val || undefined);
-        this.val = `${date.getFullYear()}-${padNum(date.getMonth()+1)}-${padNum(date.getDate())}`;
+        this.val = `${date.getFullYear()}-${Utils.padNum(date.getMonth()+1)}-${Utils.padNum(date.getDate())}`;
       }
     }
   },

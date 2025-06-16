@@ -64,7 +64,7 @@
 import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
 import PaginationBtns from '../../common/cmps/ItemSearchList/PaginationBtns.vue';
 import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail, getFileError, getFileItemFromRootItem } from '../../common/services/file.service';
-import { downloadImg, youtubeService } from '../../common/services/util.service';
+import { Utils } from '../../common/services/util.service';
 import VideoTag from './VideoTag.vue';
 // import { extractFileSrc } from './file.service'; 
 export default {
@@ -88,13 +88,13 @@ export default {
   methods: {
     fixFileSrcToThumbnail, getFileError, getFileItemFromRootItem,
     fixVideoSrcToThumbnail,
-    downloadImg,
+    downloadImg: Utils.downloadImg,
     extractFileSrc(fileItem) {
       let src = fileItem.src || fileItem.link || fileItem.url || '';
       // if (!/^https?:\/\//i.test(this.url)) src = `https://${src}`;
       if (!src.startsWith('https://') && !src.startsWith('http://')) src = `https://${src}`;
       if (this.cmpType === 'iframe') {
-        if (youtubeService.isYoutubeVid(src)) src = youtubeService.embedUtubeUrl(src);
+        if (Utils.youtubeService.isYoutubeVid(src)) src = Utils.youtubeService.embedUtubeUrl(src);
       }
       return src;
     }

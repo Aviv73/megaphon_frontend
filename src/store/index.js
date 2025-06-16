@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { settingsStore } from '../apps/common/modules/settings/store';
-import { setDynamicStylingThemeEl } from '../apps/common/modules/common/services/dynamicPages.service';
+import { dynamicCssPagesService } from '../apps/common/modules/common/services/dynamicPages.service';
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 
 // import commonStore from '../apps/common/store'
@@ -58,7 +58,7 @@ export default new Vuex.Store({
   actions: {
     setSelectedTheme({commit, rootGetters}, { theme, selector }) {
       commit({type: 'setTheme', theme})
-      setDynamicStylingThemeEl(theme, selector, rootGetters['settings/uiConfig']?.remSize);
+      dynamicCssPagesService.setDynamicStylingThemeEl(theme, selector, rootGetters['settings/uiConfig']?.remSize);
     },
     async loadEnvManagment({commit}) {
       const envManagement = await httpService.get('management/envManagement');

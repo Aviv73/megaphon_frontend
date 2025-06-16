@@ -1,6 +1,5 @@
 
-import { isDateValid } from '@/apps/common/modules/common/services/util.service';
-import { getDeepVal, getRandomId, htmlStrToText } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 
 export function createItemForDynamicForm(dataFields = []) {
@@ -8,7 +7,7 @@ export function createItemForDynamicForm(dataFields = []) {
   for (let field of dataFields) {
     switch (field.type) {
       case 'ID':
-        return item[field.fieldName] = getRandomId();
+        return item[field.fieldName] = Utils.getRandomId();
       case 'TEXT':
       case 'EMAIL':
       // case 'URL':
@@ -99,11 +98,11 @@ export function validateDataByDataField(dataField, data, rootData, fullParent) {
     // case 'VIDEOURL':
       return data && !!data?.trim()?.length;
     case 'DATE':
-      return isDateValid(data);
+      return Utils.isDateValid(data);
     case 'LONGRICHTEXT':
     case 'RICHTEXT':
       // return !!data?.trim()?.length;
-      return data && !!htmlStrToText(data).trim()?.length;
+      return data && !!Utils.htmlStrToText(data).trim()?.length;
     case 'VIDEOS':
     case 'LINKS':
     case 'IMAGEGALLERY':
@@ -116,7 +115,7 @@ export function validateDataByDataField(dataField, data, rootData, fullParent) {
     case 'ROW':
       // return true;
       // console.log(dataField, data, rootData)
-      return dataField.fields.some(c => validateDataByDataField(c, getDeepVal(rootData, c.fieldName)))
+      return dataField.fields.some(c => validateDataByDataField(c, Utils.getDeepVal(rootData, c.fieldName)))
       // return false
     case 'TABLE':
       if (dataField.uiType === 'FilesSection') return data && !!data.filter(c => fixFileSrcToThumbnail(c, fullParent)).length;

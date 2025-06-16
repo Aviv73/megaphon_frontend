@@ -1,4 +1,4 @@
-import { getRandomId } from '@/apps/common/modules/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/modules/common/services/util.service';
 
 const mockBookReleases = [
   
@@ -74,7 +74,7 @@ function _createBookRelease(title = '', desc = '', author = '', painter = '', tr
 
 function _createFullReleaseItemLike(data = {}, releaseType) {
   return {
-    "_id" : data._id || getRandomId(),
+    "_id" : data._id || Utils.getRandomId(),
     "releaseType" : releaseType || "SOME_RELEASE_TYPE",
     "releaseData" : {
         ...data,

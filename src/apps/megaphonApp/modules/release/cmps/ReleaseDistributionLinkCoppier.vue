@@ -34,7 +34,7 @@
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import ToggleModal from '../../../../common/modules/common/cmps/ToggleModal.vue';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
-import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '../../../../common/modules/common/services/util.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 
 import config from '@/config';
@@ -58,13 +58,13 @@ export default {
       // tokenOpts: ['unique', 'insert', 'none'],
       tokenOpts: ['unique', 'insert'],
       tokenType: 'unique',
-      randomToken: getRandomId(''),
+      randomToken: Utils.getRandomId(''),
     }
   },
   computed: {
     sendInEmailUrl() {
-      // this.token === 'random'? getRandomId('') : this.token
-      // &token=${getRandomId('')}
+      // this.token === 'random'? Utils.getRandomId('') : this.token
+      // &token=${Utils.getRandomId('')}
       const _token = this.tokenType === 'unique'? this.randomToken : this.tokenType === 'none'? '' : this.token;
       return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, 'landingPage', config, window.location.pathname) + 
           `?releaseId=${this.release?._id}&origin=${this.origin}&token=${_token}`;
@@ -73,11 +73,11 @@ export default {
   methods: {
     copyUrlToClipboard() {
       if ((this.tokenType === 'insert') && !this.token) return alertService.toast({ msg: this.$t(`missingFields`), type: 'danger' });
-      copyToClipBoard(this.sendInEmailUrl);
+      Utils.copyToClipBoard(this.sendInEmailUrl);
       alertService.toast({ msg: this.$t(`copiedToClipboard`), type: 'safe' });
     },
     regenerate() {
-      this.randomToken = getRandomId('');
+      this.randomToken = Utils.getRandomId('');
     }
   }
 }

@@ -9,9 +9,8 @@
 </template>
 
 <script>
-import { htmlStrToText } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
-import { cropText } from '../../common/services/util.service';
 export default {
   name: 'default_ReleasePreview',
   props: {
@@ -30,10 +29,10 @@ export default {
     },
 
     fullDescStr() {
-      return htmlStrToText(this.releaseData.content);
+      return Utils.htmlStrToText(this.releaseData.content);
     },
     shortenDesc() {
-      return cropText(this.fullDescStr, 100);
+      return Utils.cropText(this.fullDescStr, 100);
       // const content = this.fullDescStr;
       // if (content.length <= 100) return content;
       // return content.substring(0, 100) + '...';

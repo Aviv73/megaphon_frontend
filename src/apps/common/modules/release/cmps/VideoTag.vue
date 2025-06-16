@@ -12,7 +12,7 @@ import Hls from 'hls.js';
 import { elementService } from '../../common/services/element.service';
 // import { getVideoEncryptionKey } from '../../common/services/file.service';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
-import { delay, getRandomId } from '../../common/services/util.service';
+import { Utils } from '../../common/services/util.service';
 import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
 
 // import cloudinary from 'cloudinary-video-player';
@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      videoId: getRandomId(''),
+      videoId: Utils.getRandomId(''),
       styleEl: null,
       isPlaying: false,
       watermarkInterval: null,
@@ -101,7 +101,7 @@ export default {
     init() {
       const { elVideo } = this.$refs;
       elVideo.addEventListener('play', async() => {
-        await delay(10);
+        await Utils.delay(10);
         if (this.isSeeking) {
           this.isSeeking = false;
           return;
@@ -109,7 +109,7 @@ export default {
         this.play();
       });
       elVideo.addEventListener('pause', async () => {
-        await delay(10);
+        await Utils.delay(10);
         if (this.isSeeking) return;
         this.pause();
       });
@@ -211,7 +211,7 @@ export default {
     async setNewWatchSection() {
       if (!this.logSessions) return;
       // return;
-      this.currWatchSection = { id: getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 };
+      this.currWatchSection = { id: Utils.getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 };
       // this.watchSession.videoSecondsDuration = this.$refs.elVideo?.duration || undefined;
       this.watchSession.sections.push(this.currWatchSection);
     },

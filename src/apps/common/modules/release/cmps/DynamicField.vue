@@ -64,14 +64,13 @@
 </template>
 
 <script>
-import { getDeepVal, setDeepVal, range } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import FilesSection from './FilesSection.vue';
 // import FileList from './FileList.vue';
 import FilesSingleSection from './FilesSingleSection.vue';
 import ReleasesSlider from './ReleasesSlider.vue'
-import { Time, youtubeService } from '../../common/services/util.service';
 import { validateDataByDataField } from '../../../../megaphonApp/modules/common/services/dynamicFormService';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 
@@ -127,7 +126,7 @@ export default {
           this.cmpName = this.dataField.uiCmp || 'p';
           break;
         case 'DATE':
-          this.valueToShow = Time.getTimeStrAs(this.value, 'date/month/year');
+          this.valueToShow = Utils.Time.getTimeStrAs(this.value, 'date/month/year');
           break;
         case 'LONGRICHTEXT':
         case 'RICHTEXT':
@@ -146,7 +145,7 @@ export default {
           this.cmpName = 'FilesSingleSection';
           this.propsToPass = { ...propsToPass, rootItem: this.release, showTitle: false, sectionId: 'videos', cmpType: 'iframe', organizationId: this.organization._id, files: this.value?.map(c => {
             const src = c.src || c.link || c.url; 
-            return {...c, src: youtubeService.isYoutubeVid(src)? youtubeService.embedUtubeUrl(src) : src};
+            return {...c, src: Utils.youtubeService.isYoutubeVid(src)? Utils.youtubeService.embedUtubeUrl(src) : src};
           }) || [] };
           break;
         case 'links'.toUpperCase():
@@ -256,11 +255,11 @@ export default {
         //     const video = results === null ? url : results[1];
         //     return `http://img.youtube.com/vi/${video}/maxres${index}.jpg`;
         //   };
-        //   const videoUrl = getDeepVal(this.parentItem, this.basePath.replace(this.dataField.fieldName, this.dataField.linkedVideoField));
+        //   const videoUrl = Utils.getDeepVal(this.parentItem, this.basePath.replace(this.dataField.fieldName, this.dataField.linkedVideoField));
         //   this.propsToPass = { 
         //     ...propsToPass, 
         //     type: 'select', 
-        //     items: range(4).map((_, idx) => {
+        //     items: Utils.range(4).map((_, idx) => {
         //       const currUrl = _getYoutubeVideoThumb(videoUrl, idx)
         //       return {value: currUrl, img: currUrl, label: `${this.$t('photo')} ${idx+1}`};
         //     })
@@ -276,7 +275,7 @@ export default {
       if (this.dataField.props) this.propsToPass = { ...this.propsToPass, ...this.dataField.props };
     },
     getVal(item, fieldPath) {
-      return getDeepVal(item, fieldPath);
+      return Utils.getDeepVal(item, fieldPath);
     }
   },
   mounted() {

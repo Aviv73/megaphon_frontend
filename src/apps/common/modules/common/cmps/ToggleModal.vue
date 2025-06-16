@@ -12,7 +12,7 @@
 
 <script>
 import Modal from './Modal.vue';
-import { getElPosInParent, delay } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 export default {
   name: 'ToggleModal',
   components: { Modal },
@@ -33,7 +33,7 @@ export default {
       this.showContent = true;
       this.$emit('open');
       if (this.useToggleAnimation) {
-        await delay(10);
+        await Utils.delay(10);
         this.applyAnimationStyling(true);
       }
     },
@@ -52,7 +52,7 @@ export default {
           transform: 'translate(-50%, -50%) scale(1)'
         }
         else {
-          const togglerPos = getElPosInParent(this.$refs.toggler, undefined, true);
+          const togglerPos = Utils.getElPosInParent(this.$refs.toggler, undefined, true);
           return {
             transition: ANIMATION_DURATION + 's',
             top:  togglerPos.y + (this.$refs.toggler.offsetHeight / 2) + 'px',
@@ -67,7 +67,7 @@ export default {
       for (let key in styleToAdd) {
         modalEl.style[key] = styleToAdd[key];
       }
-      if (doDelay) return delay(ANIMATION_DURATION * 1000);
+      if (doDelay) return Utils.delay(ANIMATION_DURATION * 1000);
     }
   },
   mounted() {

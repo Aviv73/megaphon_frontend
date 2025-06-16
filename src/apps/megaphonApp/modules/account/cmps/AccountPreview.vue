@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { vOrX } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '../../../../common/modules/common/services/util.service';
 import { organizationService } from '../../organization/services/organization.service';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';
@@ -45,7 +45,7 @@ export default {
       return this.accountOrgData?.status === consts.organizationStatuses.pending;
     },
     isPandingMsg() {
-      return vOrX(this.isPanding);
+      return Utils.vOrX(this.isPanding);
     }
   },
   methods: {

@@ -47,7 +47,7 @@ import InviteAccountModal from '../../organization/cmps/InviteAccountModal.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service'
 import { organizationService } from '../../organization/services/organization.service';
-import { setDeepVal } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '../../../../common/modules/common/services/util.service';
 
 export default {
   name: 'AccountPage',
@@ -63,7 +63,7 @@ export default {
       filterBy.organizationId = typeof orgId === 'string'? orgId : this.$route.params.organizationId;
       if (filterBy.organizationId == '-1') {
         filterBy.organizationId = undefined;
-        setDeepVal(filterBy, 'filter.params.roles', 'admin');
+        Utils.setDeepVal(filterBy, 'filter.params.roles', 'admin');
       } else {
         if (filterBy?.filter?.params?.roles) delete filterBy.filter.params.roles;
       }

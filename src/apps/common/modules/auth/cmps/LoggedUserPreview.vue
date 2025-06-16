@@ -24,7 +24,6 @@
 
 <script>
 import  { getSvgs } from '@/assets/images/svgs.js';
-import { getSelectedTheme } from '../../common/services/dynamicPages.service';
 import Modal from '../../common/cmps/Modal.vue';
 import { organizationService } from '../../organization/organization.service';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';

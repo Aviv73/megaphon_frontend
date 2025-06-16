@@ -1,5 +1,5 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
-import { getQueryParam, splitDataToPages } from '../../../../common/modules/common/services/util.service';
+import { getQueryParam, Utils } from '../../../../common/modules/common/services/util.service';
 
 const ENDPOINT = 'distribution';
 
@@ -17,7 +17,7 @@ export const distributionService = {
 
 async function distribute(organizationId, releaseId, distributionData, onChunkEndCb = (sentToCount) => {} ) {
   const contacts = distributionData.contacts;
-  const pages = splitDataToPages(contacts, 100);
+  const pages = Utils.splitDataToPages(contacts, 100);
   const results = [];
   console.log('DISTRIBUTING! tatal of', pages.length, 'pages');
   let sentTo = 0;

@@ -1,5 +1,4 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
-import { getQueryParam, splitDataToPages } from '../../../../common/modules/common/services/util.service';
 
 const ENDPOINT = 'mailing-list';
 

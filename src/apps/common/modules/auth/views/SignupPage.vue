@@ -21,7 +21,7 @@
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import { accountService } from '@/apps/megaphonApp/modules/account/services/account.service';
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
-import { validatePassword } from '../../common/services/util.service';
+import { Utils } from '../../common/services/util.service';
 
 export default {
   name: 'SignupPage',
@@ -41,7 +41,7 @@ export default {
       return this.$store.getters.rootOrg;
     },
     isPassValid() {
-      return validatePassword(this.user.password);
+      return Utils.validatePassword(this.user.password);
     }
     // userGenders() {
     //   return this.$store.getters['settings/config'].userGenders;

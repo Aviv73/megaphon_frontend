@@ -31,7 +31,7 @@ import  { getSvgs } from '../../../assets/images/svgs.js';
 
 import config from '@/config';
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
-import { Time } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '../../../../common/modules/common/services/util.service';
 
 export default {
   components: { DragDiv, FormInput },
@@ -79,7 +79,7 @@ export default {
 
     pretyDistributionTime() {
       if (!this.item.distributedAt) return '';
-      return Time.getTimeStrAs(this.item.distributedAt, 'date/month/year');
+      return Utils.Time.getTimeStrAs(this.item.distributedAt, 'date/month/year');
       // const time = new Date(this.item.distributedAt);
       // return `${time.getDate()}/${time.getMonth()+1}/${time.getFullYear()}`;
     },

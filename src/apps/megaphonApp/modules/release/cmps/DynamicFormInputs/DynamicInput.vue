@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { getDeepVal, setDeepVal } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 // import FileInput from '@/apps/common/modules/common/cmps/FileInput.vue';
 import { VueEditor } from "vue2-editor";
@@ -117,7 +117,6 @@ import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vu
 import MultipleFilePicker from './MultipleFilePicker.vue';
 import ImageCrop from './ImageCrop.vue';
 import TableActionBtns from '@/apps/common/modules/common/cmps/TableActionBtns.vue';
-import { range } from '@/apps/common/modules/common/services/util.service';
 import { getSvgs } from '@/assets/images/svgs';
 
 
@@ -296,11 +295,11 @@ export default {
             const video = results === null ? url : results[1];
             return `http://img.youtube.com/vi/${video}/maxres${index}.jpg`;
           };
-          const videoUrl = getDeepVal(this.parentItem, this.basePath.replace(this.dataField.fieldName, this.dataField.linkedVideoField));
+          const videoUrl = Utils.getDeepVal(this.parentItem, this.basePath.replace(this.dataField.fieldName, this.dataField.linkedVideoField));
           this.propsToPass = { 
             ...propsToPass, 
             type: 'select', 
-            items: range(4).map((_, idx) => {
+            items: Utils.range(4).map((_, idx) => {
               const currUrl = _getYoutubeVideoThumb(videoUrl, idx)
               return {value: currUrl, img: currUrl, label: `${this.$t('photo')} ${idx+1}`};
             })
@@ -329,7 +328,7 @@ export default {
       if (this.dataField.props) this.propsToPass = { ...this.propsToPass, ...this.dataField.props };
     },
     getVal(item, fieldPath) {
-      return getDeepVal(item, fieldPath);
+      return Utils.getDeepVal(item, fieldPath);
     },
 
     createNewItem(dataFields) {

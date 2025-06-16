@@ -20,7 +20,7 @@
 import { fixFileSrcToThumbnail, uploadFileToServer, chunkUploadFileToServer } from '../../services/file.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import MiniLoader from '../MiniLoader.vue';
-import { cropText } from '../../services/util.service';
+import { Utils } from '../../services/util.service';
 import { getSvgs } from '@/assets/images/svgs';
 export default {
   components: { MiniLoader },
@@ -47,7 +47,7 @@ export default {
       return this.previewSrc || (this.valToShow? fixFileSrcToThumbnail(this.valToShow, this.rootItem) : '');
     },
     valToShow() {
-      return this.onlySrc ? { src: this.value, title: cropText(this.value, 30) } : this.value;
+      return this.onlySrc ? { src: this.value, title: Utils.cropText(this.value, 30) } : this.value;
     },
     svgs() {
       return getSvgs();

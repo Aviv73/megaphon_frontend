@@ -124,7 +124,7 @@ import PaginationBtns from '../../../../common/modules/common/cmps/ItemSearchLis
 
 import { Pie as PieChart } from 'vue-chartjs';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
-import { getDeepVal, Utils, Time } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '../../../../common/modules/common/services/util.service';
 import { contactService } from '../../contact/contact.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import Tooltip from '../../../../common/modules/common/cmps/Tooltip.vue';
@@ -136,7 +136,7 @@ import  { getSvgs } from '@/apps/megaphonApp/assets/images/svgs.js';
 export default {
   components: { PaginationBtns, PieChart, ReleaseDistributionLinkCoppier, Tooltip },
   name: 'ReleaseReport',
-  // Time,
+  // Utils.Time,
   data() {
     return {
       contactFilter: {
@@ -158,7 +158,7 @@ export default {
       this.sortContactsKeys = [...sortKeys];
     },
     pretyDate: Utils.pretyDate,
-    MsToPretyWatchTime: Time.MsToPretyWatchTime,
+    MsToPretyWatchTime: Utils.Time.MsToPretyWatchTime,
     vOrX: Utils.vOrX,
     getOrg() {
       this.$store.dispatch({ type: 'organization/loadItem', id: this.orgId });
@@ -231,13 +231,13 @@ export default {
         return acc;
       }, []);
       res = res.sort((a, b) => {
-        // const aKey = this.sortContactsKeys.find(key => getDeepVal(a, key));
-        // const bKey = this.sortContactsKeys.find(key => getDeepVal(b, key));
+        // const aKey = this.sortContactsKeys.find(key => Utils.getDeepVal(a, key));
+        // const bKey = this.sortContactsKeys.find(key => Utils.getDeepVal(b, key));
         // if (!aKey && !bKey) return 0;
         const sortKey = this.sortContactsKeys[0];
         // const [aKey, bKey] = [this.sortContactsKeys[0], this.sortContactsKeys[0]];
-        let aVal = getDeepVal(a, sortKey);
-        let bVal = getDeepVal(b, sortKey);
+        let aVal = Utils.getDeepVal(a, sortKey);
+        let bVal = Utils.getDeepVal(b, sortKey);
         if (sortKey === 'watchCount') {
           aVal = this.getVideoWatchLogsByContact(a).length;
           bVal = this.getVideoWatchLogsByContact(b).length;

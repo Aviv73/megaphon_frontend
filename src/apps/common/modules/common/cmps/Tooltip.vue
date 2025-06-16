@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { getElPosOnScreen, getElPosInParent } from '../services/util.service';
+import { Utils } from '../services/util.service';
 export default {
   name: 'Tooltip',
   props: {
@@ -61,7 +61,7 @@ export default {
       let { offsetWidth: msgWidth, offsetHeight: msgHeight } = elMsg;
       const { offsetWidth: parentWidth, offsetHeight: parentHeight } = (this.attachToElement instanceof HTMLElement? this.attachToElement : document.querySelector(this.attachToElement));
 
-      const elPreviewPos = getElPosInParent(elPreview, this.attachToElement);
+      const elPreviewPos = Utils.getElPosInParent(elPreview, this.attachToElement);
 
       // const { clientX, clientY } = ev? ev : { clientX: elPreviewPos.x, clientY: elPreviewPos.y };
 

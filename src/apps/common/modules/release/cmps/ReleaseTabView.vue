@@ -51,7 +51,7 @@ import { templateUtils } from '../../common/services/template.util.service';
 // import FilesSection from '../cmps/FilesSection.vue';
 import DynamicField from '../cmps/DynamicField.vue';
 
-import { isDateValid, scrollToEl } from '../../common/services/util.service';
+import { Utils } from '../../common/services/util.service';
 import { validateDataByDataField } from '../../../../megaphonApp/modules/common/services/dynamicFormService';
 
 export default {
@@ -87,7 +87,7 @@ export default {
       ev.preventDefault();
       this.selectedTab = elId;
       this.$router.push({query: {...(this.$route.query || {}), tab: elId}});
-      return scrollToEl(`#${elId}`, -20);
+      return Utils.scrollToEl(`#${elId}`, -20);
     },
 
     validateTab(tabName) {

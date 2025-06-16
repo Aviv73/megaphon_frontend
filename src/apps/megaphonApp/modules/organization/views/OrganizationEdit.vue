@@ -295,7 +295,7 @@
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue'
 // import { uploadImg } from '../../common/services/util.service'
-import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service'
+import { Utils } from '../../../../common/modules/common/services/util.service'
 import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import TableActionBtns from '../../../../common/modules/common/cmps/TableActionBtns.vue';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
@@ -380,7 +380,7 @@ export default {
 
     async imgUploaded(imgsrc, pathToSet) {
       // const uploadedImg = await imgUploaded(imgsrc);
-      setDeepVal(this.organizationToEdit, pathToSet, imgsrc);
+      Utils.setDeepVal(this.organizationToEdit, pathToSet, imgsrc);
     },
 
 
@@ -406,11 +406,11 @@ export default {
     },
     addLogoItem() {
       if (!this.organizationToEdit.logos) this.organizationToEdit.logos = [];
-      this.organizationToEdit.logos.push({url: '', id: getRandomId(), title: ''});
+      this.organizationToEdit.logos.push({url: '', id: Utils.getRandomId(), title: ''});
     },
     AddMediaLinkItem() {
       if (!this.organizationToEdit.mediaLinks) this.organizationToEdit.mediaLinks = [];
-      this.organizationToEdit.mediaLinks.push({src: '', id: getRandomId(), type: '', title: ''});
+      this.organizationToEdit.mediaLinks.push({src: '', id: Utils.getRandomId(), type: '', title: ''});
     },
     addTheme(themesArr) {
       themesArr.push(organizationService.getEmptyThemeItem());

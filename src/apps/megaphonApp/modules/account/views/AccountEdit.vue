@@ -48,7 +48,7 @@
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';
 import { organizationService } from '../../organization/services/organization.service';
-import { validatePassword } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 export default {
   name: 'AccountEdit',
   props: {
@@ -101,7 +101,7 @@ export default {
     },
     
     isPassValid() {
-      return validatePassword(this.accountToEdit.password);
+      return Utils.validatePassword(this.accountToEdit.password);
     },
 
     organizationId() {

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { cropText } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 export default {
   name: 'ClipTxt',
   props: {
@@ -37,7 +37,7 @@ export default {
     },
     txtToShow() {
       if (this.toggled) return this.txt;
-      return cropText(this.txt, this.maxLength - (this.titleTxt?.length || 0));
+      return Utils.cropText(this.txt, this.maxLength - (this.titleTxt?.length || 0));
     },
     title() {
       return [this.titleTxt, this.txt].filter(Boolean).join(' ');

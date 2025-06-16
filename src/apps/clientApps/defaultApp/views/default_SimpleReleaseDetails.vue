@@ -32,7 +32,7 @@
 
 <script>
 import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
-import { scrollToEl } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 import FilesSection from '@/apps/common/modules/release/cmps/FilesSection.vue';
 
 export default {
@@ -70,7 +70,7 @@ export default {
   methods: {
     scrollToEl(elId) {
       this.selectedTab = elId;
-      return scrollToEl(`#${elId}`, -20);
+      return Utils.scrollToEl(`#${elId}`, -20);
     }
   }
 }

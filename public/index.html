@@ -8,6 +8,18 @@
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon"/>
     <link rel="manifest" href="./manifest.json">
     <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <!-- FRONT SERVICES -->
+    <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/elementService"></script>
+    <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/alertService"></script>
+    <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/utilsService"></script>
+    <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/dynamicCssPagesService"></script>
+    <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/uiThemes"></script>
+    <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/TaskManager"></script>
+    <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/EventEmmiter"></script>
+    <!-- <script src="http://localhost:3000/api/script/elementService"></script>
+    <script src="http://localhost:3000/api/script/alertService"></script>
+    <script src="http://localhost:3000/api/script/utilsService"></script> -->
   </head>
   <body>
     <noscript>

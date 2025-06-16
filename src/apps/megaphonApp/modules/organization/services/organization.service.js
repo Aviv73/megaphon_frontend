@@ -1,7 +1,7 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
 
-import { getRandomId, setDeepVal } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '../../../../common/modules/common/services/util.service';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';
 
 import allThemes from '../../../themes/index';
@@ -96,16 +96,16 @@ function searchOrganizations(filterBy) {
 
 
 function createEmptyReleaseTypeItem(name = '', isGroup = false) {
-  return { name, id: getRandomId(), followReleaseType: '', /* fileUrl: '', */ dataFieldsLocalFilePath: '', isGroup };
+  return { name, id: Utils.getRandomId(), followReleaseType: '', /* fileUrl: '', */ dataFieldsLocalFilePath: '', isGroup };
 }
 function createEmptyRouteItem(name = '', releaseTypes = []) {
-  return { name, releaseFilter: {releaseTypes, wasDistributed: undefined}, id: getRandomId(), showInRoles: ['admin', 'producer'], htmlContentFilePath: '' };
+  return { name, releaseFilter: {releaseTypes, wasDistributed: undefined}, id: Utils.getRandomId(), showInRoles: ['admin', 'producer'], htmlContentFilePath: '' };
 }
 function createEmptyInnerFilterItem() {
-  return { field: '', title: '', options: [], id: getRandomId() };
+  return { field: '', title: '', options: [], id: Utils.getRandomId() };
 }
 function createEmptyTemplateItem() {
-  return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', id: getRandomId(), handlebarsLocalFilePath: '', appName: '' };
+  return { name: '', type: '' /*'0'/'1'*/ , releaseTypes: [/*releaseTypesIds*/], url: '', id: Utils.getRandomId(), handlebarsLocalFilePath: '', appName: '' };
 }
 
 
@@ -125,7 +125,7 @@ function getAccountOrgItem(orgId = '', inviterId = '') {
 
 function getEmptyThemeItem(idx = 0) {
   return {
-    id: getRandomId(),
+    id: Utils.getRandomId(),
     name: allThemes[idx].name,
     colors: [...allThemes[idx].colors],
     fonts: [...allThemes[idx].fonts],
@@ -174,7 +174,7 @@ function getEmptyOrganization() {
       producerApp: [getEmptyThemeItem(0), getEmptyThemeItem(1)],
       newsletter:  [getEmptyThemeItem()],
       loginPage: [{
-        id: getRandomId(),
+        id: Utils.getRandomId(),
         bgImg: {src:''},
         msg: ''
       }],

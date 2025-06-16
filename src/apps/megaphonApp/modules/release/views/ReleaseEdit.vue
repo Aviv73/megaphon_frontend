@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { getDeepVal, setDeepVal } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '../../../../common/modules/common/services/util.service';
 import DynamicInput from '../cmps/DynamicFormInputs/DynamicInput.vue';
 import { createItemForDynamicForm } from '../../common/services/dynamicFormService';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
@@ -157,10 +157,10 @@ export default {
 
     getVal(fieldPath) {
       if (!fieldPath) return undefined;
-      return getDeepVal(this.itemToEdit.releaseData, fieldPath);
+      return Utils.getDeepVal(this.itemToEdit.releaseData, fieldPath);
     },
     setVal(val, fieldPath) {
-      setDeepVal(this.itemToEdit.releaseData, fieldPath, val);
+      Utils.setDeepVal(this.itemToEdit.releaseData, fieldPath, val);
       this.itemToEdit.releaseData = {...this.itemToEdit.releaseData};
       this.$forceUpdate();
     },

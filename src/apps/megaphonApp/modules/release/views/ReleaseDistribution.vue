@@ -209,7 +209,7 @@ import { mailingListService } from '../services/mailingList.service.js';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
 import Modal from '@/apps/common/modules/common/cmps/Modal.vue';
 import { templateUtils } from '../../../../common/modules/common/services/template.util.service';
-import { copyToClipBoard, getRandomId } from '../../../../common/modules/common/services/util.service';
+import { Utils } from '../../../../common/modules/common/services/util.service';
 import ReleaseDistributionLinkCoppier from '../cmps/ReleaseDistributionLinkCoppier.vue';
 import ContactList from '../../contact/cmps/ContactList.vue';
 import { organizationService } from '../../organization/services/organization.service';
@@ -292,7 +292,7 @@ export default {
     },
 
     sendInEmailUrl() {
-      // &token=${getRandomId('')}
+      // &token=${Utils.getRandomId('')}
       return templateUtils.getReleaseLandingPageUrl(this.release, this.org, 'landingPage', config, window.location.pathname) + `?releaseId=${this.release?._id}&origin=email&token=`;
     },
 
@@ -317,7 +317,7 @@ export default {
       this.fromEmail.allowReply = fromEmailItem?.allowReply || false;
     },
     // copyUrlToClipboard() {
-    //   copyToClipBoard(this.sendInEmailUrl);
+    //   Utils.copyToClipBoard(this.sendInEmailUrl);
     //   alertService.toast({ msg: this.$t(`copiedToClipboard`), type: 'safe' });
     // },
     async getItem() {

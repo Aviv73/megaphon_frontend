@@ -36,11 +36,11 @@ import { distributionService } from './apps/megaphonApp/modules/release/services
 
 
 import commonStoreModules from './apps/common/store'
-import { concatItems } from './apps/common/modules/common/services/util.service';
+import { Utils } from './apps/common/modules/common/services/util.service';
 // import { setStylingForOrgTheme } from '@/apps/common/modules/common/services/dynamicPages.service.js';
 import { loadScripts } from './apps/common/modules/common/services/loadScript.service';
 import { organizationService } from './apps/megaphonApp/modules/organization/services/organization.service';
-import { getRelevantThemeForOrg } from './apps/common/modules/common/services/dynamicPages.service';
+import { dynamicCssPagesService } from './apps/common/modules/common/services/dynamicPages.service';
 import SecondFactorAuthModal from './apps/common/modules/auth/cmps/SecondFactorAuthModal.vue';
 
 export default {
@@ -128,7 +128,7 @@ export default {
       if (appConfig.singleOrgMode) {
         appConfig.appOrganization = await this.$store.dispatch({type: 'organization/loadItem', id: appConfig.appOrganizationId, dontSet: true, isToInheritData: true })
         this.$store.commit({ type: 'setRootOrg', org: appConfig.appOrganization, isClient: false });
-        // this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, false, this.uiConfig, this.$store.getters.selectedAppData, '.megaphon-app'), selector:  '.megaphon-app' });
+        // this.$store.commit({ type: 'setSelectedTheme', theme: dynamicCssPagesService.getRelevantThemeForOrg(appConfig.appOrganization, false, this.uiConfig, this.$store.getters.selectedAppData, '.megaphon-app'), selector:  '.megaphon-app' });
         // setStylingForOrgTheme(appConfig.appOrganization, '.megaphon-app');
       }
       // this.setTheme(false);
@@ -144,7 +144,7 @@ export default {
     await this.initSelectedApp(org);
     // setStylingForOrgTheme(org, '.'+this.selectedAppData.name, true);
     // this.setTheme(true);
-    // this.$store.commit({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization, true, this.uiConfig, this.$store.getters.selectedAppData, '.'+this.selectedAppData.name), selector:  '.'+this.selectedAppData.name });
+    // this.$store.commit({ type: 'setSelectedTheme', theme: dynamicCssPagesService.getRelevantThemeForOrg(appConfig.appOrganization, true, this.uiConfig, this.$store.getters.selectedAppData, '.'+this.selectedAppData.name), selector:  '.'+this.selectedAppData.name });
     // document.title = org.name;
     // if (this.selectedAppData?.params?.title) document.title = this.selectedAppData.params.title;
     // this.setOrgStyling(org);
@@ -160,7 +160,7 @@ export default {
     setTheme() {
       const isClient = appConfig.client;
       const selector = isClient ? '.'+this.selectedAppData.name : '.megaphon-app';
-      this.$store.dispatch({ type: 'setSelectedTheme', theme: getRelevantThemeForOrg(appConfig.appOrganization || this.org, isClient, this.uiConfig, this.$store.getters.selectedAppData, selector), selector });
+      this.$store.dispatch({ type: 'setSelectedTheme', theme: dynamicCssPagesService.getRelevantThemeForOrg(appConfig.appOrganization || this.org, isClient, this.uiConfig, this.$store.getters.selectedAppData, selector), selector });
     },
 
     async initUser(requireAuth = false) {
@@ -238,7 +238,7 @@ export default {
       // init locales::
       for (let [locale, messages] of Object.entries(selectedAppData.locales)) {
         const existedLocMsgs = this.$i18n.getLocaleMessage(locale) || {};
-        this.$i18n.setLocaleMessage(locale, concatItems(existedLocMsgs, messages));
+        this.$i18n.setLocaleMessage(locale, Utils.concatItems(existedLocMsgs, messages));
       }
 
       this.$store.commit({ type: 'setSelectedAppData', selectedAppData});

@@ -1,7 +1,7 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 // import { socketService } from '@/apps/common/modules/common/services/socket.service';
 import { appendScript } from "./loadScript.service";
-import { getRandomId } from './util.service';
+import { Utils } from './util.service';
 import { TaskManager } from './TaskManager';
 
 const ENDPOINT = 'file';
@@ -62,7 +62,7 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
 
   const lastDotIdx = file.name.lastIndexOf('.');
   const type = lastDotIdx > -1 ? file.name.substring(lastDotIdx+1) : file.mimetype?.split('/').pop();
-  const storeFileName = `file-${getRandomId()}.${type}`;
+  const storeFileName = `file-${Utils.getRandomId()}.${type}`;
 
   
   const isVideo = ['mp4'].includes(type);

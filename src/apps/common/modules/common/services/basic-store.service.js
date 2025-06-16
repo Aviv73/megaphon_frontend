@@ -1,6 +1,6 @@
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
-import { delay } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
 
 import { $t } from '@/plugins/i18n';
@@ -36,7 +36,7 @@ const initState = () => ({
 async function StoreAjax({ commit, dispatch, getters }, { do: toDo, onSuccess, onError, dontDelay = false, loading = true, dontSet = false, silent = false }) {
   try {
     if (loading) commit({ type: 'setLoading', val: true });
-    // if (!dontDelay) await delay(700);
+    // if (!dontDelay) await Utils.delay(700);
   
     let res = await toDo();
     if (res.err) {

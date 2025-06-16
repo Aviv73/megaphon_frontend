@@ -40,7 +40,7 @@ import ItemFilter from './ItemFilter.vue';
 import ItemList from './ItemList.vue';
 import PaginationBtns from './PaginationBtns.vue';
 import Loader from '../Loader.vue';
-import { setDeepVal, deepIterateWithObj } from '../../services/util.service';
+import { Utils } from '../../services/util.service';
 
 import { basicStoreService } from '@/apps/common/modules/common/services/basic-store.service';
 
@@ -105,7 +105,7 @@ export default {
         if (this.dontEmit && this.dontEmitOnInit) return;
         if (!this.dontRoute) {
           // const query = {};
-          // deepIterateWithObj(filterVal, (key, val) => {
+          // Utils.deepIterateWithObj(filterVal, (key, val) => {
           //   if (this.$route.query[key] != val) query[key] = val;
           // }, '_');
           // if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
@@ -129,7 +129,7 @@ export default {
     },
     setFilterOnQuery(filterBy) {
       const query = {};
-      deepIterateWithObj(filterBy, (key, val) => {
+      Utils.deepIterateWithObj(filterBy, (key, val) => {
         if (this.$route.query[key] != val) query[key] = val;
       }, '_');
       if (Object.keys(query).length) this.$router.push({ query: { ...this.$route.query, ...query} });
@@ -149,12 +149,12 @@ export default {
           // if (!queryParams[key]) continue;
           let valToSet = queryParams[key]? +queryParams[key] : queryParams[key];
           if (isNaN(valToSet)) valToSet = queryParams[key]
-          setDeepVal(filterByToSet, key, valToSet, '_');
+          Utils.setDeepVal(filterByToSet, key, valToSet, '_');
         }
-        deepIterateWithObj(filterByToSet, (key) => {
+        Utils.deepIterateWithObj(filterByToSet, (key) => {
           let valToSet = +queryParams[key];
           if (isNaN(valToSet)) valToSet = queryParams[key]
-          if (queryParams[key]) setDeepVal(filterByToSet, key, valToSet, '_');
+          if (queryParams[key]) Utils.setDeepVal(filterByToSet, key, valToSet, '_');
         }, '_');
         if (forceQuery) this.setFilterOnQuery(filterByToSet);
       }

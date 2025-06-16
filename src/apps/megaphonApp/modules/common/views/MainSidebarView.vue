@@ -13,7 +13,7 @@ import { organizationService } from '../../organization/services/organization.se
 import appConfig from '../../../../../appConfig';
 import { consts } from '@/apps/common/modules/common/services/const.service.js';
 // import { setDynamicStylingThemeEl } from '@/apps/common/modules/common/services/dynamicPages.service';
-import allThemes from '../../../themes/index';
+// import allThemes from '../../../themes/index';
 import Loader from '../../../../common/modules/common/cmps/Loader.vue';
 export default {
   components: { SideBar, Loader },

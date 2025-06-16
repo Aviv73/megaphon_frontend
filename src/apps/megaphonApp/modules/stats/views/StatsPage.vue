@@ -173,8 +173,7 @@ import Tooltip from '../../../../common/modules/common/cmps/Tooltip.vue';
 
 import ReportList from '../cmps/ReportList.vue';
 import { Pie as PieChart, Bar as BarChart } from 'vue-chartjs';
-import { mapItemsBy, Time } from '../../../../common/modules/common/services/util.service';
-import { cropText } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 import ToggleBtns from '../../../../common/modules/common/cmps/ToggleBtns.vue';
 
 export default {
@@ -192,7 +191,7 @@ export default {
       chart2Data: { items: [], total: 0 },
       activityChartData: { items: [], total: 0 },
 
-      Time
+      Time: Utils.Time
     }
   },
   created() {
@@ -201,8 +200,8 @@ export default {
   },
   methods: {
     // getTotalTimeWatchedPerVideoWatchLog,
-    MsToPretyWatchTime: Time.MsToPretyWatchTime,
-    cropText,
+    MsToPretyWatchTime: Utils.Time.MsToPretyWatchTime,
+    cropText: Utils.cropText,
     async fetchVideoWatchLogsForChart1() {
       const filterBy = { 
         addAditionalData: true,
@@ -279,7 +278,7 @@ export default {
       return this.chart1Data.items;
     },
     watchLogsMapedByFile() {
-      return mapItemsBy(this.onlyRelevantWatchItems, 'releaseData.title');
+      return Utils.mapItemsBy(this.onlyRelevantWatchItems, 'releaseData.title');
     },
     watchLogsMapedByFileAndOneWatchPerAccount() {
       const res = {};
@@ -294,7 +293,7 @@ export default {
         const value = this.watchLogsMapedByFile[key].reduce((acc, c) => acc + c.totalWatchTime, 0)
         res[key] = {
           value: value / 1000 / 60 / 60,
-          key: Time.MsToPretyWatchTime(value)
+          key: Utils.Time.MsToPretyWatchTime(value)
         };
       }
       return res;
@@ -308,14 +307,14 @@ export default {
     },
 
     logsMapedByMonths() {
-      return Time.mapByTime(this.chart2Data.items, '_createdAt', 'month/year');
+      return Utils.Time.mapByTime(this.chart2Data.items, '_createdAt', 'month/year');
     },
 
     deviceLogsMap() {
-      return mapItemsBy(this.activityChartData.items.filter(c => c.deviceType), 'deviceType');
+      return Utils.mapItemsBy(this.activityChartData.items.filter(c => c.deviceType), 'deviceType');
     },
     countryLogsMap() {
-      return mapItemsBy(this.activityChartData.items.filter(c => c.country), 'country');;
+      return Utils.mapItemsBy(this.activityChartData.items.filter(c => c.country), 'country');;
     }
 
   },

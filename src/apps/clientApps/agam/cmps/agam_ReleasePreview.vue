@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { htmlStrToText } from '@/apps/common/modules/common/services/util.service';
+import { Utils } from '@/apps/common/modules/common/services/util.service';
 import { fixFileSrcToThumbnail } from '@/apps/common/modules/common/services/file.service';
 export default {
   name: 'agam_ReleasePreview',
@@ -33,7 +33,7 @@ export default {
     },
 
     fullDescStr() {
-      return htmlStrToText(this.releaseData.content);
+      return Utils.htmlStrToText(this.releaseData.content);
     },
     shortenDesc() {
       const desc = this.fullDescStr;
