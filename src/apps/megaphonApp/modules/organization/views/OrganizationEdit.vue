@@ -108,6 +108,18 @@
       <div class="flex column gap50" v-if="loggedUser?.roles.includes('developer')">
         <button class="btn big secondary align-self-start"><span @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</span></button>
         <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
+
+          <div class="flex column gap20 align-start">
+            <p>{{$t('organizationLocales.design')}}</p>
+            <div class="flex gap20" v-for="templateType in ['landingPage']" :key="templateType">
+              <div class="flex column gap10" v-for="releaseType in organizationToEdit.releaseTypes" :key="releaseType.id">
+
+                <p>{{releaseType.name}}</p>
+                <FormInput v-model="organizationToEdit.defaultTemplates[releaseType.id][templateType]" type="radio" :items="getAllRelevantTemplatesForReleaseType(releaseType.id, organizationToEdit, templateType, true).map(c => ({value: c.id, label: c.name}))"/>
+              </div>
+            </div>
+          </div>
+          
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
           <FormInput type="text" labelholder="redirectUrl" v-model="organizationToEdit.redirectUrl"/>
           
@@ -319,7 +331,8 @@ export default {
       showDeveloperZone: false,
       allDomains: [],
 
-      allDefaultThemes: allDefaultThemes.map(c => ({label: c.name, value: c}))
+      allDefaultThemes: allDefaultThemes.map(c => ({label: c.name, value: c})),
+      allTemplateTypes: templateUtils.getAllTemplateTypes()
     }
   },
   computed: {
@@ -357,8 +370,12 @@ export default {
     },
   },
   methods: {
+    getAllRelevantTemplatesForReleaseType() {
+      return templateUtils.getAllRelevantTemplatesForReleaseType(...arguments);
+    },
     async getOrganization() {
       this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id, isToInheritData: true });
+      this.setupDefaultTemplateMap();
       this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));
     },
     async getAllDomains() {
@@ -399,6 +416,7 @@ export default {
     addReleaseTypeItem() {
       if (!this.organizationToEdit.releaseTypes) this.organizationToEdit.releaseTypes = [];
       this.organizationToEdit.releaseTypes.push(organizationService.createEmptyReleaseTypeItem());
+      this.setupDefaultTemplateMap();
     },
     addTemplateItem() {
       if (!this.organizationToEdit.templates) this.organizationToEdit.templates = [];
@@ -425,6 +443,22 @@ export default {
       if (themeToInherit.colors) theme.colors = [...themeToInherit.colors];
       if (themeToInherit.fonts) theme.fonts = [...themeToInherit.fonts];
       // this.$forceUpdate();
+    },
+
+    setupDefaultTemplateMap() {
+      if (!this.organizationToEdit.defaultTemplates) {
+        this.$set(this.organizationToEdit, 'defaultTemplates', {});
+        // this.organizationToEdit.defaultTemplates = {};
+      }
+      for (let releaseType of this.organizationToEdit.releaseTypes) {
+        if (!this.organizationToEdit.defaultTemplates[releaseType.id]) {
+          // this.organizationToEdit.defaultTemplates[releaseType.id] = 
+          const newCurrMap = this.allTemplateTypes.reduce((acc, c) => ({
+            ...acc, [c]: this.getAllRelevantTemplatesForReleaseType(releaseType.id, this.organizationToEdit, c, true)[0]?.id || ''
+          }), {});
+          this.$set(this.organizationToEdit.defaultTemplates, releaseType.id, newCurrMap);
+        }
+      }
     }
   },
   created() {

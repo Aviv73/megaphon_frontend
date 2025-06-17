@@ -20,8 +20,6 @@
 <script>
 import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
-import { getSelectedAppData } from '@/apps/index.js';
-getSelectedAppData
 
 export default {
   name: 'SettingsPage',

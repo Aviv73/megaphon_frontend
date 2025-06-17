@@ -42,6 +42,7 @@ import { loadScripts } from './apps/common/modules/common/services/loadScript.se
 import { organizationService } from './apps/megaphonApp/modules/organization/services/organization.service';
 import { dynamicCssPagesService } from './apps/common/modules/common/services/dynamicPages.service';
 import SecondFactorAuthModal from './apps/common/modules/auth/cmps/SecondFactorAuthModal.vue';
+import allThemes from './apps/megaphonApp/themes/index';
 
 export default {
   name: 'App',
@@ -160,7 +161,7 @@ export default {
     setTheme() {
       const isClient = appConfig.client;
       const selector = isClient ? '.'+this.selectedAppData.name : '.megaphon-app';
-      this.$store.dispatch({ type: 'setSelectedTheme', theme: dynamicCssPagesService.getRelevantThemeForOrg(appConfig.appOrganization || this.org, isClient, this.uiConfig, this.$store.getters.selectedAppData, selector), selector });
+      this.$store.dispatch({ type: 'setSelectedTheme', theme: appConfig.appOrganization || this.org ? dynamicCssPagesService.getRelevantThemeForOrg(appConfig.appOrganization || this.org, isClient, this.uiConfig, this.$store.getters.selectedAppData, selector) : allThemes[0], selector });
     },
 
     async initUser(requireAuth = false) {

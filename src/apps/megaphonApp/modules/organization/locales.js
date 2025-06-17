@@ -49,7 +49,8 @@ const en = {
       "confirmAccountApproval": "Are you sure you want to approve this account to join the organization?"
     },
     "approveJoin": "Approve join",
-    "saveOrgToUploadFilesMsg": "Save organization in order to upload files"
+    "saveOrgToUploadFilesMsg": "Save organization in order to upload files",
+    "design": "Design"
   }
 }
 const he = {
@@ -105,7 +106,8 @@ const he = {
       "confirmAccountApproval": "האם אתה בטוח שאתה מעוניין לאשר את הצטרפות המשתמש לארגון?"
     },
     "approveJoin": "אשר הצטרפות",
-    "saveOrgToUploadFilesMsg": "שמור את הארגון על מנת להעלות קבצים"
+    "saveOrgToUploadFilesMsg": "שמור את הארגון על מנת להעלות קבצים",
+    "design": "עיצוב"
   }
 }
 const heF = {
