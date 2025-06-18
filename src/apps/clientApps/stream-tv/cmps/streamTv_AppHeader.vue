@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header flex align-center">
+  <header class="app-header flex align-center ignore-theme-style">
     <div class="container_ header-content height-all width-all flex align-center space-between" v-if="lastSeenGroupRelease || !isScreenWide || (loggedUser && ($route.name === 'ReleaseDetails'))">
       <NavOrBurger :showBurger="!!allRouteFilters.length" side="right">
         <template v-slot:header v-if="org?.requireAuth">
@@ -119,7 +119,8 @@ export default {
     height: var(--header-height);
     min-height: unset;
     max-width: 100%;
-    background-color: rgba(255, 255, 255, 0) !important;
+    // background-color: rgba(255, 255, 255, 0) !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
     // background-color: $layout-black;
     color: var(--clr-0);
     // position: relative;
@@ -172,7 +173,7 @@ export default {
       padding: 0 em(20px);
       // padding: 20% em(10px) em(20px) em(10px);
       // background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) !important;
-      background-color: rgba(0, 0, 0, 0.7) !important;
+      // background-color: rgba(0, 0, 0, 0.7) !important;
       // font-weight: 600;
       position: relative;
       
