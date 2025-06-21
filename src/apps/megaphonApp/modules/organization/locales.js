@@ -107,7 +107,9 @@ const he = {
     },
     "approveJoin": "אשר הצטרפות",
     "saveOrgToUploadFilesMsg": "שמור את הארגון על מנת להעלות קבצים",
-    "design": "עיצוב"
+    "design": "עיצוב",
+    "design-landingPage": "עיצוב דף נחיתה",
+    "design-email": "עיצוב מייל הפצה"
   }
 }
 const heF = {

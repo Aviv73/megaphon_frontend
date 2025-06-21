@@ -52,6 +52,22 @@
         <button @click="AddMediaLinkItem" class="btn big">{{$t('add')}}</button>
       </div>
 
+      <div class="flex column gap20 align-start" v-if="loggedUser?.roles.includes('admin')">
+        <p>{{$t('organizationLocales.design')}}</p>
+        <div class="flex space-between gap100">
+          <div class="flex column gap20" v-for="templateType in ['landingPage', 'email']" :key="templateType">
+            <p>{{$t('organizationLocales.design-' + templateType)}}</p>
+            <div class="flex gap30">
+              <div class="flex column gap10" v-for="releaseType in organizationToEdit.releaseTypes" :key="releaseType.id">
+
+                <p>{{releaseType.name}}</p>
+                <FormInput v-model="organizationToEdit.defaultTemplates[releaseType.id][templateType]" type="radio" :items="getAllRelevantTemplatesForReleaseType(releaseType.id, organizationToEdit, templateType, true).map(c => ({value: c.id, label: c.name}))"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="flex column gap20 align-start">
         <p>{{$t('settingsLocales.settings')}}</p>
         <FormInput type="checkbox" labelholder="organizationLocales.requireAuth" v-model="organizationToEdit.requireAuth"/>
@@ -102,24 +118,13 @@
           <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
         </div>
       </template>
+      
 
 
 
       <div class="flex column gap50" v-if="loggedUser?.roles.includes('developer')">
         <button class="btn big secondary align-self-start"><span @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</span></button>
         <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
-
-          <div class="flex column gap20 align-start">
-            <p>{{$t('organizationLocales.design')}}</p>
-            <div class="flex gap20" v-for="templateType in ['landingPage']" :key="templateType">
-              <div class="flex column gap10" v-for="releaseType in organizationToEdit.releaseTypes" :key="releaseType.id">
-
-                <p>{{releaseType.name}}</p>
-                <FormInput v-model="organizationToEdit.defaultTemplates[releaseType.id][templateType]" type="radio" :items="getAllRelevantTemplatesForReleaseType(releaseType.id, organizationToEdit, templateType, true).map(c => ({value: c.id, label: c.name}))"/>
-              </div>
-            </div>
-          </div>
-          
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
           <FormInput type="text" labelholder="redirectUrl" v-model="organizationToEdit.redirectUrl"/>
           

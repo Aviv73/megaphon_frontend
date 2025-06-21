@@ -1,5 +1,5 @@
 <template>
-  <div class="release-edit app-form-styling flex column gap20" v-if="itemToEdit && org">
+  <div class="release-edit app-form-styling flex column gap20" :class="{'design-mode': showDesign}" v-if="itemToEdit && org">
     <!-- <header class="header tab-nav">
       <div class="container width-all">
         <button @click="showDesign = false" :class="{selected: !showDesign}">{{$t('releaseLocales.editRelease')}}</button>
@@ -16,6 +16,7 @@
         </form>
       </template>
       <ReleaseDesignViewer
+        @close="showDesign = false"
         v-else
         :release="itemToEdit"
         :organization="org"
@@ -214,6 +215,10 @@ export default {
 .megaphon-app {
   .release-edit {
     padding-top: rem(20px);
+    &.design-mode {
+      overflow: hidden;
+      max-height: 100vh;
+    }
     .form-content {
       padding: em(10px);
     }

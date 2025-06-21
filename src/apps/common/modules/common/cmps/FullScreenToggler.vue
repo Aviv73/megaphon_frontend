@@ -10,6 +10,9 @@
 import  { getSvgs } from '@/assets/images/svgs.js';
 export default {
   name: 'FullScreenToggler',
+  props: {
+    initFullScreen: Boolean
+  },
   data() {
     return {
       fullScreenMode: false
@@ -35,6 +38,7 @@ export default {
   },
   created() {
     document.addEventListener('fullscreenchange', this.onFullScreenChange);
+    if (this.initFullScreen) this.toggle();
   },
   destroyed() {
     document.removeEventListener('fullscreenchange', this.onFullScreenChange);

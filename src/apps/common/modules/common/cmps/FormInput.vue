@@ -442,6 +442,11 @@ export default {
       width: em(15px);
       height: em(15px);
     }
+    &.radio {
+      input {
+        width: unset;
+      }
+    }
     input, select, textarea {
       // border: unset;
       height: 100%;
