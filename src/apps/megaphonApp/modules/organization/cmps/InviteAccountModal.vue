@@ -1,7 +1,7 @@
 <template>
   <ToggleModal :showCloseBtn="true" :fullScreen="true" class="invite-account-modal">
     <template #toggler>
-        <div class="btn primary big ">
+        <div class="primary big ">
           {{$t('accountLocales.inviteAccounts')}}
         </div>
       </template>
@@ -15,7 +15,7 @@
           <ul v-if="accounts.length" class="flex column gap5">
             <li v-for="account in accounts" :key="account._id" class="user-preview flex align-center space-between">
                 <MiniAccountPreview :account="account"/>
-                <button class="btn height-all" @click.prevent="() => inviteAccount(account)">{{$t('invite')}}</button> 
+                <button class="underline height-all" @click.prevent="() => inviteAccount(account)">{{$t('invite')}}</button> 
                 <!-- <FormInput @keydown.native.enter.prevent.stop="" type="select" v-model="rolesToInvite[account._id]" :itemsMap="orgRoles"/> -->
             </li>
           </ul>

@@ -140,7 +140,7 @@ const he = {
     "editRelease": "עריכת רליס",
     "createRelease": "יצירת רליס",
     "confirmAndDistribute": "אישור והפצה",
-    "designAndPreview": "עיצוב ותצוגה מקדימה",
+    "designAndPreview": "תצוגה מקדימה",
     "landingPageDesign": "עיצוב דף נחיתה",
     "newsletterDesign": "עיצוב מייל הפצה",
     "searchReleases": "חפש רליסים",

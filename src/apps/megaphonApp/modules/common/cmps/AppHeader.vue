@@ -7,67 +7,82 @@
         </div>
       </router-link>
       <FormInput v-else class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect"/>
-
-
-      <NavOrBurger class="release-actions align-center_ space-between flex gap10 height-all" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
-        <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
-        <div class="links create-links nav-items flex align-center gap15 height-all" v-if="isOrgProducer">
-          <router-link class="nav-item create-nav gap15" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
-            <button class="btn_ big primary">
-              <span class="hover-pop">{{$t('create')}} {{type.name}}</span>
-            </button>
-          </router-link>
-        </div>
-
-        <div class="nav-items flex align-center gap30 wrap height-all flex-1 justify-end">
-          <form class="flex-1 flex justify-end" @submit.prevent="evManager.emit('searchReleases', searchTerm)" v-if="isScreenWide && ($route.name === 'ReleasePage')">
-            <FormInput class="search" placeholder="search" iconPos="left" v-model="searchTerm" @change_="val => evManager.emit('search', val)">
-              <button>
-                <div v-html="searchImg" class="filter-icon-img svg-parrent"></div>
-                <!-- <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/> -->
+      
+      <template v-if="headerMode === 'default'">
+        <NavOrBurger class="release-actions align-center_ space-between flex gap10 height-all" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
+          <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
+          <div class="links create-links nav-items flex align-center gap15 height-all" v-if="isOrgProducer">
+            <router-link class="nav-item create-nav gap15" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
+              <button class="btn_ big primary">
+                <span class="hover-pop">{{$t('create')}} {{type.name}}</span>
               </button>
-            </FormInput>
-          </form>
-          <div class="filters nav-items flex align-center_ height-all">
-            <!-- <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.routes" :key="filter._id" @click="emitFilter(filter)">
-              {{filter.title}}
-            </button> -->
-            <router-link
-              v-for="filterItem in filteredRoutesByRoles" :key="filterItem.id"
-              :to="{ name: 'ReleasePage', query: { page: filterItem.name  } }"
-              class="nav-item flex align-center height-all"
-              :class="{selected: $route.query.page === filterItem.name}"
-            >
-              <span class="hover-pop">{{filterItem.name}}</span>
             </router-link>
           </div>
-        </div>
-        <template v-if="isUserWatchOnly">
-          <button class="nav-item logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>
-          <router-link class="nav-item edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('authLocales.editUserDetails')}}</router-link>
-          <router-link class="nav-item org-header flex align-center gap10 small-screen-item" :to="{name: 'SettingsPage'}">
-            <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
-          </router-link>
-        </template>
-        <!-- <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
-        </div> -->
-      </NavOrBurger>
 
-      <div class="flex align-center gap20 height-all wide-screen-item" v-if="isUserWatchOnly">
-        <template>
-          <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
-            <!-- <p>{{$t('settingsLocales.settings')}}</p> -->
-            <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
-          </router-link>
-          <LoggedUserPreview class="to-the-right"/>
-        </template>
-        <!-- <div class="release-title height-all">
-          <div class="actual height-all flex-center">
-            <h2>Megaphon</h2>
+          <div class="nav-items flex align-center gap30 wrap height-all flex-1 justify-end">
+            <form class="flex-1 flex justify-end" @submit.prevent="evManager.emit('searchReleases', searchTerm)" v-if="isScreenWide && ($route.name === 'ReleasePage')">
+              <FormInput class="search" placeholder="search" iconPos="left" v-model="searchTerm" @change_="val => evManager.emit('search', val)">
+                <button>
+                  <div v-html="searchImg" class="filter-icon-img svg-parrent"></div>
+                  <!-- <img class="filter-icon-img" :src="require('@/apps/clientApps/agam/assets/images/search.svg')"/> -->
+                </button>
+              </FormInput>
+            </form>
+            <div class="filters nav-items flex align-center_ height-all">
+              <!-- <button :class="{selected: selecterOrgFilterId === filter.id}" v-for="filter in organization.routes" :key="filter._id" @click="emitFilter(filter)">
+                {{filter.title}}
+              </button> -->
+              <router-link
+                v-for="filterItem in filteredRoutesByRoles" :key="filterItem.id"
+                :to="{ name: 'ReleasePage', query: { page: filterItem.name  } }"
+                class="nav-item flex align-center height-all"
+                :class="{selected: $route.query.page === filterItem.name}"
+              >
+                <span class="hover-pop">{{filterItem.name}}</span>
+              </router-link>
+            </div>
           </div>
-        </div> -->
-      </div>
-      <!-- <div v-else class="ph wide-screen-item"></div> -->
+          <template v-if="isUserWatchOnly">
+            <button class="nav-item logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>
+            <router-link class="nav-item edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('authLocales.editUserDetails')}}</router-link>
+            <router-link class="nav-item org-header flex align-center gap10 small-screen-item" :to="{name: 'SettingsPage'}">
+              <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
+            </router-link>
+          </template>
+          <!-- <div class="release-actions nav flex align-center gap50 height-all" :class="{show:mobileShow}" v-if="showNavContent">
+          </div> -->
+        </NavOrBurger>
+
+        <div class="flex align-center gap20 height-all wide-screen-item" v-if="isUserWatchOnly">
+          <template>
+            <router-link class="nav-list-item org-header flex align-center gap10" :to="{name: 'SettingsPage'}">
+              <!-- <p>{{$t('settingsLocales.settings')}}</p> -->
+              <img :src="require('@/assets/images/icons/settings.png')" class="icon" alt=""/>
+            </router-link>
+            <LoggedUserPreview class="to-the-right"/>
+          </template>
+          <!-- <div class="release-title height-all">
+            <div class="actual height-all flex-center">
+              <h2>Megaphon</h2>
+            </div>
+          </div> -->
+        </div>
+        <!-- <div v-else class="ph wide-screen-item"></div> -->
+      </template>
+
+      <!-- <template v-if="headerMode === 'ReleaseEdit'">
+        <div class="flex gap10 align-center space-between container height-all">
+          <div>
+            <button class="underline btn_ big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
+          </div>
+          <div class="flex align-center gap30 height-all">
+            <button class="btn big" @click="close">{{$t('close')}}</button>
+            <button class="btn big ignor-flex flex align-center gap15" :disabled="!itemToEdit._id" @click="showDesign = true" ><div v-html="megSvgs.PreviewActions.eye" class="svg-parrent"></div><span>{{$t('releaseLocales.designAndPreview')}}</span></button>
+            <button class="btn big ignor-flex flex align-center gap15" :disabled="!isItemValid" @click="saveItem"><div v-html="megSvgs.save" class="svg-parrent"></div><span>{{$t('save')}}</span></button>
+            <button class="btn big bg-4 clr-1 ignor-flex flex align-center gap15" :disabled="!isItemValid" @click="confirmAndDistribute"><div v-html="megSvgs.PreviewActions.distribute" class="svg-parrent"></div><span>{{$t('distributeLocales.distribute')}}</span></button>
+          </div>
+        </div>
+      </template> -->
     </div>
   </header>
 </template>
@@ -81,6 +96,7 @@ import NavOrBurger from '../../../../common/modules/common/cmps/NavOrBurger.vue'
 import appConfig from '@/appConfig';
 import { fixFileSrcToThumbnail } from '../../../../common/modules/common/services/file.service';
 import  { getSvgs as getGlobalSvgs } from '@/assets/images/svgs.js';
+import  { getMegSvgs } from '../../../assets/images/svgs';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 export default {
   name: 'AppHeader',
@@ -147,6 +163,17 @@ export default {
 
     searchImg() {
       return getGlobalSvgs('var(--clr-0)').search;
+    },
+
+
+    headerMode() {
+      console.log(this.$route.name);
+      if (this.$route.name === 'ReleaseEdit') return 'ReleaseEdit';
+      if (this.$route.name === 'ReleaseDistribution') return 'ReleaseDistribution';
+      return 'default';
+    },
+    megSvgs() {
+      return getSvgs();
     }
   },
   methods: {

@@ -10,7 +10,7 @@
       newItemPageName="ContactEdit"
       :singlePreviewCmp="ContactPreview"
       :filterByCmp="ContactFilter"
-      :showActions="true"
+      :showActions="false"
       :dontRoute="true"
       :isLoading="isLoading"
       :showLoader="false"
@@ -21,22 +21,26 @@
     >
 
       <template v-slot:filterActions>
-        <div class="flex align-center gap10 justify-end">
-          <FormInput
-            type="file"
-            accept=".xlsx, .xls, .xl, .csv"
-            @change="uploadContactsFromFile"
-            v-model="contactsFiles"
-            placeholder="contactLocales.uploadFromFile"
-          />
-          <Tooltip :msg_="$t('contactLocales.uploadFileTooltipMsg')">
-            <template v-slot:content>
-              <div class="flex gap10 column">
-                <p v-html="$t('contactLocales.uploadFileTooltipMsg').split('\n').join('<br/>')"></p>
-                <a class="clr-4" href="/files/emptyContactsFileToFill.xlsx" download="contacts for megaphon.xlsx">{{$t('contactLocales.downloadEmtyFileToFill')}}</a>
-              </div>
-            </template>
-          </Tooltip>
+        <div class="flex align-center gap20">
+          <router-link :to="{name: 'ContactEdit', params: { organizationId: $route.params.organizationId } }"><button class="flex align-center gap10"><span class="flex align-center bold">+<div v-html="svgs.person" class="svg-parrent"></div></span><span>{{$t('addNew')}}</span></button></router-link>
+          <div class="flex align-center gap10 justify-end">
+            <div v-html="svgs.loadCloud" class="svg-parrent"></div>
+            <FormInput
+              type="file"
+              accept=".xlsx, .xls, .xl, .csv"
+              @change="uploadContactsFromFile"
+              v-model="contactsFiles"
+              placeholder="contactLocales.loadXlFile"
+            />
+            <Tooltip :msg_="$t('contactLocales.uploadFileTooltipMsg')">
+              <template v-slot:content>
+                <div class="flex gap10 column">
+                  <p v-html="$t('contactLocales.uploadFileTooltipMsg').split('\n').join('<br/>')"></p>
+                  <a class="clr-4" href="/files/emptyContactsFileToFill.xlsx" download="contacts for megaphon.xlsx">{{$t('contactLocales.downloadEmtyFileToFill')}}</a>
+                </div>
+              </template>
+            </Tooltip>
+          </div>
         </div>
       </template>
       <template v-slot:listHeader>
@@ -67,6 +71,7 @@ import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import { httpService } from '@/apps/common/modules/common/services/http.service';
 import Tooltip from '../../../../common/modules/common/cmps/Tooltip.vue';
 import { alertService } from '@/apps/common/modules/common/services/alert.service';
+import { getSvgs } from '../../../assets/images/svgs';
 
 export default {
   name: 'ContactPage',
@@ -112,6 +117,10 @@ export default {
     },
     isScreenWide() {
       return this.$store.getters.isScreenWide;
+    },
+
+    svgs() {
+      return getSvgs();
     }
   },
   watch: {
@@ -132,6 +141,15 @@ export default {
     .actions {
       // text-align: end;
       margin-bottom: em(20px);
+    }
+
+    
+    .filter-container {
+      padding: em(10px);
+      background-color: var(--clr-3);
+    }
+    .file-btn {
+      text-decoration: unset !important;
     }
     // background-color: #E0E0E0;
   }

@@ -2,7 +2,7 @@
   <div class="release-distribute flex column gap20" v-if="release && org">
     <div class="flex align-center space-between gap10 width-all wrap-reverse full-screen-container">
       <h2>{{$t('distributeLocales.distributeRelease')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
-      <div class="flex align-center gap20">
+      <div class="flex align-center gap20" v-if="false">
         <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distributeLocales.backToEditRelease')}}</button></router-link>
         <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distributeLocales.report')}}</button></router-link>
       </div>
@@ -108,10 +108,15 @@
           </div>
         </div>
       </div>
-      <footer class="width-all">
-        <div class="flex align-center justify-end gap10 full-screen-container height-all">
-          <button @click="sendTestEmail" class="btn big">{{$t('distributeLocales.sendTestMail')}}</button>
-          <button @click="distribute()" class="btn big primary">{{$t('distributeLocales.confirmAndDistribute')}}</button>
+      <footer class="width-all flex align-center">
+        <div class="flex align-center gap30">
+          <router-link :to="{ name: 'ReleaseEdit', params: {organizationId, id: $route.params.id} }"><button class="">{{$t('back')}}</button></router-link>
+          <div class="flex align-center justify-end gap10 full-screen-container height-all">
+            <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distributeLocales.report')}}</button></router-link>
+            <button class="btn big ignor-flex flex align-center gap15" @click="showDesign = true" ><div v-html="svgs.PreviewActions.eye" class="svg-parrent"></div><span>{{$t('releaseLocales.designAndPreview')}}</span></button>
+            <button @click="sendTestEmail" class="btn big">{{$t('distributeLocales.sendTestMail')}}</button>
+            <button @click="distribute()" class="btn big bg-4 clr-1 ignor-flex flex align-center gap15"><div v-html="svgs.PreviewActions.distribute" class="svg-parrent"></div><span>{{$t('distributeLocales.distribute')}}</span></button>
+          </div>
         </div>
       </footer>
 
@@ -185,6 +190,12 @@
           </div>
         </div>
       </Modal>
+      <ReleaseDesignViewer
+        @close="showDesign = false"
+        v-if="showDesign"
+        :release="release"
+        :organization="org"
+      />
     </template>
     <Loader :fullScreen="true" v-if="isLoading" 
       :msg="isLoadingForDist? `
@@ -216,6 +227,7 @@ import { organizationService } from '../../organization/services/organization.se
 
 import config from '@/config';
 import { getSvgs } from '../../../assets/images/svgs';
+import ReleaseDesignViewer from '../cmps/ReleaseDesignViewer.vue';
 
 const minimizeContact = ({_id, email, unsubscribed, name, mobile}) => ({_id, email, unsubscribed, name, mobile});
 
@@ -259,7 +271,10 @@ export default {
       sendingToStatus: {
         total: 0,
         sent: 0,
-      }
+      },
+
+      
+      showDesign: false
     }
   },
   computed: {
@@ -531,6 +546,7 @@ export default {
     Modal,
     ReleaseDistributionLinkCoppier,
     ContactList,
+    ReleaseDesignViewer,
   },
 
 
@@ -647,6 +663,18 @@ export default {
       left: 0;
       height: em(70px);
       background-color: var(--headingBg);
+      
+
+      @media (min-width: $small-screen-break) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        // width: 50%;
+        width: unset;
+        background-color: unset;
+        height: $header-height
+      }
     }
 
     .selected-input {

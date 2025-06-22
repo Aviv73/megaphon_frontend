@@ -48,10 +48,12 @@
     border-radius: em(5px);
     padding: 0 em(5px);
   
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: em(5px);
+    &:not(.ignor-flex) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: em(5px);
+    }
     
     img {
       height: em(20px);

@@ -136,6 +136,12 @@ export default {
     padding: em(20px) 0;
     height: auto;
 
+    
+    .filter-container {
+      padding: em(10px);
+      background-color: var(--clr-3);
+    }
+
     // background-color: #E0E0E0;
   }
 }

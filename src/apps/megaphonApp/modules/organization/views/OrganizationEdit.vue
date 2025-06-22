@@ -55,7 +55,10 @@
       <div class="flex column gap20 align-start" v-if="loggedUser?.roles.includes('admin')">
         <p>{{$t('organizationLocales.design')}}</p>
         <div class="flex space-between gap100">
-          <div class="flex column gap20" v-for="templateType in ['landingPage', 'email']" :key="templateType">
+          <FormInput v-model="designTemplateId" type="radio" :items="getAllRelevantTemplatesForReleaseType(organizationToEdit?.releaseTypes[0]?.id, organizationToEdit, 'landingPage', true).map(c => ({value: c.id, label: c.name}))"/>
+          
+          <!-- RIGHTER, BUT NOT AS NiCE; -->
+          <!-- <div class="flex column gap20" v-for="templateType in ['landingPage', 'email']" :key="templateType">
             <p>{{$t('organizationLocales.design-' + templateType)}}</p>
             <div class="flex gap30">
               <div class="flex column gap10" v-for="releaseType in organizationToEdit.releaseTypes" :key="releaseType.id">
@@ -64,7 +67,7 @@
                 <FormInput v-model="organizationToEdit.defaultTemplates[releaseType.id][templateType]" type="radio" :items="getAllRelevantTemplatesForReleaseType(releaseType.id, organizationToEdit, templateType, true).map(c => ({value: c.id, label: c.name}))"/>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -373,6 +376,18 @@ export default {
     didChange() {
       return JSON.stringify(this.organizationToEdit) !== JSON.stringify(this.itemBeforeEdit);
     },
+
+    designTemplateId: {
+      get() {
+        const firstItemId = this.organizationToEdit?.releaseTypes?.[0]?.id || '';
+        return this.organizationToEdit?.defaultTemplates?.[firstItemId]?.landingPage || '';
+      },
+      set(val) {
+        for (let key in this.organizationToEdit.defaultTemplates) {
+          this.organizationToEdit.defaultTemplates[key]['landingPage'] = val;
+        }
+      }
+    }
   },
   methods: {
     getAllRelevantTemplatesForReleaseType() {

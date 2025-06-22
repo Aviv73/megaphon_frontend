@@ -148,7 +148,7 @@
           hidden
         />
         <button
-          class="btn primary mid file-btn"
+          class="btn_ primary_ underline mid file-btn"
           @click="$refs.elInput.click()"
         >{{$t(placeholder || labelholder)}}
         </button>

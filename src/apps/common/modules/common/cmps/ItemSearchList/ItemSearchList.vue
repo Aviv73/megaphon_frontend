@@ -1,9 +1,9 @@
 <template>
-  <div class="item-page flex align-center_ space-between gap15 column flex-1 height-all">
+  <div class="item-page flex align-center_ space-between gap15_ column flex-1 height-all">
     <div class="width-all flex align-start space-between wrap gap50 filter-container">
       <component :is="filterByCmp || 'ItemFilter'" :initFilter="filterBy" @filtered="setFilter" v-bind="propsToPass"/>
       <div class="flex gap20" v-if="showActions && newItemPageName">
-        <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="btn primary mid">{{$t('addNew')}}</button></router-link>
+        <router-link v-if="showActions && newItemPageName" :to="{name: newItemPageName, params: { organizationId: $route.params.organizationId } }"><button class="underline btn_ primary_ mid">{{$t('addNew')}}</button></router-link>
         <slot class="flex-1" name="filterActions"/>
       </div>
       <slot v-else name="filterActions" class="flex-1"/>

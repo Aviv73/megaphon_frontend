@@ -24,25 +24,24 @@
       />
     </main>
     <footer class="footer width-all">
-      <div class="flex gap10 align-center space-between container height-all">
+      <div class="flex gap40 align-center space-between container height-all">
         <div>
-          <button class="btn big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
+          <button class="underline btn_ big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
         </div>
         <div class="flex align-center gap30 height-all">
           <button class="btn big" @click="close">{{$t('close')}}</button>
           <button class="btn big" v-if="showDesign" @click="showDesign = false">{{$t('releaseLocales.editRelease')}}</button>
-          <button class="btn big" v-if="!showDesign" :disabled="!itemToEdit._id" @click="showDesign = true" >{{$t('releaseLocales.designAndPreview')}}</button>
+          <button class="btn big ignor-flex flex align-center gap15" v-if="!showDesign" :disabled="!itemToEdit._id" @click="showDesign = true" ><div v-html="svgs.PreviewActions.eye" class="svg-parrent"></div><span>{{$t('releaseLocales.designAndPreview')}}</span></button>
+          <button class="btn big ignor-flex flex align-center gap15" :disabled="!isItemValid" @click="saveItem"><div v-html="svgs.save" class="svg-parrent"></div><span>{{$t('save')}}</span></button>
+          <button class="btn big bg-4 clr-1 ignor-flex flex align-center gap15" :disabled="!isItemValid" @click="confirmAndDistribute"><div v-html="svgs.PreviewActions.distribute" class="svg-parrent"></div><span>{{$t('distributeLocales.distribute')}}</span></button>
           
-          <template v-if="isScreenWide">
-            <button class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">{{$t('saveAndClose')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
-            <button class="btn big primary" :disabled="!isItemValid" @click="saveItem">{{$t('save')}} <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/></button>
+          <!-- <template v-if="isScreenWide">
           </template>
           <button v-else class="btn big primary" :disabled="!isItemValid" @click="saveItemAndClose">
             {{$t('save')}}
-            <!-- <img :src="require('@/apps/megaphonApp/assets/images/save_white.svg')"/> -->
-          </button>
-          <button v-if="isScreenWide" class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('releaseLocales.confirmAndDistribute')}}</button>
-          <button v-else class="btn big primary" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('distributeLocales.distribute')}}</button>
+          </button> -->
+          <!-- <button v-if="isScreenWide" class="btn big primary  bg-4 clr-1" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('releaseLocales.confirmAndDistribute')}}</button>
+          <button v-else class="btn big primary  bg-4 clr-1" :disabled="!isItemValid" @click="confirmAndDistribute">{{$t('distributeLocales.distribute')}}</button> -->
         </div>
       </div>
     </footer>
@@ -59,6 +58,7 @@ import { templateUtils } from '../../../../common/modules/common/services/templa
 import FormInput from '../../../../common/modules/common/cmps/FormInput.vue';
 import evManager from '@/apps/common/modules/common/services/event-emmiter.service.js';
 import { elementService } from '../../../../common/modules/common/services/element.service';
+import { getSvgs } from '../../../assets/images/svgs';
 export default {
   name: 'ReleaseEdit',
   data() {
@@ -102,6 +102,11 @@ export default {
 
     isScreenWide() {
       return this.$store.getters.isScreenWide;
+    },
+
+    
+    svgs() {
+      return getSvgs();
     }
   },
   methods: {
@@ -214,6 +219,10 @@ export default {
 @import '@/assets/styles/global/index';
 .megaphon-app {
   .release-edit {
+    .svg-parrent, svg {
+      width: auto;
+      // height: 0.8em;
+    }
     padding-top: rem(20px);
     &.design-mode {
       overflow: hidden;
@@ -259,6 +268,16 @@ export default {
       height: em(50px);
       background-color: #E0E0E0;
       padding: em(10px);
+
+      @media (min-width: $small-screen-break) {
+        top: 0;
+        left: 0;
+        z-index: 100;
+        // width: 50%;
+        width: unset;
+        background-color: unset;
+        height: $header-height;
+      }
     }
     main {
       margin-bottom: em(50px);

@@ -6,11 +6,11 @@
         <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('releaseLocales.distributedAt')}}: {{pretyDistributionTime}}</p> -->
       <div v-if="!isUserOrgWatchOnly && !reportMode" class="actions-container flex column space-between align-end gap7 height-all">
         <div class="actions flex column align-end gap5 space-between flex-1">
-          <button :title="$t('watch')" class="hover-pop" v-if="isProducer" @click.stop="goToLandingPage"><div class="img" v-html="actionSvgs.eye"></div></button>
-          <router-link :title="$t('edit')" class="hover-pop" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.pencil"></div></router-link>
-          <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
-          <router-link :title="$t('statsLocales.stat')" class="hover-pop" v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.stats"></div></router-link>
-          <router-link :title="$t('distributeLocales.distributeRelease')" class="hover-pop" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="img" v-html="actionSvgs.distribute"></div></router-link>
+          <button :title="$t('watch')" class="hover-pop flex align-center justify-center" v-if="isProducer" @click.stop="goToLandingPage"><div class="svg-parrent img" v-html="actionSvgs.eye"></div></button>
+          <router-link :title="$t('edit')" class="hover-pop flex align-center justify-center" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseEdit', params: { organizationId: item.organizationId, id: item._id } }" ><div class="svg-parrent img" v-html="actionSvgs.pencil"></div></router-link>
+          <!-- <router-link v-if="item.distributedAt" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><svg-parrent img :src="require('@/apps/megaphonApp/assets/images/PreviewActions/stats.svg')" alt=""></router-link> -->
+          <router-link :title="$t('statsLocales.stat')" class="hover-pop flex align-center justify-center" v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: { organizationId: item.organizationId, id: item._id } }" ><div class="svg-parrent img" v-html="actionSvgs.stats"></div></router-link>
+          <router-link :title="$t('distributeLocales.distributeRelease')" class="hover-pop flex align-center justify-center" v-if="isProducer" @click.stop="" :to="{ name: 'ReleaseDistribution', params: { organizationId: item.organizationId, id: item._id } }" ><div class="svg-parrent img" v-html="actionSvgs.distribute"></div></router-link>
           <p class="dist-title align-self-end_" v-if="item.distributedAt || true">{{pretyDistributionTime}}</p>
         </div>
         <!-- <FormInput class="select-checkbox" v-if="isProducer" type="checkbox" v-model="isSelected" @click.native.stop="val => toggleToSelectedReleases(false)"/> -->
@@ -201,15 +201,23 @@ export default {
           // width: var(--btn-size) !important;
           aspect-ratio: 1 / 1;
           height: var(--btn-size) !important;
+          // padding: em(2px);
           @media (max-width: $small-screen-break) {
             // width: em(30px) !important;
             // height: em(30px) !important;
             // --btn-size: #{em(30px)} !important;
           }
-          img, .img {
+          // img, .img {
+          //   // display: flex;
+          //   // align-items: center;
+          //   // justify-content: center;
+          //   // text-align: center;
+          //   // width: 100%;
+          //   // height: 100%;
+          //   color: var(--clr-4);
+          // }
+          .svg-parrent {
             width: 100%;
-            height: 100%;
-            color: var(--clr-4);
           }
         }
       }

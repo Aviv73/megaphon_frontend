@@ -5,12 +5,12 @@
         {{$t('filter')}}
       </div>
     </template>
-    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between gap20 flex-1">
-      <div class="pickers flex align-start gap10 flex-1">
+    <form @submit.prevent="emitFilter" class="contact-filter flex-1 flex align-start space-between_ gap20 flex-1">
+      <div class="pickers flex align-start gap10 flex-1_">
         <CompanyPicker class="flex-1" v-model="companies" :onlyRelevants="false" :organizationId="organizationId"/>
         <TagPicker class="flex-1" v-model="tags" :onlyRelevants="false" :organizationId="organizationId"/>
       </div>
-      <div class="flex flex-1 align-center gap20">
+      <div class="flex flex-1_ align-center gap20">
         <div class="serach flex flex-1 align-start_">
           <FormInput class="flex-1" placeholder="search" v-model="filterBy.filter.search" iconPos="left">
             <button class="flex align-center justify-center">
