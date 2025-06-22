@@ -9,7 +9,7 @@
       <FormInput v-else class="org-selector" v-model="selectedOrgId" :reactive="true" @change="setOrg" type="select" :items="organizationsToSelect"/>
       
       <template v-if="headerMode === 'default'">
-        <NavOrBurger class="release-actions align-center_ space-between flex gap10 height-all" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
+        <NavOrBurger class="release-actions align-center_ space-between flex gap10 height-all" side="left" v-if="showNavContent" :class="{'flex-1': isScreenWide}">
           <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
           <div class="links create-links nav-items flex align-center gap15 height-all" v-if="isOrgProducer">
             <router-link class="nav-item create-nav gap15" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">

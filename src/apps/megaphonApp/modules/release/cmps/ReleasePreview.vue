@@ -167,11 +167,11 @@ export default {
     .actions-container {
       position: absolute;
       // top: em(10px);
-      // left: em(10px);
+      // inset-inline-end: em(10px);
       padding: em(6px);
 
       top: 0;
-      left: 0;
+      inset-inline-end: 0;
       height: var(--height);
       // @media (max-width: $small-screen-break) {
       //   height: em(200px);
@@ -229,7 +229,7 @@ export default {
         width: 100%;
         height: 30%;
         bottom: 0;
-        left: 0;
+        inset-inline-end: 0;
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
       }
     }
@@ -237,7 +237,7 @@ export default {
     .select-checkbox {
       position: absolute;
       bottom: 10px;
-      right: 10px;
+      inset-inline-start: 10px;
     }
 
     &.selected {

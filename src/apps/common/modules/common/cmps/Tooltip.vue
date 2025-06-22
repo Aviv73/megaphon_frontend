@@ -63,25 +63,28 @@ export default {
 
       const elPreviewPos = Utils.getElPosInParent(elPreview, this.attachToElement);
 
+      const rightProp = 'inset-inline-start';
+      const leftProp = 'inset-inline-end';
+
       // const { clientX, clientY } = ev? ev : { clientX: elPreviewPos.x, clientY: elPreviewPos.y };
 
       const style = {};
-      style.left = style.right = style.bottom = style.top = style.width = style.transform = '';
+      style[leftProp] = style[rightProp] = style.bottom = style.top = style.width = style.transform = '';
       
       let width = 280;
       const height = msgHeight || 100;
 
-      // style.left = 0;
-      style.left = preWidth/2;
+      // style[leftProp] = 0;
+      style[leftProp] = preWidth/2;
       let diffXFromBorder;
       if ((parentWidth - elPreviewPos.x) < width) {
-        style.left -= width
+        style[leftProp] -= width
         diffXFromBorder = elPreviewPos.x - width;
       } else diffXFromBorder = elPreviewPos.x + width;
-      if (diffXFromBorder < 0) style.left -= diffXFromBorder;
-      else if (diffXFromBorder > parentWidth) style.left += diffXFromBorder;
-      else style.left += preWidth / 2;
-      style.left += 'px';
+      if (diffXFromBorder < 0) style[leftProp] -= diffXFromBorder;
+      else if (diffXFromBorder > parentWidth) style[leftProp] += diffXFromBorder;
+      else style[leftProp] += preWidth / 2;
+      style[leftProp] += 'px';
       
       // style.top = 0;
       style.top = preHeight/2;
@@ -105,7 +108,7 @@ export default {
       if ((width*1.5) > parentWidth) {
         // style.width = '95vw';
         style.width = 0.90*parentWidth + 'px';
-        style.left = parentWidth / 2 - elPreviewPos.x + 'px';
+        style[leftProp] = parentWidth / 2 - elPreviewPos.x + 'px';
         style.transform = 'translateX(-50%)';
       } else style.width = width + 'px';
 
@@ -157,7 +160,7 @@ export default {
     .close-btn {
       position: absolute;
       top: em(5px);
-      right: em(5px);
+      inset-inline-start: em(5px);
       line-height: 1em;
     }
   }

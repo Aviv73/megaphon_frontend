@@ -266,7 +266,7 @@ export default {
         <p>${this.loggedUser.email || this.watermarkMsg.split('|').join('</p><p>')}</p>
       </div>`);
       const watermarkPos = getWatermarkPosByMs(elVideo.currentTime * 1000);
-      const style = { left: watermarkPos.x, top: watermarkPos.y, ...(watermarkPos.style || {}) };
+      const style = { 'inset-inline-end': watermarkPos.x, top: watermarkPos.y, ...(watermarkPos.style || {}) };
       // watermarkEl.style = style;
       for (let key in style) watermarkEl.style[key] = style[key];
       elContainer.appendChild(watermarkEl);
@@ -287,7 +287,7 @@ export default {
           position: 'absolute',
           top: '50%',
           transform: 'translateY(-50%)',
-          left: '0',
+          'inset-inline-end': '0',
           fontSize: elementService._.em(15),
           fontWeight: 'bold',
           animation: '25s linear moving-watermark-animation infinite',
@@ -300,15 +300,15 @@ export default {
           }
         },
         '@keyframes moving-watermark-animation': {
-          '0%': {left: '-100%'},
-          '100%': {left: '100%'}
+          '0%': {'inset-inline-end': '-100%'},
+          '100%': {'inset-inline-end': '100%'}
         },
         '&:before': {
           display: 'none',
           content: `""`,
           position: 'absolute',
           top: elementService._.em(20),
-          right: elementService._.em(20),
+          'inset-inline-start': elementService._.em(20),
           width: elementService._.em(70),
           height: elementService._.em(70),
           backgroundImage: `url(${this.logoUrl})`,

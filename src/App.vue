@@ -204,9 +204,9 @@ export default {
     },
     displayUiConfig() {
       const config = this.uiConfig;
-      if (appConfig.client) this.setLocale('he');
+      if (appConfig.client) this.setLocale(this.$store.getters.envManagement?.defaultLocale || 'he');
       // else this.setLocale('he');
-      else this.setLocale(config.locale || 'he');
+      else this.setLocale(config.locale || this.$store.getters.envManagement?.defaultLocale || 'he');
       // else this.setLocale();
       alertService.setConfig({ direction: this.isRtl? 'rtl' : 'ltr' });
       // if (appConfig.client) return;

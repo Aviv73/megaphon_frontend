@@ -81,7 +81,7 @@ export default {
       position: absolute;
       background-color: white;
       top: 0;
-      left: -10px;
+      inset-inline-end: -10px;
       transform: translateY(-50%);
       color: $layout-red;
       border: 1px solid $layout-red;

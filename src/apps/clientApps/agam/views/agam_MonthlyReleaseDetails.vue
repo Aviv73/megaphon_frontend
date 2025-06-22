@@ -150,10 +150,10 @@ export default {
         // .arrow-btn {
         //   position: absolute;
         //   top: 50%;;
-        //   right: em(-60px);
+        //   inset-inline-start: em(-60px);
         //   &:last-child {
-        //     right: unset;
-        //     left: em(-60px);
+        //     inset-inline-start: unset;
+        //     inset-inline-end: em(-60px);
         //   }
         // }
         width: 60%;
@@ -245,10 +245,10 @@ export default {
         // position: relative;
         // position: absolute;
         // top: 50%;
-        // right: 0;
+        // inset-inline-start: 0;
         // transform: translateY(-50%);
-        // right: unset;
-        // left: unset;
+        // inset-inline-start: unset;
+        // inset-inline-end: unset;
         // position: unset !important;
       }
 

@@ -108,7 +108,7 @@ export default {
       //       margin: 0;
       //       position: absolute;
       //       bottom: -3px;
-      //       right: 50%;
+      //       inset-inline-start: 50%;
       //       transform: translateX(50%);
       //       width: 95%;
       //       height: 4px;

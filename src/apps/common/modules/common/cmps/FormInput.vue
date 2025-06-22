@@ -481,7 +481,7 @@ export default {
   .icon-container {
     position: absolute;
     top: 50%;
-    left: em(5px);
+    inset-inline-end: em(5px);
     transform: translateY(-50%);
     width: em(18px);
     height: em(18px);
@@ -561,7 +561,7 @@ export default {
     align-items: center;
     // color: $gray-700;
     font-weight: 400;
-    padding-left: em(8px);
+    padding-inline-end: em(8px);
     height: 100%;
   }
   box-sizing: border-box;
@@ -585,7 +585,7 @@ export default {
       .blur {
         position: fixed;
         top: 0;
-        right: 0;
+        inset-inline-start: 0;
         width: 100vw;
         height: 100vh;
         z-index: 4;
@@ -607,12 +607,12 @@ export default {
       position: relative;
       .toggle-btn,
       .inner-square {
-        border-left: em(5px) solid transparent;
-        border-right: em(5px) solid transparent;
+        border-inline-end: em(5px) solid transparent;
+        border-inline-start: em(5px) solid transparent;
         border-bottom: em(5px) solid #c5c6cd;
         color: rgb(96, 98, 102);
         // position: absolute;
-        // right: em(14px);
+        // inset-inline-start: em(14px);
         // bottom: 50%;
         // transform: translateY(50%) rotate(180deg);
         transform: rotate(180deg);
@@ -642,7 +642,7 @@ export default {
           top: unset !important;
           bottom: 100%;
         }
-        left: -em(1px);
+        inset-inline-end: -em(1px);
         opacity: 0;
         transform: translateY(em(3px));
         z-index: -1;
@@ -725,7 +725,7 @@ export default {
 }
 input {
   // padding: em(5px);
-  padding-left: none;
+  padding-inline-end: none;
   border: unset;
   background: unset;
   outline: none;

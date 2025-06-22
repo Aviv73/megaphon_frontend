@@ -90,7 +90,7 @@ export default {
   .release-design-viewer {
     position: fixed;
     top: 0;
-    left: 0;
+    inset-inline-end: 0;
     width: 100vw;
     height: 100vh;
     z-index: 1000;
@@ -105,10 +105,10 @@ export default {
       background-color: #fff;
     }
     .full-screen-btn {
-      left: unset !important;
+      inset-inline-end: unset !important;
       top: unset !important;
       bottom: em(10px) !important;
-      right: em(10px) !important;
+      inset-inline-start: em(10px) !important;
       background-color: #fff;
       z-index: 1001;
       display: none;
@@ -116,7 +116,7 @@ export default {
     .actions {
       position: absolute;
       top: em(10px);
-      left: 50%;
+      inset-inline-end: 50%;
       transform: translateX(-50%);
       z-index: 1001;
       color: black;

@@ -260,11 +260,11 @@ export default {
           // background-image: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_white.svg');
         }
         &.plus {
-          // right: em(10px);
+          // inset-inline-start: em(10px);
           // transform: unset;
         }
         &.minus {
-          // left: em(10px);
+          // inset-inline-end: em(10px);
           // transform: rotate(180deg);
         }
       }

@@ -35,7 +35,7 @@ export default {
   // z-index: 10000000;
   // position: fixed;
   // top: 0;
-  // left: 0;
+  // inset-inline-end: 0;
   // padding-top: em(20px) !important;
   // padding-bottom: 100px !important;
   height: calc(100vh - #{$header-height});

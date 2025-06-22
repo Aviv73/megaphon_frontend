@@ -264,14 +264,14 @@ export default {
       position: fixed; 
       width: 100%;
       bottom: 0;
-      left: 0;
+      inset-inline-end: 0;
       height: em(50px);
       background-color: #E0E0E0;
       padding: em(10px);
 
       @media (min-width: $small-screen-break) {
         top: 0;
-        left: 0;
+        inset-inline-end: 0;
         z-index: 100;
         // width: 50%;
         width: unset;

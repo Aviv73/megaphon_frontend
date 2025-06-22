@@ -166,7 +166,7 @@ export default {
               width: 100%;
               height: 100%;
               top: 0;
-              left: 0;
+              inset-inline-end: 0;
               position: absolute;
               z-index: 1;
             }
@@ -193,7 +193,7 @@ export default {
       box-shadow: $light-shadow;
       position: fixed;
       top: 50%;
-      right: em(10px);
+      inset-inline-start: em(10px);
       transform: translateY(-50%);
       border-radius: 50%;
       display: flex;

@@ -660,7 +660,7 @@ export default {
       // position: fixed; 
       width: 100%;
       bottom: 0;
-      left: 0;
+      inset-inline-end: 0;
       height: em(70px);
       background-color: var(--headingBg);
       
@@ -668,7 +668,7 @@ export default {
       @media (min-width: $small-screen-break) {
         position: fixed;
         top: 0;
-        left: 0;
+        inset-inline-end: 0;
         z-index: 100;
         // width: 50%;
         width: unset;

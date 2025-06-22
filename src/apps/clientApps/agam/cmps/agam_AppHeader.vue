@@ -146,19 +146,19 @@ export default {
         // position: absolute;
         // top: 10px;
         top: 0;
-        right: 0;
-        // right: 12px;
-        // left: unset;
+        inset-inline-end: 0;
+        // inset-inline-end: 12px;
+        // inset-inline-start: unset;
         // width: 120px;
         // padding-top: 10px;
         // width: 120px;
-        // right: 12px;
-        // border-bottom-left-radius: 50%;
-        // border-bottom-right-radius: 50%;
+        // inset-inline-end: 12px;
+        // border-bottom-inline-end-radius: 50%;
+        // border-bottom-inline-start-radius: 50%;
       }
     }
     .release-title .actual {
-      left: 12px
+      inset-inline-end: 12px
     }
   
   

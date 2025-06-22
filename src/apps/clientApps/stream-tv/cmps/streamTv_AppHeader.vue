@@ -134,8 +134,8 @@ export default {
       text-align: center;
       position: absolute;
       top: 0;
-      left: em(20px);
-      // left: 0;
+      inset-inline-end: em(20px);
+      // inset-inline-end: 0;
       .actual {
         width: em(100px);
         min-height: em(80px);
@@ -153,10 +153,10 @@ export default {
         &::after {
           content: "";
           border-bottom: em(8px) solid transparent;
-          border-left: em(100px) solid var(--clr-4);
+          border-inline-end: em(100px) solid var(--clr-4);
           height: 0px;
           position: absolute;
-          left: 0;
+          inset-inline-end: 0;
           top: 100%;
         }
         box-shadow: $light-shadow;

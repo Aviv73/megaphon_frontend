@@ -79,7 +79,7 @@ export default {
       width: 100%;
       position: absolute;
       bottom: 0;
-      left: 0;
+      inset-inline-end: 0;
     }
   }
 }

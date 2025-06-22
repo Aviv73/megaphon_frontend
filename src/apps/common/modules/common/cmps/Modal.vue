@@ -38,12 +38,12 @@ export default {
   height: 100%;
   width: 100%;
   top: 0;
-  left: 0;
+  inset-inline-end: 0;
   .blure {
     position: absolute;
     z-index: 30;
     top: 0;
-    right: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: 100%;
     background-color: $blure-clr;
@@ -52,7 +52,7 @@ export default {
     position: absolute;
     z-index: 30;
     top: 50%;
-    left: 50%;
+    inset-inline-end: 50%;
     width: fit-content;
     height: fit-content;
     max-width: 95vw;
@@ -69,7 +69,7 @@ export default {
       height: em(15px);
       position: absolute;
       top: em(5px);
-      right: em(5px);
+      inset-inline-start: em(5px);
       font-size: rem(15px);
       line-height: 1em;
     }

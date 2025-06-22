@@ -48,7 +48,7 @@ export default {
         if (_isOpen) return {
           transition: ANIMATION_DURATION + 's',
           top: '50%',
-          left: '50%',
+          'inset-inline-end': '50%',
           transform: 'translate(-50%, -50%) scale(1)'
         }
         else {
@@ -56,7 +56,7 @@ export default {
           return {
             transition: ANIMATION_DURATION + 's',
             top:  togglerPos.y + (this.$refs.toggler.offsetHeight / 2) + 'px',
-            left: togglerPos.x + (this.$refs.toggler.offsetWidth  / 2) + 'px',
+            'inset-inline-end': togglerPos.x + (this.$refs.toggler.offsetWidth  / 2) + 'px',
             transform: 'translate(-50%, -50%) scale(0)'
           }
         }

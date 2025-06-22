@@ -82,7 +82,7 @@ export default {
     .blure {   
       position: fixed;
       top: 0;
-      right: 0;
+      inset-inline-start: 0;
       height: 100vh;
       width: 100vw;
       background-color: $blure-clr;
@@ -95,13 +95,14 @@ export default {
       flex-direction: column;
       position: fixed;
       top: 0;
-      left: 0;
-      transform: translateX(-100%);
+      inset-inline-end: -100%;
+      // transform: translateX(-100%);
       transition: 0.3s;
       z-index: 32;
       width: 175px;
       &.show {
-        transform: translateX(0);
+        // transform: translateX(0);
+        inset-inline-end: 0;
       }
       .nav {
         height: unset;
@@ -149,10 +150,11 @@ export default {
     }
     &.toTheRight {
       .nav-container {
-        left: unset;
-        right: 0;
+        inset-inline-end: unset;
+        inset-inline-start: 0;
         &:not(.show) {
-          transform: translateX(100%);
+          // transform: translateX(100%);
+          inset-inline-start: -100%;
         }
       }
     }

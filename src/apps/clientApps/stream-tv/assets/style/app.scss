@@ -81,7 +81,7 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
         color: white;
         width: 50%;
         height: 60%;
-        right: em(50px);
+        inset-inline-start: em(50px);
         bottom: em(50px);
         gap: em(10px);
         h2, h3 {
@@ -108,11 +108,11 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
         // background: url('~@/apps/megaphonApp/assets/images/icons/right_slider_arrow_white.svg') no-repeat center / contain;
       }
       &.plus {
-        right: 50%;
+        inset-inline-start: 50%;
         transform: translateX(#{em(80px)});
       }
       &.minus {
-        left: 50%;
+        inset-inline-end: 50%;
         transform: translateX(-#{em(80px)}) rotate(180deg);
       }
     }
@@ -145,7 +145,7 @@ $defaultAppFont: Inter, Arimo, Rubik, sans-serif;
     h3 {
       position: absolute;
       // bottom: em(10px);
-      left: 50%;
+      inset-inline-end: 50%;
       transform: translateX(-50%);
       color: white !important;
       font-size: em(30px);

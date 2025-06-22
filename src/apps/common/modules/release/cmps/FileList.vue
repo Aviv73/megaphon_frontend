@@ -167,7 +167,7 @@ export default {
   }
   .img-actions {
     position: absolute;
-    left: em(40px);
+    inset-inline-end: em(40px);
     top: em(10px);
     .btn {
       width: em(20px);

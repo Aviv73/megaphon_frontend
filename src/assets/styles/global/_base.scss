@@ -2,7 +2,7 @@
 
 input, select, textarea {
   // padding: em(5px);
-  // padding-left: none;
+  // padding-inline-end: none;
   // border: unset;
   // background: unset;
   // outline: none;
@@ -112,7 +112,7 @@ h4 {
 
 @mixin prettyScroll {
   &::-webkit-scrollbar {
-    margin-left: 2.5px;
+    margin-inline-end: 2.5px;
     padding: 1px;
     width: 5px;
     height: 5px;
@@ -135,7 +135,7 @@ h4 {
 }
 .pretty-scroll {
   &::-webkit-scrollbar {
-    margin-left: 2.5px;
+    margin-inline-end: 2.5px;
     padding: 1px;
     width: 5px;
     background-color: rgb(83, 83, 83); // rgb(228, 59, 59) // rgb(255, 137, 137)

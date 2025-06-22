@@ -204,11 +204,11 @@ export default {
       // background-size: 100%;
     }
     &.plus {
-      right: em(5px);
+      inset-inline-start: em(5px);
       // transform: rotate(180deg);
     }
     &.minus {
-      left: em(5px);
+      inset-inline-end: em(5px);
       transform: rotate(180deg);
     }
     // img {

@@ -81,7 +81,7 @@ export default {
     position: absolute;
     // background-color: red;
     // z-index: 2;
-    left: em(10px);
+    inset-inline-end: em(10px);
     top: em(10px);
     width: em(20px);
     height: em(20px);
@@ -102,7 +102,7 @@ export default {
     // &:after {
     //   position: absolute;
     //   top: 0;
-    //   left: 0;
+    //   inset-inline-end: 0;
     //   width: 100%;
     //   height: 100%;
     //   // transform: scale(1.1);
@@ -139,9 +139,9 @@ export default {
     max-width: unset !important;
     max-height: unset !important;
     top: 0;
-    left: 0;
+    inset-inline-end: 0;
     bottom: 0;
-    right: 0;
+    inset-inline-start: 0;
     .content {
       height: 100% !important;
       width: 100% !important;

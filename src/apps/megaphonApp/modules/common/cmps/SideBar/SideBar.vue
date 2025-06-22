@@ -380,7 +380,7 @@ export default {
         background-color: var(--clr-1);
         position: fixed;
         top: $header-height;
-        right: 0;
+        inset-inline-start: 0;
         transition: .3s;
       }
       .blur {
@@ -388,14 +388,14 @@ export default {
         width: 100vw;
         position: fixed;
         top: 0;
-        right: 0;
+        inset-inline-start: 0;
         background-color: #00000050;
         display: block;
       }
       .toggle-btn {
         position: fixed;
         bottom: 60px;
-        left: 30px;
+        inset-inline-end: 30px;
         background-color: #fff;
         padding: rem(10px);
         border-radius: 50%;
@@ -405,14 +405,14 @@ export default {
       }
       &.closed {
         .main-sidebar {
-          right: -100%;
+          inset-inline-start: -100%;
         }
         .blur {
           display: none;
         }
         .toggle-btn {
-          left: unset;
-          right: 30px;
+          inset-inline-end: unset;
+          inset-inline-start: 30px;
         }
       }
     }

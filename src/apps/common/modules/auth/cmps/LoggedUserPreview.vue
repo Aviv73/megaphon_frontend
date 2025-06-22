@@ -101,7 +101,7 @@ export default {
         position: fixed;
         z-index: 35;
         top: 0;
-        right: 0;
+        inset-inline-start: 0;
         width: 100vw;
         height: 100vh;
         background-color: $blure-clr;
@@ -115,7 +115,7 @@ export default {
         display: flex;
         align-items: center;
         gap: em(10px);
-        left: 50%;
+        inset-inline-end: 50%;
         transform: translateX(-50%);
         bottom: calc(-100% - #{em(15px)});
         background: #fff;
@@ -136,7 +136,7 @@ export default {
           background-color: #fff;
           position: absolute;
           top: 0;
-          left: 50%;
+          inset-inline-end: 50%;
           transform: translate(-50%, -50%) rotate(45deg);
 
           width: em(10px);
@@ -154,10 +154,10 @@ export default {
           .top-like {
             // display: none;
             top: 50%;
-            left: 0;
+            inset-inline-end: 0;
             transform: translate(-50%, -50%) rotate(45deg);
           }
-          left: calc(100% + #{em(10px)});
+          inset-inline-end: calc(100% + #{em(10px)});
           transform: translateY(50%);
           bottom: 50%;
         }
