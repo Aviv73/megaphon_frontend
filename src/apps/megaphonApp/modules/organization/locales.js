@@ -51,6 +51,11 @@ const en = {
     "approveJoin": "Approve join",
     "saveOrgToUploadFilesMsg": "Save organization in order to upload files",
     "design": "Design"
+  },
+  "artistLocales": {
+    "artistSettings": "Artist settings",
+    "createArtist": "Create artist",
+    "artistName": "Artist name",
   }
 }
 const he = {
@@ -110,6 +115,11 @@ const he = {
     "design": "עיצוב",
     "design-landingPage": "עיצוב דף נחיתה",
     "design-email": "עיצוב מייל הפצה"
+  },
+  "artistLocales": {
+    "artistSettings": "הגדרות אמן",
+    "createArtist": "צור אמן",
+    "artistName": "שם אמן",
   }
 }
 const heF = {
@@ -123,6 +133,9 @@ const heF = {
       ...he.organizationLocales.alerts,
       "confirmRemove": "האם את בטוחה שאת רוצה למחוק את הארגון?",
     }
+  },
+  artistLocales: {
+    ...he.artistLocales
   }
 }
 

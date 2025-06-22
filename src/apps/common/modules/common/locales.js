@@ -121,7 +121,8 @@ const en = {
   "watch": "Watch",
 
   // "cantUploadFileError": "Cant upload file",
-  "back": "Back"
+  "back": "Back",
+  "A-Z": "A-Z"
 
 }
 const he = {
@@ -243,7 +244,8 @@ const he = {
   "prev": "הקודם",
   "watch": "צפיה",
   // "cantUploadFileError": "המערכת נכשלה לשמור את הקובץ",
-  "back": "חזרה"
+  "back": "חזרה",
+  "A-Z": "א-ב"
 }
 const heF = {
   ...he,

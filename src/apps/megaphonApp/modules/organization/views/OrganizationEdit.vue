@@ -1,12 +1,12 @@
 <template>
   <div v-if="organizationToEdit" class="organization-edit app-form-styling simple-form flex column gap40 width-all">
     <!-- <h2 v-if="organizationToEdit._id">{{$t('organizationLocales.editOrganization')}}</h2> -->
-    <h2 v-if="organizationToEdit._id">{{$t('organizationLocales.organizationSettings')}}</h2>
-    <h2 v-else>{{$t('organizationLocales.createOrganization')}}</h2>
+    <h2 v-if="organizationToEdit._id">{{$t(organizationToEdit.type === 'artist' ? 'artistLocales.artistSettings' : 'organizationLocales.organizationSettings')}}</h2>
+    <h2 v-else>{{$t(organizationToEdit.type === 'artist' ? 'artistLocales.createArtist' : 'organizationLocales.createOrganization')}}</h2>
     <form v-if="organizationToEdit" @submit.prevent="" class="flex column width-all gap50 align-start">
       <div class="input-container">
-        <p>{{$t('organizationLocales.name')}}</p>
-        <FormInput type="text" placeholder="organizationLocales.name" v-model="organizationToEdit.name"/>
+        <p>{{$t(organizationToEdit.type === 'artist' ? 'artistLocales.artistName' : 'organizationLocales.name')}}</p>
+        <FormInput type="text" :placeholder="organizationToEdit.type === 'artist' ? 'artistLocales.artistName' : 'organizationLocales.name'" v-model="organizationToEdit.name"/>
       </div>
       <div class="flex column gap20">
         <p>{{$t('organizationLocales.logo')}}</p>
@@ -14,37 +14,18 @@
         <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
       </div>
 
-      <div class="from-emails-section flex column gap20 align-start">
-        <p>{{$t('organizationLocales.fromEmails')}}</p>
-        <ul class="emails flex column gap10 table-like">
-          <li>
-            <p>{{$t('email')}}</p>
-            <p>{{$t('name')}}</p>
-            <p>{{$t('distributeLocales.allowReply')}}</p>
-            <p></p>
-          </li>
-          <li v-for="(curr, idx) in organizationToEdit.fromEmails || []" :key="idx">
-            <FormInput type="text" placeholder="name" v-model="curr.email"/>
-            <FormInput type="text" placeholder="name" v-model="curr.title"/>
-            <FormInput type="checkbox" placeholder="distributeLocales.allowReply" class="width-content" v-model="curr.allowReply"/>
-            <TableActionBtns v-model="organizationToEdit.fromEmails" :idx="idx" :allowEmptyArray="true"/>
-          </li>
-        </ul>
-        <button @click="addFromEmailItem" class="btn big">{{$t('add')}}</button>
-      </div>
-
       <div class="media-links-section flex column gap20 align-start">
         <p>{{$t('organizationLocales.mediaLinks')}}</p>
         <ul class="flex column gap10 table-like">
           <li>
             <p>{{$t('type')}}</p>
-            <p>{{$t('title')}}</p>
+            <!-- <p>{{$t('title')}}</p> -->
             <p>{{$t('url')}}</p>
             <p></p>
           </li>
           <li v-for="(curr, idx) in organizationToEdit.mediaLinks || []" :key="idx">
             <FormInput type="select" placeholder="type" v-model="curr.type" :items="['web', 'youtube', 'facebook', 'twitter', 'instegram', 'tiktok', 'spotify', 'appleMusic']"/>
-            <FormInput type="text" placeholder="title" v-model="curr.title"/>
+            <!-- <FormInput type="text" placeholder="title" v-model="curr.title"/> -->
             <FormInput type="text" placeholder="url" v-model="curr.src"/>
             <TableActionBtns v-model="organizationToEdit.mediaLinks" :idx="idx" :allowEmptyArray="true"/>
           </li>
@@ -71,55 +52,79 @@
         </div>
       </div>
 
-      <div class="flex column gap20 align-start">
-        <p>{{$t('settingsLocales.settings')}}</p>
-        <FormInput type="checkbox" labelholder="organizationLocales.requireAuth" v-model="organizationToEdit.requireAuth"/>
-        <FormInput type="checkbox" labelholder="organizationLocales.require2FactorAuth" v-if="organizationToEdit.requireAuth" v-model="organizationToEdit.require2FactorAuth"/>
-        <FormInput type="checkbox" labelholder="organizationLocales.useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
-      </div>
-      
-      <div class="flex column gap20 align-start" v-if="organizationToEdit.requireAuth">
-        <p>{{$t('organizationLocales.loginPagePreferences')}}</p>
-        <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
-        <div class="flex column gap20">
-          <p>{{$t('organizationLocales.loginPageBgImage')}}</p>
-          <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
-          <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
-        </div>
-        <FormInput type="textarea" labelholder="organizationLocales.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
+
+
+      <div class="from-emails-section flex column gap20 align-start">
+        <p>{{$t('organizationLocales.fromEmails')}}</p>
+        <ul class="emails flex column gap10 table-like">
+          <li>
+            <p>{{$t('email')}}</p>
+            <p>{{$t('name')}}</p>
+            <p>{{$t('distributeLocales.allowReply')}}</p>
+            <p></p>
+          </li>
+          <li v-for="(curr, idx) in organizationToEdit.fromEmails || []" :key="idx">
+            <FormInput type="text" placeholder="name" v-model="curr.email"/>
+            <FormInput type="text" placeholder="name" v-model="curr.title"/>
+            <FormInput type="checkbox" placeholder="distributeLocales.allowReply" class="width-content" v-model="curr.allowReply"/>
+            <TableActionBtns v-model="organizationToEdit.fromEmails" :idx="idx" :allowEmptyArray="true"/>
+          </li>
+        </ul>
+        <button @click="addFromEmailItem" class="btn big">{{$t('add')}}</button>
       </div>
 
-      <template v-if="loggedUser?.roles.includes('admin')">
-        <div class="flex column gap20">
-          <div class="input-container">
-            <p>{{$t('organizationLocales.defaultGalleryCredit')}}</p>
-            <FormInput type="text" placeholder="organizationLocales.defaultGalleryCredit" v-model="organizationToEdit.defaultGalleryCredit"/>
-          </div>
-          <div class="input-container">
-            <p>{{$t('organizationLocales.distributionBcc')}}</p>
-            <FormInput type="text" placeholder="organizationLocales.distributionBcc" v-model="organizationToEdit.distributionBcc"/>
-          </div>
-        </div>
 
+      <template v-if="organizationToEdit.type !== 'artist'">
+        <div class="flex column gap20 align-start">
+          <p>{{$t('settingsLocales.settings')}}</p>
+          <FormInput type="checkbox" labelholder="organizationLocales.requireAuth" v-model="organizationToEdit.requireAuth"/>
+          <FormInput type="checkbox" labelholder="organizationLocales.require2FactorAuth" v-if="organizationToEdit.requireAuth" v-model="organizationToEdit.require2FactorAuth"/>
+          <FormInput type="checkbox" labelholder="organizationLocales.useVideoWaterMark" v-model="organizationToEdit.useVideoWaterMark"/>
+        </div>
         
-        <div class="logos-section flex column gap20 align-start">
-          <p>{{$t('organizationLocales.logos')}}</p>
-          <ul  v-if="organizationToEdit._id" class="flex column gap10 table-like">
-            <li>
-              <p>{{$t('name')}}</p>
-              <p>{{$t('file')}}</p>
-              <p></p>
-            </li>
-            <li v-for="(curr, idx) in organizationToEdit.logos || []" :key="idx">
-              <FormInput type="text" placeholder="name" v-model="curr.title"/>
-              <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :onlySrc="true" :viewAsImg="true" :value="curr.url" @input="val => imgUploaded(val, `logos.${idx}.url`)"/> -->
-              <FileUploader :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="curr" @input="val => imgUploaded(val, `logos.${idx}`)" :rootItem="organizationToEdit"/>
-              <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
-            </li>
-          </ul>
-          <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
-          <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
+        <div class="flex column gap20 align-start" v-if="organizationToEdit.requireAuth">
+          <p>{{$t('organizationLocales.loginPagePreferences')}}</p>
+          <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :viewAsImg="true" :value="{src: organizationToEdit.designPreferences.loginPage[0].bgImg}" @input="val => imgUploaded(val.src, 'designPreferences.loginPage.0.bgImg')"/> -->
+          <div class="flex column gap20">
+            <p>{{$t('organizationLocales.loginPageBgImage')}}</p>
+            <ImageCrop v-if="itemBeforeEdit._id" :value="organizationToEdit.designPreferences.loginPage[0].bgImg" :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" @input="val => imgUploaded(val, 'designPreferences.loginPage.0.bgImg')" :rootItem="organizationToEdit"/>
+            <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
+          </div>
+          <FormInput type="textarea" labelholder="organizationLocales.loginPageMsg" v-model="organizationToEdit.designPreferences.loginPage[0].msg"/>
         </div>
+
+        <template v-if="loggedUser?.roles.includes('admin')">
+          <div class="flex column gap20">
+            <div class="input-container">
+              <p>{{$t('organizationLocales.defaultGalleryCredit')}}</p>
+              <FormInput type="text" placeholder="organizationLocales.defaultGalleryCredit" v-model="organizationToEdit.defaultGalleryCredit"/>
+            </div>
+            <div class="input-container">
+              <p>{{$t('organizationLocales.distributionBcc')}}</p>
+              <FormInput type="text" placeholder="organizationLocales.distributionBcc" v-model="organizationToEdit.distributionBcc"/>
+            </div>
+          </div>
+
+          
+          <div class="logos-section flex column gap20 align-start">
+            <p>{{$t('organizationLocales.logos')}}</p>
+            <ul  v-if="organizationToEdit._id" class="flex column gap10 table-like">
+              <li>
+                <p>{{$t('name')}}</p>
+                <p>{{$t('file')}}</p>
+                <p></p>
+              </li>
+              <li v-for="(curr, idx) in organizationToEdit.logos || []" :key="idx">
+                <FormInput type="text" placeholder="name" v-model="curr.title"/>
+                <!-- <FileUploader :uploadFolderName="organizationToEdit._id" :onlySrc="true" :viewAsImg="true" :value="curr.url" @input="val => imgUploaded(val, `logos.${idx}.url`)"/> -->
+                <FileUploader :uploadFolderName="organizationToEdit._id" :parentData="{col: 'organization', _id: organizationToEdit._id}" :viewAsImg="true" :value="curr" @input="val => imgUploaded(val, `logos.${idx}`)" :rootItem="organizationToEdit"/>
+                <TableActionBtns v-model="organizationToEdit.logos" :idx="idx"/>
+              </li>
+            </ul>
+            <p v-else>{{$t('organizationLocales.saveOrgToUploadFilesMsg')}}</p>
+            <button @click="addLogoItem" class="btn big">{{$t('add')}}</button>
+          </div>
+        </template>
       </template>
       
 
@@ -130,6 +135,9 @@
         <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
           <FormInput type="text" labelholder="redirectUrl" v-model="organizationToEdit.redirectUrl"/>
+
+          <FormInput type="select" labelholder="type" v-model="organizationToEdit.type" :items="['tv', 'artist']"/>
+
           
           <div class="flex column align-start gap20">
             <FormInput :error="isDomainExistsError && $t('organizationLocales.domainTakenError') || ''" type="text" labelholder="organizationLocales.domain" v-model="organizationToEdit.domain"/>

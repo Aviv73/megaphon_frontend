@@ -33,8 +33,8 @@
         <ToggleBtns class="sorters flex gap10" :options="[
           /*{img: require('@/apps/megaphonApp/assets/images/sort.svg'), value: ''},*/
           {html: `<div title='${$t('clear')}' class='svg-parrent sort-svg'>${svgs.icons.sort}</div>`, value: ''},
-          {label: 'תאריך', value: 'publishedAt'},
-          {label: 'א-ב', value: 'title'},
+          {label: $t('date'), value: 'publishedAt'},
+          {label: $t('A-Z'), value: 'title'},
         ]" v-model="filterBy.simpleSort" @input="setSortKey" />
         <!-- <div class="flex align-center gap20">
               
@@ -211,6 +211,9 @@ export default {
 }
 .megaphon-app {
   .release-filter {
+    // .toggle-btns button {
+    //   color: var(--clr-0);
+    // }
     .filter-items {
       >* {
         &:not(:last-child) {

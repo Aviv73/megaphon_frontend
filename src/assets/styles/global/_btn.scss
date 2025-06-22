@@ -144,11 +144,11 @@
   // border: em(1px) solid $clr-light-blue;
   border-radius: em(3px);
   overflow: hidden;
-  background-color: #fff;
+  // background-color: #fff;
   box-shadow: $light-shadow;
   button {
     padding: em(3px);
-    color: black;
+    // color: black;
     height: 100%;
     &:not(:last-child) {
       border-inline-end: em(1px) solid $clr-light-blue;
