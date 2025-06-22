@@ -11,7 +11,7 @@
           <div class="top-like" v-if="!viewAsModal"></div>
           <button class="logout-btn" @click="logout">{{$t('authLocales.logout')}}</button>
           <span class="sep-span"> | </span>
-          <router-link class="edit-btn" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('authLocales.editUserDetails')}}</router-link>
+          <router-link class="edit-btn ignore-theme-style" :to="{ name: 'AccountEditModal', params: { id: loggedUser._id } }">{{$t('authLocales.editUserDetails')}}</router-link>
         </component>
       </div>
     </div>
