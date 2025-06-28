@@ -83,6 +83,7 @@ const  en = {
       "credits": "Credits",
       "logos": "Logos",
       "promoText": "Promo text",
+      "promoImages": "Promo images",
       "comunicatImage": "Comunicat image",
       "comunicatText": "Comunicat text",
       "songs": "Songs",
@@ -91,7 +92,9 @@ const  en = {
       "trackIndex": "Track index",
       "performerName": "Performer name",
       "recordCompanyies": "Record companyies",
-      "freeSticker": "Free sticker"
+      "freeSticker": "Free sticker",
+      "coverImage": "Cover image",
+      "bgImage": "Background image",
 
 
     },
@@ -183,6 +186,7 @@ const he = {
       "credits": "קרדיטים",
       "logos": "לוגואים נוספים",
       "promoText": "כיתוב פרומו",
+      "promoImages": "תמונות פרומו",
       "comunicatImage": "תמונת קומוניקט",
       "comunicatText": "טקסט לטאב קומוניקט",
       "songs": "שירים",
@@ -191,7 +195,9 @@ const he = {
       "trackIndex": "מספר הרצועה",
       "performerName": "שם מבצע",
       "recordCompanyies": "חברת תקליטים",
-      "freeSticker": "מדבקה חופשית"
+      "freeSticker": "מדבקה חופשית",
+      "coverImage": "תמונת עטיפה",
+      "bgImage": "תמונת רקע",
     },
     alerts: {
     },
