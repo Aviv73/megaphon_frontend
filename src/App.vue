@@ -92,6 +92,12 @@ export default {
     this.isLoading = true;
     try {
       await loadScripts();
+      await Promise.all([
+        // this.$store.dispatch('settings/loadSettings'),
+        // this.$store.dispatch('settings/loadConfig'),
+        this.$store.dispatch('loadLocales'),
+        this.$store.dispatch('loadEnvManagment')
+      ]);
     } catch(err) {
       // alertService.toast({type: 'danger', msg: err?.msg || err?.message || err});
     }
@@ -173,7 +179,8 @@ export default {
         await Promise.all([
           // this.$store.dispatch('settings/loadSettings'),
           // this.$store.dispatch('settings/loadConfig'),
-          this.$store.dispatch('loadEnvManagment'),
+          // this.$store.dispatch('loadLocales'),
+          // this.$store.dispatch('loadEnvManagment'),
           this.$store.dispatch('auth/getUserInfo')
         ]);
       } catch(e) {};
@@ -236,11 +243,19 @@ export default {
       }
       // init routes::
       selectedAppData.routes.forEach(route => this.$router.addRoute(route));
-      // init locales::
+      // init selected app locales::
       for (let [locale, messages] of Object.entries(selectedAppData.locales)) {
         const existedLocMsgs = this.$i18n.getLocaleMessage(locale) || {};
         this.$i18n.setLocaleMessage(locale, Utils.concatItems(existedLocMsgs, messages));
       }
+      // init fetchedLocales
+      console.log(this.$store.getters.fetchedLocales);
+      for (let [locale, messages] of Object.entries(this.$store.getters.fetchedLocales)) {
+        const existedLocMsgs = this.$i18n.getLocaleMessage(locale) || {};
+        this.$i18n.setLocaleMessage(locale, Utils.concatItems(existedLocMsgs, messages));
+      }
+
+      console.log('this.$i18n.messages', this.$i18n.messages);
 
       this.$store.commit({ type: 'setSelectedAppData', selectedAppData});
       this.selectedAppData = selectedAppData;

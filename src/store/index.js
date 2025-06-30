@@ -16,7 +16,8 @@ export default new Vuex.Store({
     selectedAppData: null,
     rootOrg: null,
     selectedTheme: null,
-    envManagement: {}
+    envManagement: {},
+    fetchedLocales: {}
   },
   getters: {
     isScreenWide(state) {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     },
     envManagement(state) {
       return state.envManagement;
+    },
+    fetchedLocales(state) {
+      return state.fetchedLocales;
     }
   },
   mutations: {
@@ -53,6 +57,9 @@ export default new Vuex.Store({
     },
     setEnvManagement(state, { envManagement }) {
       state.envManagement = envManagement;
+    },
+    setFetchedLocales(state, { locales }) {
+      state.fetchedLocales = locales;
     }
   },
   actions: {
@@ -63,6 +70,10 @@ export default new Vuex.Store({
     async loadEnvManagment({commit}) {
       const envManagement = await httpService.get('management/envManagement');
       commit({type: 'setEnvManagement', envManagement});
+    },
+    async loadLocales({commit}) {
+      const locales = await httpService.get('management/locales');
+      commit({type: 'setFetchedLocales', locales});
     },
   },
   modules: {

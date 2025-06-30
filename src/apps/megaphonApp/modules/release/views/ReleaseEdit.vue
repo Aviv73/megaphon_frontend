@@ -10,8 +10,8 @@
       <template v-if="!showDesign">
         <h2>{{$t(itemToEdit._id? 'releaseLocales.editRelease' : 'releaseLocales.createRelease')}} > {{selectedReleaseTypeItem?.name || ''}}</h2>
         <form v-if="itemToEdit" @submit.prevent="" class="flex column gap20">
-          <FormInput class="gap30 locale-select" type="select" labelholder="locale" :itemsMap="{'english': 'en', 'עברית': 'he'}" v-model="itemToEdit.design.locale"/>
-          <FormInput class="gap30 expiration-date" type="date" labelholder="releaseLocales.expirationDate" v-model="itemToEdit.expirationDate" format_="timeMS"/>
+          <FormInput class="static-input gap30 locale-select" type="select" labelholder="locale" :itemsMap="{'English': 'en', 'עברית': 'he'}" v-model="itemToEdit.design.locale"/>
+          <FormInput class="static-input gap30 expiration-date" type="date" labelholder="releaseLocales.expirationDate" v-model="itemToEdit.expirationDate" format_="timeMS"/>
           <DynamicInput v-for="(dataField, idx) in dataFields" :key="idx" :dataField="dataField" :basePath="dataField.fieldName" :value="getVal(dataField.fieldName)" @input="(val, setPath, isForceUpdate) => setVal(val, setPath, isForceUpdate)" :release="itemToEdit" :parentItem="itemToEdit.releaseData" :organization="org"/>
         </form>
       </template>
@@ -231,7 +231,7 @@ export default {
     .form-content {
       padding: em(10px);
     }
-    .dynamic-input:not(.input-field-SEPARATOR) h3 {
+    .dynamic-input:not(.input-field-SEPARATOR) h3, .static-input .label {
       width: em(150px);
       font-size: em(16px);
       font-weight: normal;
