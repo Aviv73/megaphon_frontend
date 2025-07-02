@@ -144,7 +144,7 @@ export default {
         this.styleEl = null;
       }
       this.pause();
-      this.SessionService.stopSessionUpdateIterval();
+      this.SessionService.destroy();
     },
 
 
@@ -152,7 +152,7 @@ export default {
       if (!this.logSessions) return;
       
       this.SessionService = new mediaSessionService.MediaPlaySession(this.organization, this.loggedUser, this.fileItem, this.$refs.elVideo, config.baseApiUrl);
-      // this.watchSession = await this.$store.dispatch({ type: 'videoWatchLog/loadItem', silent: true });
+      // this.watchSession = await this.$store.dispatch({ type: 'mediaPlayLog/loadItem', silent: true });
       // this.watchSession.mediaSecondsDuration = this.$refs.elVideo?.duration || undefined;
       // this.watchSession.organizationId = this.organization._id;
       // this.watchSession.accountId = this.loggedUser._id;
@@ -160,20 +160,20 @@ export default {
       // this.setNewWatchSection();
       // this.updateWatchSession();
     },
-    setSessionUpdateInterval() {
-      if (!this.logSessions) return;
-      this.SessionService.setSessionUpdateInterval();
-      // this.stopSessionUpdateIterval();
-      // this.sessionUpdateIntervalId = setInterval(() => {
-      //   this.updateWatchSession();
-      // }, 5000);
-    },
-    stopSessionUpdateIterval() {
-      if (!this.logSessions) return;
-      this.SessionService.stopSessionUpdateIterval();
-      // clearInterval(this.sessionUpdateIntervalId);
-      // if (this.currWatchSection && this.watchSession) this.updateWatchSession();
-    },
+    // setSessionUpdateInterval() {
+    //   if (!this.logSessions) return;
+    //   this.SessionService.setSessionUpdateInterval();
+    //   // this.stopSessionUpdateIterval();
+    //   // this.sessionUpdateIntervalId = setInterval(() => {
+    //   //   this.updateWatchSession();
+    //   // }, 5000);
+    // },
+    // stopSessionUpdateIterval() {
+    //   if (!this.logSessions) return;
+    //   this.SessionService.stopSessionUpdateIterval();
+    //   // clearInterval(this.sessionUpdateIntervalId);
+    //   // if (this.currWatchSection && this.watchSession) this.updateWatchSession();
+    // },
     // async setNewWatchSection() {
     //   if (!this.logSessions) return;
     //   this.SessionService.setNewMediaSection();
@@ -185,7 +185,7 @@ export default {
     //   this.currWatchSection.end = (this.$refs.elVideo?.currentTime || 0) * 1000;
     //   this.watchSession.mediaSecondsDuration = this.$refs.elVideo?.duration || undefined;
     //   if (!this.watchSession.sections.reduce((acc, c) => acc + Math.abs(c.end - c.start), 0)) return;
-    //   this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
+    //   this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'mediaPlayLog/saveItem', item: this.watchSession, silent: true })));
     //   this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);
     // },
 

@@ -3,7 +3,7 @@ import { releaseStore } from './modules/release/store'
 import { organizationStore } from './modules/organization/store'
 // import { settingsStore } from './modules/settings/store'
 import { authStore } from './modules/auth/store'
-import { videoWatchLogStore } from './modules/videoWatchLog/store'
+import { mediaPlayLogStore } from './modules/mediaPlayLog/store'
 import { activityStore } from './modules/activity/store'
 
 export default {
@@ -12,6 +12,6 @@ export default {
   ...releaseStore,
   ...organizationStore,
   ...authStore,
-  ...videoWatchLogStore,
+  ...mediaPlayLogStore,
   ...activityStore
 }

@@ -187,7 +187,7 @@ export default {
       const relevantAccount = this.report.relevantAccounts.find(c => c.email === contact.email);
       if (!relevantAccount) return 0;
       const relevantViews = this.report.releaseFiles.reduce((acc, c) => {
-        acc.push(...c.videoWatchLogs.filter(log => log.accountId === relevantAccount._id));
+        acc.push(...c.mediaPlayLogs.filter(log => log.accountId === relevantAccount._id));
         return acc;
       }, []);
       return relevantViews;

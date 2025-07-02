@@ -15,4 +15,4 @@ function getEmptyWatchLogItem(fileId, accountId, organizationId) {
   }
 }
 
-export const videoWatchLogStore = basicStoreService.createSimpleCrudStore('videoWatchLog', undefined, undefined, undefined, getEmptyWatchLogItem);
+export const mediaPlayLogStore = basicStoreService.createSimpleCrudStore('mediaPlayLog', undefined, undefined, undefined, getEmptyWatchLogItem);

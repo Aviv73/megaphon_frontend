@@ -213,7 +213,7 @@ export default {
           }
         }
       };
-      this.chart1Data = await this.$store.dispatch({ type: 'videoWatchLog/loadItems', filterBy, dontSet: true });
+      this.chart1Data = await this.$store.dispatch({ type: 'mediaPlayLog/loadItems', filterBy, dontSet: true });
       console.log('CHART 1 DATA', this.chart1Data);
       // watch session:: 681b62589bd5400015a2bcda; accountId: 63550626c703d07728c0200e;
     },
@@ -231,7 +231,7 @@ export default {
           }
         }
       };
-      this.chart2Data = await this.$store.dispatch({ type: 'videoWatchLog/loadItems', filterBy, dontSet: true });
+      this.chart2Data = await this.$store.dispatch({ type: 'mediaPlayLog/loadItems', filterBy, dontSet: true });
     },
     async fetchActivityLogs() {
       const filterBy = { 
@@ -261,7 +261,7 @@ export default {
       return this.$store.getters['stats/filterBy'];
     },
     isLoading() {
-      return this.$store.getters['stats/isLoading'] || this.$store.getters['videoWatchLog/isLoading'];
+      return this.$store.getters['stats/isLoading'] || this.$store.getters['mediaPlayLog/isLoading'];
     },
     isScreenWide() {
       return this.$store.getters.isScreenWide;
@@ -270,8 +270,8 @@ export default {
       return this.$store.getters['selectedTheme'];
     },
 
-    // videoWatchLogData() {
-    //   return this.$store.getters['videoWatchLog/data'];
+    // mediaPlayLogData() {
+    //   return this.$store.getters['mediaPlayLog/data'];
     // },
 
     onlyRelevantWatchItems() {
