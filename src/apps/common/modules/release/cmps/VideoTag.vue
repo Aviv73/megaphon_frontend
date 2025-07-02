@@ -10,20 +10,13 @@
 <script>
 import Hls from 'hls.js';
 import { elementService } from '../../common/services/element.service';
-// import { getVideoEncryptionKey } from '../../common/services/file.service';
 import { fixFileSrcToThumbnail } from '../../common/services/file.service';
 import { Utils } from '../../common/services/util.service';
 import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
+import config from '@/config';
 
-// import cloudinary from 'cloudinary-video-player';
-// import 'cloudinary-video-player/cld-video-player.min.css';
-/*
-   < link href="https://unpkg.com/cloudinary-video-player@1.9.4/dist/cld-video-player.min.css" rel="stylesheet">
-   < script src="https://unpkg.com/cloudinary-video-player@1.9.4/dist/cld-video-player.min.js">< /script>
-*/
+const mediaSessionService = window.mediaSessionModule;
 
-// 2000 ms;
-// 
 const getWatermarkPosByMs = (() => {
   const poss = [
     {x: 0, y: 0},
@@ -56,11 +49,12 @@ export default {
       isPlaying: false,
       watermarkInterval: null,
 
-      watchSession: null,
-      currWatchSection: null,
-      sessionUpdateIntervalId: null,
+      // watchSession: null,
+      // currWatchSection: null,
+      // sessionUpdateIntervalId: null,
+      // isSeeking: false
+      SessionService: null,
 
-      isSeeking: false
     }
   },
   watch: {
@@ -101,21 +95,21 @@ export default {
     init() {
       const { elVideo } = this.$refs;
       elVideo.addEventListener('play', async() => {
-        await Utils.delay(10);
-        if (this.isSeeking) {
-          this.isSeeking = false;
-          return;
-        }
+        // await Utils.delay(10);
+        // if (this.isSeeking) {
+        //   this.isSeeking = false;
+        //   return;
+        // }
         this.play();
       });
       elVideo.addEventListener('pause', async () => {
-        await Utils.delay(10);
-        if (this.isSeeking) return;
+        // await Utils.delay(10);
+        // if (this.isSeeking) return;
         this.pause();
       });
       elVideo.addEventListener('seeking', () => {
         this.isSeeking = true;
-        this.setNewWatchSection();
+        // this.setNewWatchSection();
       });
       // elVideo.addEventListener('seeked', () => {
       //   this.isSeeking = false;
@@ -135,42 +129,13 @@ export default {
         // }
       });
       hls.loadSource(this.src);
-      // hls.loadSource('http://localhost:3000/vid-dir/ID1999192096E62588D9.m3u8');
       hls.attachMedia(elVideo);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        // hls.abrController.fragCurrent._decryptdata.uri = 'http://localhost:3000/api/file/encryption-key';
-        // elVideo.play();
-        // setTimeout(() => {
-        //   }, 1000);
         elVideo.addEventListener('canplay', () => {
-          // // this.appendWatermarkStyling();
-          // elVideo.play();
         });
       });
-      // elVideo.addEventListener('fullscreenchange', (ev) => {
-      //   if (elVideo.fullscreenElement) {
-      //     elVideo.exitFullscreen();
-      //   }
-      //   // ev.stopPropagation();
-      //   // ev.preventDefault();
-      // })
-      // elVideo.requestFullscreen = () => {
-      //   this.fullScreenMode = !this.fullScreenMode;
-      // }
       elVideo.controlsList = "nofullscreen"
       this.hls = hls;
-
-
-
-
-      // const player = window.cloudinary.videoPlayer(elVideo, {
-      //   cloud_name: 'djk2q5so4',
-      //   controls: true,
-      //   autoplay: false,
-      //   muted: false,
-      // });
-      // player.source(this.src, { sourceTypes: ['hls'] });
-
     },
     destroy() {
       this.hls?.destroy();
@@ -179,58 +144,56 @@ export default {
         this.styleEl = null;
       }
       this.pause();
+      this.SessionService.stopSessionUpdateIterval();
     },
 
 
     async initWatchSession() {
       if (!this.logSessions) return;
-      // return;
-      this.watchSession = await this.$store.dispatch({ type: 'videoWatchLog/loadItem', silent: true });
-      this.watchSession.videoSecondsDuration = this.$refs.elVideo?.duration || undefined;
-      this.watchSession.organizationId = this.organization._id;
-      // this.watchSession.parentId = this.fileItem.parent?._id;
-      this.watchSession.accountId = this.loggedUser._id;
-      this.watchSession.fileId = this.fileItem.fileId;
-      this.setNewWatchSection();
-      this.updateWatchSession();
+      
+      this.SessionService = new mediaSessionService.MediaPlaySession(this.organization, this.loggedUser, this.fileItem, this.$refs.elVideo, config.baseApiUrl);
+      // this.watchSession = await this.$store.dispatch({ type: 'videoWatchLog/loadItem', silent: true });
+      // this.watchSession.mediaSecondsDuration = this.$refs.elVideo?.duration || undefined;
+      // this.watchSession.organizationId = this.organization._id;
+      // this.watchSession.accountId = this.loggedUser._id;
+      // this.watchSession.fileId = this.fileItem.fileId;
+      // this.setNewWatchSection();
+      // this.updateWatchSession();
     },
     setSessionUpdateInterval() {
       if (!this.logSessions) return;
-      // return;
-      this.stopSessionUpdateIterval();
-      this.sessionUpdateIntervalId = setInterval(() => {
-        this.updateWatchSession();
-      }, 5000);
+      this.SessionService.setSessionUpdateInterval();
+      // this.stopSessionUpdateIterval();
+      // this.sessionUpdateIntervalId = setInterval(() => {
+      //   this.updateWatchSession();
+      // }, 5000);
     },
     stopSessionUpdateIterval() {
       if (!this.logSessions) return;
-      // return;
-      clearInterval(this.sessionUpdateIntervalId);
-      if (this.currWatchSection && this.watchSession) this.updateWatchSession();
+      this.SessionService.stopSessionUpdateIterval();
+      // clearInterval(this.sessionUpdateIntervalId);
+      // if (this.currWatchSection && this.watchSession) this.updateWatchSession();
     },
-    async setNewWatchSection() {
-      if (!this.logSessions) return;
-      // return;
-      this.currWatchSection = { id: Utils.getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 };
-      // this.watchSession.videoSecondsDuration = this.$refs.elVideo?.duration || undefined;
-      this.watchSession.sections.push(this.currWatchSection);
-    },
-    async updateWatchSession() {
-      if (!this.logSessions) return;
-      // return;
-      this.currWatchSection.end = (this.$refs.elVideo?.currentTime || 0) * 1000;
-      this.watchSession.videoSecondsDuration = this.$refs.elVideo?.duration || undefined;
-      if (!this.watchSession.sections.reduce((acc, c) => acc + Math.abs(c.end - c.start), 0)) return;
-      this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
-      this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);
-    },
+    // async setNewWatchSection() {
+    //   if (!this.logSessions) return;
+    //   this.SessionService.setNewMediaSection();
+    //   // this.currWatchSection = { id: Utils.getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 };
+    //   // this.watchSession.sections.push(this.currWatchSection);
+    // },
+    // async updateWatchSession() {
+    //   if (!this.logSessions) return;
+    //   this.currWatchSection.end = (this.$refs.elVideo?.currentTime || 0) * 1000;
+    //   this.watchSession.mediaSecondsDuration = this.$refs.elVideo?.duration || undefined;
+    //   if (!this.watchSession.sections.reduce((acc, c) => acc + Math.abs(c.end - c.start), 0)) return;
+    //   this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'videoWatchLog/saveItem', item: this.watchSession, silent: true })));
+    //   this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);
+    // },
 
 
 
     play() {
       this.isPlaying = true;
-      this.setSessionUpdateInterval();
-      // if (!this.organization.useVideoWaterMark) return;
+      // this.setSessionUpdateInterval();
       if (!this.useWterMark) return;
       this.watermarkInterval = setInterval(() => {
         this.applyWatermark();
@@ -239,7 +202,7 @@ export default {
     pause() {
       this.isPlaying = false;
       if (this.watermarkInterval) clearInterval(this.watermarkInterval);
-      this.stopSessionUpdateIterval();
+      // this.stopSessionUpdateIterval();
     },
     
     applyWatermark() {
@@ -272,6 +235,12 @@ export default {
       elContainer.appendChild(watermarkEl);
     },
     
+  },
+}
+
+/*
+
+
     
     appendWatermarkStyling() {
       const { elVideo } = this.$refs;
@@ -331,8 +300,8 @@ export default {
       this.styleEl == styleEl;
       document.head.append(styleEl);
     }
-  },
-}
+
+*/
     
   // class CustomKeyLoader extends Hls.DefaultConfig.loader {
   //     constructor(config) {

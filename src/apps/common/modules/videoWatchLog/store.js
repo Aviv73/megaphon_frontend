@@ -11,7 +11,7 @@ function getEmptyWatchLogItem(fileId, accountId, organizationId) {
       end: TimeMS
     }*/],
     // totalWatchTime: 0,
-    videoSecondsDuration: 0
+    mediaSecondsDuration: 0
   }
 }
 

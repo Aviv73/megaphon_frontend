@@ -193,7 +193,7 @@ export default {
       return relevantViews;
       // const actualRelevantWatchLogs = relevantViews.filter(checkIfLogCounts);
       // const actualRelevantWatchLogs = relevantViews.filter(vidLog => {
-      //   const vidLength = vidLog.videoSecondsDuration;
+      //   const vidLength = vidLog.mediaSecondsDuration;
       //   if (!vidLength) return true;
       //   if (!vidLog.sections?.length) return false;
       //   const cLogTotalWatchTimeMS = vidLog.sections.reduce((acc, c) => acc + (c.end - c.start), 0);

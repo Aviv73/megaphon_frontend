@@ -66,9 +66,9 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
 
   
   const isVideo = ['mp4'].includes(type);
-  let videoSecondsDuration = 0;
+  let mediaSecondsDuration = 0;
   if (isVideo && false) {
-    videoSecondsDuration = await new Promise((resolve, reject) => {
+    mediaSecondsDuration = await new Promise((resolve, reject) => {
       const videoUrl = URL.createObjectURL(file);
       const videoEl = document.createElement('video');
       videoEl.preload = 'metadata';
@@ -84,7 +84,7 @@ export async function chunkUploadFileToServer(file, organizationId, parentData, 
   }
   
   const prms = [];
-  const baseParams = {parentData, fileSize, videoSecondsDuration, totalChunks, storeFileName, originalName, chunkSize: CHUNK_SIZE};
+  const baseParams = {parentData, fileSize, mediaSecondsDuration, totalChunks, storeFileName, originalName, chunkSize: CHUNK_SIZE};
   let uploadId;
   const chunkByChunkMode = true;
   if (!chunkByChunkMode) uploadId = await httpService.post(`${ENDPOINT}/openMultipartUpload/${organizationId}`, null, baseParams);
