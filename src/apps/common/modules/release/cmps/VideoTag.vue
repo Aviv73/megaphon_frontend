@@ -48,13 +48,7 @@ export default {
       styleEl: null,
       isPlaying: false,
       watermarkInterval: null,
-
-      // watchSession: null,
-      // currWatchSection: null,
-      // sessionUpdateIntervalId: null,
-      // isSeeking: false
       SessionService: null,
-
     }
   },
   watch: {
@@ -95,25 +89,11 @@ export default {
     init() {
       const { elVideo } = this.$refs;
       elVideo.addEventListener('play', async() => {
-        // await Utils.delay(10);
-        // if (this.isSeeking) {
-        //   this.isSeeking = false;
-        //   return;
-        // }
         this.play();
       });
       elVideo.addEventListener('pause', async () => {
-        // await Utils.delay(10);
-        // if (this.isSeeking) return;
         this.pause();
       });
-      elVideo.addEventListener('seeking', () => {
-        this.isSeeking = true;
-        // this.setNewWatchSection();
-      });
-      // elVideo.addEventListener('seeked', () => {
-      //   this.isSeeking = false;
-      // });
 
       this.initWatchSession();
 
@@ -152,48 +132,12 @@ export default {
       if (!this.logSessions) return;
       
       this.SessionService = new mediaSessionService.MediaPlaySession(this.organization, this.loggedUser, this.fileItem, this.$refs.elVideo, config.baseApiUrl);
-      // this.watchSession = await this.$store.dispatch({ type: 'mediaPlayLog/loadItem', silent: true });
-      // this.watchSession.mediaSecondsDuration = this.$refs.elVideo?.duration || undefined;
-      // this.watchSession.organizationId = this.organization._id;
-      // this.watchSession.accountId = this.loggedUser._id;
-      // this.watchSession.fileId = this.fileItem.fileId;
-      // this.setNewWatchSection();
-      // this.updateWatchSession();
     },
-    // setSessionUpdateInterval() {
-    //   if (!this.logSessions) return;
-    //   this.SessionService.setSessionUpdateInterval();
-    //   // this.stopSessionUpdateIterval();
-    //   // this.sessionUpdateIntervalId = setInterval(() => {
-    //   //   this.updateWatchSession();
-    //   // }, 5000);
-    // },
-    // stopSessionUpdateIterval() {
-    //   if (!this.logSessions) return;
-    //   this.SessionService.stopSessionUpdateIterval();
-    //   // clearInterval(this.sessionUpdateIntervalId);
-    //   // if (this.currWatchSection && this.watchSession) this.updateWatchSession();
-    // },
-    // async setNewWatchSection() {
-    //   if (!this.logSessions) return;
-    //   this.SessionService.setNewMediaSection();
-    //   // this.currWatchSection = { id: Utils.getRandomId(''), start: (this.$refs.elVideo?.currentTime || 0) * 1000, end: (this.$refs.elVideo?.currentTime || 0) * 1000 };
-    //   // this.watchSession.sections.push(this.currWatchSection);
-    // },
-    // async updateWatchSession() {
-    //   if (!this.logSessions) return;
-    //   this.currWatchSection.end = (this.$refs.elVideo?.currentTime || 0) * 1000;
-    //   this.watchSession.mediaSecondsDuration = this.$refs.elVideo?.duration || undefined;
-    //   if (!this.watchSession.sections.reduce((acc, c) => acc + Math.abs(c.end - c.start), 0)) return;
-    //   this.watchSession = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'mediaPlayLog/saveItem', item: this.watchSession, silent: true })));
-    //   this.currWatchSection = this.watchSession.sections.find(c => c.id === this.currWatchSection.id);
-    // },
 
 
 
     play() {
       this.isPlaying = true;
-      // this.setSessionUpdateInterval();
       if (!this.useWterMark) return;
       this.watermarkInterval = setInterval(() => {
         this.applyWatermark();
@@ -202,7 +146,6 @@ export default {
     pause() {
       this.isPlaying = false;
       if (this.watermarkInterval) clearInterval(this.watermarkInterval);
-      // this.stopSessionUpdateIterval();
     },
     
     applyWatermark() {
