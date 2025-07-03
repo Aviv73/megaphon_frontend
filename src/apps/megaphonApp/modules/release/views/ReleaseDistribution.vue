@@ -363,7 +363,7 @@ export default {
     addContact(contact) {
       if (!(contact?.email || contact?.mobile)) return;
       if (contact.email) contact.email = contact.email.trim().toLowerCase();
-      if (contact.mobile) contact.mobile = contact.mobile.trim().toLowerCase();
+      if (contact.mobile) contact.mobile = contact.mobile?.trim?.().toLowerCase() || '';
       const idx = this.contactsForDistribute.findIndex(c => this.compareContacts(c, contact));
       if (idx === -1) this.contactsForDistribute.unshift(contact);
     },

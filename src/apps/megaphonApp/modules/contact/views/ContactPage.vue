@@ -87,15 +87,20 @@ export default {
       this.$store.dispatch({ type: 'contact/loadItems', filterBy: {...filterBy, includeUnsubscribed: true}, organizationId: this.$route.params.organizationId });
     },
     async uploadContactsFromFile(files) {
-      // TODO: GET MILING LIST NAME AND SAVE A MAILING LIST WITH NEW CONTACTS;
+      if (!files?.length) return;
+      if (!await alertService.Confirm(this.$t('contactLocales.alerts.confirmUploadContactsFileMsg'))) {
+        this.contactsFiles = null;
+        return;
+      }
+      const mailingListName = await alertService.Prompt(this.$t('contactLocales.alerts.saveAsMailingListPromptMsg'), this.$t('name'));
       this.$store.commit({type: 'contact/setProp', key: 'isLoading', value: true});
-      const data = new FormData();
-      data.append('file', files[0]);
       try {
-        await httpService.post(`file/uploadContacts/${this.organizationId}`, data);
-        alertService.toast({type: 'safe', msg: this.$t('accountLocales.alerts.uploadedContactsSuccessfully')});
+        const data = new FormData();
+        data.append('file', files[0]);
+        await httpService.post(`file/uploadContacts/${this.organizationId}`, data, { mailingListName });
+        alertService.toast({type: 'safe', msg: this.$t('contactLocales.alerts.uploadedContactsSuccessfully')});
       } catch(err) {
-        alertService.toast({type: 'danger', msg: this.$t('accountLocales.alerts.cantUploadContactsError')});
+        alertService.toast({type: 'danger', msg: this.$t('contactLocales.alerts.cantUploadContactsError')});
       }
       this.contactsFiles = null;
       this.$store.commit({type: 'contact/setProp', key: 'isLoading', value: false});

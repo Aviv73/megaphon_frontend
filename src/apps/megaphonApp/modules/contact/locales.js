@@ -21,6 +21,10 @@ const  en = {
       "confirmRemove": "Are you sure you want to remove this contact?",
       "removeSuccess": "Contact removed successfully",
       "savedSuccess": "Contact saved successfully",
+      "cantUploadContactsError": "Something went wrong, cant upload contacts file",
+      "uploadedContactsSuccessfully": "Uploaded contacts file successfully",
+      "saveAsMailingListPromptMsg": "Save also as mailing list? (canceling will save the contacts but will not create a mailing list)",
+      "confirmUploadContactsFileMsg": "Are you sure you want to upload this file?"
     },
     "emailIsTakenError": "Contact with that email already exists",
     "maxTimesAllowdToWatchVideo": "Max times allowd to watch video",
@@ -52,6 +56,10 @@ const he = {
       "confirmRemove": "האם אתה בטוח שאתה רוצה למחוק את איש הקשר?",
       "removeSuccess": "איש קשר נמחק בהצלחה",
       "savedSuccess": "פרטי איש קשר נשמרו בהצלחה",
+      "cantUploadContactsError": "משהו השתבש, המערכת לא הצליחה להעלות את הקובץ",
+      "uploadedContactsSuccessfully": "אנשי קשר הועלו בהצלחה",
+      "saveAsMailingListPromptMsg": "האם תרצה לשמור בנוסף כרשימת תפוצה? (ביטול ישמור את אנשי הקשר אך ללא רשימת תפוצה)",
+      "confirmUploadContactsFileMsg": "האם אתה בטוח שתרצה להעלות את הקובץ?"
     },
     "emailIsTakenError": "איש קשר עם המייל הזה כבר קיים במערכת",
     "maxTimesAllowdToWatchVideo": "כמות צפיות מקסימלית בוידאו",

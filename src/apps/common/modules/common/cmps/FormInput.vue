@@ -144,7 +144,7 @@
           :required="required"
           :placeholder="$t(placeholder || labelholder)"
           :accept="accept"
-          @change="$event => val = $event.target.files"
+          @change="$event => {(val = $event.target.files);/*($event.target.value = null)*/}"
           hidden
         />
         <button
