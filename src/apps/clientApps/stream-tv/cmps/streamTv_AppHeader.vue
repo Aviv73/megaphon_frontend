@@ -17,7 +17,7 @@
               {{$t('releaseLocales.'+tabName)}}
             </span>
           </router-link>
-          <CostumeNavBar class="wide-screen-item" :filterRoutes="route => route.data?.showInHeader"/>
+          <CostumeNavBar class="wide-screen-item  gap30" :filterRoutes="route => route.data?.showInHeader"/>
           <router-link class="nav-item tab-name-nav-item" :to="{name: 'ReleasePage', query: {page: 0} }" :class="{ selected: $route.name === 'ReleasePage' }">
             <span class="hover-pop flex align-center gap10">
               <span>
@@ -26,7 +26,7 @@
               <div v-html="searchImg" class="filter-icon-img svg-parrent"></div>
             </span>
           </router-link>
-          <CostumeNavBar class="small-screen-item"/>
+          <CostumeNavBar class="small-screen-item gap30"/>
         </template>
       </NavOrBurger>
 

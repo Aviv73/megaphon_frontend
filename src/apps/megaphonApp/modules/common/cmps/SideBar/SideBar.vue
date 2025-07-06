@@ -282,7 +282,6 @@ export default {
       .nav-list-item, .nav-item {
         // font-size: em(12px);
         &:hover {
-          // background-color: var(--clr-5) !important;
           background-color: var(--clr-4-l-50) !important;
           color: var(--clr-1);
         }
@@ -305,7 +304,6 @@ export default {
           }
           .router-link-exact-active {
             // background-color: rgba(147, 214, 254, 0.3);
-            // background-color: var(--clr-5);
             background-color: var(--clr-4-l-50);
             color: var(--clr-1);
           }

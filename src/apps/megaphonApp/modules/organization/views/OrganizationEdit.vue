@@ -166,9 +166,9 @@
                   <FormInput type="color" labelholder="organizationLocales.headerColor" v-model="theme.colors[2]"/>
                   <FormInput type="color" labelholder="organizationLocales.headerBg" v-model="theme.colors[3]"/>
                   <FormInput type="color" labelholder="organizationLocales.headersColor" v-model="theme.colors[4]"/>
-                  <FormInput type="color" labelholder="organizationLocales.headersBgColor" v-model="theme.colors[5]"/>
-                  <FormInput type="color" labelholder="organizationLocales.linkColor" v-model="theme.colors[6]"/>
-                  <FormInput type="color" labelholder="organizationLocales.btnColor" v-model="theme.colors[7]"/>
+                  <!-- <FormInput type="color" labelholder="organizationLocales.headersBgColor" v-model="theme.colors[5]"/> -->
+                  <FormInput type="color" labelholder="organizationLocales.linkColor" v-model="theme.colors[5]"/>
+                  <FormInput type="color" labelholder="organizationLocales.btnColor" v-model="theme.colors[6]"/>
                 </div>
                 <ToggleModal :fullScreen="true" class="code-edit-modal">
                   <template #toggler>
@@ -409,8 +409,13 @@ export default {
       //   if (typeof this.organizationToEdit.designPreferences[designAppKey] !== 'object') continue;
       //   this.organizationToEdit.designPreferences[designAppKey].forEach(theme => {
       //     if (!theme.colors) return;
-      //     if (!theme.colors[6]) theme.colors[6] = '#2090d4';
-      //     if (!theme.colors[7]) theme.colors[7] = 'rgba(102, 102, 102, 1)';
+      //     if (theme.colors.length === 8) {
+      //       theme.colors[5] = theme.colors[6];
+      //       theme.colors[6] = theme.colors[7];
+      //       theme.colors.splice(7, 1);
+      //     }
+      //     // if (!theme.colors[6]) theme.colors[6] = '#2090d4';
+      //     // if (!theme.colors[7]) theme.colors[7] = 'rgba(102, 102, 102, 1)';
       //   });
       // }
       this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));

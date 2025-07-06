@@ -1,5 +1,5 @@
 <template>
-  <div class="costume-nav-bar flex aign-center wrap gap30">
+  <div class="costume-nav-bar flex aign-center wrap gap30_">
     <router-link 
       v-for="filterItem in allRouteFilters" :key="filterItem.id"
       :to="{ name: 'CostumePage', query: { page: filterItem.name  }, ...(baseRoute || {}) }"

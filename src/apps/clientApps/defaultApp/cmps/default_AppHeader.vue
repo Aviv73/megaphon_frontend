@@ -15,7 +15,7 @@
       <!-- <button @click="mobileShow = !mobileShow" class="nav-burger">☰</button> -->
       <NavOrBurger :showBurger="!!allRouteFilters.length" class="height-all">
         <div class="nav flex gap20">
-          <CostumeNavBar class="height-all"/>
+          <CostumeNavBar class="height-all gap30"/>
           <LoggedUserPreview class="nav-item" :class="{'no-auth': !org?.requireAuth}"/>
         </div>
         <!-- <nav class="nav-items height-all">

@@ -320,7 +320,6 @@ export default {
           &:hover {
             // background-color: rgba(32, 144, 212, 0.04);
             color: var(--clr-0);
-            // background-color: var(--clr-5) !important;
             background-color: var(--clr-4-l-50) !important;
           }
           &.selected {

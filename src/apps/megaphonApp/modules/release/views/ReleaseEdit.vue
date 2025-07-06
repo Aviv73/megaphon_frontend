@@ -250,6 +250,7 @@ export default {
     }
 
     .static-input {
+      gap: em(30px) !important;
       p {
         width: em(100px);
         color: var(--clr-0-d-20);
