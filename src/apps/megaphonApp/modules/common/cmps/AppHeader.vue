@@ -2,7 +2,7 @@
   <header class="app-header flex align-center ignore-theme-style_">
     <div class="container header-content width-all flex align-center space-between height-all" :class="{[$route.matched.find(c => c.name === 'MainSidebarView') || true ? 'full-screen-container' : 'container'] : true}">
       <router-link v-if="!isUserWatchOnly || !selectedOrgId || isSingleOrgMode" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height-all">
-        <div class="logo-title height-all flex align-center justify-center" :class="{'org-logo': (orgId != '-1') && orgLogo }">
+        <div class="logo-title height-all flex align-center justify-center_" :class="{'centered-logo': (orgId != '-1') && orgLogo && isScreenWide }">
           <img v-if="showLogo" class="actual" :src="logoImgSrc" alt=""/>
         </div>
       </router-link>
@@ -276,8 +276,9 @@ export default {
       height: 100%;
       width: rem(200px);
       margin-inline-end: rem(15px);
-      &.org-logo {
+      &.centered-logo {
         // background-color: #666666;
+        justify-content: center;
         background-color: var(--clr-4-l-90);
       }
       .actual {
