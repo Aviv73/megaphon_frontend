@@ -26,14 +26,14 @@
     <footer class="footer width-all">
       <div class="flex gap40 align-center space-between container height-all">
         <div>
-          <button class="underline btn_ big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
+          <button class="underline btn__ big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
         </div>
         <div class="flex align-center gap30 height-all">
           <button class="btn big" @click="close">{{$t('close')}}</button>
           <button class="btn big" v-if="showDesign" @click="showDesign = false">{{$t('releaseLocales.editRelease')}}</button>
           <button class="btn big ignor-flex flex align-center gap15" v-if="!showDesign" :disabled="!itemToEdit._id" @click="showDesign = true" ><div v-html="svgs.PreviewActions.eye" class="svg-parrent"></div><span>{{$t('releaseLocales.designAndPreview')}}</span></button>
           <button class="btn big ignor-flex flex align-center gap15" :disabled="!isItemValid" @click="saveItem"><div v-html="svgs.save" class="svg-parrent"></div><span>{{$t('save')}}</span></button>
-          <button class="btn big bg-4 clr-1 ignor-flex flex align-center gap15" :disabled="!isItemValid" @click="confirmAndDistribute"><div v-html="svgs.PreviewActions.distribute" class="svg-parrent"></div><span>{{$t('distributeLocales.distribute')}}</span></button>
+          <button class="btn big primary ignor-flex flex align-center gap15" :disabled="!isItemValid" @click="confirmAndDistribute"><div v-html="svgs.PreviewActions.distribute" class="svg-parrent"></div><span>{{$t('distributeLocales.distribute')}}</span></button>
           
           <!-- <template v-if="isScreenWide">
           </template>
@@ -249,16 +249,19 @@ export default {
       }
     }
 
-    .locale-select, .expiration-date {
+    .static-input {
       p {
         width: em(100px);
-        color: var(--clr-0);
+        color: var(--clr-0-d-20);
       }
     }
 
     // h2, h3 {
     //   color: #0084D4;
     // }
+    h3 {
+      color: var(--clr-0-d-20);
+    }
     footer {
       padding: em(10px);
       position: fixed; 

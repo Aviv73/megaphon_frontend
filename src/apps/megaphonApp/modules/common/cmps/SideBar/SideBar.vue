@@ -13,7 +13,7 @@
                 <span :class="{'hover-pop': !isOrgPending(org)}">{{org.name}}</span>
                 <span v-if="isOrgPending(org)">({{$t('pending')}})</span>
               </p>
-              <div v-if="organizations.length > 1" class="svg-parrent toggle-arrow" :class="{toggled: selectedOrgId === org._id}" v-html="svgs.toggleArrow"></div>
+              <!-- <div v-if="organizations.length > 1" class="svg-parrent toggle-arrow" :class="{toggled: selectedOrgId === org._id}" v-html="svgs.toggleArrow"></div> -->
             </div>
             <div class="flex column" v-if="selectedOrgId === org._id && isRoleInOrg('producer')">
               <!-- <router-link class="nav-list-item inner-list-item" :to="{ name: 'ReleasePage', params: { organizationId: org._id } }">
@@ -28,7 +28,7 @@
               <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'AccountPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('accountLocales.accounts')}}</span></router-link> -->
               <router-link v-if="isRoleInOrg('producer')" class="nav-list-item inner-list-item" :to="{ name: 'ContactPage', params: { organizationId: org._id } }"><span class="hover-pop flex align-center gap10"><div v-html="svgs.contacts" class="svg-parrent"></div>{{$t('contactLocales.contacts')}}</span></router-link>
               <div class="system-nav" v-if="isRoleInOrg('producer')" :class="{opened_: showOrgSystemNav}">
-                <div class="nav-list-item flex align-center space-between gap10 clr-6" @click="showOrgSystemNav = !showOrgSystemNav">
+                <div class="nav-list-item flex align-center space-between gap10 clr-4" @click="showOrgSystemNav = !showOrgSystemNav">
                   <p><span class="hover-pop flex align-center gap10"><div v-html="svgs.system" class="svg-parrent"></div>{{$t('sidebar.system')}}</span></p>
                   <div class="svg-parrent toggle-arrow" :class="{toggled: showOrgSystemNav}" v-html="svgs.toggleArrow"></div>
                 </div>
@@ -282,7 +282,8 @@ export default {
       .nav-list-item, .nav-item {
         // font-size: em(12px);
         &:hover {
-          background-color: var(--clr-5) !important;
+          // background-color: var(--clr-5) !important;
+          background-color: var(--clr-4-l-50) !important;
           color: var(--clr-1);
         }
       }
@@ -293,17 +294,19 @@ export default {
           width: 0.7em;
           transform: rotate(0deg);
           &.toggled {
-            transform: rotate(180deg); 
+            transform: rotate(90deg); 
           }
         }
         &.selected {
           .item-header {
             background-color: var(--clr-4);
+            // background-color: var(--clr-3);
             color: var(--clr-1);
           }
           .router-link-exact-active {
             // background-color: rgba(147, 214, 254, 0.3);
-            background-color: var(--clr-5);
+            // background-color: var(--clr-5);
+            background-color: var(--clr-4-l-50);
             color: var(--clr-1);
           }
         }

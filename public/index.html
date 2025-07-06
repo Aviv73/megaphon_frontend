@@ -9,6 +9,9 @@
     <link rel="manifest" href="./manifest.json">
     <title><%= htmlWebpackPlugin.options.title %></title>
 
+    <!-- BASE CSS -->
+    <link href="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/base-css" rel="stylesheet">
+
     <!-- FRONT SERVICES -->
     <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/elementService"></script>
     <script src="<% if (process.env.NODE_ENV === 'development') { %>http://localhost:3000<% } else { %><% } %>/api/script/alertService"></script>

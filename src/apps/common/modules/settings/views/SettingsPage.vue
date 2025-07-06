@@ -45,7 +45,7 @@ export default {
     themes() {
       let themesToSelect = this.defaultThemes;
       if (this.org) themesToSelect = Array.from(new Set([...this.org.designPreferences?.producerApp.map(c => c.name), ...themesToSelect]));
-      return themesToSelect.map(c => ({value: c, label: `settingsLocales.themes.${c}`}))
+      return themesToSelect.map(c => ({value: c, label: this.tOrTitle(c)}))
     },
     // themeItemToSelect() {
     //   this.uiConfig.themesByOrg[this.org?._id || 'default'][this.selectedAppData.name];
@@ -59,7 +59,12 @@ export default {
     async saveSettings() {
       const updatedSettings = await this.$store.dispatch({ type: 'settings/updateSettings', settings: this.settings });
       this.settings = JSON.parse(JSON.stringify(updatedSettings));
-    }
+    },
+    tOrTitle(subKey) {
+      if (!subKey) return subKey;
+      const key = `settingsLocales.themes.${subKey}`;
+      return this.$te(key) ? this.$t(key) : subKey;
+    },
   },
   created() {
     this.settings = JSON.parse(JSON.stringify(this.$store.getters['settings/settings']));

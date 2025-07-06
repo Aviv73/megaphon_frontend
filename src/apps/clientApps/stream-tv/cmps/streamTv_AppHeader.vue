@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header flex align-center ignore-theme-style">
+  <header class="app-header flex align-center ignore-theme-style" v-if="showHeader">
     <div class="container_ header-content height-all width-all flex align-center space-between" v-if="lastSeenGroupRelease || !isScreenWide || (loggedUser && ($route.name === 'ReleaseDetails'))">
       <NavOrBurger :showBurger="!!allRouteFilters.length" side="right">
         <template v-slot:header v-if="org?.requireAuth">
@@ -54,6 +54,9 @@ export default {
     // initReleaseId() {
     //   return this.$store.getters['release/initReleaseId'];
     // },
+    showHeader() {
+      return !this.$route.matched.find(c => c.name === 'AuthApp');
+    },
     showOnlyreleases() {
       return this.$route.query?.releasesView === 'true';
     },

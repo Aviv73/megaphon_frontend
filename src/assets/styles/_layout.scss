@@ -153,13 +153,13 @@ html.accessability {
 
 
 
-@media (min-width: $small-screen-break) {
-  .small-screen-item {
-    display: none !important;
-  }
-}
-@media (max-width: $small-screen-break) {
-  .wide-screen-item {
-    display: none !important;
-  }
-}
+// @media (min-width: $small-screen-break) {
+//   .small-screen-item {
+//     display: none !important;
+//   }
+// }
+// @media (max-width: $small-screen-break) {
+//   .wide-screen-item {
+//     display: none !important;
+//   }
+// }

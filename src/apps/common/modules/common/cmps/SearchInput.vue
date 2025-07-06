@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit" class="flex align-center gap10 search-input">
     <FormInput class="width-content" type="text" :placeholder="placeholder" v-model="val"/>
-    <button class="btn secondary">{{$t(btn)}}</button>
+    <button class="btn clear underline">{{$t(btn)}}</button>
   </form>
 </template>
 
@@ -39,7 +39,7 @@ export default {
 .search-input {
   border-radius: em(5px);
   overflow: hidden;
-  border: 1px solid rgb(114, 114, 114);
+  // border: 1px solid rgb(114, 114, 114);
   width: 100%;
   .form-input {
     width: unset;

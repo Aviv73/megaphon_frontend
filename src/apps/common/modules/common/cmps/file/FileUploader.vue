@@ -1,11 +1,12 @@
 <template>
   <div class="file-uploader-input flex align-start_ gap10">
     <img v-if="viewAsImg" class="val-img" :title="valToShow?.name || valToShow?.title" :src="fileToShow" :alt="valToShow?.name || valToShow?.title || $t('clickToUploadFile')" @click="clickInput"/>
-    <p class="p-like" v-else-if="!fileToShow && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
-    <p class="p-like ltr text-end" v-else-if="isLoading" @click="clickInput">{{loadingMsg? loadingMsg : $t('loading') + '...'}}</p>
-    <a class="p-like" v-else target="_blanc" :href="fileToShow" :title="valToShow.name || valToShow.title">{{valToShow.name || valToShow.title}}</a>
+    <p class="p-like flex align-center" v-else-if="!fileToShow && !isLoading" @click="clickInput">{{$t('clickToUploadFile')}}</p>
+    <p class="p-like flex align-center ltr text-end" v-else-if="isLoading" @click="clickInput">{{loadingMsg? loadingMsg : $t('loading') + '...'}}</p>
+    <a class="p-like flex align-center" v-else target="_blanc" :href="fileToShow" :title="valToShow.name || valToShow.title">{{valToShow.name || valToShow.title}}</a>
     <div class="flex column space-between height-all gap10" v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="uploadFile" :accept="accept"/>
+      <div v-if="fileToShow" class="text-ph"></div>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
       <button v-if="fileToShow" @click.prevent.stop="clear" :title="$t('clear')" class="btn clear underline width-content danger_ round_">
         <!-- <div v-html="svgs.x" class="svg-parrent"></div> -->
@@ -132,6 +133,10 @@ export default {
     // flex-direction: column;
     flex-wrap: wrap;
     gap: em(5px) !important;
+  }
+  
+  .text-ph, .clear {
+    height: 1em;
   }
 }
 </style>

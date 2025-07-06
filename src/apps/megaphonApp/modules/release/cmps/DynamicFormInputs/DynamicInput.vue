@@ -201,7 +201,7 @@ export default {
         case 'SEPARATOR':
         // case 'SEPARATOR_BOLD':
           this.cmpName = 'hr';
-          this.propsToPass = { ...propsToPass, style: `border-width:1px;border-color:var(--clr-4)` };
+          this.propsToPass = { ...propsToPass, style: `border-width:0.125em;border-color:var(--clr-4)` };
           break;
         case 'LIGHT_SEPARATOR':
           this.cmpName = 'hr';

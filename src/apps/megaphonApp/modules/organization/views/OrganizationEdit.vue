@@ -131,7 +131,7 @@
 
 
       <div class="flex column gap50" v-if="loggedUser?.roles.includes('developer')">
-        <button class="btn big secondary align-self-start"><span @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</span></button>
+        <button class="btn big secondary_ align-self-start"><span @click="showDeveloperZone = !showDeveloperZone">DEVELOPER ZONE</span></button>
         <div class="developer-zone flex column gap50" v-if="showDeveloperZone">
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
           <FormInput type="text" labelholder="redirectUrl" v-model="organizationToEdit.redirectUrl"/>
@@ -168,6 +168,7 @@
                   <FormInput type="color" labelholder="organizationLocales.headersColor" v-model="theme.colors[4]"/>
                   <FormInput type="color" labelholder="organizationLocales.headersBgColor" v-model="theme.colors[5]"/>
                   <FormInput type="color" labelholder="organizationLocales.linkColor" v-model="theme.colors[6]"/>
+                  <FormInput type="color" labelholder="organizationLocales.btnColor" v-model="theme.colors[7]"/>
                 </div>
                 <ToggleModal :fullScreen="true" class="code-edit-modal">
                   <template #toggler>
@@ -404,6 +405,14 @@ export default {
     async getOrganization() {
       this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id, isToInheritData: true });
       this.setupDefaultTemplateMap();
+      // for (let designAppKey in this.organizationToEdit.designPreferences) { // temp fix;
+      //   if (typeof this.organizationToEdit.designPreferences[designAppKey] !== 'object') continue;
+      //   this.organizationToEdit.designPreferences[designAppKey].forEach(theme => {
+      //     if (!theme.colors) return;
+      //     if (!theme.colors[6]) theme.colors[6] = '#2090d4';
+      //     if (!theme.colors[7]) theme.colors[7] = 'rgba(102, 102, 102, 1)';
+      //   });
+      // }
       this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));
     },
     async getAllDomains() {

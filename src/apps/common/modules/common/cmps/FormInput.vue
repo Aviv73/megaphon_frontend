@@ -148,7 +148,7 @@
           hidden
         />
         <button
-          class="btn_ primary_ underline mid file-btn"
+          class="btn__ primary_ underline mid file-btn"
           @click="$refs.elInput.click()"
         >{{$t(placeholder || labelholder)}}
         </button>
@@ -382,6 +382,9 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   gap: em(5px);
+  .gap30 {
+    
+  }
   // border-bottom: em(1px) solid gray;
   label {
     .require-span {

@@ -62,11 +62,14 @@ export default {
 
   
   .logo {
-    width: 50%;
-    &.org-logo {
+    // width: 50%;
+    height: em(50px);
+    width: auto;
+    object-fit: contain;
+    // &.org-logo {
       align-self: center;
-      width: rem(100px);
-    }
+      // width: rem(100px);
+    // }
   }
 
   .auth-page {

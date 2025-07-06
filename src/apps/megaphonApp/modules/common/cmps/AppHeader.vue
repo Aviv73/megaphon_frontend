@@ -2,7 +2,7 @@
   <header class="app-header flex align-center ignore-theme-style_">
     <div class="container header-content width-all flex align-center space-between height-all" :class="{[$route.matched.find(c => c.name === 'MainSidebarView') || true ? 'full-screen-container' : 'container'] : true}">
       <router-link v-if="!isUserWatchOnly || !selectedOrgId || isSingleOrgMode" :to="{name: 'ReleasePage', params: {organizationId: orgId || organization?._id} }" class="height-all">
-        <div class="logo-title height-all flex_ align-center">
+        <div class="logo-title height-all flex align-center justify-center" :class="{'org-logo': (orgId != '-1') && orgLogo }">
           <img v-if="showLogo" class="actual" :src="logoImgSrc" alt=""/>
         </div>
       </router-link>
@@ -13,7 +13,7 @@
           <LoggedUserPreview v-if="isUserWatchOnly" class="to-the-right nav-item small-screen-item"/>
           <div class="links create-links nav-items flex align-center gap15 height-all" v-if="isOrgProducer">
             <router-link class="nav-item create-nav gap15" :to="{ name: 'ReleaseEdit', params: {organizationId: orgId}, query: {releaseType: type.id} }" v-for="type in organization.releaseTypes" :key="type.id">
-              <button class="btn_ big primary">
+              <button class="btn__ big primary">
                 <span class="hover-pop">{{$t('create')}} {{type.name}}</span>
               </button>
             </router-link>
@@ -73,7 +73,7 @@
       <!-- <template v-if="headerMode === 'ReleaseEdit'">
         <div class="flex gap10 align-center space-between container height-all">
           <div>
-            <button class="underline btn_ big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
+            <button class="underline btn__ big" v-if="itemToEdit._id" @click="deleteItem">{{$t('delete')}}</button>
           </div>
           <div class="flex align-center gap30 height-all">
             <button class="btn big" @click="close">{{$t('close')}}</button>
@@ -123,9 +123,12 @@ export default {
     organization() {
       return this.$store.getters['organization/selectedItem'];
     },
+    orgLogo() {
+      return fixFileSrcToThumbnail(this.organization?.logo, this.organization);
+    },
     logoImgSrc() {
       const megaphonLogo = this.$store.getters.envManagement?.logo || require('@/apps/megaphonApp/assets/images/Megaphon_logo_v.png');
-      return ((this.orgId == '-1')? megaphonLogo : fixFileSrcToThumbnail(this.organization?.logo, this.organization)) || megaphonLogo;
+      return ((this.orgId == '-1')? megaphonLogo : this.orgLogo) || megaphonLogo;
     },
     loggedUser() {
       return this.$store.getters['auth/loggedUser'];
@@ -273,7 +276,10 @@ export default {
       height: 100%;
       width: rem(200px);
       margin-inline-end: rem(15px);
-      // background-color: #666666;
+      &.org-logo {
+        // background-color: #666666;
+        background-color: var(--clr-4-l-90);
+      }
       .actual {
         height: 100%;
         width: unset;
@@ -314,7 +320,8 @@ export default {
           &:hover {
             // background-color: rgba(32, 144, 212, 0.04);
             color: var(--clr-0);
-            background-color: var(--clr-5) !important;
+            // background-color: var(--clr-5) !important;
+            background-color: var(--clr-4-l-50) !important;
           }
           &.selected {
             border-top: em(6px) solid var(--clr-4);

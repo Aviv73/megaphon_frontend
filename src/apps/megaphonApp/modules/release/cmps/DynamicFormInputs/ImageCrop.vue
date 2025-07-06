@@ -2,6 +2,7 @@
   <div class="file-uploader-input img-crop-input flex align-center gap10">
     <div class="flex column space-between height-all gap10" v-if="!isLoading">
       <input type="file" ref="inputEl" hidden @change="chooseFile" :accept="accept"/>
+      <div v-if="imgToShow" class="text-ph"></div>
       <button @click.prevent.stop="clickInput" class="btn big primary_">{{$t('chooseFile')}}</button>
       <button v-if="imgToShow" @click.prevent.stop="clear" :title="$t('clear')" class="btn clear underline width-content danger_ round_">
         <!-- <div v-html="svgs.x" class="svg-parrent"></div> -->

@@ -1,6 +1,6 @@
 <template>
-  <span class="tooltip">
-    <span ref="elPreview" class="tooltip-preview flex align-center justify-center" @click="toggleShow" @mouseleave="toggleHoverShow(false)" @mouseover="toggleHoverShow(true)">
+  <span class="tooltip" @mouseleave="toggleHoverShow(false)">
+    <span ref="elPreview" class="tooltip-preview flex align-center justify-center" @click="toggleShow" @mouseover="toggleHoverShow(true)">
       <img class="tooltip-img" v-if="!$slots.preview" :src="require('@/assets/images/icons/tooltip.png')" alt="" />
       <!-- <span v-if="!$slots.preview">(?)</span> -->
       <slot v-else name="preview"/>
@@ -9,7 +9,7 @@
       <slot v-else name="preview"/> -->
     </span>
     <div v-show="show || hoverShow" ref="elMsg" class="tooltip-msg">
-      <button v-if="show" class="btn_ small close-btn" @click="toggleShow(false)">✖</button>
+      <button v-if="show" class="btn__ small close-btn" @click="toggleShow(false)">✖</button>
       <p v-if="!$slots.content">{{ msg? $t(msg) : 'No tooltip message...' }}</p>
       <slot v-else name="content"/>
     </div>

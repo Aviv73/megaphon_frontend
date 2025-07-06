@@ -91,7 +91,7 @@
               <!-- <p>{{$t('contactLocales.contactName')}}</p> -->
               <FormInput :placeholder="$t('search')" v-model="searchSelectedTerm"/>
               <!-- <button class="toggle-btn" @click="contactsForDistribute = []"><img :src="require('@/apps/megaphonApp/assets/images/remove_contact.svg')"/>{{$t('distributeLocales.removeAll')}}</button> -->
-              <button class="toggle-btn_ flex gap10" @click="contactsForDistribute = []"><span>{{$t('distributeLocales.removeAll')}}</span><div class="toggle-btn bold hover-pop">-<div v-html="svgs.person" class="svg-parrent"></div></div></button>
+              <button class="toggle-btn__ flex gap10" @click="contactsForDistribute = []"><span>{{$t('distributeLocales.removeAll')}}</span><div class="toggle-btn bold hover-pop">-<div v-html="svgs.person" class="svg-parrent"></div></div></button>
             </div>
             <template v-if="contactsForDistributeToShow?.length">
               <div v-for="contact in contactsForDistributeToShow" :key="contact._id || contact.email || contact.mobile" class="table-item-preview gap10 flex align-center space-between" :class="{unsubscribed: contact.unsubscribed}">
@@ -115,7 +115,7 @@
             <router-link v-if="isRoleInOrg('admin')" :to="{ name: 'ReleaseReport', params: {organizationId, id: $route.params.id} }"><button class="btn big">{{$t('distributeLocales.report')}}</button></router-link>
             <button class="btn big ignor-flex flex align-center gap15" @click="showDesign = true" ><div v-html="svgs.PreviewActions.eye" class="svg-parrent"></div><span>{{$t('releaseLocales.designAndPreview')}}</span></button>
             <button @click="sendTestEmail" class="btn big">{{$t('distributeLocales.sendTestMail')}}</button>
-            <button @click="distribute()" class="btn big bg-4 clr-1 ignor-flex flex align-center gap15"><div v-html="svgs.PreviewActions.distribute" class="svg-parrent"></div><span>{{$t('distributeLocales.distribute')}}</span></button>
+            <button @click="distribute()" class="btn big primary ignor-flex flex align-center gap15"><div v-html="svgs.PreviewActions.distribute" class="svg-parrent"></div><span>{{$t('distributeLocales.distribute')}}</span></button>
           </div>
         </div>
       </footer>

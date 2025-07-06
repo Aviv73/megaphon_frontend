@@ -3,7 +3,7 @@
     <template v-if="report">
       <div class="flex align-center space-between gap10 width-all">
         <h2>{{$t('distributeLocales.report')}}<span v-if="release.releaseData?.title">: {{release.releaseData.title}}</span></h2>
-        <button @click="onRemoveDistributionData" class="btn big secondary">{{$t('distributeLocales.deleteDistributionData')}}</button>
+        <button @click="onRemoveDistributionData" class="btn big secondary_">{{$t('distributeLocales.deleteDistributionData')}}</button>
       </div>
       <div class="main-section flex gap30 width-all">
         <div class="flex column gap10">

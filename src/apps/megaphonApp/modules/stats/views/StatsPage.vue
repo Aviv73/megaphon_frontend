@@ -7,12 +7,18 @@
           <FormInput type="date" label="statsLocales.fromDate" v-model="datesRange.from"/>
           <FormInput type="date" label="statsLocales.toDate" v-model="datesRange.to"/>
         </div>
-        <div class="flex align-center gap10 wrap">
-          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*1  )">{{$t('statsLocales.last24Hr')}}</button>
-          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*7  )">{{$t('statsLocales.last7Days')}}</button>
-          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*30 )">{{$t('statsLocales.lastMonth')}}</button>
-          <button class="btn" @click="setTimeToNow(now - 1000*60*60*24*365)">{{$t('statsLocales.lastYear')}}</button>
-        </div>
+        <ToggleBtns v-model="timeSelected" :value="timeSelected" @input="setTimeToNow" :options="[
+          {label: $t('statsLocales.last24Hr'), value: now - 1000*60*60*24*1},
+          {label: $t('statsLocales.last7Days'), value: now - 1000*60*60*24*7},
+          {label: $t('statsLocales.lastMonth'), value: now - 1000*60*60*24*30},
+          {label: $t('statsLocales.lastYear'), value: now - 1000*60*60*24*365}
+        ]"/>
+        <!-- <div class="flex align-center gap10 wrap toggle-btns">
+          <button @click="setTimeToNow(now - 1000*60*60*24*1  )">{{$t('statsLocales.last24Hr')}}</button>
+          <button @click="setTimeToNow(now - 1000*60*60*24*7  )">{{$t('statsLocales.last7Days')}}</button>
+          <button @click="setTimeToNow(now - 1000*60*60*24*30 )">{{$t('statsLocales.lastMonth')}}</button>
+          <button @click="setTimeToNow(now - 1000*60*60*24*365)">{{$t('statsLocales.lastYear')}}</button>
+        </div> -->
       </div>
     </div>
     <hr/>
@@ -191,12 +197,15 @@ export default {
       chart2Data: { items: [], total: 0 },
       activityChartData: { items: [], total: 0 },
 
+      timeSelected: 1000*60*60*24*365, // year ago
+
       Time: Utils.Time
     }
   },
   created() {
     this.fetchVideoWatchLogsForChart1();
     this.fetchVideoWatchLogsForChart2();
+    this.timeSelected = this.datesRange.from;
   },
   methods: {
     // getTotalTimeWatchedPerVideoWatchLog,
@@ -250,7 +259,8 @@ export default {
     },
     
     setTimeToNow(time) {
-      this.datesRange = { to: this.now, from: time } 
+      this.timeSelected = time;
+      this.datesRange = { to: this.now, from: time };
     }
   },
   computed: {

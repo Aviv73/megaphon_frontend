@@ -42,9 +42,11 @@
 .btn {
   &:not(.clear) {
     // height: em(20px);
-    background-color: #ffffff;
-    box-shadow: $light-shadow;
-    color: black;
+    // background-color: #ffffff;
+    // color: black;
+    background-color: var(--clr-7);
+    color: var(--clr-1);
+    // box-shadow: $light-shadow;
     border-radius: em(5px);
     padding: 0 em(5px);
   
@@ -105,8 +107,10 @@
   
     &.primary {
       // background-color: $clr-light-green;
-      background-color: black;
-      color: white;
+      // background-color: black;
+      // color: white;
+      background-color: var(--clr-4-d-20);
+      // color: var(--clr-1);
     }
     &.secondary {
       background-color: $clr-light-blue;
@@ -147,6 +151,8 @@
   // background-color: #fff;
   box-shadow: $light-shadow;
   button {
+    background-color: #fff;
+    color: black;
     padding: em(3px);
     // color: black;
     height: 100%;
@@ -154,7 +160,8 @@
       border-inline-end: em(1px) solid $clr-light-blue;
     }
     &.selected {
-      background-color: $clr-light-green;
+      // background-color: $clr-light-green;
+      background-color: var(--clr-4-d-20);
       font-weight: bold;
     }
     img {
