@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import { settingsStore } from '../apps/common/modules/settings/store';
 import { dynamicCssPagesService } from '../apps/common/modules/common/services/dynamicPages.service';
 import { httpService } from '@/apps/common/modules/common/services/http.service';
+import allDefaultThemes from '../apps/megaphonApp/themes/index.js';
 
 // import commonStore from '../apps/common/store'
 // import selectedAppData from '../apps/index.js';
@@ -64,6 +65,13 @@ export default new Vuex.Store({
   },
   actions: {
     setSelectedTheme({commit, rootGetters}, { theme, selector }) {
+      commit({type: 'setTheme', theme})
+      dynamicCssPagesService.setDynamicStylingThemeEl(theme, selector, rootGetters['settings/uiConfig']?.remSize);
+    },
+    clearTheme({commit, rootGetters}, { }) {
+      // const theme = allDefaultThemes[0];
+      const selector = '.megaphon-app';
+      const theme = dynamicCssPagesService.getRelevantThemeForOrg({_id: '-1'}, false, rootGetters['settings/uiConfig'], null, selector);
       commit({type: 'setTheme', theme})
       dynamicCssPagesService.setDynamicStylingThemeEl(theme, selector, rootGetters['settings/uiConfig']?.remSize);
     },

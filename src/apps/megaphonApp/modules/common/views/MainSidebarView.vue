@@ -112,6 +112,8 @@ export default {
     async loadSelectedOrg() {
       const id = this.selectedOrgId;
       if (!id || (id == '-1')) {
+        this.$store.dispatch({ type: 'organization/clearOrg' });
+        this.$store.dispatch({ type: 'clearTheme' });
         // setDynamicStylingThemeEl({...allThemes[0], title: 'Megaphon'}, '.megaphon-app');
         // this.$store.commit({ type: 'setSelectedTheme', theme: allThemes[0], selector: '.megaphon-app' });  
         return;

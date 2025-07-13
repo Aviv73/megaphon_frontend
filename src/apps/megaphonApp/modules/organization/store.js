@@ -90,6 +90,12 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
             return orgs;
           }
         });
+      },
+
+      clearOrg({ commit }) {
+        commit({ type: 'setSelectedItem', item: null });
+        commit({ type: 'setProp', key: 'organizationId', val: null });
+        // dispatch({ type: 'clearTheme', selector: '.megaphon-app' });
       }
     }
   },
