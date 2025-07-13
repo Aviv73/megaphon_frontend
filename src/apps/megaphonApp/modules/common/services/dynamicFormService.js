@@ -5,6 +5,10 @@ import { fixFileSrcToThumbnail } from '../../../../common/modules/common/service
 export function createItemForDynamicForm(dataFields = []) {
   const item = {};
   for (let field of dataFields) {
+    if (field.defaultValue) {
+      item[field.fieldName] = field.defaultValue;
+      continue;
+    }
     switch (field.type) {
       case 'ID':
         return item[field.fieldName] = Utils.getRandomId();
@@ -64,6 +68,9 @@ export function createItemForDynamicForm(dataFields = []) {
       // case 'FILEINARRAY':
         item[field.fieldName] = [];
         break;
+
+      case 'TYPE':
+        item[field.fieldName] = field.defaultValue;
 
 
       case 'SEPARATOR':
@@ -134,5 +141,7 @@ export function validateDataByDataField(dataField, data, rootData, fullParent) {
     // case 'FILEINARRAY':
     case 'VIDEOINARRAY':
       return !!data?.[0]?.length;
+    case 'TYPE':
+        !!data;
   }
 }

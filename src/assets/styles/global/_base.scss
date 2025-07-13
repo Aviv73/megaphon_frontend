@@ -157,36 +157,36 @@ h4 {
 // }
 
 
-.table-like-list {
-  display: flex !important;
-  flex-direction: column;
-  .item-list-container {
-    gap: 0;
-  }
-  .item-list {
-    gap: 0;
-    flex-direction: column;
-    justify-content: flex-start;
-    // box-shadow: $light-shadow;
-  }
-  .table-item-preview {
-    display: flex;
-    align-items: center;
-    // align-items: flex-start;
-    >* {
-      // display: flex;
-      // align-items: center;
-      // min-height: ;
-      flex: 1;
-      // max-width: rem(200px);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      &.flex-2 {
-        flex: 2;
-      }
-    }
-  }
-}
+// .table-like-list {
+//   display: flex !important;
+//   flex-direction: column;
+//   .item-list-container {
+//     gap: 0;
+//   }
+//   .item-list {
+//     gap: 0;
+//     flex-direction: column;
+//     justify-content: flex-start;
+//     // box-shadow: $light-shadow;
+//   }
+//   .table-item-preview {
+//     display: flex;
+//     align-items: center;
+//     // align-items: flex-start;
+//     >* {
+//       // display: flex;
+//       // align-items: center;
+//       // min-height: ;
+//       flex: 1;
+//       // max-width: rem(200px);
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       &.flex-2 {
+//         flex: 2;
+//       }
+//     }
+//   }
+// }
 
 
 // .svg-parrent {

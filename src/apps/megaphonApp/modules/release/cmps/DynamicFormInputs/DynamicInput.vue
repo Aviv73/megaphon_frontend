@@ -71,10 +71,10 @@
         </tr>
       </table>
       <div v-if="dataFieldToRender.type === 'LIST'" class="flex column gap20 width-content">
-        <div v-for="(currVal, idx) in value" :key="idx" class="flex align-start gap30">
+        <div v-for="(currVal, idx) in value" :key="idx" class="flex align-start space-between gap30">
           <div class="flex column gap5">
             <div
-              v-for="field in dataFieldToRender.fields.filter(c => !c.hidden)"
+              v-for="field in (!dataFieldToRender.fieldOpts?.length ? dataFieldToRender.fields : dataFieldToRender.fieldOpts.find(_c => _c.find(_ => (_.type === 'TYPE') && (_.defaultValue === currVal.type) ))).filter(c => !c.hidden)"
               :key="`${basePath}.${idx}.${field.fieldName}`"
             >
               <DynamicInput
@@ -94,8 +94,9 @@
             <TableActionBtns :allowEmptyArray="true" class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
           </div>
         </div>
-        <div v-if="!(dataFieldToRender.singleItem && (value?.length > 0))">
-          <button class="btn big square width-content_ align-self-end" @click.prevent="$emit('input', [...(value || []), createNewItem(dataFieldToRender.fields)], basePath)"><div v-html="svgs.plus" class="svg-parrent"></div></button>
+        <div v-if="!(dataFieldToRender.singleItem && (value?.length > 0))" class="flex align-center gap10">
+          <button class="btn big square" @click.prevent="$emit('input', [...(value || []), !dataFieldToRender.fieldOpts?.length ? createNewItem(dataFieldToRender.fields) : createNewItem(dataFieldToRender.fieldOpts[$refs.listTypeSelect.val])], basePath)"><div v-html="svgs.plus" class="svg-parrent"></div></button>
+          <FormInput ref="listTypeSelect" v-if="dataFieldToRender.fieldOpts?.length" type="select" :value="0" :items="dataFieldToRender.fieldOpts.map((_c, _idx) => ({ value: _idx, label: _c.find(_ => _.type === 'TYPE').defaultValue}))"/>
         </div>
       </div>
     </div>
@@ -277,6 +278,12 @@ export default {
           this.propsToPass = { ...propsToPass, isSingleItem: true, accept: this.dataField.filter, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.parentItem._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
           break;
 
+        case 'TYPE':
+          this.cmpName = 'FormInput';
+          console.log('this.dataField.value', this.dataField.value);
+          this.propsToPass = { ...propsToPass, disabled: true, type: 'text', value_: this.dataField.defaultValue };
+          break;
+
 
         // case 'IMAGEINARRAY':
         //   this.cmpName = 'MultipleFilePicker';
@@ -332,6 +339,7 @@ export default {
     },
 
     createNewItem(dataFields) {
+      console.log('WOWOWO?', dataFields);
       return createItemForDynamicForm(dataFields);
     },
   },

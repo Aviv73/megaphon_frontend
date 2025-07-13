@@ -1,0 +1,230 @@
+
+
+//// BTN::
+/// 
+/// 
+/// 
+// .dark-theme .btn {
+//   color: white;
+// }
+
+// .dark-theme {
+//   .btn {
+//     &:not(.clear) {
+//       // background-color: black;
+//       // color: white;
+//       &.primary {
+//         // background-color: $clr-light-green;
+//         background-color: var(--clr-4);
+//         color: var(--clr-1);
+//       }
+//       &:active {
+//         color: var(--clr-0);
+//         border-color: var(--clr-0);
+//       }
+//     }
+//   }
+  
+//   .toggle-btns {
+//     background-color: var(--clr-0);
+//     button {
+//       color: var(--clr-1);
+//     }
+//   }
+// }
+
+.icon {
+  height: em(20px);
+  width: em(20px);
+  padding: 0;
+  border: unset;
+  // padding: em(1px);
+  // img {
+  //   height: calc(100% - 2px);
+  //   width: calc(100% - 2px);
+  // }
+}
+.btn {
+  &:not(.clear) {
+    // height: em(20px);
+    // background-color: #ffffff;
+    // color: black;
+    // background-color: var(--clr-6);
+    // color: var(--clr-1);
+    // box-shadow: $light-shadow;
+    border-radius: em(5px);
+    padding: 0 em(5px);
+  
+    &:not(.ignor-flex) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: em(5px);
+    }
+    
+    img {
+      height: em(20px);
+      width: unset;
+    }
+    // &.icon {
+    //   height: em(20px);
+    //   width: em(20px);
+    //   padding: 0;
+    //   border: unset;
+    //   // padding: em(1px);
+    //   // img {
+    //   //   height: calc(100% - 2px);
+    //   //   width: calc(100% - 2px);
+    //   // }
+    // }
+    
+    .ico-img {
+      height: em(15px);
+      // width: em(15px);
+    }
+
+    &.round {
+      border-radius: 50%;
+    }
+
+    &.small {
+      height: em(13px);
+      width: em(13px);
+      padding: 0;
+      border-radius: 2px;
+      font-size: 11px;
+    }
+  
+    &.big {
+      height: em(35px);
+      // padding: em(10px) em(20px);
+      padding: 0 em(20px);
+      &.square {
+        padding: 0;
+        // padding: em(10px);
+        width: em(35px);
+
+      }
+    }
+    &.mid {
+      padding: em(7px) em(15px);
+    }
+  
+    // &.primary {
+    //   // background-color: $clr-light-green;
+    //   // background-color: black;
+    //   // color: white;
+    //   background-color: var(--clr-4-d-20);
+    //   // color: var(--clr-1);
+    // }
+    // &.secondary {
+    //   background-color: $clr-light-blue;
+    // }
+    // &.danger {
+    //   background-color: $clr-light-red;
+    // }
+  
+    // &.safe {
+    //   background-color: green;
+    // }
+    // &.danger {
+    //   background-color: red;
+    // }
+    // &:active {
+    //   color: white;
+    //   border-color: white;
+    // }
+
+  }
+  
+
+  &:hover {cursor: pointer;}
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: default !important;
+  }
+}
+
+.toggle-btns { // flex align-center space-between gap5 
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  // border: em(1px) solid $clr-light-blue;
+  border-radius: em(3px);
+  overflow: hidden;
+  // background-color: #fff;
+  box-shadow: $light-shadow;
+  button {
+    background-color: #fff;
+    color: black;
+    padding: em(3px);
+    // color: black;
+    height: 100%;
+    &:not(:last-child) {
+      border-inline-end: em(1px) solid $clr-light-blue;
+    }
+    &.selected {
+      // background-color: $clr-light-green;
+      background-color: var(--clr-4-d-20);
+      font-weight: bold;
+    }
+    img {
+      width: em(30px);
+      height: em(30px);
+    }
+  }
+}
+
+// button, .button-like {
+//   border: unset;
+//   background: unset;
+//   outline: none;
+//   // padding: 0 em(5px);
+//   // border: em(1px) solid black;
+//   // box-shadow: $light-shadow;
+//   // color: black;
+//   // border-radius: em(5px);
+// } button:hover, .button-like:hover {cursor: pointer;}
+// button:active, .button-like:active {
+//     color: white;
+//     border-color: white;
+//   }
+
+
+
+
+
+
+
+
+.table-like-list {
+  display: flex !important;
+  flex-direction: column;
+  .item-list-container {
+    gap: 0;
+  }
+  .item-list {
+    gap: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    // box-shadow: $light-shadow;
+  }
+  .table-item-preview {
+    display: flex;
+    align-items: center;
+    // align-items: flex-start;
+    >* {
+      // display: flex;
+      // align-items: center;
+      // min-height: ;
+      flex: 1;
+      // max-width: rem(200px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &.flex-2 {
+        flex: 2;
+      }
+    }
+  }
+}

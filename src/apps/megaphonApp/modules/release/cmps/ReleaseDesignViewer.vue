@@ -5,14 +5,14 @@
         <button class="underline" @click="selectedDesignTypeToShow = 'landingPage'" :class="{selected: selectedDesignTypeToShow === 'landingPage', bold: selectedDesignTypeToShow === 'landingPage'}" :disabled="!release._id">{{$t('releaseLocales.landingPageDesign')}}</button>
         <button class="underline" @click="selectedDesignTypeToShow = 'email'" :class="{selected: selectedDesignTypeToShow === 'email', bold: selectedDesignTypeToShow === 'email'}">{{$t('releaseLocales.newsletterDesign')}}</button>
       </div>
-      <div class="flex align-center justify-center gap50">
+      <div class="flex align-center justify-center gap30">
         <ToggleBtns v-model="previewPlatform" :options="[
           {value: 'desktop', img: require('@/apps/megaphonApp/assets/images/devices/desktop.jpg')},
           {value: 'tablet', img: require('@/apps/megaphonApp/assets/images/devices/tablet.jpg')},
           {value: 'mobile', img: require('@/apps/megaphonApp/assets/images/devices/mobile.png')},
         ]"/>
-        <!-- <FormInput
-          :debug="true"
+        <FormInput
+          v-if="organization.allowDesignSelection && (allTemplates.length > 1)&& false"
           type="select"
           :value="release.design[designTypeKey] || allTemplates[0]?.id || ''"
           @change="val => $emit('design-template-updated', designTypeKey, val)"
@@ -20,7 +20,7 @@
             allTemplates
               .map(c => ({ label: c.name, value: c.id }))
           "
-        /> -->
+        />
       </div>
       <button class="" @click="$emit('close')">{{$t('close')}}</button>
     </div>
@@ -121,7 +121,7 @@ export default {
       z-index: 1001;
       color: black;
       background-color: rgba(255, 255, 255, 0.8);
-      padding: em(5px);
+      padding: em(5px) em(15px);
       border-radius: em(5px);
       .toggle-btns {
         flex-wrap: nowrap;
