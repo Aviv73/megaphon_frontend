@@ -65,8 +65,8 @@
 
 <script>
 import { Utils } from '@/apps/common/modules/common/services/util.service';
-import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
-import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
+// import FormInput from '@/apps/common/modules/common/cmps/FormInput.vue';
+// import FileUploader from '@/apps/common/modules/common/cmps/file/FileUploader.vue';
 import FilesSection from './FilesSection.vue';
 // import FileList from './FileList.vue';
 import FilesSingleSection from './FilesSingleSection.vue';
@@ -210,8 +210,8 @@ export default {
           break;
 
 
-        // case 'FILE_SRC':
-        //   this.cmpName = 'FileUploader';
+        case 'FILE_SRC':
+          this.cmpName = 'FileUploader';
         //   this.propsToPass = { ...propsToPass, accept: this.dataField.filter, onlySrc: true };
         //   break;
 
@@ -282,8 +282,8 @@ export default {
     this.initCmpData();
   },
   components: { 
-    FormInput,
-    FileUploader,
+    // FormInput,
+    // FileUploader,
     FilesSection,
     // FileList,
     FilesSingleSection,

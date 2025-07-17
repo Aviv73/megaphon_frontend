@@ -45,7 +45,7 @@
 
 <script>
 import evEmmiter from '@/apps/common/modules/common/services/event-emmiter.service';
-import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '../../common/services/file.service';
+// import { fixFileSrcToThumbnail, fixVideoSrcToThumbnail } from '../../common/services/file.service';
 
 import { templateUtils } from '../../common/services/template.util.service';
 // import FilesSection from '../cmps/FilesSection.vue';
@@ -69,7 +69,7 @@ export default {
     }
   },
   methods: {
-    fixFileSrcToThumbnail,
+    // fixFileSrcToThumbnail,
     async loadReleaseDataFields() {
       // await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.organizationId });
       // this.dataFields = await this.$store.dispatch({ type: 'organization/loadReleaseDataFields', dataFieldsLocalFilePath: this.selectedReleaseTypeItem?.dataFieldsLocalFilePath, organizationId: this.org._id, releaseType: this.releaseType });
