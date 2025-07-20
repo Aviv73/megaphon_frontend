@@ -2,7 +2,7 @@
   <component :is="isProducer && false? 'DragDiv' : 'div'" class="preview-container" :onDrag="() => toggleToSelectedReleases(true)">
     <li class="release-preview flex column gap5" :class="{ selected_: selectedReleaseIds.includes(item._id) }" @click="handleClick">
       <img class="release-img" :src="imgSrc" :alt="release.title" loading="lazy">
-      <p class="release-title">{{release.title}}</p>
+      <p class="release-title">{{release.shortTitle || release.title}}</p>
         <!-- <p class="dist-title align-self-end_" v-if="item.distributedAt">{{$t('releaseLocales.distributedAt')}}: {{pretyDistributionTime}}</p> -->
       <div v-if="!isUserOrgWatchOnly && !reportMode" class="actions-container flex column space-between align-end gap7 height-all">
         <div class="actions flex column align-end gap5 space-between flex-1">

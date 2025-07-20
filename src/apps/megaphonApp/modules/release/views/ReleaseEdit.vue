@@ -236,6 +236,9 @@ export default {
       font-size: em(16px);
       font-weight: normal;
     }
+    .input-field-LIST .LIST h3 {
+      width: em(75px);
+    }
 
     .form-input {
       &-text, &-select, &-date {

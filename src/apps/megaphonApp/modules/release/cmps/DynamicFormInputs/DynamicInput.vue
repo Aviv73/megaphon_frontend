@@ -1,7 +1,7 @@
 <template>
   <div class="dynamic-input flex gap30" v-if="dataFieldToRender" :class="`input-field-${dataFieldToRender.type}`">
     <h3 class="ignore-theme-style" v-if="(!noTitle && dataFieldToRender.title) || ((dataFieldToRender.type === 'SEPARATOR') && dataFieldToRender.title)">{{tOrTitle(dataFieldToRender.title)}}</h3>
-    <div class="input-container" :class="{'flex-1': dataField.type?.toUpperCase() !== 'CHECKBOX', [dataField.type] : true, 'table-container': dataFieldToRender.type === 'TABLE'}">
+    <div class="input-container" :class="{'flex-1': dataField.type?.toUpperCase() !== 'CHECKBOX', [dataField.type] : true, 'table-container flex': dataFieldToRender.type === 'TABLE'}">
       <p v-if="cmpName === 'UNKNOWN'">UNKNOWN INPUT TYPE "{{dataFieldToRender.type}}"</p>
       <p v-else-if="cmpName === 'MESSAGE'">{{dataFieldToRender.message}}</p>
       <component
@@ -34,7 +34,7 @@
           />
         </template>
       </div>
-      <table v-if="dataFieldToRender.type === 'TABLE'" colspacing="5px" class="flexx column gap10 width-content">
+      <table v-if="dataFieldToRender.type === 'TABLE'" colspacing="5px" class="flex-1 width-content">
         <!-- <tr class="flexx align-center gap10" v-if="value && value.length">
           <td v-for="(field, idx) in dataFieldToRender.fields" :key="`${basePath}.${idx}.${field.title}`">
             <p class="flex-1">
@@ -61,7 +61,9 @@
             />
           </td>
           <td>
-            <TableActionBtns :allowEmptyArray="true" class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
+            <div class="flex align-end">
+              <TableActionBtns :allowEmptyArray="true" class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
+            </div>
           </td>
         </tr>
         <tr v-if="!(dataFieldToRender.singleItem && (value?.length > 0))">
@@ -71,13 +73,15 @@
         </tr>
       </table>
       <div v-if="dataFieldToRender.type === 'LIST'" class="flex column gap20 width-content">
-        <div v-for="(currVal, idx) in value" :key="idx" class="flex align-start space-between gap30">
-          <div class="flex column gap5">
-            <div
+        <div v-for="(currVal, idx) in value" :key="idx" class="flex align-start_ space-between gap30">
+          <div class="flex column gap5 flex-1">
+            <!-- <div
               v-for="field in (!dataFieldToRender.fieldOpts?.length ? dataFieldToRender.fields : dataFieldToRender.fieldOpts.find(_c => _c.find(_ => (_.type === 'TYPE') && (_.defaultValue === currVal.type) ))).filter(c => !c.hidden)"
               :key="`${basePath}.${idx}.${field.fieldName}`"
-            >
+            > -->
               <DynamicInput
+                v-for="field in (!dataFieldToRender.fieldOpts?.length ? dataFieldToRender.fields : dataFieldToRender.fieldOpts.find(_c => _c.find(_ => (_.type === 'TYPE') && (_.defaultValue === currVal.type) ))).filter(c => !c.hidden)"
+                :key="`${basePath}.${idx}.${field.fieldName}`"
                 class="flex-1"
                 :dataField="field"
                 :basePath="[basePath, idx+'', field.fieldName].filter(Boolean).join('.')"
@@ -88,7 +92,7 @@
                 @input="(val, path) => $emit('input', val, path || [basePath, idx+'', field.fieldName].filter(Boolean).join('.'))"
                 :noTitle="false"
               />
-            </div>
+            <!-- </div> -->
           </div>
           <div>
             <TableActionBtns :allowEmptyArray="true" class="flex-1" :value="value" @input="val => $emit('input', val, basePath)" :idx="idx"/>
@@ -96,7 +100,7 @@
         </div>
         <div v-if="!(dataFieldToRender.singleItem && (value?.length > 0))" class="flex align-center gap10">
           <button class="btn big square" @click.prevent="$emit('input', [...(value || []), !dataFieldToRender.fieldOpts?.length ? createNewItem(dataFieldToRender.fields) : createNewItem(dataFieldToRender.fieldOpts[$refs.listTypeSelect.val])], basePath)"><div v-html="svgs.plus" class="svg-parrent"></div></button>
-          <FormInput ref="listTypeSelect" v-if="dataFieldToRender.fieldOpts?.length" type="select" :value="0" :items="dataFieldToRender.fieldOpts.map((_c, _idx) => ({ value: _idx, label: _c.find(_ => _.type === 'TYPE').defaultValue}))"/>
+          <FormInput ref="listTypeSelect" v-if="dataFieldToRender.fieldOpts?.length" type="select" :value="0" :items="dataFieldToRender.fieldOpts.map((_c, _idx) => ({ value: _idx, label: tOrTitle(_c.find(_ => _.type === 'TYPE').defaultValue)}))"/>
         </div>
       </div>
     </div>
@@ -146,7 +150,8 @@ export default {
   methods: {
     tOrTitle(subKey) {
       if (!subKey) return subKey;
-      const key = `releaseLocales.dataFields.${subKey}`;
+      // const key = `releaseLocales.dataFields.${subKey}`;
+      const key = `dataFieldsLocales.${subKey}`;
       return this.$te(key) ? this.$t(key) : subKey;
     },
     initCmpData() {
@@ -340,7 +345,6 @@ export default {
     },
 
     createNewItem(dataFields) {
-      console.log('WOWOWO?', dataFields);
       return createItemForDynamicForm(dataFields);
     },
   },
