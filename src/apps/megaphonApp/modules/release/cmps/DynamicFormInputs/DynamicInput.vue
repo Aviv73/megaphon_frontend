@@ -185,7 +185,8 @@ export default {
       const _appendNewFile = (file) => {
         evManager.emit('file-uploaded', file);
       }
-      const propsToPass = {...(this.dataField.propsToPass || {})};
+      let propsToPass = {...(this.dataField.propsToPass || {})};
+      if (this.dataField.props) propsToPass = { ...propsToPass, ...this.dataField.props };
       switch (type) {
         case 'TEXT':
         case 'DATE':
@@ -236,11 +237,11 @@ export default {
         case 'FILE':
         case 'VIDEO':
           this.cmpName = 'FileUploader';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter || (type === 'VIDEO' ? 'video/*' : ''), uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
+          this.propsToPass = { accept: this.dataField.filter || (type === 'VIDEO' ? 'video/*' : ''), ...propsToPass, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
           break;
         case 'IMAGE':
           this.cmpName = 'ImageCrop';
-          this.propsToPass = { ...propsToPass, accept: this.dataField.filter || 'image/*', uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
+          this.propsToPass = { accept: this.dataField.filter || 'image/*', ...propsToPass, uploadFolderName: this.organization._id, parentData: {col: 'release', _id: this.release._id}, onupload: file => _appendNewFile(file), rootItem: this.release };
           break;
 
         // case 'FILE_SRC':
@@ -332,7 +333,7 @@ export default {
 
         
       }
-      if (this.dataField.props) this.propsToPass = { ...this.propsToPass, ...this.dataField.props };
+      // if (this.dataField.props) this.propsToPass = { ...this.propsToPass, ...this.dataField.props };
     },
     getVal(item, fieldPath) {
       return Utils.getDeepVal(item, fieldPath);
