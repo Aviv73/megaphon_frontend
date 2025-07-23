@@ -1,6 +1,6 @@
 <template>
   <div class="tag-picker">
-    <FormInput :label="showLabel? 'tag.tags': ''" placeholder="tag.tags" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange" :allowAddValsToMultiSelect="allowAddValsToMultiSelect"/>
+    <FormInput :debug="true" :label="showLabel? 'tag.tags': ''" placeholder="tag.tags" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange" :allowAddValsToMultiSelect="allowAddValsToMultiSelect"/>
   </div>
 </template>
 
@@ -46,12 +46,13 @@ export default {
       })
     },
     allTags() {
+      console.log(this.$store.getters['tag/items']);
       return this.$store.getters['tag/items'];
     }
   },
   methods: {
     async loadAllTags() {
-      await this.$store.dispatch({ type: 'tag/loadItems', filterBy: { onlyRelevants: this.onlyRelevants || undefined, organizationId: this.organizationId } });
+      await this.$store.dispatch({ type: 'tag/loadItems', filterBy: { onlyRelevants: this.onlyRelevants || undefined, organizationId: this.organizationId, pagination: { noLimit: true } } });
     },
     emitChange(val) {
       val = val.filter(Boolean);
@@ -61,6 +62,7 @@ export default {
   },
   async created() {
     // if (!this.allTags.length)
+    console.log(this.value);
     await this.loadAllTags();
   },
   watch: {

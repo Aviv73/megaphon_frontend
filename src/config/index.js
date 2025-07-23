@@ -7,7 +7,7 @@ var config = null;
 
 const ENV = process.env.NODE_ENV || 'development';
 if (ENV === 'development') config = require('./dev');
-else if (ENV === 'staging') config = require('./stage');
+// else if (ENV === 'staging') config = require('./stage');
 else if (ENV === 'production') config = require('./prod');
 
 config = {

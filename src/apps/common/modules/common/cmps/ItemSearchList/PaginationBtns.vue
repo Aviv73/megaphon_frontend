@@ -1,6 +1,6 @@
 <template>
     <div class="pagination-btns flex column align-center gap20 ltr_ width-all" v-if="paginationData">
-      <div class="navigator-container row-reverse flex align-center space-between gap40 width-all">
+      <div class="navigator-container row-reverse flex wrap align-center space-between gap40 width-all">
         <div class="flex align-center gap5 ltr" v-if="!noLimitSelection">
           <FormInput type="select" labell="Per page:" v-model="paginationData.limit" @change="updateLimit" :items="[15,30,50,100,150,200,500]" class="align-center gap15 count-select" :listUp="true"/>
           <span class="out-of-span">/</span>

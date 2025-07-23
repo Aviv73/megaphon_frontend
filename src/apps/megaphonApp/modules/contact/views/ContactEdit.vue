@@ -10,10 +10,10 @@
       <FormInput labelholder="contactLocales.mobile" type="phone-number" v-model="itemToEdit.mobileData" @change="val => itemToEdit.mobile = val.formatted"/>
       <FormInput labelholder="contactLocales.role" type="text" v-model="itemToEdit.role"/>
       <!-- <FormInput type="text" v-model="itemToEdit.name"/> -->
-      <TagPicker     :showLabel="true" v-model="itemToEdit.tags"    :allowAddValsToMultiSelect="true"/>
-      <CompanyPicker :showLabel="true" v-model="itemToEdit.company" :allowAddValsToMultiSelect="true"/>
+      <TagPicker     :organizationId="orgId" :showLabel="true" v-model="itemToEdit.tags"    :allowAddValsToMultiSelect="true"/>
+      <CompanyPicker :organizationId="orgId" :showLabel="true" v-model="itemToEdit.company" :allowAddValsToMultiSelect="true"/>
       <!-- <FormInput labelholder="contactLocales.cellular" type="text" v-model="itemToEdit.cellular"/> -->
-      <FormInput labelholder="contactLocales.notes" type="text" v-model="itemToEdit.notes"/>
+      <FormInput labelholder="contactLocales.notes" type="textarea" v-model="itemToEdit.note"/>
       <div class="flex column gap20">
         <p>{{$t('settingsLocales.settings')}}:</p>
         <FormInput labelholder="contactLocales.maxTimesAllowdToWatchVideo" type="number" :min="0" v-model="itemToEdit.settings.maxTimesAllowdToWatchVideo"/>

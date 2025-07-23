@@ -98,7 +98,7 @@
             <button class="btn" v-if="allowAddValsToMultiSelect && valsFilterStr" @click.prevent.stop="addNewValToMultiSelect">+</button>
           </div>
           <ul class="multiselect-vals-list" v-if="(componentType === 'multiselect') && showVals && val?.length">
-            <li v-for="curr in val.filter(Boolean)" :key="curr">
+            <li v-for="(curr, idx) in val.filter(Boolean)" :key="curr + idx">
               <span :title="gatValToShowForMultiSelect(curr)">{{subValName(gatValToShowForMultiSelect(curr))}}</span>
               <button @click.stop.prevent="val.splice(val.findIndex(c => c === curr) ,1)">✖</button>
             </li>
@@ -110,7 +110,7 @@
         <div class="drop-down flex column align-start" @click.stop="" :class="{'direction-up': listUp}">
           <template v-if="itemsToRenderToShow?.length">
             <template v-if="componentType === 'multiselect'">
-              <label class="flex align-center gap5" v-for="item in itemsToRenderToShow" :key="item.label" :class="{selected: val === item.value}">
+              <label class="flex align-center gap5" v-for="(item, idx) in itemsToRenderToShow" :key="item.label + idx" :class="{selected: val === item.value}">
                 <input
                   v-if="componentType === 'multiselect'"
                   type="checkbox"

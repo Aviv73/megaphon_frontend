@@ -249,7 +249,7 @@ export default {
         this.$i18n.setLocaleMessage(locale, Utils.concatItems(existedLocMsgs, messages));
       }
       // init fetchedLocales
-      console.log(this.$store.getters.fetchedLocales);
+      console.log('fetchedLocales', this.$store.getters.fetchedLocales);
       for (let [locale, messages] of Object.entries(this.$store.getters.fetchedLocales)) {
         const existedLocMsgs = this.$i18n.getLocaleMessage(locale) || {};
         this.$i18n.setLocaleMessage(locale, Utils.concatItems(existedLocMsgs, messages));
