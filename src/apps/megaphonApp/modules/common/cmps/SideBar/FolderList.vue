@@ -5,7 +5,7 @@
         <div :class="{ dropable: currentDropableFolderPath === getFolderRelativeName(folder) }" class="nav-list-item inner-list-item flex align-center gap5 space-between width-all">
           <div class="flex align-center gap5" @click="selectFolder(getFolderRelativeName(folder), folder)">
             <Avatar class="folder-avatar" :size="40" :img="require('@/apps/megaphonApp/assets/images/folder.svg')"/>
-            <p>{{folder?.name || 'WOW'}}</p>
+            <p>{{folder?.name || ''}}</p>
           </div>
           <button @click="removeFolder(getFolderRelativeName(folder))">X</button>
         </div>

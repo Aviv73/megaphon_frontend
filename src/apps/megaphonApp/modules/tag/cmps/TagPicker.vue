@@ -1,6 +1,6 @@
 <template>
   <div class="tag-picker">
-    <FormInput :debug="true" :label="showLabel? 'tag.tags': ''" placeholder="tag.tags" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange" :allowAddValsToMultiSelect="allowAddValsToMultiSelect"/>
+    <FormInput :label="showLabel? 'tag.tags': ''" placeholder="tag.tags" type="multiselect" :showVals="true" :items="selectOpts" v-model="val" @change="emitChange" :allowAddValsToMultiSelect="allowAddValsToMultiSelect"/>
   </div>
 </template>
 
@@ -62,7 +62,6 @@ export default {
   },
   async created() {
     // if (!this.allTags.length)
-    console.log(this.value);
     await this.loadAllTags();
   },
   watch: {

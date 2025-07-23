@@ -199,7 +199,6 @@ function createDefaultService(moduleName, getEmptyItemCb = () => ({})) {
   const _orgSpace = (orgId) => orgId? `${orgId}/` : '';
   const service = {
    query: (filterBy, organizationId) => {
-     if (moduleName === 'tag') console.log('WOWOWO', filterBy);
      return httpService.get(`${moduleName}/${_orgSpace(organizationId)}`, filterBy);
    },
    get: (id, organizationId, queryParams) => {
