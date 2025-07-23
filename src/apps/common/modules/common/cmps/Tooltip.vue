@@ -163,6 +163,10 @@ export default {
       inset-inline-start: em(5px);
       line-height: 1em;
     }
+
+    a {
+      color: blue !important;
+    }
   }
 
   // .default-preview {
