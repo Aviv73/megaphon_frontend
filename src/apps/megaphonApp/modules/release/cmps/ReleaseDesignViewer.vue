@@ -12,14 +12,11 @@
           {value: 'mobile', img: require('@/apps/megaphonApp/assets/images/devices/mobile.png')},
         ]"/>
         <FormInput
-          v-if="organization.allowDesignSelection && (allTemplates.length > 1)&& false"
+          v-if="organization.allowDesignSelection && (allTemplates.length > 1)"
           type="select"
           :value="release.design[designTypeKey] || allTemplates[0]?.id || ''"
           @change="val => $emit('design-template-updated', designTypeKey, val)"
-          :items="
-            allTemplates
-              .map(c => ({ label: c.name, value: c.id }))
-          "
+          :items="allTemplates.map(c => ({ label: c.name, value: c.id }))"
         />
       </div>
       <button class="" @click="$emit('close')">{{$t('close')}}</button>
@@ -49,6 +46,9 @@ export default {
     organization: {
       type: Object
     },
+    randUrlId: { // helps to reload iframe when needed;
+      type: String
+    }
   },
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
       return this.selectedDesignTypeToShow;
     },
     landingPageUrl() {
-      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow, config, window.location.pathname) + '?selectedDesignID=' + this.release.design[this.designTypeKey];
+      return templateUtils.getReleaseLandingPageUrl(this.release, this.organization, this.selectedDesignTypeToShow, config, window.location.pathname) + '?selectedDesignID=' + this.release.design[this.designTypeKey] + '&randId=' + (this.randUrlId || '');
     },
     allTemplates() {
       return templateUtils.getAllRelevantTemplatesForReleaseType(this.release.releaseType, this.organization, this.selectedDesignTypeToShow, true);

@@ -20,7 +20,8 @@
         v-else
         :release="itemToEdit"
         :organization="org"
-        @design-template-updated="(key, val) => itemToEdit.design[key] = val"
+        @design-template-updated="handleDesignChange"
+        :randUrlId="randIframeUrlId"
       />
     </main>
     <footer class="footer width-all">
@@ -68,7 +69,8 @@ export default {
       org: null,
       showDesign: false,
 
-      dataFields: []
+      dataFields: [],
+      randIframeUrlId: Utils.getRandomId('')
     }
   },
   computed: {
@@ -177,6 +179,12 @@ export default {
       // if (this.itemToEdit._id) return;
       if (!this.itemToEdit.__newFiles__) this.itemToEdit.__newFiles__ = [];
       this.itemToEdit.__newFiles__.push(file);
+    },
+
+    async handleDesignChange(key, val) {
+      this.itemToEdit.design[key] = val;
+      await this.saveItem();
+      this.randIframeUrlId = Utils.getRandomId('');
     }
   },
   mounted() {

@@ -35,7 +35,7 @@
 
       <div class="flex column gap20 align-start" v-if="loggedUser?.roles.includes('admin')">
         <p>{{$t('organizationLocales.design')}}</p>
-        <div class="flex space-between gap100">
+        <div class="flex column space-between_ gap100_ gap20">
           <FormInput v-model="organizationToEdit.allowDesignSelection" type="checkbox" labelholder="organizationLocales.allowDesignSelection" class="width-content_"/>
           <FormInput v-model="designTemplateId" type="radio" :items="getAllRelevantTemplatesForReleaseType(organizationToEdit?.releaseTypes[0]?.id, organizationToEdit, 'landingPage', true).map(c => ({value: c.id, label: c.name}))"/>
           
