@@ -72,15 +72,15 @@
           </td>
         </tr>
       </table>
-      <div v-if="dataFieldToRender.type === 'LIST'" class="flex column gap20 width-content">
+      <div v-if="dataFieldToRender.type === 'LIST'" class="flex column gap30 width-content">
         <div v-for="(currVal, idx) in value" :key="idx" class="flex align-start_ space-between gap30">
-          <div class="flex column gap5 flex-1">
+          <div class="flex column gap20 flex-1">
             <!-- <div
-              v-for="field in (!dataFieldToRender.fieldOpts?.length ? dataFieldToRender.fields : dataFieldToRender.fieldOpts.find(_c => _c.find(_ => (_.type === 'TYPE') && (_.defaultValue === currVal.type) ))).filter(c => !c.hidden)"
+              v-for="field in (!dataFieldToRender.fieldOpts?.length ? dataFieldToRender.fields : dataFieldToRender.fieldOpts.find(_c => _c.find(_ => (_.type === 'TYPE') && (_.defaultValue === currVal._listItemType) ))).filter(c => !c.hidden)"
               :key="`${basePath}.${idx}.${field.fieldName}`"
             > -->
               <DynamicInput
-                v-for="field in (!dataFieldToRender.fieldOpts?.length ? dataFieldToRender.fields : dataFieldToRender.fieldOpts.find(_c => _c.find(_ => (_.type === 'TYPE') && (_.defaultValue === currVal.type) ))).filter(c => !c.hidden)"
+                v-for="field in (!dataFieldToRender.fieldOpts?.length ? dataFieldToRender.fields : dataFieldToRender.fieldOpts.find(_c => _c.find(_ => (_.type === 'TYPE') && (_.defaultValue === currVal._listItemType) ))).filter(c => !c.hidden)"
                 :key="`${basePath}.${idx}.${field.fieldName}`"
                 class="flex-1"
                 :dataField="field"
@@ -285,9 +285,11 @@ export default {
           break;
 
         case 'TYPE':
-          this.cmpName = 'FormInput';
-          console.log('this.dataField.value', this.dataField.value);
-          this.propsToPass = { ...propsToPass, disabled: true, type: 'text', value_: this.dataField.defaultValue };
+          // this.cmpName = 'FormInput';
+          // this.propsToPass = { ...propsToPass, disabled: true, type: 'text', placeholder: this.tOrTitle(this.dataField.defaultValue) };
+          this.cmpName = 'MESSAGE';
+          this.dataFieldToRender.message = this.tOrTitle(this.dataField.defaultValue);
+          // this.propsToPass = { ...propsToPass, message: this.tOrTitle(this.dataField.defaultValue) };
           break;
 
 
