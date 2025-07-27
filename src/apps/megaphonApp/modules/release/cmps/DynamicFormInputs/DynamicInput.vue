@@ -92,6 +92,7 @@
                 @input="(val, path) => $emit('input', val, path || [basePath, idx+'', field.fieldName].filter(Boolean).join('.'))"
                 :noTitle="false"
               />
+              <hr style="border-width:0.1em;border-color:var(--clr-4-l-80)" v-if="idx < (value.length -1)"/>
             <!-- </div> -->
           </div>
           <div>
