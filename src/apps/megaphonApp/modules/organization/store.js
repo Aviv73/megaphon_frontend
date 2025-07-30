@@ -100,5 +100,6 @@ export const organizationStore = basicStoreService.createSimpleCrudStore(
     }
   },
   undefined,
+  // () => organizationService.getEmptyOrganization(management.defaultOrgType)
   organizationService.getEmptyOrganization
 );

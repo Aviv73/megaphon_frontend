@@ -1,12 +1,12 @@
 <template>
   <div v-if="organizationToEdit" class="organization-edit app-form-styling simple-form flex column gap40 width-all">
     <!-- <h2 v-if="organizationToEdit._id">{{$t('organizationLocales.editOrganization')}}</h2> -->
-    <h2 v-if="organizationToEdit._id">{{$t(organizationToEdit.type === 'artist' ? 'artistLocales.artistSettings' : 'organizationLocales.organizationSettings')}}</h2>
-    <h2 v-else>{{$t(organizationToEdit.type === 'artist' ? 'artistLocales.createArtist' : 'organizationLocales.createOrganization')}}</h2>
+    <h2 v-if="organizationToEdit._id">{{$t(organizationToEdit.type === 'musicArtist' ? 'musicArtistLocales.artistSettings' : 'organizationLocales.organizationSettings')}}</h2>
+    <h2 v-else>{{$t(organizationToEdit.type === 'musicArtist' ? 'musicArtistLocales.createArtist' : 'organizationLocales.createOrganization')}}</h2>
     <form v-if="organizationToEdit" @submit.prevent="" class="flex column width-all gap50 align-start">
       <div class="input-container">
-        <p>{{$t(organizationToEdit.type === 'artist' ? 'artistLocales.artistName' : 'organizationLocales.name')}}</p>
-        <FormInput type="text" :placeholder="organizationToEdit.type === 'artist' ? 'artistLocales.artistName' : 'organizationLocales.name'" v-model="organizationToEdit.name"/>
+        <p>{{$t(organizationToEdit.type === 'musicArtist' ? 'musicArtistLocales.artistName' : 'organizationLocales.name')}}</p>
+        <FormInput type="text" :placeholder="organizationToEdit.type === 'musicArtist' ? 'musicArtistLocales.artistName' : 'organizationLocales.name'" v-model="organizationToEdit.name"/>
       </div>
       <div class="flex column gap20">
         <p>{{$t('organizationLocales.logo')}}</p>
@@ -75,7 +75,7 @@
       </div>
 
 
-      <template v-if="organizationToEdit.type !== 'artist'">
+      <template v-if="organizationToEdit.type !== 'musicArtist'">
         <div class="flex column gap20 align-start">
           <p>{{$t('settingsLocales.settings')}}</p>
           <FormInput type="checkbox" labelholder="organizationLocales.requireAuth" v-model="organizationToEdit.requireAuth"/>
@@ -137,7 +137,7 @@
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
           <FormInput type="text" labelholder="redirectUrl" v-model="organizationToEdit.redirectUrl"/>
 
-          <FormInput type="select" labelholder="type" v-model="organizationToEdit.type" :items="['tv', 'artist']"/>
+          <FormInput type="select" labelholder="type" @change="inheritOrgTypeData" v-model="organizationToEdit.type" :items="['tvProducer', 'musicArtist']"/>
 
           
           <div class="flex column align-start gap20">
@@ -366,7 +366,9 @@ export default {
     //   return templateUtils.DEFAULY_TEMPLATES_DATA.templates.map(c => c.id);
     // },
     allReleaseTypes() {
-      return templateUtils.getAllReleaseTypesForOrg(this.organizationToEdit);
+      // return templateUtils.getAllReleaseTypesForOrg(this.organizationToEdit);
+      // return templateUtils.getAllReleaseTypesForOrg(this.organizationToEdit);
+      return templateUtils.getBaseOrgTEmplatesDataByOtgType(this.organizationToEdit.type).releaseTypes;
     },
 
     otherDomains() {
@@ -501,6 +503,13 @@ export default {
           }), {});
           this.$set(this.organizationToEdit.defaultTemplates, releaseType.id, newCurrMap);
         }
+      }
+    },
+
+    inheritOrgTypeData() {
+      this.organizationToEdit = {
+        ...this.organizationToEdit,
+        ...organizationService.getOrgTypeDefaultReleaseTypeData(this.organizationToEdit)
       }
     }
   },

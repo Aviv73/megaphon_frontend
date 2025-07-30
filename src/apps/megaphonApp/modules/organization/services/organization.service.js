@@ -36,6 +36,7 @@ export const organizationService = {
   getEmptyThemeItem,
 
   getAccountOrgItem,
+  getOrgTypeDefaultReleaseTypeData
 
   // loadReleaseDataFields,
 
@@ -134,9 +135,10 @@ function getEmptyThemeItem(idx = 0) {
 }
 
 // TODO:: MAKE SURE NOT MISSING ANY FIELD;
-function getEmptyOrganization() {
-  const org = {
+function getEmptyOrganization(orgType = 'tvProducer') {
+  let org = {
     name: '',
+    type: orgType,
     logo: {src:''},
     defaultGalleryCredit: '',
     distributionBcc: '',
@@ -160,8 +162,8 @@ function getEmptyOrganization() {
     // routes: JSON.parse(JSON.stringify(templateUtils.DEFAULY_TEMPLATES_DATA.routes)),
     // releaseTypes: JSON.parse(JSON.stringify(templateUtils.DEFAULY_TEMPLATES_DATA.releaseTypes)),
     releaseTypes: [
-      {...createEmptyReleaseTypeItem('רליס', false), followReleaseType: templateUtils?.DEFAULY_TEMPLATES_DATA?.releaseTypes?.[0]?.id},
-      {...createEmptyReleaseTypeItem('רליס קבוצתי', true), followReleaseType: templateUtils?.DEFAULY_TEMPLATES_DATA?.releaseTypes?.[1]?.id}
+      // {...createEmptyReleaseTypeItem('רליס', false), followReleaseType: templateUtils?.DEFAULY_TEMPLATES_DATA?.releaseTypes?.[0]?.id},
+      // {...createEmptyReleaseTypeItem('רליס קבוצתי', true), followReleaseType: templateUtils?.DEFAULY_TEMPLATES_DATA?.releaseTypes?.[1]?.id}
     ],
 
     templates: [/* { name: '', type: enum('0' => page, '1' => email), releaseTypes: [releaseTypesIds], handlebarsLocalFilePath: '', url: '', id: '', hadlebarsFileStr: 'NOT IN USE', appName: '' , previewUrl: 'NOT_IN_USE' } */],
@@ -197,6 +199,24 @@ function getEmptyOrganization() {
       },
     }
   }
-  org.releaseTypes.forEach(c => org.routes.push(createEmptyRouteItem(c.name, [c.id])));
+  org = {
+    ...org,
+    ...getOrgTypeDefaultReleaseTypeData(org)
+  }
+  getOrgTypeDefaultReleaseTypeData(org);
+
+  // org.releaseTypes.forEach(c => org.routes.push(createEmptyRouteItem(c.name, [c.id])));
   return org;
+}
+
+function getOrgTypeDefaultReleaseTypeData(org) {
+  const foolowTypeItem = templateUtils?.getBaseOrgTEmplatesDataByOtgType?.(org.type).releaseTypes?.[0];
+  const foolowRouteItem = templateUtils?.getBaseOrgTEmplatesDataByOtgType?.(org.type).routes?.[0];
+  console.log(foolowRouteItem)
+  const releaseTypeItem = {...createEmptyReleaseTypeItem(foolowTypeItem?.name || 'Release', false), followReleaseType: foolowTypeItem?.id};
+  return {
+    releaseTypes: [ releaseTypeItem ],
+    routes: [ createEmptyRouteItem(foolowRouteItem?.name || 'Releases', [releaseTypeItem.id]) ],
+    templates: []
+  }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="release-design-viewer flex column align-center text-center gap10">
     <div class="actions flex align-center gap30">
-      <div class="tab-nav_ light width-all flex gap20 align-end">
+      <div class="tab-nav_ light width-all_ flex gap20 align-end">
         <button class="underline" @click="selectedDesignTypeToShow = 'landingPage'" :class="{selected: selectedDesignTypeToShow === 'landingPage', bold: selectedDesignTypeToShow === 'landingPage'}" :disabled="!release._id">{{$t('releaseLocales.landingPageDesign')}}</button>
         <button class="underline" @click="selectedDesignTypeToShow = 'email'" :class="{selected: selectedDesignTypeToShow === 'email', bold: selectedDesignTypeToShow === 'email'}">{{$t('releaseLocales.newsletterDesign')}}</button>
       </div>

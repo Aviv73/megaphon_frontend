@@ -52,7 +52,7 @@ const en = {
     "saveOrgToUploadFilesMsg": "Save organization in order to upload files",
     "design": "Design"
   },
-  "artistLocales": {
+  "musicArtistLocales": {
     "artistSettings": "Artist settings",
     "createArtist": "Create artist",
     "artistName": "Artist name",
@@ -116,7 +116,7 @@ const he = {
     "design-landingPage": "עיצוב דף נחיתה",
     "design-email": "עיצוב מייל הפצה"
   },
-  "artistLocales": {
+  "musicArtistLocales": {
     "artistSettings": "הגדרות אמן",
     "createArtist": "צור אמן",
     "artistName": "שם אמן",
@@ -134,8 +134,8 @@ const heF = {
       "confirmRemove": "האם את בטוחה שאת רוצה למחוק את הארגון?",
     }
   },
-  artistLocales: {
-    ...he.artistLocales
+  musicArtistLocales: {
+    ...he.musicArtistLocales
   }
 }
 
