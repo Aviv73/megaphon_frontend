@@ -137,7 +137,7 @@
           <FormInput type="text" labelholder="inheritFilePath" v-model="organizationToEdit.inheritFilePath"/>
           <FormInput type="text" labelholder="redirectUrl" v-model="organizationToEdit.redirectUrl"/>
 
-          <FormInput type="select" labelholder="type" @change="inheritOrgTypeData" v-model="organizationToEdit.type" :items="['tvProducer', 'musicArtist']"/>
+          <FormInput type="select" labelholder="type" @change="val => inheritOrgTypeData(val)" v-model="organizationToEdit.type" :items="['tvProducer', 'musicArtist']"/>
 
           
           <div class="flex column align-start gap20">
@@ -407,6 +407,10 @@ export default {
     },
     async getOrganization() {
       this.organizationToEdit = await this.$store.dispatch({ type: 'organization/loadItem', id: this.$route.params.id, isToInheritData: true });
+      if (!this.organizationToEdit._id) {
+        this.organizationToEdit.type = this.$store.getters.envManagement?.defaultOrgType || 'tvProducer';
+        this.inheritOrgTypeData();
+      }
       this.setupDefaultTemplateMap();
       // for (let designAppKey in this.organizationToEdit.designPreferences) { // temp fix;
       //   if (typeof this.organizationToEdit.designPreferences[designAppKey] !== 'object') continue;
@@ -428,8 +432,10 @@ export default {
     },
     async saveOrganization() {
       if (!this.isOrganizationValid) return;
+      const isNew = !this.organizationToEdit._id;
       this.organizationToEdit = JSON.parse(JSON.stringify(await this.$store.dispatch({ type: 'organization/saveItem', item: this.organizationToEdit })));
       this.itemBeforeEdit = JSON.parse(JSON.stringify(this.organizationToEdit));
+      if (isNew) this.$router.push({params: {id: this.organizationToEdit._id}});
       console.log('SAVED ORGANIZATION', this.organizationToEdit);
     },
     async saveAndClose() {
@@ -506,11 +512,14 @@ export default {
       }
     },
 
-    inheritOrgTypeData() {
+    inheritOrgTypeData(orgType) {
+      this.this.organizationToEdit = orgType;
       this.organizationToEdit = {
         ...this.organizationToEdit,
         ...organizationService.getOrgTypeDefaultReleaseTypeData(this.organizationToEdit)
       }
+      this.organizationToEdit.defaultTemplates = {};
+      this.setupDefaultTemplateMap();
     }
   },
   created() {
