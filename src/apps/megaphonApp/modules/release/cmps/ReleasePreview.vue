@@ -217,7 +217,8 @@ export default {
           //   color: var(--clr-4);
           // }
           .svg-parrent {
-            width: 100%;
+            width: 65%;
+            height: 65%;
           }
         }
       }

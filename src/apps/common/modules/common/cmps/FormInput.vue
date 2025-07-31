@@ -124,7 +124,7 @@
               </label>
             </template>
             <template v-else>
-              <div class="flex align-center space-between gap30 drop-down-item" v-for="item in itemsToRenderToShow" :key="item.label" @click="item.disabled? () => {} : (val = item.value, autoCloseSelect())"  :class="{selected: val === item.value}">
+              <div class="flex align-center space-between gap30 drop-down-item" v-for="item in itemsToRenderToShow" :key="item.label" @click="item.disabled? () => {} : (val = item.value, autoCloseSelect())"  :class="{selected: val === item.value, bold: val === item.value}">
                 <span>{{ $t(item.label) }}</span>
                 <img v-if="item.img" :src="item.img"/>
               </div>
