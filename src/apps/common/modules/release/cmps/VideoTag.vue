@@ -16,21 +16,7 @@ import FullScreenToggler from '../../common/cmps/FullScreenToggler.vue';
 import config from '@/config';
 
 const mediaSessionService = window.mediaSessionModule;
-
-const getWatermarkPosByMs = (() => {
-  const poss = [
-    {x: 0, y: 0},
-    {x: '100%', y: 0, style: {transform: `translateX(-100%)`}},
-    {x: '100%', y: '100%', style: {transform: `translateX(-100%) translateY(-100%)`}},
-    {x: 0, y: '100%', style: {transform: `translateY(-100%)`}},
-    {x: '50%', y: '50%', style: {transform: `translateX(-50%) translateY(-50%)`}}
-  ];
-  const msPerPos = 10000;
-  return (ms) => {
-    const posIdx = parseInt(parseInt(ms / msPerPos) % poss.length);
-    return poss[posIdx];
-  }
-})();
+const {VideoTagWatermarkService} = window.VideoTagWatermarkModule;
 
 export default {
   name: 'VideoTag',
@@ -47,8 +33,9 @@ export default {
       videoId: Utils.getRandomId(''),
       styleEl: null,
       isPlaying: false,
-      watermarkInterval: null,
+      // watermarkInterval: null,
       SessionService: null,
+      WatermarkService: null,
     }
   },
   watch: {
@@ -96,6 +83,7 @@ export default {
       });
 
       this.initWatchSession();
+      this.WatermarkService = new VideoTagWatermarkService(this.$refs.elVideo, this.$refs.elContainer, this.loggedUser.email || this.watermarkMsg.split('|').join('</p><p>'));
 
       const isHls = (this.format === 'm3u8') || this.src?.split('?')[0]?.endsWith('.m3u8');
       if (!isHls) {
@@ -139,47 +127,50 @@ export default {
     play() {
       this.isPlaying = true;
       if (!this.useWterMark) return;
-      this.watermarkInterval = setInterval(() => {
-        this.applyWatermark();
-      }, 10);
+      this.WatermarkService.play();
+      // this.watermarkInterval = setInterval(() => {
+      //   this.applyWatermark();
+      // }, 10);
     },
     pause() {
       this.isPlaying = false;
-      if (this.watermarkInterval) clearInterval(this.watermarkInterval);
+      this.WatermarkService.pause();
+      // if (this.watermarkInterval) clearInterval(this.watermarkInterval);
     },
     
-    applyWatermark() {
-      const { elContainer, elVideo } = this.$refs;
-      const existWatermarkItem = elContainer.querySelector('.watermark');
-      if (existWatermarkItem) elContainer.removeChild(existWatermarkItem);
+    // applyWatermark() {
+    //   const { elContainer, elVideo } = this.$refs;
+    //   const existWatermarkItem = elContainer.querySelector('.watermark');
+    //   if (existWatermarkItem) elContainer.removeChild(existWatermarkItem);
       
-      const width = elVideo.offsetWidth;
-      const fontSize = width / 50;
-      const watermarkEl = elementService.El(`<div class="watermark">
-        ${elementService.dataToCssElStr(`.watermark`, {
-          fontSize: fontSize*1 + 'px',
-          position: 'absolute',
-          padding: `${elementService._.em(55)} ${elementService._.em(30)}`,
-          textAlign: 'end',
-          opacity: '0.5',
-          // fontWeight: 'bold',
-          cursor: 'normal',
-          'user-select': 'none',
+    //   const width = elVideo.offsetWidth;
+    //   const fontSize = width / 50;
+    //   const watermarkEl = elementService.El(`<div class="watermark">
+    //     ${elementService.dataToCssElStr(`.watermark`, {
+    //       fontSize: fontSize*1 + 'px',
+    //       position: 'absolute',
+    //       padding: `${elementService._.em(55)} ${elementService._.em(30)}`,
+    //       textAlign: 'end',
+    //       opacity: '0.5',
+    //       // fontWeight: 'bold',
+    //       cursor: 'normal',
+    //       'user-select': 'none',
 
-          color: 'gray',
-          fontFamily: 'fantasy'
-        })}
-        <p>${this.loggedUser.email || this.watermarkMsg.split('|').join('</p><p>')}</p>
-      </div>`);
-      const watermarkPos = getWatermarkPosByMs(elVideo.currentTime * 1000);
-      const style = { 'inset-inline-end': watermarkPos.x, top: watermarkPos.y, ...(watermarkPos.style || {}) };
-      // watermarkEl.style = style;
-      for (let key in style) watermarkEl.style[key] = style[key];
-      elContainer.appendChild(watermarkEl);
-    },
+    //       color: 'gray',
+    //       fontFamily: 'fantasy'
+    //     })}
+    //     <p>${this.loggedUser.email || this.watermarkMsg.split('|').join('</p><p>')}</p>
+    //   </div>`);
+    //   const watermarkPos = getWatermarkPosByMs(elVideo.currentTime * 1000);
+    //   const style = { 'inset-inline-end': watermarkPos.x, top: watermarkPos.y, ...(watermarkPos.style || {}) };
+    //   // watermarkEl.style = style;
+    //   for (let key in style) watermarkEl.style[key] = style[key];
+    //   elContainer.appendChild(watermarkEl);
+    // },
     
   },
 }
+
 
 /*
 
